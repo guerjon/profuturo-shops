@@ -10,11 +10,11 @@ class Product extends Eloquent implements StaplerableInterface
 
   use EloquentTrait, ValidatingTrait;
 
-  protected $fillable = ['name', 'model', 'description', 'price', 'image'];
+  protected $fillable = ['name', 'model', 'description', 'image'];
 
   protected $rules = [
     'name' => 'required',
-    'price' => ['required', 'regex:/^(\d)+(\.\d+)?$/'],
+    // 'price' => ['required', 'regex:/^(\d)+(\.\d+)?$/'],
   ];
 
   public function __construct($attributes = array()){

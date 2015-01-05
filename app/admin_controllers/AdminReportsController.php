@@ -1,0 +1,5 @@
+<?
+
+class AdminReportsController extends AdminBaseController{
+
+}

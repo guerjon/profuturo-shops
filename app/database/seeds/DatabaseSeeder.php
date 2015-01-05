@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder {
 			'last_name' => 'Gutierrez',
 			'role' => 'admin'
 			]);
+
+		$this->call('PaperProductSeeder');
 	}
 
 }

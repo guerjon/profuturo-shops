@@ -32,6 +32,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('budget', 'AdminBudgetsController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show']]);
+
+		Route::controller('reports', 'AdminReportsController');
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update']]);
