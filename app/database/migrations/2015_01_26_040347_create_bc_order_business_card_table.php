@@ -34,6 +34,10 @@ class CreateBcOrderBusinessCardTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('bc_order_business_card', function($table){
+			$table->dropForeign('bc_order_business_card_bc_order_id_foreign');
+			$table->dropForeign('bc_order_business_card_business_card_id_foreign');
+		});
 		Schema::drop('bc_order_business_card');
 	}
 

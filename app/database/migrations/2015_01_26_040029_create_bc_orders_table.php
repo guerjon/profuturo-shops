@@ -35,6 +35,9 @@ class CreateBcOrdersTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('bc_orders', function($table){
+			$table->dropForeign('bc_orders_user_id_foreign');
+		});
 		Schema::drop('bc_orders');
 	}
 

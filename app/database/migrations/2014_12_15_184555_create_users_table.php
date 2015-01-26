@@ -22,6 +22,17 @@ class CreateUsersTable extends Migration {
 			$table->string('password');
 			$table->enum('role', ['admin', 'user'])->default('user');
 			$table->integer('ccosto')->unsigned();
+
+			$table->string('nomenclatura');
+			$table->string('regional');
+			$table->string('gerencia');
+			$table->string('asistente');
+
+
+			$table->string('address');
+			$table->string('phone');
+			$table->integer('profuturo_assigned_number');
+
 			$table->rememberToken();
 		  $table->timestamps();
 		});

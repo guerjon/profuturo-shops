@@ -32,6 +32,10 @@ class CreateOrderProductTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('order_product', function($table){
+			$table->dropForeign('order_product_order_id_foreign');
+			$table->dropForeign('order_product_product_id_foreign');
+		});
 		Schema::drop('order_product');
 	}
 

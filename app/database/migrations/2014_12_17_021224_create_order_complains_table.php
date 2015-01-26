@@ -32,6 +32,9 @@ class CreateOrderComplainsTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('order_complains', function($table){
+			$table->dropForeign('order_complains_order_id_foreign');
+		});
 		Schema::drop('order_complains');
 	}
 

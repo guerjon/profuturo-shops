@@ -32,6 +32,10 @@ class CreateCartsTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('cart_products', function($table){
+			$table->dropForeign('cart_products_user_id_foreign');
+			$table->dropForeign('cart_products_product_id_foreign');
+		});
 		Schema::drop('cart_products');
 	}
 
