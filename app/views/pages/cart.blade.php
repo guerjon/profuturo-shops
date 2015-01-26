@@ -19,12 +19,6 @@
         Cantidad
       </th>
       <th>
-        Precio unitario
-      </th>
-      <th>
-        Total
-      </th>
-      <th>
 
       </th>
     </tr>
@@ -42,27 +36,12 @@
       </td>
 
       <td>
-        $ {{ money_format("%.2n", $product->price) }}
-      </td>
-
-      <td>
-        $ {{money_format("%.2n", $product->price*$product->pivot->quantity)}}
-      </td>
-      <td>
         <button class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="1">Eliminar 1</button>
         <button class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="{{$product->pivot->quantity}}">Eliminar todos</button>
 
       </td>
     </tr>
     @endforeach
-
-    <tr>
-      <td colspan="3" class="text-right"><strong>TOTAL</strong></td>
-      <td>$ {{money_format("%.2n", Auth::user()->cart_total)}}</td>
-      <td>
-
-      </td>
-    </tr>
 
   </tbody>
 </table>

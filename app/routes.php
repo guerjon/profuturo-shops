@@ -32,13 +32,18 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('budget', 'AdminBudgetsController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show']]);
+		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show']]);
+		Route::resource('business-cards', 'AdminBusinessCardsController');
 
 		Route::controller('reports', 'AdminReportsController');
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update']]);
+	Route::resource('pedidos-tp', 'BcOrdersController');
+	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
+	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('/', 'HomeController');
 });

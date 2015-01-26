@@ -34,8 +34,4 @@ class Product extends Eloquent implements StaplerableInterface
     return $this->belongsTo('Category');
   }
 
-  public function subcategory()
-  {
-    return $this->belongsTo('Subcategory');
-  }
 }

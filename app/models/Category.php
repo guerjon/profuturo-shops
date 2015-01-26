@@ -31,8 +31,4 @@ class Category extends Eloquent implements StaplerableInterface
     return $this->hasMany('Product');
   }
 
-  public function subcategories()
-  {
-    return $this->hasMany('Subcategory');
-  }
 }

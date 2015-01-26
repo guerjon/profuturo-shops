@@ -3,22 +3,6 @@
 class ApiController extends BaseController
 {
 
-  public function getSubcategories($category_id)
-  {
-    $category = Category::find($category_id);
-    if($category){
-      return Response::json([
-        'status' => 200,
-        'subcategories' => $category->subcategories->toArray()
-        ]);
-    }else{
-      return Response::json([
-        'status' => 404
-        ]);
-    }
-
-  }
-
   public function postAddToCart()
   {
     $q = Input::get('quantity');

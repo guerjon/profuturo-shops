@@ -28,10 +28,6 @@
           </th>
 
           <th>
-            Precio
-          </th>
-
-          <th>
             Imagen
           </th>
           <th>
@@ -54,10 +50,6 @@
           </td>
 
           <td>
-            $ {{money_format("%.2n", $product->price)}}
-          </td>
-
-          <td>
             {{HTML::image($product->image->url('mini'))}}
           </td>
 
@@ -73,7 +65,7 @@
   <div class="text-center">
 
     {{$products->links()}}
-    
+
   </div>
 @endif
 

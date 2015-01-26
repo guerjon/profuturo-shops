@@ -14,17 +14,11 @@
       <th>
         Cantidad
       </th>
-      <th>
-        Precio unitario
-      </th>
-      <th>
-        Total
-      </th>
+
     </tr>
   </thead>
 
   <tbody>
-    <? $total = 0 ?>
     @foreach($order->products as $product)
     <tr>
       <td>
@@ -35,22 +29,10 @@
         {{$product->pivot->quantity}}
       </td>
 
-      <td>
-        $ {{ money_format("%.2n", $product->price) }}
-      </td>
-
-      <td>
-        <? $subt = $product->price * $product->pivot->quantity ?>
-        <? $total += $subt ?>
-        $ {{money_format("%.2n", $subt)}}
-      </td>
     </tr>
     @endforeach
 
-    <tr>
-      <td colspan="3" class="text-right"><strong>TOTAL</strong></td>
-      <td>$ {{money_format("%.2n", $total)}}</td>
-    </tr>
+    
   </tbody>
 </table>
 
@@ -60,7 +42,7 @@
     Pedido recibido el día {{$order->updated_at->format('d-m-Y')}}
   </p>
 @else
- 
+
 {{Form::model($order, [
   'action' => ['OrdersController@update', $order->id],
   'method' => 'PUT',

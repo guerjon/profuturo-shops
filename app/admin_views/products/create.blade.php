@@ -37,19 +37,9 @@
       </div>
 
       <div class="form-group">
-        {{Form::label('price', 'Precio')}}
-        {{Form::text('price', NULL, ['class' => 'form-control'])}}
-      </div>
-
-      <div class="form-group">
         {{Form::label('category_id', 'Categoría')}}
         {{Form::select('category_id', ($product->category ? [] : [NULL => 'Sin especificar']) + Category::lists('name', 'id'), NULL,
           ['class' => 'form-control'])}}
-      </div>
-
-      <div class="form-group">
-        {{Form::label('subcategory_id', 'Subcategoría')}}
-        {{Form::select('subcategory_id', [NULL => 'Sin especificar'] + ($product->category ? $product->category->subcategories->lists('name', 'id') : []), $product->subcategory_id, ['class' => 'form-control'])}}
       </div>
 
       <div class='form-group'>
@@ -64,22 +54,4 @@
   </div>
 </div>
 
-@stop
-
-@section('script')
-<script>
-$(function(){
-  $('#category_id').change(function(){
-    $.get('/api/subcategories/' + $(this).val(), function(data){
-      if(data.status == 200){
-        $('#subcategory_id option').remove();
-        $('#subcategory_id').append($('<option>').attr({value : 0}).html("Sin especificar") );
-        $.each(data.subcategories, function(){
-          $('#subcategory_id').append($('<option>').attr({value : this.id}).html(this.name) );
-        });
-      }
-    });
-  });
-});
-</script>
 @stop

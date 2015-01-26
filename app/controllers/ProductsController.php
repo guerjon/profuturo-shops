@@ -3,7 +3,7 @@
 class ProductsController extends BaseController
 {
 
-  public function index($category_id = NULL, $subcategory_id=NULL)
+  public function index($category_id = NULL)
   {
 
     $products = Product::select('*');
@@ -14,13 +14,7 @@ class ProductsController extends BaseController
         return $this->index()->withErrors('No se encontró la categoría');
       }
       $products->where('category_id', $category_id);
-      if($subcategory_id){
-        $activeSubcategory = Subcategory::find($subcategory_id);
-        if(!$activeSubcategory){
-          return $this->index()->withErrors('No se encontró la subcategoría');
-        }
-        $products->where('subcategory_id', $subcategory_id);
-      }
+
     }
 
     if(Input::has('name')){
@@ -37,7 +31,6 @@ class ProductsController extends BaseController
       'products' => $products->paginate(15),
       'categories' => Category::all(),
       'activeCategory' => @$activeCategory,
-      'activeSubcategory' => @$activeSubcategory,
       ]);
   }
 

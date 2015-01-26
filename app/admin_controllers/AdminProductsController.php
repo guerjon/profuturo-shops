@@ -5,7 +5,7 @@ class AdminProductsController extends AdminBaseController
 
   public function index()
   {
-    return View::make('admin::products.index')->withProducts(Product::orderBy('category_id')->orderBy('subcategory_id')->orderBy('name')->paginate(25));
+    return View::make('admin::products.index')->withProducts(Product::orderBy('category_id')->orderBy('name')->paginate(25));
   }
 
   public function create()
@@ -18,9 +18,6 @@ class AdminProductsController extends AdminBaseController
     $product = new Product(Input::all());
     if(Input::has('category_id') and Input::get('category_id')){
       $product->category_id = Input::get('category_id');
-      if(Input::has('subcategory_id') and Input::get('subcategory_id')){
-        $product->subcategory_id = Input::get('subcategory_id');
-      }
     }
 
     if($product->save()){

@@ -15,20 +15,6 @@
 
 <br>
 
-@if($activeCategory and $activeCategory->subcategories->count() > 0)
-<ul class="nav nav-tabs">
-  <li role="presentation" class="{{$activeSubcategory ? '' : 'active'}}">
-    <a href="/productos/{{$activeCategory->id}}">Todas</a>
-  </li>
-  @foreach($activeCategory->subcategories as $subcategory)
-  <li role="presentation" class="{{($activeSubcategory !== NULL and $activeSubcategory->id == $subcategory->id) ? 'active' : ''}}">
-    <a href="/productos/{{$activeCategory->id}}/{{$subcategory->id}}">{{$subcategory->name}}</a>
-  </li>
-  @endforeach
-</ul>
-
-@endif
-
 &nbsp;
 <!-- <ul class="nav nav-pills">
   <li role="presentation" class="active"><a href="#">Productos</a></li>
