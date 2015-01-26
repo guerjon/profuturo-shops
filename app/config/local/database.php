@@ -17,7 +17,8 @@ return array(
 	| choice installed on your machine before you begin development.
 	|
 	*/
-
+	'log' => true,
+	
 	'connections' => array(
 
 		'mysql' => array(

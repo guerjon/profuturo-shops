@@ -30,9 +30,44 @@ class BcOrdersController extends BaseController{
       'user_id' => Auth::id(),
       ]);
 
+    $date = \Carbon\Carbon::now();
+    $date->day = 1;
+    $date->subMonth();
+
+    // SELECT SUM(quantity) FROM bc_order_business_card LEFT JOIN business_cards ON bc_order_business_card.business_card_id = business_cards.id LEFT JOIN bc_orders on bc_orders.id = bc_order_business_card.bc_order_id WHERE
+    // bc_orders.user_id = 2 AND business_cards.nombre_puesto LIKE '%Gerencia%';
+
+    $director_requested = DB::table('bc_order_business_card')->select(DB::raw('SUM(quantity) as quantity'))
+      ->leftJoin('business_cards', 'bc_order_business_card.business_card_id', '=', 'business_cards.id')
+      ->leftJoin('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
+      ->where(DB::raw('bc_orders.user_id'), Auth::id())
+      ->where(DB::raw('business_cards.nombre_puesto'), 'LIKE', '%Director%')
+      ->where(DB::raw('bc_orders.updated_at'), '>=', $date->toDateString())->first()->quantity;
+    $manager_requested = DB::table('bc_order_business_card')->select(DB::raw('SUM(quantity) as quantity'))
+      ->leftJoin('business_cards', 'bc_order_business_card.business_card_id', '=', 'business_cards.id')
+      ->leftJoin('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
+      ->where(DB::raw('bc_orders.user_id'), Auth::id())
+      ->where(DB::raw('business_cards.nombre_puesto'), 'LIKE', '%Gerente%')
+      ->where(DB::raw('bc_orders.updated_at'), '>=', $date->toDateString())->first()->quantity;
+
+    $date->subMonth();
+
+    // $managers_requested = Auth::user()->bcOrders()->whereHas('businessCards', function($q){
+    //   $q->where('nombre_puesto', 'LIKE', '%Gerente%');
+    // })->where('updated_at', '>=', $date->toDateString())->select(DB::raw('bc_order_business_card.quantity as count'))->first()->count;
+    $managers_requested = 0;
+
     $quantities = Input::get('quantities', []);
     foreach($cards as $card_id)
     {
+      $card = BusinessCard::find($card_id);
+      if(strpos($card->nombre_puesto, 'Director') !== FALSE and $director_requested >= 100){
+        $bc_order->delete();
+        return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para director al mes');
+      }elseif(strpos($card->nombre_puesto, 'Gerente') !== FALSE and $manager_requested >= 100){
+        $bc_order->delete();
+        return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para gerente al mes');
+      }
       $bc_order->businessCards()->attach($card_id, ['quantity' => @$quantities[$card_id]*100 ]);
     }
 
