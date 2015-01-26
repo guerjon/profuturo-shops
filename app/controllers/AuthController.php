@@ -10,11 +10,11 @@ class AuthController extends BaseController
 
   public function postLogin()
   {
-    $credentials = Input::only(['password', 'email']);
+    $credentials = Input::only(['password', 'ccosto']);
     $validator = Validator::make(
       $credentials,
       [
-        'email' => 'required|email',
+        'ccosto' => 'required|numeric',
         'password' => 'required'
       ]);
 
@@ -22,7 +22,7 @@ class AuthController extends BaseController
       if(Auth::attempt($credentials)){
         return Redirect::intended('/');
       }else{
-        return Redirect::to(action('AuthController@getLogin'))->withErrors('El usuario o contraseña son invalidos', 'login');
+        return Redirect::to(action('AuthController@getLogin'))->withErrors('El centro de costos o contraseña son invalidos', 'login');
       }
 
     }else{

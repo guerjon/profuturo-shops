@@ -18,8 +18,8 @@
       ])}}
 
       <div class="form-group">
-        {{Form::label('email', 'Correo electrónico')}}
-        {{Form::email('email', NULL, ['class' => 'form-control'])}}
+        {{Form::label('ccosto', 'Centro de costos')}}
+        {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
       </div>
 
       <div class="form-group">

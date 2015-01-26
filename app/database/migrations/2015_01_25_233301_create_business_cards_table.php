@@ -18,7 +18,7 @@ class CreateBusinessCardsTable extends Migration {
 		  $table->increments('id');
 			$table->integer('no_emp');
 			$table->string('nombre');
-			$table->string('ccosto');
+			$table->integer('ccosto')->unsigned();
 			$table->string('nombre_ccosto');
 			$table->string('nombre_puesto');
 			$table->date('fecha_ingreso');
