@@ -46,11 +46,7 @@ class AdminProductsController extends AdminBaseController
       $product->fill(Input::all());
       if(Input::has('category_id') and Input::get('category_id')){
         $product->category_id = Input::get('category_id');
-        if(Input::has('subcategory_id') and Input::get('subcategory_id')){
-          $product->subcategory_id = Input::get('subcategory_id');
-        }else{
-          $product->subcategory_id = NULL;
-        }
+        
       }
       if($product->save()){
         return Redirect::to(action('AdminProductsController@index'))->withSuccess('Se ha actualizado el producto');
