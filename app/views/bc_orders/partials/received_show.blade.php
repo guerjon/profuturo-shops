@@ -21,9 +21,19 @@
       <td>
         {{$card->pivot->quantity}}
       </td>
-      
+
     </tr>
     @endforeach
+    @if($blank_card)
+    <tr>
+      <td>
+        Tarjetas blancas
+      </td>
+      <td>
+        {{$blank_card->quantity}}
+      </td>
+    </tr>
+    @endif
   </tbody>
 
 </table>

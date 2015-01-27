@@ -39,6 +39,22 @@
       </td>
     </tr>
     @endforeach
+    @if($blank_card)
+    <tr>
+      <td>
+        Tarjetas blancas
+      </td>
+      <td>
+        {{$blank_card->quantity}}
+      </td>
+      <td>
+        {{Form::select("blank_cards_status",['Incompleto', 'Completo'], $blank_card->status, ['class' => 'form-control'])}}
+      </td>
+      <td>
+        {{Form::text("blank_cards_comments", $blank_card->comments, ['class' => 'form-control']) }}
+      </td>
+    </tr>
+    @endif
   </tbody>
 
 </table>

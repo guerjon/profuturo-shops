@@ -54,6 +54,17 @@
     {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 3])}}
   </div>
 
+  @if($remaining_cards)
+  <div class="form-group">
+    {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
+    @if($remaining_cards == 100)
+      {{Form::select('blank_cards', [0, 100], NULL, ['class' => 'form-control'])}}
+    @else
+      {{ Form::select('blank_cards', [0, 100, 200], NULL, ['class' => 'form-control'])}}
+    @endif
+  </div>
+  @endif
+
   <div class="form-group text-right">
     <button type="button" id="cancel-order-button" class="btn btn-lg btn-danger">Cancelar orden</button>
     {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-primary'])}}

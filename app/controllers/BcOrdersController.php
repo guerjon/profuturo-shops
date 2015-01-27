@@ -14,7 +14,8 @@ class BcOrdersController extends BaseController{
       return Redirect::to(action('BcOrdersController@index'))->withErrors('No se encontró la orden');
     }
     if($bc_order->confirmed){
-      return View::make('bc_orders.show')->withBcOrder($bc_order);
+      $blank_card = DB::table('blank_cards_bc_order')->where('bc_order_id', $bc_order_id)->first();
+      return View::make('bc_orders.show')->withBcOrder($bc_order)->withBlankCard($blank_card);
     }else{
       return Redirect::to(action('BcOrdersController@edit', [$bc_order->id]))->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
     }
@@ -76,7 +77,14 @@ class BcOrdersController extends BaseController{
 
   public function edit($bc_order_id){
     $bc_order = BcOrder::find($bc_order_id);
-    return View::make('bc_orders.edit')->withBcOrder($bc_order);
+    $remaining_cards = 200 - Auth::user()->bcOrders()
+      ->leftJoin('blank_cards_bc_order', 'blank_cards_bc_order.bc_order_id', '=','bc_orders.id')
+      ->select(DB::raw('SUM(quantity) as blank'))
+      ->where(DB::raw('MONTH(bc_orders.updated_at)'), DB::raw('MONTH(NOW())'))
+      ->where(DB::raw('YEAR(bc_orders.updated_at)'), DB::raw('YEAR(NOW())'))
+      ->first()->blank;
+
+    return View::make('bc_orders.edit')->withBcOrder($bc_order)->withRemainingCards($remaining_cards);
   }
 
   public function update($bc_order_id)
@@ -84,6 +92,7 @@ class BcOrdersController extends BaseController{
     $bc_order = BcOrder::find($bc_order_id);
     $bc_order->confirmed = true;
     $bc_order->comments = Input::get('comments');
+
     foreach(Input::get('card', []) as $id => $card){
       $bc = BusinessCard::find($id);
       if($bc){
@@ -92,6 +101,13 @@ class BcOrdersController extends BaseController{
       }
     }
     $bc_order->save();
+
+    if(Input::has('blank_cards') and Input::get('blank_cards') > 0){
+      DB::table('blank_cards_bc_order')->insert([
+        'quantity' => Input::get('blank_cards')*100,
+        'bc_order_id' => $bc_order->id,
+        ]);
+    }
     return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha guardado la orden satisfactoriamente');
   }
 
@@ -119,11 +135,24 @@ class BcOrdersController extends BaseController{
       $pivot->comments = $card['comments'];
       $pivot->save();
     }
+
+    if(Input::has('blank_cards_status')){
+      $complete *= Input::get('blank_cards_status');
+      DB::table('blank_cards_bc_order')->where('bc_order_id', $bc_order_id)
+        ->update([
+          'status' => Input::get('blank_cards_status'),
+          'comments' => Input::get('blank_cards_comments'),
+          ]);
+
+    }
+
     if($complete){
       $bc_order->status = $complete;
     }else{
       $bc_order->status = 2;
     }
+
+
     $bc_order->receive_comments = Input::get('receive_comments');
     $bc_order->save();
     return Redirect::to(action('BusinessCardsController@index'))->withSuccess('Se ha actualizado la información');
