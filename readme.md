@@ -1,25 +1,66 @@
-## Laravel PHP Framework
+# Profuturo Compras Web
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Este proyecto fue desarrollado con [Laravel](http://laravel.com), para su correcto funcionamiento se requiere PHP 5.4+
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+## Instalación
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Una vez que se tiene el código fuente, para el funcionamiento del proyecto en un ambiente local deben seguirse los siguientes pasos:
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+### Dependecias
 
-## Official Documentation
+Laravel maneja sus dependencias a través de **composer**, es por ello que como primer paso, se instalará composer. Consúltese este [link](https://getcomposer.org/doc/00-intro.md). A lo largo de este documento, asumiremos que se tiene el archivo **composer.phar** en la carpeta de la aplicación. Si se instaló el comando *composer* las instrucciones son muy similares y es fácil interpretarlas de ese modo.
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+Una vez que se tiene instalado *composer*, ejecutaremos:
+```
+./composer.phar install
+```
+Esto nos instalará todas las dependecias de Laravel.
 
-### Contributing To Laravel
+### Configuración ambiente local
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+Deberemos verificar que Laravel reconoce nuestro equipo como ambiente local, para ello, ejecutaremos el comando
+```
+./artisan env
+```
+Lo que debería mostrarnos:
+```
+Current application environment: local
+```
+Si este no es el caso, deberemos añadir nuestro *hostname* a la lista de *hosts* locales. Editaremos el archivo **bootstrap/start.php** y ubicaremos estas líneas:
+```php
+$env = $app->detectEnvironment(array(
+  'local' => array('homestead', 'localhost', '127.0.0.1', 'local*', '*local'),
+));
+```
+A este array añadiremos el resultado de ejecutar el comando:
+```
+hostname
+```
+Esto debería resolver el problema y nuestro equipo debería ser reconocido como ambiente local.
 
-### License
+#### MySQL
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Deberemos tener una base de datos MySQL donde se cargará toda la información de la aplicación. No hay una configuración específica, puede ser la que se desee. Sin embargo, esta configuración deberá especificarse en el archivo **app/config/local.php** . El repositorio está configurado para no subir cambios a este archivo.
+
+### Migraciones
+
+Para el correcto funcionamiento de la aplicación, deberemos ejecutar todas las migraciones que generan las tablas en la base de datos. Bastará con ejecutar el comando
+```
+./artisan migrate --seed
+```
+Si todo lo anterior fue configurado correctamente, este comando deberá correr sin errores. La bandera `--seed` es utilizada para añadir registros básicos a la base de datos, especificados en el archivo **app/database/seeds/DatabaseSeeder.php**.
+
+## Ejecución
+
+Una vez que se ha llevado a cabo todo el proceso de instalación, podemos utilizar el server de desarrollo de PHP. Para ello, usaremos el comando
+```
+./artisan serve --port=8080
+```
+Una vez que se ejecute este proceso, mientras esté activo, podremos acceder a la aplicación a través de http://localhost:8080/
+
+Si se agregaron los registros básicos a la base de datos, podremos acceder con las credenciales como administrador:
+
+* Ccosto : **0**
+* Password : **admin**
+
+Podremos acceder también como cualquier otro usuario que esté en la base de datos con su `ccosto` que podemos consultar en la base de datos y una contraseña que podemos consultar en el archivo CSV **app/database/csvs/USUARIOS.csv**
