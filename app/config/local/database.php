@@ -17,7 +17,7 @@ return array(
 	| choice installed on your machine before you begin development.
 	|
 	*/
-	'log' => true,
+	'log' => false,
 	
 	'connections' => array(
 
@@ -26,7 +26,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'sorianoariza_profuturo_compras',
 			'username'  => 'root',
-			'password'  => 'root',
+			'password'  => 'admin',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

@@ -9,20 +9,14 @@ body.modal-open #sb-site {
 }
 
 .sb-slidebar{
-  background-color: #fafafa;
+  background-color: #214084;
 }
 .sb-left{
   padding-top: 80px;
 }
 
 .sb-slidebar .nav>li>a {
-  color : #999;
-}
-
-.sb-slidebar .nav-pills>li.active>a, .sb-slidebar .nav-pills>li.active>a:hover, .sb-slidebar .nav-pills>li.active>a:focus{
-  color: #333;
-  font-weight: bold;
-  background-color: #0000ED;
+  color : #fff;
 }
 
 .navbar .sb-toggle-left {
@@ -46,6 +40,44 @@ body.modal-open #sb-site {
   border-radius: 1px;
 }
 
-.navbar.navbar-default .sb-toggle-left span.icon-bar{
-  background-color: #999;
+/* Color de la barra de navegacion*/
+.navbar-default{
+  background-color:#004179;
+}
+
+.navbar-nav > li> a{
+  color:#fff !important;
+}
+
+/* estilo para opciones del menu derecho */
+.dropdown-menu > li > a:hover {
+  background-color: #E79A2E;
+}
+
+/* estilo para opciones menu izquierdo */
+.sb-active .nav li a:hover{
+  background-color: #E79A2E !important;
+}
+
+/* estilo para menu izquierdo */
+.navbar .sb-toggle-left:hover,
+.navbar .sb-toggle-left:focus{
+  background-color: #DC9E41;
+}
+
+/* estilo para menu derecho */
+.navbar-default .navbar-nav >.open>a,
+.navbar-default .navbar-nav >.open>a:hover,
+.navbar-default .navbar-nav >.open>a:focus{
+  background-color:#004179;
+}
+
+/* estilo para menu de cerrar sesion */
+.navbar-right:hover, .navbar-right:focus{
+  background-color: #DC9E41 !important;
+}
+
+/* Estilo para cuando no se ha iniciado sesion */
+li.disabled>a:hover{
+  color:#fff !important;
 }
