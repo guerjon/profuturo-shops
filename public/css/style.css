@@ -123,3 +123,8 @@ li.disabled>a:hover{
   background-color: #fbd813;
 }
 
+#header{
+  width: 20em;
+  margin-left: -2em;
+  margin-top: -3.5%;
+}

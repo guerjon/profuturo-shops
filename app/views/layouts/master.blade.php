@@ -46,7 +46,7 @@
             </div>
 
 
-            <a class="navbar-brand" href="#">Profuturo Compras</a>
+            <a class="navbar-brand" href="#"><img id="header" src="/img/header.png"></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
