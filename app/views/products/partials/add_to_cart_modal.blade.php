@@ -17,23 +17,28 @@
         </p>
 
 
+        <div class="alert alert-warning" style="display:none;">
+          No puede ordenar más inventario de este producto
+        </div>
+
         {{Form::open([
+          'id' => 'product-cart-form',
           'class' => 'form-horizontal',
           ])}}
 
           {{Form::hidden('product_id')}}
+
+          <div class="col-xs-6">
+            <p class="form-control-static">
+              <strong id="product-cart-info"></strong>
+            </p>
+          </div>
+
           <div class="form-group">
 
-            {{Form::label('price', 'Precio', ['class' => 'control-label col-xs-2 col-xs-offset-4'])}}
-
-            <div class="col-xs-2">
-              <p class="form-control-static" id="product-cart-price">
-
-              </p>
-            </div>
-            {{Form::label('quantity', 'Cantidad', ['class' => 'control-label col-xs-2'])}}
-            <div class="col-xs-2">
-              {{Form::select('quantity', [1 => 1, 2=>2, 3=> 3, 4=>4, 5=>5], NULL, ['class' => 'form-control'])}}
+            {{Form::label('quantity', 'Cantidad', ['class' => 'control-label col-xs-3'])}}
+            <div class="col-xs-3">
+              {{Form::select('quantity', [], NULL, ['class' => 'form-control'])}}
             </div>
           </div>
         {{Form::close()}}

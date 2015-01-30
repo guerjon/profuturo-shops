@@ -6,7 +6,7 @@ class ApiController extends BaseController
   public function postAddToCart()
   {
     $q = Input::get('quantity');
-    if($q <= 0 or $q > 5){
+    if($q <= 0){
       return Response::json([
         'status' => 500,
         'error_msg' => 'La cantidad debe ser un entero positivo menor o igual a 5'

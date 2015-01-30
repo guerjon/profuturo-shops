@@ -37,10 +37,10 @@
           {{Form::text("card[{$card->id}][direccion]", $card->direccion, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control'])}}
+          {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control phone'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][celular]", $card->celular, ['class' => 'form-control'])}}
+          {{Form::text("card[{$card->id}][celular]", $card->celular, ['class' => 'form-control cellphone'])}}
         </td>
         <td>
           {{Form::email("card[{$card->id}][email]", $card->email, ['class' => 'form-control'])}}
@@ -56,11 +56,9 @@
 
   @if($remaining_cards)
   <div class="form-group">
-    {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
-    @if($remaining_cards == 100)
+    {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 100 cada mes')}}
+    @if($remaining_cards > 100)
       {{Form::select('blank_cards', [0, 100], NULL, ['class' => 'form-control'])}}
-    @else
-      {{ Form::select('blank_cards', [0, 100, 200], NULL, ['class' => 'form-control'])}}
     @endif
   </div>
   @endif
@@ -79,7 +77,15 @@
 {{Form::close()}}
 @stop
 
+
 @section('script')
+<script src="/js/jquery.maskedinput.min.js"></script>
+<script>
+$(function(){
+  $('input.phone').mask('9999-9999', {placeholder: '####-####'});
+  $('input.cellphone').mask('99-9999-9999', {placeholder : '##-####-####'});
+});
+</script>
 <script>
 $(function(){
   $('#cancel-order-button').click(function(){

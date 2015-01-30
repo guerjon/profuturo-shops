@@ -70,10 +70,10 @@
     <a class="list-group-item" href="#" data-product-id="{{$product->id}}" data-image-src="{{$product->image->url('medium')}}">
 
       <div class="pull-right">
-        <h3 class="product-price">$ {{money_format("%.2n", $product->price)}}</h3>
+        <h5 class="product-info">Max. <span class="product-max-stock">{{$product->max_stock}}</span> {{$product->measure_unit}}</h5>
         @if(Auth::user()->cart_products->contains($product->id))
         <span class="label label-info">
-          Actualmente {{Auth::user()->cartProducts()->where('id', $product->id)->first()->pivot->quantity}} en mi carrito
+          Actualmente <span class="product-current-stock">{{Auth::user()->cartProducts()->where('id', $product->id)->first()->pivot->quantity}}</span> en mi carrito
         </span>
         @endif
 
@@ -122,9 +122,37 @@ $(function(){
     modal.modal('show');
     modal.find('#add-to-cart-modal-title').text($(this).find('.media-heading').text());
     modal.find('#product-cart-description').text($(this).find('.product-description').text());
-    modal.find('#product-cart-price').text($(this).find('.product-price').text());
+    modal.find('#product-cart-info').text($(this).find('.product-info').text());
     modal.find('img').attr('src', $(this).attr('data-image-src'));
     modal.find('form input[name="product_id"]').val($(this).attr('data-product-id'));
+    var select = $('form select[name="quantity"]');
+    select.empty();
+
+    var max = $(this).find('.product-max-stock').text();
+    max = parseInt(max);
+
+    var current = $(this).find('.product-current-stock').text();
+    current = parseInt(current);
+
+    if(isNaN(current)){
+      current = 0;
+    }
+
+    var selectMax = max - current;
+
+    if(selectMax == 0){
+      modal.find('.alert.alert-warning').show();
+      modal.find('form').hide();
+      modal.find('.submit-btn').prop('disabled', true);
+    }else{
+      modal.find('.alert.alert-warning').hide();
+      modal.find('form').show();
+      modal.find('.submit-btn').prop('disabled', false);
+
+      for(var i=1; i<= selectMax; i++ ){
+        select.append($('<option>').html(i));
+      }
+    }
   });
 
   $('#add-to-cart-modal .submit-btn').click(function(){
@@ -140,10 +168,16 @@ $(function(){
             var label = item.find('.label');
             if(label.length == 0){
               label = $('<span>').attr('class', 'label label-info');
+              span = $('<span>').attr('class', 'product-current-stock').html(newq);
+              label.append('Actualmente ');
+              label.append(span);
+              label.append(' en mi carrito');
               item.find('.pull-right').append(label);
+            }else{
+              label.find('.product-current-stock').html(newq);
             }
 
-            label.text('Actualmente ' + newq + ' en mi carrito');
+
           }
         }
       }else{

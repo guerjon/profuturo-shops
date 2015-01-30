@@ -17,7 +17,7 @@
     <thead>
       <tr>
         <th>
-          Nombre
+          Centro de costos
         </th>
         <th>
           Correo electrónico
@@ -29,7 +29,7 @@
       @foreach($users as $user)
       <tr>
         <td>
-          {{$user->first_name}} {{$user->last_name}}
+          {{$user->gerencia}}
           @if($user->is_admin)
           <span class="label label-info">Admin</span>
           @endif

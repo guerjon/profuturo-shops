@@ -64,8 +64,7 @@
                 @if(Auth::user()->is_admin)
 
                 @else
-                  <li><a href="#">Mi perfil</a></li>
-                  <li><a href="#">Mis pedidos</a></li>
+                  <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
                 @endif
                   <li class="divider"></li>
