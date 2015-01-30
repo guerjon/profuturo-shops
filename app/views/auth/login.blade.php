@@ -1,7 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
-
+<style>
+  #img-home{
+    max-width: 100%;
+    max-height: 350px;
+    vertical-align:middle;
+  }
+</style>
 
 <div class="row">
 
@@ -16,7 +22,9 @@
       'action' => 'AuthController@postLogin',
       'role' => 'form'
       ])}}
-
+      <div class="text-center">
+        <img id="img-home" src="/img/home.png">
+      </div>
       <div class="form-group">
         {{Form::label('ccosto', 'Centro de costos')}}
         {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
