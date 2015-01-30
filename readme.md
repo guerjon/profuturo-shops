@@ -40,7 +40,7 @@ Esto debería resolver el problema y nuestro equipo debería ser reconocido como
 
 #### MySQL
 
-Deberemos tener una base de datos MySQL donde se cargará toda la información de la aplicación. No hay una configuración específica, puede ser la que se desee. Sin embargo, esta configuración deberá especificarse en el archivo **app/config/local.php** . El repositorio está configurado para no subir cambios a este archivo.
+Deberemos tener una base de datos MySQL donde se cargará toda la información de la aplicación. No hay una configuración específica, puede ser la que se desee. Sin embargo, esta configuración deberá especificarse en el archivo **app/config/local/database.php** . El repositorio está configurado para no subir cambios a este archivo.
 
 ### Migraciones
 
