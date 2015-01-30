@@ -9,7 +9,7 @@ body.modal-open #sb-site {
 }
 
 .sb-slidebar{
-  background-color: #214084;
+  background-color: #004a8d;/*#214084;*/
 }
 .sb-left{
   padding-top: 80px;
@@ -42,42 +42,84 @@ body.modal-open #sb-site {
 
 /* Color de la barra de navegacion*/
 .navbar-default{
-  background-color:#004179;
-}
-
-.navbar-nav > li> a{
-  color:#fff !important;
-}
-
-/* estilo para opciones del menu derecho */
-.dropdown-menu > li > a:hover {
-  background-color: #E79A2E;
-}
-
-/* estilo para opciones menu izquierdo */
-.sb-active .nav li a:hover{
-  background-color: #E79A2E !important;
-}
-
-/* estilo para menu izquierdo */
-.navbar .sb-toggle-left:hover,
-.navbar .sb-toggle-left:focus{
-  background-color: #DC9E41;
-}
-
-/* estilo para menu derecho */
-.navbar-default .navbar-nav >.open>a,
-.navbar-default .navbar-nav >.open>a:hover,
-.navbar-default .navbar-nav >.open>a:focus{
-  background-color:#004179;
-}
-
-/* estilo para menu de cerrar sesion */
-.navbar-right:hover, .navbar-right:focus{
-  background-color: #DC9E41 !important;
+  background-color:#004a8d;
 }
 
 /* Estilo para cuando no se ha iniciado sesion */
 li.disabled>a:hover{
   color:#fff !important;
 }
+
+/* estilo para opciones menu izquierdo */
+.sb-active .nav li a:hover{
+  background-color: #fbd813 !important;
+}
+
+/*Barras del menu izquierdo*/
+.navbar .sb-toggle-left .icon-bar{
+  background-color: #fff;
+}
+
+/* estilo para menu izquierdo con el mouse */
+.navbar .sb-toggle-left:hover,
+.navbar .sb-toggle-left:focus{
+  background-color: #fff;
+}
+
+
+/* Cambio de estilo span menu izquierdo al pasar mouse*/
+.navbar .sb-toggle-left:hover span{
+  background-color: #fbd813;
+}
+/* Menu derecho (resize) cambio color span */
+.navbar-default .navbar-toggle:hover span{
+  background-color: #fbd813 !important;  
+}
+
+.navbar-default .navbar-toggle:hover{
+  background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle:focus{
+  background-color: #004a8d;
+}
+
+.navbar-default .navbar-toggle span{
+  background-color: #fff !important;
+}
+
+.navbar-default .navbar-toggle:hover span{
+  background-color: #fbd813 !important;  
+}
+
+/* Color de letra de elementos menu derecho */
+.navbar-nav > li> a, .dropdown-menu >li > a{
+  color:#fff !important;
+}
+
+.dropdown-menu{
+  background-color: #004a8d !important;
+}
+
+/* estilo para menu de cerrar sesion */
+.navbar-right:hover, .navbar-right:focus{
+  background-color: #fbd813 !important;
+}
+
+/* estilo para menu derecho */
+.navbar-default .navbar-nav >.open>a,
+.navbar-default .navbar-nav >.open>a:hover,
+.navbar-default .navbar-nav >.open>a:focus{
+  background-color:#004a8d;
+}
+
+
+/* estilo para opciones del menu derecho */
+.dropdown-menu > li > a:hover {
+  background-color: #fbd813;
+}
+
+.dropdown-menu :hover{
+  background-color: #fbd813;
+}
+
