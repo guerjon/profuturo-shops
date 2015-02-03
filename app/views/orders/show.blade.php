@@ -69,7 +69,7 @@
 
     <div class="form-group">
       <div class="col-md-10 col-md-offset-2">
-        {{Form::submit('Actualizar', ['class' => 'btn btn-primary'])}}
+        {{Form::submit('Actualizar', ['class' => 'btn btn-warning'])}}
       </div>
     </div>
 

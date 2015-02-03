@@ -10,6 +10,7 @@
   </li>
   <li role="presentation"><a href="/admin/orders">Pedidos papelería</a></li>
   <li role="presentation"><a href="/admin/bc-orders">Pedidos tarjetas</a></li>
+  <li role="presentation"><a href="/admin/agenda">Agenda</a></li>
   @else
   <li role="presentation"><a href="/productos">Productos</a></li>
   <li role="presentation"><a href="/tarjetas-presentacion">Tarjetas de presentación</a></li>

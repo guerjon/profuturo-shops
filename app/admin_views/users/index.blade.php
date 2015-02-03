@@ -44,7 +44,7 @@
 </div>
 
 <div class="text-right">
-  {{link_to_action('AdminUsersController@create', 'Crear nuevo usuario', [], ['class' => 'btn btn-primary'])}}
+  {{link_to_action('AdminUsersController@create', 'Crear nuevo usuario', [], ['class' => 'btn btn-warning'])}}
 </div>
 
 
@@ -64,7 +64,7 @@
         </div>
         <div class="form-group text-right">
           <button type="button" data-dismiss="modal" class="btn btn-sm btn-default">Cancelar</button>
-          <button type="submit" class="btn btn-sm btn-primary">Asignar</button>
+          <button type="submit" class="btn btn-sm btn-warning">Asignar</button>
         </div>
         {{Form::close()}}
       </div>

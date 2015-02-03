@@ -74,7 +74,7 @@ li.disabled>a:hover{
 }
 /* Menu derecho (resize) cambio color span */
 .navbar-default .navbar-toggle:hover span{
-  background-color: #004a8d !important;  
+  background-color: #004a8d !important;
 }
 
 .navbar-default .navbar-toggle:hover{
@@ -91,7 +91,7 @@ li.disabled>a:hover{
 }
 
 .navbar-default .navbar-toggle:hover span{
-  background-color: #004a8d !important;  
+  background-color: #004a8d !important;
 }
 
 /* Color de letra de elementos menu derecho */
@@ -108,7 +108,7 @@ li.disabled>a:hover{
 
 /* estilo para menu de cerrar sesion */
 .navbar-right:hover, .navbar-right:focus{
-  background-color: #fbd813 !important; 
+  background-color: #fbd813 !important;
 }
 
 /* estilo para menu derecho */
@@ -137,14 +137,66 @@ li.disabled>a:hover{
   margin-top: -3.5%;
 }
 
-.btn-primary{
+.btn-warning{
   color:#004a8d;
   background-color: #fbd813;
   border: transparent;
 }
 
-.btn-primary:hover{
+.btn-warning:hover{
   color: #004a8d;
   background-color: #f6d204;
 };
 
+
+
+
+
+.calendar{
+  margin-bottom: 15px;
+}
+
+.calendar-nav{
+  margin: 0px -20px;
+}
+
+.calendar-nav.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.calendar-nav.navbar .navbar-collapse {
+  text-align: center;
+}
+
+
+.row-calendar{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.col-xs-calendar{
+  width: 14.2857%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.panel-calendar{
+  height: 180px;
+  overflow: auto;
+}
+.panel-calendar .list-group-item{
+  font-size: 75%;
+  padding: 5px;
+}
+.panel.panel-calendar-holiday{
+  background-color: #fafafa;
+}
+.panel.panel-calendar-disabled{
+  background-color: #eee;
+}
+
+.panel-calendar.panel{
+  margin-bottom: 0px;
+}

@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group text-center">
-          {{Form::submit('Enviar', ['class' => 'btn btn-primary'])}}
+          {{Form::submit('Enviar', ['class' => 'btn btn-warning'])}}
         </div>
       </fieldset>
     {{Form::close()}}

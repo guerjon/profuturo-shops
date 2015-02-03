@@ -34,7 +34,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
-
+		Route::resource('agenda', 'AdminCalendarEventsController');
 		Route::controller('reports', 'AdminReportsController');
 	});
 

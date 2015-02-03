@@ -58,7 +58,7 @@
   {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
 </div>
 <div class="form-group text-right">
-  <button type="submit" class="btn btn-primary">Enviar pedido</a>
+  <button type="submit" class="btn btn-warning">Enviar pedido</a>
 </div>
 {{Form::close()}}
 

@@ -65,7 +65,7 @@
 
   <div class="form-group text-right">
     <button type="button" id="cancel-order-button" class="btn btn-lg btn-danger">Cancelar orden</button>
-    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-primary'])}}
+    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
   </div>
 {{Form::close()}}
 

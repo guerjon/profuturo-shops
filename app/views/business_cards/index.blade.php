@@ -56,7 +56,7 @@
 
 
     <div class="text-right">
-      {{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-primary'])}}
+      {{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-warning'])}}
     </div>
 
     {{Form::close()}}

@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="text-right">
-  {{link_to_action('AdminProductsController@create', 'Agregar nuevo producto', NULL, ['class' => 'btn btn-primary'])}}
+  {{link_to_action('AdminProductsController@create', 'Agregar nuevo producto', NULL, ['class' => 'btn btn-warning'])}}
 </div>
 
 

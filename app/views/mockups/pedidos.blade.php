@@ -79,7 +79,7 @@
         <label class="checbox-inline">
           <input type="checkbox"> Entregado
         </label>
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Guardar</button>
       </div>
     </div>
   </div>

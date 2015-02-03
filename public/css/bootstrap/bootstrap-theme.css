@@ -9,7 +9,7 @@
  * Config saved to config.json and https://gist.github.com/a273e10df610496c493e
  */
 .btn-default,
-.btn-primary,
+.btn-warning,
 .btn-success,
 .btn-info,
 .btn-warning,
@@ -19,13 +19,13 @@
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .btn-default:active,
-.btn-primary:active,
+.btn-warning:active,
 .btn-success:active,
 .btn-info:active,
 .btn-warning:active,
 .btn-danger:active,
 .btn-default.active,
-.btn-primary.active,
+.btn-warning.active,
 .btn-success.active,
 .btn-info.active,
 .btn-warning.active,
@@ -34,7 +34,7 @@
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 .btn-default .badge,
-.btn-primary .badge,
+.btn-warning .badge,
 .btn-success .badge,
 .btn-info .badge,
 .btn-warning .badge,
@@ -72,7 +72,7 @@
   background-color: #e0e0e0;
   background-image: none;
 }
-.btn-primary {
+.btn-warning {
   background-image: -webkit-linear-gradient(top, #428bca 0%, #2d6ca2 100%);
   background-image: -o-linear-gradient(top, #428bca 0%, #2d6ca2 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#428bca), to(#2d6ca2));
@@ -82,18 +82,18 @@
   background-repeat: repeat-x;
   border-color: #2b669a;
 }
-.btn-primary:hover,
-.btn-primary:focus {
+.btn-warning:hover,
+.btn-warning:focus {
   background-color: #2d6ca2;
   background-position: 0 -15px;
 }
-.btn-primary:active,
-.btn-primary.active {
+.btn-warning:active,
+.btn-warning.active {
   background-color: #2d6ca2;
   border-color: #2b669a;
 }
-.btn-primary:disabled,
-.btn-primary[disabled] {
+.btn-warning:disabled,
+.btn-warning[disabled] {
   background-color: #2d6ca2;
   background-image: none;
 }

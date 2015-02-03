@@ -59,7 +59,7 @@
       </div>
 
       <div class="form-group text-center">
-        {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-primary'])}}
+        {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
       </div>
     {{Form::close()}}
   </div>
