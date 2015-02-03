@@ -17,6 +17,8 @@
   <li role="presentation"><a href="/carrito">Mi carrito (papelería)</a></li>
   <li role="presentation"><a href="/pedidos">Mis pedidos (papelería)</a></li>
   <li role="presentation"><a href="/pedidos-tp">Mis pedidos (tarjetas)</a></li>
+  <li role="presentation"><a href="/solicitudes-generales">Solicitudes generales</a></li>
+
   @endif
 
 </ul>

@@ -60,7 +60,7 @@
         <div class="list-group">
           @if($day['enabled'] and count($day['events']) > 0)
           @foreach($day['events'] as $event)
-            @include('events.partials.show_as_day_item', ['event' => $event])
+            @include('admin::calendar_events.partials.show_as_day_item', ['event' => $event])
           @endforeach
 
           @endif

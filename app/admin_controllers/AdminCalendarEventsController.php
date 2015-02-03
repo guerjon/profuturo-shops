@@ -29,11 +29,11 @@ class AdminCalendarEventsController extends AdminBaseController{
       // $events = $events->with('client');
       //
 
-      $events = CalendarEvent::orderBy('datetime');
+      $events = GeneralRequest::orderBy('project_date');
       if($day){
-        $events->where(DB::raw('DATE(datetime)'), "{$year}-{$month}-{$day}");
+        $events->where(DB::raw('DATE(project_date)'), "{$year}-{$month}-{$day}");
       }elseif($month and $year){
-        $events->where(DB::Raw('MONTH(datetime)'), $month)->where(DB::Raw('YEAR(datetime)'), $year);
+        $events->where(DB::Raw('MONTH(project_date)'), $month)->where(DB::Raw('YEAR(project_date)'), $year);
       }
 
       return $events;
@@ -100,7 +100,7 @@ class AdminCalendarEventsController extends AdminBaseController{
     }
 
     foreach($events as $event){
-      $day = $event->datetime->day;
+      $day = $event->project_date->day;
       $i  = $day + $offset -1;
       $monthResult[$i]['events'][] = $event;
     }
