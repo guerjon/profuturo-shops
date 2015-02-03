@@ -9,7 +9,8 @@ class GeneralRequestsController extends BaseController{
 
   public function store()
   {
-    GeneralRequest::create(Input::except('budget'));
-    return Redirect::to(action('GeneralRequestsController@index'));
+    $request = new GeneralRequest(Input::except('budget'));
+    Auth::user()->generalRequests()->save($request);
+    return Redirect::to(action('GeneralRequestsController@index'))->withSuccess("Se ha guardado su solicitud con id {$request->id}");
   }
 }
