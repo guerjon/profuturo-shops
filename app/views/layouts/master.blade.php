@@ -57,7 +57,12 @@
               @if(Auth::check())
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  Bienvenido {{Auth::user()->first_name}} <span class="caret"></span>
+                  @if(Auth::user()->is_admin or Auth::user()->is_manager)
+                  Bienvenido {{Auth::user()->first_name}}
+                  @else
+                  {{Auth::user()->gerencia}}
+                  @endif
+                   <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
