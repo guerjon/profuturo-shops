@@ -12,15 +12,16 @@
 </div>
 @endif
 
+<h3>Centros de costos</h3>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
       <tr>
         <th>
-          Centro de costos
+          Clave
         </th>
         <th>
-          Correo electrónico
+          Centro de costos
         </th>
       </tr>
     </thead>
@@ -29,13 +30,43 @@
       @foreach($users as $user)
       <tr>
         <td>
+          {{$user->ccosto}}
+          <span class="label label-default">{{$user->role == 'user_requests' ? 'Proyectos' : 'Papelería'}}</span>
+        </td>
+        <td>
           {{$user->gerencia}}
+        </td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
+
+<h4>Administración</h4>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          Correo electrónico
+        </th>
+        <th>
+          Nombre completo
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @foreach($admins as $user)
+      <tr>
+        <td>
+          {{$user->email}}
           @if($user->is_admin)
           <span class="label label-info">Admin</span>
           @endif
         </td>
         <td>
-          {{$user->email}}
+          {{$user->first_name}} {{$user->last_name}}
         </td>
       </tr>
       @endforeach

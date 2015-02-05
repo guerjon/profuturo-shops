@@ -151,7 +151,7 @@
             </div>
 
             <div class="form-group">
-              {{Form::label('distribution_list', 'Precio unitario')}}
+              {{Form::label('distribution_list', 'Lista de distribución')}}
               <div class="radio">
                 <label>
                   {{Form::radio('distribution_list', 1, TRUE, ['data-next-div' => 'disabled'])}} Sí

@@ -18,6 +18,8 @@ Route::get('/mockups/{view}', function($view){
 
 Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
+Route::get('admin-login', 'AuthController@getAdminLogin');
+Route::post('admin-login', 'AuthController@postAdminLogin');
 Route::get('logout', 'AuthController@getLogout');
 
 Route::controller('api', 'ApiController');
@@ -34,6 +36,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
+		Route::resource('general-requests', 'AdminGeneralRequestsController');
 		Route::resource('agenda', 'AdminCalendarEventsController');
 		Route::controller('reports', 'AdminReportsController');
 	});

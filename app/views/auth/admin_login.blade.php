@@ -19,15 +19,15 @@
       </div>
     @endif
     {{Form::open([
-      'action' => 'AuthController@postLogin',
+      'action' => 'AuthController@postAdminLogin',
       'role' => 'form'
       ])}}
       <div class="text-center">
         <img id="img-home" src="/img/home.png">
       </div>
       <div class="form-group">
-        {{Form::label('ccosto', 'Centro de costos')}}
-        {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
+        {{Form::label('email', 'Correo electrónico')}}
+        {{Form::email('email', NULL, ['class' => 'form-control'])}}
       </div>
 
       <div class="form-group">
@@ -40,7 +40,7 @@
       </div>
 
       <div class="form-group text-right">
-        <a href="/admin-login">Inicio de sesión administrativo</a>
+        <a href="/login">Iniciar sesión como usuario</a>
       </div>
     {{Form::close()}}
   </div>

@@ -80,4 +80,14 @@ class ApiController extends BaseController
       ]);
 
   }
+
+  public function getRequestInfo($request_id){
+    $request = GeneralRequest::find($request_id);
+    if($request){
+      return Response::json([
+        'status' => 200,
+        'request' => $request->toArray()
+        ]);
+    }
+  }
 }

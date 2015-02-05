@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		'first_name' => 'required',
 		'last_name' => 'required',
 		'password' => 'required',
-		'role' => 'in:user,admin'
+		'role' => 'in:manager,admin,user_requests,user_paper'
 	];
 
 	public function setPasswordAttribute($value){
@@ -79,4 +79,43 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $total;
 	}
 
+
+
+	public function getMenuActionsAttribute(){
+		switch($this->role){
+			case 'admin':
+				return [
+					action('AdminUsersController@index') => 'Usuarios',
+					action('AdminCategoriesController@index') => 'Categorías',
+					action('AdminProductsController@index') => 'Productos',
+					action('AdminBusinessCardsController@index') => 'Tarjetas de presentación',
+					action('AdminOrdersController@index') => 'Pedidos papelería',
+					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
+					action('AdminCalendarEventsController@index') => 'Agenda',
+					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
+				];
+			case 'manager':
+				return [
+					action('ProductsController@index') => 'Productos',
+					action('BusinessCardsController@index') => 'Tarjetas de presentación',
+					'/carrito' => 'Mi carrito (papelería)',
+					action('OrdersController@index') => 'Mis pedidos (papelería)',
+					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
+
+				];
+			case 'user_paper':
+				return [
+					action('ProductsController@index') => 'Productos',
+					action('BusinessCardsController@index') => 'Tarjetas de presentación',
+					'/carrito' => 'Mi carrito (papelería)',
+					action('OrdersController@index') => 'Mis pedidos (papelería)',
+					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
+
+				];
+			case 'user_requests':
+				return [
+					action('GeneralRequestsController@index') => 'Solicitudes generales'
+				];
+		}
+	}
 }

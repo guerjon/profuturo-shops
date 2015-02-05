@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         'email' => $row[9],
         'phone' => $row[10],
         'password' => $row[11],
-        'role' => 'user'
+        'role' => 'user_paper'
         ]);
       }
     }

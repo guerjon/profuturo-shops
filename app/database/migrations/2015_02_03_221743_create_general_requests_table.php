@@ -35,9 +35,11 @@ class CreateGeneralRequestsTable extends Migration {
 			$table->text('comments');
 
 			$table->integer('user_id')->unsigned();
+			$table->integer('manager_id')->unsigned()->nullable();
 		  $table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('manager_id')->references('id')->on('users')->onDelete('SET NULL');
 		});
 
 	}

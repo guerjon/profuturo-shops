@@ -55,7 +55,11 @@
         {{Form::label('role', 'Perfil')}}
         <br>
         <label class="radio-inline">{{Form::radio('role', 'admin')}} Administrador</label>
-        <label  class="radio-inline">{{Form::radio('role', 'user')}} Usuario</label>
+        <label  class="radio-inline">{{Form::radio('role', 'manager')}} Asesor</label>
+        <br>
+        <label class="radio-inline">{{Form::radio('role', 'user_requests')}} Usuario proyectos</label>
+        <label  class="radio-inline">{{Form::radio('role', 'user_paper')}} Usuario papelería</label>
+
       </div>
 
       <div class="form-group text-center">

@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration {
 			$table->string('first_name');
 			$table->string('last_name');
 			$table->string('password');
-			$table->enum('role', ['admin', 'user'])->default('user');
+			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper'])->default('user_paper');
 			$table->integer('ccosto')->unsigned();
 
 			$table->string('nomenclatura');
