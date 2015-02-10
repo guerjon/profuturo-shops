@@ -59,4 +59,29 @@ class OrdersController extends BaseController
 
     return Redirect::to(action('OrdersController@index'))->withSuccess('Se ha actualizado su orden');
   }
+
+
+  public function postReceive($order_id)
+  {
+    $order = Order::find($order_id);
+    $complete = 1;
+    foreach(Input::get('product') as $id => $product){
+      $pivot = $order->products()->where('id', $id)->first()->pivot;
+      $complete *= $product['status'];
+      $pivot->status = $product['status'];
+      $pivot->comments = $product['comments'];
+      $pivot->save();
+    }
+
+    if($complete){
+      $order->status = $complete;
+    }else{
+      $order->status = 2;
+    }
+
+
+    $order->receive_comments = Input::get('receive_comments');
+    $order->save();
+    return Redirect::to(action('OrdersController@index'))->withSuccess('Se ha actualizado la información');
+  }
 }

@@ -3,7 +3,7 @@
   <thead>
     <tr>
       <th>
-        Nombre de empleado
+        Producto
       </th>
       <th>
         Cantidad
@@ -13,31 +13,23 @@
   </thead>
 
   <tbody>
-    @foreach($bc_order->business_cards as $card)
+    @foreach($order->products as $product)
     <tr>
       <td>
-        {{$card->nombre}}
+        {{$product->name}}
       </td>
       <td>
-        {{$card->pivot->quantity}}
+        {{$product->pivot->quantity}}
       </td>
 
     </tr>
     @endforeach
-    @if($blank_card)
-    <tr>
-      <td>
-        Tarjetas blancas
-      </td>
-      <td>
-        {{$blank_card->quantity}}
-      </td>
-    </tr>
-    @endif
   </tbody>
 
 </table>
 
 <div class="well">
-  Pedido recibido el día {{$bc_order->updated_at->format('d-m-Y')}}
+  {{$order->receive_comments}}
+  <br>
+  Pedido recibido el día {{$order->updated_at->format('d-m-Y')}}
 </div>

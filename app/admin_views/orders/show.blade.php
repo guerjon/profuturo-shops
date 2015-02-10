@@ -16,10 +16,10 @@
         Cantidad
       </th>
       <th>
-        Precio unitario
+        Estado
       </th>
       <th>
-        Total
+        Comentarios
       </th>
     </tr>
   </thead>
@@ -37,27 +37,21 @@
       </td>
 
       <td>
-        $ {{ money_format("%.2n", $product->price) }}
+        {{$product->pivot->status ? 'Completo' : 'Incompleto'}}
       </td>
-
       <td>
-        <? $subt = $product->price * $product->pivot->quantity ?>
-        <? $total += $subt ?>
-        $ {{money_format("%.2n", $subt)}}
+        {{$product->pivot->status ? '' : $card->pivot->comments}}
       </td>
     </tr>
     @endforeach
 
-    <tr>
-      <td colspan="3" class="text-right"><strong>TOTAL</strong></td>
-      <td>$ {{money_format("%.2n", $total)}}</td>
-    </tr>
   </tbody>
 </table>
 
 
 @if($order->status == 1)
 <p class="well">
+  {{$order->receive_comments}}
   Pedido recibido el día {{$order->updated_at->format('d-m-Y')}}
 </p>
 @elseif($order->status == 2 and $complain = $order->order_complain)
