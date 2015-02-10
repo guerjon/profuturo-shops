@@ -43,6 +43,7 @@ Route::group(['before' => 'auth'], function(){
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update']]);
 	Route::resource('pedidos-tp', 'BcOrdersController');
+	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');
 	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');

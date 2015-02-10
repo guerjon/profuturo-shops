@@ -3,10 +3,10 @@
 class Order extends Eloquent
 {
 
-  protected $fillable = ['comments'];
+  protected $guarded = [''];
   public function products()
   {
-    return $this->belongsToMany('Product')->withPivot('quantity');
+    return $this->belongsToMany('Product')->withPivot('quantity', 'status', 'comments');
   }
 
   public function user()
