@@ -28,9 +28,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $guarded = ['remember_token', 'created_at', 'updated_at'];
 
 	protected $rules = [
-		'email' => 'required',
-		'first_name' => 'required',
-		'last_name' => 'required',
+		'gerencia' => 'required',
 		'password' => 'required',
 		'role' => 'in:manager,admin,user_requests,user_paper'
 	];

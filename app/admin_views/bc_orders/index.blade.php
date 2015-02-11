@@ -13,6 +13,9 @@
   <thead>
     <tr>
       <th>
+        Centro de costos
+      </th>
+      <th>
         No. pedido
       </th>
 
@@ -31,6 +34,9 @@
   <tbody>
     @foreach($bc_orders as $order)
     <tr>
+      <td>
+        {{$order->ccosto}}
+      </td>
       <td>
         {{link_to_action('AdminBcOrdersController@show', $order->id, [$order->id])}}
       </td>

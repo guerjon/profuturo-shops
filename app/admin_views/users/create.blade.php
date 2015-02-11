@@ -27,29 +27,21 @@
       ])}}
 
       <div class="form-group">
-        {{Form::label('first_name', 'Nombre(s)')}}
-        {{Form::text('first_name', NULL, ['class' => 'form-control'])}}
+        {{Form::label('ccosto', 'Centro de costos')}}
+        {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
       </div>
 
       <div class="form-group">
-        {{Form::label('last_name', 'Apellido(s)')}}
-        {{Form::text('last_name', NULL, ['class' => 'form-control'])}}
+        {{Form::label('gerencia', 'Nombre/Gerencia')}}
+        {{Form::text('gerencia', NULL, ['class' => 'form-control'])}}
       </div>
 
-      <div class="form-group">
-        {{Form::label('email', 'Correo electrónico')}}
-        {{Form::email('email', NULL, ['class' => 'form-control'])}}
-      </div>
 
       <div class="form-group">
         {{Form::label('password', 'Contraseña')}}
         {{Form::password('password', ['class' => 'form-control'])}}
       </div>
 
-      <div class="form-group">
-        {{Form::label('ccosto', 'Centro de costos')}}
-        {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
-      </div>
 
       <div class="form-group">
         {{Form::label('role', 'Perfil')}}

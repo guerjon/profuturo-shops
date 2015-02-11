@@ -1,173 +1,205 @@
-"1","131","10_131_CD. JUAREZ ATLANTIS_42040640","NOROESTE","CD. JUAREZ ATLANTIS","MORAN AGUILAR LEVI NATHAN","42040640","GLORIA CHAVEZ ","Av. Paseo Triunfo de la RepÃºblica no.3340 1er piso, Edifico Atlantis, Col. Partido Romero, CP 32030, Cd. JuÃ¡rez Chihuahua","aatlantis@profuturo.com.mx","01 656 173 12 04 / 12 03","profuturo11","1"
-"2","132","10_132_CD. JUAREZ BARRANCAS_42041810","NOROESTE","CD. JUAREZ BARRANCAS","RODRIGUEZ GARCIA ALEJANDRO","42041810","GLORIA CHAVEZ ","Av. Paseo Triunfo de la RepÃºblica no.3340 1er piso, Edifico Atlantis, Col. Partido Romero, CP 32030, Cd. JuÃ¡rez Chihuahua","ajbarrancas@profuturo.com.mx","01656 173 12 07","profuturo1","0"
-"3","133","10_133_CD. JUAREZ SATELITE_42042030","NOROESTE","CD. JUAREZ SATELITE","VACANTE","42042030","ROCIO NOHEMI QUIÃ‘ONES HERNANDEZ","Av. Paseo Triunfo de la RepÃºblica no.3340 1er piso, Edifico Atlantis, Col. Partido Romero, CP 32030, Cd. JuÃ¡rez Chihuahua","asatelite@profuturo.com.mx","01 656 173 12 09 / 12 10","profuturo1","0"
-"4","134","10_134_CHIHUAHUA_42040670","NOROESTE","CHIHUAHUA","FRANCO MARTOS MAYRA JANETT","42040670","LAURA MINERVA FERNANDEZ DAVILA","Av. las AmÃ©ricas no. 1601,  col. Panamericana, CP 31210, Chihuahua Chihuahua","achihuahua@profuturo.com.mx","01 614 545 05 04 / 05 03","profuturo1","0"
-"5","135","10_135_CHIHUAHUA VILLA_42042270","NOROESTE","CHIHUAHUA VILLA","VACANTE","42042270","LAURA MINERVA FERNANDEZ DAVILA","Av. las AmÃ©ricas no. 1601,  col. Panamericana, CP 31210, Chihuahua Chihuahua","a.chihuahua@profuturo.com.mx","01 614 545 05 06 / 05 05 ","profuturo1","0"
-"6","136","10_136_CULIACAN_42060710","NOROESTE","CULIACAN","ANGULO MACHADO JAVIER ALFREDO","42060710","CINTHIA AYALA RENDON","Av. Insurgentes sur 847 local  1 y 2, col. Centro, CP 80000, CuliacÃ¡n Sin. ","aculiacan@profuturo.com.mx","01 667 717 93 13 / 83 06","Culiacan1","1"
-"7","137","10_137_CULIACAN HUMAYA_42062560","NOROESTE","CULIACAN HUMAYA","GALINDO HERALDEZ BRENDA","42062560","CINTHIA AYALA RENDON","Av. Insurgentes sur 847 local  1 y 2, col. Centro, CP 80000, CuliacÃ¡n Sin. ","ahumaya@profuturo.com.mx","01 667 714 90 37","Humaya1","1"
-"8","138","10_138_DURANGO_42008010","NOROESTE","DURANGO","LOZANO RODRIGUEZ JOSE GERARDO","42008010","LILI CITALLI HERNANDEZ GUROLA","20 De Noviembre ote #2010 ""B"", Col Guillermina, CP 34270, Durango Durango","adurango@profuturo.com.mx"," 01 618 829 71 42/ 618 817 99 37/ 618  829 74 03/ 618 829 66 80","Corazon05**","1"
-"9","139","10_139_JUAREZ CHAMIZAL_42067010","NOROESTE","JUAREZ CHAMIZAL","ARIAS VILLALOBOS JOAQUIN ALEJANDRO","42067010","ROCIO NOHEMI QUIÃ‘ONES HERNANDEZ","Av. Paseo Triunfo de la RepÃºblica no.3340 1er piso, Edifico Atlantis, Col. Partido Romero, CP 32030, Cd. JuÃ¡rez Chihuahua","ajchamizal01@profuturo.com.mx","01 656 173 12 05","profuturo1","0"
-"10","140","10_140_JUAREZ PASO DEL NORTE_42067020","NOROESTE","JUAREZ PASO DEL NORTE","GONZALEZ VILLAGRANA OSCAR","42067020","SAN JUANA OÃ‘ATE MACIAS ","Av. Paseo Triunfo de la RepÃºblica no.3340 1er piso, Edifico Atlantis, Col. Partido Romero, CP 32030, Cd. JuÃ¡rez Chihuahua","ajpasodelnorte@profuturo.com.mx","01 656 173 12 11","profuturo1","0"
-"11","143","10_143_TORREON_43070870","NOROESTE","TORREON","VILLARREAL PADILLA EMILIO","43070870","MARIA DEL REFUGIO GOMEZ MEDRANO","Bvld. Independencia no.851, Col. Granjas San Isidro,  CP 27100, TorreÃ³n Coahuila","atorreon@profuturo.com.mx","01 871 717 19 49/ 1952/ 4282","005573","1"
-"12","144","10_144_TORREON COMARCA_42008000","NOROESTE","TORREON COMARCA","MURO ORTIZ BRENDA BERENICE","42008000","MARIA DEL REFUGIO GOMEZ MEDRANO","Bvld. Independencia no.851, Col. Granjas San Isidro,  CP 27100, TorreÃ³n Coahuila","atcomarca@profuturo.com.mx","01 871 732 05 54/ 732 05 55","005573","1"
-"13","146","11_146_MATAMOROS_43070820","NORTE","MATAMOROS","LEPE FELIX JOSE","43070820","BEATRIZ MENDOZA CABRERA","Av. Hidalgo 5 y 6 s/n local 6, col. Centro, CP 87300, Matamoros Tamps.","amatamoros@profuturo.com.mx","01 868 813 36 23 / 9820/ 4407","profuturo1","0"
-"14","147","11_147_MONTERREY CENTRO_43070940","NORTE","MONTERREY CENTRO","FLORES ACEVEDO MANUEL","43070940","ADRIANA ELIZABETH VAZQUEZ CHAVARRIA","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","alastorres@profuturo.com.mx","01 81 80 47 08 23 / 24 /25/26","profuturo1","0"
-"15","148","11_148_MONTERREY CUMBRES_43071820","NORTE","MONTERREY CUMBRES","PALACIOS SILVA YUNUE","43071820","ADRIANA ELIZABETH VAZQUEZ CHAVARRIA","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","alastorres@profuturo.com.mx","01 81 80 47 08 18 /19 /20 /21","profuturo1","0"
-"16","149","11_149_MONTERREY GUADALUPE_43070990","NORTE","MONTERREY GUADALUPE","ESCAMILLA FERNANDEZ JAVIER","43070990","ERIKA IVETTE PREISSER CASTILLO","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","amtycumbres@profuturo.com.mx","01 81 80 47 08 45 / 08 46 / 08 47/ 48 / 49","profuturo1","0"
-"17","150","11_150_MONTERREY LAS TORRES_43076950","NORTE","MONTERREY LAS TORRES","RIVAS DE ALBA SHELBY","43076950","NORMA ALICIA SANCHEZ GARZA","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","amtcentro@profuturo.com.mx","01 81 80 47 08 09 /10 /11 /12","profuturo1","0"
-"18","151","11_151_MONTERREY SAN NICOLAS_43071830","NORTE","MONTERREY SAN NICOLAS","GONZALEZ GARCIA CECILIA GUADALUPE","43071830","NORMA ALICIA SANCHEZ GARZA","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","amtcentro@profuturo.com.mx","01 81 80 47 08 05 /06 /07 /08","profuturo1","0"
-"19","152","11_152_MONTERREY SAN PEDRO_43070980","NORTE","MONTERREY SAN PEDRO","DE LA GARZA HARO OSCAR","43070980","MARCELA TREVIÃ‘O VILLAREAL","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","asanpedro@profuturo.com.mx","01 81 80 47 08 31/ 32/33/34/35","profuturo1","0"
-"20","153","11_153_MONTERREY SULTANA_43072470","NORTE","MONTERREY SULTANA","GONZALEZ ORTIZ ISMAEL","43072470","MARCELA TREVIÃ‘O VILLAREAL","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","asanpedro@profuturo.com.mx","01 81 80 47 08 14 / 15 / 16 /17","profuturo1","0"
-"21","154","11_154_MONTERREY TECNOLOGICO_43078030","NORTE","MONTERREY TECNOLOGICO","MALDONADO AVENDAÃ‘O ALFONSO","43078030","ERIKA IVETTE PREISSER CASTILLO","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","amtycumbres@profuturo.com.mx","01 81 80 47 08 73 / 74 /75 /76","profuturo1","0"
-"22","155","11_155_NUEVO LAREDO_43071441","NORTE","NUEVO LAREDO","LOPEZ REYNA ERENDIRA ELIZABETH ","43071441","ELSA ROUSSE GUTIERREZ GRANDINI","Avenida Paseo ColÃ³n nÃºm. 3554, Lote 7-A y fracciÃ³n del lote 7-B,  col. JardÃ­n 2Âª Secc. CP 88260, Nuevo Laredo Tamps. ","alaredo@profuturo.com.mx","01 867 889 12 81 196 / 95 18 691","profuturo1","0"
-"23","157","11_157_REYNOSA FRONTERA_43072510","NORTE","REYNOSA FRONTERA","GARCIA PADILLA HOMERO","43072510","MIGUEL ANGEL GALICIA HERNANDEZ","Av del Vergel n.700  Local F, Fraccionamiento Valle del Vergel Reynosa Tamaulipas CP 88730","areynosa@profuturo.com.mx","01899 9518128 / 84 59","profuturo1","0"
-"24","158","11_158_SALTILLO_43070910","NORTE","SALTILLO","CRUZ FLORES MARIA GUADALUPE","43070910","LETICIA AIDE VALDES FUENTES","Avenida San Ãngel No. 240, Modulo B Primer Piso (Plaza San Angel) Fraccionamiento Rancho la PeÃ±a, CP 25210 Saltillo, Coahuila ","asaltillo@profuturo.com.mx","01 844 485 17 59 / 17 63","profuturo1","0"
-"25","159","11_159_SALTILLO MONTERREAL_43078050","NORTE","SALTILLO MONTERREAL","RAMIREZ ALVARADO GUILLERMO","43078050","LETICIA AIDE VALDES FUENTES","Avenida San Ãngel No. 240, Modulo B Primer Piso (Plaza San Angel) Fraccionamiento Rancho la PeÃ±a, CP 25210 Saltillo, Coahuila ","asaltillo@profuturo.com.mx","01 844 485 17 82 / 17 78","profuturo1","0"
-"26","115","9_115_MONTERREY CHIPINQUE_43072090","NORESTE","MONTERREY CHIPINQUE","BOTTI TREVIÃ‘O LEIMMY LILIANA ","43072090","IGNACIO ENRIQUE MORALES NAVARRO","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gchipinque@profuturo.com.mx","01 81 80 47 08 50 / 08 51 / 08 52","profuturo1","0"
-"27","116","9_116_MONTERREY FUNDIDORA_43072440","NORESTE","MONTERREY FUNDIDORA","VACANTE","43072440","ENRIQUE MONTAÃ‘O RODRIGUEZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","amtyfundidora@profuturo.com.mx","01 81 80 47 08 28/ 29 /30","profuturo1","0"
-"28","117","9_117_MONTERREY LEONES_43073030","NORESTE","MONTERREY LEONES","MADERO GONZALEZ CECILIA MARIA","43073030","ROCIO SILVA ORTIZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gmtyleones@profuturo.com.mx","01 81 80 47 08 59 /08 60 /08 61","profuturo1","0"
-"29","118","9_118_MONTERREY MITRAS_43073020","NORESTE","MONTERREY MITRAS","FLORES LOPEZ FABIOLA","43073020","YOLANDA MARTINEZ RODRIGUEZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gmtymitras@profuturo.com.mx","01 81 80 47 08 68 / 69 /70/71","profuturo1","0"
-"30","119","9_119_MONTERREY SANTA LUCIA_43072130","NORESTE","MONTERREY SANTA LUCIA","CUELLAR PEREZ MIGUEL ANGEL","43072130","MIRTHALA ARACELY GUTIERREZ GUTIERREZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gsantalucia@profuturo.com.mx","01 81 80 47 08 46 /47 / 48 / 49","profuturo1","0"
-"31","120","9_120_MONTERREY SENDERO_43073010","NORESTE","MONTERREY SENDERO","ALMODOVAR ESCAREÃ‘O CYNTHIA LORENA","43073010","  MIRTHALA ARACELY GUTIERREZ GUTIERREZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gmtysendero@profuturo.com.mx","01 81 80 47 08 63 /08 64 /08 65/ 66 /67","profuturo1","0"
-"32","121","9_121_MONTERREY VALLE ALTO_43073040","NORESTE","MONTERREY VALLE ALTO","CISNEROS GONZALEZ LUIS GERARDO","43073040","YOLANDA MARTINEZ RODRIGUEZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gmtyvallealto@profuturo.com.mx","01 81 80 47 08 77 / 78 / 79 / 80 ","profuturo1","0"
-"33","122","9_122_MONTERREY VOLCAN_43078040","NORESTE","MONTERREY VOLCAN","CRUZ PEREZ MARGARITA DEL ROSARIO","43078040","ROCIO SILVA ORTIZ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","gmtyvolcan@profuturo.com.mx","01 81 80 47 08 55 / 08 56 / 08 57/ 58","profuturo1","0"
-"34","124","9_124_SAN LUIS POTOSI_48260460","NORESTE","SAN LUIS POTOSI","LOPEZ GARCIA LUIS GERARDO","48260460","PRISCILA RODRIGUEZ MARTINEZ","Av. Perfecto Amezquita No. 105, Fracc. Tangamanga, CP 78269, San LuÃ­s PotosÃ­ SLP.","asanluis@profuturo.com.mx","01 444 811 06 71/0805","profuturo1","0"
-"35","125","9_125_SAN LUIS POTOSI HUASTECA_43072520","NORESTE","SAN LUIS POTOSI HUASTECA","MONSIVAIS MARTINEZ KIRYAT JEARIM","43072520","PRISCILA RODRIGUEZ MARTINEZ","Av. Perfecto Amezquita No. 105, Fracc. Tangamanga, CP 78269, San LuÃ­s PotosÃ­ SLP.","ahuasteca@profuturo.com.mx","01 444 811  83 33 /9850","profuturo1","0"
-"36","126","9_126_SLP TANGAMANGA_45008140","NORESTE","SLP TANGAMANGA","RIQUELME HERNANDEZ ALEJANDRO","45008140","ROSALBA REBOLLEDO SOLORZANO","Av. Perfecto Amezquita No. 105, Fracc. Tangamanga, CP 78269, San LuÃ­s PotosÃ­ SLP.","atangamanga@profuturo.com.mx","01 444 811 99 49 / 811 08 48","profuturo1","0"
-"37","127","9_127_TAMPICO_43070850","NORESTE","TAMPICO","LOPEZ FRANCO JOSE DAVID","43070850","MARTINA SANCHEZ GOMORA","Av. Hidalgo 2808 local 5 entre Robles y Fresnos, col. Ãguila, CP 89230, Tampico Tamps.","atampico@profuturo.com.mx","01 833 213 66 89/83","profuturo1","0"
-"38","128","9_128_TAMPICO ALTAMIRA_43072530","NORESTE","TAMPICO ALTAMIRA","VALLE GAYTAN GASPAR","43072530","MARTINA SANCHEZ GOMORA","Av. Hidalgo 2808 local 5 entre Robles y Fresnos, col. Ãguila, CP 89230, Tampico Tamps.","ataltamira@profuturo.com.mx","01 833 213 66 89","profuturo1","0"
-"39","129","9_129_UNIDAD VTAS CD. VICTORIA_43071442","NORESTE","UNIDAD VTAS CD. VICTORIA","UNIDAD VENTAS","43071442","AGLAHE BERENICE NARVAEZ SANCHEZ","CristÃ³bal ColÃ³n # 934, L5 y L11, Colonia Morelos  C.P. 87050, Ciudad Victoria, Tamaulipas","acdvictoria@profuturo.com.mx","01 834 30 59 682 / 788","profuturo1","0"
-"40","2","1_002_CD. OBREGON_42060620","BAJA CALIFORNIA","CD. OBREGON","PADILLA DUEÃ‘AS ALFREDO","42060620","LILIANA MARISOL LEAL MORONES","Av. Miguel AlemÃ¡n 219 sur entre av. Guerrero y No ReelecciÃ³n, col Centro, CP 85000, Ciudad ObregÃ³n Sonora","aobregon@profuturo.com.mx","01 644 413 52 55/52 64/ 8781","profuturo1","0"
-"41","3","1_003_ENSENADA_42042120","BAJA CALIFORNIA","ENSENADA","SANDOVAL BERMUDEZ JOSE IVAN","42042120","INES MARIA PEREZ SOTO","Calle Cuarta y Floresta 1429-3, Col Obrera, CP 22830, Ensenada BC","aensenada@profuturo.com.mx","01 646 176 4633/ 176 08 80","profuturo1","0"
-"42","4","1_004_HERMOSILLO_42060590","BAJA CALIFORNIA","HERMOSILLO","VILLASEÃ‘OR YEME CLAUDIA FABIOLA","42060590","ALEJANDRO RUBIO LOPEZ","Blvd. Kino no. 402, col. Pitic, cp 83150, Hermosillo, Sonora.","ahermosillo@profuturo.com.mx","01 662 285 58 88/01 662 2855874/01 662 2855890","Salma22**","1"
-"43","5","1_005_HERMOSILLO PITIC_42062500","BAJA CALIFORNIA","HERMOSILLO PITIC","NAVARRO IBARRA PABLO IVAN ","42062500","ALEJANDRO RUBIO LOPEZ","Blvd. Kino no. 402, col. Pitic, cp 83150, Hermosillo, Sonora.","apitic@profuturo.com.mx","01 662 212 2107/ 212 2253","profuturo1","0"
-"44","6","1_006_ILIADA MEXICALI_42040802","BAJA CALIFORNIA","ILIADA MEXICALI","MARQUEZ ORTIZ JOSE JULIAN","42040802","NIRVANA COLLAZO MARQUEZ","Venustiano Carranza 292, Lte 6 Mza 16, Fracc. Jardines, CP 21270, Mexicali BC","ailiada.mexicali@profuturo.com.mx","01 686 838 83 85/83 86/87","Comar14**","1"
-"45","7","1_007_LA PAZ_42040900","BAJA CALIFORNIA","LA PAZ","PADILLA HERNANDEZ ANA ISABEL","42040900","LUZ MARIA ALVARADO TELLEZ","BLVD Constituyentes de 1975  #4120 Locales S34 Y S35, Colonia Sector Inalapa CP 23098 La Paz, Baja California Sur, MÃ©xico","alapaz2@profuturo.com.mx","01 612 146 27 50","profuturo1","0"
-"46","8","1_008_MEXICALI_42040800","BAJA CALIFORNIA","MEXICALI","CASTELLANOS CARDENAS EMILIO CARLOS","42040800","EDNA LORENA RAMIREZ ESPINOSA","Venustiano Carranza 292, Lte 6 Mza 16, Fracc. Jardines, CP 21270, Mexicali BC","amexicali@profuturo.com.mx","01 686 838 83 81/8382/83","Delval16++","1"
-"47","9","1_009_MEXICALI IMPERIAL_42047060","BAJA CALIFORNIA","MEXICALI IMPERIAL","VIVEROS FONG CHOY JUAN ALBERTO","42047060","NIRVANA COLLAZO MARQUEZ","Venustiano Carranza 292, Lte 6 Mza 16, Fracc. Jardines, CP 21270, Mexicali BC","amimperial@profuturo.com.mx","01 686 838 83 89/8390/91","Comar14**","1"
-"48","10","1_010_NOGALES_42060610","BAJA CALIFORNIA","NOGALES","PERALTA SANTOS JESUS","42060610","NORMA IRENE ACOSTA GARCIA","Blvd. El Greco 26 Loc 9 Pza. Comercial Kalitea, El Greco, CP 84066, Nogales Sonora","anogales@profuturo.com.mx","01 631 313 23 36/39 74/28 33","profuturo1","0"
-"49","11","1_011_TIJUANA CACHANILLA_42041800","BAJA CALIFORNIA","TIJUANA CACHANILLA","ORTIZ QUIÃ‘ONES MA. DEL CARMEN","42041800","VICTOR MANUEL HERNANDEZ RUIZ","Paseo de los HÃ©roes #2410 Esquina Clemente Orozco Col. Zona Rio de la Ciudad de Tijuana S/N Edificio Paseo Palmas locales 102 y 400 CP 22230","acachanilla@profuturo.com.mx","01 664 700 46 49 / 50/ 51","TIjuana2014**","1"
-"50","12","1_012_TIJUANA INDUSTRIAL_42042020","BAJA CALIFORNIA","TIJUANA INDUSTRIAL","SALGADO GARCIA LUIS","42042020","LILIANA LORENA MORAN GUERRERO","Paseo de los HÃ©roes #2410 Esquina Clemente Orozco Col. Zona Rio de la Ciudad de Tijuana S/N Edificio Paseo Palmas locales 102 y 400 CP 22230","aindustrial@profuturo.com.mx","01 664  700 46 40 / 41 / 42","profuturo1","0"
-"51","14","1_014_TIJUANA INSURGENTES_42042110","BAJA CALIFORNIA","TIJUANA INSURGENTES","FLORES GOMEZ GABRIEL EDUARDO","42042110","GUADALUPE MARTINEZ SANCHEZ","Paseo de los HÃ©roes #2410 Esquina Clemente Orozco Col. Zona Rio de la Ciudad de Tijuana S/N Edificio Paseo Palmas locales 102 y 400 CP 22230","ainsurgentes@profuturo.com.mx","01 664 700 46 56 / 57 / 58","profuturo1","0"
-"52","15","1_015_TIJUANA PLAYAS_42047050","BAJA CALIFORNIA","TIJUANA PLAYAS","FLORES ESPINOZA MABEL","42047050","LILIANA LORENA MORAN GUERRERO","Paseo de los HÃ©roes #2410 Esquina Clemente Orozco Col. Zona Rio de la Ciudad de Tijuana S/N Edificio Paseo Palmas locales 102 y 400 CP 22230","atplayas@profuturo.com.mx","01 664 700 46 44 / 45 / 46","profuturo1","0"
-"53","16","1_016_TIJUANA RIO_42040750","BAJA CALIFORNIA","TIJUANA RIO","BLANCO BALDENEBRO ANA LILIA ","42040750","VICTOR MANUEL HERNANDEZ RUIZ","Paseo de los HÃ©roes #2410 Esquina Clemente Orozco Col. Zona Rio de la Ciudad de Tijuana S/N Edificio Paseo Palmas locales 102 y 400 CP 22230","ario@profuturo.com.mx","01 664 700 46 53 / 54 / 55","profuturo1","0"
-"54","160","12_160_ARANDAS_48262670","OCCIDENTE","ARANDAS","COTA ARMENTA MARTIN","48262670"," BRENDA VIRIDIANA VALDEZ AGUAYO"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","agarandas@profuturo-gnp.com.mx","01 33 38 82 60 50 / 60 54","profuturo1","0"
-"55","163","12_163_CHAPALA_48008340","OCCIDENTE","CHAPALA","ZERMEÃ‘O MARQUEZ HECTOR","48008340","LILIANA HERNANDEZ SAENZ"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","agchapala@profuturo-gnp.com.mx","01 33 38 82 60 41 / 60 44","profuturo1","0"
-"56","164","12_164_COLIMA_48262210","OCCIDENTE","COLIMA","ZAPIEN ROBLES MANUEL","48262210","MARIA MARGARITA CEBALLOS LOPEZ","Vicente Guerrero 610 Local 4, col. Centro, CP 28000, Colima ","acolima@profuturo.com.mx","01 312 313 50 90/5454","profuturo1","0"
-"57","165","12_165_COUNTRY CLUB_48268150","OCCIDENTE","COUNTRY CLUB","ALCARAZ TORRES GEMA","48268150","LILIANA HERNANDEZ SAENZ"," Av. Chapultepec Norte no. 15, piso 14, col. LadrÃ³n de Guevara, Guadalajara Jalisco","afcountryclub@profuturo-gnp.com.mx","01 33 38 82 60 45 / 46/47/48","profuturo1","0"
-"58","166","12_166_EL SALTO_48262460","OCCIDENTE","EL SALTO","AMAR MARTINEZ ANUAR","48262460","MONICA MERCEDES DE ANDA SANDOVAL"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","aelsalto@profuturo-gnp.com.mx","01 33 38 82 60 58 / 60 62","profuturo1","0"
-"59","167","12_167_GUADALAJARA AJIJIC_48262650","OCCIDENTE","GUADALAJARA AJIJIC","MORA QUINTERO JAIRO GABRIEL","48262650","JUAN PABLO SILVA LOPEZ"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","agajijic@profuturo-gnp.com.mx","01 33 38 82 60 35 / 60 40","profuturo1","0"
-"60","168","12_168_GUADALAJARA CENTRO_48262000","OCCIDENTE","GUADALAJARA CENTRO","FLORES DE LA TORRE BARDO MILENKO","48262000","ODETTE GUADALUPE CORONA PRUNEDA"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","acentro@profuturo-gnp.com.mx","01 33 38 82 60 31 / 60 40","profuturo1","0"
-"61","169","12_169_GUADALAJARA MINERVA_48262610","OCCIDENTE","GUADALAJARA MINERVA","GARDUÃ‘O MORA GABRIEL","48262610","MONICA MERCEDES DE ANDA SANDOVAL"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","aminerva@profuturo-gnp.com.mx","01 33 38 82 60 20 / 60 26","profuturo1","0"
-"62","170","12_170_GUADALAJARA PATRIA_48260520","OCCIDENTE","GUADALAJARA PATRIA","LOZANO JIMENEZ FABIAN","48260520","ODETTE GUADALUPE CORONA PRUNEDA"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","apatria@profuturo-gnp.com.mx","01 33 38 82 60 15 / 60 19","profuturo1","0"
-"63","171","12_171_GUADALAJARA TLAQUEPAQUE_48260500","OCCIDENTE","GUADALAJARA TLAQUEPAQUE","GREEN NUÃ‘O JUAN CARLOS","48260500","JUAN PABLO SILVA LOPEZ"," Av. Chapultepec Norte no. 15, piso 12, col. LadrÃ³n de Guevara, Guadalajara Jalisco","atlaquepaque@profuturo-gnp.com.mx","01 33 38 82 60 27 / 60 30","profuturo1","0"
-"64","172","12_172_GUADALAJARA TONALA_48262620","OCCIDENTE","GUADALAJARA TONALA","ISLAS QUIROZ JUAN MANUEL","48262620","ANA CECILIA ARREOLA MONTALVO"," Av. Chapultepec Norte no. 15, piso 14, col. LadrÃ³n de Guevara, Guadalajara Jalisco","atonala@profuturo-gnp.com.mx","01 33 38 82 60 12 / 60 19","profuturo1","0"
-"65","173","12_173_JALISCO_48262220","OCCIDENTE","JALISCO","VARGAS GONZALEZ ALAIN GUILLERMO","48262220","ANA CECILIA ARREOLA MONTALVO"," Av. Chapultepec Norte no. 15, piso 14, col. LadrÃ³n de Guevara, Guadalajara Jalisco","ajalisco@profuturo-gnp.com.mx","01 33 38 82 60 23 / 60 26","profuturo1","0"
-"66","174","12_174_MAZATLAN_42062040","OCCIDENTE","MAZATLAN","VALDEZ ARGUELLES LUCIA","42062040","BIVIANA GUTIERREZ VALDEZ","Av. del Mar 540, Fracc. TellerÃ­a, CP 82017, MazatlÃ¡n Sin. ","amazatlan@profuturo.com.mx","01 669 985 00 43 /42/67","ALEJANDRO01*","1"
-"67","176","12_176_TEPIC_42062060","OCCIDENTE","UNIDAD DE VENTAS TEPIC","UNIDAD VENTAS","42062060","JOHANA SANCHEZ CHAVEZ","Avenida Insurgentes No. 127-A, entre las calles Padre Enrique MejÃ­a (URES) y San Luis en la Zona Centro de la Ciudad de Tepic, Nayari CP 63000","atepic@profuturo.com.mx","01 311 133 55 18","profuturo1","0"
-"68","177","12_177_VALLARTA_42062050","OCCIDENTE","VALLARTA","NUÃ‘EZ ARREDONDO RENE GABRIEL","42062050","BEATRIZ MEDINA","Local Comercial SUB-B3 Plaza Comercial PENINSULA, Francisco Median Ascencio #2485, Rio Pitillal, Zona Hotelero Norte CP 48333, Puerto Vallarta, Jalisco.","avallarta@profuturo-gnp.com.mx","01 322 22 13 119","profuturo1","0"
-"69","17","2_017_AGUASCALIENTES_48260430","CENTRO","AGUASCALIENTES","PEREZ CHAVEZ FLOR ELIZABETH","48260430","MARTHA ALICIA HERNANDEZ GONZALEZ","Av Convenciones de 1914 Sur 1401 esq. Ayuntamiento, col. Jardines de las Fuentes, CP 20278, Aguascalientes Ags. ","aaguascalientes@profuturo.com.mx","01 449 978 14 62/3826","profuturo1","0"
-"70","19","2_019_BAJIO_48262260","CENTRO","BAJIO","MENDOZA GARCIA CARLOS ALAN","48262260","SILVIA MONROY TORRES ","Boulevard Vasco de Quiroga no. 101, esq. Blvd. Adolfo LÃ³pez Mateos, int. 508-509, col. Los Gavilanes, CP37270, LeÃ³n Gto. ","gbajio@profuturo.com.mx","01 477 3430604","profuturo1","0"
-"71","22","2_022_CELAYA_48260310","CENTRO","CELAYA","BRIONES CONTRERAS MANUEL ANTONIO","48260310","MARICELA BETANCOURT LUNA","Blvd Adolfo LÃ³pez Mateos 1401 pte. col. Renacimiento, CP 38040, Celaya Gto. ","gcelaya@profuturo.com.mx","01 461 615 58 38/6943","profuturo1","0"
-"72","23","2_023_CORREGIDORA_48260281","CENTRO","CORREGIDORA","GONZALEZ LOZADA WARENKA LEONOR","48260281","VACANTE","Av. Ejercito Republicano no. 121 3er piso, col. Carretas, CP 76050, QuerÃ©taro Qro. ","acorregidora@profuturo.com.mx","01 442 248 01 12/13/14","profuturo1","0"
-"73","24","2_024_GUANAJUATO_48262680","CENTRO","GUANAJUATO","SALDAÃ‘A GONZALEZ ALICIA","48262680","SILVIA MONROY TORRES ","Boulevard Vasco de Quiroga no. 101, esq. Blvd. Adolfo LÃ³pez Mateos, col. Los Gavilanes, CP37270, LeÃ³n Gto. ","abajio@profuturo.com.mx","01 477 3430604","profuturo1","0"
-"74","25","2_025_IRAPUATO_48260330","CENTRO","IRAPUATO","ESPARZA SIMONI KARLA","48260330","IRIS ERENDIDA RAMOS GONZALEZ","Prol. Av. Guerrero 2001 esq. av. 5 Edif. Byblos PB, col. GÃ¡mez, CP 36650, Irapuato Gto. ","airapuato@profuturo.com.mx","01 462 624 16 07 /1628","profuturo1","0"
-"75","26","2_026_LEON_48260350","CENTRO","LEON","VALDES CALLEJA CARLOS","48260350","PATRICIA  VERENICE TORRES SOSA","Boulevard Vasco de Quiroga no. 101, esq. Blvd. Adolfo LÃ³pez Mateos, int. 508-509, col. Los Gavilanes, CP37270, LeÃ³n Gto. ","gleon@profuturo.com.mx","01 477 3430610","profuturo1","0"
-"76","27","2_027_MORELIA MONARCA_47102590","CENTRO","MORELIA MONARCA","MARQUEZ MORA EMMANUEL","47102590","CELESTE VAZQUEZ VILLICAÃ‘A","Av. Camelinas No. 2139-A Lote 10, Manzana 24, col. Camelinas, CP 58290, Morelia Mich.","amonarca@profuturo.com.mx","01 443 314 76 47 / 57 93","profuturo1","0"
-"77","28","2_028_QUERETARO_48260280","CENTRO","QUERETARO","FERNANDEZ VERA MIGUEL ANGEL","48260280","DORA EMILIA FERRER ROBLES","Av. Ejercito Republicano no. 121 3er piso, col. Carretas, CP 76050, QuerÃ©taro Qro. ","aqueretaro@profuturo.com.mx","01 442 223 58 31/4946/5839","profuturo1","0"
-"78","29","2_029_QUERETARO ACUEDUCTO_48262630","CENTRO","QUERETARO ACUEDUCTO","ORTEGA ESTRADA RODRIGO","48262630","DORA EMILIA FERRER ROBLES","Av. Ejercito Republicano no. 121 3er piso, col. Carretas, CP 76050, QuerÃ©taro Qro. ","aqacueducto@profuturo.com.mx","01 442 248 18 41/ 20 27","profuturo1","0"
-"79","30","2_030_QUERETARO ARCOS_48262640","CENTRO","QUERETARO ARCOS","NAVA ARMANDO","48262640","VACANTE","Av. Ejercito Republicano no. 121 3er piso, col. Carretas, CP 76050, QuerÃ©taro Qro. ","aqarcos@profuturo.com.mx","01 442 223 40 06/ 248 20 27 / 248 2113","profuturo1","0"
-"80","32","2_032_SAN MARCOS_43072450","CENTRO","SAN MARCOS","FERNANDEZ ROSALES PAMELA ELIZABETH","43072450","MARTHA ALICIA HERNANDEZ GONZALEZ","Av Convenciones de 1914 Sur 1401 esq. Ayuntamiento, col. Jardines de las Fuentes, CP 20278, Aguascalientes Ags. ","asan.marcos@profuturo.com.mx","01 449 978 14 62/3826","profuturo1","0"
-"81","33","2_033_ZACATECAS_48260470","CENTRO","ZACATECAS","LOPEZ HERNANDEZ NAHUI OLLIN","48260470","CECILIA RAMOS CASTRO","Calzada HÃ©roes de Chapultepec,  Locales Â 4 y 5 (PLAZA SCALA)  Colonia Luis Donaldo Colosio, Zona 5, Manzana 53 CP98046, en la Ciudad de Zacatecas, Zac.","azacatecas@profuturo.com.mx","01 492 922 44 93","profuturo1","0"
-"82","188","15_188_Atlixco_41018343","SURESTE","ATLIXCO","EZQUER LAU MARIANO EVERARDO","41018343","Mirna Perez","Blvd. Libramiento San Juan 2702 PB, Mezzanine y P4, Col AmpliaciÃ³n Reforma Sur, CP 72160, Puebla Pue.","APUEBLA@profuturo.com.mx",,"profuturo1","0"
-"83","189","15_189_CAMPECHE_41017060","SURESTE","CAMPECHE","DEL VALLE RODRIGUEZ DANIELA","41017060","ARELY GUADALUPE PECH MOO","Avenida Maria Lavalle Urbina #13 Locales 201-203, Sector Fundadores, Area Ah â€“ Kim- Pech, C.P. 24010, San Francisco de Campeche, Campeche","acampeche@profuturo.com.mx","01 981 811 12 27","profuturo1","0"
-"84","190","15_190_CANCUN_41010090","SURESTE","CANCUN","BARROS PICAZO EDWIN IVAN","41010090","ALEJANDRA DEL PILAR CONCHA MORALES","Av TulÃºm 18 smzn 2 mzn 1 local  5 y 6, col. Centro, CP 77501, CancÃºn Quintana Roo","acancun@profuturo.com.mx","01 998 898 4252, 898 4163, 887 8436","profuturo1","0"
-"85","192","15_192_Cholula_41018342","SURESTE","CHOLULA","CAMACHO BONIFAZ FILIDA DE JESUS","41018342","Paola Samaniego","Blvd. Libramiento San Juan 2702 PB, Mezzanine y P4, Col AmpliaciÃ³n Reforma Sur, CP 72160, Puebla Pue.","ACHOLULA@profuturo.com.mx","222Â 3030101","profuturo1","0"
-"86","193","15_193_COATZACOALCOS_41010160","SURESTE","COATZACOALCOS","OSORIO VASQUEZ EDUARDO ARTURO","41010160","BEATRIZ SELENE DELGADO ZUÃ‘IGA","GutiÃ©rrez Zamora #325, Colonia Centro, C.P. 96400, Coatzacoalcos Ver. ","acoatzacoalcos@profuturo.com.mx","01 921 212 39 80/95 96","profuturo1","0"
-"87","194","15_194_COSTA DEL SOL_41010143","SURESTE","COSTA DEL SOL","DIAZ MACHORRO CAROLINA JANET","41010143","CARMEN ARELY VALENZUELA MEZA","Blvd. Adolfo Ruiz Cortines # 5 y 6 mz-26,  col. Costa de Oro, C.P.94299, Boca del RiÃ³ Ver.","averacruz.traspasos@profuturo.com.mx","01 229 927 33 32/ 33 34/33 36","profuturo1","0"
-"88","195","15_195_GRIJALVA_41010020","SURESTE","GRIJALVA","FERNANDEZ ENRIQUEZ JESSICA MARIA","41010020",,"Avenida de los rÃ­os no 232-a 3er piso,  fracc. Tabasco 2000,  cp 86035, Villahermosa, Tabasco","agrijalva@profuturo.com.mx","01 993 316 8573 / 88 66","profuturo1","0"
-"89","197","15_197_MERIDA_41010070","SURESTE","MERIDA","FRIAS LOPEZ FELIPE DE JESUS ","41010070","ADRIANA DE JESUS ESTRELLA MENDEZ","Paseo Montejo 443-A entre 29 Y 33 Frente Esc. Modelo, col. Centro, CP 97000, MÃ©rida Yuc. ","amerida@profuturo.com.mx","01 999 920 63 68 / 90 18","profuturo1","0"
-"90","198","15_198_MERIDA MONTEJO_41012540","SURESTE","MERIDA MONTEJO","DIAZ RUIZ SAMUEL","41012540","ADRIANA DE JESUS ESTRELLA MENDEZ","Paseo Montejo 443-A entre 29 Y 33 Frente Esc. Modelo, col. Centro, CP 97000, MÃ©rida Yuc. ","ammontejo@profuturo.com.mx","01 999 920 63 37 / 63 38","profuturo1","0"
-"91","202","15_202_TULUM_41017040","SURESTE","TULUM","SILVA FERNANDEZ MARIA BELEM","41017040","ALEJANDRA DEL PILAR CONCHA MORALES","Av TulÃºm 18 smzn 2 mzn 1 local  5 y 6, col. Centro, CP 77501, CancÃºn Quintana Roo","a.tulum@profuturo.com.mx","01 998 898 42 52 / 41  63","profuturo1","0"
-"92","203","15_203_TUXTLA GUTIERREZ_41010050","SURESTE","TUXTLA GUTIERREZ","ROJAS BLANCO ELVIA","41010050","MA EUGENIA VAZQUEZ ALBORES","Calle 6a Sur pte. 1248 Piso 1 Entre 11 Y 12 pte. col. La Lomita, CP 29060, Tuxtla GutiÃ©rrez Chis. ","atuxtla@profuturo-gnp.com.mx","01 961 611 47 81/47 83","profuturo1","0"
-"93","204","15_204_VERACRUZ_41010140","SURESTE","VERACRUZ","JIMENEZ  SOLIS JESSICA","41010140","EVA GONZALEZ MARTINEZ","Blvd. Adolfo Ruiz Cortines # 5 y 6 mz-26,  col. Costa de Oro, C.P.94299, Boca del RiÃ³ Ver.","averacruz@profuturo.com.mx","01 229 927 33 28/ 3329/ 3341","profuturo1","0"
-"94","99","8_099_ALTAVISTA_46008070","METRO SUR","ALTAVISTA","CONTRERAS BEST MAURICIO","46008070","VACANTE","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","aaltavista@profuturo.com.mx","17 19 10 06 / 10 18","Vero120497*+","1"
-"95","100","8_100_BARRANCA_46008090","METRO SUR","BARRANCA","CAMACHO GUILLEN RODRIGO ALONSO","46008090","LUZ MARIA LOPEZ GUEVARA","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","ANHEROES@profuturo.com.mx","17 19 10 02 / 10 12","profuturo1","0"
-"96","101","8_101_CHIMALISTAC_44093020","METRO SUR","CHIMALISTAC","VELASCO HERNANDEZ ALBERTO ENRIQUE","44093020","VACANTE","Av. insurgentes sur 2047 PA, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","aaltavista@profuturo.com.mx","17 19 10 06 / 10 18","profuturo1","0"
-"97","102","8_102_COYOACAN_44091210","METRO SUR","COYOACAN","PEREZ PEÃ‘AFIEL CESAR","44091210","ITZEL GUTIERREZ CASTILLO","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","acoyoacan@profuturo.com.mx","17 19 10 05/ 10 19","profuturo1","0"
-"98","103","8_103_CUERNAVACA_44091050","METRO SUR","CUERNAVACA","YEE RAMOS JAVIER","44091050","SILVIA ESTHER GARCIA RODRIGUEZ","Av de los cincuenta metros n.- 100 Col. Villas Deportivas Cuernavaca Morelos. (Condominio Corporativo Cuernavaca del Lago).","acuernavaca@profuturo.com.mx","01 777 17 15 490/ 492/493","profuturo1","0"
-"99","104","8_104_CUERNAVACA MORELOS_44092580","METRO SUR","CUERNAVACA MORELOS","SERRANO LOYO BLANCA","44092580","SILVIA ESTHER GARCIA RODRIGUEZ","Av de los cincuenta metros n.- 100 Col. Villas Deportivas Cuernavaca Morelos. (Condominio Corporativo Cuernavaca del Lago).","acmorelos@profuturo.com.mx","01 777 17 15 490/ 492/493","profuturo1","0"
-"100","105","8_105_DEL PARQUE_47103030","METRO SUR","DEL PARQUE","GARCIA ORTIZ JOSE","47103030","MARIA GUADALUPE SANDOVAL","Insurgentes Sur 546, col. Roma Sur, CP 06760, del. Cuauhtemoc, MÃ©xico D.F.","amtcentro@profuturo.com.mx","17 19 10 04 / 10 10","profuturo1","0"
-"101","106","8_106_MARINA NACIONAL_46007080","METRO SUR","MARINA NACIONAL","HERNANDEZ LOPEZ ELIZABETH","46007080","ITZEL GUTIERREZ CASTILLO","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","acoyoacan@profuturo.com.mx","17 19 10 05 / 10 21","profuturo1","0"
-"102","107","8_107_METRO CENTRO_44091530","METRO SUR","METRO CENTRO","DIAZ HERNANDEZ ALEJANDRO","44091530","MARIA GUADALUPE SANDOVAL","Av. insurgentes sur 2047 PA, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","amtcentro@profuturo.com.mx","17 19 10 04 / 10 10","profuturo1","0"
-"103","108","8_108_MIXCOAC_46008270","METRO SUR","MIXCOAC","MORALES PALMA SAUL","46008270","MARIA GUADALUPE SANDOVAL","Av. insurgentes sur 2047 PA, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","amtcentro@profuturo.com.mx","17 19 10 04 / 10 10","profuturo1","0"
-"104","109","8_109_NIÃ‘OS HEROES_46011770","METRO SUR","NIÃ‘OS HEROES","MORAN ALONSO GUILLERMO","46011770","LUZ MARIA LOPEZ GUEVARA","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","ANHEROES@profuturo.com.mx","17 19 10 06 / 10 20","profuturo1","0"
-"105","110","8_110_PATRIOTISMO_46008100","METRO SUR","PATRIOTISMO","VAZQUEZ JUAREZ EMMANUEL ERNESTO","46008100","ALEJANDRA ESPINOSA MORALES","Insurgentes Sur 546, col. Roma Sur, CP 06760, del. Cuauhtemoc, MÃ©xico D.F.","apatriotismo@profuturo.com.mx","52 65 10 39 /10 40","profuturo1","0"
-"106","112","8_112_SAN ANGEL_44091330","METRO SUR","SAN ANGEL","AVILA BASULTO GRACIELA BERENICE","44091330","INES CHOMBO CORIA","Av. insurgentes sur 2047 PA, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","asanangel@profuturo.com.mx","17 19 10 02 / 10 14","profuturo1","0"
-"107","113","8_113_SAN JERONIMO_47102420","METRO SUR","SAN JERONIMO","RIVERA RAMIREZ ANGELA","47102420","INES CHOMBO CORIA","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","asjeronimo@profuturo.com.mx","17 19 10 02 / 10 17","profuturo1","0"
-"108","114","8_114_TLALPAN_44091850","METRO SUR","TLALPAN","GUTIERREZ BUSTILLOS NORMA ANGELICA","44091850","LAURA VERONICA TORRES OLVERA","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","atlalpan@profuturo.com.mx","17 19 10 03/ 10 13","profuturo1","0"
-"109","54","5_054_ANAHUAC_44091630","METRO NORTE","ANAHUAC","GOMEZ AGUILAR CESAR","44091630","LAURA DIAZ SANTOS","PERIFERICO SUR 4118 0 JARDINES DEL PEDREGAL 01900","aanahuac@profuturo.com.mx","51356328","profuturo1","0"
-"110","55","5_055_ARAGON_46008220","METRO NORTE","ARAGON","LEMUS BERNAL CARLOS ALBERTO","46008220","GUADALUPE LOPEZ RUIZ","AV MONTEVIDEO 57 Y 63 TEPEYAC INSURGENTES 07020","aodiseamn@profuturo.com.mx","51181223","LORE00**","1"
-"111","58","5_058_CUENTAS ESPECIALES_46011750","METRO NORTE","CUENTAS ESPECIALES","FLORES GAITAN ARACELI XAVIERA ","46011750","LAURA DIAZ SANTOS","PERIFERICO SUR 4118 0 JARDINES DEL PEDREGAL 01900","aanahuac@profuturo.com.mx","51356328","profuturo1","0"
-"112","59","5_059_ILIADA METRO NORTE_47102310","METRO NORTE","ILIADA METRO NORTE","RODRIGUEZ CORTINA LUCIA","47102310","ELVIA RAMIREZ LOPEZ","AV MONTEVIDEO 57 Y 63 TEPEYAC INSURGENTES 07020","alindavista@profuturo.com.mx","51181218","profuturo1","0"
-"113","60","5_060_LAS ÃGUILAS_44093040","METRO NORTE","LAS AGUILAS","EGUIA MARTINEZ CLAUDIA CRISTINA","44093040","MAGDALENA MEDINA GUTIERREZ","Calz. de la Viga 398 Ofna C Jamaica 15800","alaguilas@profuturo.com.mx","57407586","profuturo1","0"
-"114","61","5_061_LINDAVISTA_47101370","METRO NORTE","LINDAVISTA","MARTINEZ MARTINEZ MARCOS SAID ","47101370","ELVIA RAMIREZ LOPEZ","AV MONTEVIDEO 57 Y 63 TEPEYAC INSURGENTES 07020","alindavista@profuturo.com.mx","51181216","profuturo1","0"
-"115","63","5_063_OLIMPO_47102280","METRO NORTE","OLIMPO","NERI REYES MARTHA PATRICIA","47102280","GUADALUPE LOPEZ RUIZ","AV MONTEVIDEO 57 Y 63 TEPEYAC INSURGENTES 07020","aodiseamn@profuturo.com.mx","51181223","profuturo1","0"
-"116","64","5_064_PALACIO_47103020","METRO NORTE","PALACIO","TOVAR GARCIA ANA JOCELYN","47103020","ANGELICA PAULINA GONZALEZ MARIN","AV INSURGENTES SUR 546 PB PISOS 3-8 ROMA SUR 06760","asantafe@profuturo.com.mx","52651049","profuturo1","0"
-"117","65","5_065_REFORMA_44092050","METRO NORTE","REFORMA","GUZMAN SOLIS GRISELDA","44092050","LAURA DIAZ SANTOS","PERIFERICO SUR 4118 0 JARDINES DEL PEDREGAL 01900","aanahuac@profuturo.com.mx","51356328","profuturo1","0"
-"118","66","5_066_ROMA_44091860","METRO NORTE","ROMA","SANCHEZ PACHECO BLANCA ESTELA","44091860","GRISELDA ZARATE RODRIGUEZ","AV INSURGENTES SUR 546 PB PISOS 3-8 ROMA SUR 06760","axola@profuturo.com.mx","52651022","profuturo1","0"
-"119","67","5_067_SANTA TERESA_44093030","METRO NORTE","SANTA TERESA","ROCHA RINCON LUIS FERNANDO","44093030","MARISOL GÃ“MEZ FLORES","AV INSURGENTES SUR 546 PB PISOS 3-8 ROMA SUR 06760","aviaducto@profuturo.com.mx","52651009","profuturo1","0"
-"120","68","5_068_VIADUCTO_46006940","METRO NORTE","VIADUCTO","GONZALEZ HERNANDEZ SONIA","46006940","MARISOL GÃ“MEZ FLORES","AV INSURGENTES SUR 546 PB PISOS 3-8 ROMA SUR 06760","aviaducto@profuturo.com.mx","52651009","profuturo1","0"
-"121","70","5_070_XOLA_46008080","METRO NORTE","XOLA","GONZAGA SANDOVAL ARACELI","46008080","ANGELICA PAULINA GONZALEZ MARIN","AV INSURGENTES SUR 546 PB PISOS 3-8 ROMA SUR 06760","asantafe@profuturo.com.mx","52651049","profuturo1","0"
-"122","57","5_057_CUAUTITLAN_47101120","METRO PONIENTE","CUAUTITLAN","GOMEZ QUIÃ‘ONES TOMAS","47101120"," NORMA ALEJANDRA CERON SANCHEZ","Guillermo Glez. Camarena 2, Pza. La Glorieta L 11 Y 12, col. Parque Industrial Cuamatla, CP 53370, CuautitlÃ¡n Edo. de MÃ©xico","acuatitlan@profuturo.com.mx","26 20 05 76 / 05 77","profuturo1","0"
-"123","86","7_086_MOLIERE_47101730","METRO PONIENTE","MOLIERE","LEVY COHEN ESTHER","47101730","CESAR RAMON HERNANDES ROBLES","Presa Salinillas # 370 Piso 9 int. 901 y 903, col. IrrigaciÃ³n, CP 11500, del. Miguel Hidalgo, MÃ©xico D.F. ","asotelo@profuturo.com.mx","26 29 64 49 / 64 50","profuturo1","0"
-"124","87","7_087_NAUCALPAN_47101100","METRO PONIENTE","NAUCALPAN","ANGELES LOPEZ SILVIA","47101100","ZORAIDA MONTIEL YAÃ‘EZ","Presa Salinillas # 370 Piso 9 int. 901 y 903, col. IrrigaciÃ³n, CP 11500, del. Miguel Hidalgo, MÃ©xico D.F. ","anaucalpan@profuturo.com.mx","26 29 64 36 / 64 37","profuturo1","0"
-"125","88","7_088_NICOLAS BRAVO_44092450","METRO PONIENTE","NICOLAS BRAVO","HERNANDEZ TENORIO JOSE JESUS","44092450","MARIA LUISA GONZALEZ AGUILAR","PRESA SALINILLAS 370 901 Y 903 IRRIGACION 11500","anbravo@profuturo.com.mx","26 29 64 28","profuturo1","0"
-"126","89","7_089_PERINORTE_46008290","METRO PONIENTE","PERINORTE","GUTIERREZ ALTAMIRA DIANA IVONE","46008290","YURISMA ANGELICA MONROY MARTINEZ","Av. Gustavo Baz # 230 Locales 101 al 111, col. Tequexquinahuac, Tlalnepantla de Baz, CP 54020,  Edo. de MÃ©xico","avalledorado@profuturo.com.mx","53 21 84 04","profuturo1","0"
-"127","90","7_090_POLANCO_47101550","METRO PONIENTE","POLANCO","GONZALEZ LOPEZ GABRIEL","47101550","ZORAIDA MONTIEL YAÃ‘EZ","Presa Salinillas # 370 Piso 9 int. 901 y 903, col. IrrigaciÃ³n, CP 11500, del. Miguel Hidalgo, MÃ©xico D.F. ","anaucalpan@profuturo.com.mx","26 29 64 36","profuturo1","0"
-"128","91","7_091_SATELITE_47108160","METRO PONIENTE","SATELITE","HUERTA CAPISTRAN AARON","47108160","ZAYRA FATIMA RIVAS ROMERO","Av. Gustavo Baz # 230 Locales 101 al 111, col. Tequexquinahuac, Tlalnepantla de Baz, CP 54020,  Edo. de MÃ©xico","acsatelite@profuturo.com.mx","53 21 84 00 / 09","Profuturo2","1"
-"129","92","7_092_SOTELO_46008230","METRO PONIENTE","SOTELO","ZENDEJAS SALAZAR LIDIA CATALINA","46008230","CESAR RAMON HERNANDES ROBLES","Presa Salinillas # 370 Piso 9 int. 901 y 903, col. IrrigaciÃ³n, CP 11500, del. Miguel Hidalgo, MÃ©xico D.F. ","asotelo@profuturo.com.mx","26 29 64 03  /02","profuturo1","0"
-"130","93","7_093_TOLUCA LERMA_44092410","METRO PONIENTE","TOLUCA LERMA","GOMEZ HERNANDEZ JULIO CESAR","44092410","MARIA GUADALUPE RUEDA HERNANDEZ","Isidro Fabela 725-A, col. San SebastiÃ¡n, CP 50150, Toluca Edo. de MÃ©xico","atlerma@profuturo.com.mx","01 722 212 94 84 / 94 83","profuturo1","0"
-"131","94","7_094_TOLUCA METEPEC_46012600","METRO PONIENTE","TOLUCA METEPEC","DOMINGUEZ GARDUÃ‘O IVONNE MARLEN","46012600","MARIA GUADALUPE RUEDA HERNANDEZ","Isidro Fabela 725-A, col. San SebastiÃ¡n, CP 50150, Toluca Edo. de MÃ©xico","atmetepec@profuturo.com.mx","01 722 212 94 88/ 212 94 87","profuturo1","0"
-"132","95","7_095_TOLUCA NEVADO_46012610","METRO PONIENTE","TOLUCA NEVADO","ZAVALA CARMONA JONATHAN ROMAN","46012610","MARY CARMEN MERCADO ESCALONA","Isidro Fabela 725-A, col. San SebastiÃ¡n, CP 50150, Toluca Edo. de MÃ©xico","atnevado@profuturo.com.mx","01 722 212 94 81/797","profuturo1","0"
-"133","96","7_096_TOREO_47101790","METRO PONIENTE","TOREO","MENDOZA GONZALEZ MARIA GUADALUPE","47101790","ADRIANA MENDOZA","Presa Salinillas # 370 Piso 9 int. 901 y 903, col. IrrigaciÃ³n, CP 11500, del. Miguel Hidalgo, MÃ©xico D.F. ","amarianoescobedo@profuturo.com.mx","26296415 / 26296418","profuturo1","0"
-"134","97","7_097_TRADE CENTER_40006990","METRO PONIENTE","TRADE CENTER","URIBE GONZALEZ CARLOS","40006990","ADRIANA MENDOZA","Presa Salinillas # 370 Piso 9 int. 901 y 903, col. IrrigaciÃ³n, CP 11500, del. Miguel Hidalgo, MÃ©xico D.F. ","amarianoescobedo@profuturo.com.mx","26296415 / 26296418","profuturo1","0"
-"135","98","7_098_VALLE DORADO_46008300","METRO PONIENTE","VALLE DORADO","RUEDA BOLAÃ‘OS RAUL RODERICK","46008300","YURISMA ANGELICA MONROY MARTINEZ","Av. Gustavo Baz # 230 Locales 101 al 111, col. Tequexquinahuac, Tlalnepantla de Baz, CP 54020,  Edo. de MÃ©xico","avalledorado@profuturo.com.mx","53 21 84 07 / 01","profuturo1","0"
-"136","205","7_205_PACHUCA_47101190","METRO PONIENTE","PACHUCA","FERNANDEZ LOZANO MARIA YUNUEN","47101190","LETICIA UBILLA YAÃ‘EZ","Camino Real de la Plata, NÃºm.308 PB, del Fraccionamiento Zona Plateada, Edificio PODI, Pachuca, Hidalgo, C. P. 42083","apachuca@profuturo.com.mx","01 771 138 33 53 / 54 / 56","profuturo1","0"
-"137","71","6_071_CENTRO_46008110","METRO ORIENTE","CENTRO","JIMENEZ GARCIA EDGAR","46008110","ALEJANDRA VAZQUEZ GARCIA","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","acentro02@profuturo.com.mx","11 02 96 15 / 96 07","profuturo1","0"
-"138","72","6_072_CONDESA_44092430","METRO ORIENTE","CONDESA","FERZULI GUIDO MARIA ALEJANDRA","44092430","ALEJANDRA VAZQUEZ GARCIA","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","acondesa@profuturo.com.mx","11 02 96 14 / 96 08","profuturo1","0"
-"139","73","6_073_CRACOVIA_46011760","METRO ORIENTE","CRACOVIA","GARCIA CORTES DIANA FABIOLA","46011760","GRISELDA ZARATE RODRIGUEZ","Insurgentes Sur 546, col. Roma Sur, CP 06760, del. Cuauhtemoc, MÃ©xico D.F.","acracovia@profuturo.com.mx","52 65 10 15 / 10 16","profuturo1","0"
-"140","74","6_074_CRONOS_47102311","METRO ORIENTE","CRONOS","CARREÃ‘O PLACENCIA PEDRO","47102311"," CLAUDIA VIVIANA CASTRO CHAVEZ","Insurgentes Sur 546, col. Roma Sur, CP 06760, del. Cuauhtemoc, MÃ©xico D.F.","acronos@profuturo.com.mx","52 65 10 53/ 10 54","profuturo1","0"
-"141","75","6_075_EJERCITO_46007070","METRO ORIENTE","EJERCITO","HERNANDEZ LUEVANOS ALDO ALEJANDRO","46007070","JOSE FERNANDO SOLIS  ESPINOSA","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","aejercito@profuturo.com.mx","11 02 96 26 / 96 10","profuturo1","0"
-"142","76","6_076_ESCANDON_44092440","METRO ORIENTE","ESCANDON","MARQUEZ RAMIREZ AZUCENA","44092440","VERONICA PAREDES ARRIAGA","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","aescandon@profuturo.com.mx","11 02 96 13 / 96 04","profuturo1","0"
-"143","77","6_077_FRAY SERVANDO_44092080","METRO ORIENTE","FRAY SERVANDO","LOPEZ RAMIREZ CESAR ADRIAN","44092080","ILEANA VANESA ORTEGA","Calzada de la Viga 398 Oficina C en la Colonia Jamaica, CÃ³digo Postal 15800, DelegaciÃ³n Venustiano Carranza","afservando@profuturo.com.mx","57 41 35 23 / 43 57","profuturo1","0"
-"144","78","6_078_HAMBURGO_41018344","METRO ORIENTE","HAMBURGO","VILLENA GUZMAN ADA KARLA","41018344","JOSE FERNANDO SOLIS  ESPINOSA","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","ahamburgo@profuturo.com.mx","11 02 96 19 / 96 10","profuturo1","0"
-"145","79","6_079_ILIADA METRO ORIENTE_44092290","METRO ORIENTE","ILIADA METRO ORIENTE","DEL CASTILLO NEGRETE ADOLFO","44092290","LILIANA GONZALEZ RUBIO","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","aodiseams@profuturo.com.mx","11 02 96 16 / 96 01","profuturo1","0"
-"146","80","6_080_INTERLOMAS_45000600","METRO ORIENTE","INTERLOMAS","MARTINEZ LEDEZMA KARINA BEATRIZ GUADALUPE","45000600","MARIA MAGDALENA MEDINA GUTIERREZ","Insurgentes Sur 546, col. Roma Sur, CP 06760, del. Cuauhtemoc, MÃ©xico D.F.","ainterlomas@profuturo.com.mx","52 65 10 09","profuturo1","0"
-"147","81","6_081_MAZARIK_47108170","METRO ORIENTE","MAZARIK","FLORES OLGUIN LUIS MANUEL","47108170","LILIANA GONZALEZ RUBIO","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","amasarik@profuturo.com.mx","11 02 96 17 / 96 01","profuturo1","0"
-"148","82","6_082_NAPOLES_46007090","METRO ORIENTE","NAPOLES","BALLINAS NUÃ‘EZ ALEJANDRO","46007090","ALEJANDRA ESPINOSA MORALES","Insurgentes Sur 546, col. Roma Sur, CP 06760, del. Cuauhtemoc, MÃ©xico D.F.","anapoles@profuturo.com.mx","52 65 10 28 / 10 29","profuturo1","0"
-"149","83","6_083_PRADO CHURUBUSCO_44091280","METRO ORIENTE","PRADO CHURUBUSCO","DIAZ VAZQUEZ ENRIQUE","44091280","ILEANA VANESA ORTEGA","Calzada de la Viga 398 Oficina C en la Colonia Jamaica, CÃ³digo Postal 15800, DelegaciÃ³n Venustiano Carranza","abalbuena@profuturo.com.mx","57 40 32 39/ 57 41 47 17","profuturo1","0"
-"150","85","6_085_VIVEROS_44093010","METRO ORIENTE","VIVEROS","FLORES DEL RAZO JOHANNA LIZETTE","44093010","JOSE FERNANDO SOLIS  ESPINOSA","Hamburgo #206 Piso 1 Of. 103-302 y 403 Col. JuÃ¡rez, DelegaciÃ³n Cuauhtemoc, C.P. 06600, MÃ©xico, Distrito Federal. ","aviveros@profuturo.com.mx","11 02 96 18 / 96 10","profuturo1","0"
-"151","178","13_178_ALLENDE_45000800","PENSIONES","ALLENDE","RUELAS ALBA SERGIO ARMANDO","45000800","ALMA DELIA MORALES MORENO"," BVD. VASCO DE QUIROGA NÂ° 101 PISO PB, CP.37270, COL. LOS GAVILANES LEON GTO.","aallende@profuturo.com.mx","01 477 763 22 09","profuturo1","0"
-"152","179","13_179_INDEPENDENCIA_47101101","PENSIONES","INDEPENDENCIA","POMPA LIZARRAGA OSCAR ENRIQUE","47101101","LUZ MARIA ALVARADO TELLEZ","BLVD. KINO #402, COL. PITIC, CP. 83150, HERMOSILLO, SONORA","aindependencia@profuturo.com.mx","01 662 285 58 88/01 662 2855874/01 662 2855890","profuturo1","0"
-"153","180","13_180_LOS PINOS_45000900","PENSIONES","LOS PINOS","GONZALEZ ALCANTARA ERIKA YASMIN ","45000900","ALMA GONZALEZ BOLAÃ‘OS","INSURGENTES SUR NUM. 546 PISO 5  COL. ROMA SUR DELEG. CUAUHTEMOC CP. 6760, MEXICO, D.F.","alospinos@profuturo.com.mx","52 65 5704","profuturo1","0"
-"154","181","13_181_MONTERREY LINARES_45000700","PENSIONES","MONTERREY LINARES","TORRES RODRIGUEZ ROCIO MARGARITA","45000700","MARCELA TREVIÃ‘O VILLAREAL","CALLE DOCTOR COSS # 731 COL. CENTRO, MONTERREY N.L. C.P. 64000","amtylinares@profuturo.com.mx","01 81 80 47 08 28 / 29","profuturo1","0"
-"155","183","13_183_PACIFICO_45000300","PENSIONES","PACIFICO","VACANTE","45000300","ELIZABETH SANCHEZ PALAFOX","AV. CHAPULTEPEC NORTE 15  PB PISO  14 COL. LADRÃ“N GUEVARA, C.P. 44600, GUADALAJARA, JALISCO","apacifico@profuturo-gnp.com.mx","01 33 38 82 60 41","profuturo1","0"
-"156","184","13_184_POLITECNICO_45000200","PENSIONES","POLITECNICO","AVILA SANCHEZ JOSE LUIS","45000200","JOSE LUIS AVILA SANCHEZ","PRESA SALINILLAS No 370 piso 9  int 901 y 903, COL. IRRIGACIÃ“N DEL. MIGUEL HIDALGO, CP. 11550, MEXICO, D.F.","apolitecnico@profuturo.com.mx","26 29 64 28","profuturo1","0"
-"157","185","13_185_UNIVERSIDAD_45000100","PENSIONES","UNIVERSIDAD","ORTEGA URZUA JESSICA ALEJANDRA","45000100","VERONICA PAREDES ARRIAGA","HAMBURGO 206 PISO 1, COL. JUAREZ, DELEG. CUAUHTEMOC ZONA ROSA, ENTRE PRAGA Y VARSOVIA","auniversidad@profuturo.com.mx","55 33 38 52","profuturo1","0"
-"158","186","14_186_CUENTAS ELITE_45000092","RETENCION CLIENTES","CUENTAS ELITE","LEON LOPEZ LINA MIDORY","45000092","ALMA NOHEMI GONZALEZ BOLAÃ‘OS","Blvd. Adolfo LÃ³pez Mateos No. 2009 Col. Los Alpes piso 8","alma.gonzalez@profuturo.com.mx","5809-6523","profuturo1","0"
-"159","187","14_187_CUENTAS PLATINO_10010113","RETENCION CLIENTES","CUENTAS PLATINO","FLUCHAIRE HERNANDEZ SUSANA ","10010113","AZUCENA BONEZ GUERRA","Blvd. Adolfo LÃ³pez Mateos No. 2009 Col. Los Alpes piso 2","azucena.bonez@profuturo.com.mx","5809-6534","profuturo1","0"
-"160","1","1_001_CAPACITACION _42040098",,"BAJA CALIFORNIA","JOSE LUIS RABAGO MUÃ‘OZ ","42040098","JUANA VICTORIA ZAVALA ","Paseo de los HÃ©roes #2410 Esquina Clemente Orozco Col. Zona Rio de la Ciudad de Tijuana S/N Edificio Paseo Palmas locales 102 y 400 CP 22230","juana.zavala@profuturo.com.mx","01 664 700 46 64","profuturo1","0"
-"161","18","2_018_ASISTENTE REGIONAL _45000999",,"CENTRO","JOSE LUIS ALTUBE CHAVEZ","45000999","CLAUDIA SANCHEZ PRECIADO","Boulevard Vasco de Quiroga no. 101, esq. Blvd. Adolfo LÃ³pez Mateos, int. 508-509, col. Los Gavilanes, CP37270, LeÃ³n Gto. ","claudia.sanchez@profuturo.com.mx","01 477 3430601","profuturo1","0"
-"162","62","5_062_METRO NORTE_47000999",,"METRO NORTE","JUAN CARLOS ALCALDE MENDEZ","47000999","LAURA ANGELICA ANDRADE DELGADILLO","AV MONTEVIDEO 57 Y 63 TEPEYAC INSURGENTES 07020","LauraAngelica.AndradeDelgadillo@profuturo.com.mx","52651020","profuturo1","0"
-"163","84","6_084_REGIONAL METRO ORIENTE_44000099",,"METRO ORIENTE","ENRIQUE LOPEZ VIVANCO","44000099","ANAYELI ESTRADA CABRERA","HAMBURGO 206 PISO 3 JUAREZ 06600","anayeli. estrada@profuturo.com.mx","11029620 / 11029620","profuturo1","0"
-"164","111","8_111_REGIONAL METRO SUR_44000999",,"METRO SUR","RUBEN AMARAL SANCHEZ","44000999","MARGARITA MEJIA GRIJALBA","Av. insurgentes sur 2047 PB, col. San Ãngel Inn, CP 01000, del. Coyoacan, MÃ©xico D.F.","margarita.mejia@profuturo.com.mx","17 19 10 07","profuturo1","0"
-"165","123","9_123_Regional_43009909",,"NORESTE","TANUS CHEDRAUI RUBEN BOJALIL","43009909","Lorena Grande Carvajal","Doctor Coss 731, Colonia Centro Piso 10, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","silvia.grande@profuturo.com.mx","01 81 80 47 08 43","profuturo1","0"
-"166","130","10_130_CAPACITACION _42000999",,"NOROESTE","HECTOR BARRAGAN TELLO","42000999","AGUSTIN BECERRA","Av. Paseo Triunfo de la RepÃºblica no.3340 1er piso, Edifico Atlantis, Col. Partido Romero, CP 32030, Cd. JuÃ¡rez Chihuahua","jose.becerra@profuturo.com.mx","01 656 1731222","profuturo1","0"
-"167","145","11_145_CAPACITACION _42090910",,"DIVISIONAL NORESTE","JESUS HECTOR MARTINEZ CHAVEZ","42090910","ADRIANA NAJERA ","Doctor Coss 731, Colonia Centro, CP 64000 en la Ciudad de Monterrey, Estado de Nuevo LeÃ³n","adriana.najera@profuturo.com.mx","01 81 80 47 07 50","profuturo1","0"
-"168","161","12_161_ASISTENTE REGIONAL_48000999",,"OCCIDENTE","MARIA GUADALUPE ARAIZA TELLO","48000999","ANELISSE CUADRA PEREZ PARRA "," Av. Chapultepec Norte no. 15, 22B, col. LadrÃ³n de Guevara, Guadalajara Jalisco","anelisse.cuadra@profuturo.com.mx","01 33 38 8260 03","profuturo1","0"
-"169","191","15_191_CAPACITACION _41010099",,"SURESTE","ANGEL ALFONSO PAZ ADAME","41010099","ALONDRA DELGADO ESPINOSA ","Paseo Montejo 443-A entre 29 Y 33 Frente Esc. Modelo, col. Centro, CP 97000, MÃ©rida Yuc. ","alondraprofuturo@gmail.com","01 9999 25 09 77","profuturo1","0"
-"170",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"ureports@profuturo.com.mx",NULL,"reportes@dmin","0"
-"171",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"superadmin@profuturo.com.mx",NULL,"super@dmin","0"
-"172",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"cynthia@compras.com.mx",NULL,"dash@dmin","0"
-"173",NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,"super_empresario@compras.com.mx",NULL,"dash@dmin","0"
+42008020,CHIHUAHUA PARRAL,,,
+42040670,CHIHUAHUA,,,
+43070870,TORREON,,,
+42008000,TORREON COMARCA,,,
+42060710,CULIACAN,,,
+42062560,CULIACAN HUMAYA,,,
+42040640,CD. JUAREZ ATLANTIS,,,
+42041810,CD. JUAREZ BARRANCAS,,,
+42067020,JUAREZ PASO DEL NORTE,,,
+42042270,CHIHUAHUA VILLA,,,
+42008010,DURANGO,,,
+42060720,U. LOS MOCHIS,,,
+42067010,JUAREZ CHAMIZAL,,,
+43070820,MATAMOROS,,,
+43072510,REYNOSA FRONTERA,,,
+43071441,NUEVO LAREDO,,,
+43071820,MONTERREY CUMBRES,,,
+43070980,MONTERREY SAN PEDRO,,,
+43070940,MONTERREY CENTRO,,,
+43071830,MONTERREY SAN NICOLAS,,,2
+43070990,MONTERREY GUADALUPE,,,
+43078050,SALTILLO MONTERREAL,,,
+43078030,MONTERREY TECNOLOGICO,,,
+43072470,MONTERREY SULTANA,,,
+42008030,MONCLOVA,,,
+43070910,SALTILLO,,,
+43076950,MONTERREY LAS TORRES,,,
+43070850,TAMPICO,,,
+43072530,TAMPICO ALTAMIRA,,,
+48260460,SAN LUIS POTOSI,,,
+45008140,SLP TANGAMANGA,,,
+43078040,MONTERREY VOLCAN,,,
+43072090,MONTERREY CHIPINQUE,,,
+43073010,MONTERREY SENDERO,,,
+43073020,MONTERREY MITRAS,,,
+43073040,MONTERREY VALLE ALTO,,,
+43072130,MONTERREY SANTA LUCIA,,,
+43073030,MONTERREY LEONES,,,
+43072520,SAN LUIS POTOSI HUASTECA,,,
+43071442,UNIDAD VTAS CD. VICTORIA,,,
+43072440,MONTERREY FUNDIDORA,,,
+42060610,NOGALES,,,
+42060620,CD. OBREGON,,,
+42042120,ENSENADA,,,
+42060590,HERMOSILLO,,,
+42062500,HERMOSILLO PITIC,,,
+42040750,TIJUANA RIO,,,
+42041800,TIJUANA CACHANILLA,,,
+42042110,TIJUANA INSURGENTES,,,
+42047050,TIJUANA PLAYAS,,,
+42040800,MEXICALI,,,
+42040802,ILIADA MEXICALI,,,
+42040900,LA PAZ,,,
+42047060,MEXICALI IMPERIAL,,,
+42042020,TIJUANA INDUSTRIAL,,,
+42040910,U. LOS CABOS,,,
+42062040,MAZATLAN,,,
+48262210,COLIMA,,,
+48262460,EL SALTO,,,
+48262620,GUADALAJARA TONALA,,,
+48262650,GUADALAJARA AJIJIC,,,
+48260500,GUADALAJARA TLAQUEPAQUE,,,
+48260520,GUADALAJARA PATRIA,,,
+48262000,GUADALAJARA CENTRO,,,
+48262220,JALISCO,,,
+48262670,ARANDAS,,,
+48008340,CHAPALA,,,
+48262610,GUADALAJARA MINERVA,,,
+48268150,COUNTRY CLUB,,,
+42062050,VALLARTA,,,
+42062060,UNIDAD DE VENTAS TEPIC,,,
+48260280,QUERETARO,,,
+48262630,QUERETARO ACUEDUCTO,,,
+48260330,IRAPUATO,,,
+48260310,CELAYA,,,
+48262260,BAJIO,,,
+48260350,LEON,,,
+48262680,GUANAJUATO,,,
+47102590,MORELIA MONARCA,,,
+48260430,AGUASCALIENTES,,,
+48262640,QUERETARO ARCOS,,,
+48260281,CORREGIDORA,,,
+43072450,SAN MARCOS,,,
+48260470,ZACATECAS,,,
+44091330,SAN ANGEL,,,
+44093020,CHIMALISTAC,,,
+44091050,CUERNAVACA,,,
+44092580,CUERNAVACA MORELOS,,,
+44091210,COYOACAN,,,
+44091850,TLALPAN,,,
+46008070,ALTAVISTA,,,
+46008100,PATRIOTISMO,,,
+46008090,BARRANCA,,,
+46008270,MIXCOAC,,,
+44091530,METRO CENTRO,,,
+46007080,MARINA NACIONAL,,,
+46011770,NIÑOS HEROES,,,
+47103030,DEL PARQUE,,,
+44093060,PUERTO,,,
+47102280,OLIMPO,,,
+47102310,ILIADA METRO NORTE,,,
+46008220,ARAGON,,,
+46006940,VIADUCTO,,,
+46011750,VENTAS INSTITUCIONALES,,,
+46008080,XOLA,,,
+44092050,REFORMA,,,
+44091630,ANAHUAC,,,
+44093040,LAS AGUILAS,,,
+44091860,ROMA,,,
+47102420,SAN JERONIMO,,,
+47102180,CHAPULTEPEC,,,
+47101370,LINDAVISTA,,,
+47103020,PALACIO,,,
+44093030,SANTA TERESA,,,
+44092450,NICOLAS BRAVO,,,
+47101790,TOREO,,,
+46012600,TOLUCA METEPEC,,,
+47108160,SATELITE,,,
+40006990,TRADE CENTER,,,
+47101100,NAUCALPAN,,,
+47101190,PACHUCA,,,
+47101120,CUAUTITLAN,,,
+47101550,POLANCO,,,
+46008290,PERINORTE,,,
+46008230,SOTELO,,,
+44092410,TOLUCA LERMA,,,
+46012610,TOLUCA NEVADO,,,
+46008300,VALLE DORADO,,,
+47101730,MOLIERE,,,
+44091280,PRADO CHURUBUSCO,,,
+45000600,INTERLOMAS,,,
+46007090,NAPOLES,,,
+47108170,MAZARIK,,,
+44092440,ESCANDON,,,
+44092290,ILIADA METRO ORIENTE,,,
+44093010,VIVEROS,,,
+47102311,CRONOS,,,
+46011760,CRACOVIA,,,
+46008110,CENTRO,,,
+46007070,EJERCITO,,,
+44092430,CONDESA,,,
+41018344,HAMBURGO,,,
+44092080,FRAY SERVANDO,,,
+41010020,GRIJALVA,,,
+41010070,MERIDA,,,
+41012540,MERIDA MONTEJO,,,
+41010090,CANCUN,,,
+41017040,TULUM,,,
+41010140,VERACRUZ,,,
+41010143,COSTA DEL SOL,,,
+41010160,COATZACOALCOS,,,
+41016960,PUEBLA LA NORIA,,,
+41018342,CHOLULA,,,
+41018343,ATLIXCO,,,
+47102060,TLAXCALA,,,
+41017060,CAMPECHE,,,
+41010050,TUXTLA GUTIERREZ,,,
+45000500,U. XALAPA,,,
+41016980,U. CORDOBA,,,
+41010091,U. COZUMEL,,,
+47101101,INDEPENDENCIA,,,
+45000200,POLITECNICO,,,
+45000700,MONTERREY LINARES,,,
+45000900,LOS PINOS,,,
+45000300,PACIFICO,,,
+40007000,PEDREGAL,,,
+44091780,VALLE,,,
+44091070,ACAPULCO,,,
+48260380,MORELIA,,,
+41018200,OAXACA,,,
+44091030,TOLUCA,,,
+45008130,SILAO,,,
+48262190,GUADALAJARA AMERICAS,,,
+43072490,SALTILLO RAMOS ARIZPE,,,
+42062570,SAN CARLOS,,,
+41016970,BOCA DEL RÍO,,,
+47102170,ECATEPEC,,,
+45008131,PALENQUE,,,
+46008200,CUENTAS PREMIER,,,
+10010111,CUENTAS PATRIMONIALES,,,
+10010114,CUENTAS DIAMANTE,,,
+10010113,CUENTAS PLATINO,,,
+45000092,CUENTAS ELITE,,,
+40100001,CUENTAS ZAFIRO,,,
+40100002,CUENTAS CROMO,,,
+40100003,CUENTAS TURQUESA,,,
+40100004,CUENTAS TITANIO,,,
+40100005,CUENTAS AMBAR,,,
+45000099,DIVISION PENSIONES/ISSSTE/FONDOS,,,
+42090910,DIVISIONAL SUR,,,
+42090999,DIVISIONAL NORTE,,,
+42040098,REGIONAL BAJA CALIFORNIA,,,
+45000999,REGIONAL CENTRO,,,
+45000091,REGIONAL ISSSTE,,,
+47000999,REGIONAL METRO NORTE,,,
+44000099,REGIONAL METRO ORIENTE,,,
+46000099,REGIONAL METRO PONIENTE,,,
+44000999,REGIONAL METRO SUR,,,
+43009909,REGIONAL NORESTE,,,
+42000999,REGIONAL NOROESTE,,,
+43000999,REGIONAL NORTE,,,
+48000999,REGIONAL OCCIDENTE,,,
+45000009,REGIONAL PENSIONES,,,
+40000999,REGIONALCUENTAS ESPECIALES,,,
+41010099,REGIONAL SURESTE,,,

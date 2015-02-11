@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration {
 				$table->text('description');
 				$table->integer('max_stock');
 				$table->string('measure_unit');
-				// $table->float('price');
+				$table->string('sku');
 				$table->string('image_file_name')->nullable();
 				$table->integer('image_file_size')->nullable();
 				$table->string('image_content_type')->nullable();

@@ -12,12 +12,10 @@ class DatabaseSeeder extends Seeder {
 		Eloquent::unguard();
 
 		User::create([
-			'email' => 'i.gutierrez@soriano-ariza.com',
 			'password' => 'admin',
-			'first_name' => 'Iván',
-			'last_name' => 'Gutierrez',
 			'role' => 'admin',
-			'ccosto' => 0
+			'gerencia' => 'Iván Gutiérrez',
+			'ccosto' => 1
 			]);
 
 		$this->call('PaperProductSeeder');

@@ -48,10 +48,10 @@
     <thead>
       <tr>
         <th>
-          Correo electrónico
+          Nombre
         </th>
         <th>
-          Nombre completo
+          
         </th>
       </tr>
     </thead>
@@ -60,7 +60,7 @@
       @foreach($admins as $user)
       <tr>
         <td>
-          {{$user->email}}
+          {{$user->gerencia}}
           @if($user->is_admin)
           <span class="label label-info">Admin</span>
           @endif

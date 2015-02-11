@@ -13,6 +13,7 @@ class PaperProductSeeder extends Seeder
           'description' => $row[4],
           'max_stock' => $row[5],
           'measure_unit' => $row[6],
+          'sku' => $row[1],
           ]);
         $category = Category::firstOrCreate([
           'name' => $row[8],
@@ -21,11 +22,17 @@ class PaperProductSeeder extends Seeder
         $img = $row[9];
         $path = "app/database/imgs/$img";
         if(file_exists($path) and copy($path, $img)){
-          $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, NULL, filesize($img), NULL, TRUE);
+          $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
           $product->image = $file;
         }
         $product->category_id = $category->id;
-        $product->save();
+        try{
+          $product->save();
+        }catch(Exception $e){
+          Log::error($e->getMessage());
+          continue;
+        }
+
       }
     }
   }

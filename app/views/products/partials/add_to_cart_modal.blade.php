@@ -38,7 +38,11 @@
 
             {{Form::label('quantity', 'Cantidad', ['class' => 'control-label col-xs-3'])}}
             <div class="col-xs-3">
+              @if(Auth::user()->has_limit)
               {{Form::select('quantity', [], NULL, ['class' => 'form-control'])}}
+              @else
+              {{Form::number('quantity', NULL, ['class' => 'form-control'])}}
+              @endif
             </div>
           </div>
         {{Form::close()}}

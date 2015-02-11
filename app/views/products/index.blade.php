@@ -70,7 +70,11 @@
     <a class="list-group-item" href="#" data-product-id="{{$product->id}}" data-image-src="{{$product->image->url('medium')}}">
 
       <div class="pull-right">
+        @if(Auth::user()->has_limit)
         <h5 class="product-info">Max. <span class="product-max-stock">{{$product->max_stock}}</span> {{$product->measure_unit}}</h5>
+        @else
+        <h5 class="product-info">Unidad de medida: {{$product->measure_unit}}</h5>
+        @endif
         @if(Auth::user()->cart_products->contains($product->id))
         <span class="label label-info">
           Actualmente <span class="product-current-stock">{{Auth::user()->cartProducts()->where('id', $product->id)->first()->pivot->quantity}}</span> en mi carrito
@@ -126,6 +130,7 @@ $(function(){
     modal.find('img').attr('src', $(this).attr('data-image-src'));
     modal.find('form input[name="product_id"]').val($(this).attr('data-product-id'));
     var select = $('form select[name="quantity"]');
+    if(select.length == 0) return;
     select.empty();
 
     var max = $(this).find('.product-max-stock').text();
@@ -139,7 +144,7 @@ $(function(){
     }
 
     var selectMax = max - current;
-
+    selectMax = Math.min(selectMax, 50);
     if(selectMax == 0){
       modal.find('.alert.alert-warning').show();
       modal.find('form').hide();
@@ -148,10 +153,10 @@ $(function(){
       modal.find('.alert.alert-warning').hide();
       modal.find('form').show();
       modal.find('.submit-btn').prop('disabled', false);
-
       for(var i=1; i<= selectMax; i++ ){
         select.append($('<option>').html(i));
       }
+
     }
   });
 

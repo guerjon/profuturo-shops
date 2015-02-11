@@ -7,8 +7,8 @@ class AdminUsersController extends AdminBaseController
   public function index()
   {
     return View::make('admin::users.index')
-      ->withUsers(User::whereIn('role', ['user_requests', 'user_paper'])->orderBy('role')->orderBy('last_name')->get())
-      ->withAdmins(User::whereIn('role', ['admin', 'manager'])->orderBy('role')->orderBy('last_name')->get());
+      ->withUsers(User::whereIn('role', ['user_requests', 'user_paper'])->orderBy('role')->orderBy('ccosto')->get())
+      ->withAdmins(User::whereIn('role', ['admin', 'manager'])->orderBy('role')->orderBy('gerencia')->get());
   }
 
   public function create()
