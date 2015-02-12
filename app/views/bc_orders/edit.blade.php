@@ -82,8 +82,8 @@
 <script src="/js/jquery.maskedinput.min.js"></script>
 <script>
 $(function(){
-  $('input.phone').mask('9999-9999', {placeholder: '####-####'});
-  $('input.cellphone').mask('99-9999-9999', {placeholder : '##-####-####'});
+  $('input.phone').mask('9999 9999', {placeholder: '####-####'});
+  $('input.cellphone').mask('99 9999 9999', {placeholder : '##-####-####'});
 });
 </script>
 <script>

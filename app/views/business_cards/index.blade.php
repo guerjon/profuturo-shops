@@ -47,7 +47,7 @@
             {{ $card->nombre_puesto }}
           </td>
           <td>
-            {{ Form::select("quantities[$card->id]", [1 => 100, 2 => 200], NULL, ['class' => 'form-control'])}}
+            {{ Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
           </td>
         </tr>
         @endforeach

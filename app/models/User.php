@@ -91,6 +91,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
 					action('AdminCalendarEventsController@index') => 'Agenda',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
+					action('AdminReportsController@getOrdersReport') => 'Reporte de pedidos papelería',
+					action('AdminReportsController@getBcOrdersReport') => 'Reporte de pedidos de tarjetas de presentación',
 				];
 			case 'manager':
 				return [

@@ -40,7 +40,7 @@
         {{$product->pivot->status ? 'Completo' : 'Incompleto'}}
       </td>
       <td>
-        {{$product->pivot->status ? '' : $card->pivot->comments}}
+        {{$product->pivot->status ? '' : $product->pivot->comments}}
       </td>
     </tr>
     @endforeach
