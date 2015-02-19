@@ -31,41 +31,10 @@
 <div class="table-responsive">
   <table class="table table-responsive">
     <thead>
-      <th>
-        Centro de costos
-      </th>
-      <th>
-        LOADER_BU
-      </th>
-      <th>
-        SKU
-      </th>
-      <th>
-        Producto
-      </th>
-      <th>
-        Unidad de medida
-      </th>
-      <th>
-        Cantidad requerida
-      </th>
-      <th>
-        Precio
-      </th>
-      <th>
-        Moneda
-      </th>
-      <th>
-        LOCATION
-      </th>
-      <th>
-        SHIP_TO
-      </th>
-      <th>
-        DEPT_ID
-      </th>
-    </thead>
+      <tr>
 
+      </tr>
+    </thead>
     <tbody>
 
     </tbody>
@@ -88,8 +57,9 @@ function update(){
     $('.table tbody').empty();
     if(data.status == 200){
       var orders = data.orders;
-
+      var headers = data.headers;
       if(orders.length == 0){
+        $('.table thead tr').empty();
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
             $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>No hay registros que mostrar</strong>')
@@ -101,25 +71,17 @@ function update(){
         $('.btn-submit').prop('disabled', false);
       }
 
+      for(var i=0; i<headers.length; i++){
+        $('.table thead tr').append($('<th>').html(headers[i]));
+      }
       for(var i=0; i<orders.length; i++){
-        var products = orders[i].products;
-        for(var j=0; j<products.length; j++){
-          var tr = $('<tr>');
-          tr.append($('<td>').html(orders[i].user.ccosto));
-          tr.append($('<td>').html('0'));
-          tr.append($('<td>').html(products[j].sku));
-          tr.append($('<td>').html(products[j].name));
-          tr.append($('<td>').html(products[j].measure_unit));
-          tr.append($('<td>').html(products[j].pivot.quantity));
-          tr.append($('<td>').html('0'));
-          tr.append($('<td>').html('MXN'));
-          tr.append($('<td>').html('0'));
-          tr.append($('<td>').html('0'));
-          tr.append($('<td>').html('0'));
+        var tr = $('<tr>');
 
-          $('.table tbody').append(tr);
-
+        for(var j=0; j<headers.length; j++){
+          tr.append($('<td>').html(orders[i][headers[j]]));
         }
+        $('.table tbody').append(tr);
+
 
       }
     }else{
