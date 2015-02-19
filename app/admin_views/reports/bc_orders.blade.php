@@ -31,39 +31,9 @@
 <div class="table-responsive">
   <table class="table table-responsive">
     <thead>
-      <th>
-        Número de pedido
-      </th>
-      <th>
-        Gerencia
-      </th>
-      <th>
-        Fecha de pedido
-      </th>
-      <th>
-        Nombre empleado
-      </th>
-      <th>
-        Nombre puesto
-      </th>
-      <th>
-        Correo electrónico
-      </th>
-      <th>
-        Teléfono
-      </th>
-      <th>
-        Celular
-      </th>
-      <th>
-        Web
-      </th>
-      <th>
-        Centro de costo
-      </th>
-      <th>
-        Dirección
-      </th>
+      <tr>
+
+      </tr>
     </thead>
 
     <tbody>
@@ -88,8 +58,10 @@ function update(){
     $('.table tbody').empty();
     if(data.status == 200){
       var orders = data.orders;
-
+      var headers = data.headers;
+      
       if(orders.length == 0){
+        $('.table thead tr').empty();
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
             $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>No hay registros que mostrar</strong>')
@@ -101,25 +73,17 @@ function update(){
         $('.btn-submit').prop('disabled', false);
       }
 
+      for(var i=0; i<headers.length; i++){
+        $('.table thead tr').append($('<th>').html(headers[i]));
+      }
       for(var i=0; i<orders.length; i++){
-        var business_cards = orders[i].business_cards;
-        for(var j=0; j<business_cards.length; j++){
-          var tr = $('<tr>');
-          tr.append($('<td>').html(orders[i].id));
-          tr.append($('<td>').html(orders[i].user.gerencia));
-          tr.append($('<td>').html((new Date(orders[i].updated_at)).toLocaleDateString() ));
-          tr.append($('<td>').html(business_cards[j].nombre));
-          tr.append($('<td>').html(business_cards[j].nombre_puesto));
-          tr.append($('<td>').html(business_cards[j].email));
-          tr.append($('<td>').html(business_cards[j].telefono));
-          tr.append($('<td>').html(business_cards[j].celular));
-          tr.append($('<td>').html(business_cards[j].web));
-          tr.append($('<td>').html(business_cards[j].ccosto));
-          tr.append($('<td>').html(business_cards[j].direccion));
+        var tr = $('<tr>');
 
-          $('.table tbody').append(tr);
-
+        for(var j=0; j<headers.length; j++){
+          tr.append($('<td>').html(orders[i][headers[j]]));
         }
+        $('.table tbody').append(tr);
+
 
       }
     }else{

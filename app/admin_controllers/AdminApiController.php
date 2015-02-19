@@ -1,5 +1,7 @@
 <?
 
+ini_set('memory_limit', '1G');
+
 class AdminApiController extends AdminBaseController
 {
 
@@ -57,7 +59,9 @@ class AdminApiController extends AdminBaseController
       ")
     )->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
-      ->leftJoin('users', 'users.id', '=', 'orders.user_id');
+      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+      ->where(DB::raw('MONTH(orders.updated_at)'), Input::get('month'))
+      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'));
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
     if(Request::ajax()){
@@ -86,28 +90,41 @@ class AdminApiController extends AdminBaseController
 
   public function getBcOrdersReport()
   {
-    $orders = BcOrder::with('businessCards', 'user')->where(DB::raw('MONTH(updated_at)'), Input::get('month'))
-      ->where(DB::raw('YEAR(updated_at)'), Input::get('year'))->get();
+    $query = DB::table('bc_order_business_card')->selectRaw("
+    bc_orders.id AS NUM_PEDIDO,
+    users.gerencia AS GERENCIA,
+    DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+    business_cards.nombre AS NOMBRE,
+    business_cards.nombre_puesto AS NOMBRE_PUESTO,
+    business_cards.email AS EMAIL,
+    business_cards.telefono AS TELEFONO,
+    business_cards.celular AS CELULAR,
+    business_cards.web AS WEB,
+    business_cards.ccosto AS CENTRO_COSTO,
+    business_cards.direccion AS DIRECCION
+    ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
+    ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
+    ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+    ->where(DB::raw('MONTH(bc_orders.updated_at)'), Input::get('month'))
+    ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
     if(Request::ajax()){
+      $items = $query->get();
       return Response::json([
         'status' => 200,
-        'orders' => $orders->toArray(),
+        'orders' => $items,
+        'headers' => $headers
         ]);
     }else{
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
-      $data = "";
-      $fields = ['id_order', 'gerencia', 'fecha', 'nombre', 'nombre_puesto', 'email', 'telefono', 'celular', 'web', 'ccosto', 'direccion'];
-      foreach($orders as $order){
-        foreach($order->business_cards as $card){
-          $card->id_order = $order->id;
-          $card->gerencia = $order->user->gerencia;
-          $card->fecha = $order->updated_at->format('d/m/Y');
-          $data .= self::convertObjectToCsv($card, $fields);
-        }
-
+      $data = str_putcsv($headers)."\n";
+      foreach($query->get() as $item){
+        $data .= self::convertObjectToCsv($item, $headers);
       }
+
 
       Log::info($data);
 
