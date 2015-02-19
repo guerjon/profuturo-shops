@@ -55,11 +55,14 @@ class AdminApiController extends AdminBaseController
       'Y' as CALC_PRICE_FLG,
       '' as CAP_NUM,
       '' as SHIP_TO_CUST_ID,
-      'JC005819' as INTROD
+      'JC005819' as INTROD,
+      categories.name as CATEGORY
       ")
     )->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
       ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->orderBy('orders.id')
       ->where(DB::raw('MONTH(orders.updated_at)'), Input::get('month'))
       ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'));
     $q = clone $query;
