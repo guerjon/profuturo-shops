@@ -35,7 +35,7 @@
     @foreach($bc_orders as $order)
     <tr>
       <td>
-        {{$order->ccosto}}
+        {{$order->user->gerencia}}
       </td>
       <td>
         {{link_to_action('AdminBcOrdersController@show', $order->id, [$order->id])}}
