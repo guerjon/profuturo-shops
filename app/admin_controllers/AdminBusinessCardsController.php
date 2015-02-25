@@ -64,8 +64,8 @@ class AdminBusinessCardsController extends BaseController{
           'web' => $row[7],
           'gerencia' => $row[8],
           'direccion' => $row[9],
-          'telefono' => $row[10],
-          'celular' => $row[11],
+          // 'telefono' => $row[10],
+          // 'celular' => $row[11],
           'email' => $row[12],
         ]);
         if($card->save()){
