@@ -33,7 +33,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('products', 'AdminProductsController');
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('budget', 'AdminBudgetsController');
-		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show']]);
+		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
 		Route::resource('general-requests', 'AdminGeneralRequestsController');
@@ -42,7 +42,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('reports', 'AdminReportsController');
 	});
 
-	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update']]);
+	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::resource('pedidos-tp', 'BcOrdersController');
 	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');

@@ -21,6 +21,9 @@
       <th>
         Comentarios
       </th>
+       <th>
+       Eliminar
+      </th>
     </tr>
   </thead>
 
@@ -41,6 +44,10 @@
       </td>
       <td>
         {{$product->pivot->status ? '' : $product->pivot->comments}}
+      </td>
+      <td>
+        <button class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="1">Eliminar 1</button>
+        <button class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="{{$product->pivot->quantity}}">Eliminar todos</button>
       </td>
     </tr>
     @endforeach

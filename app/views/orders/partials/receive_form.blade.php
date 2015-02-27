@@ -19,6 +19,9 @@
       <th>
         Comentarios
       </th>
+      <th>
+       Eliminar producto
+      </th>
     </tr>
   </thead>
 
@@ -36,7 +39,18 @@
       </td>
       <td>
         {{Form::text("product[{$product->id}][comments]", $product->pivot->comments, ['class' => 'form-control']) }}
+
       </td>
+      @if($order->status ==  0)
+       <td>
+        <button type="button" data-order-id="{{$order->id}}" class="btn btn-xs btn-danger" data-product-id="{{$product->id}}"
+         data-quantity="1">Eliminar 1</button>
+        <button type="button" class="btn btn-xs btn-danger" data-order-id="{{$order->id}}" data-product-id="{{$product->id}}"
+         data-quantity="{{$product->pivot->quantity}}">Eliminar todos</button>
+      </td>
+      @endif
+
+
     </tr>
     @endforeach
 
@@ -54,3 +68,23 @@
 </div>
 
 {{Form::close()}}
+
+@section('script')
+<script charset="utf-8">
+  $(function(){
+    $('.table .btn-danger').click(function(){
+      $.post('/api/destroy-products', {
+        product_id : $(this).attr('data-product-id'),
+        quantity   : $(this).attr('data-quantity'),
+        order_id   : $(this).attr('data-order-id')
+      }, function(data){
+        if(data.status == 200){
+          location.reload();
+        }else{
+          alert(data.error_msg);
+        }
+      });
+    });
+  });
+</script>
+@stop

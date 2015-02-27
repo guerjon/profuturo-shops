@@ -60,6 +60,23 @@ class OrdersController extends BaseController
     return Redirect::to(action('OrdersController@index'))->withSuccess('Se ha actualizado su orden');
   }
 
+  public function destroy($order_id)
+  {
+    $order = Order::find($order_id);
+    if(!$order){
+      return Redirect::to('/')->withWarning('No se encontró la orden');
+    }
+    if($order->status == 0) 
+    {
+      $order = $order->delete();
+      return Redirect::to(action('OrdersController@index'))->withSuccess('Se ha eliminado la orden');  
+    }else{
+    
+      return Redirect::back()->withErrors('El pedido ha sido aprobado no se puede eliminar');  
+
+      }
+   }
+
 
   public function postReceive($order_id)
   {
@@ -84,4 +101,7 @@ class OrdersController extends BaseController
     $order->save();
     return Redirect::to(action('OrdersController@index'))->withSuccess('Se ha actualizado la información');
   }
+
+
+   
 }

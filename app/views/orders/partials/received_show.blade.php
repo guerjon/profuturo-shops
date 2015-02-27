@@ -21,7 +21,6 @@
       <td>
         {{$product->pivot->quantity}}
       </td>
-
     </tr>
     @endforeach
   </tbody>

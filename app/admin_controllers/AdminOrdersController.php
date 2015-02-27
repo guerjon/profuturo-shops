@@ -18,6 +18,17 @@ class AdminOrdersController extends BaseController
     return View::make('admin::orders.show')->withOrder($order);
   }
 
+   public function destroy($order_id)
+  {
+    $order = Order::find($order_id);
+    if(!$order){
+      return Redirect::to('/')->withWarning('No se encontró la orden');
+    }
+
+    $order = $order->delete();
+    return Redirect::to(action('AdminOrdersController@index'))->withSuccess('Se ha eliminado la orden');
+  }
+
   public function update($order_id)
   {
     // $order = Order::find($order_id);

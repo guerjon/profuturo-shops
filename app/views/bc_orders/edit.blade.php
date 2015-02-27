@@ -45,8 +45,44 @@
         <td>
           {{Form::email("card[{$card->id}][email]", $card->email, ['class' => 'form-control'])}}
         </td>
+        
       </tr>
+
       @endforeach
+      <tr>
+        <td>
+           {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control'])}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][telefono]", NULL, ['class' => 'form-control phone'])}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][celular]", NULL, ['class' => 'form-control cellphone'])}}
+        </td>
+        <td>
+          {{Form::email("card[{$card->id}][email]", NULL, ['class' => 'form-control'])}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+           {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control'])}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][telefono]", NULL, ['class' => 'form-control phone'])}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][celular]", NULL, ['class' => 'form-control cellphone'])}}
+        </td>
+        <td>
+          {{Form::email("card[{$card->id}][email]", NULL, ['class' => 'form-control'])}}
+        </td>
+      </tr>
     </tbody>
   </table>
 
@@ -56,9 +92,9 @@
 
   @if($remaining_cards)
   <div class="form-group">
-    {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 100 cada mes')}}
+    {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
     @if($remaining_cards > 100)
-      {{Form::select('blank_cards', [0, 100], NULL, ['class' => 'form-control'])}}
+      {{Form::select('blank_cards', [0,100,200], NULL, ['class' => 'form-control'])}}
     @endif
   </div>
   @endif

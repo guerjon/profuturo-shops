@@ -28,6 +28,10 @@
       <th>
         Estatus
       </th>
+      <th>
+       Acciones
+      </th>
+      
     </tr>
   </thead>
 
@@ -46,6 +50,16 @@
       <td>
         {{$order->created_at->format('d-m-Y')}}
       </td>
+       <td>
+        {{$order->created_at->format('d-m-Y')}}
+      </td>
+       <td>
+   {{Form::open(array('action' =>['AdminOrdersController@destroy',$order->id],
+   'method' => 'delete'))}}
+
+    {{Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger'])}}
+     {{Form::close()}}
+     </td>
       <td>
         @if($order->status == 0)
         Pendiente

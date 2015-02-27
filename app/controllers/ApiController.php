@@ -90,4 +90,32 @@ class ApiController extends BaseController
         ]);
     }
   }
+
+  public function postDestroyProducts()
+  {
+    $quantity   = Input::get('quantity');
+    $order_id   = Input::get('order_id');
+    $product_id = Input::get('product_id');
+    Log::info('quantity'.$quantity);
+    Log::info('order_id'.$order_id);
+    Log::info('product_id'.$product_id);
+    $order = Order::find($order_id);
+    if((($order->products()->where('products.id',$product_id)->first()->pivot->quantity) -$quantity) == 0 ){
+        DB::table('order_product')
+    ->where('order_id','=',$order_id)
+    ->where('product_id','=',$product_id)
+    ->delete();   
+  }else{
+     DB::table('order_product')
+    ->where('order_id','=',$order_id)
+    ->where('product_id','=',$product_id)
+    ->update(array('quantity'=> DB::raw('quantity-1')));
+  } 
+
+
+     return Response::json([
+        'status' => 200,
+        'error_msg' => 'No se encontró el producto'
+        ]);
+  }
 }

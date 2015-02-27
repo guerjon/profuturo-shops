@@ -14,6 +14,12 @@
 
 @else
 
+@if($errors->count() > 0)
+<div class="alert alert-danger">
+  {{$errors->first()}}
+</div>
+@endif
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -30,6 +36,7 @@
       <th>
         Estatus
       </th>
+    
     </tr>
   </thead>
 
@@ -57,7 +64,14 @@
           @endif
         @endif
       </td>
-    </tr>
+      @if($order->status == 0)
+      <td>
+    {{Form::open(array('action' =>['OrdersController@destroy',$order->id],'method' => 'delete'))}}
+     <button class="btn btn-xs btn-danger" data-product-id="{{$order->id}}" >Eliminar</button>  
+     {{Form::close()}}
+       </td>
+    @endif 
+      </tr>
 
 
     @endforeach
