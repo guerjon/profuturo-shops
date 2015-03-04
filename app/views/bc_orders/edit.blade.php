@@ -51,36 +51,36 @@
       @endforeach
       <tr>
         <td>
-           {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
+           {{Form::text("talento_nombre", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control'])}}
+          {{Form::text("talento_direccion", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][telefono]", NULL, ['class' => 'form-control phone'])}}
+          {{Form::text("talento_tel", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][celular]", NULL, ['class' => 'form-control cellphone'])}}
+          {{Form::text("talento_cel", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::email("card[{$card->id}][email]", NULL, ['class' => 'form-control'])}}
+          {{Form::email("talento_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
       <tr>
         <td>
-           {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}
+           {{Form::text("gerente_nombre", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][direccion]", NULL, ['class' => 'form-control'])}}
+          {{Form::text("gerente_direccion", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][telefono]", NULL, ['class' => 'form-control phone'])}}
+          {{Form::text("gerente_tel", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][celular]", NULL, ['class' => 'form-control cellphone'])}}
+          {{Form::text("gerente_cel", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::email("card[{$card->id}][email]", NULL, ['class' => 'form-control'])}}
+          {{Form::email("gerente_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
     </tbody>

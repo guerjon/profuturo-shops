@@ -108,6 +108,32 @@ class BcOrdersController extends BaseController{
         'bc_order_id' => $bc_order->id,
         ]);
     }
+
+    if(Input::get('talento_nombre') or Input::get('gerente_direccionnombre')){
+      $extras = new BcOrdersExtras;
+    if(Input::get('talento_nombre')){
+      $extras->fill(array(
+        "talento_nombre" => Input::get('talento_nombre'),
+        "talento_direccion" => Input::get('talento_direccion'),
+        "talento_tel" => Input::get('talento_tel'),
+        "talento_cel" => Input::get('talento_cel'),
+        "talento_email" => Input::get('talento_email')
+        ));
+    }
+         if(Input::get('gerente_nombre')){
+        $extras->fill(array(
+        "gerente_nombre" => Input::get('gerente_nombre'),
+        "gerente_direccion" => Input::get('gerente_direccion'),
+        "gerente_tel" => Input::get('gerente_tel'),
+        "gerente_cel" => Input::get('gerente_cel'),
+        "gerente_email" => Input::get('gerente_email')
+        ));
+        
+        }
+        
+        $extras->bcOrder()->associate($bc_order);  
+        $extras->save();  
+    }
     return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha guardado la orden satisfactoriamente');
   }
 
@@ -146,15 +172,36 @@ class BcOrdersController extends BaseController{
 
     }
 
+    
+
+
+ 
+    
+
+
+    if($bc_order->extra){
+
+      $bc_order->extra->gerente_comentarios = Input::get('gerente_comentarios');
+      $bc_order->extra->talento_comentarios = Input::get('talento_comentarios');
+      $bc_order->extra->gerente_estatus = Input::get('gerente_estatus');
+      $bc_order->extra->talento_estatus = Input::get('talento_estatus');
+      $bc_order->extra->save();  
+      $complete *= Input::get('gerente_estatus');
+      $complete *= Input::get('talento_estatus');
+    }
+
     if($complete){
       $bc_order->status = $complete;
     }else{
       $bc_order->status = 2;
     }
-
-
+ 
     $bc_order->receive_comments = Input::get('receive_comments');
     $bc_order->save();
+
+
     return Redirect::to(action('BusinessCardsController@index'))->withSuccess('Se ha actualizado la información');
+  
+
   }
 }

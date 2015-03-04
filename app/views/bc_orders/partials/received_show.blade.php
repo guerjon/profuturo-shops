@@ -22,6 +22,7 @@
         {{$card->pivot->quantity}}
       </td>
 
+
     </tr>
     @endforeach
     @if($blank_card)
@@ -34,6 +35,25 @@
       </td>
     </tr>
     @endif
+    <tr>
+    <td>
+      {{$bc_order->extra->talento_nombre}}
+    </td>
+    <td>
+      100
+    </td>
+    </tr>
+    
+    <tr>
+    <td>
+      {{$bc_order->extra->gerente_nombre}}
+    </td>
+    <td>
+      100
+    </td>
+    </tr>
+
+
   </tbody>
 
 </table>

@@ -14,4 +14,9 @@ class BcOrder extends Eloquent
   {
     return $this->belongsTo('User');
   }
+
+    public function extra()
+  {
+    return $this->hasOne('BcOrdersExtras');
+  }
 }

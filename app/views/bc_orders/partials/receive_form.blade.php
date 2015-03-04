@@ -39,7 +39,10 @@
       </td>
     </tr>
     @endforeach
+
+
     @if($blank_card)
+    
     <tr>
       <td>
         Tarjetas blancas
@@ -54,7 +57,44 @@
         {{Form::text("blank_cards_comments", $blank_card->comments, ['class' => 'form-control']) }}
       </td>
     </tr>
+    
     @endif
+
+
+    @if($bc_order->extra)
+    
+    <tr>
+        <td>
+           {{$bc_order->extra->talento_nombre}}
+        </td>
+        <td>
+         {{$card->pivot->quantity}}
+        </td>
+        <td>
+          {{Form::select("talento_estatus",['Incompleto', 'Completo'],$bc_order->extra->talento_estatus , ['class' => 'form-control'])}}
+        </td>
+        <td>
+          {{Form::text("talento_comentarios", $bc_order->extra->talento_comentarios, ['class' => 'form-control']) }}
+        </td>
+    </tr>
+     
+    <tr> 
+        <td>
+           {{$bc_order->extra->gerente_nombre}}
+        </td>
+        <td>
+          {{$card->pivot->quantity}}
+        </td>
+        <td>
+          {{Form::select("gerente_estatus",['Incompleto', 'Completo'],$bc_order->extra->gerente_estatus, ['class' => 'form-control'])}}
+        </td>
+        <td>
+          {{Form::text("gerente_comentarios",$bc_order->extra->gerente_comentarios, ['class' => 'form-control']) }}
+        </td>
+    </tr>
+    
+    @endif
+
   </tbody>
 
 </table>
