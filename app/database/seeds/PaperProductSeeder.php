@@ -31,7 +31,7 @@ class PaperProductSeeder extends Seeder
         $category = Category::firstOrCreate([
           'name' => $name]);
 
-        $img = $row[9];
+        $img = $row[7];
         $path = "app/database/imgs/$img";
         if(file_exists($path) and copy($path, $img)){
           $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
