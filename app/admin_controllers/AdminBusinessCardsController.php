@@ -15,7 +15,7 @@ class AdminBusinessCardsController extends BaseController{
   public function store()
   {
     ini_set('auto_detect_line_endings', 1);
-    
+
     if(Input::file('file') == NULL){
       return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
         'file' => 'El archivo es requerido',
@@ -25,11 +25,13 @@ class AdminBusinessCardsController extends BaseController{
       $file = Input::file('file');
 
       $mime = $file->getMimeType();
-      if(!in_array($mime, ['text/csv', 'application/csv', 'text/plain'])) {
+      if(!in_array($mime, ['text/xls', 'application/xls', 'text/plain'])) {
         return Redirect::to(action('ImportController@getUpload'))->withErrors(new MessageBag([
-          'mime' => 'El archivo subido no es un archivo CSV válido. Mime recibido: '.$mime
+          'mime' => 'El archivo subido no es un archivo xls válido. Mime recibido: '.$mime
         ]));
     }
+
+    /*
     $handle = fopen($file->getRealPath(), 'r');
 
     $created = 0;
@@ -74,6 +76,12 @@ class AdminBusinessCardsController extends BaseController{
       }
 
     }
+    */
+   $documento = Excel::load($file->getRealPath(), function($reader) {
+
+    });
+
+
     return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
   }
 
