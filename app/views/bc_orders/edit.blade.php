@@ -31,10 +31,10 @@
       @foreach($bc_order->business_cards as $card)
       <tr>
         <td>
-          {{$card->nombre}}
+           {{Form::text("card[{$card->id}][nombre]", $card->nombre, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][direccion]", $card->direccion, ['class' => 'form-control'])}}
+          {{$card->direccion}}
         </td>
         <td>
           {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control phone'])}}
@@ -43,7 +43,7 @@
           {{Form::text("card[{$card->id}][celular]", $card->celular, ['class' => 'form-control cellphone'])}}
         </td>
         <td>
-          {{Form::email("card[{$card->id}][email]", $card->email, ['class' => 'form-control'])}}
+          {{$card->email}}
         </td>
         
       </tr>

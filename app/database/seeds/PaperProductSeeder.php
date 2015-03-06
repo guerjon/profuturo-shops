@@ -8,16 +8,28 @@ class PaperProductSeeder extends Seeder
     if($h = fopen('app/database/csvs/PRODUCTOS.csv', 'r')){
       while($row = fgetcsv($h)){
         $product = new Product([
-          'name' => $row[3],
-          'model' => $row[6],
-          'description' => $row[4],
-          'max_stock' => $row[5],
-          'measure_unit' => $row[6],
+          'name' => $row[1],
+          'model' => $row[2],
+          'description' => $row[3],
+          'max_stock' => $row[4],
+          'measure_unit' => $row[5],
           'sku' => $row[1],
           ]);
+        $name_category = $row[14];
+        $name = '';
+        if($name_category == 1){
+           $name = 'PAPEL';  
+          }
+          if($name_category == 2){
+           $name = 'ARTICULOS DE OFICINA';  
+          }
+
+          if($name_category == 3){
+          $name = 'MATERIAL DE APOYO';  
+          }
+          
         $category = Category::firstOrCreate([
-          'name' => $row[8],
-          ]);
+          'name' => $name]);
 
         $img = $row[9];
         $path = "app/database/imgs/$img";

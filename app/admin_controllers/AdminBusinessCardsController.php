@@ -1,5 +1,5 @@
 <?
-
+use Illuminate\Support\MessageBag;
 class AdminBusinessCardsController extends BaseController{
 
   public function index()
@@ -15,7 +15,7 @@ class AdminBusinessCardsController extends BaseController{
   public function store()
   {
     ini_set('auto_detect_line_endings', 1);
-
+    
     if(Input::file('file') == NULL){
       return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
         'file' => 'El archivo es requerido',
