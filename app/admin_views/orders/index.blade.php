@@ -12,8 +12,10 @@
 <table class="table table-striped">
   <thead>
     <tr>
-    <th>
-        Nombre CC
+
+       <th>
+       Nombre CC
+>>>>>>> 6867a2b2eae9f2670497668963d934279ebe0773
       </th>
       <th>
         Centro de costos
@@ -45,6 +47,9 @@
     {{$order->user->gerencia}}
     </td>
       <td>
+        {{$order->user->gerencia}}
+      </td>
+      <td>
         {{$order->user->ccosto}}
       </td>
       <td>
@@ -56,17 +61,7 @@
       <td>
         {{$order->created_at->format('d-m-Y')}}
       </td>
-       <td>
-        {{$order->created_at->format('d-m-Y')}}
-      </td>
-       <td>
-   {{Form::open(array('action' =>['AdminOrdersController@destroy',$order->id],
-   'method' => 'delete'))}}
-
-    {{Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger'])}}
-     {{Form::close()}}
-     </td>
-      <td>
+         <td>
         @if($order->status == 0)
         Pendiente
         @elseif($order->status==1)
@@ -78,6 +73,14 @@
         @endif
         @endif
       </td>
+       <td>
+   {{Form::open(array('action' =>['AdminOrdersController@destroy',$order->id],
+   'method' => 'delete'))}}
+
+    {{Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger'])}}
+     {{Form::close()}}
+     </td>
+   
     </tr>
 
 

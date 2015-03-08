@@ -23,6 +23,9 @@
         <th>
           Centro de costos
         </th>
+          <th>
+          Linea de negocios
+        </th>
       </tr>
     </thead>
 
@@ -35,6 +38,9 @@
         </td>
         <td>
           {{$user->gerencia}}
+        </td>
+        <td>
+          {{$user->linea_negocio}}
         </td>
       </tr>
       @endforeach
@@ -68,6 +74,7 @@
         <td>
           {{$user->first_name}} {{$user->last_name}}
         </td>
+        
       </tr>
       @endforeach
     </tbody>

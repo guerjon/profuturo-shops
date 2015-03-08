@@ -21,14 +21,14 @@ class CreateBusinessCardsTable extends Migration {
 			$table->integer('ccosto')->unsigned();
 			$table->string('nombre_ccosto');
 			$table->string('nombre_puesto');
-			$table->date('fecha_ingreso');
+			$table->date('fecha_ingreso')->nullable();
 			$table->string('rfc')->nullable();
-			$table->string('web');
-			$table->string('gerencia');
-			$table->string('direccion');
-			$table->string('telefono');
-			$table->string('celular');
-			$table->string('email');
+			$table->string('web')->nullable();
+			$table->string('gerencia')->nullable();
+			$table->string('direccion')->nullable();
+			$table->string('telefono')->nullable();
+			$table->string('celular')->nullable();
+			$table->string('email')->nullable();
 		  $table->timestamps();
 		});
 

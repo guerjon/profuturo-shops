@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"watson/validating": "0.10.*",
-		"codesleeve/laravel-stapler": "1.0.*"
+		"codesleeve/laravel-stapler": "1.0.*",
+		"maatwebsite/excel": "1.*"
 	},
 	"autoload": {
 		"classmap": [
@@ -17,6 +18,7 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
+
 		]
 	},
 	"scripts": {
