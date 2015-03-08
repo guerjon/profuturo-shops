@@ -12,6 +12,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
+    <th>
+        Nombre CC
+      </th>
       <th>
         Centro de costos
       </th>
@@ -38,6 +41,9 @@
   <tbody>
     @foreach($orders as $order)
     <tr>
+    <td>
+    {{$order->user->gerencia}}
+    </td>
       <td>
         {{$order->user->ccosto}}
       </td>
