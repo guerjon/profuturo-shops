@@ -1,5 +1,5 @@
 <?
-
+use Illuminate\Support\MessageBag;
 class AdminBusinessCardsController extends BaseController{
 
   public function index()
@@ -23,13 +23,15 @@ class AdminBusinessCardsController extends BaseController{
       }
 
       $file = Input::file('file');
-
+/*
       $mime = $file->getMimeType();
-      if(!in_array($mime, ['text/csv', 'application/csv', 'text/plain'])) {
-        return Redirect::to(action('ImportController@getUpload'))->withErrors(new MessageBag([
-          'mime' => 'El archivo subido no es un archivo CSV válido. Mime recibido: '.$mime
+      if(!in_array($mime, ['text/xlsx', 'application/xlsx', 'text/plain'])) {
+        return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
+          'mime' => 'El archivo subido no es un archivo excel válido. Mime recibido: '.$mime
         ]));
     }
+
+    /*
     $handle = fopen($file->getRealPath(), 'r');
 
     $created = 0;
@@ -74,7 +76,30 @@ class AdminBusinessCardsController extends BaseController{
       }
 
     }
-    return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
+    */
+
+   $excel = Excel::load($file->getRealPath(), function($reader) {
+    $reader->each(function($sheet) {
+      $sheet->each(function($row) {
+          BusinessCard::create([
+          'no_emp' => $row->NUMERO_EMPLEADO,
+          'nombre' => $row->NOMBRE_EMPLEADO,
+          'ccosto' => $row->CCOSTO,
+          'nombre_ccosto' => $row->NOMBRE_CCOSTO,
+          'nombre_puesto' => $row->NOMBRE_PUESTO,
+          'fecha_ingreso' => $row->FECHA_INGRESO,
+          'web' => $row->WEB,
+          'gerencia' => $row->GERENCIA,
+          'direccion' => $row->DIRECCION,
+          'telefono' => $row->TELEFONO,
+          'celular' => $row->CELULAR,
+          'email' => $row->EMAIL,
+          ]);
+     });
+    }); 
+  })->get();
+
+    return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron  registros. Se actualizaron  ");
   }
 
   public function destroy($card_id)

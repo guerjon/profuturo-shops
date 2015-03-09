@@ -4,7 +4,7 @@
 
 
 <div class="text-right">
-  {{link_to_action('AdminBusinessCardsController@create', 'Importar archivo CSV', [], ['class' => 'btn btn-default'])}}
+  {{link_to_action('AdminBusinessCardsController@create', 'Importar archivo Excel', [], ['class' => 'btn btn-default'])}}
 </div>
 <br>
 @if($cards->count() == 0)

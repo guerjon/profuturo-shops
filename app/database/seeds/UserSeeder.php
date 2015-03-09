@@ -22,7 +22,8 @@ class UserSeeder extends Seeder
           // 'role' => 'user_paper'
           //
           'ccosto' => $row[0],
-          'gerencia' => $row[1],
+          'gerencia' => $row[2],
+          'linea_negocio' => $row[3],
           'password' => 'password'
           ]);
         if(strpos($user->gerencia, 'DIVISION') !== FALSE or strpos($user->gerencia, 'REGIONAL') !== FALSE){

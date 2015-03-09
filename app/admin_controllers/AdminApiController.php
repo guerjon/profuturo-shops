@@ -78,10 +78,26 @@ class AdminApiController extends AdminBaseController
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
-      foreach($query->get() as $item){
-        $data .= self::convertObjectToCsv($item, $headers);
-      }
 
+  Log::info($data);
+
+      $result = [$headers];
+  foreach($query->get() as $item){
+    $itemArray = [];
+  foreach($headers as $header){
+    $itemArray[] = $item->{$header};
+  }
+    $result[] = $itemArray;
+  } 
+  if($result){
+   $mes = Input::get('month');
+   $año = Input::get('year');
+    Excel::create('Reporte_Papeleria_'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('segunda hoja',function($sheet)use($result){
+       $sheet->fromArray($result);
+        });
+      })->download('xls');
+  }
 
       $headers = array(
         'Content-Type' => 'text/csv',
@@ -89,6 +105,8 @@ class AdminApiController extends AdminBaseController
       );
       return Response::make($data, 200, $headers);
     }
+
+
   }
 
   public function getBcOrdersReport()
@@ -124,12 +142,27 @@ class AdminApiController extends AdminBaseController
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
-      foreach($query->get() as $item){
-        $data .= self::convertObjectToCsv($item, $headers);
-      }
-
-
+    
       Log::info($data);
+
+      $result = [$headers];
+  foreach($query->get() as $item){
+    $itemArray = [];
+  foreach($headers as $header){
+    $itemArray[] = $item->{$header};
+  }
+    $result[] = $itemArray;
+  } 
+  if($result){
+    $mes = Input::get('month');
+   $año = Input::get('year');
+    Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
+     $excel->sheet('segunda hoja',function($sheet)use($result){
+       $sheet->fromArray($result);
+        });
+      })->download('xls');
+  }
+
 
       $headers = array(
         'Content-Type' => 'text/csv',

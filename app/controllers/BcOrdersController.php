@@ -109,7 +109,7 @@ class BcOrdersController extends BaseController{
         ]);
     }
 
-    if(Input::get('talento_nombre') or Input::get('gerente_direccionnombre')){
+    if(Input::get('talento_nombre') or Input::get('gerente_nombre')){
       $extras = new BcOrdersExtras;
     if(Input::get('talento_nombre')){
       $extras->fill(array(

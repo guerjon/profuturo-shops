@@ -21,7 +21,7 @@
   </div>
 
   <div class="col-xs-4">
-    {{ Form::submit('Descargar CSV', ['class' => 'btn btn-warning btn-submit'])}}
+    {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
   </div>
 </div>
 {{Form::close()}}

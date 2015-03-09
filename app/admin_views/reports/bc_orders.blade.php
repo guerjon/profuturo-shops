@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="page-header">
-  <h3>Reporte de pedidos papelería</h3>
+  <h3>Reporte de pedidos tarjetas</h3>
 </div>
 
 {{Form::open([
@@ -21,7 +21,7 @@
   </div>
 
   <div class="col-xs-4">
-    {{ Form::submit('Descargar CSV', ['class' => 'btn btn-warning btn-submit'])}}
+    {{ Form::submit('Descargar Excel', ['class' => 'btn btn-warning btn-submit'])}}
   </div>
 </div>
 {{Form::close()}}

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
 		  $table->increments('id');
 			$table->integer('ccosto')->unsigned();
 			$table->string('gerencia');
+			$table->string('linea_negocio');
 			$table->string('password');
 
 			$table->boolean('has_limit')->default(true);

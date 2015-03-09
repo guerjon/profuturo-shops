@@ -14,10 +14,10 @@
 
       <fieldset>
         <legend>
-          Importar un archivo CSV con información de tarjetas de presentación
+          Importar un archivo Excel con información de tarjetas de presentación
         </legend>
         <div class="form-group">
-          {{Form::label('file', 'Archivo CSV')}}
+          {{Form::label('file', 'Archivo Excel')}}
           {{Form::file('file')}}
         </div>
 

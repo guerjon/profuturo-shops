@@ -4,7 +4,7 @@
 
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/productos">Todas</a>
+    <a href="/productos">TODAS</a>
   </li>
   @foreach($categories as $category)
   <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
