@@ -53,7 +53,7 @@
 
 {{Form::open([
   'action' => 'OrdersController@store',
-  'role' => 'form'
+  'role' => 'form',
   'id' => 'send-order-form'
   ])}}
 
