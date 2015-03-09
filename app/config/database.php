@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'profcom_store',
-			'username'  => 'profcom_store',
-			'password'  => 'profcom_store@1',
+			'database'  => 'appssori_profuturo_store',
+			'username'  => 'appssori_pfstore',
+			'password'  => 'Pfstore@1',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
