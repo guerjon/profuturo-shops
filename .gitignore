@@ -1,5 +1,5 @@
 /bootstrap/compiled.php
-/app/config/*/local/
+/app/config/local/
 /vendor
 /public/system
 *.bck

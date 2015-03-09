@@ -79,25 +79,24 @@ class AdminBusinessCardsController extends BaseController{
     */
 
    $excel = Excel::load($file->getRealPath(), function($reader) {
-    $reader->each(function($sheet) {
-      $sheet->each(function($row) {
-          BusinessCard::create([
-          'no_emp' => $row->NUMERO_EMPLEADO,
-          'nombre' => $row->NOMBRE_EMPLEADO,
-          'ccosto' => $row->CCOSTO,
-          'nombre_ccosto' => $row->NOMBRE_CCOSTO,
-          'nombre_puesto' => $row->NOMBRE_PUESTO,
-          'fecha_ingreso' => $row->FECHA_INGRESO,
-          'web' => $row->WEB,
-          'gerencia' => $row->GERENCIA,
-          'direccion' => $row->DIRECCION,
-          'telefono' => $row->TELEFONO,
-          'celular' => $row->CELULAR,
-          'email' => $row->EMAIL,
-          ]);
-     });
-    }); 
-  })->get();
+    $sheet = $reader->first();
+    $sheet->each(function($row) {
+        BusinessCard::create([
+        'no_emp' => $row->numero_empleado,
+        'nombre' => $row->nombre_empleado,
+        'ccosto' => $row->ccosto,
+        'nombre_ccosto' => $row->nombre_ccosto,
+        'nombre_puesto' => $row->nombre_puesto,
+        'fecha_ingreso' => $row->fecha_ingreso,
+        'web' => $row->web,
+        'gerencia' => $row->gerencia,
+        'direccion' => $row->direccion,
+        'telefono' => $row->telefono,
+        'celular' => $row->celular,
+        'email' => $row->email,
+        ]);
+    });
+  });
 
     return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron  registros. Se actualizaron  ");
   }
