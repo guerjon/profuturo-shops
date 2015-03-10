@@ -14,7 +14,7 @@ class AdminBusinessCardsController extends BaseController{
 
   public function store()
   {
-   
+    ini_set('auto_detect_line_endings', 1);
 
     if(Input::file('file') == NULL){
       return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
@@ -24,30 +24,65 @@ class AdminBusinessCardsController extends BaseController{
 
       $file = Input::file('file');
 
-   $excel = Excel::load($file->getRealPath(), function($reader) {
-    
-    $reader->each(function($sheet) {
-      $sheet->each(function($row){
+      $mime = $file->getMimeType();
+      if(!in_array($mime, ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel'])) {
+        return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
+          'mime' => 'El archivo subido no es un archivo excel válido. Mime recibido: '.$mime
+        ]));
+    }
+
+   $created = 0;
+   $updated = 0;
+   $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
+ 
+       $reader->each(function($sheet)use(&$created, &$updated){
+       
+       $sheet->each(function($row)use(&$created, &$updated){
+       
+       $card = BusinessCard::where('no_emp',$row->numero_empleado)->first(); 
+
+        if(!$card){
         BusinessCard::create([
-        'no_emp' => $row->NUMERO_EMPLEADO,
-        'nombre' => $row->NOMBRE_EMPLEADO,
-        'ccosto' => $row->CCOSTO,
-        'nombre_ccosto' => $row->NOMBRE_CCOSTO,
-        'nombre_puesto' => $row->NOMBRE_PUESTO,
-        'fecha_ingreso' => $row->FECHA_INGRESO,
-        'web' => $row->WEB,
-        'gerencia' => $row->GERENCIA,
-        'direccion' => $row->DIRECCION,
-        'telefono' => $row->TELEFONO,
-        'celular' => $row->CELULAR,
-        'email' => $row->EMAIL,
+        'no_emp' => $row->numero_empleado,
+        'nombre' => $row->nombre_empleado,
+        'ccosto' => $row->ccosto,
+        'nombre_ccosto' => $row->nombre_ccosto,
+        'nombre_puesto' => $row->nombre_puesto,
+        'fecha_ingreso' => $row->fecha_ingreso,
+        'web' => $row->web,
+        'gerencia' => $row->gerencia,
+        'direccion' => $row->direccion,
+        'telefono' => $row->direccion,
+        'celular' => $row->celular,
+        'email' => $row->email,
         ]);
-      });
+       $created++;
+    
+    }else{
+       $card->fill([
+          'nombre' => $row->nombre_empleado,
+          'ccosto' => $row->ccosto,
+          'nombre_ccosto' => $row->ccosto,
+          'nombre_puesto' => $row->nombre_ccosto,
+          'fecha_ingreso' => $row->fecha_ingreso,
+          'web' => $row->web,
+          'gerencia' => $row->gerencia,
+          'direccion' => $row->direccion,
+          'telefono' => $row->telefono,
+          'celular' => $row->celular,
+          'email' => $row->email,
+        ]);
+      
+        if($card->save()){
+         $updated++;
+      }
+    }    
+      });        
     });
   });
 
 
-    return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron  registros. Se actualizaron  ");
+    return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
   }
 
   public function destroy($card_id)

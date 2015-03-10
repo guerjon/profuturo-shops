@@ -115,6 +115,7 @@ class BcOrdersController extends BaseController{
       $extras->fill(array(
         "talento_nombre" => Input::get('talento_nombre'),
         "talento_direccion" => Input::get('talento_direccion'),
+        "talento_direccion_alternativa" => Input::get('talento_direccion_alternativa'),
         "talento_tel" => Input::get('talento_tel'),
         "talento_cel" => Input::get('talento_cel'),
         "talento_email" => Input::get('talento_email')
@@ -124,6 +125,7 @@ class BcOrdersController extends BaseController{
         $extras->fill(array(
         "gerente_nombre" => Input::get('gerente_nombre'),
         "gerente_direccion" => Input::get('gerente_direccion'),
+        "gerente_direccion_alternativa" => Input::get('gerente_direccion_alternativa'),
         "gerente_tel" => Input::get('gerente_tel'),
         "gerente_cel" => Input::get('gerente_cel'),
         "gerente_email" => Input::get('gerente_email')

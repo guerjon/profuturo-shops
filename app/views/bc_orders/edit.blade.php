@@ -63,6 +63,10 @@
           {{Form::text("talento_direccion", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
+          {{Form::text("talento_direccion_alternativa", NULL, ['class' => 'form-control'])}}
+        </td>
+        </td>
+        <td>
           {{Form::text("talento_tel", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
@@ -78,6 +82,9 @@
         </td>
         <td>
           {{Form::text("gerente_direccion", NULL, ['class' => 'form-control'])}}
+        </td>
+        <td>
+          {{Form::text("gerente_direccion_alternativa", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
           {{Form::text("gerente_tel", NULL, ['class' => 'form-control'])}}

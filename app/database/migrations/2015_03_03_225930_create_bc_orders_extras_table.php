@@ -16,6 +16,7 @@ class CreateBcOrdersExtrasTable extends Migration {
 		$table->increments('id');
 		$table->string('talento_nombre');
 		$table->string('talento_direccion');
+		$table->string('talento_direccion_alternativa');
 		$table->string('talento_tel');
 		$table->string('talento_cel');
 		$table->string('talento_email');
@@ -24,6 +25,7 @@ class CreateBcOrdersExtrasTable extends Migration {
 
 		$table->string('gerente_nombre');
 		$table->string('gerente_direccion');
+		$table->string('gerente_direccion_alternativa');
 		$table->string('gerente_tel');
 		$table->string('gerente_cel');
 		$table->string('gerente_email');
