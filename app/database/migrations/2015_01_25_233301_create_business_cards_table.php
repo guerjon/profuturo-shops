@@ -26,6 +26,7 @@ class CreateBusinessCardsTable extends Migration {
 			$table->string('web')->nullable();
 			$table->string('gerencia')->nullable();
 			$table->string('direccion')->nullable();
+			$table->string('direccion_alternativa')->nullable();
 			$table->string('telefono')->nullable();
 			$table->string('celular')->nullable();
 			$table->string('email')->nullable();

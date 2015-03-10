@@ -16,6 +16,9 @@
         <th>
           Dirección
         </th>
+         <th>
+          Dirección alternativa
+        </th>
         <th>
           Teléfono
         </th>
@@ -35,6 +38,9 @@
         </td>
         <td>
           {{$card->direccion}}
+        </td>
+        <td>
+          {{Form::text("card[{$card->id}][direccion_alternativa]", $card->direccion_alternativa,['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
         <td>
           {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control phone'])}}

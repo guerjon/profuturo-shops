@@ -1,3 +1,5 @@
+
+
 @extends('layouts.master')
 
 @section('content')
@@ -51,7 +53,8 @@
 
 {{Form::open([
   'action' => 'OrdersController@store',
-  'role' => 'form'
+  'role' => 'form',
+  'id' => 'send-order-form'
   ])}}
 
 <div class="form-group">
@@ -81,6 +84,21 @@
         }
       });
     });
+
+     $('form').submit(function(e){
+  if(confirm("¿Esta seguro que quiere enviar este pedido, no habrá cambios después de ser enviado?")){
+
+  }else{
+    e.preventDefault();
+  }
+ }); 
+
   });
+
+
+  
+ 
+
+
 </script>
 @stop

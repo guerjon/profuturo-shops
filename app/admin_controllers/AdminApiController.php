@@ -23,6 +23,7 @@ class AdminApiController extends AdminBaseController
 
   public function getOrdersReport()
   {
+    ini_set('max_execution_time','300');
     $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
       DB::raw("
       '9999999999999990000000000' AS EIP_CTL_ID,
