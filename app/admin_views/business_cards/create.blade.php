@@ -1,7 +1,14 @@
 @extends('layouts.master')
 
 @section('content')
+@if($errors->count())
+@foreach($errors->all() as $error)
+<div class="alert alert-danger">
+{{$error}}
+</div>
+@endforeach
 
+@endif
 
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">

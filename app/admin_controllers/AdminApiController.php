@@ -65,7 +65,9 @@ class AdminApiController extends AdminBaseController
       ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
       ->orderBy('orders.id')
       ->where(DB::raw('MONTH(orders.updated_at)'), Input::get('month'))
-      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'));
+      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
+      ->where('categories.name', Input::get('category'));
+
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
     if(Request::ajax()){
@@ -112,6 +114,7 @@ class AdminApiController extends AdminBaseController
 
   public function getBcOrdersReport()
   {
+    ini_set('max_execution_time', '300');
     $query = DB::table('bc_order_business_card')->selectRaw("
     bc_orders.id AS NUM_PEDIDO,
     users.gerencia AS GERENCIA,
@@ -129,6 +132,7 @@ class AdminApiController extends AdminBaseController
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->where(DB::raw('MONTH(bc_orders.updated_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
+
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];

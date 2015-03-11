@@ -22,15 +22,8 @@ class AdminBusinessCardsController extends BaseController{
         ]));
       }
 
+
       $file = Input::file('file');
-
-      $mime = $file->getMimeType();
-      if(!in_array($mime, ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet','application/vnd.ms-excel'])) {
-        return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
-          'mime' => 'El archivo subido no es un archivo excel válido. Mime recibido: '.$mime
-        ]));
-    }
-
    $created = 0;
    $updated = 0;
    $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
