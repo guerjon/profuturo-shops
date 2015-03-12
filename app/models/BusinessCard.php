@@ -1,8 +1,15 @@
 <?
 
+use Watson\Validating\ValidatingTrait;
+
 class BusinessCard extends Eloquent
 {
-  protected $rules = [];
+  use ValidatingTrait;
+  protected $rules = [
+    'no_emp' => 'required|numeric',
+    'nombre' => 'required',
+    'ccosto' => 'required|numeric'
+  ];
   protected $guarded = [];
 
 

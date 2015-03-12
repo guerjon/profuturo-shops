@@ -19,61 +19,62 @@ class AdminBusinessCardsController extends BaseController{
     if(Input::file('file') == NULL){
       return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
         'file' => 'El archivo es requerido',
-        ]));
-      }
-
-
-      $file = Input::file('file');
-   $created = 0;
-   $updated = 0;
-   $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
-
-       $reader->each(function($sheet)use(&$created, &$updated){
-
-       $sheet->each(function($row)use(&$created, &$updated){
-
-       $card = BusinessCard::where('no_emp',$row->numero_empleado)->first();
-
-        if(!$card){
-        BusinessCard::create([
-        'no_emp' => $row->no_emp,
-        'nombre' => $row->nombre,
-        'ccosto' => $row->ccosto,
-        'nombre_ccosto' => $row->nombre_ccosto,
-        'nombre_puesto' => $row->nombre_puesto,
-        'fecha_ingreso' => $row->fecha_ingreso,
-        'web' => $row->web,
-        'gerencia' => $row->gerencia,
-        'direccion' => $row->direccion,
-        'telefono' => $row->direccion,
-        'celular' => $row->celular,
-        'email' => $row->email,
-        ]);
-       $created++;
-
-    }else{
-       $card->fill([
-          'nombre' => $row->nombre,
-          'ccosto' => $row->ccosto,
-          'nombre_ccosto' => $row->ccosto,
-          'nombre_puesto' => $row->nombre_ccosto,
-          'fecha_ingreso' => $row->fecha_ingreso,
-          'web' => $row->web,
-          'gerencia' => $row->gerencia,
-          'direccion' => $row->direccion,
-          'telefono' => $row->telefono,
-          'celular' => $row->celular,
-          'email' => $row->email,
-        ]);
-
-        if($card->save()){
-         $updated++;
-      }
+      ]));
     }
+
+
+    $file = Input::file('file');
+    $created = 0;
+    $updated = 0;
+    $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
+
+      $reader->each(function($sheet)use(&$created, &$updated){
+
+        $sheet->each(function($row)use(&$created, &$updated){
+
+          $card = BusinessCard::where('no_emp',$row->no_emp)->first();
+
+          if(!$card){
+            $card = BusinessCard::create([
+              'no_emp' => $row->no_emp,
+              'nombre' => $row->nombre,
+              'ccosto' => $row->ccosto,
+              'nombre_ccosto' => $row->nombre_ccosto,
+              'nombre_puesto' => $row->nombre_puesto,
+              'fecha_ingreso' => $row->fecha_ingreso,
+              'web' => $row->web,
+              'gerencia' => $row->gerencia,
+              'direccion' => $row->direccion,
+              'telefono' => $row->direccion,
+              'celular' => $row->celular,
+              'email' => $row->email,
+            ]);
+            if($card){
+              $created++;
+            }
+
+          }else{
+            $card->fill([
+              'nombre' => $row->nombre,
+              'ccosto' => $row->ccosto,
+              'nombre_ccosto' => $row->ccosto,
+              'nombre_puesto' => $row->nombre_ccosto,
+              'fecha_ingreso' => $row->fecha_ingreso,
+              'web' => $row->web,
+              'gerencia' => $row->gerencia,
+              'direccion' => $row->direccion,
+              'telefono' => $row->telefono,
+              'celular' => $row->celular,
+              'email' => $row->email,
+            ]);
+
+            if($card->save()){
+              $updated++;
+            }
+          }
+        });
       });
     });
-  });
-
 
     return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
   }
