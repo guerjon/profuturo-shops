@@ -50,7 +50,12 @@
 
 <hr>
 
-
+@if($last_order !== NULL and $last_order->created_at->month == \Carbon\Carbon::now()->month)
+<div class="alert alert-warning">
+  Usted ya realizó un pedido de papelería este mes.
+</div>
+@else
+&nbsp;
 {{Form::open([
   'action' => 'OrdersController@store',
   'role' => 'form',
@@ -64,7 +69,7 @@
   <button type="submit" class="btn btn-warning">Enviar pedido</a>
 </div>
 {{Form::close()}}
-
+@endif
 @endif
 
 @stop
@@ -91,13 +96,13 @@
   }else{
     e.preventDefault();
   }
- }); 
+ });
 
   });
 
 
-  
- 
+
+
 
 
 </script>

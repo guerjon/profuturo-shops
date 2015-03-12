@@ -27,17 +27,17 @@ class AdminBusinessCardsController extends BaseController{
    $created = 0;
    $updated = 0;
    $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
- 
+
        $reader->each(function($sheet)use(&$created, &$updated){
-       
+
        $sheet->each(function($row)use(&$created, &$updated){
-       
-       $card = BusinessCard::where('no_emp',$row->numero_empleado)->first(); 
+
+       $card = BusinessCard::where('no_emp',$row->numero_empleado)->first();
 
         if(!$card){
         BusinessCard::create([
-        'no_emp' => $row->numero_empleado,
-        'nombre' => $row->nombre_empleado,
+        'no_emp' => $row->no_emp,
+        'nombre' => $row->nombre,
         'ccosto' => $row->ccosto,
         'nombre_ccosto' => $row->nombre_ccosto,
         'nombre_puesto' => $row->nombre_puesto,
@@ -50,10 +50,10 @@ class AdminBusinessCardsController extends BaseController{
         'email' => $row->email,
         ]);
        $created++;
-    
+
     }else{
        $card->fill([
-          'nombre' => $row->nombre_empleado,
+          'nombre' => $row->nombre,
           'ccosto' => $row->ccosto,
           'nombre_ccosto' => $row->ccosto,
           'nombre_puesto' => $row->nombre_ccosto,
@@ -65,12 +65,12 @@ class AdminBusinessCardsController extends BaseController{
           'celular' => $row->celular,
           'email' => $row->email,
         ]);
-      
+
         if($card->save()){
          $updated++;
       }
-    }    
-      });        
+    }
+      });
     });
   });
 
