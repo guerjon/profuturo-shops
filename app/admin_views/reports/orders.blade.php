@@ -20,7 +20,7 @@
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
     <div class="col-xs-2">
-    {{Form::select('category',array('ARTICULOS DE OFICINA' =>'Articulos de oficina','MATERIAL DE APOYO' => 'Material de apoyo','PAPEL' =>'Papel'),['class' => 'form-control'])}}
+    {{Form::select('category',array('ARTICULOS DE OFICINA' =>'Articulos de oficina','MATERIAL DE APOYO' => 'Material de apoyo','PAPEL' =>'Papel'),NUll,['class' => 'form-control'])}}
   </div>
   <center>
   <div class="col-xs-4">

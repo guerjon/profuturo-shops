@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->text('comments');
 			$table->tinyInteger('status')->unsigned()->default(0);
+			$table->text('receive_comments')->nullable();
 		  $table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
