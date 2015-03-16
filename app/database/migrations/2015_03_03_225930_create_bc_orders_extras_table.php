@@ -14,7 +14,7 @@ class CreateBcOrdersExtrasTable extends Migration {
 	{
 		Schema::create('bc_orders_extras', function($table){
 		$table->increments('id');
-		$table->string('talento_nombre');
+		$table->string('talento_nombre')->nullable();
 		$table->string('talento_direccion')->nullable();
 		$table->string('talento_direccion_alternativa')->nullable();
 		$table->string('talento_tel')->nullable();
@@ -23,7 +23,7 @@ class CreateBcOrdersExtrasTable extends Migration {
 		$table->string('talento_comentarios')->nullable();
 		$table->string('talento_estatus')->nullable();
 
-		$table->string('gerente_nombre');
+		$table->string('gerente_nombre')->nullable();
 		$table->string('gerente_direccion')->nullable();
 		$table->string('gerente_direccion_alternativa')->nullable();
 		$table->string('gerente_tel')->nullable();
