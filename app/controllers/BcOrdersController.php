@@ -139,15 +139,22 @@ class BcOrdersController extends BaseController{
     return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha guardado la orden satisfactoriamente');
   }
 
-  public function destroy($bc_order_id)
-  {
-    $bc_order = BcOrder::find($bc_order_id);
-    if($bc_order){
-      $bc_order->delete();
+    public function destroy($order_id)
+    {
+    $order = BcOrder::find($order_id);
+    if(!$order){
+      return Redirect::to('/')->withWarning('No se encontró la orden');
     }
+    if($order->status == 0) 
+    {
+      $order = $order->delete();
+      return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha eliminado la orden');  
+    }else{
+    
+      return Redirect::back()->withErrors('El pedido ha sido aprobado no se puede eliminar');  
 
-    return Redirect::to(action('BusinessCardsController@index'))->withSuccess('Se ha cancelado la orden');
-  }
+      }
+   }
 
 
 

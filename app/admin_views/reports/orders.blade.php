@@ -22,11 +22,9 @@
     <div class="col-xs-2">
     {{Form::select('category',array('ARTICULOS DE OFICINA' =>'Articulos de oficina','MATERIAL DE APOYO' => 'Material de apoyo','PAPEL' =>'Papel'),NUll,['class' => 'form-control'])}}
   </div>
-  <center>
-  <div class="col-xs-4">
+
     {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
-  </div>
-  </center>
+
 </div>
 {{Form::close()}}
 

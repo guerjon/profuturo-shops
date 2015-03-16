@@ -26,6 +26,7 @@
       <th>
         Estatus
       </th>
+
     </tr>
   </thead>
 
@@ -50,6 +51,13 @@
         Recibido incompleto.
         @endif
       </td>
+       @if($order->status == 0)
+      <td>
+    {{Form::open(array('action' =>['BcOrdersController@destroy',$order->id],'method' => 'delete'))}}
+     <button class="btn btn-xs btn-danger" data-product-id="{{$order->id}}" >Eliminar</button>  
+     {{Form::close()}}
+       </td>
+    @endif 
     </tr>
 
 
