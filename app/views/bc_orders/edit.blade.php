@@ -57,6 +57,7 @@
 
       @endforeach
       <tr>
+        @if($manager)
         <td>
            {{Form::text("talento_nombre", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
@@ -98,6 +99,7 @@
           {{Form::email("gerente_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
+      @endif
     </tbody>
   </table>
 

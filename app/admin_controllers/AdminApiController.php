@@ -128,6 +128,8 @@ class AdminApiController extends AdminBaseController
       business_cards.web AS WEB,
       business_cards.ccosto AS CENTRO_COSTO,
       business_cards.direccion AS DIRECCION,
+      business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
+
       '' AS PUESTO_ATRACCION_GERENTE
     ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
     ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
@@ -148,6 +150,7 @@ class AdminApiController extends AdminBaseController
       '' AS WEB,
       users.ccosto AS CENTRO_COSTO,
       '' AS DIRECCION,
+      '' AS DIRECCION_ALTERNATIVA,
       '' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
@@ -167,6 +170,7 @@ class AdminApiController extends AdminBaseController
       '' AS WEB,
       users.ccosto AS CENTRO_COSTO,
       bc_orders_extras.talento_direccion AS DIRECCION,
+      '' AS DIRECCION_ALTERNATIVA,
       'Atracción de talento' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
@@ -188,6 +192,7 @@ class AdminApiController extends AdminBaseController
       '' AS WEB,
       users.ccosto AS CENTRO_COSTO,
       bc_orders_extras.gerente_direccion AS DIRECCION,
+      '' AS DIRECCION_ALTERNATIVA,
       'Gerente comercial' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
