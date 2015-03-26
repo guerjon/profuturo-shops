@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="/css/slidebars.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/js/raty/lib/jquery.raty.css">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
