@@ -20,9 +20,6 @@
         Presupuesto
       </th>
       <th>
-        Asesor asignado
-      </th>
-      <th>
         Asignar asesor
       </th>
     </tr>
@@ -43,17 +40,14 @@
         {{ $request->unit_price * $request->quantity}}
       </td>
       <td>
-
-      </td>
-      <td>
-        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Asignar</button>
+        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Asignar</button>
       </td>
     </tr>
     @endforeach
   </tbody>
 </table>
 
-@include('admin::general_requests_manager.show')
+@include('admin::general_requests_assign.partials.assign_modal')
 
 @else
 
@@ -67,16 +61,21 @@
 @section('script')
 <script>
 $(function(){
-  $('.detail-btn').click(function(){
-    $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
-      if(data.status == 200){
-        var info = data.request;
-        for(key in info){
-          $('#request-' + key).text(info[key]);
-        }
-      }
-    });
+
+  $('.assign-btn').click(function(){
+    $('#request_id').val($(this).attr('data-request-id'));
   });
+
+  $('#submit-btn').click(function(){
+    $('#assign-form').submit();
+  });
+
+  $('.rating-raty').raty({
+    scoreName : 'rating',
+    path : '/img/raty'
+  });
+
+
 })
 </script>
 @stop

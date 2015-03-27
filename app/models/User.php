@@ -30,7 +30,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $rules = [
 		'gerencia' => 'required',
 		'password' => 'required',
-		
+
 		'role' => 'in:manager,admin,user_requests,user_paper'
 	];
 
@@ -75,6 +75,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('GeneralRequest');
 	}
 
+	public function assignedRequests()
+	{
+		return $this->hasMany('GeneralRequest', 'manager_id');
+	}
+
 	public function getCartTotalAttribute()
 	{
 		$total = 0;
@@ -97,20 +102,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminOrdersController@index') => 'Pedidos papelería',
 					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
 					action('AdminCalendarEventsController@index') => 'Agenda',
-					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
-					action('AdminGeneralRequestsManagerController@getManagers') => 'Solicitudes generales asesor',
+					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
+					action('AdminGeneralRequestsController@index') => 'Reporte de solicitudes generales',
 					action('AdminReportsController@getOrdersReport') => 'Reporte de pedidos papelería',
 					action('AdminReportsController@getBcOrdersReport') => 'Reporte de pedidos de tarjetas de presentación',
 
 				];
 			case 'manager':
 				return [
-					action('ProductsController@index') => 'Productos',
-					action('BusinessCardsController@index') => 'Tarjetas de presentación',
-					'/carrito' => 'Mi carrito (papelería)',
-					action('OrdersController@index') => 'Mis pedidos (papelería)',
-					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
-
+					action('UserRequestsController@getIndex') => 'Solicitudes generales',
 				];
 			case 'user_paper':
 				return [
