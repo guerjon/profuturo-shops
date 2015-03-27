@@ -52,5 +52,6 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
+	Route::controller('agregar-producto','AddProductsController');
 	Route::controller('/', 'HomeController');
 });

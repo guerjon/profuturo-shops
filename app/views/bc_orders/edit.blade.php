@@ -50,14 +50,15 @@
           {{Form::text("card[{$card->id}][celular]", $card->celular, ['class' => 'form-control cellphone'])}}
         </td>
         <td>
-          {{$card->email}}
+           {{Form::text("card[{$card->id}][email]", $card->email, ['class' => 'form-control email'])}}
+       
         </td>
         
       </tr>
 
       @endforeach
       <tr>
-        @if($manager)
+        @if($talent)
         <td>
            {{Form::text("talento_nombre", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
@@ -78,7 +79,8 @@
           {{Form::email("talento_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
-
+       @endif
+       @if($talent)
       <tr>
         <td>
            {{Form::text("gerente_nombre", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}
@@ -99,7 +101,7 @@
           {{Form::email("gerente_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
-      @endif
+     @endif
     </tbody>
   </table>
 

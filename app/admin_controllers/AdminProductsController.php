@@ -13,6 +13,8 @@ class AdminProductsController extends AdminBaseController
     return View::make('admin::products.create')->withProduct(new Product);
   }
 
+
+
   public function store()
   {
     $product = new Product(Input::all());

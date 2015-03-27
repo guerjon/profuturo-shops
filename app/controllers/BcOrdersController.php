@@ -23,6 +23,7 @@ class BcOrdersController extends BaseController{
 
   public function store()
   {
+    
     $cards = Input::get('cards', []);
     if(count($cards) < 1){
       return Redirect::to(URL::previous())->withErrors('No se selecciono ninguna tarjeta');
@@ -77,14 +78,21 @@ class BcOrdersController extends BaseController{
     }
 
        
-     $manager = count(Input::get('talent_manager', []));
+     $talent = count(Input::get('talent',[]));
+
+
+     $manager = count(Input::get('manager',[]));
+   
     
-    return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager]))->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
+    return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent]))
+    ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
   }
 
   public function edit($bc_order_id){
    // $bc_order_id = $array["bc_order_id"]
     $manager = Input::get("manager");
+    $talent = Input::get("talent");
+    
     $bc_order = BcOrder::find($bc_order_id);
     $remaining_cards = 200 - Auth::user()->bcOrders()
       ->leftJoin('blank_cards_bc_order', 'blank_cards_bc_order.bc_order_id', '=','bc_orders.id')
@@ -93,7 +101,7 @@ class BcOrdersController extends BaseController{
       ->where(DB::raw('YEAR(bc_orders.updated_at)'), DB::raw('YEAR(NOW())'))
       ->first()->blank;
 
-    return View::make('bc_orders.edit')->withBcOrder($bc_order)->withRemainingCards($remaining_cards)->withManager($manager);
+    return View::make('bc_orders.edit')->withBcOrder($bc_order)->withRemainingCards($remaining_cards)->withManager($manager)->withTalent($talent);
     //->withTalent($talent)->withManager($manager);
   }
 

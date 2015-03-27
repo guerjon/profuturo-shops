@@ -53,12 +53,29 @@
         @endforeach
         <tr>
            <td style="max-width: 60px;" class="text-center">
-            {{Form::checkbox("talent_manager[]", $card->id)}}
+            {{Form::checkbox("talent[]", $card->id)}}
           </td>
           <td>
-           Talento Gerente
+           Talento
           </td>
           <td>  
+
+          </td>
+          <td>
+          </td>
+          <td>
+            {{Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
+          </td>
+      </tr>
+       <tr>
+           <td style="max-width: 60px;" class="text-center">
+            {{Form::checkbox("manager[]", $card->id)}}
+          </td>
+          <td>
+          Gerente
+          </td>
+          <td>  
+            
           </td>
           <td>
           </td>
@@ -67,15 +84,9 @@
           </td>
       </tr>
       </tbody>
-     
-   
-
+    
     </table>
 
-
-  
-
-   
       <div class="text-right">
       {{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-warning'])}}
     </div>

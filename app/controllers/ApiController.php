@@ -118,4 +118,30 @@ class ApiController extends BaseController
         'error_msg' => 'No se encontró el producto'
         ]);
   }
+
+  public function postAddProduct()
+  {
+    $order_id = Input::get('order_id');
+    $product_id = Input::get('product_id');
+    $quantity = Input::get('quantity');
+    $query =  DB::table('order_product')->select('product_id')
+    ->where('order_id','=',$order_id)
+    ->where('product_id','=',$product_id)->get();
+
+    if(count($query) == 0){
+      DB::table('order_product')->insert(
+      ['order_id' => $order_id, 'product_id' => $product_id, 'quantity' => $quantity]);
+   
+     return Response::json([
+        'status' => 200
+        ]);
+    }
+    else{
+      return Response::json([
+        'status' => 500
+        ]);
+    }
+    
+  }
+
 }
