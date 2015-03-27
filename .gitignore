@@ -3,6 +3,7 @@
 /vendor
 /public/system
 *.bck
+/*.png
 composer.phar
 composer.lock
 .env.*.php

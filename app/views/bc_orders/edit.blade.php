@@ -43,19 +43,22 @@
           {{Form::text("card[{$card->id}][direccion_alternativa]", $card->direccion_alternativa,['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control phone'])}}
+          {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
+          'onkeypress'=>"$('#save').prop('disabled',false)"])}}
         </td>
         <td>
           {{Form::text("card[{$card->id}][celular]", $card->celular, ['class' => 'form-control cellphone'])}}
         </td>
         <td>
-          {{$card->email}}
+           {{Form::text("card[{$card->id}][email]", $card->email, ['class' => 'form-control email'])}}
+       
         </td>
         
       </tr>
 
       @endforeach
       <tr>
+        @if($talent)
         <td>
            {{Form::text("talento_nombre", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
@@ -67,15 +70,17 @@
         </td>
         </td>
         <td>
-          {{Form::text("talento_tel", NULL, ['class' => 'form-control'])}}
+          {{Form::text("talento_tel", NULL, ['class' => 'form-control phone'])}}
         </td>
         <td>
-          {{Form::text("talento_cel", NULL, ['class' => 'form-control'])}}
+          {{Form::text("talento_cel", NULL, ['class' => 'form-control phone'])}}
         </td>
         <td>
           {{Form::email("talento_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
+       @endif
+       @if($talent)
       <tr>
         <td>
            {{Form::text("gerente_nombre", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}
@@ -87,15 +92,16 @@
           {{Form::text("gerente_direccion_alternativa", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("gerente_tel", NULL, ['class' => 'form-control'])}}
+          {{Form::text("gerente_tel", NULL, ['class' => 'form-control phone'])}}
         </td>
         <td>
-          {{Form::text("gerente_cel", NULL, ['class' => 'form-control'])}}
+          {{Form::text("gerente_cel", NULL, ['class' => 'form-control phone'])}}
         </td>
         <td>
           {{Form::email("gerente_email", NULL, ['class' => 'form-control'])}}
         </td>
       </tr>
+     @endif
     </tbody>
   </table>
 
@@ -114,7 +120,7 @@
 
   <div class="form-group text-right">
     <button type="button" id="cancel-order-button" class="btn btn-lg btn-danger">Cancelar orden</button>
-    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
+    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning','id'=>'save','disabled'])}}
   </div>
 {{Form::close()}}
 

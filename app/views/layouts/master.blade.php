@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="/css/slidebars.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="/js/raty/lib/jquery.raty.css">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -96,7 +97,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
-
+    <script src="/js/raty/lib/jquery.raty.js"></script>
     <script src="/js/slidebars.js"></script>
     <script charset="utf-8">
     $(function(){

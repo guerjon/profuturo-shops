@@ -12,18 +12,15 @@ class CreateOrdersTable extends Migration {
 	 */
 	public function up()
 	{
-
 		Schema::create('orders', function($table)
 		{
-		  $table->increments('id');
+		  	$table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->text('comments');
+			$table->text('comments')->nullable();
 			$table->tinyInteger('status')->unsigned()->default(0);
-		  $table->timestamps();
-
+			$table->timestamps();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
-
 	}
 
 	/**

@@ -47,7 +47,6 @@ class BackupOrderSeeder extends Seeder
 
 
     if($h = fopen('app/database/csvs/bc_orders.csv', 'r')){
-
       $current_order = new BcOrder;
       $products = [];
       $prev_id = NULL;
@@ -84,6 +83,7 @@ class BackupOrderSeeder extends Seeder
           if(!$card){
             $this->command->info("No se encontró la tarjeta de {$row[3]}");
             $card = BusinessCard::create([
+              'no_emp' => $row[18],
               'nombre' => $row[3],
               'ccosto' => $row[4],
               'nombre_ccosto' => $row[5],
@@ -115,8 +115,6 @@ class BackupOrderSeeder extends Seeder
             'quantity' => 100
           ];
         }
-
-
       }
     }
   }

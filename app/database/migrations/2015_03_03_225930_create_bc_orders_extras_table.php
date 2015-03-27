@@ -14,23 +14,23 @@ class CreateBcOrdersExtrasTable extends Migration {
 	{
 		Schema::create('bc_orders_extras', function($table){
 		$table->increments('id');
-		$table->string('talento_nombre');
-		$table->string('talento_direccion');
-		$table->string('talento_direccion_alternativa');
-		$table->string('talento_tel');
-		$table->string('talento_cel');
-		$table->string('talento_email');
-		$table->string('talento_comentarios');
-		$table->string('talento_estatus');
+		$table->string('talento_nombre')->nullable();
+		$table->string('talento_direccion')->nullable();
+		$table->string('talento_direccion_alternativa')->nullable();
+		$table->string('talento_tel')->nullable();
+		$table->string('talento_cel')->nullable();
+		$table->string('talento_email')->nullable();
+		$table->string('talento_comentarios')->nullable();
+		$table->string('talento_estatus')->nullable();
 
-		$table->string('gerente_nombre');
-		$table->string('gerente_direccion');
-		$table->string('gerente_direccion_alternativa');
-		$table->string('gerente_tel');
-		$table->string('gerente_cel');
-		$table->string('gerente_email');
-		$table->string('gerente_comentarios');
-		$table->string('gerente_estatus');
+		$table->string('gerente_nombre')->nullable();
+		$table->string('gerente_direccion')->nullable();
+		$table->string('gerente_direccion_alternativa')->nullable();
+		$table->string('gerente_tel')->nullable();
+		$table->string('gerente_cel')->nullable();
+		$table->string('gerente_email')->nullable();
+		$table->string('gerente_comentarios')->nullable();
+		$table->string('gerente_estatus')->nullable();
 		
 		$table->integer('bc_order_id')->unsigned();		
 		$table->timestamps();

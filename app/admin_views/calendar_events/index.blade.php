@@ -55,7 +55,7 @@
       </div>
       <div class="panel-body">
 
-
+        
 
         <div class="list-group">
           @if($day['enabled'] and count($day['events']) > 0)
@@ -74,5 +74,22 @@
 </div>
 @endfor
 </div>
+@include('general_requests.partials.show')
 
+@section('script')
+<script>
+$(function(){
+  $('.detail-btn').click(function(){
+    $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
+      if(data.status == 200){
+        var info = data.request;
+        for(key in info){
+          $('#request-' + key).text(info[key]);
+        }
+      }
+    });
+  });
+})
+</script>
+@stop
 @stop

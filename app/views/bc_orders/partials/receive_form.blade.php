@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th>
-        Nombre de empleado
+        Nombre de empleados
       </th>
       <th>
         Cantidad

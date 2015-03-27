@@ -53,10 +53,17 @@
 
     </tr>
     @endforeach
-
-  </tbody>
+      </tbody>
 
 </table>
+<div class="form-group text-right">
+@if($order->status == 0)
+   {{link_to_action('AddProductsController@getIndex', 'Agregar producto',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
+    @endif
+
+</div>
+    
+
 
 <div class="form-group">
 
@@ -65,6 +72,7 @@
 </div>
 <div class="form-group text-right">
   {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
+  
 </div>
 
 {{Form::close()}}

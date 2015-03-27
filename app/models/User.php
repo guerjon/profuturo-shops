@@ -59,10 +59,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('BcOrder');
 	}
 
+	public function bcOrderExtras()
+	{
+		return $this->hasMany('BcOrdersExtras');
+	}
+
 	public function businessCards()
 	{
 		return $this->hasMany('BusinessCard', 'ccosto', 'ccosto');
 	}
+
 
 	public function generalRequests()
 	{
@@ -92,8 +98,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
 					action('AdminCalendarEventsController@index') => 'Agenda',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
+					action('AdminGeneralRequestsManagerController@getManagers') => 'Solicitudes generales asesor',
 					action('AdminReportsController@getOrdersReport') => 'Reporte de pedidos papelería',
 					action('AdminReportsController@getBcOrdersReport') => 'Reporte de pedidos de tarjetas de presentación',
+
 				];
 			case 'manager':
 				return [

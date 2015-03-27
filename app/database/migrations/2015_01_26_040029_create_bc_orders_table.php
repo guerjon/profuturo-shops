@@ -17,7 +17,7 @@ class CreateBcOrdersTable extends Migration {
 		{
 		  $table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->string('comments');
+			$table->string('comments')->nullable();
 			$table->string('receive_comments')->nullable();
 			$table->tinyInteger('status')->unsigned()->default(0);
 			$table->boolean('confirmed')->default(false);

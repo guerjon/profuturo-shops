@@ -15,11 +15,13 @@ class DatabaseSeeder extends Seeder {
 			'password' => 'admin',
 			'role' => 'admin',
 			'gerencia' => 'Iván Gutiérrez',
+			'linea_negocio' => 'AFORE',
 			'ccosto' => 1
 			]);
 
 		$this->call('PaperProductSeeder');
 		$this->call('UserSeeder');
+		
 	}
 
 }

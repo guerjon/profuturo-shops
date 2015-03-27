@@ -10,43 +10,41 @@
 
         <h3 id="request-project_title"></h3>
 
-        Solicitud hecha por <strong id="request-employee_name"></strong> con número de empleado <strong id="request-employee_number"></strong>
+        Solicitud hecha por: <strong id="request-employee_name"></strong> con número de empleado <strong id="request-employee_number"></strong>
         <br>
         <div class="row">
-          <div class="col-xs-4">
-            Extensión <strong id="request-employee_ext"></strong>
+          <div class="col-xs-4" style="width:50%;">
+            Extensión: <strong id="request-employee_ext"></strong><br>
+            Celular: <strong id="request-employee_cellphone"></strong><br>
+            Correo electrónico: <strong id="request-employee_email"></strong><br>
           </div>
-          <div class="col-xs-4">
-            Celular <strong id="request-employee_cellphone"></strong>
-          </div>
-          <div class="col-xs-4">
-            Correo electrónico <strong id="request-employee_email"></strong>
-          </div>
+         
         </div>
 
         <hr>
 
-        Proyecto destinado a <strong id="request-project_dest"></strong>. Fecha del evento <strong id="request-project_date"></strong>
-        <br>
-        Solicitó un <strong id="request-project_kind_st"></strong>.<br>
+         Fecha del evento: <strong id="request-project_date_formatted"></strong><br>
+         Fecha de entrega: <strong id="request-deliver_date"></strong>
+        <br><br><br>
+       <strong>Solicitó: </strong>   <strong id="request-project_kind_st"></strong><br><br>
         <table class="table">
           <tbody>
             <tr>
               <td>
-                Cantidad: <strong id="request-project_quantity"></strong>
+                Cantidad:  <strong id="request-quantity"></strong>
               </td>
               <td>
-                Precio unitario: <strong id="request-project_unit_price"></strong>
+                Precio unitario: $ <strong id="request-unit_price"></strong>
               </td>
               <th>
-                TOTAL: <strong id="request-project_budget"></strong>
+                TOTAL: $ <strong id="request-total"></strong>
               </th>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <!-- <button type="button" class="btn btn-warning">Save changes</button> -->
       </div>
     </div>

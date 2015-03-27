@@ -23,10 +23,15 @@ class BcOrdersController extends BaseController{
 
   public function store()
   {
+    
     $cards = Input::get('cards', []);
     if(count($cards) < 1){
       return Redirect::to(URL::previous())->withErrors('No se selecciono ninguna tarjeta');
     }
+
+ 
+
+
     $bc_order = BcOrder::create([
       'user_id' => Auth::id(),
       ]);
@@ -72,10 +77,22 @@ class BcOrdersController extends BaseController{
       $bc_order->businessCards()->attach($card_id, ['quantity' => @$quantities[$card_id]*100 ]);
     }
 
-    return Redirect::to(action('BcOrdersController@edit', [$bc_order->id]))->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
+       
+     $talent = count(Input::get('talent',[]));
+
+
+     $manager = count(Input::get('manager',[]));
+   
+    
+    return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent]))
+    ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
   }
 
   public function edit($bc_order_id){
+   // $bc_order_id = $array["bc_order_id"]
+    $manager = Input::get("manager");
+    $talent = Input::get("talent");
+    
     $bc_order = BcOrder::find($bc_order_id);
     $remaining_cards = 200 - Auth::user()->bcOrders()
       ->leftJoin('blank_cards_bc_order', 'blank_cards_bc_order.bc_order_id', '=','bc_orders.id')
@@ -84,7 +101,8 @@ class BcOrdersController extends BaseController{
       ->where(DB::raw('YEAR(bc_orders.updated_at)'), DB::raw('YEAR(NOW())'))
       ->first()->blank;
 
-    return View::make('bc_orders.edit')->withBcOrder($bc_order)->withRemainingCards($remaining_cards);
+    return View::make('bc_orders.edit')->withBcOrder($bc_order)->withRemainingCards($remaining_cards)->withManager($manager)->withTalent($talent);
+    //->withTalent($talent)->withManager($manager);
   }
 
   public function update($bc_order_id)
@@ -139,15 +157,22 @@ class BcOrdersController extends BaseController{
     return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha guardado la orden satisfactoriamente');
   }
 
-  public function destroy($bc_order_id)
-  {
-    $bc_order = BcOrder::find($bc_order_id);
-    if($bc_order){
-      $bc_order->delete();
+    public function destroy($order_id)
+    {
+    $order = BcOrder::find($order_id);
+    if(!$order){
+      return Redirect::to('/')->withWarning('No se encontró la orden');
     }
+    if($order->status == 0) 
+    {
+      $order = $order->delete();
+      return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha eliminado la orden');  
+    }else{
+    
+      return Redirect::back()->withErrors('El pedido ha sido aprobado no se puede eliminar');  
 
-    return Redirect::to(action('BusinessCardsController@index'))->withSuccess('Se ha cancelado la orden');
-  }
+      }
+   }
 
 
 

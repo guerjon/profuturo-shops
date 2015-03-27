@@ -32,12 +32,12 @@ class AdminBusinessCardsController extends BaseController{
 
         $sheet->each(function($row)use(&$created, &$updated){
 
-          $card = BusinessCard::where('no_emp',$row->no_emp)->first();
+          $card = BusinessCard::where('no_emp',$row->numero_empleado)->first();
 
           if(!$card){
             $card = BusinessCard::create([
-              'no_emp' => $row->no_emp,
-              'nombre' => $row->nombre,
+              'no_emp' => $row->numero_empleado,
+              'nombre' => $row->nombre_empleado,
               'ccosto' => $row->ccosto,
               'nombre_ccosto' => $row->nombre_ccosto,
               'nombre_puesto' => $row->nombre_puesto,
@@ -51,11 +51,12 @@ class AdminBusinessCardsController extends BaseController{
             ]);
             if($card){
               $created++;
-            }
 
+            }
+            Log::info($row->no_emp);
           }else{
             $card->fill([
-              'nombre' => $row->nombre,
+              'nombre' => $row->nombre_empleado,
               'ccosto' => $row->ccosto,
               'nombre_ccosto' => $row->ccosto,
               'nombre_puesto' => $row->nombre_ccosto,
