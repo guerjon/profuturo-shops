@@ -58,7 +58,8 @@
 
       @endforeach
       <tr>
-        @if($talent)
+        @if($talent == 1)
+
         <td>
            {{Form::text("talento_nombre", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
@@ -80,7 +81,7 @@
         </td>
       </tr>
        @endif
-       @if($talent)
+       @if($manager == 1)
       <tr>
         <td>
            {{Form::text("gerente_nombre", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}

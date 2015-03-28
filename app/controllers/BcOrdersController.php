@@ -84,14 +84,17 @@ class BcOrdersController extends BaseController{
      $manager = count(Input::get('manager',[]));
    
     
+
     return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent]))
     ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
   }
 
   public function edit($bc_order_id){
    // $bc_order_id = $array["bc_order_id"]
+
     $manager = Input::get("manager");
     $talent = Input::get("talent");
+  
     
     $bc_order = BcOrder::find($bc_order_id);
     $remaining_cards = 200 - Auth::user()->bcOrders()
