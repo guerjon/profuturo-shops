@@ -27,7 +27,8 @@ $app = new Illuminate\Foundation\Application;
 $env = $app->detectEnvironment(array(
 
 	'local' => array('homestead', 'localhost', '127.0.0.1', 'local*', '*local','nancy','jonguer-Satellite-A505'),
-
+	'pruebas' => array('ip-50-62-165-149.ip.secureserver.net'),
+	
 ));
 
 /*
