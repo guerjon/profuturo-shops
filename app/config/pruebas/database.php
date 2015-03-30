@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'appssori_pfstore',
+			'database'  => 'appssori_profuturo_store',
 			'username'  => 'appssori_pfstore',
 			'password'  => 'Pfstore@1',
 			'charset'   => 'utf8',
