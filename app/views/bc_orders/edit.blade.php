@@ -31,6 +31,7 @@
       </tr>
     </thead>
     <tbody>
+      @if(count($bc_order->business_cards) > 0)
       @foreach($bc_order->business_cards as $card)
       <tr>
         <td>
@@ -55,8 +56,8 @@
         </td>
         
       </tr>
-
       @endforeach
+     @endif
       <tr>
         @if($talent == 1)
 
@@ -71,7 +72,8 @@
         </td>
         </td>
         <td>
-          {{Form::text("talento_tel", NULL, ['class' => 'form-control phone'])}}
+          {{Form::text("talento_tel", NULL, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
+          'onkeypress'=>"$('#save').prop('disabled',false)"])}}
         </td>
         <td>
           {{Form::text("talento_cel", NULL, ['class' => 'form-control phone'])}}
@@ -93,7 +95,8 @@
           {{Form::text("gerente_direccion_alternativa", NULL, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{Form::text("gerente_tel", NULL, ['class' => 'form-control phone'])}}
+          {{Form::text("gerente_tel", NULL, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
+          'onkeypress'=>"$('#save').prop('disabled',false)"])}}
         </td>
         <td>
           {{Form::text("gerente_cel", NULL, ['class' => 'form-control phone'])}}

@@ -2,11 +2,20 @@
 
 @section('content')
 
+@if($errors->count() > 0)
+<div class="alert alert-danger">
+  {{$errors->first()}}
+</div>
+@endif
+
 @if($cards->count() == 0)
   <div class="alert alert-warning">
     No hay tarjetas de presentación disponibles
   </div>
 @else
+
+
+  
 
 <div class="container">
   {{Form::open([
