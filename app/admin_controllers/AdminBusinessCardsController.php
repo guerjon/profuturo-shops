@@ -45,7 +45,7 @@ class AdminBusinessCardsController extends BaseController{
               'web' => $row->web,
               'gerencia' => $row->gerencia,
               'direccion' => $row->direccion,
-              'telefono' => $row->direccion,
+              'telefono' => $row->telefono,
               'celular' => $row->celular,
               'email' => $row->email,
             ]);
