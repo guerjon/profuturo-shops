@@ -62,6 +62,13 @@
         Recibido incompleto.
         @endif
       </td>
+       <td>
+   {{Form::open(array('action' =>['AdminBcOrdersController@destroy',$order->id],
+   'method' => 'delete'))}}
+
+    {{Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger'])}}
+     {{Form::close()}}
+     </td>
     </tr>
 
 
