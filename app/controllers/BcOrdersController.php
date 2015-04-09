@@ -26,7 +26,6 @@ class BcOrdersController extends BaseController{
     
     $cards = Input::get('cards', []);
     if((count($cards) > 0) || (count(Input::get('talent',[])) > 0) || (count(Input::get('manager',[])) > 0) ){
-
         $bc_order = BcOrder::create([
         'user_id' => Auth::id(),
         ]);
