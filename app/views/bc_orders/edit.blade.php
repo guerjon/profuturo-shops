@@ -115,17 +115,32 @@
 
   @if($remaining_cards)
   <div class="form-group">
+    
     {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
     @if($remaining_cards > 100)
+    <div class="row">
+      <div class="col-xs-6">
       {{Form::select('blank_cards', [0,100,200], NULL, ['class' => 'form-control'])}}
+      </div>
+      <div class="col-xs-6">
+      {{Form::select('combo',['Asesor en Retiro','Asesor Previsional','Asesor en servicio','Ejecutivo de cuenta'], NULL, ['class' => 'form-control'])}}
+
+      </div>
+    </div>
+      
     @endif
   </div>
+
+
   @endif
 
   <div class="form-group text-right">
     <button type="button" id="cancel-order-button" class="btn btn-lg btn-danger">Cancelar orden</button>
+
     {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning','id'=>'save','disabled'])}}
   </div>
+
+
 {{Form::close()}}
 
 {{Form::open([

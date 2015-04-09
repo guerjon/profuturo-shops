@@ -7,4 +7,5 @@ class UserRequestsController extends BaseController
   {
     return View::make('admin::general_requests.index')->withRequests(Auth::user()->assigned_requests);
   }
+
 }

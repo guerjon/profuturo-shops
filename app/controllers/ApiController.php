@@ -91,6 +91,7 @@ class ApiController extends BaseController
     }
   }
 
+
   public function postDestroyProducts()
   {
     $quantity   = Input::get('quantity');

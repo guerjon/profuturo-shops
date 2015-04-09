@@ -74,6 +74,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->hasMany('GeneralRequest');
 	}
+	
+	function generalRequestsByManager()
+	{
+  		return $this->hasMany('GeneralRequest', 'manager_id');
+	}
 
 	public function assignedRequests()
 	{
@@ -111,6 +116,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			case 'manager':
 				return [
 					action('UserRequestsController@getIndex') => 'Solicitudes generales',
+					action('CalendarEventsController@getIndex') => 'Agenda',
+					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes',
 				];
 			case 'user_paper':
 				return [

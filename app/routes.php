@@ -45,6 +45,7 @@ Route::group(['before' => 'auth'], function(){
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::resource('pedidos-tp', 'BcOrdersController');
+
 	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');
 	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
@@ -54,5 +55,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
+	Route::controller('agenda', 'CalendarEventsController');
+	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');
 	Route::controller('/', 'HomeController');
 });
