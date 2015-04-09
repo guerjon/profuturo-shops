@@ -29,6 +29,7 @@ class BcOrdersController extends BaseController{
         $bc_order = BcOrder::create([
         'user_id' => Auth::id(),
         ]);
+
       if(count($cards) > 0)
       {
       
@@ -126,6 +127,7 @@ class BcOrdersController extends BaseController{
     if(Input::has('blank_cards') and Input::get('blank_cards') > 0){
       DB::table('blank_cards_bc_order')->insert([
         'quantity' => Input::get('blank_cards')*100,
+        'combo' => Input::get('combo'),
         'bc_order_id' => $bc_order->id,
         ]);
     }

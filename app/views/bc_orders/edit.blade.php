@@ -123,11 +123,9 @@
       {{Form::select('blank_cards', [0,100,200], NULL, ['class' => 'form-control'])}}
       </div>
       <div class="col-xs-6">
-      {{Form::select('combo',['Asesor en Retiro','Asesor Previsional','Asesor en servicio','Ejecutivo de cuenta'], NULL, ['class' => 'form-control'])}}
-
+      {{Form::select('combo',array('retiro' => 'Asesor en Retiro','previsional' =>'Asesor Previsional','servicio' =>'Asesor en servicio','ejecutivo'=>'Ejecutivo de cuenta'), NULL, ['class' => 'form-control'])}}
       </div>
     </div>
-      
     @endif
   </div>
 
