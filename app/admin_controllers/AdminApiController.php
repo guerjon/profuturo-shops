@@ -65,7 +65,7 @@ class AdminApiController extends AdminBaseController
       ->leftJoin('users', 'users.id', '=', 'orders.user_id')
       ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
       ->orderBy('orders.id')
-      ->where(DB::raw('MONTH(orders.updated_at)'), Input::get('month'))
+      ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
       ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
       ->where('categories.name', Input::get('category'));
 
