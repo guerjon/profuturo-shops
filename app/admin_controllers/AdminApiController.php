@@ -26,7 +26,7 @@ class AdminApiController extends AdminBaseController
     ini_set('max_execution_time','300');
     $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
       DB::raw("
-      orders.created_at as FECHA PEDIDO,
+      orders.created_at as FECHA_PEDIDO,
       '9999999999999990000000000' AS EIP_CTL_ID,
       1 as LOADER_REQ,
       'BPO' as SYSTEM_SOURCE,
