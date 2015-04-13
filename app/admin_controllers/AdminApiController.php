@@ -117,6 +117,7 @@ class AdminApiController extends AdminBaseController
   {
     ini_set('max_execution_time', '300');
     $query = DB::table('bc_order_business_card')->selectRaw("
+      bc_orders.created_at as FECHA_PEDIDO,
       bc_orders.id AS NUM_PEDIDO,
       100 AS CANTIDAD,
       users.gerencia AS GERENCIA,
@@ -135,10 +136,11 @@ class AdminApiController extends AdminBaseController
     ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
     ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-    ->where(DB::raw('MONTH(bc_orders.updated_at)'), Input::get('month'))
+    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
     $query2 = DB::table('blank_cards_bc_order')->selectRaw("
+      bc_orders.created_at as FECHA_PEDIDO,
       bc_orders.id as NUM_PEDIDO,
       blank_cards_bc_order.quantity as CANTIDAD,
       users.gerencia as GERENCIA,
@@ -155,10 +157,11 @@ class AdminApiController extends AdminBaseController
       '' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-    ->where(DB::raw('MONTH(bc_orders.updated_at)'), Input::get('month'))
+    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
     $query3 = DB::table('bc_orders_extras')->selectRaw("
+      bc_orders.created_at as FECHA_PEDIDO,
       bc_orders.id as NUM_PEDIDO,
       100 as CANTIDAD,
       users.gerencia as GERENCIA,
@@ -176,11 +179,12 @@ class AdminApiController extends AdminBaseController
     ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->where('bc_orders_extras.talento_nombre', '!=', "''")->whereNotNull('bc_orders_extras.talento_nombre')
-    ->where(DB::raw('MONTH(bc_orders.updated_at)'), Input::get('month'))
+    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
 
     $query4 = DB::table('bc_orders_extras')->selectRaw("
+      bc_orders.created_at as FECHA_PEDIDO,
       bc_orders.id as NUM_PEDIDO,
       100 as CANTIDAD,
       users.gerencia as GERENCIA,
@@ -198,7 +202,7 @@ class AdminApiController extends AdminBaseController
     ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->where('bc_orders_extras.gerente_nombre', '!=', "''")->whereNotNull('bc_orders_extras.gerente_nombre')
-    ->where(DB::raw('MONTH(bc_orders.updated_at)'), Input::get('month'))
+    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
 
