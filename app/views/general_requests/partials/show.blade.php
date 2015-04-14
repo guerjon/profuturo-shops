@@ -42,9 +42,22 @@
             </tr>
           </tbody>
         </table>
+        <div>
+       
+          {{Form::open(array('id'=>'update-form','action' => array('GeneralRequestsController@update',0),'method' => 'put')) }}
+                   {{Form::hidden('request_id')}}
+          Estatus: {{Form::select('status',array('1'=>'En revision',
+                                                 '2'=>'En proceso',
+                                                 '3'=>'Entregado'),null,['class' => 'form-control'])}}
+          
+          {{ Form::close()}}
+        </div>
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-default" id="submit-btn">Guardar</button>
+       
         <!-- <button type="button" class="btn btn-warning">Save changes</button> -->
       </div>
     </div>

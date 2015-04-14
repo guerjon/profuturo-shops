@@ -19,6 +19,18 @@
       <th>
         Presupuesto
       </th>
+       <th>
+        Criticidad
+      </th>
+      <th>
+        Fecha de solicitud
+      </th>
+      <th>
+        Fecha de Inicio
+      </th>
+      <th>
+        Fecha de entrega
+      </th>
       <th>
 
       </th>
@@ -34,10 +46,32 @@
         {{$request->project_title}}
       </td>
       <td>
-        Pendiente
+        @if($request->status ==  1)  
+       En revision
+      @endif
+      @if($request->status ==  2)  
+       En proceso
+      @endif
+      @if($request->status ==  3)  
+       Entregado
+      @endif
       </td>
       <td>
         {{ $request->unit_price * $request->quantity}}
+      </td>
+      <td>
+       <div data-number="5" data-score="{{$request->rating}}" class="stars">
+        
+       </div> 
+      </td>
+      <td>
+        {{$request->created_at->format('d-m-Y')}}
+      </td>
+      <td>
+        {{$request->project_date->format('d-m-Y')}}
+      </td>
+      <td>
+      {{$request->deliver_date}}
       </td>
       <td>
         <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>
@@ -68,9 +102,24 @@ $(function(){
         for(key in info){
           $('#request-' + key).text(info[key]);
         }
+        $('input[name="request_id"]').val(info.id); 
+        $('select[name="status"]').val(info.status);
       }
     });
   });
-})
+  $('.stars').raty({
+  
+  score: function() {
+    return $(this).attr('data-score');
+  },
+  scoreName : 'rating',
+    path : '/img/raty',
+    readOnly: true
+});
+ $('#submit-btn').click(function(){
+    $('#update-form').submit(); 
+  });
+});
+
 </script>
 @stop

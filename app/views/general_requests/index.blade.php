@@ -34,11 +34,20 @@
           {{$request->project_title}}
         </td>
         <td>
-          Pendiente
+         @if($request->status ==  1)  
+       En revision
+      @endif
+      @if($request->status ==  2)  
+       En proceso
+      @endif
+      @if($request->status ==  3)  
+       Entregado
+      @endif
         </td>
         <td>
           {{ $request->unit_price * $request->quantity}}
         </td>
+
       </tr>
       @endforeach
     </tbody>

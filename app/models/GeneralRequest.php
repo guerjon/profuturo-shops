@@ -27,4 +27,18 @@ class GeneralRequest extends Eloquent
   	return $this->quantity*$this->unit_price;
   }
 
+  public function getStatusStrAttribute()
+  {
+    switch($this->status){
+      case 0: return  'Pendiente'; 
+      break;
+      case 1: return  'En revisión'; 
+      break;
+      case 2: return  'En proceso'; 
+      break;
+      case 3: return  'Entregado'; 
+      break;
+      default: return 'Desconocido'; 
+    }
+  }
 }

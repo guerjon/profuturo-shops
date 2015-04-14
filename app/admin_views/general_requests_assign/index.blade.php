@@ -19,14 +19,14 @@
       <th>
         Presupuesto
       </th>
-      <th>
+      <th class="text-center">
         Asignar asesor
       </th>
     </tr>
   </thead>
   <tbody>
     @foreach($requests as $request)
-    <tr>
+    <tr class="{{$request->manager?'info':''}}">
       <td>
         {{$request->id}}
       </td>
@@ -34,13 +34,18 @@
         {{$request->project_title}}
       </td>
       <td>
-        Pendiente
+        {{$request->getStatusStrAttribute()}}
       </td>
       <td>
         {{ $request->unit_price * $request->quantity}}
       </td>
-      <td>
+      <td class="text-center">
+        @if($request->manager != null)
+        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Reasignar</button>
+        <p class="text-muted"><small>Asignado a: {{$request->manager->gerencia}}</small></p>
+        @else
         <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Asignar</button>
+        @endif
       </td>
     </tr>
     @endforeach
