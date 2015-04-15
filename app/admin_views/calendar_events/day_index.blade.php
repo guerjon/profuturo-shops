@@ -1,4 +1,4 @@
-extends('layouts.master')
+@extends('layouts.master')
 
 @section('content')
 
@@ -8,14 +8,14 @@ extends('layouts.master')
     <div class="page-header">
       <h3>Eventos del día {{$date}}</h3>
     </div>
-    @if($events->count() == 0)
+    @if($events->count() == 0)    
     <div class="alert alert-warning">
       Sin eventos que mostrar para este día
     </div>
     @else
     <div class="list-group">
       @foreach($events as $event)
-      @include('events.partials.show_as_day_item', ['event' => $event])
+      @include('calendar_events.partials.show_as_day_item', ['event' => $event])
       @endforeach
     </div>
     @endif

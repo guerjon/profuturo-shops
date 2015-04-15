@@ -38,7 +38,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('business-cards', 'AdminBusinessCardsController');
 		Route::resource('general-requests', 'AdminGeneralRequestsController');
 		Route::resource('agenda', 'AdminCalendarEventsController');
-		Route::resource('agenda-evento', 'AdminCalendarEventsController@getShow');
+		Route::resource('agenda-evento', 'AdminCalendarEventsController@show');
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');

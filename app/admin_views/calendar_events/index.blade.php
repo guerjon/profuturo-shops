@@ -44,7 +44,7 @@
         @endif
 
         @if(isset($make_link) and $make_link)
-        <a href="{{action('AdminCalendarEventsController@getShow',[$month['yearNum'].'-'.$month['monthNum'].'-'.$day['number']])}}">
+        <a href="{{action('AdminCalendarEventsController@show',[$month['yearNum'].'-'.$month['monthNum'].'-'.$day['number']])}}">
           <span class="label {{$class}}">{{$day['number']}}</span>
         </a>
         @else
