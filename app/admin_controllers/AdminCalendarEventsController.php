@@ -8,7 +8,13 @@ class AdminCalendarEventsController extends AdminBaseController{
   {
     return View::make('admin::calendar_events.index')->withMonth($this->getMonth());
   }
-
+ 
+  public function getShow($date)
+  {
+      $date = Carbon::parse($date);
+      $events = $this->getEvents($date->month, $date->year, $date->day);
+      return View::make('admin::calendar_events.day_index')->withEvents($events->get())->withDate($date->format('d/M/Y'));
+  }
 
   private function getEvents($month = NULL, $year = NULL, $day = NULL)
     {

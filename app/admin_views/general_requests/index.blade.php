@@ -46,15 +46,7 @@
         {{$request->project_title}}
       </td>
       <td>
-      @if($request->status ==  1)  
-       En revision
-      @endif
-      @if($request->status ==  2)  
-       En proceso
-      @endif
-      @if($request->status ==  3)  
-       Entregado
-      @endif
+      {{$request->status_str}}
        
       </td>
       <td>
