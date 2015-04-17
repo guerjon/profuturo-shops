@@ -5,9 +5,10 @@ class Order extends Eloquent
 
   protected $guarded = [''];
   
-  public function products()
+
+  public function furnitures()
   {
-    return $this->belongsToMany('Product')->withPivot('quantity', 'status', 'comments');
+    return $this->belongsToMany('Furniture')->withPivot('quantity', 'status', 'comments');
   }
 
 

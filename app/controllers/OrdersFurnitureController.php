@@ -22,7 +22,7 @@ class OrdersFurnitureController extends BaseController
       foreach(Auth::user()->cart_furnitures as $furniture)
       {
         $order->furnitures()->attach($furniture->id, ['quantity' => $furniture->pivot->quantity]);
-        Auth::user()->cartfurnitures()->detach($furniture->id);
+        Auth::user()->cartFurnitures()->detach($furniture->id);
       }
     }
 

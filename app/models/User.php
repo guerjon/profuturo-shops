@@ -59,6 +59,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Order');
 	}
 
+	public function ordersFurnitures()
+	{
+		return $this->hasMany('OrderFurniture');
+	}
+
 	public function bcOrders()
 	{
 		return $this->hasMany('BcOrder');
@@ -140,6 +145,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					'/carrito' => 'Mi carrito (papelería)',
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
+					action('OrdersFurnitureController@index') => 'Mis pedidos (inmuebles)',
 					action('FurnituresController@index') => 'Muebles',
 					'/carrito-muebles' => 'Mi carrito (muebles)',
 
