@@ -31,4 +31,8 @@ class Category extends Eloquent implements StaplerableInterface
     return $this->hasMany('Product');
   }
 
+  public function furnitures()
+  {
+    return $this->hasMany('Furniture');
+  }
 }

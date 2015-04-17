@@ -49,6 +49,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsToMany('Product', 'cart_products')->withPivot('quantity');
 	}
 
+	public function cartFurnitures()
+	{
+		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity');
+	}
+
 	public function orders()
 	{
 		return $this->hasMany('Order');
@@ -94,6 +99,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $total;
 	}
 
+	public function getCartTotalFurnitureAttribute()
+	{
+		$total = 0;
+		foreach($this->cart_furnitures as $p){
+			$total += $p->price * $p->pivot->quantity;
+		}
+		return $total;
+	}
 
 
 	public function getMenuActionsAttribute(){
@@ -111,8 +124,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminGeneralRequestsController@index') => 'Reporte de solicitudes generales',
 					action('AdminReportsController@getOrdersReport') => 'Reporte de pedidos papelería',
 					action('AdminReportsController@getBcOrdersReport') => 'Reporte de pedidos de tarjetas de presentación',
-					action('AdminPropertyController@index') => 'Propiedades',
-
+					action('AdminFurnituresController@index') => 'Muebles',
+					
 				];
 			case 'manager':
 				return [
@@ -127,6 +140,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					'/carrito' => 'Mi carrito (papelería)',
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
+					action('FurnituresController@index') => 'Muebles',
+					'/carrito-muebles' => 'Mi carrito (muebles)',
+
 
 				];
 			case 'user_requests':
