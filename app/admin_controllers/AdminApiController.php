@@ -264,4 +264,41 @@ class AdminApiController extends AdminBaseController
     }
   }
 
+  public function getUsersReport()
+  {
+    $users = User::orderBy('role')->get();
+    $result = [];
+    foreach($users as $user){
+      $perfil = NULL;
+      switch($user->role){
+        case 'admin':
+          $perfil = 'Administrador';
+          break;
+        case 'manager':
+          $perfil = 'Asesor';
+          break;
+        case 'user_requests';
+          $perfil = 'Proyectos';
+          break;
+        case 'user_paper';
+          $perfil = 'Papelería';
+          break;
+      }
+      $result[] = [
+        'CENTRO_COSTOS' => $user->ccosto,
+        'GERENCIA/NOMBRE' => $user->gerencia,
+        'LINEA_DE_NEGOCIO' => $user->linea_negocio,
+        'PERFIL' => $perfil
+      ];
+
+    }
+
+    $datetime = \Carbon\Carbon::now()->format('YmdHi');
+    Excel::create('Reporte_usuarios_'.$datetime, function($excel) use($result){
+      $excel->sheet('Usuarios',function($sheet)use($result){
+        $sheet->fromArray($result);
+      });
+    })->download('xls');
+  }
+
 }
