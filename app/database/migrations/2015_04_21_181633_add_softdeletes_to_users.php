@@ -11,7 +11,7 @@ class AddSoftdeletesToUsers extends Migration {
 	 * @return void
 	 */
 
-	static $related_tables = ['users', 'orders', 'bc_orders', 'general_requests', 'order_furniture'];
+	static $related_tables = ['users', 'orders', 'bc_orders', 'general_requests', 'furniture_orders'];
 	public function up()
 	{
 		foreach(self::$related_tables as $table_name)

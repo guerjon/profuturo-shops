@@ -14,7 +14,7 @@ class CreateFurnitureOrdersTable extends Migration {
 	{
 		Schema::create('furniture_orders', function($table)
 		{
-		  	$table->increments('id');
+		  $table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->text('comments')->nullable();
 			$table->tinyInteger('status')->unsigned()->default(0);
@@ -30,9 +30,6 @@ class CreateFurnitureOrdersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('furniture_orders', function($table){
-			$table->dropForeign('furniture_orders_user_id_foreign');
-		});
 		Schema::drop('furniture_orders');
 	}
 
