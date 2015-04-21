@@ -14,14 +14,13 @@ class CreateCartFurnituresTable extends Migration {
 	{
 		Schema::create('cart_furnitures', function($table)
 		{
-		  $table->integer('user_id')->unsigned();
+		    $table->integer('user_id')->unsigned();
 			$table->integer('furniture_id')->unsigned();
 			$table->integer('quantity');
-
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->foreign('furniture_id')->references('id')->on('furnitures')->onDelete('cascade');
 		});
-	}
+	}	
 
 	/**
 	 * Reverse the migrations.

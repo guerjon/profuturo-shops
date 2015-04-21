@@ -1,6 +1,6 @@
 <?php
 
-class OrdersFurnitureController extends BaseController
+class OrderFurnituresController extends BaseController
 {
 
   public function index()
@@ -16,7 +16,7 @@ class OrdersFurnitureController extends BaseController
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
-    $order = new Order(Input::all());
+    $order = new FurnitureOrder(Input::all());
     $order->user_id = Auth::id();
     if($order->save()){
       foreach(Auth::user()->cart_furnitures as $furniture)
@@ -58,7 +58,7 @@ class OrdersFurnitureController extends BaseController
       $complain->save();
     }
 
-    return Redirect::to(action('OrdersFurnitureController@index'))->withSuccess('Se ha actualizado su orden');
+    return Redirect::to(action('OrderFurnituresController@index'))->withSuccess('Se ha actualizado su orden');
   }
 
   public function destroy($order_id)
@@ -70,7 +70,7 @@ class OrdersFurnitureController extends BaseController
     if($order->status == 0) 
     {
       $order = $order->delete();
-      return Redirect::to(action('OrdersFurnitureController@index'))->withSuccess('Se ha eliminado la orden');  
+      return Redirect::to(action('OrderFurnituresController@index'))->withSuccess('Se ha eliminado la orden');  
     }else{
     
       return Redirect::back()->withErrors('El pedido ha sido aprobado no se puede eliminar');  
@@ -100,7 +100,7 @@ class OrdersFurnitureController extends BaseController
 
     $order->receive_comments = Input::get('receive_comments');
     $order->save();
-    return Redirect::to(action('OrdersFurnitureController@index'))->withSuccess('Se ha actualizado la información');
+    return Redirect::to(action('OrderFurnituresController@index'))->withSuccess('Se ha actualizado la información');
   }
 
 
