@@ -5,7 +5,6 @@ use Codesleeve\Stapler\ORM\EloquentTrait;
 use Watson\Validating\ValidatingTrait;
 
 
-
 class Furniture extends Eloquent implements StaplerableInterface
 {
 

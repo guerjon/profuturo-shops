@@ -56,7 +56,7 @@
 @else
 &nbsp;
 {{Form::open([
-  'action' => 'OrdersFurnitureController@store',
+  'action' => 'OrderFurnituresController@store',
   'role' => 'form',
   'id' => 'send-order-form'
   ])}}

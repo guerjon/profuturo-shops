@@ -46,7 +46,7 @@ Route::group(['before' => 'auth'], function(){
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
-	Route::resource('pedidos-mueble', 'OrdersFurnitureController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
+	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 
 	Route::resource('pedidos-tp', 'BcOrdersController');
 
