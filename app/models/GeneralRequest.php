@@ -1,7 +1,12 @@
 <?
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class GeneralRequest extends Eloquent
 {
+
+  use SoftDeletingTrait;
+  
   protected $rules = [];
   protected $guarded = [];
 
@@ -30,15 +35,15 @@ class GeneralRequest extends Eloquent
   public function getStatusStrAttribute()
   {
     switch($this->status){
-      case 0: return  'Pendiente'; 
+      case 0: return  'Pendiente';
       break;
-      case 1: return  'En revisión'; 
+      case 1: return  'En revisión';
       break;
-      case 2: return  'En proceso'; 
+      case 2: return  'En proceso';
       break;
-      case 3: return  'Entregado'; 
+      case 3: return  'Entregado';
       break;
-      default: return 'Desconocido'; 
+      default: return 'Desconocido';
     }
   }
 }

@@ -42,6 +42,9 @@
         <td>
           {{$user->linea_negocio}}
         </td>
+        <td>
+          @include('admin::users.partials.actions')
+        </td>
       </tr>
       @endforeach
     </tbody>
@@ -57,7 +60,7 @@
           Nombre
         </th>
         <th>
-          
+
         </th>
       </tr>
     </thead>
@@ -74,7 +77,10 @@
         <td>
           {{$user->first_name}} {{$user->last_name}}
         </td>
-        
+        <td>
+          @include('admin::users.partials.actions')
+        </td>
+
       </tr>
       @endforeach
     </tbody>
@@ -87,40 +93,4 @@
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="add-budget-modal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        {{Form::open([
-          'action' => 'AdminBudgetsController@store'
-          ])}}
-
-        {{Form::hidden('user_id')}}
-        <div class="form-group">
-          {{Form::text('amount', NULL, ['class' => 'form-control', 'placeholder' => 'Cantidad a asignar'])}}
-        </div>
-        <div class="form-group text-right">
-          <button type="button" data-dismiss="modal" class="btn btn-sm btn-default">Cancelar</button>
-          <button type="submit" class="btn btn-sm btn-warning">Asignar</button>
-        </div>
-        {{Form::close()}}
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-@stop
-
-@section('script')
-<script>
-$(function(){
-  $('button[data-user-id]').click(function(){
-    $('#add-budget-modal').modal('show');
-    $('input[name="user_id"]').val($(this).attr('data-user-id'));
-  });
-});
-</script>
 @stop

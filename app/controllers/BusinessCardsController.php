@@ -12,19 +12,20 @@ class BusinessCardsController extends BaseController{
   	->where(DB::raw('datediff(NOW(),bc_orders.created_at)'),'<','31')
   	->where('user_id','=',Auth::id())->lists('id');
 
-    $position = Auth::user()->bcOrderExtras();
+  $cards = Auth::user()->businessCards();
 
- return View::make('business_cards.index')
-    ->withCards(Auth::user()
-    ->businessCards()
-    ->where(DB::raw('DATEDIFF(NOW(), fecha_ingreso)'), '>=', '90')
-    ->whereNotIn('id',$tarjetasProhibidas)->get())
-    ->withPosition($position);
+  if(strpos(Auth::user()->gerencia, 'CUENTAS') === FALSE){
+    $cards->where(DB::raw('DATEDIFF(NOW(), fecha_ingreso)'), '>=', '90')
+      ->whereNotIn('id',$tarjetasProhibidas);
+  }
+
+   return View::make('business_cards.index')
+      ->withCards($cards->get());
 
   }
 }
 /*
-  
+
 
      return View::make('business_cards.index')
     ->withCards(Auth::user()
@@ -32,4 +33,3 @@ class BusinessCardsController extends BaseController{
     ->where(DB::raw('DATEDIFF(NOW(), fecha_ingreso)'), '>=', '90')
     ->where()->get());
 */
-

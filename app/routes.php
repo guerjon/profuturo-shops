@@ -31,9 +31,8 @@ Route::group(['before' => 'auth'], function(){
 	{
 		Route::resource('users', 'AdminUsersController');
 		Route::resource('products', 'AdminProductsController');
-		Route::resource('muebles','AdminFurnituresController');	
+		Route::resource('muebles','AdminFurnituresController');
 		Route::resource('categories', 'AdminCategoriesController');
-		Route::resource('budget', 'AdminBudgetsController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
@@ -41,7 +40,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('agenda', 'AdminCalendarEventsController');
 		Route::resource('agenda-evento', 'AdminCalendarEventsController@show');
 		Route::controller('api', 'AdminApiController');
-		Route::controller('reports', 'AdminReportsController');	
+		Route::controller('reports', 'AdminReportsController');
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 	});
 
@@ -60,7 +59,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('muebles', 'FurnituresController@index');
 	Route::get('muebles/{category}/{subcategory}', 'FurnituresController@index');
 	Route::get('muebles/{category}', 'FurnituresController@index');
-	
+
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');

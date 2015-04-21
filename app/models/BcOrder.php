@@ -1,7 +1,12 @@
 <?
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class BcOrder extends Eloquent
 {
+
+  use SoftDeletingTrait;
+  
   protected $rules = [];
   protected $guarded = [];
 

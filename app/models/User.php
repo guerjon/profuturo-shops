@@ -4,12 +4,13 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 use Watson\Validating\ValidatingTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait, ValidatingTrait;
+	use UserTrait, RemindableTrait, SoftDeletingTrait, ValidatingTrait;
 
 	/**
 	 * The database table used by the model.
@@ -33,6 +34,29 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 		'role' => 'in:manager,admin,user_requests,user_paper'
 	];
+
+
+	public static function boot()
+	{
+		parent::boot();
+		User::deleting(function($user){
+			$user->cartProducts()->detach();
+			$user->cartFurnitures()->detach();
+			$user->orders()->delete();
+			$user->bcOrders()->delete();
+			$user->generalRequests()->delete();
+			// TODO :: Furniture requests delete
+			DB::table('general_requests')->where('manager_id', $user->id)->update([
+				'manager_id' => NULL
+				]);
+		});
+
+		User::restored(function($user){
+			$user->orders()->withTrashed()->restore();
+			$user->bcOrders()->withTrashed()->restore();
+			$user->generalRequests()->withTrashed()->restore();
+		});
+	}
 
 	public function setPasswordAttribute($value){
 		$this->attributes['password'] = Hash::make($value);
@@ -69,11 +93,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('BcOrder');
 	}
 
-	public function bcOrderExtras()
-	{
-		return $this->hasMany('BcOrdersExtras');
-	}
-
 	public function businessCards()
 	{
 		return $this->hasMany('BusinessCard', 'ccosto', 'ccosto');
@@ -84,7 +103,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->hasMany('GeneralRequest');
 	}
-	
+
 	function generalRequestsByManager()
 	{
   		return $this->hasMany('GeneralRequest', 'manager_id');
@@ -130,7 +149,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminReportsController@getOrdersReport') => 'Reporte de pedidos papelería',
 					action('AdminReportsController@getBcOrdersReport') => 'Reporte de pedidos de tarjetas de presentación',
 					action('AdminFurnituresController@index') => 'Muebles',
-					
+
 				];
 			case 'manager':
 				return [

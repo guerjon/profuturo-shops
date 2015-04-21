@@ -1,10 +1,14 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Order extends Eloquent
 {
 
-  protected $guarded = [''];
+  use SoftDeletingTrait;
   
+  protected $guarded = [''];
+
   public function products()
   {
     return $this->belongsToMany('Product')->withPivot('quantity', 'status', 'comments');
