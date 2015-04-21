@@ -161,6 +161,8 @@ $(function(){
   });
 
   $('#add-to-cart-modal .submit-btn').click(function(){
+    var $this = $(this);
+    $this.prop('disabled', true);
     var formData = $('#add-to-cart-modal form').serialize();
     $.post('/api/add-to-cart', formData, function(data){
       if(data.status == 200){
@@ -188,6 +190,7 @@ $(function(){
       }else{
         alert(data.error_msg);
       }
+      $this.prop('disabled', false);
     });
   });
 });

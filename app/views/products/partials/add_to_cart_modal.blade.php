@@ -49,7 +49,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" onclick="this.disabled = 'true';" class="btn btn-warning submit-btn">Añadir a mi carrito</button>
+        <button type="button" class="btn btn-warning submit-btn">Añadir a mi carrito</button>
       </div>
     </div>
   </div>

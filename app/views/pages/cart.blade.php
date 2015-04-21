@@ -89,15 +89,16 @@
       });
     });
 
-     $('form').submit(function(e){
-  if(confirm("¿Esta seguro que quiere enviar este pedido, no habrá cambios después de ser enviado?")){
-
-  }else{
-    e.preventDefault();
-  }
+  $('form').submit(function(e){
+    if(confirm("¿Esta seguro que quiere enviar este pedido, no habrá cambios después de ser enviado?")){
+      $('.btn-warning').prop('disabled', true);
+    }else{
+      $('.btn-warning').prop('disabled', false);
+      e.preventDefault();
+    }
  });
 
-  });
+});
 
 
 

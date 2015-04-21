@@ -15,7 +15,7 @@
 @else
 
 
-  
+
 
 <div class="container">
   {{Form::open([
@@ -67,7 +67,7 @@
           <td>
            Talento
           </td>
-          <td>  
+          <td>
 
           </td>
           <td>
@@ -83,8 +83,8 @@
           <td>
           Gerente
           </td>
-          <td>  
-            
+          <td>
+
           </td>
           <td>
           </td>
@@ -93,7 +93,7 @@
           </td>
       </tr>
       </tbody>
-    
+
     </table>
 
       <div class="text-right">
@@ -107,4 +107,16 @@
 
 @endif
 
+
+@stop
+
+@section('script')
+<script>
+$(function(){
+  $('form .btn').click(function(){
+    $(this).prop('disabled', true);
+    $(this).parents('form').submit();
+  });
+});
+</script>
 @stop
