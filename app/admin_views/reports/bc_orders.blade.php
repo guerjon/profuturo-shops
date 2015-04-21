@@ -67,12 +67,11 @@ function update(){
     if(data.status == 200){
       var orders = data.orders;
       var headers = data.headers;
-
+      $('.table thead tr').empty();
       if(orders.length == 0){
-        $('.table thead tr').empty();
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
-            $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>No hay registros que mostrar</strong>')
+            $('<td>').html('<strong>No hay registros que mostrar</strong>');
           )
         );
         $('.btn-submit').prop('disabled', true);
