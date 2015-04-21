@@ -71,7 +71,7 @@ function update(){
       if(orders.length == 0){
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
-            $('<td>').html('<strong>No hay registros que mostrar</strong>');
+            $('<td>').html('<strong>No hay registros que mostrar</strong>')
           )
         );
         $('.btn-submit').prop('disabled', true);
