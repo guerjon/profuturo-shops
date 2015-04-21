@@ -206,31 +206,25 @@ class AdminApiController extends AdminBaseController
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
 
-
+    switch(Input::get('type')){
+      case 1:
+        break;
+      case 2:
+        $query = $query2;
+        break;
+      case 3:
+        $query = $query3;
+        break;
+      case 4:
+        $query = $query4;
+        break;
+    }
 
     $q = clone $query;
-    $q2 = clone $query2;
-    $q3 = clone $query3;
-    $q4 = clone $query4;
-    $q = $q->first();
-    $q2 = $q2->first();
-    $q3 = $q3->first();
-    $q4 = $q4->first();
-    $item = NULL;
-    if($q){
-      $item = $q;
-    }elseif($q2){
-      $item = $q2;
-    }elseif($q3){
-      $item = $q3;
-    }elseif($q4){
-      $item = $q4;
-    }
+    $item = $q->first();
+
     $headers = $item ?  array_keys(get_object_vars( $item )) : [];
 
-    $query->union($query2);
-    $query->union($query3);
-    $query->union($query4);
     if(Request::ajax()){
       $items = $query->get();
       return Response::json([
@@ -243,25 +237,23 @@ class AdminApiController extends AdminBaseController
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
 
-      Log::info($data);
-
       $result = [$headers];
-  foreach($query->get() as $item){
-    $itemArray = [];
-  foreach($headers as $header){
-    $itemArray[] = $item->{$header};
-  }
-    $result[] = $itemArray;
-  }
-  if($result){
-    $mes = Input::get('month');
-   $año = Input::get('year');
-    Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
-     $excel->sheet('segunda hoja',function($sheet)use($result){
-       $sheet->fromArray($result);
-        });
-      })->download('xls');
-  }
+      foreach($query->get() as $item){
+        $itemArray = [];
+      foreach($headers as $header){
+        $itemArray[] = $item->{$header};
+      }
+        $result[] = $itemArray;
+      }
+      if($result){
+        $mes = Input::get('month');
+       $año = Input::get('year');
+        Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
+         $excel->sheet('segunda hoja',function($sheet)use($result){
+           $sheet->fromArray($result);
+            });
+          })->download('xls');
+      }
 
 
       $headers = array(

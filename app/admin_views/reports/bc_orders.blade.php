@@ -13,14 +13,22 @@
   'target' => '_blank'
   ])}}
 <div class="row">
-  <div class="col-xs-4 col-xs-offset-2">
+  <div class="col-xs-3 col-xs-offset-1">
+    {{Form::select('type', [
+     '1' => 'Tarjetas de presentación',
+     '2' => 'Tarjetas blancas',
+     '3' => 'Atracción de talento',
+     '4' => 'Gerente comercial'
+    ], NULL, ['class' => 'form-control'])}}
+  </div>
+  <div class="col-xs-3">
     {{Form::selectMonth('month', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
   <div class="col-xs-2">
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
 
-  <div class="col-xs-4">
+  <div class="col-xs-3">
     {{ Form::submit('Descargar Excel', ['class' => 'btn btn-warning btn-submit'])}}
   </div>
 </div>
@@ -59,7 +67,7 @@ function update(){
     if(data.status == 200){
       var orders = data.orders;
       var headers = data.headers;
-      
+
       if(orders.length == 0){
         $('.table thead tr').empty();
         $('.table tbody').append(
