@@ -44,7 +44,7 @@
           <td>
             {{$furniture->description}}
           </td>
-          <td>{{$furniture->category->name}} </td>
+          <td>{{$furniture->category ? $furniture->category->name : 'Sin especificar'}} </td>
           <td>
             {{HTML::image($furniture->image->url('mini'))}}
           </td>
