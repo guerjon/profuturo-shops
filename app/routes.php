@@ -46,6 +46,7 @@ Route::group(['before' => 'auth'], function(){
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
+	Route::post('pedidos-mueble/{order_id}','OrderFurnituresController@postReceive');
 
 	Route::resource('pedidos-tp', 'BcOrdersController');
 
@@ -62,6 +63,7 @@ Route::group(['before' => 'auth'], function(){
 
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
+	Route::controller('agregar-inmueble','AddFurnituresController');
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');

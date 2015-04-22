@@ -44,7 +44,7 @@
     @foreach($orders as $order)
     <tr>
       <td>
-        {{link_to_action('OrdersController@show', $order->id, [$order->id])}}
+        {{link_to_action('OrderFurnituresController@show', $order->id, [$order->id])}}
       </td>
       <td>
         {{$order->comments}}
@@ -66,7 +66,7 @@
       </td>
       @if($order->status == 0)
       <td>
-    {{Form::open(array('action' =>['OrdersController@destroy',$order->id],'method' => 'delete'))}}
+    {{Form::open(array('action' =>['OrderFurnituresController@destroy',$order->id],'method' => 'delete'))}}
      <button class="btn btn-xs btn-danger" data-product-id="{{$order->id}}" >Eliminar</button>  
      {{Form::close()}}
        </td>

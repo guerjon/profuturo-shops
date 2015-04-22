@@ -4,11 +4,11 @@
 
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/productos">TODAS</a>
+    <a href="/furnitureos">TODAS</a>
   </li>
   @foreach($categories as $category)
   <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
-    <a href="/productos/{{$category->id}}">{{$category->name}}</a>
+    <a href="/furnitureos/{{$category->id}}">{{$category->name}}</a>
   </li>
   @endforeach
 </ul>
@@ -38,25 +38,25 @@
 
 <hr>
 
-@if($products->count() == 0)
+@if($furnitures->count() == 0)
   <div class="alert alert-warning">
-    No hay productos que mostrar.
+    No hay inmuebles que mostrar.
   </div>
 @else
 
   <div class="list-group">
-    @foreach($products as $product)
-    <a class="list-group-item" href="#" data-product-id="{{$product->id}}" data-image-src="{{$product->image->url('medium')}}">
+    @foreach($furnitures as $furniture)
+    <a class="list-group-item" href="#" data-furniture-id="{{$furniture->id}}" data-image-src="{{$furniture->image->url('medium')}}">
 
       <div class="pull-right">
         @if(Auth::user()->has_limit)
-        <h5 class="product-info">Max. <span class="product-max-stock">{{$product->max_stock}}</span> {{$product->measure_unit}}</h5>
+        <h5 class="furniture-info">Max. <span class="furniture-max-stock">{{$furniture->max_stock}}</span> {{$furniture->measure_unit}}</h5>
         @else
-        <h5 class="product-info">Unidad de medida: {{$product->measure_unit}}</h5>
+        <h5 class="furniture-info">Unidad de medida: {{$furniture->measure_unit}}</h5>
         @endif
-        @if(Auth::user()->cart_products->contains($product->id))
+        @if(Auth::user()->cart_furnitures->contains($furniture->id))
         <span class="label label-info">
-          Actualmente <span class="product-current-stock">{{Auth::user()->cartProducts()->where('id', $product->id)->first()->pivot->quantity}}</span> en mi carrito
+          Actualmente <span class="furniture-current-stock">{{Auth::user()->cartfurnitures()->where('id', $furniture->id)->first()->pivot->quantity}}</span> en mi carrito
         </span>
         @endif
 
@@ -64,13 +64,13 @@
 
       <div class="media">
         <div class="media-left">
-          {{HTML::image($product->image->url('thumb'), $product->name, ['class' => 'img-rounded'])}}
+          {{HTML::image($furniture->image->url('thumb'), $furniture->name, ['class' => 'img-rounded'])}}
         </div>
 
         <div class="media-body">
-          <h4 class="media-heading">{{$product->name}}</h4>
-          <p class="product-description">
-            {{$product->description}}
+          <h4 class="media-heading">{{$furniture->name}}</h4>
+          <p class="furniture-description">
+            {{$furniture->description}}
           </p>
         </div>
 
@@ -84,12 +84,12 @@
 
 <div class="text-center">
   <nav>
-    {{$products->links()}}
+    {{$furnitures->links()}}
   </nav>
 </div>
 
 
-@include('orders.partials.add_to_order')
+@include('orders_furnitures.partials.add_to_order')
 
 @stop
 
@@ -100,18 +100,18 @@ $(function(){
     var modal = $('#add-to-cart-modal');
     modal.modal('show');
     modal.find('#add-to-cart-modal-title').text($(this).find('.media-heading').text());
-    modal.find('#product-cart-description').text($(this).find('.product-description').text());
-    modal.find('#product-cart-info').text($(this).find('.product-info').text());
+    modal.find('#furniture-cart-description').text($(this).find('.furniture-description').text());
+    modal.find('#furniture-cart-info').text($(this).find('.furniture-info').text());
     modal.find('img').attr('src', $(this).attr('data-image-src'));
-    modal.find('form input[name="product_id"]').val($(this).attr('data-product-id'));
+    modal.find('form input[name="furniture_id"]').val($(this).attr('data-furniture-id'));
     var select = $('form select[name="quantity"]');
     if(select.length == 0) return;
     select.empty();
 
-    var max = $(this).find('.product-max-stock').text();
+    var max = $(this).find('.furniture-max-stock').text();
     max = parseInt(max);
 
-    var current = $(this).find('.product-current-stock').text();
+    var current = $(this).find('.furniture-current-stock').text();
     current = parseInt(current);
 
     if(isNaN(current)){
@@ -137,31 +137,31 @@ $(function(){
 
   $('#add-to-cart-modal .submit-btn').click(function(){
     var formData = $('#add-to-cart-modal form').serialize();
-    $.post('/api/add-product', formData, function(data){
+    $.post('/api/add-furnitures', formData, function(data){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
-       window.location.replace("/pedidos/{{$order_id}}");
-       alert("Se agrego su producto exitosamente");
+       window.location.replace("/pedidos-mueble/{{$order_id}}");
+       alert("Se agrego su furnitureo exitosamente");
         var newq = data.new_q;
         if(newq > 0){
-          var item = $('a[data-product-id="'+ data.product_id +'"]');
+          var item = $('a[data-furniture-id="'+ data.furniture_id +'"]');
           if(item.length > 0){
             var label = item.find('.label');
             if(label.length == 0){
               label = $('<span>').attr('class', 'label label-info');
-              span = $('<span>').attr('class', 'product-current-stock').html(newq);
+              span = $('<span>').attr('class', 'furniture-current-stock').html(newq);
               label.append('Actualmente ');
               label.append(span);
               label.append(' en mi carrito');
               item.find('.pull-right').append(label);
             }else{
-              label.find('.product-current-stock').html(newq);
+              label.find('.furniture-current-stock').html(newq);
             }
           }
         }
       }
       if(data.status == 500){
-        alert("El producto ya habia sido agregado con anterioridad")
+        alert("El inmueble ya habia sido agregado con anterioridad")
       }
 
     });

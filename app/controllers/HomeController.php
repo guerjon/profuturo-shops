@@ -30,6 +30,6 @@ class HomeController extends BaseController {
 
 	public function getCarritoMuebles()
 	{
-		return View::make('pages.cart_furniture')->withLastOrder(Auth::user()->orders()->orderBy('created_at', 'desc')->first());
+		return View::make('pages.cart_furniture')->withLastOrder(Auth::user()->furnitureOrders()->orderBy('created_at', 'desc')->first());
 	}
 }

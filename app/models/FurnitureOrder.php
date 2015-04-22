@@ -12,7 +12,7 @@ class FurnitureOrder extends Eloquent
 
   public function furnitures()
   {
-    return $this->belongsToMany('Furniture')->withPivot('quantity', 'status', 'comments');
+    return $this->belongsToMany('Furniture')->withPivot('quantity', 'status', 'comments');;
   }
 
 
@@ -24,7 +24,7 @@ class FurnitureOrder extends Eloquent
 
   public function orderComplain()
   {
-    return $this->hasOne('OrderComplain');
+    return $this->hasOne('FurnitureOrderComplain');
   }
 
 }

@@ -226,4 +226,58 @@ class ApiController extends BaseController
     
   }
 
+  public function postDestroyFurniture()
+  {
+    $quantity   = Input::get('quantity');
+    $order_id   = Input::get('order_id');
+    $furniture_id = Input::get('furniture_id');
+    Log::info('quantity'.$quantity);
+    Log::info('order_id'.$order_id);
+    Log::info('furniture_id'.$furniture_id);
+    $order = FurnitureOrder::find($order_id);
+    if((($order->furnitures()->where('furnitures.id',$furniture_id)->first()->pivot->quantity) -$quantity) == 0 ){
+        DB::table('furniture_orders')
+    ->where('order_id','=',$order_id)
+    ->where('furniture_id','=',$furniture_id)
+    ->delete();   
+  }else{
+     DB::table('furniture_furniture_order')
+    ->where('furniture_order_id','=',$order_id)
+    ->where('furniture_id','=',$furniture_id)
+    ->update(array('quantity'=> DB::raw('quantity-1')));
+  } 
+
+
+     return Response::json([
+        'status' => 200,
+        'error_msg' => 'No se encontró el producto'
+        ]);
+  }
+
+  public function postAddFurnitures()
+  {
+    $order_id = Input::get('order_id');
+    $furniture_id = Input::get('furniture_id');
+    $quantity = Input::get('quantity');
+    $query =  DB::table('furniture_furniture_order')->select('furniture_id')
+    ->where('furniture_order_id','=',$order_id)
+    ->where('furniture_id','=',$furniture_id)->get();
+
+    if(count($query) == 0){
+      DB::table('furniture_furniture_order')->insert(
+      ['furniture_order_id' => $order_id, 'furniture_id' => $furniture_id, 'quantity' => $quantity]);
+   
+     return Response::json([
+        'status' => 200
+        ]);
+    }
+    else{
+      return Response::json([
+        'status' => 500
+        ]);
+    }
+    
+  }
+
+
 }

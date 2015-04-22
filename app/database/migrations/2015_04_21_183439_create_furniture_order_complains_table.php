@@ -15,10 +15,10 @@ class CreateFurnitureOrderComplainsTable extends Migration {
 
 		Schema::create('furniture_order_complains', function($table)
 		{
-		  $table->increments('id');
+		    $table->increments('id');
 			$table->integer('furniture_order_id')->unsigned();
 			$table->text('complain');
-		  $table->timestamps();
+		    $table->timestamps();
 
 			$table->foreign('furniture_order_id')->references('id')->on('furniture_orders')->onDelete('cascade');
 		});

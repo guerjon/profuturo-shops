@@ -16,7 +16,7 @@ class CreateFurnitureOrdersTable extends Migration {
 		{
 		  $table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->text('comments')->nullable();
+			$table->string('receive_comments');
 			$table->tinyInteger('status')->unsigned()->default(0);
 			$table->timestamps();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

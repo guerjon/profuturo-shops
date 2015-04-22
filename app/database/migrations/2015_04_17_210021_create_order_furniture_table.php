@@ -13,12 +13,13 @@ class CreateOrderFurnitureTable extends Migration {
 	public function up()
 	{
 
-		Schema::create('furniture_order_furniture', function($table)
+		Schema::create('furniture_furniture_order', function($table)
 		{
 		  $table->integer('furniture_order_id')->unsigned();
 			$table->integer('furniture_id')->unsigned();
 			$table->integer('quantity');
-
+			$table->integer('status');
+			$table->string('comments');
 			$table->foreign('furniture_order_id')->references('id')->on('furniture_orders')->onDelete('cascade');
 			$table->foreign('furniture_id')->references('id')->on('furnitures')->onDelete('cascade');
 		});
@@ -31,7 +32,7 @@ class CreateOrderFurnitureTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('furniture_order_furniture');
+		Schema::drop('furniture_furniture_order');
 	}
 
 }

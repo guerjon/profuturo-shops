@@ -51,7 +51,7 @@
 
 @if($last_order !== NULL and $last_order->created_at->month == \Carbon\Carbon::now()->month)
 <div class="alert alert-warning">
-  Usted ya realizó un pedido de papelería este mes.
+  Usted ya realizó un pedido de inmuebles este mes.
 </div>
 @else
 &nbsp;

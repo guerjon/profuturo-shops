@@ -9,28 +9,28 @@
       <div class="modal-body">
 
         <div class="text-center">
-          <img src="" class="img-rounded" id="product-cart-image">
+          <img src="" class="img-rounded" id="furniture-cart-image">
         </div>
         <br>
-        <p class="" id="product-cart-description">
+        <p class="" id="furniture-cart-description">
 
         </p>
 
 
         <div class="alert alert-warning" style="display:none;">
-          No puede ordenar más inventario de este producto
+          No puede ordenar más inventario de este inmueble
         </div>
 
         {{Form::open([
-          'id' => 'product-cart-form',
+          'id' => 'furniture-cart-form',
           'class' => 'form-horizontal',
           ])}}
 
-          {{Form::hidden('product_id')}}
+          {{Form::hidden('furniture_id')}}
 
           <div class="col-xs-6">
             <p class="form-control-static">
-              <strong id="product-cart-info"></strong>
+              <strong id="furniture-cart-info"></strong>
             </p>
           </div>
 

@@ -5,8 +5,8 @@ class OrderFurnituresController extends BaseController
 
   public function index()
   {
-    return View::make('orders_furniture.index')
-    ->withOrders(Auth::user()->orders()->orderBy('created_at', 'desc')->get());
+    return View::make('orders_furnitures.index')
+    ->withOrders(Auth::user()->furnitureOrders()->orderBy('created_at', 'desc')->get());
   }
 
   public function store()
@@ -31,18 +31,18 @@ class OrderFurnituresController extends BaseController
 
   public function show($order_id)
   {
-    $order = Auth::user()->orders()->find($order_id);
+    $order = Auth::user()->furnitureOrders()->find($order_id);
 
     if(!$order){
       return Redirect::to('/')->withWarning('No se encontró la orden');
     }
 
-    return View::make('orders_furniture.show')->withOrder($order);
+    return View::make('orders_furnitures.show')->withOrder($order);
   }
 
   public function update($order_id)
   {
-    $order = Auth::user()->orders()->find($order_id);
+    $order = Auth::user()->furnitureOrders()->find($order_id);
 
     if(!$order){
       return Redirect::to('/')->withWarning('No se encontró la orden');
@@ -63,7 +63,7 @@ class OrderFurnituresController extends BaseController
 
   public function destroy($order_id)
   {
-    $order = Order::find($order_id);
+    $order = FurnitureOrder::find($order_id);
     if(!$order){
       return Redirect::to('/')->withWarning('No se encontró la orden');
     }
@@ -81,7 +81,7 @@ class OrderFurnituresController extends BaseController
 
   public function postReceive($order_id)
   {
-    $order = Order::find($order_id);
+    $order = FurnitureOrder::find($order_id);
     $complete = 1;
     foreach(Input::get('furniture') as $id => $furniture){
       $pivot = $order->furnitures()->where('id', $id)->first()->pivot;
@@ -96,7 +96,6 @@ class OrderFurnituresController extends BaseController
     }else{
       $order->status = 2;
     }
-
 
     $order->receive_comments = Input::get('receive_comments');
     $order->save();
