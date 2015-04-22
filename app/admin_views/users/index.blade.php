@@ -12,6 +12,12 @@
 </div>
 @endif
 
+<div class="text-right">
+  {{link_to_action('AdminApiController@getUsersReport', 'Descargar reporte', [], ['class' => 'btn btn-warning'])}}
+  {{link_to_action('AdminUsersController@create', 'Crear nuevo usuario', [], ['class' => 'btn btn-warning'])}}
+</div>
+
+
 <h3>Centros de costos</h3>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -88,6 +94,7 @@
 </div>
 
 <div class="text-right">
+  {{link_to_action('AdminApiController@getUsersReport', 'Descargar reporte', [], ['class' => 'btn btn-warning'])}}
   {{link_to_action('AdminUsersController@create', 'Crear nuevo usuario', [], ['class' => 'btn btn-warning'])}}
 </div>
 
