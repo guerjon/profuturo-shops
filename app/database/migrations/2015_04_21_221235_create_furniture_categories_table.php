@@ -24,9 +24,9 @@ class CreateFurnitureCategoriesTable extends Migration {
 		});
 
 		Schema::table('furnitures', function($table){
-			$table->integer('category_id')->unsigned()->nullable()->default(NULL);
+			$table->integer('furniture_category_id')->unsigned()->nullable()->default(NULL);
 
-			$table->foreign('category_id')->references('id')->on('furniture_categories')->onDelete('SET NULL');
+			$table->foreign('furniture_category_id')->references('id')->on('furniture_categories')->onDelete('SET NULL');
 		});
 	}
 
@@ -37,9 +37,9 @@ class CreateFurnitureCategoriesTable extends Migration {
 	 */
 	public function down()
 	{
-	Schema::table('furnitures', function($table){
-			$table->dropForeign('furnitures_category_id_foreign');
-			$table->dropColumn('category_id');
+		Schema::table('furnitures', function($table){
+			$table->dropForeign('furnitures_furniture_category_id_foreign');
+			$table->dropColumn('furniture_category_id');
 		});
 		Schema::drop('furniture_categories');
 	}
