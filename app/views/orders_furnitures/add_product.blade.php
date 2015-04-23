@@ -141,7 +141,7 @@ $(function(){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
        window.location.replace("/pedidos-mueble/{{$order_id}}");
-       alert("Se agrego su furnitureo exitosamente");
+       alert("Se agrego su inmueble exitosamente");
         var newq = data.new_q;
         if(newq > 0){
           var item = $('a[data-furniture-id="'+ data.furniture_id +'"]');

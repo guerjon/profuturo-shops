@@ -67,7 +67,7 @@
 
 <div class="form-group">
 
-  {{Form::textarea('receive_comments', $order->receive_comments, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la entrega', 'rows' => 3])}}
+  {{Form::textarea('comments', $order->comments, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la entrega', 'rows' => 3])}}
 
 </div>
 <div class="form-group text-right">

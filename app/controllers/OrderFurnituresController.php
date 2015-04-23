@@ -97,7 +97,7 @@ class OrderFurnituresController extends BaseController
       $order->status = 2;
     }
 
-    $order->receive_comments = Input::get('receive_comments');
+    $order->comments = Input::get('comments');
     $order->save();
     return Redirect::to(action('OrderFurnituresController@index'))->withSuccess('Se ha actualizado la información');
   }
