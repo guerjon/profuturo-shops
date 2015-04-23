@@ -20,7 +20,7 @@
         Comentarios
       </th>
       <th>
-       Eliminar furnitureo
+       Eliminar inmueble
       </th>
     </tr>
   </thead>
