@@ -146,7 +146,7 @@ class AdminApiController extends AdminBaseController
       users.gerencia as GERENCIA,
       DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
       'Tarjetas blancas' AS NOMBRE,
-      '' AS NOMBRE_PUESTO,
+      blank_cards_bc_order.nombre_puesto AS NOMBRE_PUESTO,
       '' AS EMAIL,
       '' AS TELEFONO,
       '' AS CELULAR,

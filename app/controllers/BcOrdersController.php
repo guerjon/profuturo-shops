@@ -127,7 +127,7 @@ class BcOrdersController extends BaseController{
     if(Input::has('blank_cards') and Input::get('blank_cards') > 0){
       DB::table('blank_cards_bc_order')->insert([
         'quantity' => Input::get('blank_cards')*100,
-        'combo' => Input::get('combo'),
+        'nombre_puesto' => Input::get('nombre_puesto'),
         'bc_order_id' => $bc_order->id,
         ]);
     }
