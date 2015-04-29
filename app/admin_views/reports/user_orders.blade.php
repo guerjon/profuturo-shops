@@ -19,7 +19,7 @@
   <div class="col-xs-2">
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
-  
+
     {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
 
 </div>
@@ -57,11 +57,11 @@ function update(){
     if(data.status == 200){
       var orders = data.orders;
       var headers = ['ID', 'CENTRO_DE_COSTOS', 'GERENCIA','LINEA_NEGOCIO'];
+      $('.table thead tr').empty();
       if(orders.length == 0){
-        $('.table thead tr').empty();
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
-            $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>No hay registros que mostrar</strong>')
+            $('<td>').html('<strong>No hay registros que mostrar</strong>')
           )
         );
         $('.btn-submit').prop('disabled', true);

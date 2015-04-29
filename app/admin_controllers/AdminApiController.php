@@ -265,13 +265,14 @@ class AdminApiController extends AdminBaseController
 
   public function getUserOrdersReport()
   {
-    
+
     ini_set('max_execution_time','300');
-    $query = User::where(DB::raw('MONTH(users.created_at)'), Input::get('month'))
-      ->where(DB::raw('YEAR(users.updated_at)'), Input::get('year'))
-      ->where('role','user_paper')->has('orders', '=', 0)
-      ->orderBy('ccosto');
-      //DB::table('users') 
+    $query = User::where('role','user_paper')->whereHas('orders', function($q){
+      $q->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
+        ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'));
+
+    }, '=', 0)->orderBy('ccosto');
+      //DB::table('users')
       //->select('users.*', DB::raw('count(user_id) as num_orders'))
       //->join('orders','orders.user_id','=','users.id')
       //->where(DB::raw('YEAR(users.updated_at)'), Input::get('year'))
@@ -280,8 +281,8 @@ class AdminApiController extends AdminBaseController
       //->where('num_orders', '=', 0)
       //->groupBy('user_id')
       //->orderBy('ccosto');
-      
-      
+
+
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
     if(Request::ajax()){
@@ -332,9 +333,11 @@ public function getProductOrdersReport()
     ini_set('max_execution_time','300');
     $query = DB::table('products')
     ->leftJoin('order_product','products.id','=','product_id')
-    ->select('id','name as Nombre','model as Modelo','description as Categoria','max_stock as Permitidos','comments as comentarios',DB::raw('SUM(quantity) as quantity'))
-    ->where(DB::raw('MONTH(products.created_at)'), Input::get('month'))
-    ->where(DB::raw('YEAR(products.updated_at)'), Input::get('year'))
+    ->leftJoin('orders','orders.id','=','order_id')
+    ->select('products.id','name as NOMBRE','model as MEDIDA','description as CATEGORIA',DB::raw('SUM(quantity) as SOLICITADOS'))
+    ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
+    ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
+    ->where('quantity', '>', 0)
     ->groupBy('order_product.product_id')
     ->orderBy('quantity','DESC');
 
@@ -377,16 +380,18 @@ public function getProductOrdersReport()
       return Response::make($data, 200, $headers);
     }
   }
-   
+
 
   public function getActiveUsersReport()
   {
     ini_set('max_execution_time','300');
     $query = DB::table('users')
     ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
-      DB::raw('sum(order_product.product_id) as quantity'))
+      DB::raw('sum(order_product.quantity) as quantity'))
     ->join('orders','users.id','=','orders.user_id')
     ->join('order_product','orders.id','= ','order_product.order_id')
+    ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month') )
+    ->where(DB::raw('YEAR(orders.created_at)'), Input::get('year') )
     ->groupBy('users.id');
 
 
