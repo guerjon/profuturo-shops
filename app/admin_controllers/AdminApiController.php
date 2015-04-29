@@ -109,8 +109,6 @@ class AdminApiController extends AdminBaseController
       );
       return Response::make($data, 200, $headers);
     }
-
-
   }
 
   public function getBcOrdersReport()
@@ -263,6 +261,176 @@ class AdminApiController extends AdminBaseController
       return Response::make($data, 200, $headers);
     }
   }
+
+
+  public function getUserOrdersReport()
+  {
+    
+    ini_set('max_execution_time','300');
+    $query = User::where(DB::raw('MONTH(users.created_at)'), Input::get('month'))
+      ->where(DB::raw('YEAR(users.updated_at)'), Input::get('year'))
+      ->where('role','user_paper')->has('orders', '=', 0)
+      ->orderBy('ccosto');
+      //DB::table('users') 
+      //->select('users.*', DB::raw('count(user_id) as num_orders'))
+      //->join('orders','orders.user_id','=','users.id')
+      //->where(DB::raw('YEAR(users.updated_at)'), Input::get('year'))
+      //->where(DB::raw('MONTH(users.created_at)'), Input::get('month'))
+      //->where('users.role','=','user_paper')
+      //->where('num_orders', '=', 0)
+      //->groupBy('user_id')
+      //->orderBy('ccosto');
+      
+      
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+
+  Log::info($data);
+
+      $result = [$headers];
+  foreach($query->get() as $item){
+    $itemArray = [];
+  foreach($headers as $header){
+    $itemArray[] = $item->{$header};
+  }
+    $result[] = $itemArray;
+  }
+  if($result){
+   $mes = Input::get('month');
+   $año = Input::get('year');
+    Excel::create('Reporte_Usuarios_'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('segunda hoja',function($sheet)use($result){
+       $sheet->fromArray($result);
+        });
+      })->download('xls');
+  }
+
+      $headers = array(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+      );
+      return Response::make($data, 200, $headers);
+    }
+
+
+  }
+
+
+public function getProductOrdersReport()
+  {
+    ini_set('max_execution_time','300');
+    $query = DB::table('products')
+    ->leftJoin('order_product','products.id','=','product_id')
+    ->select('id','name as Nombre','model as Modelo','description as Categoria','max_stock as Permitidos','comments as comentarios',DB::raw('SUM(quantity) as quantity'))
+    ->where(DB::raw('MONTH(products.created_at)'), Input::get('month'))
+    ->where(DB::raw('YEAR(products.updated_at)'), Input::get('year'))
+    ->groupBy('order_product.product_id')
+    ->orderBy('quantity','DESC');
+
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+  foreach($query->get() as $item){
+    $itemArray = [];
+  foreach($headers as $header){
+    $itemArray[] = $item->{$header};
+  }
+    $result[] = $itemArray;
+  }
+  if($result){
+   $mes = Input::get('month');
+   $año = Input::get('year');
+    Excel::create('Reporte_Papeleria_'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('segunda hoja',function($sheet)use($result){
+       $sheet->fromArray($result);
+        });
+      })->download('xls');
+  }
+
+      $headers = array(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+      );
+      return Response::make($data, 200, $headers);
+    }
+  }
+   
+
+  public function getActiveUsersReport()
+  {
+    ini_set('max_execution_time','300');
+    $query = DB::table('users')
+    ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
+      DB::raw('sum(order_product.product_id) as quantity'))
+    ->join('orders','users.id','=','orders.user_id')
+    ->join('order_product','orders.id','= ','order_product.order_id')
+    ->groupBy('users.id');
+
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+  foreach($query->get() as $item){
+    $itemArray = [];
+  foreach($headers as $header){
+    $itemArray[] = $item->{$header};
+  }
+    $result[] = $itemArray;
+  }
+  if($result){
+   $mes = Input::get('month');
+   $año = Input::get('year');
+    Excel::create('Reporte_Papeleria_'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('segunda hoja',function($sheet)use($result){
+       $sheet->fromArray($result);
+        });
+      })->download('xls');
+  }
+
+      $headers = array(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+      );
+      return Response::make($data, 200, $headers);
+    }
+  }
+
+
+
 
   public function getUsersReport()
   {
