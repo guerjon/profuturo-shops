@@ -338,12 +338,13 @@ public function getProductOrdersReport()
     ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
     ->where('quantity', '>', 0)
-    ->groupBy('order_product.product_id')
-    ->orderBy('quantity','DESC');
-
+    ->groupBy('order_product.product_id');
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+
+    $query->orderBy('SOLICITADOS','DESC');
+
     if(Request::ajax()){
       $items = $query->get();
       return Response::json([
@@ -392,7 +393,8 @@ public function getProductOrdersReport()
     ->join('order_product','orders.id','= ','order_product.order_id')
     ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month') )
     ->where(DB::raw('YEAR(orders.created_at)'), Input::get('year') )
-    ->groupBy('users.id');
+    ->groupBy('users.id')
+    ->orderBy('quantity', 'DESC');
 
 
     $q = clone $query;
