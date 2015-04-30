@@ -26,6 +26,10 @@
     {{link_to_action('AdminReportsController@getProductOrdersReport', 'Productos más solicitados', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
   </div>
 
+  <div class="col-sm-4 col-xs-6">
+    {{link_to_action('AdminReportsController@getTotalUserOrdersReport', 'Pedidos totales de usuarios', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  </div>
+
 </div>
 
 

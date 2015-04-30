@@ -83,9 +83,8 @@ class AdminApiController extends AdminBaseController
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
 
-  Log::info($data);
 
-      $result = [$headers];
+  $result = [$headers];
   foreach($query->get() as $item){
     $itemArray = [];
   foreach($headers as $header){
@@ -96,8 +95,8 @@ class AdminApiController extends AdminBaseController
   if($result){
    $mes = Input::get('month');
    $año = Input::get('year');
-    Excel::create('Reporte_Papeleria_'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('segunda hoja',function($sheet)use($result){
+    Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('hoja 1',function($sheet)use($result){
        $sheet->fromArray($result);
         });
       })->download('xls');
@@ -247,7 +246,7 @@ class AdminApiController extends AdminBaseController
         $mes = Input::get('month');
        $año = Input::get('year');
         Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
-         $excel->sheet('segunda hoja',function($sheet)use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
            $sheet->fromArray($result);
             });
           })->download('xls');
@@ -270,64 +269,44 @@ class AdminApiController extends AdminBaseController
     $query = User::where('role','user_paper')->whereHas('orders', function($q){
       $q->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
         ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'));
-
     }, '=', 0)->orderBy('ccosto');
-      //DB::table('users')
-      //->select('users.*', DB::raw('count(user_id) as num_orders'))
-      //->join('orders','orders.user_id','=','users.id')
-      //->where(DB::raw('YEAR(users.updated_at)'), Input::get('year'))
-      //->where(DB::raw('MONTH(users.created_at)'), Input::get('month'))
-      //->where('users.role','=','user_paper')
-      //->where('num_orders', '=', 0)
-      //->groupBy('user_id')
-      //->orderBy('ccosto');
-
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
-    if(Request::ajax()){
-      $items = $query->get();
-      return Response::json([
-        'status' => 200,
-        'orders' => $items,
-        'headers' => $headers
-        ]);
-    }else{
+        if(Request::ajax()){
+          $items = $query->get();
+          return Response::json([
+            'status' => 200,
+            'orders' => $items,
+            'headers' => $headers
+            ]);
+        }else{
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
-
-  Log::info($data);
-
       $result = [$headers];
-  foreach($query->get() as $item){
-    $itemArray = [];
-  foreach($headers as $header){
-    $itemArray[] = $item->{$header};
-  }
-    $result[] = $itemArray;
-  }
-  if($result){
-   $mes = Input::get('month');
-   $año = Input::get('year');
-    Excel::create('Reporte_Usuarios_'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('segunda hoja',function($sheet)use($result){
-       $sheet->fromArray($result);
-        });
-      })->download('xls');
-  }
 
-      $headers = array(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
-      );
-      return Response::make($data, 200, $headers);
+      foreach($query->get() as $item){
+        $itemArray = [];
+        $itemArray['CENTRO_COSTO'] = $item->ccosto;
+        $itemArray['GERENCIA'] = $item->gerencia;
+        $itemArray['LINEA_DE_NEGOCIO'] = $item->linea_negocio;
+
+        $result[] = $itemArray;
+      }
+      if($result){
+       $mes = Input::get('month');
+       $año = Input::get('year');
+        Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+            });
+          })->download('xls');
+      }
     }
+  } 
 
-
-  }
-
-
+  
 public function getProductOrdersReport()
   {
     ini_set('max_execution_time','300');
@@ -338,6 +317,7 @@ public function getProductOrdersReport()
     ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
     ->where('quantity', '>', 0)
+    ->where('category_id','=',Input::get('category_id'))
     ->groupBy('order_product.product_id');
 
     $q = clone $query;
@@ -367,17 +347,14 @@ public function getProductOrdersReport()
   if($result){
    $mes = Input::get('month');
    $año = Input::get('year');
-    Excel::create('Reporte_Papeleria_'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('segunda hoja',function($sheet)use($result){
+    Excel::create('Reporte_Productos_'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('hoja 1',function($sheet)use($result){
        $sheet->fromArray($result);
         });
       })->download('xls');
   }
 
-      $headers = array(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
-      );
+   
       return Response::make($data, 200, $headers);
     }
   }
@@ -421,8 +398,8 @@ public function getProductOrdersReport()
   if($result){
    $mes = Input::get('month');
    $año = Input::get('year');
-    Excel::create('Reporte_Papeleria_'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('segunda hoja',function($sheet)use($result){
+    Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
+     $excel->sheet('hoja 1',function($sheet)use($result){
        $sheet->fromArray($result);
         });
       })->download('xls');
@@ -436,7 +413,23 @@ public function getProductOrdersReport()
     }
   }
 
+  public function getTotalUsersReport(){
+       $users =  User::all();
 
+       foreach ($users as $user) {
+          $user->pedidos = $user->orders->count();
+          $user->pendientes = $user->orders()->where('status',0)->count();
+          $user->completos = $user->orders()->where('status', 1)->count();
+          $user->incompletos = $user->orders()->where('status',2)->count();
+       } 
+
+      if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'users' => $users,
+        ]);
+      }
+  }
 
 
   public function getUsersReport()
@@ -475,5 +468,37 @@ public function getProductOrdersReport()
       });
     })->download('xls');
   }
+
+
+  public function getTotalUsersExcel()
+  {
+      $users =  User::all();
+       
+       foreach ($users as $user) {
+          $user->pedidos = $user->orders->count();
+          $user->pendientes = $user->orders()->where('status',0)->count();
+          $user->completos = $user->orders()->where('status', 1)->count();
+          $user->incompletos = $user->orders()->where('status',2)->count();
+      
+          $result[] = [
+        'CENTRO_COSTOS' => $user->ccosto,
+        'GERENCIA/NOMBRE' => $user->gerencia,
+        'LINEA_DE_NEGOCIO' => $user->linea_negocio,
+        'PEDIDOS' => $user->pedidos,
+        'COMPLETOS' => $user->completos,
+        'INCOMPLETOS' => $user->incompletos,
+        'PENDIENTES' => $user->pendientes
+        ];
+       } 
+    
+    $datetime = \Carbon\Carbon::now()->format('YmdHi');
+    Excel::create('Reporte_usuarios_'.$datetime, function($excel) use($result){
+      $excel->sheet('Usuarios',function($sheet)use($result){
+        $sheet->fromArray($result);
+      });
+    })->download('xls');
+  }
+
+
 
 }

@@ -2,18 +2,18 @@
 
 class AdminReportsController extends AdminBaseController{
 
+  
 
   public function getIndex()
   {
-    return View::make('admin::reports.index');
+    $categories = Category::lists('name','id');
+    return View::make('admin::reports.index')->withCategories($categories);
   }
   
   public function getOrdersReport()
   {
-
-  	//$category = DB::table('categories')->select('name')->orderBy('name');
- 	//->withCategories($category)
-    return View::make('admin::reports.orders');
+    $categories = Category::lists('name','id');
+    return View::make('admin::reports.orders')->withCategories($categories);
 
   }
 
@@ -28,12 +28,19 @@ class AdminReportsController extends AdminBaseController{
   }
 
   public function getProductOrdersReport()
-  {
-        return View::make('admin::reports.product_orders');
+  { $categories = Category::lists('name','id');
+    return View::make('admin::reports.product_orders')->withCategories($categories);
   }
 
    public function getActiveUserOrdersReport()
   {
     return View::make('admin::reports.active_user_orders');
   }
+
+  public function getTotalUserOrdersReport(){
+    return View::make('admin::reports.total_user_orders');
+  }
+
+
+
 }
