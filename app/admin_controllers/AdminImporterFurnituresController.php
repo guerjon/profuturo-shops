@@ -1,6 +1,6 @@
 <?php
 
-class AdminFurnituresController extends AdminBaseController
+class AdminImporterFurnituresController extends AdminBaseController
 {
 
 
@@ -11,7 +11,7 @@ class AdminFurnituresController extends AdminBaseController
 
   public function create()
   {
-    return View::make('admin::furnitures.create')->withfurniture(new Furniture);
+    return View::make('admin::import_furnitures.create')->withfurniture(new Furniture);
   }
 
 

@@ -33,7 +33,7 @@
 
       <div class="form-group">
         {{Form::label('category_id', 'Categoría')}}
-        {{Form::select('category_id', ($furniture->category ? [] : [NULL => 'Sin especificar']) + Category::lists('name', 'id'), NULL,
+        {{Form::select('category_id', ($furniture->category ? [] : [NULL => 'Sin especificar']) + FurnitureCategory::lists('name', 'id'), NULL,
           ['class' => 'form-control'])}}
       </div>
 
