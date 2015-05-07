@@ -23,9 +23,9 @@ class CreateFurnitureCategoriesTable extends Migration {
 			$table->timestamps();
 		});
 
+	
 		Schema::table('furnitures', function($table){
 			$table->integer('furniture_category_id')->unsigned()->nullable()->default(NULL);
-
 			$table->foreign('furniture_category_id')->references('id')->on('furniture_categories')->onDelete('SET NULL');
 		});
 	}

@@ -22,14 +22,35 @@
 
       <div class="form-group">
         {{Form::label('name', 'Nombre corto')}}
-
         {{Form::text('name', NULL, ['class' => 'form-control'])}}
       </div>
 
       <div class="form-group">
         {{Form::label('description', 'Descripción')}}
-        {{Form::textarea('description', NULL, ['class' => 'form-control', 'rows' => 3])}}
+        {{Form::textarea('specific_description', NULL, ['class' => 'form-control', 'rows' => 3])}}
       </div>
+
+      <div class="form-group">
+        {{Form::label('unitary', 'Unitario')}}
+        {{Form::number('unitary', NULL, ['class' => 'form-control'])}}
+      </div>
+
+
+      <div class="form-group">
+        {{Form::label('key', 'Clave')}}
+        {{Form::text('key', NULL, ['class' => 'form-control'])}}
+      </div>
+
+       <div class="form-group">
+        {{Form::label('delivery_time', 'Tiempo de entrega')}}
+        {{Form::text('delivery_time', NULL, ['class' => 'form-control'])}}
+      </div>
+
+       <div class="form-group">
+        {{Form::label('business_conditions', 'Condiciones comerciales')}}
+        {{Form::text('business_conditions', NULL, ['class' => 'form-control'])}}
+      </div>
+
 
       <div class="form-group">
         {{Form::label('category_id', 'Categoría')}}
@@ -37,10 +58,7 @@
           ['class' => 'form-control'])}}
       </div>
 
-      <div class='form-group'>
-        {{Form::label('image', 'Imagen')}}
-        {{Form::file('image')}}
-      </div>
+
 
       <div class="form-group text-center">
         {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg'])}}
