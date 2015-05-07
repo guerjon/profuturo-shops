@@ -5,7 +5,7 @@
 <div class="container">
     <div class="col-md-4 col-md-offset-9">
   {{link_to_action('AdminFurnituresController@create', 'Agregar nuevo mueble', NULL, ['class' => 'btn btn-warning'])}}
-  {{link_to_action('AdminImporterFurnituresController@create', 'Importar excel', NULL, ['class' => 'btn btn-warning'])}}
+  {{link_to_action('AdminFurnitureImporterController@create', 'Importar excel', NULL, ['class' => 'btn btn-warning'])}}
 </div>
 
 

@@ -32,7 +32,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('users', 'AdminUsersController');
 		Route::resource('products', 'AdminProductsController');
 		Route::resource('muebles','AdminFurnituresController');
-		Route::resource('importar-muebles','AdminImporterFurnituresController');
+		Route::resource('importar-muebles','AdminFurnitureImporterController');
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('categorias-muebles', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);

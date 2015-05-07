@@ -14,7 +14,7 @@
   <div class="col-sm-8 col-sm-offset-2">
 
     {{Form::open([
-      'action' => 'AdminImporterFurnituresController@store',
+      'action' => 'AdminFurnitureImporterController@store',
       'role' => 'form',
       'files' => true
       ])}}
