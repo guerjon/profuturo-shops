@@ -3,12 +3,13 @@
 use Codesleeve\Stapler\ORM\StaplerableInterface;
 use Codesleeve\Stapler\ORM\EloquentTrait;
 use Watson\Validating\ValidatingTrait;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
 class Product extends Eloquent implements StaplerableInterface
 {
 
-  use EloquentTrait, ValidatingTrait;
+  use EloquentTrait, ValidatingTrait,SoftDeletingTrait;
 
   protected $fillable = ['name', 'model', 'description', 'image', 'max_stock', 'measure_unit', 'sku'];
 

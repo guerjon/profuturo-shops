@@ -55,8 +55,18 @@
 
           <td>
             {{link_to_action('AdminProductsController@edit', 'Editar', [$product->id], ['class' => 'btn btn-sm btn-default'])}}
+            {{Form::open([
+            'action' => ['AdminProductsController@destroy',$product->id],
+            'method' => 'DELETE',
+            'style' => 'display:inline'
+            ])}}
+            {{Form::submit('inhabilitar',['class' => 'btn btn-sm btn-danger'])}}
+            {{Form::close()}}
+
           </td>
-        </tr>
+          
+           
+          </tr>
         @endforeach
       </tbody>
     </table>

@@ -1,10 +1,11 @@
 <?
 
 use Watson\Validating\ValidatingTrait;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class BusinessCard extends Eloquent
 {
-  use ValidatingTrait;
+  use ValidatingTrait,SoftDeletingTrait;
   protected $rules = [
     'no_emp' => 'required|numeric',
     'nombre' => 'required',

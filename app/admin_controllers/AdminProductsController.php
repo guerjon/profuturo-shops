@@ -57,4 +57,9 @@ class AdminProductsController extends AdminBaseController
       }
     }
   }
+  public function destroy($product_id){
+    $product = Product::find($product_id);
+    $product->delete();
+    return Redirect::to(action('AdminProductsController@index'))->withSuccess('Se ha inabilitado el producto');
+  }
 }
