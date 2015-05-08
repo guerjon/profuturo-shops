@@ -48,7 +48,7 @@
             {{$furniture->specific_description}}
           </td>
           <td>
-            {{$furniture->category ? $furniture->category->name : 'Sin especificar'}} 
+            {{$furniture->furniture_category ? $furniture->furniture_category->name : 'Sin especificar'}} 
           </td>
           <td>
             {{$furniture->unitary}}
@@ -58,13 +58,31 @@
           </td>
           <td>
             {{link_to_action('AdminFurnituresController@edit', 'Editar', [$furniture->id], ['class' => 'btn btn-sm btn-default'])}}
+            
+              {{Form::open([
+              'class' => 'form-inline',
+              'action' => ['AdminFurnituresController@destroy', $furniture->id],
+              'method' => 'DELETE',
+              ])}}
+
+              @if($furniture->trashed())
+              {{Form::submit('Habilitar', ['class' => 'btn btn-info'])}}
+              @else
+              {{Form::submit('inhabilitar',['class' => 'btn btn-sm btn-danger'])}}
+              @endif 
+
+            {{Form::close()}}
+
           </td>
         </tr>
         @endforeach
       </tbody>
     </table>
   </div>
-
+  <div class="text-center">
+    {{$furnitures->links()}}
+  </div>
 @endif
+
 
 @stop

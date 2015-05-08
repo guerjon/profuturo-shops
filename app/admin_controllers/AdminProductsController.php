@@ -5,7 +5,7 @@ class AdminProductsController extends AdminBaseController
 
   public function index()
   {
-    return View::make('admin::products.index')->withProducts(Product::orderBy('category_id')->orderBy('name')->paginate(25));
+    return View::make('admin::products.index')->withProducts(Product::withTrashed()->orderBy('category_id')->orderBy('name')->paginate(25));
   }
 
   public function create()
@@ -58,8 +58,14 @@ class AdminProductsController extends AdminBaseController
     }
   }
   public function destroy($product_id){
-    $product = Product::find($product_id);
-    $product->delete();
-    return Redirect::to(action('AdminProductsController@index'))->withSuccess('Se ha inabilitado el producto');
+    $product = Product::withTrashed()->find($product_id);
+    if($product->trashed()){
+      $product->restore();
+      return Redirect::to(action('AdminProductsController@index'))->withSuccess('Se ha habilitado el producto');
+    }else{
+      $product->delete();
+      return Redirect::to(action('AdminProductsController@index'))->withInfo('Se ha inabilitado el producto');
+    }
+    
   }
 }

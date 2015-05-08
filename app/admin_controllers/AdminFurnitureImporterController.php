@@ -25,19 +25,19 @@ class AdminFurnitureImporterController extends AdminBaseController
       ]));
     }
 
-
     $file = Input::file('file');
     $created = 0;
     $updated = 0;
     $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
 
       $reader->each(function($sheet)use(&$created, &$updated){
-       $category = new FurnitureCategory;
-       $category->name = $sheet->getTitle();
-       $category->save();
+       
+       
+       $category = FurnitureCategory::firstOrCreate(['name' => $sheet->getTitle()]);
         $sheet->each(function($row)use(&$created, &$updated, &$category){
 
-          $product = Furniture::create([
+
+          $furniture = Furniture::firstOrNew([
             'name' => $row->descripcion_profuturo,
             'max_stock' => 1, 
             'measure_unit' => 'Pieza' ,
@@ -52,10 +52,10 @@ class AdminFurnitureImporterController extends AdminBaseController
             'furniture_category_id' => $category->id,
             ]);
         
-          Log::info($category);
-          if($product->save()){
-          $created++;
+        if(!$furniture->exists and $furniture->save()){
+            $created++;  
         }
+        
         });
         
       });

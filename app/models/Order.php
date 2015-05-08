@@ -11,7 +11,7 @@ class Order extends Eloquent
 
   public function products()
   {
-    return $this->belongsToMany('Product')->withPivot('quantity', 'status', 'comments');
+    return $this->belongsToMany('Product')->withPivot('quantity', 'status', 'comments')->withTrashed();
   }
 
 

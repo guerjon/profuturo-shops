@@ -18,6 +18,14 @@ class Product extends Eloquent implements StaplerableInterface
     // 'price' => ['required', 'regex:/^(\d)+(\.\d+)?$/'],
   ];
 
+    public static function boot()
+  {
+    parent::boot();
+    Product::deleting(function($product){
+        DB::table('cart_products')->where('product_id', $product->id)->delete();
+    });
+  }
+
   public function __construct($attributes = array()){
 
     $this->hasAttachedFile('image', [
@@ -34,5 +42,7 @@ class Product extends Eloquent implements StaplerableInterface
   {
     return $this->belongsTo('Category');
   }
+
+
 
 }

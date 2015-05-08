@@ -62,7 +62,13 @@
               'action' => ['AdminBusinessCardsController@destroy', $card->id],
               'method' => 'DELETE',
               ])}}
-              {{Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger'])}}
+
+              @if($card->trashed())
+              {{Form::submit('Habilitar', ['class' => 'btn btn-info'])}}
+              @else
+              {{Form::submit('inhabilitar',['class' => 'btn btn-sm btn-danger'])}}
+              @endif 
+
             {{Form::close()}}
           </td>
         </tr>
