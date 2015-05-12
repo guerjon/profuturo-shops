@@ -14,6 +14,25 @@
   </div>
 @else
 
+  {{Form::open([
+    'method' => 'GET',
+    'class' => 'form-inline'
+    ])}}
+
+    <div class="form-group">
+      {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'no_emp'])}}
+    </div>
+
+    <div class="form-group">
+      {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+      {{Form::submit('Filtrar', ['class' => 'btn btn-defaul'])}}
+    </div>
+
+  {{Form::close()}}
+
   <div class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -32,6 +51,9 @@
           </th>
           <th>
             Gerencia
+          </th>
+          <th>
+            Fecha de ingreso
           </th>
           <th>
 
@@ -57,6 +79,9 @@
             {{$card->gerencia}}
           </td>
           <td>
+            {{$card->fecha_ingreso}}
+          </td>
+          <td>
             {{Form::open([
               'class' => 'form-inline',
               'action' => ['AdminBusinessCardsController@destroy', $card->id],
@@ -67,7 +92,7 @@
               {{Form::submit('Habilitar', ['class' => 'btn btn-info'])}}
               @else
               {{Form::submit('inhabilitar',['class' => 'btn btn-sm btn-danger'])}}
-              @endif 
+              @endif
 
             {{Form::close()}}
           </td>
@@ -78,7 +103,7 @@
   </div>
 
   <div class="text-center">
-    {{ $cards->links() }}
+    {{ $cards->appends(Input::all())->links() }}
   </div>
 
 

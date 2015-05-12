@@ -4,7 +4,13 @@ class AdminBusinessCardsController extends BaseController{
 
   public function index()
   {
-    return View::make('admin::business_cards.index')->withCards(BusinessCard::withTrashed()->orderBy('gerencia')->paginate(50));
+    $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
+    $cards = BusinessCard::withTrashed()->orderBy('gerencia');
+    if(Input::has('no_emp'))
+      $cards->where('no_emp', Input::get('no_emp'))
+    if(Input::has('gerencia'))
+      $cards->where('ccosto', Input::get('ccosto'))
+    return View::make('admin::business_cards.index')->withCards($cards->paginate(50))->withGerencias($gerencias);
   }
 
   public function create()
@@ -90,10 +96,10 @@ class AdminBusinessCardsController extends BaseController{
     else{
       if($card->trashed()){
         $card->restore();
-        return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess('Se ha restaurado la tarjeta de presentación');     
+        return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess('Se ha restaurado la tarjeta de presentación');
       }else{
         $card->delete();
-        return Redirect::to(action('AdminBusinessCardsController@index'))->withInfo('Se ha eliminado la tarjeta de presentación');           
+        return Redirect::to(action('AdminBusinessCardsController@index'))->withInfo('Se ha eliminado la tarjeta de presentación');
       }
     }
   }
