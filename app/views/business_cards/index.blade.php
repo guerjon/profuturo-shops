@@ -30,13 +30,16 @@
           </th>
 
           <th>
+            Número de empleado
+          </th>
+
+          <th>
             Nombre de empleado
           </th>
           <th>
-            Centro de costo
+            Puesto
           </th>
           <th>
-            Puesto
           </th>
         </tr>
       </thead>
@@ -44,19 +47,24 @@
         @foreach($cards as $card)
         <tr>
           <td style="max-width: 60px;" class="text-center">
-            {{Form::checkbox("cards[]", $card->id)}}
+            {{Form::checkbox("cards[]", $card->id, FALSE, ($forbid and @$forbidden[$card->id]) ? ['disabled' => true] : [])}}
+          </td>
+          <td>
+            {{$card->no_emp}}
           </td>
           <td>
             {{$card->nombre}}
           </td>
           <td>
-            {{$card->ccosto}}
-          </td>
-          <td>
             {{ $card->nombre_puesto }}
           </td>
           <td>
-            {{ Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
+            @if(($last_order_date = @$forbidden[$card->id]) and $forbid)
+              No puede añadir esta tarjeta a su pedido puesto que ya hizo un pedido con fecha {{$last_order_date}}. <br>
+              El pedido fue realizado con folio {{link_to_action('BcOrdersController@show', $card->id, [$card->id])}}
+            @else
+             {{ Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
+            @endif
           </td>
         </tr>
         @endforeach

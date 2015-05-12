@@ -11,18 +11,19 @@ class BusinessCardsController extends BaseController{
   	->select('business_cards.id')
     ->whereNull('bc_orders.deleted_at')
   	->where(DB::raw('datediff(NOW(),bc_orders.created_at)'),'<','31')
-  	->where('user_id','=',Auth::id())->lists('id');
+  	->where('user_id','=',Auth::id())->lists('bc_orders.created_at', 'id');
 
-  $cards = Auth::user()->businessCards();
+  $cards = Auth::user()->businessCards()->orderBy('no_emp');
 
-  if(strpos(Auth::user()->gerencia, 'CUENTAS') === FALSE){
-    $cards->where(DB::raw('DATEDIFF(NOW(), fecha_ingreso)'), '>=', '90')
-      ->whereNotIn('id',$tarjetasProhibidas);
-  }
+  // if(strpos(Auth::user()->gerencia, 'CUENTAS') === FALSE){
+  //   $cards->where(DB::raw('DATEDIFF(NOW(), fecha_ingreso)'), '>=', '90')
+  //     ->whereNotIn('id',$tarjetasProhibidas);
+  // }
 
    return View::make('business_cards.index')
-      ->withCards($cards->get());
-
+      ->withCards($cards->get())
+      ->withForbidden($tarjetasProhibidas)
+      ->withForbid(strpos(Auth::user()->gerencia, 'CUENTAS') === FALSE);
   }
 }
 /*
