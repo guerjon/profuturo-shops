@@ -20,7 +20,7 @@
     ])}}
 
     <div class="form-group">
-      {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'no_emp'])}}
+      {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'Numero de empleado'])}}
     </div>
 
     <div class="form-group">
@@ -44,10 +44,10 @@
             Nombre
           </th>
           <th>
-            Nombre C. Costo
+            Puesto
           </th>
           <th>
-            Puesto
+            Centro de costos
           </th>
           <th>
             Gerencia
@@ -70,16 +70,16 @@
             {{$card->nombre}}
           </td>
           <td>
-            {{$card->nombre_ccosto}}
+            {{$card->nombre_puesto}}
           </td>
           <td>
-            {{$card->nombre_puesto}}
+            {{$card->ccosto}}
           </td>
           <td>
             {{$card->gerencia}}
           </td>
           <td>
-            {{$card->fecha_ingreso}}
+            {{\Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y')}}
           </td>
           <td>
             {{Form::open([
