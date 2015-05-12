@@ -7,9 +7,9 @@ class AdminBusinessCardsController extends BaseController{
     $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
     $cards = BusinessCard::withTrashed()->orderBy('gerencia');
     if(Input::has('no_emp'))
-      $cards->where('no_emp', Input::get('no_emp'))
+      $cards->where('no_emp', Input::get('no_emp'));
     if(Input::has('gerencia'))
-      $cards->where('ccosto', Input::get('ccosto'))
+      $cards->where('ccosto', Input::get('ccosto'));
     return View::make('admin::business_cards.index')->withCards($cards->paginate(50))->withGerencias($gerencias);
   }
 
