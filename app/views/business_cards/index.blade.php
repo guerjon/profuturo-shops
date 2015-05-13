@@ -15,8 +15,6 @@
 @else
 
 
-
-
 <div class="container">
   {{Form::open([
     'action' => 'BcOrdersController@store'
@@ -60,8 +58,9 @@
           </td>
           <td>
             @if(($last_order_date = @$forbidden[$card->id]) and $forbid)
-              No puede añadir esta tarjeta a su pedido puesto que ya hizo un pedido con fecha {{$last_order_date}}. <br>
-              El pedido fue realizado con folio {{link_to_action('BcOrdersController@show', $card->id, [$card->id])}}
+              <small>
+                No puede añadir esta tarjeta a su pedido puesto que ya hizo un pedido con fecha {{$last_order_date}}.
+              </small>
             @else
              {{ Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
             @endif

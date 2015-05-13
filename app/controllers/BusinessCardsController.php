@@ -6,12 +6,13 @@ class BusinessCardsController extends BaseController{
   {
 
   	$tarjetasProhibidas = DB::table('bc_orders')
-  	->join('bc_order_business_card','bc_orders.id','=','bc_order_business_card.bc_order_id')
+    ->join('bc_order_business_card','bc_orders.id','=','bc_order_business_card.bc_order_id')
   	->join('business_cards','business_cards.id','=','bc_order_business_card.business_card_id')
-  	->select('business_cards.id')
+  	->select('bc_orders.created_at', 'business_cards.id')
     ->whereNull('bc_orders.deleted_at')
   	->where(DB::raw('datediff(NOW(),bc_orders.created_at)'),'<','31')
-  	->where('user_id','=',Auth::id())->lists('bc_orders.created_at', 'id');
+  	->where('user_id','=',Auth::id())
+    ->lists('bc_orders.created_at', 'id');
 
   $cards = Auth::user()->businessCards()->orderBy('no_emp');
 
