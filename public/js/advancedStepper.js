@@ -21,16 +21,14 @@
         });
 
         $(element).modal('hide');
-
       };
+
 
       $(element).on('show.bs.modal', reset);
 
       $(element).find('input[type="radio"]').change(function(){
         var val = $(this).val();
-
         var div = $(this).parents('.step-div');
-
 
         var nextSelector = '.step-div';
         if($(this).attr('data-next-div')){

@@ -64,9 +64,10 @@
           'action' => 'GeneralRequestsController@store'
           ])}}
 
-          <div class="step-div start-div">
+          <div  data-step-num="1" class="step-div start-div">
 
             <h5>Por favor, indícanos tus datos personales para contactarte</h5>
+            <h5 class="text-danger">Todos los campos son requeridos</h5>
 
             <div class="form-group">
               {{Form::label('employee_name', 'Nombre')}}
@@ -75,7 +76,7 @@
 
             <div class="form-group">
               {{Form::label('employee_number', 'Número de empleado')}}
-              {{Form::number('employee_number', NULL, ['class' => 'form-control'])}}
+              {{Form::text('employee_number', NULL, ['class' => 'form-control'])}}
             </div>
 
             <div class="form-group">
@@ -85,7 +86,7 @@
 
             <div class="form-group">
               {{Form::label('employee_ext', 'Extensión')}}
-              {{Form::number('employee_ext', NULL, ['class' => 'form-control'])}}
+              {{Form::text('employee_ext', NULL, ['class' => 'form-control'])}}
             </div>
 
             <div class="form-group">
@@ -93,17 +94,18 @@
               {{Form::text('employee_cellphone', NULL, ['class' => 'form-control'])}}
             </div>
 
+
             <div class="form-group text-right">
-              <button type="button" class="btn btn-warning">Siguiente</button>
+              <button type="button" id="" class="btn btn-warning btn-next">Siguiente</button>
             </div>
           </div>
 
 
-          <div class="step-div">
+          <div  data-step-num="2" class="step-div step-2">
             <h5>Platícanos sobre tu proyecto</h5>
 
             <div class="form-group">
-              {{Form::label('project_title', 'Nombre del proyecto')}}
+              {{Form::label('project_title', 'Tipo de proyecto')}}
               {{Form::text('project_title', NULL, ['class' => 'form-control'])}}
             </div>
 
@@ -116,14 +118,15 @@
               {{Form::label('project_date', 'Fecha del evento')}}
               {{Form::input('date', 'project_date', NULL, ['class' => 'form-control'])}}
             </div>
-
             <div class="form-group text-right">
-              <button type="button" class="btn btn-warning">Siguiente</button>
+              <button type="button" style="width:20%;" data-next-div="start-div" class="text-right btn btn-warning ">Atras</button>
+              <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
-          </div>
+             
+            </div>
 
 
-          <div class="step-div">
+          <div  data-step-num="3" class="step-div step-3">
             <h5>¿Cómo podemos ayudarte?</h5>
 
             <div class="form-group">
@@ -133,17 +136,17 @@
 
             <div class="form-group">
               {{Form::label('quantity', 'Cantidad')}}
-              {{Form::number('quantity', NULL, ['class' => 'form-control'])}}
+              {{Form::text('quantity', NULL, ['class' => 'form-control','min'=>'1','max'=>'5'])}}
             </div>
 
             <div class="form-group">
               {{Form::label('unit_price', 'Precio unitario')}}
-              {{Form::number('unit_price', NULL, ['class' => 'form-control'])}}
+              {{Form::text('unit_price', NULL, ['class' => 'form-control'])}}
             </div>
 
             <div class="form-group">
               {{Form::label('budget', 'Presupuesto')}}
-              {{Form::number('budget', NULL, ['class' => 'form-control'])}}
+              {{Form::text('budget', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
             </div>
 
             <div class="form-group">
@@ -172,12 +175,13 @@
               </div>
             </div>
 
-            <div class="form-group text-right">
-              <button type="button" class="btn btn-warning">Siguiente</button>
+           <div class="form-group text-right">
+              <button type="button" style="width:20%;"  data-next-div="step-2"  class="text-right btn btn-warning">Atras</button>
+              <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
           </div>
 
-          <div class="step-div">
+          <div  data-step-num="4" class="step-div">
             <h5>¿Cuáles son tus expectativas</h5>
 
             <div class="form-group">
@@ -185,7 +189,8 @@
             </div>
 
             <div class="form-group text-right">
-              {{Form::submit('Guardar', ['class' => 'btn btn-warning'])}}
+              <button type="button" style="width:20%;"  data-next-div="step-3" class="text-right btn btn-warning ">Atras</button>
+              <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
           </div>
         {{ Form::close() }}
@@ -200,8 +205,43 @@
 @section('script')
 <script src="/js/advancedStepper.js"></script>
 <script charset="utf-8">
+    function calcularPresupuesto(){
+     var val1 = $('input[name="quantity"]').val();
+     var val2 = $('input[name="unit_price"]').val();
+     console.log(val1);
+     console.log(val2);
+      if((val1 != undefined) && (val2 != undefined) && (val1.length > 0) && (val2.length > 0)){
+        val1 = parseInt(val1);
+        val2 = parseInt(val2);
+        $('input[name="budget"]').val(val1 * val2); 
+      }
+    }
+
   $(function(){
+
     $('#create-request-modal').advancedStepper();
+    $('.btn-next').prop('disabled', true);
+    $('div[data-step-num] input,div[data-step-num] textarea').on('keyup keydown change', function(){
+      var llenos = true;
+      $(this).parents('div[data-step-num]').find('input,textarea').each(function(){
+        
+        llenos = llenos && $(this).val() !== undefined && $(this).val().length > 0;
+      });
+      $(this).parents('div[data-step-num]').find('.btn-next').prop('disabled', !llenos);
+
+      
+    });
+
+   //resultado de presupuesto
+
+   $('input[name="quantity"], input[name="unit_price"]').change(function(){
+      calcularPresupuesto();
+   });
+
+  
   });
+
+
+
 </script>
 @stop

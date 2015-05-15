@@ -46,9 +46,13 @@
        
           {{Form::open(array('id'=>'update-form','action' => array('GeneralRequestsController@update',0),'method' => 'put')) }}
                    {{Form::hidden('request_id')}}
+          @if(Auth::user()->is_admin)
+          Estatus: <strong id="request-status_str"></strong>
+          @else
           Estatus: {{Form::select('status',array('1'=>'En revision',
                                                  '2'=>'En proceso',
                                                  '3'=>'Entregado'),null,['class' => 'form-control'])}}
+          @endif                                                                         
           
           {{ Form::close()}}
         </div>

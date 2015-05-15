@@ -74,7 +74,7 @@
               @if($user->role == 'admin')
               Administrador
               @elseif($user->role == 'manager')
-              Asesor
+              Consultor
               @elseif($user->role == 'user_requests')
               Usuario proyectos
               @else
@@ -83,7 +83,7 @@
             </p>
           @else
             <label class="radio-inline">{{Form::radio('role', 'admin')}} Administrador</label>
-            <label  class="radio-inline">{{Form::radio('role', 'manager')}} Asesor</label>
+            <label  class="radio-inline">{{Form::radio('role', 'manager')}} Consultor</label>
             <br>
             <label class="radio-inline">{{Form::radio('role', 'user_requests')}} Usuario proyectos</label>
             <label  class="radio-inline">{{Form::radio('role', 'user_paper')}} Usuario papelería</label>

@@ -16,7 +16,7 @@
 
           {{Form::hidden('request_id', NULL, ['id' => 'request_id'])}}
           <div class="form-group">
-            {{Form::label('rating', 'Criticidad', ['class' => 'control-label col-sm-4'])}}
+            {{Form::label('rating', 'Prioridad', ['class' => 'control-label col-sm-4'])}}
             <div class="col-sm-8">
               <div class="rating-raty">
 
@@ -25,7 +25,7 @@
           </div>
 
           <div class="form-group">
-            {{Form::label('manager_id', 'Asesor', ['class' => 'control-label col-sm-4'])}}
+            {{Form::label('manager_id', 'Consultor', ['class' => 'control-label col-sm-4'])}}
             <div class="col-sm-8">
               {{Form::select('manager_id', $managers->lists('gerencia', 'id'), NULL, ['class' => 'form-control'])}}
             </div>

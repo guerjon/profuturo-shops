@@ -12,7 +12,8 @@ class GeneralRequest extends Eloquent
 
   protected $dates = ['created_at', 'updated_at', 'project_date'];
 
-  protected $appends = ['project_date_formatted', 'total'];
+  protected $appends = ['project_date_formatted', 'total','status_str'];
+
 
   public function user(){
     return $this->belongsTo('User');

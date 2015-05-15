@@ -2,6 +2,25 @@
 
 @section('content')
 
+{{Form::open([
+  'id' => 'filter-form',
+  'method' => 'GET',
+  ])}}
+<div class="row">
+  <div class="col-xs-2 col-xs-offset-2">
+    {{Form::select('user_id',[null=>'Todos']+$users,Input::get('user_id'),['class' => 'form-control'])}}
+  </div>
+  <div class="col-xs-4">
+    {{Form::selectMonth('month',Input::get('month',\Carbon\Carbon::now('America/Mexico_City')->month),['class' => 'form-control'])}}
+  </div>
+  <div class="col-xs-2">
+    {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5,Input::get('year',\Carbon\Carbon::now('America/Mexico_City')->year),\Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
+  </div>
+    {{ Form::submit('Filtrar', ['class' => 'btn btn-warning btn-submit'])}}
+  
+</div>
+{{Form::close()}}
+
 @if($requests->count() > 0)
 
 <table class="table table-striped">
