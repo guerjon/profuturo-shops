@@ -1,15 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
-
+@if(Auth::user()->is_admin)
 {{Form::open([
   'id' => 'filter-form',
   'method' => 'GET',
   ])}}
 <div class="row">
+  
   <div class="col-xs-2 col-xs-offset-2">
     {{Form::select('user_id',[null=>'Todos']+$users,Input::get('user_id'),['class' => 'form-control'])}}
   </div>
+ 
   <div class="col-xs-4">
     {{Form::selectMonth('month',Input::get('month',\Carbon\Carbon::now('America/Mexico_City')->month),['class' => 'form-control'])}}
   </div>
@@ -20,7 +22,7 @@
   
 </div>
 {{Form::close()}}
-
+@endif
 @if($requests->count() > 0)
 
 <table class="table table-striped">
