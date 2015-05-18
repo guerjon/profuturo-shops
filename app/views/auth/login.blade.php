@@ -39,9 +39,9 @@
         {{Form::submit('Enviar', ['class' => 'btn btn-warning'])}}
       </div>
 
-      <div class="form-group text-right">
+<!--       <div class="form-group text-right">
         <a href="/admin-login">Inicio de sesión administrativo</a>
-      </div>
+      </div> -->
     {{Form::close()}}
   </div>
 </div>

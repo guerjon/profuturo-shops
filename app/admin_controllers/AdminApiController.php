@@ -23,6 +23,7 @@ class AdminApiController extends AdminBaseController
 
   public function getOrdersReport()
   {
+    Log::info("INPUTTTTT-->", Input::all());
     ini_set('max_execution_time','300');
     $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
       DB::raw("
@@ -67,7 +68,8 @@ class AdminApiController extends AdminBaseController
       ->orderBy('orders.id')
       ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
       ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      ->where('categories.name', Input::get('category'));
+      //->where('categories.name',Input::get('category'));
+      ->where('categories.id', Input::get('category_id'));
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];

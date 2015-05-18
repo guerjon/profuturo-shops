@@ -13,6 +13,7 @@ class AdminReportsController extends AdminBaseController{
   public function getOrdersReport()
   {
     $categories = Category::lists('name','id');
+    Log::info("categories", $categories);
     return View::make('admin::reports.orders')->withCategories($categories);
 
   }
@@ -20,7 +21,7 @@ class AdminReportsController extends AdminBaseController{
   public function getBcOrdersReport()
   {
     return View::make('admin::reports.bc_orders');
-  }
+  } 
 
   public function getUserOrdersReport()
   {
