@@ -4,7 +4,8 @@ class GeneralRequestsController extends BaseController{
 
   public function index()
   {
-    return View::make('general_requests.index')->withRequests(Auth::user()->generalRequests()->orderBy('rating'));
+    $requests = Auth::user()->generalRequests()->orderBy('rating');
+    return View::make('general_requests.index')->withRequests($requests);
   }
 
   public function store()

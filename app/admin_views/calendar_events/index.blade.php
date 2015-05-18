@@ -8,7 +8,7 @@
   <nav class="calendar-nav navbar navbar-default">
     <div class="container text-center">
       <ul class="navbar-nav nav navbar-left">
-        <li><a href="?month={{$month['monthNum']}}&amp;year={{$month['yearNum']}}&amp;mod=prev"><span class="glyphicon glyphicon-chevron-left"></span> Anterior</a></li>
+        <li><a href="?month={{$month['monthNum']}}&amp;year={{$month['yearNum']}}&amp;mod=prev"><span class="glyphicon glyphicon-chevron-left"></span> Anterior </a></li>
       </ul>
 
       <ul class="navbar-nav nav">
@@ -52,11 +52,11 @@
         @endif
 
       </div>
-      <div class="panel-body">
+      <div  class="panel-body">
 
         
 
-        <div class="list-group">
+        <div  class="list-group">
           @if($day['enabled'] and count($day['events']) > 0)
           @foreach($day['events'] as $event)
             @include('admin::calendar_events.partials.show_as_day_item', ['event' => $event])

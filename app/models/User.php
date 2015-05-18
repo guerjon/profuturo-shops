@@ -83,6 +83,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->hasMany('Order');
 	}
 
+	public function colors(){
+		return $this->belongsTo('Color');
+	}
 
 	public function furnitureOrders()
 	{
@@ -132,6 +135,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 		return $total;
 	}
+
+	
 
 
 	public function getMenuActionsAttribute(){

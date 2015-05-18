@@ -83,16 +83,25 @@
             </p>
           @else
             <label class="radio-inline">{{Form::radio('role', 'admin')}} Administrador</label>
-            <label  class="radio-inline">{{Form::radio('role', 'manager')}} Consultor</label>
+            <label  class="radio-inline">{{Form::radio('role', 'manager',null,['id'=>'consultor'])}} Consultor</label>
             <br>
             <label class="radio-inline">{{Form::radio('role', 'user_requests')}} Usuario proyectos</label>
             <label  class="radio-inline">{{Form::radio('role', 'user_paper')}} Usuario papelería</label>
           @endif
         </div>
-
-
       </div>
-
+      <center>
+        <div  id = "colores"  class="form-group">
+        <label class="radio-inline">
+          Color del consultor
+        </label>
+          @foreach($colors as $color)
+        <label style="background-color: {{$color->color}}; width:30%" class="radio">
+        {{Form::radio('color_id', $color->id)}}  {{$color->color}}
+        </label>
+        @endforeach  
+      </div>
+      </center>
       <div class="form-group">
         <div class="col-sm-8 col-sm-offset-4">
           {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
@@ -100,6 +109,21 @@
       </div>
     {{Form::close()}}
   </div>
-
 </div>
+@stop
+
+@section('script')
+  <script type="text/javascript" >
+    $(function(){
+      $('#colores').hide();
+      $('.radio-inline input[type="radio"]').click(function(){
+        if($(this).attr('id') == 'consultor'){
+          $('#colores').show();
+        }else{
+          $('#colores').hide();
+        }
+      });
+    });    
+
+  </script>
 @stop

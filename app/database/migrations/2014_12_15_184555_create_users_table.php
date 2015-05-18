@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration {
 			$table->string('gerencia');
 			$table->string('linea_negocio');
 			$table->string('password');
-
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper'])->default('user_paper');
 

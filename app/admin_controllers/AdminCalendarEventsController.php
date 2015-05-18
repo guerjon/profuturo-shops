@@ -18,30 +18,12 @@ class AdminCalendarEventsController extends AdminBaseController{
 
   private function getEvents($month = NULL, $year = NULL, $day = NULL)
     {
-      // switch(Auth::user()->role){
-      //   case 'admin':
-      //     $events = ClientEvent::select('*');
-      //     break;
-      //   case 'manager':
-      //     $execs = Auth::user()->executives()->lists('id');
-      //     array_push($execs, Auth::id());
-      //     $events = ClientEvent::whereIn('user_id', $execs);
-      //     break;
-      //   case 'executive':
-      //     $events = Auth::user()->events();
-      //     break;
-      // }
-      //
-      // $events = $events->with('client');
-      //
-
       $events = GeneralRequest::orderBy('project_date');
       if($day){
         $events->where(DB::raw('DATE(project_date)'), "{$year}-{$month}-{$day}");
       }elseif($month and $year){
         $events->where(DB::Raw('MONTH(project_date)'), $month)->where(DB::Raw('YEAR(project_date)'), $year);
       }
-
       return $events;
     }
 

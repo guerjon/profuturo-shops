@@ -39,7 +39,6 @@
         <td>
           {{ $request->unit_price * $request->quantity}}
         </td>
-
       </tr>
       @endforeach
     </tbody>

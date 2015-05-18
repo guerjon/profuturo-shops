@@ -4,6 +4,7 @@ class UserSeeder extends Seeder
 {
 
   public function run(){
+  
     if($h = fopen('app/database/csvs/USUARIOS.csv', 'r')){
       while($row = fgetcsv($h)){
         $user = User::create([
