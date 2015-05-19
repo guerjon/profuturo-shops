@@ -66,6 +66,8 @@
           if(nextDiv == 'submit'){
             submitStepper();
             return;
+          }else if(nextDiv == 'disabled'){
+            return;
           }
           nextSelector = nextSelector + '.' + nextDiv;
 

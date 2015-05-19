@@ -133,20 +133,7 @@
               {{Form::select('kind', ['Producto', 'Servicio'], NULL, ['class' => 'form-control'])}}
             </div>
 
-            <div class="form-group">
-              {{Form::label('quantity', 'Cantidad')}}
-              {{Form::text('quantity', NULL, ['class' => 'form-control','min'=>'1','max'=>'5'])}}
-            </div>
-
-            <div class="form-group">
-              {{Form::label('unit_price', 'Precio unitario')}}
-              {{Form::text('unit_price', NULL, ['class' => 'form-control'])}}
-            </div>
-
-            <div class="form-group">
-              {{Form::label('budget', 'Presupuesto')}}
-              {{Form::text('budget', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
-            </div>
+            
 
             <div class="form-group">
               {{Form::label('deliver_date', 'Fecha de entrega')}}
@@ -192,7 +179,41 @@
               <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
           </div>
-        {{ Form::close() }}
+      
+
+     <div data-step-num="5" class="step-div" >
+        <button id="addButton" type="button" style="width:30%;"  data-next-div="disabled" class="text-right btn btn-warning ">Agregar Producto</button>  
+      <div id="products">
+      </div>
+         
+        <div class="form-group text-right">
+              <button type="button" style="width:20%;"  data-next-div="step-3" class="text-right btn btn-warning ">Atras</button>
+              <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
+        </div>
+     </div>
+
+      </div>
+      {{ Form::close() }}
+      <!-- container -->
+      <div  style="display:none" id="product" class="product-form-container">
+          
+          <div class="form-group">
+              {{Form::label('quantity', 'Cantidad')}}
+              {{Form::text('quantity', NULL, ['class' => 'form-control','min'=>'1','max'=>'5'])}}
+            </div>
+
+            <div class="form-group">
+              {{Form::label('unit_price', 'Precio unitario')}}
+              {{Form::text('unit_price', NULL, ['class' => 'form-control'])}}
+            </div>
+
+            <div class="form-group">
+              {{Form::label('budget', 'Presupuesto')}}
+              {{Form::text('budget', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
+            </div>
+            <button type="button" style="width:30%;"  class="btn btn-warning text-rigth btn-next dismissButton">Eliminar Producto</button>     
+        </div>  
+        
       </div>
 
     </div>
@@ -203,6 +224,9 @@
 
 @section('script')
 <script src="/js/advancedStepper.js"></script>
+<script src="/js/jquery-ui.min.js" ></script>
+<script src="/js/hasManyForm.js" ></script>
+
 <script charset="utf-8">
     function calcularPresupuesto(){
      var val1 = $('input[name="quantity"]').val();
@@ -219,14 +243,14 @@
   $(function(){
 
     $('#create-request-modal').advancedStepper();
-    $('.btn-next').prop('disabled', true);
+     $('.btn-next').prop('disabled', true);
     $('div[data-step-num] input,div[data-step-num] textarea').on('keyup keydown change', function(){
       var llenos = true;
       $(this).parents('div[data-step-num]').find('input,textarea').each(function(){
         
         llenos = llenos && $(this).val() !== undefined && $(this).val().length > 0;
       });
-      $(this).parents('div[data-step-num]').find('.btn-next').prop('disabled', !llenos);
+       $(this).parents('div[data-step-num]').find('.btn-next').prop('disabled', !llenos);
 
       
     });
@@ -236,6 +260,14 @@
    $('input[name="quantity"], input[name="unit_price"]').change(function(){
       calcularPresupuesto();
    });
+
+
+  $('#products').hasManyForm({
+  defaultForm: '#product',
+  addButton: '#addButton',
+  dismissButton: '.dismissButton',
+  container: '.product-form-container'
+  });
 
   
   });

@@ -24,7 +24,7 @@
         <hr>
 
          Fecha del evento: <strong id="request-project_date_formatted"></strong><br>
-         Fecha de entrega: <strong id="request-deliver_date"></strong>
+         Fecha de entrega: <strong id="request-deliver_date_formatted"></strong>
         <br><br><br>
        <strong>Solicitó: </strong>   <strong id="request-project_kind_st"></strong><br><br>
         <table class="table">

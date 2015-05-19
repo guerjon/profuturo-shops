@@ -9,7 +9,6 @@ class UrgentRequestsController extends BaseController
     $now->addDays(7);
     $request = Auth::user()->generalRequestsByManager()->where('deliver_date','<=',$now->format('Y-m-d'))->orderBy('rating')->get();
     return View::make('urgent_requests.index')->withRequests($request);
-   
   }
 
 

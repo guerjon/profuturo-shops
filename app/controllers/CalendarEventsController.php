@@ -6,7 +6,9 @@ class CalendarEventsController extends BaseController{
 
   public function getIndex()
   {
-    return View::make('calendar_events.index')->withMonth($this->getMonth());
+    return View::make('calendar_events.index')->withMonth($this->getMonth())
+    ->withToday(Carbon::today());
+    
   }
 
     public function getShow($date)
@@ -14,7 +16,11 @@ class CalendarEventsController extends BaseController{
   
       $date = Carbon::parse($date);
       $events = $this->getEvents($date->month, $date->year, $date->day);
-      return View::make('calendar_events.day_index')->withEvents($events->get())->withDate($date->format('d/M/Y'));
+      $colors = Auth::users()->color->get();
+ 
+
+      return View::make('calendar_events.day_index')->withEvents($events->get())
+      ->withToday(Carbon::today());
   }
 
 

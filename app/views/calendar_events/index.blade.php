@@ -60,7 +60,11 @@
         <div class="list-group">
           @if($day['enabled'] and count($day['events']) > 0)
           @foreach($day['events'] as $event)
+          @if(Auth::user()->is_manager)
             @include('calendar_events.partials.show_as_day_item', ['event' => $event])
+          @else
+            @include('calendar_events.partials.show_as_day_item_manager', ['event' => $event])
+          @endif
           @endforeach
 
           @endif

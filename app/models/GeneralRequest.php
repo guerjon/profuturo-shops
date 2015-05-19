@@ -10,9 +10,9 @@ class GeneralRequest extends Eloquent
   protected $rules = [];
   protected $guarded = [];
 
-  protected $dates = ['created_at', 'updated_at', 'project_date'];
+  protected $dates = ['created_at', 'updated_at', 'project_date','deliver_date'];
 
-  protected $appends = ['project_date_formatted', 'total','status_str'];
+  protected $appends = ['project_date_formatted', 'total','status_str','deliver_date_formatted'];
 
 
   public function user(){
@@ -27,6 +27,12 @@ class GeneralRequest extends Eloquent
   {
   	return $this->project_date->format('Y-m-d');
   }
+
+  public function getDeliverDateFormattedAttribute()
+  {
+    return $this->deliver_date->format('Y-m-d');
+  }
+
 
   public function getTotalAttribute()
   {

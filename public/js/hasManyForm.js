@@ -6,7 +6,7 @@
       addButton : '.add-button',
       dismissButton : '.btn-remove',
       container : '.form-group',
-      minLengthToShow : 2,
+      minLengthToShow : 1,
       names : {},
       defaults: {}
     },
