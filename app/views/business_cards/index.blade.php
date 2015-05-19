@@ -60,6 +60,7 @@
             @if(($last_order_date = @$forbidden[$card->id]) and $forbid)
               <small>
                 No puede añadir esta tarjeta a su pedido puesto que ya hizo un pedido con fecha {{$last_order_date}}.
+
               </small>
             @else
              {{ Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}

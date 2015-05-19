@@ -23,7 +23,6 @@ class AdminApiController extends AdminBaseController
 
   public function getOrdersReport()
   {
-    Log::info("INPUTTTTT-->", Input::all());
     ini_set('max_execution_time','300');
     $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
       DB::raw("
@@ -68,8 +67,8 @@ class AdminApiController extends AdminBaseController
       ->orderBy('orders.id')
       ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
       ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      //->where('categories.name',Input::get('category'));
-      ->where('categories.id', Input::get('category_id'));
+      ->where('categories.id', Input::get('category_id'))
+      ->whereNull('orders.deleted_at');
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -135,6 +134,7 @@ class AdminApiController extends AdminBaseController
     ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
     ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+    ->whereNull('bc_orders.deleted_at')
     ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
@@ -156,6 +156,7 @@ class AdminApiController extends AdminBaseController
       '' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+    ->whereNull('bc_orders.deleted_at')
     ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
 
@@ -177,6 +178,7 @@ class AdminApiController extends AdminBaseController
       'Atracción de talento' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+    ->whereNull('bc_orders.deleted_at')
     ->where('bc_orders_extras.talento_nombre', '!=', "''")->whereNotNull('bc_orders_extras.talento_nombre')
     ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
@@ -200,6 +202,7 @@ class AdminApiController extends AdminBaseController
       'Gerente comercial' AS PUESTO_ATRACCION_GERENTE
     ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+    ->whereNull('bc_orders.deleted_at')
     ->where('bc_orders_extras.gerente_nombre', '!=', "''")->whereNotNull('bc_orders_extras.gerente_nombre')
     ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
     ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
@@ -306,9 +309,9 @@ class AdminApiController extends AdminBaseController
           })->download('xls');
       }
     }
-  } 
+  }
 
-  
+
 public function getProductOrdersReport()
   {
     ini_set('max_execution_time','300');
@@ -320,6 +323,7 @@ public function getProductOrdersReport()
     ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
     ->where('quantity', '>', 0)
     ->where('category_id','=',Input::get('category_id'))
+    ->whereNull('orders.deleted_at')
     ->groupBy('order_product.product_id');
 
     $q = clone $query;
@@ -356,7 +360,7 @@ public function getProductOrdersReport()
       })->download('xls');
   }
 
-   
+
       return Response::make($data, 200, $headers);
     }
   }
@@ -423,7 +427,7 @@ public function getProductOrdersReport()
           $user->pendientes = $user->orders()->where('status',0)->count();
           $user->completos = $user->orders()->where('status', 1)->count();
           $user->incompletos = $user->orders()->where('status',2)->count();
-       } 
+       }
 
       if(Request::ajax()){
       return Response::json([
@@ -475,13 +479,13 @@ public function getProductOrdersReport()
   public function getTotalUsersExcel()
   {
       $users =  User::all();
-       
+
        foreach ($users as $user) {
           $user->pedidos = $user->orders->count();
           $user->pendientes = $user->orders()->where('status',0)->count();
           $user->completos = $user->orders()->where('status', 1)->count();
           $user->incompletos = $user->orders()->where('status',2)->count();
-      
+
           $result[] = [
         'CENTRO_COSTOS' => $user->ccosto,
         'GERENCIA/NOMBRE' => $user->gerencia,
@@ -491,8 +495,8 @@ public function getProductOrdersReport()
         'INCOMPLETOS' => $user->incompletos,
         'PENDIENTES' => $user->pendientes
         ];
-       } 
-    
+       }
+
     $datetime = \Carbon\Carbon::now()->format('YmdHi');
     Excel::create('Reporte_usuarios_'.$datetime, function($excel) use($result){
       $excel->sheet('Usuarios',function($sheet)use($result){
@@ -507,7 +511,7 @@ public function getProductOrdersReport()
     //   $request_user = $request
     //   ->where(DB::raw('MONTH(general_request.created_at)'), Input::get('month'))
     //   ->where(DB::raw('YEAR(general_request.updated_at)'), Input::get('year'))
-    //   // ->user()->where('id',Input::get('manager_id')) 
+    //   // ->user()->where('id',Input::get('manager_id'))
     //   ->get();
     // }
 
@@ -516,7 +520,7 @@ public function getProductOrdersReport()
       return Response::json([
         'status' => 200,
         'request' => $request->toArray(),
-        
+
         ]);
     }
 
@@ -524,7 +528,7 @@ public function getProductOrdersReport()
 
 
 
-  
+
 
 
 }
