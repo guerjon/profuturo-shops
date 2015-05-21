@@ -23,6 +23,10 @@ class GeneralRequest extends Eloquent
     return $this->belongsTo('User', 'manager_id');
   }
 
+  public function generalRequestProducts(){
+    return $this->hasMany('GeneralRequestProduct');
+  }
+
   public function getProjectDateFormattedAttribute()
   {
   	return $this->project_date->format('Y-m-d');

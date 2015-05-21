@@ -27,8 +27,6 @@ class CreateGeneralRequestsTable extends Migration {
 			$table->date('project_date');
 
 			$table->tinyInteger('kind');
-			$table->integer('quantity');
-			$table->integer('unit_price');
 			$table->date('deliver_date');
 
 			$table->tinyInteger('distribution_list');

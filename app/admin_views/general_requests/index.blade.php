@@ -53,6 +53,9 @@
         Fecha de entrega
       </th>
       <th>
+        Productos
+      </th>
+      <th>
 
       </th>
     </tr>
@@ -86,6 +89,12 @@
       </td>
       <td>
       {{$request->deliver_date}}
+      </td>
+      <td>
+        @foreach($request->GeneralRequestProducts as $products)
+        {{$products->name}}
+        @endforeach
+        
       </td>
       <td>
         <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>

@@ -182,44 +182,54 @@
       
 
      <div data-step-num="5" class="step-div" >
-        <button id="addButton" type="button" style="width:30%;"  data-next-div="disabled" class="text-right btn btn-warning ">Agregar Producto</button>  
+        
       <div id="products">
       </div>
          
         <div class="form-group text-right">
               <button type="button" style="width:20%;"  data-next-div="step-3" class="text-right btn btn-warning ">Atras</button>
-              <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
+              <button id="addButton" type="button" style="width:30%;"  data-next-div="disabled" class="text-right btn btn-default ">Agregar Producto</button>  
+              <button id="send_quantity_unit_price" type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
         </div>
      </div>
 
       </div>
       {{ Form::close() }}
       <!-- container -->
-      <div  style="display:none" id="product" class="product-form-container">
-          
-          <div class="form-group">
-              {{Form::label('quantity', 'Cantidad')}}
-              {{Form::text('quantity', NULL, ['class' => 'form-control','min'=>'1','max'=>'5'])}}
-            </div>
+          <div  style="display:none" id="product" class="product-form-container">
+              <div class="col">
+                {{Form::label('name', 'Nombre')}}
+                <div class="row">
+                  <div class="col-xs-8">
+                        {{Form::text('name[]', NULL,['class' => 'form-control'])}}
+                  </div>
+                  <div class="col-xs-4">
+                    <button type="button"  class="btn btn-danger dismissButton">Eliminar Producto</button>     
+                  </div>
+              </div>
+          </div>
 
-            <div class="form-group">
-              {{Form::label('unit_price', 'Precio unitario')}}
-              {{Form::text('unit_price', NULL, ['class' => 'form-control'])}}
-            </div>
-
-            <div class="form-group">
-              {{Form::label('budget', 'Presupuesto')}}
-              {{Form::text('budget', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
-            </div>
-            <button type="button" style="width:30%;"  class="btn btn-warning text-rigth btn-next dismissButton">Eliminar Producto</button>     
-        </div>  
-        
-      </div>
-
-    </div>
+              <div class="row">
+                  <div class="col-xs-4" >
+                   
+                      {{Form::label('quantity', 'Cantidad')}}
+                      {{Form::text('quantity[]', NULL, ['class' => 'form-control'])}}
+                  </div>
+                  <div class="col-xs-4">
+                      {{Form::label('unit_price', 'Precio unitario')}}
+                      {{Form::text('unit_price[]', NULL, ['class' => 'form-control'])}}
+                  </div>
+                  
+                  <div class="col-xs-4">
+                      {{Form::label('budget', 'Presupuesto')}}
+                      {{Form::text('budget[]', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
+                  </div>
+              </div> 
+              <hr>
+          </div>
+        </div>        
+      </div>  
   </div>
-</div>
-
 @stop
 
 @section('script')
@@ -228,50 +238,53 @@
 <script src="/js/hasManyForm.js" ></script>
 
 <script charset="utf-8">
-    function calcularPresupuesto(){
-     var val1 = $('input[name="quantity"]').val();
-     var val2 = $('input[name="unit_price"]').val();
-     console.log(val1);
-     console.log(val2);
-      if((val1 != undefined) && (val2 != undefined) && (val1.length > 0) && (val2.length > 0)){
-        val1 = parseInt(val1);
-        val2 = parseInt(val2);
-        $('input[name="budget"]').val(val1 * val2); 
+    function calcularPresupuesto(elem){
+      var parent = $(elem).parents('.product-form-container');
+      console.log($(elem));
+      var inputQuantity = parent.find('input[name="quantity[]"]').val();
+      var inputPrice = parent.find('input[name="unit_price[]"]').val();
+      var inputBudget = parent.find('input[name="budget[]"]');
+
+      if((inputQuantity != undefined) && (inputPrice != undefined) && (inputQuantity.length > 0) && (inputPrice.length > 0)){
+        inputQuantity = parseInt(inputQuantity);
+        inputPrice = parseInt(inputPrice);
+        inputBudget.val(inputQuantity * inputPrice);
+        inputBudget.change(); 
       }
     }
 
   $(function(){
 
     $('#create-request-modal').advancedStepper();
-     $('.btn-next').prop('disabled', true);
-    $('div[data-step-num] input,div[data-step-num] textarea').on('keyup keydown change', function(){
+    $('.btn-next').prop('disabled', true);
+    $(document).on('keyup keydown change','div[data-step-num] input,div[data-step-num] textarea', function(){
       var llenos = true;
-      $(this).parents('div[data-step-num]').find('input,textarea').each(function(){
+    $(this).parents('div[data-step-num]').find('input,textarea').each(function(){
         
         llenos = llenos && $(this).val() !== undefined && $(this).val().length > 0;
       });
-       $(this).parents('div[data-step-num]').find('.btn-next').prop('disabled', !llenos);
-
-      
+     $(this).parents('div[data-step-num]').find('.btn-next').prop('disabled', !llenos);
     });
+
 
    //resultado de presupuesto
 
-   $('input[name="quantity"], input[name="unit_price"]').change(function(){
-      calcularPresupuesto();
-   });
+    $(document).on('change','input[name="quantity[]"], input[name="unit_price[]"]',function(){
+      calcularPresupuesto(this);
+    });
+
+    $('#products').hasManyForm({
+     defaultForm: '#product',
+     addButton: '#addButton',
+     dismissButton: '.dismissButton',
+     container: '.product-form-container'
+    });
+
+    $('#addButton').click();
+    $('#products .product-form-container .dismissButton').remove();
 
 
-  $('#products').hasManyForm({
-  defaultForm: '#product',
-  addButton: '#addButton',
-  dismissButton: '.dismissButton',
-  container: '.product-form-container'
   });
-
-  
-  });
-
 
 
 </script>
