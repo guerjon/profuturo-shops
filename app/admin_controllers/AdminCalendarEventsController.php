@@ -6,19 +6,14 @@ class AdminCalendarEventsController extends AdminBaseController{
 
   public function index()
   {
-    return View::make('admin::calendar_events.index')->withMonth($this->getMonth())
-     ->withToday(Carbon::today());
+    return View::make('admin::calendar_events.index')->withMonth($this->getMonth());
   }
  
   public function show($date)
   {
       $date = Carbon::parse($date);
       $events = $this->getEvents($date->month, $date->year, $date->day);
-      $colors = Auth::users()->color->get();
- 
-      return View::make('admin::calendar_events.day_index')->withEvents($events->get())
-      ->withDate($date->format('d/M/Y'))
-      ->withToday(Carbon::today());
+      return View::make('admin::calendar_events.day_index')->withEvents($events->get())->withDate($date->format('d/M/Y'));
   }
 
   private function getEvents($month = NULL, $year = NULL, $day = NULL)
