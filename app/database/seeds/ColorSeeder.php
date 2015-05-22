@@ -1,4 +1,4 @@
-<?
+	<?
 
 class ColorSeeder extends Seeder
 {
