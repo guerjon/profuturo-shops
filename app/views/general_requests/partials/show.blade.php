@@ -28,18 +28,21 @@
         <br><br><br>
        <strong>Solicitó: </strong>   <strong id="request-project_kind_st"></strong><br><br>
         <table class="table">
-          <tbody>
+          <thead>
             <tr>
-              <td>
-                Cantidad:  <strong id="request-quantity"></strong>
-              </td>
-              <td>
-                Precio unitario: $ <strong id="request-unit_price"></strong>
-              </td>
               <th>
-                TOTAL: $ <strong id="request-total"></strong>
+                Nombre
+              </th>      
+              <th>
+                Cantidad
+              </th>
+              <th>
+                Precio
               </th>
             </tr>
+          </thead>
+          <tbody id = "table_products">
+              
           </tbody>
         </table>
         <div>

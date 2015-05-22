@@ -167,7 +167,8 @@ class ApiController extends BaseController
     if($request){
       return Response::json([
         'status' => 200,
-        'request' => $request->toArray()
+        'request' => $request->toArray(),
+        'products' =>$request->general_request_products,
         ]);
     }
   }

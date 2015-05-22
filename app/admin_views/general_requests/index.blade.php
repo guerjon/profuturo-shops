@@ -53,9 +53,6 @@
         Fecha de entrega
       </th>
       <th>
-        Productos
-      </th>
-      <th>
 
       </th>
     </tr>
@@ -90,14 +87,10 @@
       <td>
       {{$request->deliver_date}}
       </td>
+    
       <td>
-        @foreach($request->GeneralRequestProducts as $products)
-        {{$products->name}}
-        @endforeach
-        
-      </td>
-      <td>
-        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>
+        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" 
+                data-request-id="{{$request->id}}">Detalles</button>
       </td>
     </tr>
     @endforeach
@@ -127,7 +120,16 @@ $(function(){
         }
         $('input[name="request_id"]').val(info.id); 
         $('select[name="status"]').val(info.status); 
-        
+
+        var product_info = data.products;
+        for(var i = 0; i < product_info.length; i++){
+          console.log(product_info[i]);
+          var name = "<tr><td>"+product_info[i].name+"</td>" + "<td>"+product_info[i].quantity+"</td>" + "<td>"+product_info[i].unit_price+"</td></tr>";
+
+         
+
+         $("#table_products").append(name);        
+         }
         }
     });
   });

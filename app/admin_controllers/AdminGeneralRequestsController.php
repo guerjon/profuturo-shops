@@ -22,8 +22,6 @@ class AdminGeneralRequestsController extends AdminBaseController{
   }
 
 
-  public function getGeneralRequestReport(){
-
-  }
+ 
 
 }
