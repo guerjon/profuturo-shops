@@ -126,6 +126,7 @@ class BcOrdersController extends BaseController{
       DB::table('blank_cards_bc_order')->insert([
         'quantity' => Input::get('blank_cards')*100,
         'direccion_alternativa_tarjetas' => Input::get('direccion_alternativa_tarjetas'),
+        'telefono_tarjetas' => Input::get('telefono_tarjetas'),
         'nombre_puesto' => Input::get('nombre_puesto'),
         'bc_order_id' => $bc_order->id,
         ]);

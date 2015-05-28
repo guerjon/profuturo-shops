@@ -19,6 +19,7 @@ class CreateBlankCardsBcOrderTable extends Migration {
 			$table->integer('quantity');
 			$table->string('nombre_puesto');
 			$table->string('direccion_alternativa_tarjetas');
+			$table->string('telefono_tarjetas');
 			$table->tinyInteger('status')->default(0);
 			$table->string('comments');
 			$table->foreign('bc_order_id')->references('id')->on('bc_orders')->onDelete('cascade');

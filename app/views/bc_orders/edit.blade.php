@@ -123,11 +123,14 @@
       {{Form::select('blank_cards', [0,100,200], NULL, ['class' => 'form-control'])}}
       </div>
      
-      <div class="col-xs-4">
+      <div class="col-xs-2">
       {{Form::select('nombre_puesto',array('retiro' => 'Asesor en Retiro','previsional' =>'Asesor Previsional','servicio' =>'Asesor en servicio','ejecutivo'=>'Ejecutivo de cuenta'), NULL, ['class' => 'form-control'])}}
       </div>
-      <div class="col-xs-6">
+      <div class="col-xs-5">
       {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}
+      </div>
+      <div class="col-xs-3">
+      {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Telefono'])}}
       </div>
     </div>
     @endif
