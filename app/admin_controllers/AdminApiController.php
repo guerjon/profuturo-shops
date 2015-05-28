@@ -67,9 +67,10 @@ class AdminApiController extends AdminBaseController
       ->orderBy('orders.id')
       ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
       ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      ->where('gerencia','=',Input::get('gerencia'))
-      ->where('categories.id', Input::get('category_id'))
+      ->where('users.id','=',Input::get('gerencia'))
+      ->where('categories.id','=',Input::get('category_id'))
       ->whereNull('orders.deleted_at');
+      Log::info(Input::get('gerencia'));
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
