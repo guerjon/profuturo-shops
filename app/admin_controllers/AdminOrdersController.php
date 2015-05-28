@@ -23,9 +23,9 @@ class AdminOrdersController extends BaseController
         $itemArray['ESTATUS'] = 'PENDIENTE';
       }elseif($item->status == 1){
         $itemArray['ESTATUS'] = 'Recibido ';
-      }elseif($order->status==2){
+      }elseif($item->status==2){
          $itemArray['ESTATUS'] = 'Recibido Incompleto';
-      }elseif($order->status==2){
+      }elseif($item->status==2){
         $itemArray['ESTATUS'] = 'Recibido incompleto';
       }
      

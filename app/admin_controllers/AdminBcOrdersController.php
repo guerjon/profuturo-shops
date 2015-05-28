@@ -5,7 +5,7 @@ class AdminBcOrdersController extends AdminBaseController{
   public function index()
   {
    if(Input::get('export') == 'xls'){
-    $query =  BCOrder::orderBy('created_at', 'desc');
+    $query =  BcOrder::orderBy('created_at', 'desc');
     
 
     $q = clone $query;
