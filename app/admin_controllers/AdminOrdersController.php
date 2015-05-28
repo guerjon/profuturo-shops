@@ -5,6 +5,44 @@ class AdminOrdersController extends BaseController
 
   public function index()
   {
+    if(Input::get('export') == 'xls'){
+    $query =  Order::orderBy('created_at', 'desc')->with('user');
+    
+    $q = clone $query;
+    $headers = ['NOMBRE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS'];
+    $result = [$headers];
+
+    foreach ($query->get() as $item) {
+    $itemArray = [];
+    $itemArray['NOMBRE_CC']    = $item->user->gerencia;
+    $itemArray['CCOSTOS']     = $item->user->ccosto;
+    $itemArray['NO_PEDIDO']   = $item->id;
+    $itemArray['COMENTARIOS'] = $item->comments;
+    $itemArray['CREADO']      = $item->created_at->format('d-m-Y');
+    if($item->status == 0){
+        $itemArray['ESTATUS'] = 'PENDIENTE';
+      }elseif($item->status == 1){
+        $itemArray['ESTATUS'] = 'Recibido ';
+      }elseif($order->status==2){
+         $itemArray['ESTATUS'] = 'Recibido Incompleto';
+      }elseif($order->status==2){
+        $itemArray['ESTATUS'] = 'Recibido incompleto';
+      }
+     
+    $result[] = $itemArray;
+    }
+
+    if($result){
+      Excel::create('Reporte_productos',function($excel) use($result){
+         $excel->sheet('Hoja_1', function($sheet) use($result) {
+          Log::info($result);
+           $sheet->fromArray($result);
+        });
+      })->download('xlsx');
+    }
+
+    }
+        
     return View::make('admin::orders.index')->withOrders(Order::orderBy('created_at', 'desc')->get());
   }
 
@@ -29,23 +67,5 @@ class AdminOrdersController extends BaseController
     return Redirect::to(action('AdminOrdersController@index'))->withSuccess('Se ha eliminado la orden');
   }
 
-  public function update($order_id)
-  {
-    // $order = Order::find($order_id);
-    // if(!$order){
-    //   return Redirect::to('/')->withWarning('No se encontró la orden');
-    // }
-    //
-    // $order->status = Input::get('status');
-    // $order->save();
-    //
-    // if($order->status == 2){
-    //   $complain = $order->order_complain == NULL ? new OrderComplain : $order->order_complain;
-    //   $complain->complain = Input::get('complain');
-    //   $complain->order_id = $order->id;
-    //   $complain->save();
-    // }
-    //
-    // return Redirect::to(action('OrdersController@index'))->withSuccess('Se ha actualizado su orden');
-  }
+
 }

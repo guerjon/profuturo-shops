@@ -60,13 +60,14 @@
           {{ Form::close()}}
         </div>
       </div>
-
+      @if(Auth::user()->is_manager)
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-default" id="submit-btn">Guardar</button>
-       
+    
         <!-- <button type="button" class="btn btn-warning">Save changes</button> -->
       </div>
+      @endif
     </div>
   </div>
 </div>

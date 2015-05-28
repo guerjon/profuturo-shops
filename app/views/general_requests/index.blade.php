@@ -93,12 +93,10 @@
               {{Form::text('employee_cellphone', NULL, ['class' => 'form-control'])}}
             </div>
 
-
             <div class="form-group text-right">
               <button type="button" id="" class="btn btn-warning btn-next">Siguiente</button>
             </div>
           </div>
-
 
           <div  data-step-num="2" class="step-div step-2">
             <h5>Platícanos sobre tu proyecto</h5>
@@ -121,9 +119,8 @@
               <button type="button" style="width:20%;" data-next-div="start-div" class="text-right btn btn-warning ">Atras</button>
               <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
-             
-            </div>
 
+            </div>
 
           <div  data-step-num="3" class="step-div step-3">
             <h5>¿Cómo podemos ayudarte?</h5>
@@ -132,8 +129,6 @@
               {{Form::label('kind', 'Nombre del proyecto')}}
               {{Form::select('kind', ['Producto', 'Servicio'], NULL, ['class' => 'form-control'])}}
             </div>
-
-            
 
             <div class="form-group">
               {{Form::label('deliver_date', 'Fecha de entrega')}}
@@ -179,13 +174,12 @@
               <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
           </div>
-      
 
      <div data-step-num="5" class="step-div" >
-        
+
       <div id="products">
       </div>
-         
+
         <div class="form-group text-right">
               <button type="button" style="width:20%;"  data-next-div="step-3" class="text-right btn btn-warning ">Atras</button>
               <button id="addButton" type="button" style="width:30%;"  data-next-div="disabled" class="text-right btn btn-default ">Agregar Producto</button>  
@@ -211,7 +205,7 @@
 
               <div class="row">
                   <div class="col-xs-4" >
-                   
+
                       {{Form::label('quantity', 'Cantidad')}}
                       {{Form::text('quantity[]', NULL, ['class' => 'form-control'])}}
                   </div>
@@ -219,7 +213,7 @@
                       {{Form::label('unit_price', 'Precio unitario')}}
                       {{Form::text('unit_price[]', NULL, ['class' => 'form-control'])}}
                   </div>
-                  
+
                   <div class="col-xs-4">
                       {{Form::label('budget', 'Presupuesto')}}
                       {{Form::text('budget[]', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
@@ -260,12 +254,11 @@
     $(document).on('keyup keydown change','div[data-step-num] input,div[data-step-num] textarea', function(){
       var llenos = true;
     $(this).parents('div[data-step-num]').find('input,textarea').each(function(){
-        
+
         llenos = llenos && $(this).val() !== undefined && $(this).val().length > 0;
       });
      $(this).parents('div[data-step-num]').find('.btn-next').prop('disabled', !llenos);
     });
-
 
    //resultado de presupuesto
 
@@ -283,9 +276,7 @@
     $('#addButton').click();
     $('#products .product-form-container .dismissButton').remove();
 
-
   });
-
 
 </script>
 @stop

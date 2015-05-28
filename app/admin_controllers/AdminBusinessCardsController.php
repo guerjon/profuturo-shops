@@ -28,7 +28,6 @@ class AdminBusinessCardsController extends BaseController{
       ]));
     }
 
-
     $file = Input::file('file');
     $created = 0;
     $updated = 0;

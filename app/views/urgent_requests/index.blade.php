@@ -53,7 +53,7 @@
       </td>
       <td>
        <div data-number="5" data-score="{{$request->rating}}" class="stars">
-        
+
        </div> 
       </td>
       <td>
@@ -100,7 +100,7 @@ $(function(){
     });
   });
   $('.stars').raty({
-  
+
   score: function() {
     return $(this).attr('data-score');
   },

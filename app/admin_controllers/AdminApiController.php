@@ -129,7 +129,6 @@ class AdminApiController extends AdminBaseController
       business_cards.ccosto AS CENTRO_COSTO,
       business_cards.direccion AS DIRECCION,
       business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
-
       '' AS PUESTO_ATRACCION_GERENTE
     ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
     ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')

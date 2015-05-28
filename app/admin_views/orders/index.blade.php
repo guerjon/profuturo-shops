@@ -8,6 +8,10 @@
 </div>
 
 @else
+  
+  {{link_to_action('AdminOrdersController@index','Descargar excel',['export'=>'xls'],['class' => 'btn btn-warning btn-submit','style' => 'float:right' ])}}
+
+  
 
 <table class="table table-striped">
   <thead>
@@ -45,9 +49,6 @@
     <td>
     {{$order->user->gerencia}}
     </td>
-      <td>
-        {{$order->user->gerencia}}
-      </td>
       <td>
         {{$order->user->ccosto}}
       </td>

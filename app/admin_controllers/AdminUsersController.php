@@ -66,4 +66,15 @@ class AdminUsersController extends AdminBaseController
     }
 
   }
+
+  public function getImport()
+  {
+    return View::make('admin::users.import_create');
+  }
+
+  public function postImport()
+  {
+
+  }
+
 }

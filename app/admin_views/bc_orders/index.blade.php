@@ -9,6 +9,9 @@
 
 @else
 
+{{link_to_action('AdminBcOrdersController@index','Descargar excel',['export'=>'xls'],['class' => 'btn btn-warning btn-submit','style' => 'float:right' ])}}
+
+
 <table class="table table-striped">
   <thead>
     <tr>
