@@ -7,14 +7,15 @@ class AdminReportsController extends AdminBaseController{
   public function getIndex()
   {
     $categories = Category::lists('name','id');
+    
     return View::make('admin::reports.index')->withCategories($categories);
   }
   
   public function getOrdersReport()
   {
     $categories = Category::lists('name','id');
-    Log::info("categories", $categories);
-    return View::make('admin::reports.orders')->withCategories($categories);
+    $gerencia = User::lists('gerencia','id');
+    return View::make('admin::reports.orders')->withCategories($categories)->withGerencia($gerencia);
 
   }
 
