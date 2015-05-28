@@ -18,9 +18,9 @@ class CreateBcOrderBusinessCardTable extends Migration {
 			$table->integer('bc_order_id')->unsigned();
 			$table->integer('business_card_id')->unsigned();
 			$table->integer('quantity');
+			$table->string('direccion_alternativa_tarjetas');
 			$table->tinyInteger('status')->nullable();
 			$table->string('comments')->nullable();
-
 			$table->foreign('bc_order_id')->references('id')->on('bc_orders')->onDelete('cascade');
 			$table->foreign('business_card_id')->references('id')->on('business_cards')->onDelete('cascade');
 		});

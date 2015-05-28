@@ -119,11 +119,15 @@
     {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
     @if($remaining_cards > 100)
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-xs-2">
       {{Form::select('blank_cards', [0,100,200], NULL, ['class' => 'form-control'])}}
       </div>
-      <div class="col-xs-6">
+     
+      <div class="col-xs-4">
       {{Form::select('nombre_puesto',array('retiro' => 'Asesor en Retiro','previsional' =>'Asesor Previsional','servicio' =>'Asesor en servicio','ejecutivo'=>'Ejecutivo de cuenta'), NULL, ['class' => 'form-control'])}}
+      </div>
+      <div class="col-xs-6">
+      {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}
       </div>
     </div>
     @endif

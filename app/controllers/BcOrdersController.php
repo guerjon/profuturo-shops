@@ -32,8 +32,6 @@ class BcOrdersController extends BaseController{
 
       if(count($cards) > 0)
       {
-      
-
         $date = \Carbon\Carbon::now();
         $date->day = 1;
         $date->subMonth();
@@ -127,6 +125,7 @@ class BcOrdersController extends BaseController{
     if(Input::has('blank_cards') and Input::get('blank_cards') > 0){
       DB::table('blank_cards_bc_order')->insert([
         'quantity' => Input::get('blank_cards')*100,
+        'direccion_alternativa_tarjetas' => Input::get('direccion_alternativa_tarjetas'),
         'nombre_puesto' => Input::get('nombre_puesto'),
         'bc_order_id' => $bc_order->id,
         ]);
