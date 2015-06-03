@@ -65,7 +65,7 @@
 
     </tr>
     @endif
-    @if($bc_order)
+    @if($bc_order->extra)
     <tr>
     <td>
       {{$bc_order->extra->talento_nombre}}
