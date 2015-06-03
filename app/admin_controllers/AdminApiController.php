@@ -24,7 +24,155 @@ class AdminApiController extends AdminBaseController
   public function getOrdersReport()
   {
     ini_set('max_execution_time','300');
-    $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
+   
+    if(Input::get('gerencia') == 0 && Input::get('category_id') != 0){
+      Log::info('Primero-------------');
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
+      DB::raw("
+      orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'JC005819' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      products.sku as INV_ITEM_ID,
+      products.name as DESCR254_MIXED,
+      products.measure_unit as UNIT_OF_MEASURE,
+      order_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'JC005819' as INTROD,
+      categories.name as CATEGORY
+      ")
+    )->join('products', 'products.id', '=', 'order_product.product_id')
+      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
+      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->orderBy('orders.id')
+      ->where('users.id','=',Input::get('gerencia'))
+      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
+      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
+      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
+      ->whereNull('orders.deleted_at');
+    
+    }elseif(Input::get('gerencia')!= 0 && Input::get('category_id') == 0){
+        Log::info('Segundo-------------');
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
+      DB::raw("
+      orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'JC005819' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      products.sku as INV_ITEM_ID,
+      products.name as DESCR254_MIXED,
+      products.measure_unit as UNIT_OF_MEASURE,
+      order_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'JC005819' as INTROD,
+      categories.name as CATEGORY
+      ")
+    )->join('products', 'products.id', '=', 'order_product.product_id')
+      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
+      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->orderBy('orders.id')
+      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
+      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
+      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
+      ->where('users.id','=',Input::get('gerencia'))
+      ->whereNull('orders.deleted_at');
+    
+    }elseif(Input::get('gerencia')== 0 && Input::get('category_id') == 0){
+      Log::info('Tercero-------------');
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
+      DB::raw("
+      orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'JC005819' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      products.sku as INV_ITEM_ID,
+      products.name as DESCR254_MIXED,
+      products.measure_unit as UNIT_OF_MEASURE,
+      order_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'JC005819' as INTROD,
+      categories.name as CATEGORY
+      ")
+    )->join('products', 'products.id', '=', 'order_product.product_id')
+      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
+      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->orderBy('orders.id')
+      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
+      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
+      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
+      ->whereNull('orders.deleted_at');
+    }else{
+       Log::info('Cuarto-------------');
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
       DB::raw("
       orders.created_at as FECHA_PEDIDO,
       '9999999999999990000000000' AS EIP_CTL_ID,
@@ -71,7 +219,7 @@ class AdminApiController extends AdminBaseController
       ->where('users.id','=',Input::get('gerencia'))
       ->where('categories.id','=',Input::get('category_id'))
       ->whereNull('orders.deleted_at');
-      Log::info(Input::get('gerencia'));
+    }
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -84,33 +232,33 @@ class AdminApiController extends AdminBaseController
         ]);
     }else{
 
-      $datetime = \Carbon\Carbon::now()->format('YmdHi');
-      $data = str_putcsv($headers)."\n";
+            $datetime = \Carbon\Carbon::now()->format('YmdHi');
+            $data = str_putcsv($headers)."\n";
 
 
-  $result = [$headers];
-  foreach($query->get() as $item){
-    $itemArray = [];
-  foreach($headers as $header){
-    $itemArray[] = $item->{$header};
-  }
-    $result[] = $itemArray;
-  }
-  if($result){
-   $mes = Input::get('month');
-   $año = Input::get('year');
-    Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('hoja 1',function($sheet)use($result){
-       $sheet->fromArray($result);
-        });
-      })->download('xls');
-  }
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
 
-      $headers = array(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
-      );
-      return Response::make($data, 200, $headers);
+            $headers = array(
+              'Content-Type' => 'text/csv',
+              'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+            );
+            return Response::make($data, 200, $headers);
     }
   }
 
@@ -224,7 +372,7 @@ class AdminApiController extends AdminBaseController
         $query = $query4;
         break;
     }
-
+   
     $q = clone $query;
     $item = $q->first();
 
