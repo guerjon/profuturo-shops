@@ -4,7 +4,8 @@
 
 {{ Form::open([
   'action' => ['BcOrdersController@update', $bc_order->id],
-  'method' => 'PUT'
+  'method' => 'PUT',
+  'id'     => 'form',
   ])}}
 
   <table class="table table-striped">
@@ -167,9 +168,17 @@ $(function(){
 </script>
 <script>
 $(function(){
+  $('#save').click(function(){
+      $(this).prop('disabled',true);
+      $('#form').submit();
+  });
+
   $('#cancel-order-button').click(function(){
     $('#cancel-order-form').submit();
   });
-});
+}
+  
+
+);
 </script>
 @stop

@@ -13,21 +13,24 @@
   'target' => '_blank'
   ])}}
 <div class="row">
-  <div class="col-xs-2 ">
+  <div class="col-xs-2 ">GERENCIA:
     {{Form::select('gerencia',$gerencia,NUll,['class' => 'form-control'])}}
   </div>
-  <div class="col-xs-2 ">
+  <div class="col-xs-2 ">CATEGORIA:
     {{Form::select('category_id',$categories,NUll,['class' => 'form-control'])}}
   </div>
-  <div class="col-xs-2 ">
-    {{Form::selectMonth('month', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+  <div class="col-xs-2 ">DESDE:
+    {{Form::selectMonth('month_init', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+  </div>
+
+   <div class="col-xs-2 ">HASTA:
+    {{Form::selectMonth('month_end', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
       
-  <div class="col-xs-2">
+  <div class="col-xs-2">AÑO:
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
     {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit','style' => 'float:right; margin-right:10px' ])}}
-
 </div>
 {{Form::close()}}
 
