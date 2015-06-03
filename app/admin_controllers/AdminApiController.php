@@ -283,7 +283,6 @@ class AdminApiController extends AdminBaseController
       
     ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
     ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
-    ->join('bc_orders_extras','bc_orders.id', '=','bc_orders_extras.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->whereNull('bc_orders.deleted_at')
     ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
@@ -372,7 +371,7 @@ class AdminApiController extends AdminBaseController
         $query = $query4;
         break;
     }
-   
+
     $q = clone $query;
     $item = $q->first();
 
