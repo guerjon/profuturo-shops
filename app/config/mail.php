@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => null, 'name' => null),
+	'from' => array('address' => 'email@profuturocompras.com.mx', 'name' => 'email@profuturocompras.com.mx'),
 
 	/*
 	|--------------------------------------------------------------------------
