@@ -15,16 +15,15 @@ class AdminUsersController extends AdminBaseController
   {
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
-    if(count($colors)>0){
-      return View::make('admin::users.create')->withUser(new User)->withColors($colors);
-    }else{
-      return View::make('admin::users.create')->withUser(new User);
-    }
+    return View::make('admin::users.create')->withUser(new User)->withColors($colors);
   }
 
   public function store()
   {
     $user = new User(Input::all());
+    if(Input::get('num_empleado')==null || Input::getl('num_empleado') == undefined){
+      $user->num_empleado = null;
+    }
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
     }else{
@@ -34,11 +33,13 @@ class AdminUsersController extends AdminBaseController
 
   public function edit($user_id)
   {
+    $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
+    $colors = Color::all()->except($users_colors_id);
     $user = User::find($user_id);
     if(!$user){
       return Redirect::back()->withWarning('No se encontró el usuario o está deshabilitado');
     }
-    return View::make('admin::users.create')->withUser($user);
+    return View::make('admin::users.create')->withUser($user)->withColors($colors);
   }
 
   public function update($user_id)

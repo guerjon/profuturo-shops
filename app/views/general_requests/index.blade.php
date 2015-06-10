@@ -99,6 +99,36 @@
           </div>
 
           <div  data-step-num="2" class="step-div start-div step-2">
+            <div >
+              <div class="row">
+                <div class="col-xs-6">
+                  <label>Nombre: </label>
+                  <span>{{Auth::user()->nombre}}</span>
+                </div>
+                <div class="col-xs-6">
+                  <label>Número de empleado: </label>
+                  <span>{{Auth::user()->num_empleado}}</span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <label>Extensión: </label>
+                  <span>{{Auth::user()->extension}}</span>
+                </div>
+                <div class="col-xs-6">
+                  <label>Celular: </label>
+                  <span>{{Auth::user()->celular}}</span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12">
+                  <label>Correo Electrónico: </label>
+                  <span>{{Auth::user()->email}}</span>
+                </div>
+              </div>
+            </div>
+
             <h5>Platícanos sobre tu proyecto</h5>
 
             <div class="form-group">

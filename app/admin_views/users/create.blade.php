@@ -105,7 +105,7 @@
       <center>
         <div id="campos-extra">
           <div class="form-group">
-            {{Form::label('nombre', 'Nombre', ['class' => 'control-label col-sm-4'])}}
+            {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label col-sm-4'])}}
             <div class="col-sm-8">
               {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
             </div>
