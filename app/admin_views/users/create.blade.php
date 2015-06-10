@@ -38,7 +38,6 @@
           {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
           @endif
         </div>
-
       </div>
 
       <div class="form-group">
@@ -61,7 +60,6 @@
         <div class="col-sm-8">
           {{Form::password('password', ['class' => 'form-control'])}}
         </div>
-
       </div>
       @endunless
 
@@ -95,12 +93,14 @@
         <label class="radio-inline">
           Color del consultor
         </label>
-          @foreach($colors as $color)
-        <label style="background-color: {{$color->color}}; width:30%" class="radio">
-        {{Form::radio('color_id', $color->id)}}  {{$color->color}}
-        </label>
-        @endforeach  
-      </div>
+          @if(Session::has('colors'))
+            @foreach($colors as $color)
+              <label style="background-color: {{$color->color}}; width:30%" class="radio">
+              {{Form::radio('color_id', $color->id)}}  {{$color->color}}
+              </label>
+            @endforeach  
+          @endif
+        </div>
       </center>
       <div class="form-group">
         <div class="col-sm-8 col-sm-offset-4">

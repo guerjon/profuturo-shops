@@ -11,7 +11,7 @@
     <thead>
       <tr>
         <th>
-          # de sol.
+         ID de Solicitud
         </th>
         <th>
           Título proyecto
@@ -63,7 +63,7 @@
           'action' => 'GeneralRequestsController@store'
           ])}}
 
-          <div  data-step-num="1" class="step-div start-div">
+          <div  data-step-num="1" class="step-div ">
 
             <h5>Por favor, indícanos tus datos personales para contactarte</h5>
             <h5 class="text-danger">Todos los campos son requeridos</h5>
@@ -98,16 +98,17 @@
             </div>
           </div>
 
-          <div  data-step-num="2" class="step-div step-2">
+          <div  data-step-num="2" class="step-div start-div step-2">
             <h5>Platícanos sobre tu proyecto</h5>
 
             <div class="form-group">
-              {{Form::label('project_title', 'Tipo de proyecto')}}
-              {{Form::text('project_title', NULL, ['class' => 'form-control'])}}
+              {{Form::label('kind', 'Tipo de proyecto')}}
+              <!-- {{Form::text('project_title', NULL, ['class' => 'form-control'])}} -->
+              {{Form::select('kind', ['Producto', 'Servicio'], NULL, ['class' => 'form-control'])}}
             </div>
 
             <div class="form-group">
-              {{Form::label('project_dest', '¿A quién va dirigido?')}}
+              {{Form::label('project_dest', 'Usuarios Finales')}}
               {{Form::text('project_dest', NULL, ['class' => 'form-control'])}}
             </div>
 
@@ -126,8 +127,9 @@
             <h5>¿Cómo podemos ayudarte?</h5>
 
             <div class="form-group">
-              {{Form::label('kind', 'Nombre del proyecto')}}
-              {{Form::select('kind', ['Producto', 'Servicio'], NULL, ['class' => 'form-control'])}}
+              {{Form::label('project_title', 'Nombre del proyecto')}}
+              <!--{{Form::select('project_title', ['Producto', 'Servicio'], NULL, ['class' => 'form-control'])}}-->
+              {{Form::text('project_title', NULL, ['class' => 'form-control'])}}
             </div>
 
             <div class="form-group">
@@ -163,7 +165,7 @@
           </div>
 
           <div  data-step-num="4" class="step-div">
-            <h5>¿Cuáles son tus expectativas</h5>
+            <h5>¿Cuáles son tus expectativas?</h5>
 
             <div class="form-group">
               {{Form::textarea('comments', NULL, ['class' => 'form-control', 'rows' => 3])}}
@@ -192,7 +194,7 @@
       <!-- container -->
           <div  style="display:none" id="product" class="product-form-container">
               <div class="col">
-                {{Form::label('name', 'Nombre')}}
+                {{Form::label('name', 'Descripción del producto o servicio')}}
                 <div class="row">
                   <div class="col-xs-8">
                         {{Form::text('name[]', NULL,['class' => 'form-control'])}}
@@ -204,20 +206,20 @@
           </div>
 
               <div class="row">
-                  <div class="col-xs-4" >
+                  <div class="col-xs-6" >
 
                       {{Form::label('quantity', 'Cantidad')}}
                       {{Form::text('quantity[]', NULL, ['class' => 'form-control'])}}
                   </div>
-                  <div class="col-xs-4">
-                      {{Form::label('unit_price', 'Precio unitario')}}
+                  <div class="col-xs-6">
+                      {{Form::label('unit_price', 'Presupuesto')}}
                       {{Form::text('unit_price[]', NULL, ['class' => 'form-control'])}}
                   </div>
 
-                  <div class="col-xs-4">
+{{--                   <div class="col-xs-4">
                       {{Form::label('budget', 'Presupuesto')}}
                       {{Form::text('budget[]', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
-                  </div>
+                  </div> --}}
               </div> 
               <hr>
           </div>

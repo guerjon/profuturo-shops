@@ -28,7 +28,9 @@ Route::controller('api', 'ApiController');
 Route::group(['before' => 'auth'], function(){
 
 	Route::group(['prefix' => 'admin'], function()
-	{	Route::controller('users','AdminUsersController');
+	{	//Route::controller('users','AdminUsersController');
+		Route::get('users/import','AdminUsersController@getImport');
+		Route::post('users/import','AdminUsersController@postImport');
 		Route::resource('users', 'AdminUsersController');
 		Route::resource('products', 'AdminProductsController');
 		Route::resource('muebles','AdminFurnituresController');
