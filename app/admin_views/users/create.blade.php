@@ -83,7 +83,7 @@
             <label class="radio-inline">{{Form::radio('role', 'admin')}} Administrador</label>
             <label  class="radio-inline">{{Form::radio('role', 'manager',null,['id'=>'consultor'])}} Consultor</label>
             <br>
-            <label class="radio-inline">{{Form::radio('role', 'user_requests')}} Usuario proyectos</label>
+            <label class="radio-inline">{{Form::radio('role', 'user_requests',null,['id'=>'usuario-proyectos'])}} Usuario proyectos</label>
             <label  class="radio-inline">{{Form::radio('role', 'user_paper')}} Usuario papelería</label>
           @endif
         </div>
@@ -93,15 +93,50 @@
         <label class="radio-inline">
           Color del consultor
         </label>
-          @if(Session::has('colors'))
+         
             @foreach($colors as $color)
               <label style="background-color: {{$color->color}}; width:30%" class="radio">
               {{Form::radio('color_id', $color->id)}}  {{$color->color}}
               </label>
             @endforeach  
-          @endif
+       
         </div>
       </center>
+      <center>
+        <div id="campos-extra">
+          <div class="form-group">
+            {{Form::label('nombre', 'Nombre', ['class' => 'control-label col-sm-4'])}}
+            <div class="col-sm-8">
+              {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
+            </div>
+          </div>
+          <div class="form-group">
+            {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label col-sm-4'])}}
+            <div class="col-sm-8">
+              {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
+            </div>
+          </div>
+          <div class="form-group">
+            {{Form::label('email', 'Correo Electrónico', ['class' => 'control-label col-sm-4'])}}
+            <div class="col-sm-8">
+              {{Form::text('email', NULL, ['class' => 'form-control'])}}
+            </div>
+          </div>
+          <div class="form-group">
+            {{Form::label('extension', 'Extensión', ['class' => 'control-label col-sm-4'])}}
+            <div class="col-sm-8">
+              {{Form::text('extension', NULL, ['class' => 'form-control'])}}
+            </div>
+          </div>
+          <div class="form-group">
+            {{Form::label('celular', 'Celular', ['class' => 'control-label col-sm-4'])}}
+            <div class="col-sm-8">
+              {{Form::text('celular', NULL, ['class' => 'form-control'])}}
+            </div>
+          </div>
+        </div>
+      </center>
+
       <div class="form-group">
         <div class="col-sm-8 col-sm-offset-4">
           {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
@@ -116,11 +151,17 @@
   <script type="text/javascript" >
     $(function(){
       $('#colores').hide();
+      $('#campos-extra').hide();
       $('.radio-inline input[type="radio"]').click(function(){
         if($(this).attr('id') == 'consultor'){
           $('#colores').show();
         }else{
           $('#colores').hide();
+        }
+        if($(this).attr('id')=='usuario-proyectos'){
+          $('#campos-extra').show();
+        }else{
+          $('#campos-extra').hide();
         }
       });
     });    
