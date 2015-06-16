@@ -21,7 +21,7 @@ class AdminUsersController extends AdminBaseController
   public function store()
   {
     $user = new User(Input::all());
-    if(Input::get('num_empleado')==null || Input::getl('num_empleado') == undefined){
+    if(Input::get('num_empleado')==null){
       $user->num_empleado = null;
     }
     if($user->save()){

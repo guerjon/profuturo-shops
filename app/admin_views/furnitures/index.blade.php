@@ -51,7 +51,7 @@
             {{$furniture->furniture_category ? $furniture->furniture_category->name : 'Sin especificar'}} 
           </td>
           <td>
-            {{$furniture->unitary}}
+            ${{$furniture->unitary}}
           </td>
           <td>
             {{$furniture->delivery_time}}

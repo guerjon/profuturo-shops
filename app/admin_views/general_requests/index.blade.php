@@ -61,7 +61,8 @@
     @foreach($requests as $request)
     <tr>
       <td>
-        {{$request->id}}
+      {{link_to_action('AdminGeneralRequestsController@show',$request->id,['id' =>$request->id]),null}}   
+
       </td>
       <td>
         {{$request->project_title}}

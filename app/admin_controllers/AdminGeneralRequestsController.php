@@ -22,6 +22,17 @@ class AdminGeneralRequestsController extends AdminBaseController{
   }
 
 
- 
+  public function show($id)
+  {
+    $general_request = GeneralRequest::find($id);
+    if($general_request){
+      return View::make('admin::general_requests.show')->withGeneral($general_request);   
+    }else{
+      return Redirect::back()->withWarning('No se encontró la orden');
+    }
+
+
+       
+  }
 
 }
