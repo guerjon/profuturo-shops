@@ -168,11 +168,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('ProductsController@index') => 'Productos',
 					action('BusinessCardsController@index') => 'Tarjetas de presentación',
 					'/carrito' => 'Mi carrito (papelería)',
+					'/carrito-muebles' => 'Mi carrito (muebles)',
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
 					action('OrderFurnituresController@index') => 'Mis pedidos (inmuebles)',
 					action('FurnituresController@index') => 'Muebles',
-					'/carrito-muebles' => 'Mi carrito (muebles)',
+					
 
 
 				];
