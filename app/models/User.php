@@ -153,8 +153,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
 					action('AdminReportsController@getIndex') => 'Reportes',
-					action('AdminFurnituresController@index') => 'Muebles',
-					action('AdminFurnitureCategoriesController@index') => 'Categorías de muebles',
+					action('AdminFurnituresController@index') => 'Mobiliario',
+					action('AdminFurnitureCategoriesController@index') => 'Categorías de mobiliario',
 
 				];
 			case 'manager':
@@ -168,11 +168,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('ProductsController@index') => 'Productos',
 					action('BusinessCardsController@index') => 'Tarjetas de presentación',
 					'/carrito' => 'Mi carrito (papelería)',
-					'/carrito-muebles' => 'Mi carrito (muebles)',
+					'/carrito-muebles' => 'Mi carrito (mobiliario)',
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
-					action('OrderFurnituresController@index') => 'Mis pedidos (inmuebles)',
-					action('FurnituresController@index') => 'Muebles',
+					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
+					action('FurnituresController@index') => 'Mobiliario',
 					
 
 
