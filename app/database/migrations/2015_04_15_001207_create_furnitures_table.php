@@ -21,6 +21,9 @@ class CreateFurnituresTable extends Migration {
 			$table->string('sku');
 			$table->string('surface');
 			$table->string('image_updated_at');
+			$table->string('image_file_name')->nullable();
+			$table->integer('image_file_size')->nullable();
+			$table->string('image_content_type')->nullable();
 			$table->string('id_peole_soft')->nullable();
 			$table->string('description')->nullable();
 			$table->string('specific_description');

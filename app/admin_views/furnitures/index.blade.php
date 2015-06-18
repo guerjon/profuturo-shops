@@ -57,6 +57,10 @@
             {{$furniture->delivery_time}}
           </td>
           <td>
+            {{HTML::image($furniture->image->url('mini'))}}
+          </td>
+
+          <td>
             {{link_to_action('AdminFurnituresController@edit', 'Editar', [$furniture->id], ['class' => 'btn btn-sm btn-default'])}}
             
               {{Form::open([
