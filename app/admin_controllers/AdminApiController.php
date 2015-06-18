@@ -24,7 +24,57 @@ class AdminApiController extends AdminBaseController
   public function getOrdersReport()
   {
     ini_set('max_execution_time','300');
-   
+    
+    $query = DB::table('....')->select(DB::raw("
+      orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'JC005819' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      products.sku as INV_ITEM_ID,
+      products.name as DESCR254_MIXED,
+      products.measure_unit as UNIT_OF_MEASURE,
+      order_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'JC005819' as INTROD,
+      categories.name as CATEGORY,
+      products.id_people as ID_PEOPLE
+      "))
+      ->join('products', 'products.id', '=', 'order_product.product_id')
+      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
+      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
+      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->orderBy('orders.id')
+      ->whereNull('order.deleted_at');
+
+    if(Input::has('gerencia')){
+      $query->where('users.ccosto', Input::get('gerencia'));
+    }
+    if(Input::has('...')){
+      //.....
+    }
+
     if(Input::get('gerencia') == 0 && Input::get('category_id') != 0){
       Log::info('Primero-------------');
       $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
@@ -63,7 +113,7 @@ class AdminApiController extends AdminBaseController
       'JC005819' as INTROD,
       categories.name as CATEGORY
       ")
-    )->join('products', 'products.id', '=', 'order_product.product_id')
+    ) ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
       ->leftJoin('users', 'users.id', '=', 'orders.user_id')
       ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
