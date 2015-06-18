@@ -53,12 +53,12 @@ class AdminFurnitureImporterController extends AdminBaseController
             'furniture_category_id' => $category->id,
             ]);
            $img = $row->descripcion_profuturo.'.png';
-           $path = "app/database/imgs_furnitures/$img";
+           $path = storage_path()."/imgs_furnitures/$img"; 
             if(file_exists($path) and copy($path, $img)){
             $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
             }else{
               $img = "no_disponible.png";
-               $path = "app/database/imgs_furnitures/$img";
+               $path = storage_path()."/imgs_furnitures/$img";
                Log::info($path);
                getcwd(); 
               $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
