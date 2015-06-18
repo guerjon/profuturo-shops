@@ -59,6 +59,8 @@ class AdminFurnitureImporterController extends AdminBaseController
             }else{
               $img = "no_disponible.png";
                $path = "app/database/imgs_furnitures/$img";
+               Log::info($path);
+               getcwd(); 
               $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
             }
             $furniture->image = $file;
