@@ -33,6 +33,9 @@
             Tiempo de entrega
           </th>
           <th>
+            Imagen
+          </th>
+          <th>
             Acciones
           </th>
         </tr>
