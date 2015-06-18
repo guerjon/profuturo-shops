@@ -22,6 +22,7 @@ class Furniture extends Eloquent implements StaplerableInterface
   public static function boot()
   {
     parent::boot();
+    parent::bootStapler();
     Product::deleting(function($furniture){
         DB::table('cart_furnitures')->where('furniture_id', $furniture->id)->delete();
     });
