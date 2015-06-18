@@ -21,6 +21,7 @@ class Product extends Eloquent implements StaplerableInterface
     public static function boot()
   {
     parent::boot();
+    parent::bootStapler();
     Product::deleting(function($product){
         DB::table('cart_products')->where('product_id', $product->id)->delete();
     });
