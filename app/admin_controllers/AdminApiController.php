@@ -78,6 +78,10 @@ class AdminApiController extends AdminBaseController
     if(Input::has('year')){
       $query->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'));
     }
+    if(Input::has('linea_negocio')){
+      $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
+    }
+    
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];

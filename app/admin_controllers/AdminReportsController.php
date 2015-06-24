@@ -14,8 +14,10 @@ class AdminReportsController extends AdminBaseController{
   public function getOrdersReport()
   {
     $categories = Category::lists('name','id');
-    $gerencia = User::where('role','!=','admin')->lists('gerencia','id');
-    return View::make('admin::reports.orders')->withCategories($categories)->withGerencia($gerencia);
+    $management = User::where('role','!=','admin')->lists('gerencia','id');
+    $business_line = User::distinct()->where('role','!=','admin')->lists('linea_negocio','linea_negocio');
+
+    return View::make('admin::reports.orders')->withCategories($categories)->withGerencia($management)->withBusinessLine($business_line);
   }
 
   public function getBcOrdersReport()
