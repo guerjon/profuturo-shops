@@ -32,7 +32,7 @@ class AdminApiController extends AdminBaseController
       'BPO' as SYSTEM_SOURCE,
       'PAF01' as LOADER_BU,
       @rownum:=@rownum+1 as GROUP_SEQ_NUM,
-      'JC005819' as REQUESTOR_ID,
+      'KA003035' as REQUESTOR_ID,
       DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
       products.sku as INV_ITEM_ID,
       products.name as DESCR254_MIXED,
@@ -53,13 +53,16 @@ class AdminApiController extends AdminBaseController
       '' as PROJECT_ID,
       '' as ANALYSIS_TYPE,
       'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
       @rownum as LINE_NBR,
       'Y' as CALC_PRICE_FLG,
       '' as CAP_NUM,
       '' as SHIP_TO_CUST_ID,
-      'JC005819' as INTROD,
+      'KA003035' as INTROD,
       categories.name as CATEGORY,
       products.id_people as ID_PEOPLE
+      
       "))
       ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
