@@ -23,15 +23,15 @@
     {{Form::selectMonth('month_init', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
 
-   <div class="col-xs-2 ">HASTA:
+  <div class="col-xs-2 ">HASTA:
     {{Form::selectMonth('month_end', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
       
   <div class="col-xs-2">AÑO:
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
-   <div class="col-xs-2 ">LINEA DE NEGOCIO:
-    {{Form::select('linea_negocio',array_merge(array(NULL => 'Seleccione una linea de negocio'),$business_line),NUll,['class' => 'form-control'])}}
+  <div class="col-xs-2 ">LINEA DE NEGOCIO:
+    {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
   </div>
 
     {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit','style' => 'float:right; margin-right:10px' ])}}
