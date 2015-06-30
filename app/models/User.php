@@ -30,8 +30,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'password' => 'required',
-
+		'email' => 'required',
 		'role' => 'in:manager,admin,user_requests,user_paper'
 	];
 

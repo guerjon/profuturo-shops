@@ -19,9 +19,20 @@ class HomeController extends BaseController {
 
 	public function getIndex()
 	{
-		return View::make('hello');
+		$credentials = ['ccosto' => Auth::user()->ccosto,'password' => 'password']; 
+		return View::make('hello')->withCredentials($credentials);
 	}
 
+	public function postPassword(){
+		$email = Input::get('email');
+    $password = Input::get('password');
+
+    Auth::user()->email = $email;
+    Auth::user()->password = $password;
+    Auth::user()->save();
+		$credentials = ['ccosto' => Auth::user()->ccosto,'password' => 'password']; 	
+    return View::make('hello')->withSuccess('Se ha guardado su información exitosamente')->withCredentials($credentials);
+	}
 
 	public function getCarrito()
 	{

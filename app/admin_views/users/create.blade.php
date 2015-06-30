@@ -25,6 +25,7 @@
       'action' => $user->exists ? ['AdminUsersController@update', $user->id] : 'AdminUsersController@store',
       'method' => $user->exists ? 'PUT' : 'POST',
       'class' => 'form-horizontal',
+      'id'     => 'user-create',
       ])}}
 
       <div class="form-group">
@@ -37,6 +38,12 @@
           @else
           {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
           @endif
+        </div>
+      </div>
+      <div class="form-group">
+        {{Form::label('email','Correo electrónico',['class' => 'control-label col-sm-4'])}}
+        <div class="col-sm-8">
+          {{Form::email('email',null,['class' => 'form-control'])}}
         </div>
       </div>
 
@@ -61,6 +68,14 @@
           {{Form::password('password', ['class' => 'form-control'])}}
         </div>
       </div>
+
+      <div class="form-group">
+        {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label col-sm-4'])}}
+        <div class="col-sm-8">
+          {{Form::password('password_confirmation', ['class' => 'form-control'])}}
+        </div>
+      </div>
+
       @endunless
 
 
@@ -93,13 +108,13 @@
         <label class="radio-inline">
           Color del consultor
         </label>
-         
-            @foreach($colors as $color)
-              <label style="background-color: {{$color->color}}; width:30%" class="radio">
-              {{Form::radio('color_id', $color->id)}}  {{$color->color}}
-              </label>
-            @endforeach  
-       
+            @if(isset($colors))
+              @foreach($colors as $color)
+                <label style="background-color: {{$color->color}}; width:30%" class="radio">
+                {{Form::radio('color_id', $color->id)}}  {{$color->color}}
+                </label>
+              @endforeach  
+            @endif       
         </div>
       </center>
       <center>
@@ -116,12 +131,7 @@
               {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
             </div>
           </div>
-          <div class="form-group">
-            {{Form::label('email', 'Correo Electrónico', ['class' => 'control-label col-sm-4'])}}
-            <div class="col-sm-8">
-              {{Form::text('email', NULL, ['class' => 'form-control'])}}
-            </div>
-          </div>
+        
           <div class="form-group">
             {{Form::label('extension', 'Extensión', ['class' => 'control-label col-sm-4'])}}
             <div class="col-sm-8">
@@ -162,6 +172,26 @@
           $('#campos-extra').show();
         }else{
           $('#campos-extra').hide();
+        }
+      });
+      $.validator.setDefaults({
+        focusCleanup: true
+      });
+      $( "#user-create" ).validate({
+        rules: {
+          password: "required",
+          password_confirmation: {
+            equalTo: "#password"
+          }
+        },
+        messages:{
+          email: { email:"Por favor introduce un correo valido",
+                   required:"El email es requerido"
+          },
+          password:{
+            required:'La contaseña es requerida'
+          },
+          password_confirmation: "Las contraseñas deben de ser iguales"
         }
       });
     });    

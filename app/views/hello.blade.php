@@ -31,4 +31,111 @@
 		<img id="img-inside" src="/img/inside.png">
 	</div>
 
+@if(@$success)
+	<div class="alert alert-success">
+		{{$success}}	
+	</div>
+@endif
+
+ 
+
+	@if(Auth::validate($credentials))
+
+<div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Introducir contraseña nueva</h4>
+      </div>
+      <div class="modal-body">
+      			@if (count($errors) > 0)
+					    <div class="alert alert-danger">
+					        <ul>
+					            @foreach ($errors->all() as $error)
+					                <li>{{ $error }}</li>
+					            @endforeach
+					        </ul>
+					    </div>
+						@endif
+					{{ Form::open([
+	          'action' => 'HomeController@postPassword',
+	          'class' => 'form-horizontal',
+	          'id' => 'form-update-password'
+	          ])}}
+						
+							<div class="col-xs-12">
+								<div class="form-group">
+			          	{{Form::label('email','Correo electronico')}}
+			       			{{Form::email('email',NULL,['class' => 'form-control','required' => 'true'])}}
+			          </div>
+								
+								<div class="form-group">
+			       			{{ Form::label('password', 'Password')}} 
+			        		{{ Form::password('password',['class' => 'form-control','required' => 'true'])}}
+			    			</div>
+
+						    <div class="form-group">
+						       {{ Form::label('password_confirmation', 'Confirmación de contraseña') }}
+									 {{ Form::password('password_confirmation',['class' => 'form-control','required' => 'true'])}}
+						    </div>          
+			      		
+		      		</div>
+						{{Form::close()}}
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-warning" id="submit-btn">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endif
+
+
+					
 @stop
+
+@section('script')
+<script>
+	$(function(){
+		var modal =  $('#request-modal');
+		if(true){
+			modal.modal('show');	
+		}
+	
+
+	$.validator.setDefaults({
+		focusCleanup: true
+	});
+	$( "#form-update-password" ).validate({
+  rules: {
+    password: "required",
+    password_confirmation: {
+      equalTo: "#password"
+    }
+  },
+  messages:{
+  	email: { email:"Por favor introduce un correo valido",
+  					 required:"El email es requerido"
+  	},
+  	password:{
+  		required:'La contaseña es requerida'
+  	},
+  	password_confirmation: "Las contraseñas deben de ser iguales"
+  }
+});
+	$('#password_confirmation').change()
+	$('#password_confirmation-error')
+	});
+
+
+	$('#submit-btn').click(function(){
+    	$('#form-update-password').submit();
+  	});
+
+</script>
+
+@stop
+
