@@ -52,6 +52,7 @@ class GeneralRequestsController extends BaseController{
       $message->to($request->employee_email,'JONGUER2')->subject($request->status);
     });
     
+      
     $request->save();
 
   return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
