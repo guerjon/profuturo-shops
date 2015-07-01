@@ -174,7 +174,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('UserRequestsController@getIndex') => 'Solicitudes generales',
 					action('CalendarEventsController@getIndex') => 'Agenda',
 					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes',
-					action('UrgentRequestsController@getIndex') => 'Encuesta de satisfacción',
+					
 				];
 			case 'user_paper':
 				return [
@@ -189,7 +189,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 				];
 			case 'user_requests':
 				return [
-					action('GeneralRequestsController@index') => 'Solicitudes generales'
+					action('GeneralRequestsController@index') => 'Solicitudes generales',
 				];
 		}
 	}

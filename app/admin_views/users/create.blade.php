@@ -57,7 +57,7 @@
       <div class="form-group">
         {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label col-sm-4'])}}
         <div class="col-sm-8">
-          {{Form::text('linea_negocio', NULL, ['class' => 'form-control'])}}
+          {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],'FONDOS',['class' => 'form-control'])}}
         </div>
       </div>
 
@@ -122,7 +122,7 @@
           <div class="form-group">
             {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label col-sm-4'])}}
             <div class="col-sm-8">
-              {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
+              {{Form::select('nombre',$manager,null, ['class' => 'form-control'])}}
             </div>
           </div>
           <div class="form-group">
