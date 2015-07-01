@@ -85,7 +85,9 @@ class AdminApiController extends AdminBaseController
       $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
     }
     if(Input::has('category_id')){
-      $query->where('categories.id','=',Input::get('category_id')); 
+      $category = Input::get('category_id') + 1;
+
+      $query->where('categories.id','=',$category); 
     }
     
 

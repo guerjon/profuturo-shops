@@ -48,10 +48,11 @@ class GeneralRequestsController extends BaseController{
     
     $request->status = $status;
 
-    $email_info = ['user' => Auth::user()];
+    $email_info = ['user' => Auth::user(),'imagen' => '/img/inside.png'];
     $email = $request->employee_email;
     $name = $request->employee_name;
     $estado = $request->status_str;
+
     Mail::send('admin::email',$email_info,function($message) use ($email,$name,$estado){
       $message->to($email,$name)->subject($estado);
     });
