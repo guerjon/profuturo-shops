@@ -190,6 +190,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			case 'user_requests':
 				return [
 					action('GeneralRequestsController@index') => 'Solicitudes generales',
+					action('SatisfactionSurveyController@getIndex') => 'Encuesta de satisfacción',
 				];
 		}
 	}
