@@ -48,8 +48,10 @@ class GeneralRequestsController extends BaseController{
     
     $request->status = $status;
 
-    Mail::send('admin::email',[],function($message) use($request){
-      $message->to($request->employee_email,'JONGUER2')->subject($request->status);
+    $email_info = ['user' => Auth::user(),'order' => $order];
+    Mail::send('admin::email',$email_info,function($message){
+      $message->to('jona_54_.com@ciencias.unam.mx','JONGUER2')->subject('HolaMundo');
+      Log::info('paso por aqui -------------');
     });
     
       
