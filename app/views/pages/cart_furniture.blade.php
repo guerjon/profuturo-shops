@@ -20,7 +20,22 @@
         Cantidad
       </th>
       <th>
-
+        Compañia
+      </th>
+      <th>
+        Bienes
+      </th>
+      <th>
+        Centro de costos
+      </th>
+      <th>
+        Color
+      </th>
+      <th>
+        Id del activo
+      </th>
+      <th>
+        Eliminar
       </th>
     </tr>
   </thead>
@@ -32,13 +47,43 @@
         {{$furniture->name}}
       </td>
 
-      <td class="furniture-quantity">
+      <td>
         {{$furniture->pivot->quantity}}
       </td>
-
+      <td>
+        
+      @if($furniture->pivot->company == 0)
+            AFORE
+          @elseif($furniture->pivot->company ==1)
+            GRUPO                                  
+          @elseif($furniture->pivot->company == 2)
+            PENSIONES    
+          @elseif($furniture->pivot->company == 4)
+            FONDOS     
+          @else
+            INDEFINIDO
+      @endif              
+      </td>
+      <td>
+      @if($furniture->pivot->assets == 0)  
+            BIENES Y ENCERES
+          @elseif($furniture->pivot->assets == 1)
+            OFICINA
+      @endif 
+      </td>
+      <td>
+        {{$furniture->pivot->ccostos}}
+      </td>
+      <td>
+        {{$furniture->pivot->color}}
+      </td>
+      <td>
+         {{$furniture->pivot->id_active}} 
+      </td>
       <td>
         <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="1">Eliminar 1</button>
-        <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="{{$furniture->pivot->quantity}}">Eliminar todos</button>
+        <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="{{$furniture->pivot->quantity}}"
+              data-company="{{$furniture->pivot->company}}" data-company = "{{$furniture->pivot->company}}" data-assets="{{$furniture->pivot->assets}}" >Eliminar todos</button>
 
       </td>
     </tr>
@@ -79,7 +124,9 @@
     $('.table .btn-danger').click(function(){
       $.post('/api/remove-from-cart-furniture', {
         furniture_id : $(this).attr('data-furniture-id'),
-        quantity : $(this).attr('data-quantity')
+        quantity : $(this).attr('data-quantity'),
+        company  : $(this).attr('')
+
       }, function(data){
         if(data.status == 200){
           location.reload();

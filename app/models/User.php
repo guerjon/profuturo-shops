@@ -87,7 +87,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function cartFurnitures()
 	{
-		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity');
+		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity','company','assets','ccostos','color','id_active');
 	}
 
 	public function orders()
@@ -174,6 +174,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('UserRequestsController@getIndex') => 'Solicitudes generales',
 					action('CalendarEventsController@getIndex') => 'Agenda',
 					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes',
+					action('UrgentRequestsController@getIndex') => 'Encuesta de satisfacción',
 				];
 			case 'user_paper':
 				return [
@@ -185,9 +186,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
 					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
 					action('FurnituresController@index') => 'Mobiliario',
-					
-
-
 				];
 			case 'user_requests':
 				return [
