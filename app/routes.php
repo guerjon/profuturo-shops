@@ -15,6 +15,7 @@ Route::get('/mockups/{view}', function($view){
 	return View::make("mockups.{$view}");
 });
 
+Route::controller('encuesta-satisfacción','SatisfactionSurveyController');
 
 Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');

@@ -22,6 +22,9 @@
         <th>
           Presupuesto
         </th>
+        <th>
+          
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -39,6 +42,16 @@
         <td>
           {{ $request->unit_price * $request->quantity}}
         </td>
+        @if($request->status == 9)
+            <td>
+               <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="<?php echo $request->id; ?>">
+                Contestar encuesta</button> 
+            </td>
+        @else
+            <td>
+              
+            </td>
+        @endif
       </tr>
       @endforeach
     </tbody>
