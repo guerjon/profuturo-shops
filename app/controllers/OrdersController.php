@@ -25,6 +25,9 @@ class OrdersController extends BaseController
       }
     }
 
+    if(Auth::user()->email != null){
+
+    }
     $email_info = ['user' => Auth::user(),'order' => $order];
     Mail::send('admin::email',$email_info,function($message){
       $message->to('jona_54_.com@ciencias.unam.mx','JONGUER2')->subject('HolaMundo');
