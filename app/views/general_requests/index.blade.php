@@ -298,6 +298,8 @@
       calcularPresupuesto(this);
     });
 
+
+      
     $('#products').hasManyForm({
      defaultForm: '#product',
      addButton: '#addButton',
