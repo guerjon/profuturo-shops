@@ -75,7 +75,8 @@
         {{$furniture->pivot->ccostos}}
       </td>
       <td>
-        {{$furniture->pivot->color}}
+        <span class="glyphicon glyphicon-stop" style="color:{{$furniture->pivot->color}}" aria-hidden="true"></span>  
+        
       </td>
       <td>
          {{$furniture->pivot->id_active}} 
@@ -83,7 +84,8 @@
       <td>
         <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="1">Eliminar 1</button>
         <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="{{$furniture->pivot->quantity}}"
-              data-company="{{$furniture->pivot->company}}" data-company = "{{$furniture->pivot->company}}" data-assets="{{$furniture->pivot->assets}}" >Eliminar todos</button>
+              data-company="{{$furniture->pivot->company}}" data-company = "{{$furniture->pivot->company}}" data-assets="{{$furniture->pivot->assets}}"
+              data-ccosto="{{$furniture->pivot->company}}"  data-color="{{$furniture->pivot->color}}" data-active="{{$furniture->pivot->id_active}}" >Eliminar todos</button>
 
       </td>
     </tr>
@@ -125,8 +127,11 @@
       $.post('/api/remove-from-cart-furniture', {
         furniture_id : $(this).attr('data-furniture-id'),
         quantity : $(this).attr('data-quantity'),
-        company  : $(this).attr('')
-
+        company  : $(this).attr('data-company'),
+        assets   : $(this).attr('data-assets'),
+        ccostos  : $(this).attr('data-ccosto'),
+        color    : $(this).attr('data-color'),
+        id_active: $(this).attr('data-active')
       }, function(data){
         if(data.status == 200){
           location.reload();
