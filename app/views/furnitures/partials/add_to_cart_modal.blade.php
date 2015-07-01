@@ -30,11 +30,13 @@
            
             
             <div class="col-xs-12">
+
               @if(Auth::user()->has_limit)
               <div class="form-group">
                 {{Form::label('quantity', 'Cantidad', ['class' => 'control-label'])}}
                 {{Form::number('quantity', NULL, ['class' => 'form-control'])}}
               </div>
+              
               <div class="form-group">
                 {{Form::label('company','Compañia',['class' => 'control-label'])}}
                 {{Form::select('company',$companies,null,['class' => 'form-control'])}}  
@@ -50,12 +52,27 @@
                 {{Form::text('ccostos',null,['class' => 'form-control'])}}  
               </div>
               
-             
-              
               <div class="form-group">
-                {{Form::label('ccostos','Centro de costos',['class' => 'control-label'])}}
-                {{Form::text('ccostos',null,['class' => 'form-control'])}}  
-              </div>
+                <div class="col-md-4">
+                    {{Form::label('color','Color 1',['class' => 'control-label'])}}
+                    {{Form::radio('color','#67ED5B',true)}}
+                    <span class="glyphicon glyphicon-stop" style="color:#67ED5B" aria-hidden="true"></span>  
+                </div>
+                
+                <div class="col-md-4">
+                  {{Form::label('color','Color 2',['class' => 'control-label'])}}
+                  {{Form::radio('color','#ED9A5B')}}
+                  <span class="glyphicon glyphicon-stop" style="color:#ED9A5B" aria-hidden="true"></span>                          
+                </div>
+              
+              
+                <div class="col-md-4">
+                    {{Form::label('color','Color 3',['class' => 'control-label'])}}
+                    {{Form::radio('color','#ED9A5B')}}
+                    <span class="glyphicon glyphicon-stop" style="color:#ED5B73" aria-hidden="true"></span>                  
+                </div>
+              </div>                
+          
               
               <div class="form-group">
                 {{Form::label('id_active','Id de activo',['class' => 'control-label'])}}

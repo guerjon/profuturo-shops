@@ -71,6 +71,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');
+	Route::controller('encuesta-satisfacción','SatisfactionSurveyController');
 	Route::controller('/', 'HomeController');
 
 });

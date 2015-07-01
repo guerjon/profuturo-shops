@@ -40,11 +40,19 @@ class ApiController extends BaseController
 
   public function postAddToCartFurnitures()
   {
-    $q = Input::get('quantity');
-    if($q <= 0){
+    $user = Auth::user();
+    $quantity = Input::get('quantity');
+    $company = Input::get('company');
+    $assets = Input::get('assets');
+    $ccostos = Input::get('ccostos');
+    $color = Input::get('color');
+    $id_active = Input::get('id_active');
+
+
+    if($quantity <= 0){
       return Response::json([
         'status' => 500,
-        'error_msg' => 'La cantidad debe ser un entero positivo menor o igual a 5'
+        'error_msg' => 'La cantidad debe ser un entero positivo'
         ]);
     }
 
@@ -57,19 +65,30 @@ class ApiController extends BaseController
         ]);
     }
 
-    if(Auth::user()->cart_furnitures->contains($furniture->id)){
-      $q += Auth::user()->cartFurnitures()->where('id', $furniture->id)->first()->pivot->quantity;
-      Auth::user()->cartFurnitures()->detach($furniture->id);
+    if($user->cart_furnitures->contains($furniture->id)){
+      $quantity += $user->cartFurnitures()->where('id', $furniture->id)->first()->pivot->quantity;
+      $user->cartFurnitures()->detach($furniture->id);
     }
 
-    Auth::user()->cartFurnitures()->attach($furniture->id, ['quantity' => $q]);
+
+    $user->cartFurnitures()->attach($furniture->id,['quantity' => $quantity,
+                                                    'company' => $company,
+                                                    'assets' => $assets,
+                                                    'ccostos' => $ccostos,
+                                                    'color' => $color,
+                                                    'id_active' => $id_active]);
 
 
     return Response::json([
       'status' => 200,
-      'msg' => "Se han añadido $q piezas al carrito",
+      'msg' => "Se han añadido $quantity piezas al carrito",
       'furniture_id' => $furniture->id,
-      'new_q' => $q,
+      'new_q' => $quantity,
+      'company' => $company,
+      'assets' => $assets,
+      'ccostos' => $ccostos,
+      'color' => $color,
+      'id_active' => $id_active
       ]);
   }
 
