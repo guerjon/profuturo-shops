@@ -47,8 +47,8 @@ class GeneralRequestsController extends BaseController{
     $request = GeneralRequest::find($id);
     
     $request->status = $status;
-
-    $email_info = ['user' => Auth::user(),'imagen' => '/img/inside.png'];
+    $location = public_path() . '/img/inside.png';
+    $email_info = ['user' => Auth::user(),'location' => $location];
     $email = $request->employee_email;
     $name = $request->employee_name;
     $estado = $request->status_str;
