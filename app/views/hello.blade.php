@@ -66,17 +66,17 @@
 						
 							<div class="col-xs-12">
 								<div class="form-group">
-			          	{{Form::label('email','Correo electronico')}}
+			          	{{Form::label('email','Correo electrónico')}}
 			       			{{Form::email('email',NULL,['class' => 'form-control','required' => 'true'])}}
 			          </div>
 								
 								<div class="form-group">
-			       			{{ Form::label('password', 'Password')}} 
+			       			{{ Form::label('password', 'Contraseña')}} 
 			        		{{ Form::password('password',['class' => 'form-control','required' => 'true'])}}
 			    			</div>
 
 						    <div class="form-group">
-						       {{ Form::label('password_confirmation', 'Confirmación de contraseña') }}
+						       {{ Form::label('password_confirmation', 'Confirmar contraseña') }}
 									 {{ Form::password('password_confirmation',['class' => 'form-control','required' => 'true'])}}
 						    </div>          
 			      		

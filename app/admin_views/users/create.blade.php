@@ -185,7 +185,7 @@
           }
         },
         messages:{
-          email: { email:"Por favor introduce un correo valido",
+          email: { email:"Por favor introduce un correo válido",
                    required:"El email es requerido"
           },
           password:{

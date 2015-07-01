@@ -27,7 +27,7 @@
       </div>
       <div class="form-group">
         {{Form::label('ccosto', 'Centro de costos')}}
-        {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
+        {{Form::text('ccosto', NULL, ['class' => 'form-control'])}}
       </div>
 
       <div class="form-group">

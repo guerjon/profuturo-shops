@@ -44,8 +44,12 @@ class GeneralRequestsController extends BaseController{
   public function update($inutilizado){
     $status = Input::get('status');
     $id = Input::get('request_id');
+    // $evaluation = Input::get('evaluation');
+    
+
     $request = GeneralRequest::find($id);
     $request->status = $status;
+    // $request->evaluation = $evaluation;
     $request->save();
 
   return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");

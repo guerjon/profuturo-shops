@@ -26,6 +26,7 @@
          Fecha del evento: <strong id="request-project_date_formatted"></strong><br>
          Fecha de entrega: <strong id="request-deliver_date_formatted"></strong>
         <br><br><br>
+
        <strong>Solicitó: </strong>   <strong id="request-project_kind_st"></strong><br><br>
         <table class="table">
           <thead>
@@ -50,13 +51,19 @@
           {{Form::open(array('id'=>'update-form','action' => array('GeneralRequestsController@update',0),'method' => 'put')) }}
                    {{Form::hidden('request_id')}}
           @if(Auth::user()->is_admin)
+          <br>
           Estatus: <strong id="request-status_str"></strong>
           @else
-          Estatus: {{Form::select('status',array('1'=>'En revision',
-                                                 '2'=>'En proceso',
-                                                 '3'=>'Entregado'),null,['class' => 'form-control'])}}
-          @endif                                                                         
-          
+          Estatus: <select name="status" id="status" class='form-control'></select>
+          @endif   
+          <br>                                                                      
+        {{--   Evaluación:
+          {{Form::radio('evaluation',1)}}1
+          {{Form::radio('evaluation',2)}}2
+          {{Form::radio('evaluation',3)}}3
+          {{Form::radio('evaluation',4)}}4
+          {{Form::radio('evaluation',5)}}5 --}}
+        
           {{ Form::close()}}
         </div>
       </div>

@@ -66,6 +66,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->role == 'admin';
 	}
+	public function getIsManagerAttribute()
+	{
+		return $this->role == 'manager';
+	}
+
+	public function getIsUserRequestsAttribute(){
+		return $this->role == 'user_requests';	
+	}
+
+	public function getUserPaperAttribute()
+	{
+		return $this->role == 'user_paper';
+	}
 
 	public function cartProducts()
 	{
