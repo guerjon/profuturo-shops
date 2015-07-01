@@ -122,7 +122,7 @@
           <div class="form-group">
             {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label col-sm-4'])}}
             <div class="col-sm-8">
-              {{Form::select('nombre',$manager,null, ['class' => 'form-control'])}}
+              {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
             </div>
           </div>
           <div class="form-group">
