@@ -49,9 +49,11 @@ class GeneralRequestsController extends BaseController{
     $request->status = $status;
 
     $email_info = ['user' => Auth::user()];
-    Mail::send('admin::email',$email_info,function($message){
-      $message->to('jona_54_.com@ciencias.unam.mx','JONGUER2')->subject('HolaMundo');
-      Log::info('paso por aqui -------------');
+    $email = $request->employee_email;
+    $name = $request->employee_name;
+    $estado = $request->status_str;
+    Mail::send('admin::email',$email_info,function($message) use ($email,$name,$estado){
+      $message->to($email,$name)->subject($estado);
     });
     
       
