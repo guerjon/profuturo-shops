@@ -30,8 +30,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'password' => 'required',
-
+		'email' => 'required',
 		'role' => 'in:manager,admin,user_requests,user_paper'
 	];
 
@@ -66,6 +65,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getIsAdminAttribute()
 	{
 		return $this->role == 'admin';
+	}
+	public function getIsManagerAttribute()
+	{
+		return $this->role == 'manager';
+	}
+
+	public function getIsUserRequestsAttribute(){
+		return $this->role == 'user_requests';	
+	}
+
+	public function getUserPaperAttribute()
+	{
+		return $this->role == 'user_paper';
 	}
 
 	public function cartProducts()

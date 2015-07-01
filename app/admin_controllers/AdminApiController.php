@@ -522,20 +522,15 @@ public function getProductOrdersReport()
 
   public function getGeneralRequestReport(){
     $request = GeneralRequest::all();
-    // if(Input::has('manager_id') && Input::has('month') && Input::has('year')){
-    //   $request_user = $request
-    //   ->where(DB::raw('MONTH(general_request.created_at)'), Input::get('month'))
-    //   ->where(DB::raw('YEAR(general_request.updated_at)'), Input::get('year'))
-    //   // ->user()->where('id',Input::get('manager_id'))
-    //   ->get();
-    // }
+    $request->deliver_date = $request->deliver_date;
+    $request_products = $request->generalRequestProducts();
+    
 
-    Log::info($request);
     if($request){
       return Response::json([
         'status' => 200,
         'request' => $request->toArray(),
-
+        'request_products' => $request_products->toArray(),
         ]);
     }
 

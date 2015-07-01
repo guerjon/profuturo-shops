@@ -27,29 +27,49 @@
           ])}}
 
           {{Form::hidden('furniture_id')}}
-
-          <div class="col-xs-6">
-            <p class="form-control-static">
-              <strong id="furniture-cart-info"></strong>
-            </p>
-          </div>
-
-          <div class="form-group">
-
-            {{Form::label('quantity', 'Cantidad', ['class' => 'control-label col-xs-3'])}}
-            <div class="col-xs-3">
+           
+            
+            <div class="col-xs-12">
               @if(Auth::user()->has_limit)
-              {{Form::select('quantity', [], NULL, ['class' => 'form-control'])}}
-              @else
-              {{Form::number('quantity', NULL, ['class' => 'form-control'])}}
+              <div class="form-group">
+                {{Form::label('quantity', 'Cantidad', ['class' => 'control-label'])}}
+                {{Form::number('quantity', NULL, ['class' => 'form-control'])}}
+              </div>
+              <div class="form-group">
+                {{Form::label('company','Compañia',['class' => 'control-label'])}}
+                {{Form::select('company',$companies,null,['class' => 'form-control'])}}  
+              </div>
+
+               <div class="form-group">
+                {{Form::label('assets','Bienes',['class' => 'control-label'])}}
+                {{Form::select('assets',$assets,null,['class' => 'form-control'])}}  
+              </div>
+
+              <div class="form-group">
+                {{Form::label('ccostos','Centro de costos',['class' => 'control-label'])}}
+                {{Form::text('ccostos',null,['class' => 'form-control'])}}  
+              </div>
+              
+             
+              
+              <div class="form-group">
+                {{Form::label('ccostos','Centro de costos',['class' => 'control-label'])}}
+                {{Form::text('ccostos',null,['class' => 'form-control'])}}  
+              </div>
+              
+              <div class="form-group">
+                {{Form::label('id_active','Id de activo',['class' => 'control-label'])}}
+                {{Form::number('id_active',null,['class' => 'form-control'])}}  
+              </div>
+
               @endif
             </div>
-          </div>
+          
         {{Form::close()}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" onclick="this.disabled = 'true';" class="btn btn-warning submit-btn">Añadir a mi carrito</button>
+        <button type="button"  class="btn btn-warning submit-btn">Añadir a mi carrito</button>
       </div>
     </div>
   </div>

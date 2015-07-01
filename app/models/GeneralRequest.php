@@ -46,13 +46,25 @@ class GeneralRequest extends Eloquent
   public function getStatusStrAttribute()
   {
     switch($this->status){
-      case 0: return  'Pendiente';
+      case 0: return  'Acabo de recibir tu solicitud, en breve me comunicare contigo';
       break;
-      case 1: return  'En revisión';
+      case 1: return  'En estos momentos estoy localizando los proveedores que pueden contar con el artículo que necesitas';
       break;
-      case 2: return  'En proceso';
+      case 2: return  'Me encuentro en espera de las cotizaciones por parte de los proveedores seleccionados';
       break;
-      case 3: return  'Entregado';
+      case 3: return  'Ya recibí las propuestas correspondientes, estoy en proceso de análisis de costo beneficio';
+      break;
+      case 4: return  'Te comparto el cuadro comparativo con las mejores ofertas de acuerdo a tu necesidad';
+      break;
+      case 5: return  'Conforme a tu elección, ingresa tu solicitud en People Soft';
+      break;
+      case 6: return  'Ya se envió la orden de compra al proveedor';
+      break;
+      case 7: return  'La fecha de entrega de tu pedido es ';
+      break;
+      case 8: return  'Tu pedido llego en excelentes condiciones, en el domicilio y recibió';
+      break;
+      case 9: return  'Fue un placer atenderte, me apoyarías con la siguiente encuesta de satisfacción.';
       break;
       default: return 'Desconocido';
     }

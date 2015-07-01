@@ -86,6 +86,26 @@
 @section('script')
 <script>
 $(function(){
+
+      $.validator.setDefaults({
+        focusCleanup: true
+      });
+    $( "#furniture-cart-form" ).validate({
+        rules: {
+          quantity: "required",
+           
+        },
+        messages:{
+          quantity: { 
+                   required:"El email es requerido"
+          }
+          
+        }
+    });
+
+
+
+
   $('a.list-group-item').click(function(){
     var modal = $('#add-to-cart-modal');
     modal.modal('show');
@@ -153,6 +173,9 @@ $(function(){
       }
     });
   });
-});
+  });
+
+
+
 </script>
 @stop

@@ -11,19 +11,22 @@ class FurnituresController extends BaseController
       $furnitures->where('name', 'like', "%".Input::get('name')."%");
     }
     $activeCategory = FurnitureCategory::find($category_id);
- 
+    $companies = ['AFORE','GRUPO','PENSIONES','PRESTAMOS','FONDOS'];
+    $assets = ['Bienes y enceres','Oficina']; 
     if($category_id != null){
+
       return View::make('furnitures.index')->with([
       'furnitures' => $furnitures->where('furniture_category_id','=',$category_id)->paginate(15),
       'categories' => FurnitureCategory::all(),
       'activeCategory' => @$activeCategory,
-      ]);
+      ])->withCompanies($companies)->withAssets($assets);
     }else{
+      
       return View::make('furnitures.index')->with([
       'furnitures' => $furnitures->paginate(15),
       'categories' => FurnitureCategory::all(),
       'activeCategory' => @$activeCategory,
-      ]);
+      ])->withCompanies($companies)->withAssets($assets);
     }
   }
 

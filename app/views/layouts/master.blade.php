@@ -99,6 +99,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/raty/lib/jquery.raty.js"></script>
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
     <script src="/js/slidebars.js"></script>
     <script charset="utf-8">
     $(function(){

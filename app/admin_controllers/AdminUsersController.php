@@ -20,7 +20,8 @@ class AdminUsersController extends AdminBaseController
 
   public function store()
   {
-    $user = new User(Input::all());
+    $user = new User(Input::except('password_confirmation'));
+    Log::info(Input::except('password_confirmation'));
     if(Input::get('num_empleado')==null){
       $user->num_empleado = null;
     }
