@@ -84,6 +84,9 @@ class AdminApiController extends AdminBaseController
     if(Input::has('linea_negocio')){
       $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
     }
+    if(Input::has('category_id')){
+      $query->where('categories.id','=',Input::get('category_id')); 
+    }
     
 
     $q = clone $query;
@@ -524,7 +527,7 @@ public function getProductOrdersReport()
     $request = GeneralRequest::all();
     $request->deliver_date = $request->deliver_date;
     $request_products = $request->generalRequestProducts();
-    
+      
 
     if($request){
       return Response::json([

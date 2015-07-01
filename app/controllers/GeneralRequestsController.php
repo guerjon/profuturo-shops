@@ -49,13 +49,10 @@ class GeneralRequestsController extends BaseController{
     $request->status = $status;
 
     Mail::send('admin::email',[],function($message) use($request){
-      $message->to($request->employee_email,'JONGUER')->subject($request->status);
+      $message->to($request->employee_email,'JONGUER2')->subject($request->status);
     });
     
-    if($request->status == 9){
-
-    }
-
+      
     $request->save();
 
   return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
