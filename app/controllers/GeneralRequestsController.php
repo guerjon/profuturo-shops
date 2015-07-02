@@ -60,7 +60,7 @@ class GeneralRequestsController extends BaseController{
 
       });
     }else{
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base],function($message) use ($email,$name,$estado){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("Cambio de estado en tu solicitud");
       });
     }
