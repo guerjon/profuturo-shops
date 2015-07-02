@@ -48,16 +48,24 @@ class GeneralRequestsController extends BaseController{
     
     $request->status = $status;
     $location = public_path() . '/img/inside.png';
-    $email_info = ['user' => Auth::user(),'location' => $location];
+    $email_info = ['user' => Auth::user(),'location' => $location,];
     $email = $request->employee_email;
     $name = $request->employee_name;
     $estado = $request->status_str;
+    $base = app_path();
 
-    Mail::send('admin::email',$email_info,function($message) use ($email,$name,$estado){
-      $message->to($email,$name)->subject($estado);
-    });
+    if($status == 9){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base],function($message) use ($email,$name,$estado){
+        $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
+
+      });
+    }else{
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base],function($message) use ($email,$name,$estado){
+        $message->to($email,$name)->subject("Cambio de estado en tu solicitud");
+      });
+    }
     
-      
+
     $request->save();
 
   return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");

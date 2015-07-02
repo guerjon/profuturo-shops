@@ -12,7 +12,7 @@ class CreateSatisfactionSurveyTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('satisfaction_survey',function($table){
+		Schema::create('satisfaction_surveys',function($table){
 			$table->increments('id');
 			$table->integer('question_one');
 			$table->integer('question_two');
@@ -20,7 +20,10 @@ class CreateSatisfactionSurveyTable extends Migration {
 			$table->integer('question_four');
 			$table->integer('question_five');
 			$table->integer('question_six');
+			$table->integer('general_request_id')->unsigned();
 			$table->longText('comments')->nullable();
+			$table->foreign('general_request_id')->references('id')->on('general_requests')->onDelete('cascade');
+			$table->timestamps();
 		});
 	}
 
@@ -31,7 +34,7 @@ class CreateSatisfactionSurveyTable extends Migration {
 	 */
 	public function down()
 	{
-		Schemm::drop('satisfaction_survey');
+		Schema::drop('satisfaction_surveys');
 	}
 
 }
