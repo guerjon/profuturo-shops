@@ -43,6 +43,11 @@ class GeneralRequest extends Eloquent
   	return $this->quantity*$this->unit_price;
   }
 
+    public function satisfactionSurvey()
+  {
+    return $this->hasMany('SatisfactionSurvey');
+  }
+
   public function getStatusStrAttribute()
   {
     switch($this->status){
@@ -66,6 +71,7 @@ class GeneralRequest extends Eloquent
       break;
       case 9: return  'Fue un placer atenderte, me apoyarías con la siguiente encuesta de satisfacción.';
       break;
+      case 10: return 'La encuesta ha sido contestada';
       default: return 'Desconocido';
     }
   }

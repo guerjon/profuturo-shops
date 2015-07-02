@@ -26,13 +26,13 @@ class OrdersController extends BaseController
     }
 
     if(Auth::user()->email != null){
-
+      $user = Auth::user();
+        $email_info = ['user' => Auth::user(),'order' => $order];
+        Mail::send('admin::email_templates.furnitures',$email_info,function($message) use($user){
+        $message->to($user->email,$user->gerencia)->subject('Sobre su pedido de muebles en profuturo');
+    });   
     }
-    $email_info = ['user' => Auth::user(),'order' => $order];
-    Mail::send('admin::email',$email_info,function($message){
-      $message->to('jona_54_.com@ciencias.unam.mx','JONGUER2')->subject('HolaMundo');
-      Log::info('paso por aqui -------------');
-    });
+   
     return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');
   }
 
