@@ -2,8 +2,17 @@
 
 @section('content')
 
+<ul class="nav nav-tabs">
+  <li role="presentation" class="{{$active_tab == 'assigned' ?  'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'assigned'])}}">Asignadas</a> 
+  </li>
+  <li role="presentation" class="{{$active_tab == 'not_assigned' ? 'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'not_assigned'])}}">No asignadas</a> 
+  </li> 
+</ul>
 
 
+<br>
 @if(Auth::user()->is_admin)
 {{Form::open([
   'id' => 'filter-form',

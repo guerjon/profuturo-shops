@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="page-header">
-  <h3>Reporte de pedidos papelería</h3>
+  <h3>Reporte de pedidos mobiliario</h3>
 </div>
 
 {{Form::open([
