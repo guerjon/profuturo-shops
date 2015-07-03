@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
+
+
+
 @if(Auth::user()->is_admin)
 {{Form::open([
   'id' => 'filter-form',
@@ -94,12 +97,15 @@
                 data-request-id="{{$request->id}}">Detalles</button>
       </td>
     </tr>
+
     @endforeach
   </tbody>
 </table>
 
 @include('general_requests.partials.show')
-
+  <div class="text-center">
+    {{$requests->links()}}
+  </div>
 @else
 
 <div class="alert alert-info">

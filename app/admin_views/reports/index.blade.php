@@ -15,6 +15,10 @@
   </div>
 
   <div class="col-sm-4 col-xs-6">
+    {{link_to_action('AdminReportsController@getFurnituresOrdersReport', 'Reportes de mobiliario', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  </div>
+
+  <div class="col-sm-4 col-xs-6">
     {{link_to_action('AdminReportsController@getUserOrdersReport', 'Usuarios sin pedidos', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
   </div>
 
@@ -33,6 +37,8 @@
   <div class="col-sm-4 col-xs-6">
     {{link_to_action('AdminReportsController@getGeneralRequestReport', 'Reportes de solicitudes generales', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
   </div>
+
+
 </div>
 
 

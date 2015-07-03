@@ -15,9 +15,10 @@ class AdminGeneralRequestsController extends AdminBaseController{
   	if (Input::has('year')) {
   		$request->where(DB::raw('YEAR(updated_at)'), Input::get('year'));
   	}
-
-    return View::make('admin::general_requests.index')
-    ->withRequests($request->get())
+    $assigneds = ['ASIGNADO','NO ASIGNADO'];
+    $active_category = ['ASIGNADO','NO ASIGNADO'];
+    return View::make('admin::general_requests.index')->withAssigneds($assigneds)->withActiveCategory($active_category)
+    ->withRequests($request->orderBy('rating','desc')->paginate(10))
     ->withUsers(User::where('role', 'user_requests')->lists('gerencia','id'));
   }
 
