@@ -19,14 +19,14 @@ class FurnituresController extends BaseController
       'furnitures' => $furnitures->where('furniture_category_id','=',$category_id)->paginate(15),
       'categories' => FurnitureCategory::all(),
       'activeCategory' => @$activeCategory,
-      ])->withCompanies($companies)->withAssets($assets);
+      ])->withCompanies($companies)->withAssets($assets)->withRuta(public_path().'/imagenes/');
     }else{
       
       return View::make('furnitures.index')->with([
       'furnitures' => $furnitures->paginate(15),
       'categories' => FurnitureCategory::all(),
       'activeCategory' => @$activeCategory,
-      ])->withCompanies($companies)->withAssets($assets);
+      ])->withCompanies($companies)->withAssets($assets)->withRuta(public_path().'/imagenes/');
     }
   }
 

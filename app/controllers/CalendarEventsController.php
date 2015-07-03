@@ -16,11 +16,9 @@ class CalendarEventsController extends BaseController{
   
       $date = Carbon::parse($date);
       $events = $this->getEvents($date->month, $date->year, $date->day);
-      $colors = Auth::users()->color->get();
  
-
       return View::make('calendar_events.day_index')->withEvents($events->get())
-      ->withToday(Carbon::today());
+      ->withToday(Carbon::today())->withDate($date->format('d/M/Y'));
   }
 
 

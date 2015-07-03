@@ -112,7 +112,7 @@ $(function(){
     modal.find('#add-to-cart-modal-title').text($(this).find('.media-heading').text());
     modal.find('#furniture-cart-description').text($(this).find('.furniture-description').text());
     modal.find('#furniture-cart-info').text($(this).find('.furniture-info').text());
-    modal.find('img').attr('src', $(this).attr('data-image-src'));
+    modal.find('#furniture-cart-image').attr('src', $(this).attr('data-image-src'));
     modal.find('form input[name="furniture_id"]').val($(this).attr('data-furniture-id'));
     var select = $('form select[name="quantity"]');
     if(select.length == 0) return;

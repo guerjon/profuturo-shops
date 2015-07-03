@@ -12,7 +12,7 @@ class GeneralRequest extends Eloquent
 
   protected $dates = ['created_at', 'updated_at', 'project_date','deliver_date'];
 
-  protected $appends = ['project_date_formatted', 'total','status_str','deliver_date_formatted'];
+  protected $appends = ['project_date_formatted','status_str','deliver_date_formatted'];
 
 
   public function user(){
@@ -27,6 +27,11 @@ class GeneralRequest extends Eloquent
     return $this->hasMany('GeneralRequestProduct');
   }
 
+  public function satisfactionSurvey()
+  {
+    return $this->hasOne('SatisfactionSurvey');
+  }
+
   public function getProjectDateFormattedAttribute()
   {
   	return $this->project_date->format('Y-m-d');
@@ -38,15 +43,8 @@ class GeneralRequest extends Eloquent
   }
 
 
-  public function getTotalAttribute()
-  {
-  	return $this->quantity*$this->unit_price;
-  }
 
-    public function satisfactionSurvey()
-  {
-    return $this->hasMany('SatisfactionSurvey');
-  }
+
 
   public function getStatusStrAttribute()
   {
