@@ -44,6 +44,9 @@ class AdminReportsController extends AdminBaseController{
     return View::make('admin::reports.total_user_orders');
   }
 
-
+  public function getGeneralRequestReport()
+  {
+    return View::make('admin::reports.general_request');
+  }
 
 }

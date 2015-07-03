@@ -75,8 +75,7 @@
         {{$furniture->pivot->ccostos}}
       </td>
       <td>
-        <span class="glyphicon glyphicon-stop" style="color:{{$furniture->pivot->color}}" aria-hidden="true"></span>  
-        
+        <img src="{{$furniture->pivot->color}}" class="col-md-2" alt="Azul palido">
       </td>
       <td>
          {{$furniture->pivot->id_active}} 

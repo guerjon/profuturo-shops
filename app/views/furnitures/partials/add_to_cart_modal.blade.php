@@ -9,7 +9,7 @@
       <div class="modal-body">
 
         <div class="text-center">
-          <img src="" class="img-rounded" id="furniture-cart-image">
+          <img  src="" class="img-rounded" id="furniture-cart-image">
         </div>
         <br>
         <p class="" id="furniture-cart-description">
@@ -51,25 +51,38 @@
                 {{Form::label('ccostos','Centro de costos',['class' => 'control-label'])}}
                 {{Form::text('ccostos',null,['class' => 'form-control'])}}  
               </div>
-              
               <div class="form-group">
-                <div class="col-md-4">
-                    {{Form::label('color','Color 1',['class' => 'control-label'])}}
-                    {{Form::radio('color','#67ED5B',true)}}
-                    <span class="glyphicon glyphicon-stop" style="color:#67ED5B" aria-hidden="true"></span>  
+                
+                {{Form::label('color','Color',['class' => 'control-label'])}}
+              </div>
+              <div class="form-group">
+                
+                <div class="col-md-2">
+                    
+                    {{Form::radio('color','img/azul_palido.png',true)}}
+                    <img src="img/azul_palido.png" class="img-responsive" alt="Azul palido">
+                    
                 </div>
                 
-                <div class="col-md-4">
-                  {{Form::label('color','Color 2',['class' => 'control-label'])}}
-                  {{Form::radio('color','#ED9A5B')}}
-                  <span class="glyphicon glyphicon-stop" style="color:#ED9A5B" aria-hidden="true"></span>                          
+                <div class="col-md-2">
+                  
+                  {{Form::radio('color','img/azul_rey.png')}}
+                  <img src="img/azul_rey.png" class="img-responsive" alt="Azul rey">
+                  
                 </div>
               
               
-                <div class="col-md-4">
-                    {{Form::label('color','Color 3',['class' => 'control-label'])}}
-                    {{Form::radio('color','#ED9A5B')}}
-                    <span class="glyphicon glyphicon-stop" style="color:#ED5B73" aria-hidden="true"></span>                  
+                <div class="col-md-2">
+                    
+                    {{Form::radio('color','img/gris.png')}}
+                  <img src="img/gris.png" class="img-responsive" alt="gris">
+                 
+                </div>
+                <div class="col-md-2">
+                 
+                  {{Form::radio('color','img/negro.png')}}
+                  <img src="img/negro.png"  class="img-responsive" alt="negro">
+                 
                 </div>
               </div>                
           
