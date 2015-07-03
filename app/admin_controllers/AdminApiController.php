@@ -287,6 +287,112 @@ class AdminApiController extends AdminBaseController
   }
 
 
+    public function getFurnituresOrdersReport()
+  {
+    ini_set('max_execution_time','300');
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
+      furniture_orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'KA003035' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      furnitures.sku as INV_ITEM_ID,
+      furnitures.name as DESCR254_MIXED,
+      furnitures.measure_unit as UNIT_OF_MEASURE,
+      furniture_furniture_order.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'KA003035' as INTROD,
+      furniture_categories.name as CATEGORY
+      
+      "))
+      ->join('furnitures', 'furnitures.id', '=', 'furniture_furniture_order.furniture_id')
+      ->join('furniture_orders', 'furniture_orders.id' , '=', 'furniture_furniture_order.furniture_order_id')
+      ->leftJoin('users', 'users.id', '=', 'furniture_orders.user_id')
+      ->leftJoin('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+      ->orderBy('furniture_orders.id')
+      ->whereNull('furniture_orders.deleted_at');
+
+    if(Input::has('gerencia')){
+      $query->where('users.id','=',Input::get('gerencia'));
+    }
+    if(Input::has('month_init') && Input::has('month_end')){
+      $query->where(DB::raw('MONTH(furniture_orders.created_at)'),'>=',Input::get('month_init'))
+            ->where(DB::raw('MONTH(furniture_orders.created_at)'),'<=',Input::get('month_end'));
+    }
+    if(Input::has('year')){
+      $query->where(DB::raw('YEAR(furniture_orders.updated_at)'), Input::get('year'));
+    }
+    if(Input::has('category_id')){
+      $category = Input::get('category_id') + 1;
+
+      $query->where('furniture_categories.id','=',$category); 
+    }
+    
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+            $datetime = \Carbon\Carbon::now()->format('YmdHi');
+            $data = str_putcsv($headers)."\n";
+
+
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
+
+            $headers = array(
+              'Content-Type' => 'text/csv',
+              'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+            );
+            return Response::make($data, 200, $headers);
+    }
+  }
+
   public function getUserOrdersReport()
   {
 

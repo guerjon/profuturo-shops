@@ -40,6 +40,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categorias-muebles', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
+		Route::resource('furnitures-orders', 'AdminFurnituresOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
 		Route::resource('general-requests', 'AdminGeneralRequestsController');
 		Route::resource('agenda', 'AdminCalendarEventsController');
@@ -47,6 +48,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
+
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);

@@ -1,6 +1,18 @@
 @extends('layouts.master')
 
 @section('content')
+
+<ul class="nav nav-tabs">
+  <li role="presentation" class="{{$active_tab == 'assigned' ?  'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'assigned'])}}">Asignadas</a> 
+  </li>
+  <li role="presentation" class="{{$active_tab == 'not_assigned' ? 'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'not_assigned'])}}">No asignadas</a> 
+  </li> 
+</ul>
+
+
+<br>
 @if(Auth::user()->is_admin)
 {{Form::open([
   'id' => 'filter-form',
@@ -94,12 +106,15 @@
                 data-request-id="{{$request->id}}">Detalles</button>
       </td>
     </tr>
+
     @endforeach
   </tbody>
 </table>
 
 @include('general_requests.partials.show')
-
+  <div class="text-center">
+    {{$requests->links()}}
+  </div>
 @else
 
 <div class="alert alert-info">
