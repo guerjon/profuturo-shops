@@ -26,7 +26,7 @@
         <img id="img-home" src="/img/home.png">
       </div>
       <div class="form-group">
-        {{Form::label('ccosto', 'Centro de costos')}}
+        {{Form::label('ccosto', 'Centro de costos o numero de empleado')}}
         {{Form::text('ccosto', NULL, ['class' => 'form-control'])}}
       </div>
 
