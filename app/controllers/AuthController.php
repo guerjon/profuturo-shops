@@ -29,16 +29,10 @@ class AuthController extends BaseController
     if($validator_ccosto->passes()){
       if(Auth::attempt(['password' => $password,'ccosto' => $ccosto])){
         return Redirect::intended('/');
-      }else{
-        $user = User::where('num_empleado','=',$ccosto)->first();
-        if($user){
-          Auth::login($user);
-          return Redirect::intended('/');
-        }
+      }elseif(Auth::attempt(['password' => $password,'num_empleado' => $ccosto])){
+          return Redirect::intended('/'); 
       }
     }
-
-  
 
       return Redirect::to(action('AuthController@getLogin'))->withErrors('El centro de costos o contraseña son invalidos', 'login');
   }
