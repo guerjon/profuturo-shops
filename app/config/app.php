@@ -122,7 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		
-		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
+		'Codesleeve\LaravelStapler\Providers\L4ServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 
 	),
