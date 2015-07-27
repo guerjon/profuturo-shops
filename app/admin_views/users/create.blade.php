@@ -103,20 +103,7 @@
           @endif
         </div>
       </div>
-      <center>
-        <div  id = "colores"  class="form-group">
-        <label class="radio-inline">
-          Color del consultor
-        </label>
-            @if(isset($colors))
-              @foreach($colors as $color)
-                <label style="background-color: {{$color->color}}; width:30%" class="radio">
-                {{Form::radio('color_id', $color->id)}}  {{$color->color}}
-                </label>
-              @endforeach  
-            @endif       
-        </div>
-      </center>
+
       <center>
         <div id="campos-extra">
           <div class="form-group">
@@ -146,6 +133,20 @@
           </div>
         </div>
       </center>
+      <center>
+        <div  id = "colores"  class="form-group">
+        <label class="radio-inline">
+          Color del consultor
+        </label>
+            @if(isset($colors))
+              @foreach($colors as $color)
+                <label style="background-color: {{$color->color}}; width:30%" class="radio">
+                {{Form::radio('color_id', $color->id)}}  {{$color->color}}
+                </label>
+              @endforeach  
+            @endif       
+        </div>
+      </center>
 
       <div class="form-group">
         <div class="col-sm-8 col-sm-offset-4">
@@ -168,7 +169,7 @@
         }else{
           $('#colores').hide();
         }
-        if($(this).attr('id')=='usuario-proyectos'){
+        if(($(this).attr('id')=='usuario-proyectos') || ($(this).attr('id')=='consultor')){
           $('#campos-extra').show();
         }else{
           $('#campos-extra').hide();
