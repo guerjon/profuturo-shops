@@ -61,8 +61,8 @@ class AdminApiController extends AdminBaseController
       '' as SHIP_TO_CUST_ID,
       'KA003035' as INTROD,
       categories.name as CATEGORY,
-      products.id_people as ID_PEOPLE
-      
+      products.id_people as ID_PEOPLE,
+      products.price as PRICE
       "))
       ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
