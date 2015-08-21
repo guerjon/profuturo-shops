@@ -5,12 +5,14 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+use Codesleeve\Stapler\ORM\EloquentTrait;
 
 use Watson\Validating\ValidatingTrait;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface,StaplerableInterface{
 
-	use UserTrait, RemindableTrait, SoftDeletingTrait, ValidatingTrait;
+	use UserTrait, RemindableTrait, SoftDeletingTrait, ValidatingTrait,EloquentTrait;
 
 	/**
 	 * The database table used by the model.
@@ -30,8 +32,28 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper'
+		'role' => 'in:manager,admin,user_requests,user_paper',
+		'num_empleado' =>'unique:users,num_empleado'
 	];
+
+
+	protected $validationMessages = [
+		'num_empleado.unique' => 'El numero de empleado ya esta en uso'
+	];	
+
+
+  public function __construct($attributes = array()){
+
+    $this->hasAttachedFile('image', [
+      'styles' => [
+        'medium' => '300x300',
+        'thumb' => '100x100',
+        'mini' => '50x50'
+        ]
+      ]);
+    parent::__construct($attributes);
+  }
+
 
 
 	public static function boot()

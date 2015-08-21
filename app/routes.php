@@ -52,6 +52,7 @@ Route::group(['before' => 'auth'], function(){
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
+	Route::resource('perfil','ProfileController');
 	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::post('pedidos-mueble/{order_id}','OrderFurnituresController@postReceive');
 
