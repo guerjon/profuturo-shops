@@ -59,6 +59,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	public static function boot()
 	{
 		parent::boot();
+		parent::bootStapler();
 		User::deleting(function($user){
 			$user->cartProducts()->detach();
 			$user->cartFurnitures()->detach();
@@ -76,6 +77,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 			$user->bcOrders()->withTrashed()->restore();
 			$user->generalRequests()->withTrashed()->restore();
 		});
+
 	}
 
 	public function setPasswordAttribute($value){
