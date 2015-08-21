@@ -25,8 +25,16 @@ class CreateSatisfactionSurveyTable extends Migration {
 			$table->foreign('general_request_id')->references('id')->on('general_requests')->onDelete('cascade');
 			$table->timestamps();
 		});
-	}
+	
 
+		Schema::table('users',function($table){
+				$table->string('image_file_name')->nullable();
+				$table->integer('image_file_size')->nullable();
+				$table->string('image_content_type')->nullable();
+				$table->timestamp('image_updated_at')->nullable();
+		});
+
+	}
 	/**
 	 * Reverse the migrations.
 	 *

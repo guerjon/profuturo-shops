@@ -66,6 +66,7 @@
                 @if(Auth::user()->is_admin)
 
                 @else
+                  <li><a href="/perfil">Mi perfil</a></li>
                   <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
                   <li><a href="/carrito-muebles">Mi carrito(Muebles)</a></li>

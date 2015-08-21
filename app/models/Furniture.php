@@ -28,6 +28,8 @@ class Furniture extends Eloquent implements StaplerableInterface
     });
   }
 
+  
+
   public function __construct($attributes = array()){
 
     $this->hasAttachedFile('image', [
