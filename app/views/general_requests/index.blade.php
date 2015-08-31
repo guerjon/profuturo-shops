@@ -2,6 +2,17 @@
 
 @section('content')
 
+@if(isset($error))
+  <div class="alert alert-danger">
+    {{$error}}
+  </div>
+@endif
+@if(isset($success))
+  <div class="alert alert-success">
+    {{$success}}
+  </div>
+@endif
+
 @if($requests->count() == 0)
 <div class="alert alert-info">
   Usted no ha hecho ninguna solicitud
@@ -22,6 +33,9 @@
         <th>
           Presupuesto
         </th>
+        <th>
+          
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -39,6 +53,17 @@
         <td>
           {{ $request->unit_price * $request->quantity}}
         </td>
+        @if($request->status == 9)
+            <td>
+               <button data-toggle="modal" data-target="#request-modal-satisfaction-survey" class="btn btn-sm btn-default survey-btn"
+                       data-request-id="{{$request->id}}" >
+                Contestar encuesta</button> 
+            </td>
+        @else
+            <td>
+              
+            </td>
+        @endif
       </tr>
       @endforeach
     </tbody>
@@ -256,6 +281,7 @@
         </div>        
       </div>  
   </div>
+ @include('general_requests.partials.satisfaction_survey'); 
 @stop
 
 @section('script')
@@ -298,6 +324,8 @@
       calcularPresupuesto(this);
     });
 
+
+      
     $('#products').hasManyForm({
      defaultForm: '#product',
      addButton: '#addButton',
@@ -307,6 +335,17 @@
 
     $('#addButton').click();
     $('#products .product-form-container .dismissButton').remove();
+
+  $('.survey-btn').click(function(){
+  $('#general_request_id').val($(this).attr('data-request-id'));
+  console.log($(this).attr('data-request-id'));
+  });
+
+
+
+    $('#submit-btn').click(function(){
+        $('#assign-form').submit();
+    });
 
   });
 

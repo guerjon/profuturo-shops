@@ -24,67 +24,15 @@ class AdminApiController extends AdminBaseController
   public function getOrdersReport()
   {
     ini_set('max_execution_time','300');
-   
-    if(Input::get('gerencia') == 0 && Input::get('category_id') != 0){
-      Log::info('Primero-------------');
-      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
-      DB::raw("
-      orders.created_at as FECHA_PEDIDO,
-      '9999999999999990000000000' AS EIP_CTL_ID,
-      1 as LOADER_REQ,
-      'BPO' as SYSTEM_SOURCE,
-      'PAF01' as LOADER_BU,
-      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
-      'JC005819' as REQUESTOR_ID,
-      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
-      products.sku as INV_ITEM_ID,
-      products.name as DESCR254_MIXED,
-      products.measure_unit as UNIT_OF_MEASURE,
-      order_product.quantity as QTY_REQ,
-      0 as PRICE_REQ,
-      'MXN' as CURRENCY_CD,
-      '' as VENDOR_ID,
-      users.ccosto as LOCATION,
-      '' as CATEGORY_ID,
-      users.ccosto as SHIPTO_ID,
-      '' as REQ_ID,
-      5207030800 as ACCOUNT,
-      5405002201 as ALTACCT,
-      users.ccosto as DEPTID,
-      'RCV' as PRODUCT,
-      '' as CC1,
-      '' as PROJECT_ID,
-      '' as ANALYSIS_TYPE,
-      'PAF01' as BUSINESS_UNIT_GL,
-      @rownum as LINE_NBR,
-      'Y' as CALC_PRICE_FLG,
-      '' as CAP_NUM,
-      '' as SHIP_TO_CUST_ID,
-      'JC005819' as INTROD,
-      categories.name as CATEGORY
-      ")
-    )->join('products', 'products.id', '=', 'order_product.product_id')
-      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
-      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
-      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-      ->orderBy('orders.id')
-      ->where('users.id','=',Input::get('gerencia'))
-      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
-      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
-      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      ->whereNull('orders.deleted_at');
     
-    }elseif(Input::get('gerencia')!= 0 && Input::get('category_id') == 0){
-        Log::info('Segundo-------------');
-      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
-      DB::raw("
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(DB::raw("
       orders.created_at as FECHA_PEDIDO,
       '9999999999999990000000000' AS EIP_CTL_ID,
       1 as LOADER_REQ,
       'BPO' as SYSTEM_SOURCE,
       'PAF01' as LOADER_BU,
       @rownum:=@rownum+1 as GROUP_SEQ_NUM,
-      'JC005819' as REQUESTOR_ID,
+      'KA003035' as REQUESTOR_ID,
       DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
       products.sku as INV_ITEM_ID,
       products.name as DESCR254_MIXED,
@@ -105,121 +53,43 @@ class AdminApiController extends AdminBaseController
       '' as PROJECT_ID,
       '' as ANALYSIS_TYPE,
       'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
       @rownum as LINE_NBR,
       'Y' as CALC_PRICE_FLG,
       '' as CAP_NUM,
       '' as SHIP_TO_CUST_ID,
-      'JC005819' as INTROD,
-      categories.name as CATEGORY
-      ")
-    )->join('products', 'products.id', '=', 'order_product.product_id')
+      'KA003035' as INTROD,
+      categories.name as CATEGORY,
+      products.id_people as ID_PEOPLE,
+      (products.price * order_product.quantity) as PRICE
+      "))
+      ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
       ->leftJoin('users', 'users.id', '=', 'orders.user_id')
       ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
       ->orderBy('orders.id')
-      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
-      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
-      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      ->where('users.id','=',Input::get('gerencia'))
       ->whereNull('orders.deleted_at');
-    
-    }elseif(Input::get('gerencia')== 0 && Input::get('category_id') == 0){
-      Log::info('Tercero-------------');
-      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
-      DB::raw("
-      orders.created_at as FECHA_PEDIDO,
-      '9999999999999990000000000' AS EIP_CTL_ID,
-      1 as LOADER_REQ,
-      'BPO' as SYSTEM_SOURCE,
-      'PAF01' as LOADER_BU,
-      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
-      'JC005819' as REQUESTOR_ID,
-      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
-      products.sku as INV_ITEM_ID,
-      products.name as DESCR254_MIXED,
-      products.measure_unit as UNIT_OF_MEASURE,
-      order_product.quantity as QTY_REQ,
-      0 as PRICE_REQ,
-      'MXN' as CURRENCY_CD,
-      '' as VENDOR_ID,
-      users.ccosto as LOCATION,
-      '' as CATEGORY_ID,
-      users.ccosto as SHIPTO_ID,
-      '' as REQ_ID,
-      5207030800 as ACCOUNT,
-      5405002201 as ALTACCT,
-      users.ccosto as DEPTID,
-      'RCV' as PRODUCT,
-      '' as CC1,
-      '' as PROJECT_ID,
-      '' as ANALYSIS_TYPE,
-      'PAF01' as BUSINESS_UNIT_GL,
-      @rownum as LINE_NBR,
-      'Y' as CALC_PRICE_FLG,
-      '' as CAP_NUM,
-      '' as SHIP_TO_CUST_ID,
-      'JC005819' as INTROD,
-      categories.name as CATEGORY
-      ")
-    )->join('products', 'products.id', '=', 'order_product.product_id')
-      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
-      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
-      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-      ->orderBy('orders.id')
-      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
-      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
-      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      ->whereNull('orders.deleted_at');
-    }else{
-       Log::info('Cuarto-------------');
-      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(
-      DB::raw("
-      orders.created_at as FECHA_PEDIDO,
-      '9999999999999990000000000' AS EIP_CTL_ID,
-      1 as LOADER_REQ,
-      'BPO' as SYSTEM_SOURCE,
-      'PAF01' as LOADER_BU,
-      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
-      'JC005819' as REQUESTOR_ID,
-      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
-      products.sku as INV_ITEM_ID,
-      products.name as DESCR254_MIXED,
-      products.measure_unit as UNIT_OF_MEASURE,
-      order_product.quantity as QTY_REQ,
-      0 as PRICE_REQ,
-      'MXN' as CURRENCY_CD,
-      '' as VENDOR_ID,
-      users.ccosto as LOCATION,
-      '' as CATEGORY_ID,
-      users.ccosto as SHIPTO_ID,
-      '' as REQ_ID,
-      5207030800 as ACCOUNT,
-      5405002201 as ALTACCT,
-      users.ccosto as DEPTID,
-      'RCV' as PRODUCT,
-      '' as CC1,
-      '' as PROJECT_ID,
-      '' as ANALYSIS_TYPE,
-      'PAF01' as BUSINESS_UNIT_GL,
-      @rownum as LINE_NBR,
-      'Y' as CALC_PRICE_FLG,
-      '' as CAP_NUM,
-      '' as SHIP_TO_CUST_ID,
-      'JC005819' as INTROD,
-      categories.name as CATEGORY
-      ")
-    )->join('products', 'products.id', '=', 'order_product.product_id')
-      ->join('orders', 'orders.id' , '=', 'order_product.order_id')
-      ->leftJoin('users', 'users.id', '=', 'orders.user_id')
-      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-      ->orderBy('orders.id')
-      ->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
-      ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'))
-      ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-      ->where('users.id','=',Input::get('gerencia'))
-      ->where('categories.id','=',Input::get('category_id'))
-      ->whereNull('orders.deleted_at');
+
+    if(Input::has('gerencia')){
+      $query->where('users.id','=',Input::get('gerencia'));
     }
+    if(Input::has('month_init') && Input::has('month_end')){
+      $query->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
+            ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'));
+    }
+    if(Input::has('year')){
+      $query->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'));
+    }
+    if(Input::has('linea_negocio')){
+      $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
+    }
+    if(Input::has('category_id')){
+      $category = Input::get('category_id') + 1;
+
+      $query->where('categories.id','=',$category); 
+    }
+    
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -417,6 +287,112 @@ class AdminApiController extends AdminBaseController
   }
 
 
+    public function getFurnituresOrdersReport()
+  {
+    ini_set('max_execution_time','300');
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
+      furniture_orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'KA003035' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      furnitures.sku as INV_ITEM_ID,
+      furnitures.name as DESCR254_MIXED,
+      furnitures.measure_unit as UNIT_OF_MEASURE,
+      furniture_furniture_order.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'KA003035' as INTROD,
+      furniture_categories.name as CATEGORY
+      
+      "))
+      ->join('furnitures', 'furnitures.id', '=', 'furniture_furniture_order.furniture_id')
+      ->join('furniture_orders', 'furniture_orders.id' , '=', 'furniture_furniture_order.furniture_order_id')
+      ->leftJoin('users', 'users.id', '=', 'furniture_orders.user_id')
+      ->leftJoin('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+      ->orderBy('furniture_orders.id')
+      ->whereNull('furniture_orders.deleted_at');
+
+    if(Input::has('gerencia')){
+      $query->where('users.id','=',Input::get('gerencia'));
+    }
+    if(Input::has('month_init') && Input::has('month_end')){
+      $query->where(DB::raw('MONTH(furniture_orders.created_at)'),'>=',Input::get('month_init'))
+            ->where(DB::raw('MONTH(furniture_orders.created_at)'),'<=',Input::get('month_end'));
+    }
+    if(Input::has('year')){
+      $query->where(DB::raw('YEAR(furniture_orders.updated_at)'), Input::get('year'));
+    }
+    if(Input::has('category_id')){
+      $category = Input::get('category_id') + 1;
+
+      $query->where('furniture_categories.id','=',$category); 
+    }
+    
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+            $datetime = \Carbon\Carbon::now()->format('YmdHi');
+            $data = str_putcsv($headers)."\n";
+
+
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
+
+            $headers = array(
+              'Content-Type' => 'text/csv',
+              'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+            );
+            return Response::make($data, 200, $headers);
+    }
+  }
+
   public function getUserOrdersReport()
   {
 
@@ -588,6 +564,16 @@ public function getProductOrdersReport()
   }
 
 
+   public function getGeneralRequestExcel(){
+       $general_request = GeneralRequest::all();
+      if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'users' => $general_request,
+        ]);
+      }
+  }
+
   public function getUsersReport()
   {
     $users = User::orderBy('role')->get();
@@ -645,7 +631,7 @@ public function getProductOrdersReport()
         'INCOMPLETOS' => $user->incompletos,
         'PENDIENTES' => $user->pendientes
         ];
-       }
+        }
 
     $datetime = \Carbon\Carbon::now()->format('YmdHi');
     Excel::create('Reporte_usuarios_'.$datetime, function($excel) use($result){
@@ -655,30 +641,53 @@ public function getProductOrdersReport()
     })->download('xls');
   }
 
+   public function getGeneralRequestsExcel()
+  {
+      $requests =  GeneralRequest::all();
+     
+       foreach ($requests as $request) {
+        $average = $request->satisfaction_survey ? $request->satisfaction_survey->average : 0;
+        
+        $general_request_products = GeneralRequestProduct::where('general_request_id','=',$request->id)->first();
+
+            $result[] = [
+            '# SOLUCIÓN' => $request->id,
+            'TITULO PROYECTO' => $request->project_title,
+            'NOMBRE' => $request->employee_name,
+            'NUMERO' => $request->employee_number,
+            'ESTATUS' => $request->status_str,
+            'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
+            'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
+            'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
+            'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
+            'COMENTARIOS' => $request->comments,
+            'PROMEDIO'  =>  $average,
+            
+            ];
+        }
+
+    $datetime = \Carbon\Carbon::now()->format('YmdHi');
+    Excel::create('Reporte_solicitudes_generales_'.$datetime, function($excel) use($result){
+      $excel->sheet('Solicitudes',function($sheet)use($result){
+        $sheet->fromArray($result);
+      });
+    })->download('xls');
+  }
+
+
   public function getGeneralRequestReport(){
     $request = GeneralRequest::all();
-    // if(Input::has('manager_id') && Input::has('month') && Input::has('year')){
-    //   $request_user = $request
-    //   ->where(DB::raw('MONTH(general_request.created_at)'), Input::get('month'))
-    //   ->where(DB::raw('YEAR(general_request.updated_at)'), Input::get('year'))
-    //   // ->user()->where('id',Input::get('manager_id'))
-    //   ->get();
-    // }
+    
+    $request_products = $request->generalRequestProducts();
+    $request->average = $request->satisfactionSurvey ? $request->satisfactionSurvey->average: 0 ;    
 
-    Log::info($request);
     if($request){
       return Response::json([
         'status' => 200,
         'request' => $request->toArray(),
-
+        'request_products' => $request_products->toArray(),
         ]);
     }
 
   }
-
-
-
-
-
-
 }

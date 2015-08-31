@@ -18,6 +18,11 @@ class CreateOrderFurnitureTable extends Migration {
 		  $table->integer('furniture_order_id')->unsigned();
 			$table->integer('furniture_id')->unsigned();
 			$table->integer('quantity');
+			$table->text('company');
+			$table->text('assets');
+			$table->text('ccostos');
+			$table->text('color');
+			$table->integer('id_active');
 			$table->integer('status');
 			$table->string('comments');
 			$table->foreign('furniture_order_id')->references('id')->on('furniture_orders')->onDelete('cascade');

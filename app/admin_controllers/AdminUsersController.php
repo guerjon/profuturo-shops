@@ -13,15 +13,17 @@ class AdminUsersController extends AdminBaseController
 
   public function create()
   {
+    $user_manager = User::where('role','=','manager')->lists('gerencia','id');
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
-    return View::make('admin::users.create')->withUser(new User)->withColors($colors);
+    return View::make('admin::users.create')->withUser(new User)->withColors($colors)->withManager($user_manager);
   }
 
   public function store()
   {
-    $user = new User(Input::all());
-    if(Input::get('num_empleado')==null || Input::getl('num_empleado') == undefined){
+    $user = new User(Input::except('password_confirmation'));
+    Log::info(Input::except('password_confirmation'));
+    if(Input::get('num_empleado')==null){
       $user->num_empleado = null;
     }
     if($user->save()){

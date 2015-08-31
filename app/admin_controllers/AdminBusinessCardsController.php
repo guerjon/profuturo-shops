@@ -64,7 +64,7 @@ class AdminBusinessCardsController extends BaseController{
               'nombre' => $row->nombre_empleado,
               'ccosto' => $row->ccosto,
               'nombre_ccosto' => $row->ccosto,
-              'nombre_puesto' => $row->nombre_ccosto,
+              'nombre_puesto' => $row->nombre_puesto,
               'fecha_ingreso' => $row->fecha_ingreso,
               'web' => $row->web,
               'gerencia' => $row->gerencia,

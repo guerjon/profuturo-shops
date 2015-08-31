@@ -14,22 +14,26 @@
   ])}}
 <div class="row">
   <div class="col-xs-2 ">GERENCIA:
-    {{Form::select('gerencia',array_merge(array('0' => 'Seleccione una gerencia'),$gerencia),NUll,['class' => 'form-control'])}}
+    {{Form::select('gerencia',array_merge(array(NULL => 'Seleccione una gerencia'),$gerencia),NUll,['class' => 'form-control'])}}
   </div>
   <div class="col-xs-2 ">CATEGORIA:
-    {{Form::select('category_id',array_merge(array('0' =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
+    {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
   </div>
   <div class="col-xs-2 ">DESDE:
     {{Form::selectMonth('month_init', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
 
-   <div class="col-xs-2 ">HASTA:
+  <div class="col-xs-2 ">HASTA:
     {{Form::selectMonth('month_end', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
       
   <div class="col-xs-2">AÑO:
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
+  <div class="col-xs-2 ">LINEA DE NEGOCIO:
+    {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
+  </div>
+
     {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit','style' => 'float:right; margin-right:10px' ])}}
 </div>
 {{Form::close()}}

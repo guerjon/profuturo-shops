@@ -5,12 +5,14 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Codesleeve\Stapler\ORM\StaplerableInterface;
+use Codesleeve\Stapler\ORM\EloquentTrait;
 
 use Watson\Validating\ValidatingTrait;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends Eloquent implements UserInterface, RemindableInterface,StaplerableInterface{
 
-	use UserTrait, RemindableTrait, SoftDeletingTrait, ValidatingTrait;
+	use UserTrait, RemindableTrait, SoftDeletingTrait, ValidatingTrait,EloquentTrait;
 
 	/**
 	 * The database table used by the model.
@@ -30,15 +32,34 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'password' => 'required',
-
-		'role' => 'in:manager,admin,user_requests,user_paper'
+		'role' => 'in:manager,admin,user_requests,user_paper',
+		'num_empleado' =>'unique:users,num_empleado'
 	];
+
+
+	protected $validationMessages = [
+		'num_empleado.unique' => 'El numero de empleado ya esta en uso'
+	];	
+
+
+  public function __construct($attributes = array()){
+
+    $this->hasAttachedFile('image', [
+      'styles' => [
+        'medium' => '300x300',
+        'thumb' => '100x100',
+        'mini' => '50x50'
+        ]
+      ]);
+    parent::__construct($attributes);
+  }
+
 
 
 	public static function boot()
 	{
 		parent::boot();
+		parent::bootStapler();
 		User::deleting(function($user){
 			$user->cartProducts()->detach();
 			$user->cartFurnitures()->detach();
@@ -56,6 +77,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 			$user->bcOrders()->withTrashed()->restore();
 			$user->generalRequests()->withTrashed()->restore();
 		});
+
 	}
 
 	public function setPasswordAttribute($value){
@@ -67,6 +89,19 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->role == 'admin';
 	}
+	public function getIsManagerAttribute()
+	{
+		return $this->role == 'manager';
+	}
+
+	public function getIsUserRequestsAttribute(){
+		return $this->role == 'user_requests';	
+	}
+
+	public function getUserPaperAttribute()
+	{
+		return $this->role == 'user_paper';
+	}
 
 	public function cartProducts()
 	{
@@ -75,7 +110,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function cartFurnitures()
 	{
-		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity');
+		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity','company','assets','ccostos','color','id_active');
 	}
 
 	public function orders()
@@ -149,6 +184,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('AdminBusinessCardsController@index') => 'Tarjetas de presentación',
 					action('AdminOrdersController@index') => 'Pedidos papelería',
 					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
+					action('AdminFurnituresOrdersController@index') => 'Pedidos mobiliario',
 					action('AdminCalendarEventsController@index') => 'Agenda',
 					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
@@ -162,23 +198,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 					action('UserRequestsController@getIndex') => 'Solicitudes generales',
 					action('CalendarEventsController@getIndex') => 'Agenda',
 					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes',
+					
 				];
 			case 'user_paper':
 				return [
 					action('ProductsController@index') => 'Productos',
 					action('BusinessCardsController@index') => 'Tarjetas de presentación',
 					'/carrito' => 'Mi carrito (papelería)',
+					'/carrito-muebles' => 'Mi carrito (mobiliario)',
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
 					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
 					action('FurnituresController@index') => 'Mobiliario',
-					'/carrito-mobiliario' => 'Mi carrito (mobiliario)',
 
 
-				];
+				]
+				;
 			case 'user_requests':
 				return [
-					action('GeneralRequestsController@index') => 'Solicitudes generales'
+					action('GeneralRequestsController@index') => 'Solicitudes generales',
 				];
 		}
 	}

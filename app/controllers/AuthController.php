@@ -14,25 +14,29 @@ class AuthController extends BaseController
 
   public function postLogin()
   {
-    $credentials = Input::only(['password', 'ccosto']);
-    $validator = Validator::make(
-      $credentials,
+    $password = Input::get('password');
+    $ccosto = Input::get('ccosto');
+    
+    
+
+    $validator_ccosto = Validator::make(
+      ['password' => $password,'ccosto' => $ccosto],
       [
-        'ccosto' => 'required|numeric',
+        'ccosto' => 'required',
         'password' => 'required'
       ]);
 
-    if($validator->passes()){
-      if(Auth::attempt($credentials)){
+    if($validator_ccosto->passes()){
+      if(Auth::attempt(['password' => $password,'ccosto' => $ccosto])){
         return Redirect::intended('/');
-      }else{
-        return Redirect::to(action('AuthController@getLogin'))->withErrors('El centro de costos o contraseña son invalidos', 'login');
+      }elseif(Auth::attempt(['password' => $password,'num_empleado' => $ccosto])){
+          return Redirect::intended('/'); 
       }
-
-    }else{
-      return Redirect::to(action('AuthController@getLogin'))->withErrors($validator->messages(), 'login');
     }
+
+      return Redirect::to(action('AuthController@getLogin'))->withErrors('El centro de costos o contraseña son invalidos', 'login');
   }
+
 
   public function postAdminLogin()
   {

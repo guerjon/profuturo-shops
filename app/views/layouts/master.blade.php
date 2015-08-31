@@ -58,7 +58,11 @@
               @if(Auth::check())
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  {{Auth::user()->gerencia}}
+                  {{HTML::image(Auth::user()->image->url('mini'), Auth::user()->nombre, ['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'] )}}
+                  
+                  
+                  {{Auth::user()->nombre}}
+                  | {{Auth::user()->gerencia}}
                   <span class="caret"></span>
                 </a>
 
@@ -66,6 +70,7 @@
                 @if(Auth::user()->is_admin)
 
                 @else
+                  <li><a href="/perfil">Mi perfil</a></li>
                   <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
                   <li><a href="/carrito-mobiliario">Mi carrito(mobiliario)</a></li>
@@ -99,6 +104,9 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/raty/lib/jquery.raty.js"></script>
+    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
+    <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
     <script src="/js/slidebars.js"></script>
     <script charset="utf-8">
     $(function(){

@@ -140,8 +140,13 @@ $(function(){
     $.post('/api/add-furnitures', formData, function(data){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
+<<<<<<< HEAD
        window.location.replace("/pedidos-mobiliario/{{$order_id}}");
        alert("Se agrego su mobiliario exitosamente");
+=======
+       window.location.replace("/pedidos-mueble/{{$order_id}}");
+       alert("Se agrego el mobiliario exitosamente");
+>>>>>>> 59cd3775ae07015e3d5e2ccb0135ee48ffdacda2
         var newq = data.new_q;
         if(newq > 0){
           var item = $('a[data-furniture-id="'+ data.furniture_id +'"]');

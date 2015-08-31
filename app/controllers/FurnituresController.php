@@ -7,24 +7,27 @@ class FurnituresController extends BaseController
   {
 
     $furnitures = Furniture::select('*');
-
-  
-
     if(Input::has('name')){
       $furnitures->where('name', 'like', "%".Input::get('name')."%");
     }
-    // if(Input::has('category_id') and Input::get('category_id') !== NULL){
-    //   if(Input::get('category_id') == 0){
-    //     $furnitures->whereNull('category_id');
-    //   }else{
-    //     $furnitures->where('category_id', Input::get('category_id'));
-    //   }
-    // }
-    return View::make('furnitures.index')->with([
-      'furnitures' => $furnitures->paginate(15),
-      'categories' => Category::all(),
+    $activeCategory = FurnitureCategory::find($category_id);
+    $companies = ['AFORE','GRUPO','PENSIONES','PRESTAMOS','FONDOS'];
+    $assets = ['Bienes y enceres','Oficina']; 
+    if($category_id != null){
+
+      return View::make('furnitures.index')->with([
+      'furnitures' => $furnitures->where('furniture_category_id','=',$category_id)->paginate(15),
+      'categories' => FurnitureCategory::all(),
       'activeCategory' => @$activeCategory,
-      ]);
+      ])->withCompanies($companies)->withAssets($assets)->withRuta(public_path().'/imagenes/');
+    }else{
+      
+      return View::make('furnitures.index')->with([
+      'furnitures' => $furnitures->paginate(15),
+      'categories' => FurnitureCategory::all(),
+      'activeCategory' => @$activeCategory,
+      ])->withCompanies($companies)->withAssets($assets)->withRuta(public_path().'/imagenes/');
+    }
   }
 
   public function postReceive($order_id)

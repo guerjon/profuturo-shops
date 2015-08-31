@@ -137,6 +137,8 @@
     @endif
   </div>
 
+  @else 
+  Las tarjetas blancas no estan disponibles ya que se llego limite de 100. 
 
   @endif
 

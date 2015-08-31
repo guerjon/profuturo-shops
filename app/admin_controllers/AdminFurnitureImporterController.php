@@ -36,6 +36,7 @@ class AdminFurnitureImporterController extends AdminBaseController
        $category = FurnitureCategory::firstOrCreate(['name' => $sheet->getTitle()]);
         $sheet->each(function($row)use(&$created, &$updated, &$category){
 
+       
 
           $furniture = Furniture::firstOrNew([
             'name' => $row->descripcion_profuturo,
@@ -51,10 +52,27 @@ class AdminFurnitureImporterController extends AdminBaseController
             'business_conditions' => $row->condiciones_comerciales,
             'furniture_category_id' => $category->id,
             ]);
-        
-        if(!$furniture->exists and $furniture->save()){
-            $created++;  
-        }
+          $img = $row->descripcion_profuturo.'.png';
+          $path = storage_path('imgs_furnitures')."/$img"; 
+          if(file_exists($path) and copy($path, $img)){
+            // $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
+            $file = new Symfony\Component\HttpFoundation\File\File($img);
+          }else{
+            $img = "no_disponible.png";
+            $path = storage_path('imgs_furnitures')."/$img";
+            if(copy($path, $img)){
+              // $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);  
+              $file = new Symfony\Component\HttpFoundation\File\File($img);  
+            }else{
+              $file = null;
+            }
+            
+          }
+          $furniture->image = $file;
+      
+          if(!$furniture->exists and $furniture->save()){
+              $created++;  
+          }
         
         });
         

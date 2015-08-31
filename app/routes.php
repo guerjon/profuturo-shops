@@ -15,6 +15,7 @@ Route::get('/mockups/{view}', function($view){
 	return View::make("mockups.{$view}");
 });
 
+Route::controller('encuesta-satisfaccion','SatisfactionSurveyController');
 
 Route::get('login', 'AuthController@getLogin');
 Route::post('login', 'AuthController@postLogin');
@@ -39,6 +40,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
+		Route::resource('furnitures-orders', 'AdminFurnituresOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
 		Route::resource('general-requests', 'AdminGeneralRequestsController');
 		Route::resource('agenda', 'AdminCalendarEventsController');
@@ -46,11 +48,13 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
+
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
-	Route::resource('pedidos-mobiliario', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
-	Route::post('pedidos-mobiliario/{order_id}','OrderFurnituresController@postReceive');
+	Route::resource('perfil','ProfileController');
+	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
+	Route::post('pedidos-mueble/{order_id}','OrderFurnituresController@postReceive');
 
 	Route::resource('pedidos-tp', 'BcOrdersController');
 
@@ -71,6 +75,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');
+	Route::controller('encuesta-satisfacción','SatisfactionSurveyController');
 	Route::controller('/', 'HomeController');
 
 });

@@ -18,10 +18,17 @@ class OrderFurnituresController extends BaseController
     }
     $order = new FurnitureOrder(Input::all());
     $order->user_id = Auth::id();
+
     if($order->save()){
       foreach(Auth::user()->cart_furnitures as $furniture)
       {
-        $order->furnitures()->attach($furniture->id, ['quantity' => $furniture->pivot->quantity]);
+        $order->furnitures()->attach($furniture->id, ['quantity' => $furniture->pivot->quantity,
+                                                    'company' => $furniture->pivot->company,
+                                                    'assets' => $furniture->pivot->assets,
+                                                    'ccostos' => $furniture->pivot->ccostos,
+                                                    'color' => $furniture->pivot->color,
+                                                    'id_active' => $furniture->pivot->id_active,
+                                                    ]);
         Auth::user()->cartFurnitures()->detach($furniture->id);
       }
     }

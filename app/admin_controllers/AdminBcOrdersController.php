@@ -35,7 +35,6 @@ class AdminBcOrdersController extends AdminBaseController{
     if($result){
       Excel::create('Reporte_productos',function($excel) use($result){
          $excel->sheet('Hoja_1', function($sheet) use($result) {
-          Log::info($result);
            $sheet->fromArray($result);
         });
       })->download('xlsx');
