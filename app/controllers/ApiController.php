@@ -53,7 +53,7 @@ class ApiController extends BaseController
     if(!$furniture){
       return Response::json([
         'status' => 500,
-        'error_msg' => 'No se encontró el mueble'
+        'error_msg' => 'No se encontró el mobiliario'
         ]);
     }
 
@@ -134,7 +134,7 @@ class ApiController extends BaseController
     if(!$furniture){
       return Response::json([
         'status' => 500,
-        'error_msg' => 'No se encontró el mueble'
+        'error_msg' => 'No se encontró el mobiliario'
         ]);
     }
 

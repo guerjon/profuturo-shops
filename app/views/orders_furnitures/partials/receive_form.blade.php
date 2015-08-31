@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th>
-        Inmuebles
+        Mobiliario
       </th>
       <th>
         Cantidad
@@ -20,7 +20,7 @@
         Comentarios
       </th>
       <th>
-       Eliminar inmueble
+       Eliminar mobiliario
       </th>
     </tr>
   </thead>
@@ -58,7 +58,7 @@
 </table>
 <div class="form-group text-right">
 @if($order->status == 0)
-   {{link_to_action('AddFurnituresController@getIndex', 'Agregar inmueble',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
+   {{link_to_action('AddFurnituresController@getIndex', 'Agregar mobiliario',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
     @endif
 
 </div>

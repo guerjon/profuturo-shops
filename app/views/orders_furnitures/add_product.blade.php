@@ -40,7 +40,7 @@
 
 @if($furnitures->count() == 0)
   <div class="alert alert-warning">
-    No hay inmuebles que mostrar.
+    No hay mobiliario que mostrar.
   </div>
 @else
 
@@ -140,8 +140,8 @@ $(function(){
     $.post('/api/add-furnitures', formData, function(data){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
-       window.location.replace("/pedidos-mueble/{{$order_id}}");
-       alert("Se agrego su inmueble exitosamente");
+       window.location.replace("/pedidos-mobiliario/{{$order_id}}");
+       alert("Se agrego su mobiliario exitosamente");
         var newq = data.new_q;
         if(newq > 0){
           var item = $('a[data-furniture-id="'+ data.furniture_id +'"]');
@@ -161,7 +161,7 @@ $(function(){
         }
       }
       if(data.status == 500){
-        alert("El inmueble ya habia sido agregado con anterioridad")
+        alert("El mobiliario ya habia sido agregado con anterioridad")
       }
 
     });

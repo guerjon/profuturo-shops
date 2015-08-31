@@ -33,10 +33,10 @@ Route::group(['before' => 'auth'], function(){
 		Route::post('users/import','AdminUsersController@postImport');
 		Route::resource('users', 'AdminUsersController');
 		Route::resource('products', 'AdminProductsController');
-		Route::resource('muebles','AdminFurnituresController');
-		Route::resource('importar-muebles','AdminFurnitureImporterController');
+		Route::resource('mobiliario','AdminFurnituresController');
+		Route::resource('importar-mobiliario','AdminFurnitureImporterController');
 		Route::resource('categories', 'AdminCategoriesController');
-		Route::resource('categorias-muebles', 'AdminFurnitureCategoriesController');
+		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
@@ -49,8 +49,8 @@ Route::group(['before' => 'auth'], function(){
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
-	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
-	Route::post('pedidos-mueble/{order_id}','OrderFurnituresController@postReceive');
+	Route::resource('pedidos-mobiliario', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
+	Route::post('pedidos-mobiliario/{order_id}','OrderFurnituresController@postReceive');
 
 	Route::resource('pedidos-tp', 'BcOrdersController');
 
@@ -61,13 +61,13 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
 
-	Route::get('muebles', 'FurnituresController@index');
-	Route::get('muebles/{category}/{subcategory}', 'FurnituresController@index');
-	Route::get('muebles/{category}', 'FurnituresController@index');
+	Route::get('mobiliario', 'FurnituresController@index');
+	Route::get('mobiliario/{category}/{subcategory}', 'FurnituresController@index');
+	Route::get('mobiliario/{category}', 'FurnituresController@index');
 
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
-	Route::controller('agregar-inmueble','AddFurnituresController');
+	Route::controller('agregar-mobiliario','AddFurnituresController');
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');

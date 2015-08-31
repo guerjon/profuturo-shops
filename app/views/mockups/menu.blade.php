@@ -33,7 +33,7 @@
       <div class="col-xs-6">
         <a href="#" class="thumbnail text-center">
           <h5>
-            Inmuebles
+            Mobiliario
           </h5>
         </a>
       </div>

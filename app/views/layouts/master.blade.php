@@ -68,7 +68,7 @@
                 @else
                   <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
-                  <li><a href="/carrito-muebles">Mi carrito(Muebles)</a></li>
+                  <li><a href="/carrito-mobiliario">Mi carrito(mobiliario)</a></li>
                 @endif
                   <li class="divider"></li>
                   <li><a href="/logout">Cerrar sesión</a></li>

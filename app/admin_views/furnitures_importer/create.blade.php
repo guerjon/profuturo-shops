@@ -21,7 +21,7 @@
 
       <fieldset>
         <legend>
-          Importar un archivo Excel con información de muebles
+          Importar un archivo Excel con información de mobiliario
         </legend>
         <div class="form-group">
           {{Form::label('file', 'Archivo Excel')}}

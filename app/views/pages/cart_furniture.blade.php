@@ -5,7 +5,7 @@
 
 @if(Auth::user()->cart_furnitures->count() == 0)
 <div class="alert alert-warning">
-  Sin artículos en el carrito. Haga click <a href="/muebles" class="alert-link">aquí</a> para ver los muebles disponibles.
+  Sin artículos en el carrito. Haga click <a href="/mobiliario" class="alert-link">aquí</a> para ver el mobiliario disponibles.
 </div>
 @else
 
@@ -14,7 +14,7 @@
   <thead>
     <tr>
       <th>
-        Mueble
+        Mobiliario
       </th>
       <th>
         Cantidad
@@ -51,7 +51,7 @@
 
 @if($last_order !== NULL and $last_order->created_at->month == \Carbon\Carbon::now()->month and Auth::user()->has_limit)
 <div class="alert alert-warning">
-  Usted ya realizó un pedido de inmuebles este mes.
+  Usted ya realizó un pedido de mobiliario este mes.
 </div>
 @else
 &nbsp;

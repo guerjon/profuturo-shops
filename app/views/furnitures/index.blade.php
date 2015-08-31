@@ -3,11 +3,11 @@
 @section('content')
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/muebles">TODAS</a>
+    <a href="/mobiliario">TODAS</a>
   </li>
   @foreach($categories as $category)
   <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
-    <a href="/muebles/{{$category->id}}">{{$category->name}}</a>
+    <a href="/mobiliario/{{$category->id}}">{{$category->name}}</a>
   </li> 
   @endforeach
 </ul>
@@ -34,7 +34,7 @@
 
 @if($furnitures->count() == 0)
   <div class="alert alert-warning">
-    No hay muebles que mostrar.
+    No hay mobiliario que mostrar.
   </div>
 @else
 
