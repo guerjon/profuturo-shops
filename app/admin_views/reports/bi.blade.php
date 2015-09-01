@@ -3,13 +3,13 @@
 @section('content')
 
 <div class="page-header">
-  <h3>Reporte de productos</h3>
+  <h3>Reporte de BI</h3>
 </div>
 
 {{Form::open([
   'id' => 'filter-form',
   'method' => 'GET',
-  'action' => 'AdminApiController@getBIReport',
+  'action' => 'AdminReportsController@getBIReport',
   'target' => '_blank'
   ])}}
 <div class="row">
@@ -17,7 +17,7 @@
     {{Form::select('region_id',$regions,null,['class' => 'form-control'])}}
   </div> --}}
   <div class="col-xs-2">
-    {{Form::label('ccosto','Ccosto')}}
+    {{Form::label('CCOSTO','Ccosto')}}
     {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto'])}}
   </div>
   <div class="col-xs-2">
@@ -31,16 +31,18 @@
   </div>
   <div class="col-xs-2">
     {{Form::label('since','Desde')}}
-    <input type="date" name="since" placeholder="Desde" class ="form-control">
+    <input type="date" name="since" placeholder="Desde" class ="form-control" value="{{\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d')}}" id = "since">
   </div>
   <div class="col-xs-2">
     {{Form::label('until','Hasta')}}
-    <input type="date" name="until" placeholder="Hasta" class = "form-control">
+    <input type="date" name="until" placeholder="Hasta" class = "form-control" value="{{\Carbon\Carbon::now('America/Mexico_City')->addMonths('1')->format('Y-m-d')}}" id = "until">
   </div>
-  
-  {{--   {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
-   --}}
+  <div class="col-xs-2">
+    {{Form::label(' ',' ')}}
+    {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])  }}
+  </div> 
 </div>
+
 {{Form::close()}}
 
 <hr>
@@ -58,12 +60,14 @@
   </table>
 </div>
 
+
 @stop
 
 @section('script')
 <script>
 
 function update(){
+
   $('.table tbody').empty();
   $('.table tbody').append(
     $('<tr>').attr('class', 'info').append(
@@ -116,6 +120,20 @@ $(function(){
   $('#filter-form select').change(function(){
     update();
   });
+
+$('#filter-form input').keyup(function(){
+    update();
+  });  
+
+$('#until').change(function(){
+    update();
+  });  
+
+$('#since').change(function(){
+    update();
+  });  
+
+
 });
 </script>
 @stop

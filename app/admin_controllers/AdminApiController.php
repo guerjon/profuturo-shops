@@ -547,44 +547,43 @@ public function getProductOrdersReport()
 
   public function getBIReport(){
     
-    $report = User::join('orders','orders.user_id','=','users.id')
+    $report = DB::table('users')->select(DB::raw(
+                                         "orders.id as Orden,
+                                          products.name as PRODUCTO,
+                                          order_product.quantity as CANTIDAD,
+                                          order_product.quantity * products.price as TOTAL,
+                                          categories.name as CATEGORIA, 
+                                          users.ccosto as CCOSTO,
+                                          users.gerencia as GERENCIA,
+                                          users.linea_negocio as LINEA_NEGOCIO,
+                                          users.email as CORREO,
+                                          orders.comments as COMENTARIOS
+                                          "))
+                                ->join('orders','orders.user_id','=','users.id')
                                 ->join('order_product','order_product.order_id','=','orders.id')
                                 ->join('products','order_product.product_id','=','products.id')
                                 ->join('categories','products.category_id','=','categories.id');
 
 
     if(Input::has('ccosto')){
-      $report->where('users.ccosto',Input::get('ccosto'));
-     Log::info('ccosto');
-     Log::info('oliiiiiiiiiiiiii'); 
+      $report->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+      
     }
 
     if(Input::has('category_id')){
       $report->where('categories.id',Input::get('category_id'));
-     Log::info('category_id');
-     Log::info('oliiiiiiiiiiiiii'); 
-
     }
 
     if(Input::has('product_id')){
       $report->where('product_id',Input::get('product_id'));
-     Log::info('product_id');
-     Log::info('oliiiiiiiiiiiiii'); 
-
     }
 
     if(Input::has('since')){
       $report->where('orders.created_at','>=',Input::get('since'));
-     Log::info('since');
-     Log::info('oliiiiiiiiiiiiii'); 
-
     }
 
     if(Input::has('until')){
-      $report->where('orders.created_at'.'<=',Input::get('until'));
-     Log::info('until');
-     Log::info('oliiiiiiiiiiiiii'); 
-
+      $report->where('orders.created_at','<=',Input::get('until'));
     }
 
      $q = clone $report;
@@ -594,7 +593,7 @@ public function getProductOrdersReport()
       return Response::json([
         'status' => 200,
         'headers' => $headers,
-        'report' => $report->get() ]);
+        'report' => $report->get()]);
     }
 
   }
