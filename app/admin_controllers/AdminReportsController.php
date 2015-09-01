@@ -57,4 +57,16 @@ class AdminReportsController extends AdminBaseController{
     return View::make('admin::reports.furnitures')->withCategories($categories)->withGerencia($management)->withBusinessLine($business_line);
   }
 
+  public function getBIReport(){
+    $users = User::all();
+    $categories = Category::all()->lists('name','id');
+    $products = Product::all()->lists('name','id');
+
+    return View::make('admin::reports.bi')
+    ->withUsers($users)
+    ->withCategories($categories)
+    ->withProducts($products);
+
+  }
+
 }

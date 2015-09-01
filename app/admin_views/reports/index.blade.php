@@ -38,6 +38,10 @@
     {{link_to_action('AdminReportsController@getGeneralRequestReport', 'Reportes de solicitudes generales', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
   </div>
 
+  <div class="col-sm-4 col-xs-6">
+    {{link_to_action('AdminReportsController@getBIReport', 'Reportes BI', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  </div>
+
 
 </div>
 
