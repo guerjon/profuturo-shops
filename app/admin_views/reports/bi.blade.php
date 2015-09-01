@@ -18,7 +18,7 @@
   </div> --}}
   <div class="col-xs-2">
     {{Form::label('CCOSTO','Ccosto')}}
-    {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto'])}}
+    {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
   </div>
   <div class="col-xs-2">
     {{Form::label('category_id','Categoria')}}
@@ -74,10 +74,16 @@ function update(){
       $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
     )
   );
+
+
+  $('#filter-form').append($('<input>', {type : 'hidden', name : 'ajax'}).val(1));
   $.get('/admin/api/bi-report', $('#filter-form').serialize(), function(data){
+   
+   $('input[name=ajax]').remove();
+   
+
     $('.table tbody').empty();
     if(data.status == 200){
-      console.log(data.report);
       var report = data.report;
       var headers = data.headers;
       $('.table thead tr').empty();
@@ -117,22 +123,26 @@ function update(){
 }
 $(function(){
   update();
+
   $('#filter-form select').change(function(){
     update();
+    console.log('entro al filtro de select');
   });
 
-$('#filter-form input').keyup(function(){
-    update();
+  $('#ccosto').keyup(function(){
+      update();
+    console.log('entro al filtro de select');
   });  
 
-$('#until').change(function(){
-    update();
+  $('#until').change(function(){
+      update();
+      console.log('entro al filtro de select');
   });  
 
-$('#since').change(function(){
-    update();
+  $('#since').change(function(){
+      update();
+      console.log('entro al filtro de select');
   });  
-
 
 });
 </script>

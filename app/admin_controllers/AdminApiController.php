@@ -588,14 +588,35 @@ public function getProductOrdersReport()
 
      $q = clone $report;
      $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
-   
-    if(Request::ajax()){
+    
+    Log::debug(Input::all());
+    if(Input::get('ajax')){
       return Response::json([
         'status' => 200,
         'headers' => $headers,
         'report' => $report->get()]);
-    }
-
+    }else{
+      Log::info('oli');
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+      foreach($report->get() as $item){
+          $itemArray = [];
+        
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+        
+          $result[] = $itemArray;
+      }
+      if($result){
+        Excel::create('Reporte_BI', function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+         });
+        })->download('xls');   
+      }
+    }      
   }
 
   public function getTotalUsersReport(){
