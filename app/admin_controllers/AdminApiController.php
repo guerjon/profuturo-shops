@@ -590,7 +590,8 @@ public function getProductOrdersReport()
      $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
     
     Log::debug(Input::all());
-    if(Input::get('ajax')){
+    
+    if(Request::ajax()){
       return Response::json([
         'status' => 200,
         'headers' => $headers,

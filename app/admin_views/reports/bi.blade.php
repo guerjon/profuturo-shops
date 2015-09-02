@@ -76,11 +76,7 @@ function update(){
   );
 
 
-  $('#filter-form').append($('<input>', {type : 'hidden', name : 'ajax'}).val(1));
   $.get('/admin/api/bi-report', $('#filter-form').serialize(), function(data){
-   
-   $('input[name=ajax]').remove();
-   
 
     $('.table tbody').empty();
     if(data.status == 200){
