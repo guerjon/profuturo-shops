@@ -210,7 +210,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
 					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
 					action('FurnituresController@index') => 'Mobiliario',
-				];
+
+
+				]
+				;
 			case 'user_requests':
 				return [
 					action('GeneralRequestsController@index') => 'Solicitudes generales',

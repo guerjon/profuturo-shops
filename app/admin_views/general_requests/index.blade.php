@@ -116,7 +116,7 @@
     {{$requests->links()}}
   </div>
 @else
-
+<br>
 <div class="alert alert-info">
   No se han hecho solicitudes nuevas.
 </div>

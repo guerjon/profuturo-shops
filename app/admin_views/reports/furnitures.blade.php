@@ -20,7 +20,7 @@
     {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
   </div>
   <div class="col-xs-2 ">DESDE:
-    {{Form::selectMonth('month_init', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+    {{Form::selectMonth('month_init',\Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
 
   <div class="col-xs-2 ">HASTA:

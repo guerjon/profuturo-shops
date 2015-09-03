@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/slidebars.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/js/raty/lib/jquery.raty.css">
-
+    <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,7 +73,7 @@
                   <li><a href="/perfil">Mi perfil</a></li>
                   <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
-                  <li><a href="/carrito-muebles">Mi carrito(Muebles)</a></li>
+                  <li><a href="/carrito-mobiliario">Mi carrito(mobiliario)</a></li>
                 @endif
                   <li class="divider"></li>
                   <li><a href="/logout">Cerrar sesión</a></li>
@@ -108,11 +108,37 @@
     <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
     <script src="/js/slidebars.js"></script>
+    <script src="/js/jquery.datetimepicker.js"></script>
     <script charset="utf-8">
     $(function(){
       $.slidebars();
     });
     </script>
+
+      <script type="text/javascript">
+
+      $.datepicker.regional['es'] = {
+        closeText: 'Cerrar',
+        prevText: 'Anterior',
+        nextText: 'Siguiente',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+        dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'yy-mm-d',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        minDate : new Date()
+      };
+      $.datepicker.setDefaults($.datepicker.regional['es']);
+      $('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
+
+  </script>
 
     @yield('script')
   </body>

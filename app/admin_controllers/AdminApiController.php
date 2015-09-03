@@ -545,6 +545,81 @@ public function getProductOrdersReport()
     }
   }
 
+  public function getBIReport(){
+    
+    $report = DB::table('users')->select(DB::raw(
+                                         "orders.id as Orden,
+                                          products.name as PRODUCTO,
+                                          order_product.quantity as CANTIDAD,
+                                          order_product.quantity * products.price as TOTAL,
+                                          categories.name as CATEGORIA, 
+                                          users.ccosto as CCOSTO,
+                                          users.gerencia as GERENCIA,
+                                          users.linea_negocio as LINEA_NEGOCIO,
+                                          users.email as CORREO,
+                                          orders.comments as COMENTARIOS
+                                          "))
+                                ->join('orders','orders.user_id','=','users.id')
+                                ->join('order_product','order_product.order_id','=','orders.id')
+                                ->join('products','order_product.product_id','=','products.id')
+                                ->join('categories','products.category_id','=','categories.id');
+
+
+    if(Input::has('ccosto')){
+      $report->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+      
+    }
+
+    if(Input::has('category_id')){
+      $report->where('categories.id',Input::get('category_id'));
+    }
+
+    if(Input::has('product_id')){
+      $report->where('product_id',Input::get('product_id'));
+    }
+
+    if(Input::has('since')){
+      $report->where('orders.created_at','>=',Input::get('since'));
+    }
+
+    if(Input::has('until')){
+      $report->where('orders.created_at','<=',Input::get('until'));
+    }
+
+     $q = clone $report;
+     $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
+    
+    Log::debug(Input::all());
+    
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'headers' => $headers,
+        'report' => $report->get()]);
+    }else{
+      Log::info('oli');
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+      foreach($report->get() as $item){
+          $itemArray = [];
+        
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+        
+          $result[] = $itemArray;
+      }
+      if($result){
+        Excel::create('Reporte_BI', function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+         });
+        })->download('xls');   
+      }
+    }      
+  }
+
   public function getTotalUsersReport(){
        $users =  User::all();
 

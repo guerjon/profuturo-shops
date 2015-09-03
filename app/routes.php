@@ -34,10 +34,10 @@ Route::group(['before' => 'auth'], function(){
 		Route::post('users/import','AdminUsersController@postImport');
 		Route::resource('users', 'AdminUsersController');
 		Route::resource('products', 'AdminProductsController');
-		Route::resource('muebles','AdminFurnituresController');
-		Route::resource('importar-muebles','AdminFurnitureImporterController');
+		Route::resource('mobiliario','AdminFurnituresController');
+		Route::resource('importar-mobiliario','AdminFurnitureImporterController');
 		Route::resource('categories', 'AdminCategoriesController');
-		Route::resource('categorias-muebles', 'AdminFurnitureCategoriesController');
+		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('furnitures-orders', 'AdminFurnituresOrdersController', ['only' => ['index', 'show','destroy']]);
@@ -65,13 +65,13 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
 
-	Route::get('muebles', 'FurnituresController@index');
-	Route::get('muebles/{category}/{subcategory}', 'FurnituresController@index');
-	Route::get('muebles/{category}', 'FurnituresController@index');
+	Route::get('mobiliario', 'FurnituresController@index');
+	Route::get('mobiliario/{category}/{subcategory}', 'FurnituresController@index');
+	Route::get('mobiliario/{category}', 'FurnituresController@index');
 
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
-	Route::controller('agregar-inmueble','AddFurnituresController');
+	Route::controller('agregar-mobiliario','AddFurnituresController');
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');

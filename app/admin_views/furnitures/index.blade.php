@@ -3,14 +3,14 @@
 @section('content')
 
 <div class="text-right">
-      {{link_to_action('AdminFurnituresController@create', 'Agregar nuevo mueble', NULL, ['class' => 'btn btn-warning'])}}
+      {{link_to_action('AdminFurnituresController@create', 'Agregar nuevo mobiliario', NULL, ['class' => 'btn btn-warning'])}}
       {{link_to_action('AdminFurnitureImporterController@create', 'Importar excel', NULL, ['class' => 'btn btn-warning'])}}
 </div>
 
 
 @if(count($furnitures) == 0)
 <div class="alert alert-warning">
-  No se han creado nuevos muebles
+  No se ha creado nuevo mobiliario
 </div>
 @else
   <div class="table-responsive">

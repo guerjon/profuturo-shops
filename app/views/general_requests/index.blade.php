@@ -169,7 +169,7 @@
 
             <div class="form-group">
               {{Form::label('project_date', 'Fecha del evento')}}
-              {{Form::input('date', 'project_date', NULL, ['class' => 'form-control'])}}
+              {{Form::text('project_date', NULL, ['class' => 'form-control datepicker'])}}
             </div>
             <div class="form-group text-right">
               <button type="button" style="width:20%;" data-next-div="start-div" class="text-right btn btn-warning ">Atras</button>
@@ -189,7 +189,7 @@
 
             <div class="form-group">
               {{Form::label('deliver_date', 'Fecha de entrega')}}
-              {{Form::input('date', 'deliver_date', NULL, ['class' => 'form-control'])}}
+              {{Form::text('deliver_date', NULL, ['class' => 'form-control datepicker'])}}
             </div>
 
             <div class="form-group">

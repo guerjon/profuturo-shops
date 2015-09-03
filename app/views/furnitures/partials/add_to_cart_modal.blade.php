@@ -18,7 +18,7 @@
 
 
         <div class="alert alert-warning" style="display:none;">
-          No puede ordenar más inventario de este mueble
+          No puede ordenar más inventario de este mobiliario
         </div>
 
         {{Form::open([

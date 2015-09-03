@@ -5,7 +5,10 @@
 
 @if(Auth::user()->cart_furnitures->count() == 0)
 <div class="alert alert-warning">
+
+
   Sin artículos en el carrito. Haga click <a href="/muebles" class="alert-link">aquí</a> para ver el mobiliario disponible.
+
 </div>
 @else
 
@@ -14,7 +17,7 @@
   <thead>
     <tr>
       <th>
-        Mueble
+        Mobiliario
       </th>
       <th>
         Cantidad
@@ -149,11 +152,5 @@
  });
 
   });
-
-
-
-
-
-
 </script>
 @stop
