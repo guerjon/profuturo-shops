@@ -24,9 +24,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'profcom_store',
-			'username'  => 'profcom_store',
-			'password'  => 'profcom_store@1',
+			'database'  => 'sorianoariza_profuturo_compras',
+			'username'  => 'root',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
