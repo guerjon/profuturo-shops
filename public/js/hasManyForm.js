@@ -36,7 +36,7 @@
     },
 
     appendItem : function(object){
-      console.log('appending item to ', this);
+      
       var mainContainer = this.element;
       if(!mainContainer.is(':visible')){
         mainContainer.show(300);
@@ -45,18 +45,18 @@
         animateLength = 600;
       }
       var subform = $(this.options.defaultForm).clone().removeAttr('id');
-      console.log(subform);
+    
       $.each(this.options.names, function(key, value){
         subform.find(key).attr('name', value);
       });
       mainContainer.append(subform);
       subform.show(animateLength);
       if(object){
-        console.log(object);
+       
         $.each(this.options.names, function(key, value){
           var input = subform.find(key)
           input.val(object[value]);
-          console.log(object.key, key);
+          
           if(object.key == value){
 
             input.prop( "disabled", true );
