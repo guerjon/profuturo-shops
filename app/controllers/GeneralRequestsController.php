@@ -4,8 +4,17 @@ class GeneralRequestsController extends BaseController{
 
   public function index()
   {
+
+    $active_tab = Input::get('active_tab', 'assigned');
+  
+
+    $assigneds = ['ASIGNADO','NO ASIGNADO'];
+    $active_category = ['ASIGNADO','NO ASIGNADO'];
+
     $requests = Auth::user()->generalRequests()->orderBy('rating')->get();
-    return View::make('general_requests.index')->withRequests($requests);
+    return View::make('general_requests.index')->withRequests($requests)
+                                               ->withActiveCategory($active_category)
+                                               ->withActiveTab($active_tab);
   }
 
   public function store()
