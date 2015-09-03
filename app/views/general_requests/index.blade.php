@@ -70,11 +70,15 @@
   </table>
 @endif
 
-<div class="text-right">
+@if(Auth::user()->isUserRequests)
 
-  <a data-toggle="modal" data-target="#create-request-modal" class="btn btn-warning">Crear nueva solicitud</a>
+  <div class="text-right">
 
-</div>
+    <a data-toggle="modal" data-target="#create-request-modal" class="btn btn-warning">Crear nueva solicitud</a>
+
+  </div>
+
+@endif
 
 <div class="modal fade" id="create-request-modal" tabindex="-1" role="dialog" aria-labelledby="create-request-label" aria-hidden="true">
   <div class="modal-dialog">
