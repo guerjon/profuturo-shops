@@ -7,7 +7,6 @@
       var element = $(this);
 
       var reset = function(){
-        console.log('resetting', element);
         $(element).find('.step-div').hide();
         $('.start-div').show();
         $(element).find('input[type="radio"]').prop('checked', false);
