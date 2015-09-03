@@ -6,8 +6,11 @@ class AdminGeneralRequestsController extends AdminBaseController{
   	$request = GeneralRequest::select('*');
 
     $active_tab = Input::get('active_tab', 'assigned');
+  
     if($active_tab == 'assigned'){
         $request->whereNotNull('manager_id');
+    }else{
+      $request->whereNull('manager_id');
     }
 
   	if(Input::has('user_id')){
@@ -22,6 +25,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
   		$request->where(DB::raw('YEAR(updated_at)'), Input::get('year'));
   	}
     $assigneds = ['ASIGNADO','NO ASIGNADO'];
+
     $active_category = ['ASIGNADO','NO ASIGNADO'];
     return View::make('admin::general_requests.index')->withAssigneds($assigneds)->withActiveCategory($active_category)
     ->withRequests($request->orderBy('rating','desc')->paginate(10))->withActiveTab($active_tab)
