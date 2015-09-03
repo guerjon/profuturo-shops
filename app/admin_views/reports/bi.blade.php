@@ -9,7 +9,7 @@
 {{Form::open([
   'id' => 'filter-form',
   'method' => 'GET',
-  'action' => 'AdminReportsController@getBIReport',
+  'action' => 'AdminApiController@getBIReport',
   'target' => '_blank'
   ])}}
 <div class="row">
