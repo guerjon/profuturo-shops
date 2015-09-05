@@ -120,16 +120,14 @@
 function drawChart(datos) {
         console.log(datos);
 
+        var orders_by_category = [['Tipo','Cantidad']];
+
+        for(var i = 0;i < datos.orders_by_category.length;i++){
+          orders_by_category.push(datos.orders_by_category[i]);
+        }
 
         if (datos){
-
-          var data = google.visualization.arrayToDataTable([
-          ['Tipo','Cantidad'],
-            datos.orders_by_category[0],
-            datos.orders_by_category[1],
-            datos.orders_by_category[2]
-          ]);
-
+          var data = google.visualization.arrayToDataTable(orders_by_category);
         };
 
 
@@ -141,7 +139,7 @@ function drawChart(datos) {
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         chart.draw(data, options);
-      
+
 } 
 
 function update(){

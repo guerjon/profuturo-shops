@@ -565,7 +565,20 @@ public function getProductOrdersReport()
 
   public function ordersByRegion($report)
   {
-  
+    $orders_region = clone $report;
+
+    $orders_region = $orders_region->select(DB::raw('count(regions.id) as QUANTITY,regions.name as NAME'))
+                                       ->groupBy('regions.id')
+                                       ->get();
+
+    $orders_by_regions = [];
+
+    foreach ($orders_region as $order) 
+    {
+     $orders_by_regions[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_regions;
   }
 
 
@@ -603,6 +616,7 @@ public function getProductOrdersReport()
     }
 
     $orders_by_category = $this->ordersByCategory($report);
+    $orders_by_region = $this->ordersByRegion($report);
 
     $report->select(DB::raw("orders.id as ORDEN,
                             products.name as PRODUCTO,
@@ -627,7 +641,7 @@ public function getProductOrdersReport()
         'status' => 200,
         'headers' => $headers,
         'orders_by_category' => $orders_by_category,
-        // 'orders_by_region' => $orders_by_region,
+        'orders_by_region' => $orders_by_region,
         'report' => $report->get()]);
     }else{
 
@@ -652,14 +666,6 @@ public function getProductOrdersReport()
       }
     }      
   }
-
-
-
-
-
-
-
-
  
   public function getBIAutocomplete(){
     
