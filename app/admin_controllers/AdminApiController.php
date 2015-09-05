@@ -545,25 +545,41 @@ public function getProductOrdersReport()
     }
   }
 
+
+  public function ordersByCategory($report){
+    $orders_category = clone $report;
+
+    $orders_category = $orders_category->select(DB::raw('count(categories.id) as QUANTITY,categories.name as NAME'))
+                                       ->groupBy('categories.id')
+                                       ->get();
+
+    $orders_by_category = [];
+
+    foreach ($orders_category as $order) 
+    {
+     $orders_by_category[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_category;
+  }
+
+  public function ordersByRegion($report)
+  {
+  
+  }
+
+
   public function getBIReport(){
     
-    $report = DB::table('users')->select(DB::raw(
-                                         "orders.id as Orden,
-                                          products.name as PRODUCTO,
-                                          order_product.quantity as CANTIDAD,
-                                          order_product.quantity * products.price as TOTAL,
-                                          categories.name as CATEGORIA, 
-                                          users.ccosto as CCOSTO,
-                                          users.gerencia as GERENCIA,
-                                          users.linea_negocio as LINEA_NEGOCIO,
-                                          users.email as CORREO,
-                                          orders.comments as COMENTARIOS
-                                          "))
-                                ->join('orders','orders.user_id','=','users.id')
+    $report = DB::table('users')->join('orders','orders.user_id','=','users.id')
                                 ->join('order_product','order_product.order_id','=','orders.id')
                                 ->join('products','order_product.product_id','=','products.id')
-                                ->join('categories','products.category_id','=','categories.id');
+                                ->join('categories','products.category_id','=','categories.id')
+                                ->join('regions','regions.id','=','users.region_id');
 
+    if(Input::has('order_id')){
+      $report->where('orders.id','like','%'.Input::get('order_id').'%');
+    }
 
     if(Input::has('ccosto')){
       $report->where('users.ccosto','like','%'.Input::get('ccosto').'%');
@@ -586,18 +602,35 @@ public function getProductOrdersReport()
       $report->where('orders.created_at','<=',Input::get('until'));
     }
 
-     $q = clone $report;
-     $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
-    
-    Log::debug(Input::all());
-    
+    $orders_by_category = $this->ordersByCategory($report);
+
+    $report->select(DB::raw("orders.id as ORDEN,
+                            products.name as PRODUCTO,
+                            order_product.quantity as CANTIDAD,
+                            order_product.quantity * products.price as TOTAL,
+                            categories.name as CATEGORIA, 
+                            users.ccosto as CCOSTO,
+                            users.gerencia as GERENCIA,
+                            users.linea_negocio as LINEA_NEGOCIO,
+                            orders.created_at as FECHA,
+                            users.email as CORREO,
+                            orders.comments as COMENTARIOS,
+                            categories.id as CATEGORIA_ID,
+                            regions.id as REGION_ID"));
+
+    $q = clone $report;
+    $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
+
+
     if(Request::ajax()){
       return Response::json([
         'status' => 200,
         'headers' => $headers,
+        'orders_by_category' => $orders_by_category,
+        // 'orders_by_region' => $orders_by_region,
         'report' => $report->get()]);
     }else{
-      Log::info('oli');
+
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
       $result = [$headers];
@@ -619,6 +652,30 @@ public function getProductOrdersReport()
       }
     }      
   }
+
+
+
+
+
+
+
+
+ 
+  public function getBIAutocomplete(){
+    
+    $orders = Order::all()->lists('id');
+    $ccostos = User::all()->lists('ccosto');
+ 
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'orders' => $orders,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
 
   public function getTotalUsersReport(){
        $users =  User::all();
@@ -765,4 +822,5 @@ public function getProductOrdersReport()
     }
 
   }
+
 }

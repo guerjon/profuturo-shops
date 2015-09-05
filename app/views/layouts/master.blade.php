@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/js/raty/lib/jquery.raty.css">
     <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -109,6 +109,7 @@
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
     <script src="/js/slidebars.js"></script>
     <script src="/js/jquery.datetimepicker.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script charset="utf-8">
     $(function(){
       $.slidebars();
@@ -116,6 +117,8 @@
     </script>
 
       <script type="text/javascript">
+       
+       var currentDate = new Date();
 
       $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -128,16 +131,13 @@
         dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
         dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
         weekHeader: 'Sm',
-        dateFormat: 'yy-mm-d',
-        firstDay: 1,
-        isRTL: false,
-        showMonthAfterYear: false,
+        dateFormat: 'yy-mm-d', 
         yearSuffix: '',
-        minDate : new Date()
+        setDate: currentDate,
       };
       $.datepicker.setDefaults($.datepicker.regional['es']);
       $('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
-
+     
   </script>
 
     @yield('script')

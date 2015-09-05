@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration {
 			$table->string('password');
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper'])->default('user_paper');
-
 			$table->rememberToken();
 		  $table->timestamps();
 		});
