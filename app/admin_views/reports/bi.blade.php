@@ -38,12 +38,12 @@
   
   <div class="col-xs-1">
     {{Form::label('since','Desde')}}
-    {{Form::text('since', \Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+    {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
   </div>
   
   <div class="col-xs-1">
     {{Form::label('until','Hasta')}}
-    {{Form::text('until', \Carbon\Carbon::now('America/Mexico_City')->addMonths('1')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+    {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
   </div>
   
   <div class="col-xs-1">
@@ -268,11 +268,4 @@ $(function(){
 });
 </script>
 
-<script>
-
-
-
-      
-
-</script>
 @stop
