@@ -159,8 +159,9 @@ function drawChart(datos,tipo) {
 
         // Set chart options
         var options = {'title':title,
-                       'width':500,
-                       'height':300};
+                       'width':700,
+                       'height':350,
+                       is3D: true};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
