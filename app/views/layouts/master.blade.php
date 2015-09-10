@@ -109,7 +109,8 @@
     <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script> 
     <script src="/js/slidebars.js"></script>
     <script src="/js/jquery.datetimepicker.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript"
+     src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
     <script charset="utf-8">
     $(function(){
       $.slidebars();

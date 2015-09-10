@@ -57,7 +57,6 @@
 
 </div>
 
-
 {{Form::close()}}
 
 <hr>
@@ -79,9 +78,11 @@
         <div id="chart_div"></div>
 
         <div class="form-group">
-          <button type="button" class="btn btn-default">Pedidos por categoria</button>
-          <button type="button" class="btn btn-default">Pedidos por región</button>
-          <button type="button" class="btn btn-default">Gastos por región</button>
+          <center>
+          <button type="button" class="btn btn-default btn-chart" data-graph="orders_category">Pedidos por categoria</button>
+          <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button>
+          <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button>                      
+          </center>
         </div>
         
         </div>
@@ -117,29 +118,54 @@
 
 
 
-function drawChart(datos) {
+function drawChart(datos,tipo) {
         console.log(datos);
+        console.log(tipo);
+        var title = '';
+        var columns = [[]];
 
-        var orders_by_category = [['Tipo','Cantidad']];
+        if(tipo == 'orders_category') 
+        {  
+          title = 'Pedidos por categoría';
+          columns = [['Tipo','Cantidad']]; 
+          for(var i = 0;i < datos.orders_by_category.length;i++){
+            columns.push(datos.orders_by_category[i]);
+          };
+        }  
 
-        for(var i = 0;i < datos.orders_by_category.length;i++){
-          orders_by_category.push(datos.orders_by_category[i]);
-        }
+        if(tipo == 'orders_region') 
+        {
+          title = 'Pedidos por región';
+          columns = [['Regiones','Cantidad']]
+          for(var i = 0;i < datos.orders_by_region.length;i++){
+            columns.push(datos.orders_by_region[i]);
+          };
+        };
+
+        if(tipo == 'expensives_region') 
+        {
+          title = 'Gastos por Region';
+          columns = [['Region','Gasto']]
+          for(var i = 0;i < datos.expenses_by_region.length;i++){
+            columns.push(datos.expenses_by_region[i]);
+          };
+        };
+
 
         if (datos){
-          var data = google.visualization.arrayToDataTable(orders_by_category);
+          var data = google.visualization.arrayToDataTable(columns);
         };
 
 
         // Set chart options
-        var options = {'title':'Articulos pedidos por categoria',
+        var options = {'title':title,
                        'width':500,
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        
         chart.draw(data, options);
-
 } 
 
 function update(){
@@ -188,7 +214,10 @@ function update(){
       }
 
      
-      drawChart(data);
+      drawChart(data,'orders_category');
+      $('.btn-chart').bind('click',function(){
+        drawChart(data,$(this).attr('data-graph'));
+      });
 
     }else{
       $('.table tbody').append(
