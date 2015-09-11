@@ -22,9 +22,14 @@ class CreateUsersTable extends Migration {
 			$table->string('password');
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper'])->default('user_paper');
+			$table->integer('region_id')->unsigned();
 			$table->rememberToken();
 		  $table->timestamps();
+			$table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
 		});
+
+
+			
 
 	}
 
