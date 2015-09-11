@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration {
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper'])->default('user_paper');
 			$table->integer('region_id')->unsigned();
+			$table->enum('divisional',[1,2,3,4])->default('1');
+			
 			$table->rememberToken();
 		  $table->timestamps();
 			$table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');

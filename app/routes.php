@@ -48,6 +48,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
+		Route::resource('divisionales','AdminDivisionalController');
 
 	});
 
