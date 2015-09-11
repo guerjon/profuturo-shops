@@ -49,7 +49,7 @@ class GeneralRequestsController extends BaseController{
     }
     $user = Auth::user();
     $email = 'jona_54_.com@hotmail.com';
-    Mail::send('admin::email_templates.general_request_notice',['usuario' => $user,'general_request' => $general],function($message) use ($email){
+    Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
       $message->to($email)->subject("Solicitud general hecha.");
     });
     
