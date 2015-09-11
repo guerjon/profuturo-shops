@@ -95,7 +95,8 @@
           <center>
           <button type="button" class="btn btn-default btn-chart" data-graph="orders_category">Pedidos por categoria</button>
           <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button>
-          <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button>                      
+          <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button> 
+          <button type="button" class="btn btn-default btn-chart" data-graph="orders_status">Estatus de pedidos</button>                       
           </center>
         </div>
         
@@ -133,10 +134,11 @@
 
 
 function drawChart(datos,tipo) {
-
+        console.log(datos);
         var title = '';
         var columns = [[]];
         chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+
         if(tipo == 'orders_category') 
         {  
           title = 'Pedidos por categoría';
@@ -165,6 +167,29 @@ function drawChart(datos,tipo) {
             columns.push(datos.expenses_by_region[i]);
           };
            chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        };
+
+
+        if(tipo == 'orders_status') 
+        {
+          title = 'Estado de pedidos';
+          columns = [['Estado','Total']]
+          var estado;
+          for(var i = 0;i < datos.orders_status.length;i++){
+            
+            if (i == 0){
+              estado = 'Pendiente'
+            };
+            if (i == 1){
+              estado = 'Recibido'
+            };
+            if (i == 2){
+              estado = 'Recibido Incompleto';
+            };
+            
+            columns.push([estado,datos.orders_status[i]]);
+          };
+           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         };
 
 

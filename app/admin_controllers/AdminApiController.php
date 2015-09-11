@@ -599,6 +599,23 @@ public function getProductOrdersReport()
   }
 
 
+  public function ordersStatus($report){
+    $orders = clone $report;
+
+    $orders = $orders->select(DB::raw('count(orders.status) as STATUS'))
+                     ->groupBy('orders.status')
+                     ->get();
+
+    $orders_deliver_pending = [];
+
+    foreach ($orders as $order) 
+    {
+     $orders_deliver_pending[] = $order->STATUS;
+    }                                       
+    
+    return $orders_deliver_pending;
+  }
+
   public function getBIReport(){
     
     $report = DB::table('users')->join('orders','orders.user_id','=','users.id')
@@ -635,6 +652,7 @@ public function getProductOrdersReport()
     $orders_by_category = $this->ordersByCategory($report);
     $orders_by_region = $this->ordersByRegion($report);
     $expenses_by_region = $this->expensesByRegion($report);
+    $orders_status = $this->ordersStatus($report);
 
     $report->select(DB::raw("orders.id as ORDEN,
                             products.name as PRODUCTO,
@@ -661,6 +679,7 @@ public function getProductOrdersReport()
         'orders_by_category' => $orders_by_category,
         'orders_by_region' => $orders_by_region,
         'expenses_by_region' => $expenses_by_region,
+        'orders_status' => $orders_status,
         'report' => $report->get()]);
     }else{
 
