@@ -47,8 +47,15 @@ class GeneralRequestsController extends BaseController{
       }
       $products--;
     }
+    $user = Auth::user();
+    $email = 'jona_54_.com@hotmail.com';
+    Mail::send('admin::email_templates.general_request_notice',['usuario' => $user,'general_request' => $general],function($message) use ($email){
+      $message->to($email)->subject("Solicitud general hecha.");
+    });
+    
     return Redirect::to(action('GeneralRequestsController@index'))->withSuccess("Se ha guardado su solicitud con id {$request->id}");
   }
+
 
   public function update($inutilizado){
     $status = Input::get('status');

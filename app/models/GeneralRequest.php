@@ -43,9 +43,6 @@ class GeneralRequest extends Eloquent
   }
 
 
-
-
-
   public function getStatusStrAttribute()
   {
     switch($this->status){
