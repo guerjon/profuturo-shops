@@ -13,7 +13,7 @@ class CreateRegionsTable extends Migration {
 	public function up()
 	{
 		Schema::table('regions',function($table){
-			$table->autoincrement('id');
+			$table->autoincrements('id');
 			$table->string('name');
 		});
 

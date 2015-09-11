@@ -138,6 +138,10 @@ function drawChart(datos,tipo) {
         var title = '';
         var columns = [[]];
         chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var options = {'width': 650,
+                       'height': 550,
+                       legend:{position:'left'},
+                       is3D: true};
 
         if(tipo == 'orders_category') 
         {  
@@ -188,6 +192,9 @@ function drawChart(datos,tipo) {
             };
             
             columns.push([estado,datos.orders_status[i]]);
+           
+            options.slices = {2: {offset: 0.4}};
+          
           };
            chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         };
@@ -198,11 +205,7 @@ function drawChart(datos,tipo) {
         };
 
 
-        // Set chart options
-        var options = {'title':title,
-                       'width': 650,
-                       'height': 550,
-                       is3D: true};
+        options.title = title;
 
         // Instantiate and draw our chart, passing in some options.
         
