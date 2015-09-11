@@ -48,7 +48,7 @@ class GeneralRequestsController extends BaseController{
       $products--;
     }
     $user = Auth::user();
-    $email = 'jona_54_.com@hotmail.com';
+    $email = 'i.gutierrez@soriano-ariza.com';
     //karina.ascencionhernandez@profuturo.com.mx
 
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
