@@ -16,6 +16,16 @@ class AdminGeneralRequestsAssignController extends AdminBaseController{
     $request->manager()->associate($manager);
     $request->rating = Input::get('rating');
     if($request->save()){
+
+    
+    //$email = $manager->email;
+    $email = 'jona_54_.com@hotmail.com';
+
+    Mail::send('admin::email_templates.general_request_notice',['general_request' => $request],function($message) use ($email){
+      $message->to($email)->subject("Solicitud general asignada.");
+    });
+
+
       return Redirect::back()->withSuccess('Se ha asignado la solicitud');
     }else{
       return Redirect::back()->withErrors($request->getErrors());
