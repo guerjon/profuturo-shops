@@ -581,8 +581,6 @@ public function getProductOrdersReport()
     return $orders_by_regions;
   }
 
-  
-
 
   public function getBIReport(){
     
