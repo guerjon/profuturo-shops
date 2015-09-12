@@ -20,60 +20,58 @@
   </div>
 {{ Form::close() }}
 
-@unless($users_paper->count() == 0)
-<div>
-  <button type="button" class="btn btn-sm btn-primary" id="btn-multiple-assign">Asignación Múltiple</button>
-  <div id="multiple-assign-btn-group" style="display:none">
-    <button type="button" class="btn btn-sm btn-danger" id="btn-multiple-assign-cancel">Cancelar Asignación Múltiple</button>
-    <button type="button" class="btn btn-sm btn-primary" id="btn-multiple-assign-assign">Asignar</button>
-  </div>
-</div>
-<br>
-@endunless
+
 
 
 @if($users_paper->count() > 0)
-<div class="table-responsive" id="user_paper">
+<div class="table-responsive">
+
   <table class="table table-striped">
+
     <thead>
       <tr>
-        <th>No. empleado</th>
-        <th>Nombre(s)</th>
-        <th>Apellido(s)</th>
-        <th>Usuario CUSP</th>
-        <th>Gerencia</th>
-         <th>Gerente</th>
-        <th>
-
-        </th>
+        <th>CCOSTOS</th>
+        <th>GERENCIA</th>
+        <th>REGION(s)</th>
+        <th>DIVISIONAL</th>
+        <th>LINEA DE NEGOCIO</th>
+        <th>NOMBRE</th>
+        <th>NUMERO DE EMPLEADO</th>
+        <th>EMAIL</th>
+        <th>EXTENSION</th>
+        <th>CELULAR</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
 
     <tbody>
-      @foreach ($users_paper as $executive)
-
-        @if($focus = Session::get('focus'))
-          <?php $class = ((is_array($focus) and in_array($executive->id, $focus)) or ($focus == $executive->id)) ? 'info' : ''; ?>
-        @else
-          <?php $class = '' ?>
-        @endif
-        <tr class="{{$class}}">
-           <td>
-             <input class="executive-checkbox" type="checkbox" name="assign-executive[]" data-user-id="{{$executive->id}}" style="display:none">
-             {{$executive->employee_number}}
-           </td>
-           <td>{{$executive->first_name}}</td>
-           <td>{{$executive->last_name}}</td>
-           <td>{{$executive->cusp}}</td>
-           <td>{{$executive->management->name or 'N/A'}}</td>
-           <td>{{$executive->manager->fullname or 'No asignado'}}</td>
+      @foreach ($managers as $manager)
+        <tr class="{{(Session::get('focus') == $manager->id) ? 'info' : ''}}">
+           <td>{{$manager->ccosto}}</td>
+           <td>{{$manager->gerencia}}</td>
+           <td>{{$manager->region ? $manager->region->name : 'N/A'}}</td>
+           <td>{{$manager->divisional}}</td>
+           <td>{{$manager->linea_negocio}}</td>
+           <td>{{$manager->nombre}}</td>
+           <td>{{$manager->num_empleado}}</td>
+           <td>{{$manager->email}}</td>
+           <td>{{$manager->extension}}</td>
+           <td>{{$manager->celular}}</td>
           <td>
-            @include('admin::users.partials.actions', ['user' => $executive])
+            @include('admin::users.partials.actions', ['user' => $manager])
           </td>
+           <td>
+            {{HTML::image($manager->image->url('mini'),$manager->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
+           </td>
+         
+
+
          </tr>
       @endforeach
     </tbody>
   </table>
+
 </div>
 <div class="text-center">
   {{ $users_paper->appends(Input::only(['user_paper']) + ['active_tab' => 'user_paper'])->links()}}
