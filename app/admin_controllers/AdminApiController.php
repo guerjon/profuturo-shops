@@ -581,6 +581,40 @@ public function getProductOrdersReport()
     return $orders_by_regions;
   }
 
+  public function expensesByRegion($report){
+    $expenses = clone $report;
+
+    $expenses = $expenses->select(DB::raw('SUM(products.price * order_product.quantity) as EXPENSIVE,regions.name as NAME'))
+                         ->groupBy('regions.id')
+                         ->get();
+
+    $expenses_by_regions = [];
+
+    foreach ($expenses as $expense) 
+    {
+     $expenses_by_regions[] = [$expense->NAME,$expense->EXPENSIVE];                     
+    }                                       
+
+    return $expenses_by_regions; 
+  }
+
+
+  public function ordersStatus($report){
+    $orders = clone $report;
+
+    $orders = $orders->select(DB::raw('count(orders.status) as STATUS'))
+                     ->groupBy('orders.status')
+                     ->get();
+
+    $orders_deliver_pending = [];
+
+    foreach ($orders as $order) 
+    {
+     $orders_deliver_pending[] = $order->STATUS;
+    }                                       
+    
+    return $orders_deliver_pending;
+  }
 
   public function getBIReport(){
     
@@ -617,6 +651,8 @@ public function getProductOrdersReport()
 
     $orders_by_category = $this->ordersByCategory($report);
     $orders_by_region = $this->ordersByRegion($report);
+    $expenses_by_region = $this->expensesByRegion($report);
+    $orders_status = $this->ordersStatus($report);
 
     $report->select(DB::raw("orders.id as ORDEN,
                             products.name as PRODUCTO,
@@ -642,6 +678,8 @@ public function getProductOrdersReport()
         'headers' => $headers,
         'orders_by_category' => $orders_by_category,
         'orders_by_region' => $orders_by_region,
+        'expenses_by_region' => $expenses_by_region,
+        'orders_status' => $orders_status,
         'report' => $report->get()]);
     }else{
 

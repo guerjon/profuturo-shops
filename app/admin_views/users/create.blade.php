@@ -48,6 +48,20 @@
       </div>
 
       <div class="form-group">
+        {{Form::label('divisional','Divisional',['class' => 'control-label col-sm-4'])}}
+        <div class="col-sm-8">
+          {{Form::select('divisional',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
+        </div>
+      </div>     
+
+      <div class="form-group">
+        {{Form::label('region_id','Region',['class' => 'control-label col-sm-4'])}}
+        <div class="col-sm-8">
+          {{Form::select('region_id',$regions,null,['class' => 'form-control'])}}
+        </div>
+      </div>   
+
+      <div class="form-group">
         {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label col-sm-4'])}}
         <div class="col-sm-8">
           {{Form::text('gerencia', NULL, ['class' => 'form-control'])}}

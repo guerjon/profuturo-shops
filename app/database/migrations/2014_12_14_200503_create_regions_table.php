@@ -12,15 +12,11 @@ class CreateRegionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('regions',function($table){
-			$table->autoincrement('id');
+		Schema::create('regions',function($table){
+			$table->increments('id');
 			$table->string('name');
 		});
 
-		Schema::table('users',function($table){
-			$table->integer('region_id')->unique()->unsigned();
-			$table->foreign('region_id')->refereces('id')->on('regions')->onDelete('cascade');
-		});
 	}
 
 	/**

@@ -6,9 +6,31 @@ class AdminUsersController extends AdminBaseController
 
   public function index()
   {
+    $active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
+
+        $admins = User::withTrashed()->where('role', 'admin')->paginate(25);
+        if(Input::has('admin')){
+
+        }
+        $managers = User::withTrashed()->where('role', 'manager')->paginate(25);
+        if(Input::has('manager')){
+         
+        }
+        $users_requests = User::where('role', 'user_requests')->paginate(25);
+        if(Input::has('user_requests')){
+        
+        }
+        $user_paper = User::where('role', 'user_paper')->paginate(25);
+        if(Input::has('user_paper')){
+        
+        }
+
     return View::make('admin::users.index')
-      ->withUsers(User::withTrashed()->whereIn('role', ['user_requests', 'user_paper'])->orderBy('role')->orderBy('ccosto')->get())
-      ->withAdmins(User::withTrashed()->whereIn('role', ['admin', 'manager'])->orderBy('role')->orderBy('gerencia')->get());
+      ->withAdmins($admins)
+      ->withManagers($managers)
+      ->withUsersRequests($users_requests)
+      ->withUsersPaper($user_paper)
+      ->withActiveTab($active_tab);
   }
 
   public function create()
@@ -16,13 +38,14 @@ class AdminUsersController extends AdminBaseController
     $user_manager = User::where('role','=','manager')->lists('gerencia','id');
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
-    return View::make('admin::users.create')->withUser(new User)->withColors($colors)->withManager($user_manager);
+    $regions = Region::all()->lists('name','id');
+    return View::make('admin::users.create')->withUser(new User)->withColors($colors)->withManager($user_manager)->withRegions($regions);
   }
 
   public function store()
   {
     $user = new User(Input::except('password_confirmation'));
-    Log::info(Input::except('password_confirmation'));
+
     if(Input::get('num_empleado')==null){
       $user->num_empleado = null;
     }
