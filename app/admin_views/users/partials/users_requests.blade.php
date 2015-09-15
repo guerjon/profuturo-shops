@@ -2,11 +2,11 @@
   'method' => 'GET',
   'class' => 'form-horizontal'
   ]) }}
-  {{ Form::hidden('active_tab', 'executive') }}
+  {{ Form::hidden('active_tab', 'users_requests') }}
   <div class="form-group">
-    <label for="executive-employee-number" class="control-label col-xs-2">Número de empleado</label>
+    <label for="user-requests-employee-number" class="control-label col-xs-2">CCOSTOS</label>
     <div class="col-xs-2">
-      {{Form::text('executive[employee_number]', (Input::get('executive')['employee_number']), ['class' => 'form-control', 'maxlength' => 6])}}
+      {{Form::text('user_requests[employee_number]', (Input::get('executive')['employee_number']), ['class' => 'form-control', 'maxlength' => 6])}}
     </div>
 {{--     <div class="col-xs-3">
       {{ Form::select('executive[management_id]', $managements,

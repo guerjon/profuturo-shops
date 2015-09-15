@@ -6,6 +6,8 @@ class AdminUsersController extends AdminBaseController
 
   public function index()
   {
+    Log::info(Input::get('active_tab'));
+   
     $active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
 
         $admins = User::withTrashed()->where('role', 'admin')->paginate(25);
