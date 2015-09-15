@@ -53,7 +53,7 @@
            <td>{{$user_paper->email}}</td>
            <td>{{$user_paper->extension}}</td>
           <td>
-            @include('admin::users.partials.actions', ['user' => $users_paper])
+            @include('admin::users.partials.actions', ['user' => $user_paper])
           </td>
            <td>
             {{HTML::image($user_paper->image->url('mini'),$user_paper->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
