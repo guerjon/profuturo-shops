@@ -43,20 +43,20 @@
     </thead>
 
     <tbody>
-      @foreach ($managers as $manager)
-        <tr class="{{(Session::get('focus') == $manager->id) ? 'info' : ''}}">
-           <td>{{$manager->ccosto}}</td>
-           <td>{{$manager->gerencia}}</td>
-           <td>{{$manager->region ? $manager->region->name : 'N/A'}}</td>
-           <td>{{$manager->divisional}}</td>
-           <td>{{$manager->linea_negocio}}</td>
-           <td>{{$manager->email}}</td>
-           <td>{{$manager->extension}}</td>
+      @foreach ($users_paper as $user_paper)
+        <tr class="{{(Session::get('focus') == $user_paper->id) ? 'info' : ''}}">
+           <td>{{$user_paper->ccosto}}</td>
+           <td>{{$user_paper->gerencia}}</td>
+           <td>{{$user_paper->region ? $user_paper->region->name : 'N/A'}}</td>
+           <td>{{$user_paper->divisional}}</td>
+           <td>{{$user_paper->linea_negocio}}</td>
+           <td>{{$user_paper->email}}</td>
+           <td>{{$user_paper->extension}}</td>
           <td>
-            @include('admin::users.partials.actions', ['user' => $manager])
+            @include('admin::users.partials.actions', ['user' => $users_paper])
           </td>
            <td>
-            {{HTML::image($manager->image->url('mini'),$manager->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
+            {{HTML::image($user_paper->image->url('mini'),$user_paper->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
            </td>
          
 

@@ -12,19 +12,48 @@ class AdminUsersController extends AdminBaseController
 
         $admins = User::withTrashed()->where('role', 'admin')->paginate(25);
         if(Input::has('admin')){
-
+          $input = Input::get('admin', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+              $admins->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+          }
         }
+
         $managers = User::withTrashed()->where('role', 'manager')->paginate(25);
         if(Input::has('manager')){
-         
+           $input = Input::get('manager', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+              $managers->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+          }         
         }
         $users_requests = User::where('role', 'user_requests')->paginate(25);
         if(Input::has('user_requests')){
-        
+           $input = Input::get('user_requests', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['ccosto']){
+              $managers->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+          }       
         }
         $user_paper = User::where('role', 'user_paper')->paginate(25);
         if(Input::has('user_paper')){
-        
+          $input = Input::get('user_paper', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['ccosto']){
+              $managers->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+          }  
         }
 
     return View::make('admin::users.index')

@@ -44,23 +44,23 @@
     </thead>
 
     <tbody>
-      @foreach ($admins as $admin)
-        <tr class="{{(Session::get('focus') == $admin->id) ? 'info' : ''}}">
-           <td>{{$admin->ccosto}}</td>
-           <td>{{$admin->gerencia}}</td>
-           <td>{{$admin->region ? $admin->region->name : 'N/A'}}</td>
-           <td>{{$admin->divisional}}</td>
-           <td>{{$admin->linea_negocio}}</td>
-           <td>{{$admin->nombre}}</td>
-           <td>{{$admin->num_empleado}}</td>
-           <td>{{$admin->email}}</td>
-           <td>{{$admin->extension}}</td>
-           <td>{{$admin->celular}}</td>
+      @foreach ($users_requests as $user_requests)
+        <tr class="{{(Session::get('focus') == $user_requests->id) ? 'info' : ''}}">
+           <td>{{$user_requests->ccosto}}</td>
+           <td>{{$user_requests->gerencia}}</td>
+           <td>{{$user_requests->region ? $user_requests->region->name : 'N/A'}}</td>
+           <td>{{$user_requests->divisional}}</td>
+           <td>{{$user_requests->linea_negocio}}</td>
+           <td>{{$user_requests->nombre}}</td>
+           <td>{{$user_requests->num_empleado}}</td>
+           <td>{{$user_requests->email}}</td>
+           <td>{{$user_requests->extension}}</td>
+           <td>{{$user_requests->celular}}</td>
           <td>
-            @include('admin::users.partials.actions', ['user' => $admin])
+            @include('admin::users.partials.actions', ['user' => $users_requests])
           </td>
            <td>
-            {{HTML::image($admin->image->url('mini'),$admin->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
+            {{HTML::image($user_requests->image->url('mini'),$user_requests->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
            </td>
          
 

@@ -1,5 +1,5 @@
-{{Form::open([
-  'action' => ['AdminUsersController@destroy', $user->id],
+{{-- {{Form::open([
+  'action' => ['AdminUsersController@destroy', $admin->id],
   'method' => 'DELETE',
   'class' => 'form-horizontal',
   'style' => 'display: inline',
@@ -7,9 +7,9 @@
 
   <div class="btn-group">
 
-    @if(!$user->trashed())
-      {{link_to_action('AdminUsersController@edit', 'Editar', [$user->id], ['class' => 'btn btn-sm btn-default'])}}
-      @unless(Auth::id() == $user->id)
+    @if(!$admin->trashed())
+      {{link_to_action('AdminUsersController@edit', 'Editar', [$admin->id], ['class' => 'btn btn-sm btn-default'])}}
+      @unless(Auth::id() == $admin->id)
       {{Form::submit('Deshabilitar', ['class' => 'btn btn-sm btn-danger'])}}
       @endunless
     @else
@@ -17,3 +17,4 @@
     @endif
   </div>
 {{Form::close()}}
+ --}}

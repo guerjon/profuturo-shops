@@ -47,8 +47,6 @@
           <td>
             @include('admin::users.partials.actions', ['user' => $admin])
           </td>
-
-
          </tr>
       @endforeach
     </tbody>
