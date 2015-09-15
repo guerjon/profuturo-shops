@@ -2,10 +2,20 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Usuarios</a></li>
+    <li class="active">Añadir Usuario</li>
+  </ol>
+
 
 <div class="row">
 
-  <div class="col-sm-8 col-sm-offset-2">
+  <div class="col-md-8 col-md-offset-2">
 
     @if($user->getErrors()->count() > 0)
       <div class="alert alert-danger">
@@ -24,13 +34,12 @@
     {{Form::model($user, [
       'action' => $user->exists ? ['AdminUsersController@update', $user->id] : 'AdminUsersController@store',
       'method' => $user->exists ? 'PUT' : 'POST',
-      'class' => 'form-horizontal',
       'id'     => 'user-create',
       ])}}
-
+      <h3>Dar de alta un nuevo Administrador</h3>
       <div class="form-group">
-        {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label'])}}
+        <div>
           @if($user->exists)
           <p class="form-control-static">
             {{$user->ccosto}}
@@ -41,51 +50,51 @@
         </div>
       </div>
       <div class="form-group">
-        {{Form::label('email','Correo electrónico',['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('email','Correo electrónico',['class' => 'control-label'])}}
+        <div>
           {{Form::email('email',null,['class' => 'form-control'])}}
         </div>
       </div>
 
       <div class="form-group">
-        {{Form::label('divisional','Divisional',['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('divisional','Divisional',['class' => 'control-label'])}}
+        <div>
           {{Form::select('divisional',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
         </div>
       </div>     
 
       <div class="form-group">
-        {{Form::label('region_id','Region',['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('region_id','Region',['class' => 'control-label'])}}
+        <div>
           {{Form::select('region_id',$regions,null,['class' => 'form-control'])}}
         </div>
       </div>   
 
       <div class="form-group">
-        {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label'])}}
+        <div>
           {{Form::text('gerencia', NULL, ['class' => 'form-control'])}}
         </div>
       </div>
 
       <div class="form-group">
-        {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label'])}}
+        <div>
           {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],'FONDOS',['class' => 'form-control'])}}
         </div>
       </div>
 
       @unless($user->exists)
       <div class="form-group">
-        {{Form::label('password', 'Contraseña', ['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
+        <div>
           {{Form::password('password', ['class' => 'form-control'])}}
         </div>
       </div>
 
       <div class="form-group">
-        {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label'])}}
+        <div>
           {{Form::password('password_confirmation', ['class' => 'form-control'])}}
         </div>
       </div>
@@ -94,8 +103,8 @@
 
 
       <div class="form-group">
-        {{Form::label('role', 'Perfil', ['class' => 'control-label col-sm-4'])}}
-        <div class="col-sm-8">
+        {{Form::label('role', 'Perfil', ['class' => 'control-label'])}}
+        <div>
           @if($user->exists)
             <p class="form-control-static">
               @if($user->role == 'admin')

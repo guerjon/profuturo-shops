@@ -2,6 +2,16 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Solicitudes Generales</li>
+  </ol>
+
+
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$active_tab == 'assigned' ?  'active' : ''}}">
     <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'assigned'])}}">Asignadas</a> 
@@ -30,7 +40,9 @@
   <div class="col-xs-2">
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5,Input::get('year',\Carbon\Carbon::now('America/Mexico_City')->year),\Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
-    {{ Form::submit('Filtrar', ['class' => 'btn btn-warning btn-submit'])}}
+    <button type="submit" class="btn btn-primary">
+     <span class="glyphicon glyphicon-filter"></span> Filtrar
+    </button>
   
 </div>
 {{Form::close()}}
@@ -102,7 +114,7 @@
       </td>
     
       <td>
-        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" 
+        <button data-toggle="modal" data-target="#request-modal" class="btn btn-xs btn-primary detail-btn" 
                 data-request-id="{{$request->id}}">Detalles</button>
       </td>
     </tr>

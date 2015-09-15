@@ -1,9 +1,20 @@
 @extends('layouts.master')
 
 @section('content')
+  <ol class="breadcrumb">
+      <a href="#" class="back-btn">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+      </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Productos</li>
+  </ol>
+
 
 <div class="text-right">
-  {{link_to_action('AdminProductsController@create', 'Agregar nuevo producto', NULL, ['class' => 'btn btn-warning'])}}
+  <a href="{{action('AdminProductsController@create')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto
+  </a>
 </div>
 
 
@@ -54,16 +65,22 @@
           </td>
 
           <td>
-          {{link_to_action('AdminProductsController@edit', 'Editar', [$product->id], ['class' => 'btn btn-sm btn-default'])}}
+            <a href="{{action('AdminProductsController@edit', $product->id)}}" class="btn btn-warning btn-xs">
+             <span class="glyphicon glyphicon-pencil"></span> Editar
+            </a>
           {{Form::open([
               'action' => ['AdminProductsController@destroy',$product->id],
               'method' => 'DELETE',
               'style' => 'display:inline'
               ])}}
           @if($product->trashed())
-              {{Form::submit('Habilitar', ['class' => 'btn btn-info'])}}
+            <button type="submit" class="btn btn-success btn-xs">
+              <span class="glyphicon glyphicon-ok"></span> Habilitar
+            </button>
           @else
-              {{Form::submit('inhabilitar',['class' => 'btn btn-sm btn-danger'])}}
+            <button type="submit" class="btn btn-danger btn-xs">
+              <span class="glyphicon glyphicon-remove"></span> Inhabilitar
+            </button>
           @endif 
           {{Form::close()}}   
           

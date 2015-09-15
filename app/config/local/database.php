@@ -27,7 +27,7 @@ return array(
 			'database'  => 'sorianoariza_profuturo_compras',
 			'username'  => 'root',
 			//'password'  => 'root',
-			'password'  => '',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

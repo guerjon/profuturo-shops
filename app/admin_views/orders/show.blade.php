@@ -2,6 +2,16 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Pedidos Papelería</a></li>
+    <li class="active">Detalles</li>
+  </ol>
+
 <h3>Detalles del pedido {{$order->id}}<br><small>{{$order->comments}}</small></h3>
 
 <h5>Pedido de: {{$order->user->first_name}} {{$order->user->last_name}}</h5>

@@ -2,8 +2,17 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Categorías</li>
+  </ol>
+
 <div class="text-right">
-  {{link_to_action('AdminCategoriesController@create', 'Agregar nueva categoría', NULL, ['class' => 'btn btn-warning'])}}
+  {{link_to_action('AdminCategoriesController@create', 'Agregar nueva categoría', NULL, ['class' => 'btn btn-primary'])}}
 </div>
 
 
@@ -41,7 +50,9 @@
             {{$category->products->count()}}
           </td>
           <td>
-            {{link_to_action('AdminCategoriesController@edit', 'Editar', [$category->id], ['class' => 'btn btn-default btn-sm']) }}
+            <a href="{{action('AdminCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
+             <span class="glyphicon glyphicon-pencil"></span> Editar
+            </a>
           </td>
         </tr>
         @endforeach

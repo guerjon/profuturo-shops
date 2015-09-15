@@ -2,9 +2,19 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Tarjetas de Presentación</li>
+  </ol>
 
 <div class="text-right">
-  {{link_to_action('AdminBusinessCardsController@create', 'Importar archivo Excel', [], ['class' => 'btn btn-default'])}}
+  <a href="{{action('AdminBusinessCardsController@create')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-import"></span> Importar archivo Excel
+  </a>
 </div>
 <br>
 @if($cards->count() == 0)
@@ -28,7 +38,9 @@
     </div>
 
     <div class="form-group">
-      {{Form::submit('Filtrar', ['class' => 'btn btn-defaul'])}}
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-filter"></span> Filtrar
+      </button>
     </div>
 
   {{Form::close()}}
@@ -89,9 +101,13 @@
               ])}}
 
               @if($card->trashed())
-              {{Form::submit('Habilitar', ['class' => 'btn btn-info'])}}
+                <button type="submit" class="btn btn-success btn-xs">
+                  <span class="glyphicon glyphicon-ok"></span> Habilitar
+                 </button>
               @else
-              {{Form::submit('inhabilitar',['class' => 'btn btn-sm btn-danger'])}}
+                <button type="submit" class="btn btn-danger btn-xs">
+                  <span class="glyphicon glyphicon-remove"></span> Inhabilitar
+                </button>
               @endif
 
             {{Form::close()}}
