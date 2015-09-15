@@ -1,6 +1,17 @@
 @extends('layouts.master')
 
 @section('content')
+
+<ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li><a href="#">Usuarios</a></li>
+    <li class="active">Importar</li>
+  </ol>
+
 @if($errors->count())
 @foreach($errors->all() as $error)
 <div class="alert alert-danger">

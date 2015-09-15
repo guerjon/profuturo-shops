@@ -1,0 +1,49 @@
+
+.calendar{
+  margin-bottom: 15px;
+}
+
+.calendar-nav{
+  margin: 0px -20px;
+}
+
+.calendar-nav.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.calendar-nav.navbar .navbar-collapse {
+  text-align: center;
+}
+
+
+.row-calendar{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.col-xs-calendar{
+  width: 14.2857%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.panel-calendar{
+  height: 180px;
+  overflow: auto;
+}
+.panel-calendar .list-group-item{
+  font-size: 75%;
+  padding: 5px;
+}
+.panel.panel-calendar-holiday{
+  background-color: #fafafa;
+}
+.panel.panel-calendar-disabled{
+  background-color: #eee;
+}
+
+.panel-calendar.panel{
+  margin-bottom: 0px;
+}

@@ -26,16 +26,16 @@
 
     <thead>
       <tr>
-        <th>CCOSTOS</th>
-        <th>GERENCIA</th>
-        <th>REGION(s)</th>
-        <th>DIVISIONAL</th>
-        <th>LINEA DE NEGOCIO</th>
-        <th>NOMBRE</th>
-        <th>NUMERO DE EMPLEADO</th>
-        <th>EMAIL</th>
-        <th>EXTENSION</th>
-        <th>CELULAR</th>
+        <th>C. Costos</th>
+        <th>Gerencia</th>
+        <th>Region(s)</th>
+        <th>Divisional</th>
+        <th>Linea de negocio</th>
+        <th>Nombre</th>
+        <th>No. empleado</th>
+        <th>Email</th>
+        <th>Extension</th>
+        <th>Celular</th>
         <th></th>
         <th></th>
       </tr>

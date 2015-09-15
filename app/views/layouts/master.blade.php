@@ -7,11 +7,12 @@
     <title>Profuturo Insumos</title>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="/css/bootstrap/bootstrap.css" media="screen" title="no title" charset="utf-8">
-
-    <link rel="stylesheet" href="/css/slidebars.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
+    <!--<link rel="stylesheet" href="/css/slidebars.css" media="screen" title="no title" charset="utf-8">-->
+    <!--<link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">-->
     <link rel="stylesheet" href="/js/raty/lib/jquery.raty.css">
+    {{ HTML::style('/css/app.css') }}
+    {{ HTML::style('css/style.css') }}
+    <link rel="stylesheet" href="/css/calendario.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -47,7 +48,13 @@
             </div>
 
 
-            <a class="navbar-brand" href="#"><img id="header" src="/img/header.png"></a>
+            <a class="navbar-brand" href="#">
+              @if(Auth::check())
+              <div class="sb-toggle-left btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-align-justify"></span>
+              </div>
+              @endif
+              <img id="header" src="/img/header.png"></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->

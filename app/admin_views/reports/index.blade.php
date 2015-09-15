@@ -2,7 +2,16 @@
 
 @section('content')
 
-<h2>Reportes</h2>
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Reportes</li>
+  </ol>
+
+<h2 style="text-align:center">Reportes</h2>
 
 <div class="row">
 

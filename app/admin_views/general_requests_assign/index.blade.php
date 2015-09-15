@@ -2,7 +2,18 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Asignación de solicitudes</li>
+  </ol>
+
 @if($requests->count() > 0)
+
+<h3>Asignación de solicitudes generales</h3>
 
 <table class="table table-striped">
   <thead>

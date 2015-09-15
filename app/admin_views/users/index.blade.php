@@ -2,6 +2,15 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Usuarios</li>
+  </ol>
+
 @if($errors->count() > 0)
 <div class="alert alert-danger">
   <ul>
@@ -13,9 +22,15 @@
 @endif
 
 <div class="text-right">
-  {{link_to_action('AdminUsersController@getImport', 'Importar Excel', [], ['class' => 'btn btn-warning'])}}
-  {{link_to_action('AdminApiController@getUsersReport', 'Descargar reporte', [], ['class' => 'btn btn-warning'])}}
-  <!--{{link_to_action('AdminUsersController@create', 'Crear nuevo usuario', [], ['class' => 'btn btn-warning'])}} -->
+  <a href="{{action('AdminUsersController@getImport')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-import"></span> Importar Excel
+  </a>
+  <a href="{{action('AdminApiController@getUsersReport')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-download-alt"></span> Descargar Reporte
+  </a>
+  <a href="{{action('AdminUsersController@create')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> Añadir usuario
+  </a>
 
 </div>
 
@@ -32,16 +47,16 @@
           Consultores
         </a>
       </li>
-      <li role="presentation" class="{{$active_tab == 'user_requests' ? 'active' : ''}}">
-        <a href="?active_tab=user_requests&page=1" aria-controls="user_requests" class="tabs">
-          Usuarios proyectos
-        </a>
-      </li>
       <li role="presentation" class="{{$active_tab == 'user_paper' ? 'active' : ''}}">
         <a href="?active_tab=user_paper&page=1" aria-controls="user_paper" class="tabs">
-          Usuarios papeleria
+          Papeleria
         </a>
-      </li>      
+      </li>  
+      <li role="presentation" class="{{$active_tab == 'user_requests' ? 'active' : ''}}">
+        <a href="?active_tab=user_requests&page=1" aria-controls="user_requests" class="tabs">
+          Proyectos
+        </a>
+      </li>    
     </ul>
   </div>
 
@@ -59,13 +74,6 @@
       @include('admin::users.partials.users_paper')
     </div>    
   </div>
-
-
-
-<div class="text-right">
-  {{link_to_action('AdminApiController@getUsersReport', 'Descargar reporte', [], ['class' => 'btn btn-warning'])}}
-  {{link_to_action('AdminUsersController@create', 'Crear nuevo usuario', [], ['class' => 'btn btn-warning'])}}
-</div>
 
 
 

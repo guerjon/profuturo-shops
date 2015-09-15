@@ -2,6 +2,15 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="#" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="#">Inicio</a></li>
+    <li class="active">Pedidos de Tarjetas</li>
+  </ol>
+
 @if($bc_orders->count() == 0)
 <div class="alert alert-info">
   No hay pedidos de tarjetas de presentación
@@ -9,7 +18,9 @@
 
 @else
 
-{{link_to_action('AdminBcOrdersController@index','Descargar excel',['export'=>'xls'],['class' => 'btn btn-warning btn-submit','style' => 'float:right' ])}}
+<a href="{{action('AdminBcOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+  <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+</a>
 
 
 <table class="table table-striped">
@@ -69,7 +80,9 @@
    {{Form::open(array('action' =>['AdminBcOrdersController@destroy',$order->id],
    'method' => 'delete'))}}
 
-    {{Form::submit('Eliminar', ['class' => 'btn btn-sm btn-danger'])}}
+    <button type="submit" class="btn btn-danger btn-xs">
+     <span class="glyphicon glyphicon-remove"></span> Eliminar
+    </button>
      {{Form::close()}}
      </td>
     </tr>

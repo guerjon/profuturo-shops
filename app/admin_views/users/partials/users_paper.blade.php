@@ -30,16 +30,13 @@
 
     <thead>
       <tr>
-        <th>CCOSTOS</th>
-        <th>GERENCIA</th>
-        <th>REGION(s)</th>
-        <th>DIVISIONAL</th>
-        <th>LINEA DE NEGOCIO</th>
-        <th>NOMBRE</th>
-        <th>NUMERO DE EMPLEADO</th>
-        <th>EMAIL</th>
-        <th>EXTENSION</th>
-        <th>CELULAR</th>
+        <th>C. Costos</th>
+        <th>Gerencia</th>
+        <th>Region(s)</th>
+        <th>Divisional</th>
+        <th>Linea de negocio</th>
+        <th>Email</th>
+        <th>Extension</th>
         <th></th>
         <th></th>
       </tr>
@@ -53,11 +50,8 @@
            <td>{{$manager->region ? $manager->region->name : 'N/A'}}</td>
            <td>{{$manager->divisional}}</td>
            <td>{{$manager->linea_negocio}}</td>
-           <td>{{$manager->nombre}}</td>
-           <td>{{$manager->num_empleado}}</td>
            <td>{{$manager->email}}</td>
            <td>{{$manager->extension}}</td>
-           <td>{{$manager->celular}}</td>
           <td>
             @include('admin::users.partials.actions', ['user' => $manager])
           </td>

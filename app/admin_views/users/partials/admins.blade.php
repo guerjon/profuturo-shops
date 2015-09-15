@@ -22,16 +22,13 @@
 
     <thead>
       <tr>
-        <th>CCOSTOS</th>
-        <th>GERENCIA</th>
-        <th>REGION(s)</th>
-        <th>DIVISIONAL</th>
-        <th>LINEA DE NEGOCIO</th>
-        <th>NOMBRE</th>
-        <th>NUMERO DE EMPLEADO</th>
-        <th>EMAIL</th>
-        <th>EXTENSION</th>
-        <th>CELULAR</th>
+        <th>C.Costos</th>
+        <th>Gerencia</th>
+        <th>Linea de negocio</th>
+        <th>Nombre</th>
+        <th>No. empleado</th>
+        <th>Email</th>
+        <th>Extension</th>
         <th></th>
         <th></th>
       </tr>
@@ -42,21 +39,14 @@
         <tr class="{{(Session::get('focus') == $admin->id) ? 'info' : ''}}">
            <td>{{$admin->ccosto}}</td>
            <td>{{$admin->gerencia}}</td>
-           <td>{{$admin->region ? $admin->region->name : 'N/A'}}</td>
-           <td>{{$admin->divisional}}</td>
            <td>{{$admin->linea_negocio}}</td>
            <td>{{$admin->nombre}}</td>
            <td>{{$admin->num_empleado}}</td>
            <td>{{$admin->email}}</td>
            <td>{{$admin->extension}}</td>
-           <td>{{$admin->celular}}</td>
           <td>
             @include('admin::users.partials.actions', ['user' => $admin])
           </td>
-           <td>
-            {{HTML::image($admin->image->url('mini'),$admin->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
-           </td>
-         
 
 
          </tr>
