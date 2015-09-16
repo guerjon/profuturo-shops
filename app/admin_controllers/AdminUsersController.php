@@ -10,8 +10,9 @@ class AdminUsersController extends AdminBaseController
    
     $active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
 
-        $admins = User::withTrashed()->where('role', 'admin')->paginate(25);
+        $admins = User::withTrashed()->where('role', 'admin');
         if(Input::has('admin')){
+
           $input = Input::get('admin', []);
           if(!is_array($input)){
             Log::warning("I did not receive an array");
@@ -22,7 +23,7 @@ class AdminUsersController extends AdminBaseController
           }
         }
 
-        $managers = User::withTrashed()->where('role', 'manager')->paginate(25);
+        $managers = User::withTrashed()->where('role', 'manager');
         if(Input::has('manager')){
            $input = Input::get('manager', []);
           if(!is_array($input)){
@@ -33,34 +34,34 @@ class AdminUsersController extends AdminBaseController
             }
           }         
         }
-        $users_requests = User::where('role', 'user_requests')->paginate(25);
+        $user_requests = User::where('role', 'user_requests');
         if(Input::has('user_requests')){
            $input = Input::get('user_requests', []);
           if(!is_array($input)){
             Log::warning("I did not receive an array");
           }else{
-            if($emp_number = @$input['ccosto']){
-              $managers->where('ccosto', 'LIKE', "%{$emp_number}%");
+            if($emp_number = @$input['employee_number']){
+              $user_requests->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
-          }       
+          }   
         }
-        $user_paper = User::where('role', 'user_paper')->paginate(25);
+        $users_paper = User::where('role', 'user_paper');
         if(Input::has('user_paper')){
-          $input = Input::get('user_paper', []);
+           $input = Input::get('user_paper', []);
           if(!is_array($input)){
             Log::warning("I did not receive an array");
           }else{
-            if($emp_number = @$input['ccosto']){
-              $managers->where('ccosto', 'LIKE', "%{$emp_number}%");
+            if($emp_number = @$input['employee_number']){
+              $users_paper->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
-          }  
+          }           
         }
 
     return View::make('admin::users.index')
-      ->withAdmins($admins)
-      ->withManagers($managers)
-      ->withUsersRequests($users_requests)
-      ->withUsersPaper($user_paper)
+      ->withAdmins($admins->paginate(25))
+      ->withManagers($managers->paginate(25))
+      ->withUsersRequests($user_requests->paginate(25))
+      ->withUsersPaper($users_paper->paginate(25))
       ->withActiveTab($active_tab);
   }
 
