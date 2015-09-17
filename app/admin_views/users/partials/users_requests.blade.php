@@ -39,7 +39,7 @@
         <th>Extensión</th>
         <th>Celular</th>
         <th></th>
-        <th></th>
+
       </tr>
     </thead>
 
@@ -59,9 +59,7 @@
           <td>
             @include('admin::users.partials.actions', ['user' => $user_requests])
           </td>
-           <td>
-            {{HTML::image($user_requests->image->url('mini'),$user_requests->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
-           </td>
+
          
 
 

@@ -35,7 +35,7 @@
         <th>Extensión</th>
         <th>Celular</th>
         <th></th>
-        <th></th>
+  
       </tr>
     </thead>
 
@@ -53,9 +53,6 @@
           <td>
             @include('admin::users.partials.actions', ['user' => $manager])
           </td>
-           <td>
-            {{HTML::image($manager->image->url('mini'),$manager->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
-           </td>
          
 
 

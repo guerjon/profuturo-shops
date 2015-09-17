@@ -35,10 +35,9 @@
         <th>Región</th>
         <th>Divisional</th>
         <th>Línea de negocio</th>
-        <th>Email</th>
         <th>Extensión</th>
         <th></th>
-        <th></th>
+    
       </tr>
     </thead>
 
@@ -49,15 +48,12 @@
            <td>{{$user_paper->gerencia}}</td>
            <td style="width: 13%" >{{$user_paper->region ? $user_paper->region->name : 'N/A'}}</td>
            <td>{{$user_paper->divisional}}</td>
-           <td>{{$user_paper->linea_negocio}}</td>
-           <td>{{$user_paper->email}}</td>
+           <td>{{$user_paper->linea_negocio}}</td>  
            <td>{{$user_paper->extension}}</td>
           <td>
             @include('admin::users.partials.actions', ['user' => $user_paper])
           </td>
-           <td>
-            {{HTML::image($user_paper->image->url('mini'),$user_paper->nombre, ['class' => 'img-rounded','style' => 'height: 30px;width: 30px;'] )}}        
-           </td>
+ 
          
 
 
