@@ -30,8 +30,6 @@
       <tr>
         <th>C. Costos</th>
         <th>Gerencia</th>
-        <th>Región</th>
-        <th>Divisional</th>
         <th>Línea de negocio</th>
         <th>Nombre</th>
         <th>No. empleado</th>
@@ -48,8 +46,6 @@
           <tr class="{{(Session::get('focus') == $user_requests->id) ? 'info' : ''}}">
            <td>{{$user_requests->ccosto}}</td>
            <td>{{$user_requests->gerencia}}</td>
-           <td style="width: 13%">{{$user_requests->region ? $user_requests->region->name : 'N/A'}}</td>
-           <td>{{$user_requests->divisional}}</td>
            <td>{{$user_requests->linea_negocio}}</td>
            <td>{{$user_requests->nombre}}</td>
            <td>{{$user_requests->num_empleado}}</td>
