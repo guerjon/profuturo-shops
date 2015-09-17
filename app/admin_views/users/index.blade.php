@@ -28,9 +28,10 @@
   <a href="{{action('AdminApiController@getUsersReport')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-download-alt"></span> Descargar Reporte
   </a>
-  <a href="{{action('AdminUsersController@create')}}" class="btn btn-primary">
+  <a href="{{action('AdminUsersController@create',['active_tab'=>$active_tab])}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Añadir usuario
   </a>
+
 
 </div>
 

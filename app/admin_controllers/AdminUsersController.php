@@ -58,20 +58,26 @@ class AdminUsersController extends AdminBaseController
         }
 
     return View::make('admin::users.index')
-      ->withAdmins($admins->paginate(25))
-      ->withManagers($managers->paginate(25))
-      ->withUsersRequests($user_requests->paginate(25))
-      ->withUsersPaper($users_paper->paginate(25))
+      ->withAdmins($admins->paginate(10))
+      ->withManagers($managers->paginate(10))
+      ->withUsersRequests($user_requests->paginate(10))
+      ->withUsersPaper($users_paper->paginate(10))
       ->withActiveTab($active_tab);
   }
 
   public function create()
   {
+    $active_tab = Input::get('active_tab');
+
     $user_manager = User::where('role','=','manager')->lists('gerencia','id');
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
     $regions = Region::all()->lists('name','id');
-    return View::make('admin::users.create')->withUser(new User)->withColors($colors)->withManager($user_manager)->withRegions($regions);
+    return View::make('admin::users.create')->withUser(new User)
+                                            ->withColors($colors)
+                                            ->withManager($user_manager)
+                                            ->withRegions($regions)
+                                            ->withActiveTab($active_tab);
   }
 
   public function store()

@@ -28,8 +28,6 @@
       <tr>
         <th>C. Costos</th>
         <th>Gerencia</th>
-        <th>Región</th>
-        <th>Divisional</th>
         <th>Línea de negocio</th>
         <th>Nombre</th>
         <th>No. empleado</th>
@@ -46,8 +44,6 @@
         <tr class="{{(Session::get('focus') == $manager->id) ? 'info' : ''}}">
            <td>{{$manager->ccosto}}</td>
            <td>{{$manager->gerencia}}</td>
-           <td style="width: 13%" >{{$manager->region ? $manager->region->name : 'N/A'}}</td>
-           <td>{{$manager->divisional}}</td>
            <td>{{$manager->linea_negocio}}</td>
            <td>{{$manager->nombre}}</td>
            <td>{{$manager->num_empleado}}</td>

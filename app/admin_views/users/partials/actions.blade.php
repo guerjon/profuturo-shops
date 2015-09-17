@@ -8,12 +8,20 @@
   <div class="btn-group">
 
     @if(!$user->trashed())
-      {{link_to_action('AdminUsersController@edit', 'Editar', [$user->id], ['class' => 'btn btn-sm btn-default'])}}
+      
+        <a href="{{action('AdminUsersController@edit', $user->id)}}" class="btn btn-warning btn-xs">
+          <span class="glyphicon glyphicon-pencil"></span> Editar
+        </a>
+        
       @unless(Auth::id() == $user->id)
-      {{Form::submit('Deshabilitar', ['class' => 'btn btn-sm btn-danger'])}}
+        <button type="submit" class="btn btn-danger btn-xs">
+          <span class="glyphicon glyphicon-remove"></span> Inhabilitar
+        </button>
       @endunless
     @else
-      {{Form::submit('Habilitar', ['class' => 'btn btn-sm btn-info'])}}
+      <button type="submit" class="btn btn-success btn-xs">
+        <span class="glyphicon glyphicon-ok"></span> Habilitar
+      </button>
     @endif
   </div>
 {{Form::close()}}
