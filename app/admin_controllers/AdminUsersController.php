@@ -93,10 +93,11 @@ class AdminUsersController extends AdminBaseController
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
     $user = User::find($user_id);
+    $regions = Region::all()->lists('name','id');
     if(!$user){
       return Redirect::back()->withWarning('No se encontró el usuario o está deshabilitado');
     }
-    return View::make('admin::users.create')->withUser($user)->withColors($colors);
+    return View::make('admin::users.create')->withUser($user)->withColors($colors)->withRegions($regions);
   }
 
   public function update($user_id)
