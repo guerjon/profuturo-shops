@@ -30,13 +30,13 @@
       <tr>
         <th>C. Costos</th>
         <th>Gerencia</th>
-        <th>Region(s)</th>
+        <th>Región</th>
         <th>Divisional</th>
-        <th>Linea de negocio</th>
+        <th>Línea de negocio</th>
         <th>Nombre</th>
         <th>No. empleado</th>
         <th>Email</th>
-        <th>Extension</th>
+        <th>Extensión</th>
         <th>Celular</th>
         <th></th>
         <th></th>
@@ -48,7 +48,7 @@
           <tr class="{{(Session::get('focus') == $user_requests->id) ? 'info' : ''}}">
            <td>{{$user_requests->ccosto}}</td>
            <td>{{$user_requests->gerencia}}</td>
-           <td>{{$user_requests->region ? $user_requests->region->name : 'N/A'}}</td>
+           <td style="width: 13%">{{$user_requests->region ? $user_requests->region->name : 'N/A'}}</td>
            <td>{{$user_requests->divisional}}</td>
            <td>{{$user_requests->linea_negocio}}</td>
            <td>{{$user_requests->nombre}}</td>

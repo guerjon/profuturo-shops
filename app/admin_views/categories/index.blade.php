@@ -12,7 +12,7 @@
   </ol>
 
 <div class="text-right">
-  {{link_to_action('AdminCategoriesController@create', 'Agregar nueva categoría', NULL, ['class' => 'btn btn-primary'])}}
+  {{link_to_action('AdminCategoriesController@create', 'Agregar categoría', NULL, ['class' => 'btn btn-primary'])}}
 </div>
 
 

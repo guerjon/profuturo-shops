@@ -13,7 +13,7 @@
 
 <div class="text-right">
   <a href="{{action('AdminProductsController@create')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto
+    <span class="glyphicon glyphicon-plus"></span> Agregar producto
   </a>
 </div>
 

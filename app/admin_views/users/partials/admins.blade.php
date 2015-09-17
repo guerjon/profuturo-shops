@@ -28,7 +28,7 @@
         <th>Nombre</th>
         <th>No. empleado</th>
         <th>Email</th>
-        <th>Extension</th>
+        <th>Extensión</th>
         <th></th>
         <th></th>
       </tr>
@@ -38,7 +38,7 @@
       @foreach ($admins as $admin)
         <tr class="{{(Session::get('focus') == $admin->id) ? 'info' : ''}}">
            <td>{{$admin->ccosto}}</td>
-           <td>{{$admin->gerencia}}</td>
+           <td style="width: 13%">{{$admin->gerencia}}</td>
            <td>{{$admin->linea_negocio}}</td>
            <td>{{$admin->nombre}}</td>
            <td>{{$admin->num_empleado}}</td>
