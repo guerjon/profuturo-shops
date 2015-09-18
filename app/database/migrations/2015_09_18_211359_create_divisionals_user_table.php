@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDivisionalsRegionsTable extends Migration {
+class CreateDivisionalsUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateDivisionalsRegionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('divisionals_regions', function($table)
+		Schema::create('divisionals_users', function($table)
 		{
 		  $table->increments('id');
 			$table->integer('divisional_id')->unsigned();
@@ -21,7 +21,7 @@ class CreateDivisionalsRegionsTable extends Migration {
 			$table->date('until');
 			
 			$table->foreign('divisional_id')->references('id')->on('divisionals')->onDelete('cascade');
-			$table->foreign('regions_id')->references('id')->on('regions')->onDelete('cascade');
+			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 
@@ -32,7 +32,7 @@ class CreateDivisionalsRegionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('divisionals_regions');
+		Schema::drop('divisionals_users');
 	}
 
 }
