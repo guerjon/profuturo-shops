@@ -36,7 +36,7 @@
       'method' => $user->exists ? 'PUT' : 'POST',
       'id'     => 'user-create',
       ])}}
-      <h3>Dar de alta un nuevo Administrador</h3>
+      <h3>Dar de alta un nuevo Usuario</h3>
       <div class="form-group">
         {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label'])}}
         <div>
