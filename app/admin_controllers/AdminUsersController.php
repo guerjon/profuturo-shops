@@ -7,6 +7,8 @@ class AdminUsersController extends AdminBaseController
   public function index()
   {
     Log::info(Input::get('active_tab'));
+
+    
    
     $active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
 
@@ -83,12 +85,36 @@ class AdminUsersController extends AdminBaseController
   public function store()
   {
     $user = new User(Input::except('password_confirmation'));
+    $active_tab = Input::get('active_tab');
 
-    if(Input::get('num_empleado')==null){
+    switch ($active_tab) {
+      case 'admin':     
+        $user->role = 'admin';
+        break;
+      case 'manager':     
+        $user->role = 'manager';
+        break;      
+
+      case 'user_requests':     
+        $user->role = 'user_requests';
+        break;
+
+      case 'users_paper':     
+        $user->role = 'user_paper';
+        break;
+
+        default:
+        # code...
+        break;
+    }
+
+    if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
     }
+    Log::info(Input::all());
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
+      
     }else{
       return View::make('admin::users.create')->withUser($user);
     }

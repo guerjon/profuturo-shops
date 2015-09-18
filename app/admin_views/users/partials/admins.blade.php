@@ -25,10 +25,8 @@
         <th>C.Costos</th>
         <th>Gerencia</th>
         <th>Linea de negocio</th>
-        <th>Nombre</th>
-        <th>No. empleado</th>
         <th>Email</th>
-        <th>Extensión</th>
+
         <th></th>
         <th></th>
       </tr>
@@ -40,10 +38,8 @@
            <td>{{$admin->ccosto}}</td>
            <td style="width: 13%">{{$admin->gerencia}}</td>
            <td>{{$admin->linea_negocio}}</td>
-           <td>{{$admin->nombre}}</td>
-           <td>{{$admin->num_empleado}}</td>
            <td>{{$admin->email}}</td>
-           <td>{{$admin->extension}}</td>
+
           <td>
             @include('admin::users.partials.actions', ['user' => $admin])
           </td>
