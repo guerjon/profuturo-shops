@@ -122,6 +122,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->belongsTo('Region');
 	}
 
+	public function divisional()
+	{
+		return $this->belongsTo('Divisional');
+	}
+
 	public function color(){
 		return $this->belongsTo('Color');
 	}
