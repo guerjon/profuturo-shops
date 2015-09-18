@@ -16,7 +16,7 @@ class CreateDivisionalsUsersTable extends Migration {
 		{
 		  $table->increments('id');
 			$table->integer('divisional_id')->unsigned();
-			$table->integer('regions_id')->unsigned();
+			$table->integer('user_id')->unsigned();
 			$table->date('from');
 			$table->date('until');
 			
