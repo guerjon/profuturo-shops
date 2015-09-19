@@ -15,9 +15,8 @@
 		<div class="table table-striped" style="overflow-y">
 			
 				@if(count($divisionales_uno) > 0)
-				<hr>
+		
 					<h3 style ="float:left;">Divisional 1</h3>
-
 					<table class="table table-striped">
 						<thead>
 							<th>Desde</th>
@@ -45,7 +44,6 @@
 					<div class="alert alert-info" style="margin:2px">No se han añadido nuevas fechas para esta divisional 1</div>
 				@endif
 		</div>
-		<hr>
   </div>
 
   <a href="#divisional-2" class="btn btn-info" data-toggle="collapse">Divisional 2</a>
