@@ -2,9 +2,15 @@
 
 @section('content')
 
-<div class="page-header">
-  <h3>Reporte total de solicitudes generales</h3>
-</div>
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="#">Inicio</a></li>
+  <li><a href="#">Reportes</a></li>
+  <li class="active">Solicitudes generales</li>
+</ol>
 
 {{Form::open([
   'id' => 'filter-form',
@@ -12,17 +18,19 @@
   'action' => 'AdminApiController@getGeneralRequestsExcel',
   'target' => '_blank'
   ])}}
-<div class="row">
- 
-  <center>
-      {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
-  </center>
-  
+
+<div class="page-header">
+  <h3>Reporte total de solicitudes generales
+    <button class="btn btn-primary btn-submit" style="float:right">
+      <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+    </button>
+  </h3>
+</div>
+
+<div class="row"> 
 
 </div>
 {{Form::close()}}
-
-<hr>
 
 <div class="table-responsive">
   <table class="table table-responsive">

@@ -2,8 +2,18 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="#">Inicio</a></li>
+  <li><a href="#">Reportes</a></li>
+  <li class="active">Usuarios sin pedidos</li>
+</ol>
+
 <div class="page-header">
-  <h3>Reporte de usuarios inactivos</h3>
+  <h3>Reporte de usuarios sin pedidos</h3>
 </div>
 
 {{Form::open([
@@ -20,7 +30,9 @@
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
 
-    {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
+  <button class="btn btn-primary btn-submit">
+    <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+  </button>
 
 </div>
 {{Form::close()}}

@@ -13,44 +13,72 @@
 
 <h2 style="text-align:center">Reportes</h2>
 
+<hr>
+
 <div class="row">
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getOrdersReport', 'Pedidos papelería', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3">
+    <a href="{{action('AdminReportsController@getActiveUserOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Mayores pedidos</h3>
+    </a>
   </div>
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getBcOrdersReport', 'Pedidos tarjetas', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3">
+    <a href="{{action('AdminReportsController@getUserOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Usuarios sin pedidos</h3>
+    </a>
   </div>
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getFurnituresOrdersReport', 'Reportes de mobiliario', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3">
+    <a href="{{action('AdminReportsController@getProductOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Más solicitados</h3>
+    </a>
   </div>
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getUserOrdersReport', 'Usuarios sin pedidos', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3">
+    <a href="{{action('AdminReportsController@getBIReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Reportes BI</h3>
+    </a>
   </div>
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getActiveUserOrdersReport', 'Usuarios con mayores pedidos', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3">
+    <a href="{{action('AdminReportsController@getTotalUserOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Pedidos totales</h3>
+    </a>
   </div>
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getProductOrdersReport', 'Productos más solicitados', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3">
+    <a href="{{action('AdminReportsController@getFurnituresOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Mobiliario</h3>
+    </a>
   </div>
 
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getTotalUserOrdersReport', 'Pedidos totales de usuarios', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
-  </div>
-  
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getGeneralRequestReport', 'Reportes de solicitudes generales', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
-  </div>
-
-  <div class="col-sm-4 col-xs-6">
-    {{link_to_action('AdminReportsController@getBIReport', 'Reportes BI', [], ['class' => 'btn btn-lg btn-default btn-block'])}}
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3">
+    <a href="{{action('AdminReportsController@getOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Pedidos papelería</h3>
+    </a>
   </div>
 
+  <div class="col-sm-2 col-xs-3">
+    <a href="{{action('AdminReportsController@getBcOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Pedidos tarjetas</h3>
+    </a>
+  </div>
+
+  <div class="col-sm-2 col-xs-3">
+    <a href="{{action('AdminReportsController@getGeneralRequestReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Sol. generales</h3>
+    </a>
+  </div>
 
 </div>
 

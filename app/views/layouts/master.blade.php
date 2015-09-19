@@ -40,14 +40,6 @@
               <span class="icon-bar"></span>
             </button>
 
-            <div class="sb-toggle-left navbar-toggle">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </div>
-
-
             <a class="navbar-brand" href="#">
               @if(Auth::check())
               <div class="sb-toggle-left btn btn-default btn-lg">
