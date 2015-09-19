@@ -41,6 +41,7 @@
 						</tbody>
 					</table>
 					@else
+					<br>
 					<div class="alert alert-info" style="margin:2px">No se han añadido nuevas fechas para esta divisional 1</div>
 				@endif
 		</div>
@@ -75,6 +76,7 @@
 						</tbody>
 					</table>
 					@else
+					<br>
 					<div class="alert alert-info" style="margin:2px">No se han añadido nuevas fechas para esta divisional 2</div>
 				@endif
 		</div>
