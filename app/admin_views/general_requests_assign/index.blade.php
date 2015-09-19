@@ -30,6 +30,9 @@
       <th>
         Presupuesto
       </th>
+      <th>
+        Asignado
+      </th>
       <th class="text-center">
         Asignar asesor
       </th>
@@ -47,8 +50,16 @@
       <td>
         {{$request->getStatusStrAttribute()}}
       </td>
+
       <td>
-        {{ $request->unit_price * $request->quantity}}
+        {{money_format("%.2n",$request->unit_price * $request->quantity)}}
+      </td>
+      <td>
+        @if($request->manager != null)
+            <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green"></span>
+        @else
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span>
+        @endif
       </td>
       <td class="text-center">
         @if($request->manager != null)
