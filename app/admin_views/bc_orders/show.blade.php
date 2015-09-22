@@ -7,13 +7,14 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Pedidos de Tarjetas</a></li>
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/admin/bc-orders">Pedidos de Tarjetas</a></li>
     <li class="active">Detalles</li>
   </ol>
 
 <h3>Detalles</h3>
 
+<div class="container">
 <table class="table table-striped">
 
   <thead>
@@ -124,6 +125,7 @@
   </tbody>
 
 </table>
+</div>
 
 @if($bc_order->status == 1)
 <div class="well">

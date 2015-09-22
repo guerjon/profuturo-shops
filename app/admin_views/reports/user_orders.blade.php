@@ -7,8 +7,8 @@
     <span class="glyphicon glyphicon-arrow-left"></span> Regresar
   </a>
     &nbsp;&nbsp;&nbsp;
-  <li><a href="#">Inicio</a></li>
-  <li><a href="#">Reportes</a></li>
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/reports/index">Reportes</a></li>
   <li class="active">Usuarios sin pedidos</li>
 </ol>
 
@@ -39,17 +39,19 @@
 
 <hr>
 
-<div class="table-responsive">
-  <table class="table table-responsive">
-    <thead>
-      <tr>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
 
-      </tr>
-    </thead>
-    <tbody>
+        </tr>
+      </thead>
+      <tbody>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 @stop

@@ -22,48 +22,51 @@
 
 
 @if($users_requests->count() > 0)
-<div class="table-responsive">
 
-  <table class="table table-striped">
+<div class="container">
+  <div class="table-responsive">
 
-    <thead>
-      <tr>
-        <th>C. Costos</th>
-        <th>Gerencia</th>
-        <th>Línea de negocio</th>
-        <th>Nombre</th>
-        <th>No. empleado</th>
-        <th>Email</th>
-        <th>Extensión</th>
-        <th>Celular</th>
-        <th></th>
+    <table class="table table-striped">
 
-      </tr>
-    </thead>
+      <thead>
+        <tr>
+          <th>C. Costos</th>
+          <th>Gerencia</th>
+          <th>Línea de negocio</th>
+          <th>Nombre</th>
+          <th>No. empleado</th>
+          <th>Email</th>
+          <th>Extensión</th>
+          <th>Celular</th>
+          <th></th>
 
-    <tbody>
-      @foreach ($users_requests as $user_requests)
-          <tr class="{{(Session::get('focus') == $user_requests->id) ? 'info' : ''}}">
-           <td>{{$user_requests->ccosto}}</td>
-           <td>{{$user_requests->gerencia}}</td>
-           <td>{{$user_requests->linea_negocio}}</td>
-           <td>{{$user_requests->nombre}}</td>
-           <td>{{$user_requests->num_empleado}}</td>
-           <td>{{$user_requests->email}}</td>
-           <td>{{$user_requests->extension}}</td>
-           <td>{{$user_requests->celular}}</td>
-          <td>
-            @include('admin::users.partials.actions', ['user' => $user_requests])
-          </td>
+        </tr>
+      </thead>
 
-         
+      <tbody>
+        @foreach ($users_requests as $user_requests)
+            <tr class="{{(Session::get('focus') == $user_requests->id) ? 'info' : ''}}">
+             <td>{{$user_requests->ccosto}}</td>
+             <td>{{$user_requests->gerencia}}</td>
+             <td>{{$user_requests->linea_negocio}}</td>
+             <td>{{$user_requests->nombre}}</td>
+             <td>{{$user_requests->num_empleado}}</td>
+             <td>{{$user_requests->email}}</td>
+             <td>{{$user_requests->extension}}</td>
+             <td>{{$user_requests->celular}}</td>
+            <td>
+              @include('admin::users.partials.actions', ['user' => $user_requests])
+            </td>
+
+           
 
 
-         </tr>
-      @endforeach
-    </tbody>
-  </table>
+           </tr>
+        @endforeach
+      </tbody>
+    </table>
 
+  </div>
 </div>
 <div class="text-center">
   {{ $users_requests->appends(Input::only(['users_requests']) + ['active_tab' => 'users_requests'])->links()}}

@@ -7,8 +7,8 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Usuarios</a></li>
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/admin/users">Usuarios</a></li>
     <li class="active">Importar</li>
   </ol>
 

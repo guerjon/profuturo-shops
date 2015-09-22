@@ -2,10 +2,20 @@
 
 @section('content')
 
-<div class="text-right">
-  {{link_to_action('AdminFurnitureCategoriesController@create', 'Agregar nueva categoría', NULL, ['class' => 'btn btn-warning'])}}
-</div>
+  <ol class="breadcrumb">
+      <a href="#" class="back-btn">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+      </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="/">Inicio</a></li>
+    <li class="active">Categorías de mobiliario</li>
+  </ol>
 
+  <div class="text-right">
+    <a href="{{action('AdminFurnitureCategoriesController@create')}}" class="btn btn-primary">
+      <span class="glyphicon glyphicon-plus"></span> Agregar nueva categoría
+    </a>
+  </div>
 
 @if($categories->count() == 0)
 
@@ -14,39 +24,41 @@
   </div>
 @else
 
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            Nombre
-          </th>
-          <th>
-            # de productos
-          </th>
-          <th>
-            Acciones
-          </th>
-        </tr>
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              Nombre
+            </th>
+            <th>
+              # de productos
+            </th>
+            <th>
+              Acciones
+            </th>
+          </tr>
 
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
 
-        @foreach($categories as $category)
-        <tr>
-          <td>
-            {{$category->name}}
-          </td>
-          <td>
-            {{$category->furnitures->count()}}
-          </td>
-          <td>
-            {{link_to_action('AdminCategoriesController@edit', 'Editar', [$category->id], ['class' => 'btn btn-default btn-sm']) }}
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+          @foreach($categories as $category)
+          <tr>
+            <td>
+              {{$category->name}}
+            </td>
+            <td>
+              {{$category->furnitures->count()}}
+            </td>
+            <td>
+              {{link_to_action('AdminCategoriesController@edit', 'Editar', [$category->id], ['class' => 'btn btn-default btn-sm']) }}
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 @endif
 @stop

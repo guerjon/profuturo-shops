@@ -24,41 +24,44 @@
 
 
 @if($users_paper->count() > 0)
-<div class="table-responsive">
 
-  <table class="table table-striped">
+<div class="container">
+  <div class="table-responsive">
 
-    <thead>
-      <tr>
-        <th>C. Costos</th>
-        <th>Gerencia</th>
-        <th>Región</th>
-        <th>Divisional</th>
-        <th>Línea de negocio</th>
-        <th>Extensión</th>
-        <th></th>
-    
-      </tr>
-    </thead>
+    <table class="table table-striped">
 
-    <tbody>
-      @foreach ($users_paper as $user_paper)
-        <tr class="{{(Session::get('focus') == $user_paper->id) ? 'info' : ''}}">
-           <td>{{$user_paper->ccosto}}</td>
-           <td>{{$user_paper->gerencia}}</td>
-           <td >{{$user_paper->region ? $user_paper->region->name : 'N/A'}}</td>
-           <td>{{$user_paper->divisional}}</td>
-           <td>{{$user_paper->linea_negocio}}</td>  
-           <td>{{$user_paper->extension}}</td>
-          <td>
-            @include('admin::users.partials.actions', ['user' => $user_paper])
-          </td>
- 
-         </tr>
-      @endforeach
-    </tbody>
-  </table>
+      <thead>
+        <tr>
+          <th>C. Costos</th>
+          <th>Gerencia</th>
+          <th>Región</th>
+          <th>Divisional</th>
+          <th>Línea de negocio</th>
+          <th>Extensión</th>
+          <th></th>
+      
+        </tr>
+      </thead>
 
+      <tbody>
+        @foreach ($users_paper as $user_paper)
+          <tr class="{{(Session::get('focus') == $user_paper->id) ? 'info' : ''}}">
+             <td>{{$user_paper->ccosto}}</td>
+             <td>{{$user_paper->gerencia}}</td>
+             <td >{{$user_paper->region ? $user_paper->region->name : 'N/A'}}</td>
+             <td>{{$user_paper->divisional}}</td>
+             <td>{{$user_paper->linea_negocio}}</td>  
+             <td>{{$user_paper->extension}}</td>
+            <td>
+              @include('admin::users.partials.actions', ['user' => $user_paper])
+            </td>
+   
+           </tr>
+        @endforeach
+      </tbody>
+    </table>
+
+  </div>
 </div>
 <div class="text-center">
   {{ $users_paper->appends(Input::only(['user_paper']) + ['active_tab' => 'user_paper'])->links()}}

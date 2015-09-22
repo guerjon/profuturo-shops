@@ -1,11 +1,14 @@
-body{
-  background-color: rgb(246, 246, 246) !important;
-}
-
 /* header */
 .navbar-nav > li > a{
   padding-top: 10px;
   padding-bottom: 7px;
 }
 
+.table > thead > tr > th{
+	text-align: center;
+}
+
+.table > tbody > tr > td{
+	text-align: center;
+}
 

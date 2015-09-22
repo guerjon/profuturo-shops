@@ -2,13 +2,23 @@
 
 @section('content')
 
-<h1>Divisionales</h1>
-<hr>
+<ol class="breadcrumb">
+      <a href="#" class="back-btn">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+      </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="/">Inicio</a></li>
+    <li class="active">Divisionales</li>
+  </ol>
 
+<h3>
+	Divisionales
   <button type="button" style="float:right" class="btn btn-primary" data-toggle="modal" data-target="#add-date">
     <span class="glyphicon glyphicon-plus"></span> Añadir Fecha
   </button>
+</h3>
 
+<hr>
 
 	  <a href="#divisional-1" class="btn btn-info" data-toggle="collapse">Divisional 1</a>
   <div id="divisional-1" class="collapse">

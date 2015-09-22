@@ -7,8 +7,8 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Agenda</a></li>
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/admin/agenda">Agenda</a></li>
     <li class="active">Día de Agenda</li>
   </ol>
 

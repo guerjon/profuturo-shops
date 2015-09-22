@@ -2,6 +2,19 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/mobiliario">Mobiliario</a></li>
+  <li class="active">Agregar nuevo mobiliario</li>
+</ol>
+
+<h3>Agregar nuevo mobiliario</h3>
+<hr>
+
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
 

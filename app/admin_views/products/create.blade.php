@@ -7,8 +7,8 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
-    <li><a href="#">Categorías</a></li>
+    <li><a href="/">Inicio</a></li>
+    <li><a href="/admin/products">Categorías</a></li>
     <li class="active">Añadir Producto</li>
   </ol>
 
