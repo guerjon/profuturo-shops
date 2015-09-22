@@ -31,8 +31,6 @@
   <a href="{{action('AdminUsersController@create',['active_tab'=>$active_tab])}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Añadir usuario
   </a>
-
-
 </div>
 
 <h3>Centros de costos</h3>

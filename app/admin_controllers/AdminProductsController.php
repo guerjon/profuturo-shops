@@ -5,7 +5,18 @@ class AdminProductsController extends AdminBaseController
 
   public function index()
   {
-    return View::make('admin::products.index')->withProducts(Product::withTrashed()->orderBy('category_id')->orderBy('name')->paginate(25));
+    $active_tab = Session::get('active_tab', Input::get('active_tab', 'ARTICULOS DE OFICINA'));
+    $products = Product::withTrashed();
+    $categories = Category::lists('name');
+
+    Log::info(Input::all());
+
+          $products->where('category_id',Input::get('active_tab'));  
+    
+    return View::make('admin::products.index')->withProducts($products->orderBy('category_id')->orderBy('name')->paginate(10))
+                                              ->withCategories(Category::all())
+                                              ->withActiveTab($active_tab);
+                                            
   }
 
   public function create()
