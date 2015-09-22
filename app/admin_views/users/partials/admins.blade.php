@@ -16,38 +16,41 @@
   </div>
 {{ Form::close() }}
 @if($admins->count() > 0)
-<div class="table-responsive">
 
-  <table class="table table-striped">
+<div class="container">
+  <div class="table-responsive">
 
-    <thead>
-      <tr>
-        <th>C.Costos</th>
-        <th>Gerencia</th>
-        <th>Linea de negocio</th>
-        <th>Email</th>
+    <table class="table table-striped">
 
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
+      <thead>
+        <tr>
+          <th>C.Costos</th>
+          <th>Gerencia</th>
+          <th>Linea de negocio</th>
+          <th>Email</th>
 
-    <tbody>
-      @foreach ($admins as $admin)
-        <tr class="{{(Session::get('focus') == $admin->id) ? 'info' : ''}}">
-           <td>{{$admin->ccosto}}</td>
-           <td style="width: 13%">{{$admin->gerencia}}</td>
-           <td>{{$admin->linea_negocio}}</td>
-           <td>{{$admin->email}}</td>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
-          <td>
-            @include('admin::users.partials.actions', ['user' => $admin])
-          </td>
-         </tr>
-      @endforeach
-    </tbody>
-  </table>
+      <tbody>
+        @foreach ($admins as $admin)
+          <tr class="{{(Session::get('focus') == $admin->id) ? 'info' : ''}}">
+             <td>{{$admin->ccosto}}</td>
+             <td style="width: 13%">{{$admin->gerencia}}</td>
+             <td>{{$admin->linea_negocio}}</td>
+             <td>{{$admin->email}}</td>
 
+            <td>
+              @include('admin::users.partials.actions', ['user' => $admin])
+            </td>
+           </tr>
+        @endforeach
+      </tbody>
+    </table>
+
+  </div>
 </div>
 <div class="text-center">
   {{ $admins->appends(Input::only(['admin']) + ['active_tab' => 'admin'])->links()}}

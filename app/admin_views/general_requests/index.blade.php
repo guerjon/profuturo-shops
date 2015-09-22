@@ -7,7 +7,7 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
+    <li><a href="/">Inicio</a></li>
     <li class="active">Solicitudes Generales</li>
   </ol>
 
@@ -49,79 +49,81 @@
 @endif
 @if($requests->count() > 0)
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>
-        # de sol.
-      </th>
-      <th>
-        Título proyecto
-      </th>
-      <th>
-        Estatus
-      </th>
-      <th>
-        Presupuesto
-      </th>
-      <th>
-        Criticidad
-      </th>
-      <th>
-        Fecha de solicitud
-      </th>
-      <th>
-        Fecha de Inicio
-      </th>
-      <th>
-        Fecha de entrega
-      </th>
-      <th>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>
+          # de sol.
+        </th>
+        <th>
+          Título proyecto
+        </th>
+        <th>
+          Estatus
+        </th>
+        <th>
+          Presupuesto
+        </th>
+        <th>
+          Criticidad
+        </th>
+        <th>
+          Fecha de solicitud
+        </th>
+        <th>
+          Fecha de Inicio
+        </th>
+        <th>
+          Fecha de entrega
+        </th>
+        <th>
 
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($requests as $request)
-    <tr>
-      <td>
-      {{link_to_action('AdminGeneralRequestsController@show',$request->id,['id' =>$request->id]),null}}   
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($requests as $request)
+      <tr>
+        <td>
+        {{link_to_action('AdminGeneralRequestsController@show',$request->id,['id' =>$request->id]),null}}   
 
-      </td>
-      <td>
-        {{$request->project_title}}
-      </td>
-      <td>
-      {{$request->status_str}}
-       
-      </td>
-      <td>
-        {{ $request->unit_price * $request->quantity}}
-      </td>
-      <td>
-       <div data-number="5" data-score="{{$request->rating}}" class="stars">
-        
-       </div> 
-      </td>
-      <td>
-        {{$request->created_at->format('d-m-Y')}}
-      </td>
-      <td>
-        {{$request->project_date->format('d-m-Y')}}
-      </td>
-      <td>
-      {{$request->deliver_date->format('d-m-Y')}}
-      </td>
-    
-      <td>
-        <button data-toggle="modal" data-target="#request-modal" class="btn btn-xs btn-primary detail-btn" 
-                data-request-id="{{$request->id}}">Detalles</button>
-      </td>
-    </tr>
+        </td>
+        <td>
+          {{$request->project_title}}
+        </td>
+        <td>
+        {{$request->status_str}}
+         
+        </td>
+        <td>
+          {{ $request->unit_price * $request->quantity}}
+        </td>
+        <td>
+         <div data-number="5" data-score="{{$request->rating}}" class="stars">
+          
+         </div> 
+        </td>
+        <td>
+          {{$request->created_at->format('d-m-Y')}}
+        </td>
+        <td>
+          {{$request->project_date->format('d-m-Y')}}
+        </td>
+        <td>
+        {{$request->deliver_date->format('d-m-Y')}}
+        </td>
+      
+        <td>
+          <button data-toggle="modal" data-target="#request-modal" class="btn btn-xs btn-primary detail-btn" 
+                  data-request-id="{{$request->id}}">Detalles</button>
+        </td>
+      </tr>
 
-    @endforeach
-  </tbody>
-</table>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 
 @include('general_requests.partials.show')
   <div class="text-center">

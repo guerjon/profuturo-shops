@@ -10,4 +10,8 @@ class Region extends Eloquent
     return $this->hasMany('User');
   }
 
+  public function divisional(){
+  	return $this->belongsTo('Divisional');
+  }
+
 }

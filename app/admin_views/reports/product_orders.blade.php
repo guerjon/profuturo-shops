@@ -2,8 +2,18 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/reports/index">Reportes</a></li>
+  <li class="active">Más solicitados</li>
+</ol>
+
 <div class="page-header">
-  <h3>Reporte de productos</h3>
+  <h3>Reporte de productos más solicitados</h3>
 </div>
 
 {{Form::open([
@@ -22,24 +32,29 @@
   <div class="col-xs-2">
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
-    {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
+
+  <button class="btn btn-primary btn-submit">
+    <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+  </button>
   
 </div>
 {{Form::close()}}
 
 <hr>
 
-<div class="table-responsive">
-  <table class="table table-responsive">
-    <thead>
-      <tr>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
 
-      </tr>
-    </thead>
-    <tbody>
+        </tr>
+      </thead>
+      <tbody>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 @stop

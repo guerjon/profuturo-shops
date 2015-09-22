@@ -2,9 +2,15 @@
 
 @section('content')
 
-<div class="page-header">
-  <h3>Reporte de pedidos papelería</h3>
-</div>
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/reports/index">Reportes</a></li>
+  <li class="active">Pedidos papelería</li>
+</ol>
 
 {{Form::open([
   'id' => 'filter-form',
@@ -12,6 +18,15 @@
   'action' => 'AdminApiController@getOrdersReport',
   'target' => '_blank'
   ])}}
+
+<div class="page-header">
+  <h3>Reporte de pedidos papelería
+    <button class="btn btn-primary btn-submit" style="float:right">
+      <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+    </button>
+  </h3>
+</div>
+
 <div class="row">
   <div class="col-xs-2 ">GERENCIA:
     {{Form::select('gerencia',array_merge(array(NULL => 'Seleccione una gerencia'),$gerencia),NUll,['class' => 'form-control'])}}
@@ -34,23 +49,25 @@
     {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
   </div>
 
-    {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit','style' => 'float:right; margin-right:10px' ])}}
+    <!-- {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit','style' => 'float:right; margin-right:10px' ])}} -->
 </div>
 {{Form::close()}}
 
 <hr>
 
-<div class="table-responsive">
-  <table class="table table-responsive">
-    <thead>
-      <tr>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
 
-      </tr>
-    </thead>
-    <tbody>
+        </tr>
+      </thead>
+      <tbody>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 @stop

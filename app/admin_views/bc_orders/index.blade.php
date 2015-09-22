@@ -7,7 +7,7 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
+    <li><a href="/">Inicio</a></li>
     <li class="active">Pedidos de Tarjetas</li>
   </ol>
 
@@ -22,7 +22,7 @@
   <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
 </a>
 
-
+<div class="container">
 <table class="table table-striped">
   <thead>
     <tr>
@@ -91,6 +91,7 @@
     @endforeach
   </tbody>
 </table>
+</div>
 
 @endif
 @stop

@@ -2,6 +2,16 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/reports/index">Reportes</a></li>
+  <li class="active">Pedidos tarjetas</li>
+</ol>
+
 <div class="page-header">
   <h3>Reporte de pedidos tarjetas</h3>
 </div>
@@ -29,25 +39,29 @@
   </div>
 
   <div class="col-xs-3">
-    {{ Form::submit('Descargar Excel', ['class' => 'btn btn-warning btn-submit'])}}
+    <button class="btn btn-primary btn-submit">
+        <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+    </button>
   </div>
 </div>
 {{Form::close()}}
 
 <hr>
 
-<div class="table-responsive">
-  <table class="table table-responsive">
-    <thead>
-      <tr>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
 
-      </tr>
-    </thead>
+        </tr>
+      </thead>
 
-    <tbody>
+      <tbody>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 @stop

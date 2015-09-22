@@ -7,7 +7,7 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
+    <li><a href="/">Inicio</a></li>
     <li class="active">Tarjetas de Presentación</li>
   </ol>
 
@@ -44,78 +44,79 @@
     </div>
 
   {{Form::close()}}
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              No. empleado
+            </th>
+            <th>
+              Nombre
+            </th>
+            <th>
+              Puesto
+            </th>
+            <th>
+              Centro de costos
+            </th>
+            <th>
+              Gerencia
+            </th>
+            <th>
+              Fecha de ingreso
+            </th>
+            <th>
 
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            No. empleado
-          </th>
-          <th>
-            Nombre
-          </th>
-          <th>
-            Puesto
-          </th>
-          <th>
-            Centro de costos
-          </th>
-          <th>
-            Gerencia
-          </th>
-          <th>
-            Fecha de ingreso
-          </th>
-          <th>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($cards as $card)
+          <tr>
+            <td>
+              {{$card->no_emp}}
+            </td>
+            <td>
+              {{$card->nombre}}
+            </td>
+            <td>
+              {{$card->nombre_puesto}}
+            </td>
+            <td>
+              {{$card->ccosto}}
+            </td>
+            <td>
+              {{$card->gerencia}}
+            </td>
+            <td>
+              {{\Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y')}}
+            </td>
+            <td>
+              {{Form::open([
+                'class' => 'form-inline',
+                'action' => ['AdminBusinessCardsController@destroy', $card->id],
+                'method' => 'DELETE',
+                ])}}
 
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach($cards as $card)
-        <tr>
-          <td>
-            {{$card->no_emp}}
-          </td>
-          <td>
-            {{$card->nombre}}
-          </td>
-          <td>
-            {{$card->nombre_puesto}}
-          </td>
-          <td>
-            {{$card->ccosto}}
-          </td>
-          <td>
-            {{$card->gerencia}}
-          </td>
-          <td>
-            {{\Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y')}}
-          </td>
-          <td>
-            {{Form::open([
-              'class' => 'form-inline',
-              'action' => ['AdminBusinessCardsController@destroy', $card->id],
-              'method' => 'DELETE',
-              ])}}
+                @if($card->trashed())
+                  <button type="submit" class="btn btn-success btn-xs">
+                    <span class="glyphicon glyphicon-ok"></span> Habilitar
+                   </button>
+                @else
+                  <button type="submit" class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove"></span> Inhabilitar
+                  </button>
+                @endif
 
-              @if($card->trashed())
-                <button type="submit" class="btn btn-success btn-xs">
-                  <span class="glyphicon glyphicon-ok"></span> Habilitar
-                 </button>
-              @else
-                <button type="submit" class="btn btn-danger btn-xs">
-                  <span class="glyphicon glyphicon-remove"></span> Inhabilitar
-                </button>
-              @endif
-
-            {{Form::close()}}
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+              {{Form::close()}}
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="text-center">

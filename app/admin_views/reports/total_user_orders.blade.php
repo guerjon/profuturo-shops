@@ -2,9 +2,15 @@
 
 @section('content')
 
-<div class="page-header">
-  <h3>Reporte total de usuarios</h3>
-</div>
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/reports/index">Reportes</a></li>
+  <li class="active">Pedidos totales de usuarios</li>
+</ol>
 
 {{Form::open([
   'id' => 'filter-form',
@@ -12,29 +18,33 @@
   'action' => 'AdminApiController@getTotalUsersExcel',
   'target' => '_blank'
   ])}}
-<div class="row">
- 
-  <center>
-      {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit'])}}
-  </center>
-  
+
+<div class="page-header">
+  <h3>Reporte total de usuarios
+    <button class="btn btn-primary btn-submit" style="float:right">
+      <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+    </button>
+  </h3>
+</div>
+
+<div class="row">  
 
 </div>
 {{Form::close()}}
 
-<hr>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
 
-<div class="table-responsive">
-  <table class="table table-responsive">
-    <thead>
-      <tr>
+        </tr>
+      </thead>
+      <tbody>
 
-      </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 @stop

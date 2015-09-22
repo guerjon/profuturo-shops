@@ -7,7 +7,7 @@
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
-    <li><a href="#">Inicio</a></li>
+    <li><a href="/">Inicio</a></li>
     <li class="active">Categorías</li>
   </ol>
 
@@ -23,41 +23,43 @@
   </div>
 @else
 
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>
-            Nombre
-          </th>
-          <th>
-            # de productos
-          </th>
-          <th>
-            Acciones
-          </th>
-        </tr>
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>
+              Nombre
+            </th>
+            <th>
+              # de productos
+            </th>
+            <th>
+              Acciones
+            </th>
+          </tr>
 
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
 
-        @foreach($categories as $category)
-        <tr>
-          <td>
-            {{$category->name}}
-          </td>
-          <td>
-            {{$category->products->count()}}
-          </td>
-          <td>
-            <a href="{{action('AdminCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
-             <span class="glyphicon glyphicon-pencil"></span> Editar
-            </a>
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
+          @foreach($categories as $category)
+          <tr>
+            <td>
+              {{$category->name}}
+            </td>
+            <td>
+              {{$category->products->count()}}
+            </td>
+            <td>
+              <a href="{{action('AdminCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
+               <span class="glyphicon glyphicon-pencil"></span> Editar
+              </a>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
   </div>
 @endif
 @stop

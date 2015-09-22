@@ -2,6 +2,16 @@
 
 @section('content')
 
+<ol class="breadcrumb">
+  <a href="#" class="back-btn">
+    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+  </a>
+    &nbsp;&nbsp;&nbsp;
+  <li><a href="/">Inicio</a></li>
+  <li><a href="/admin/reports/index">Reportes</a></li>
+  <li class="active">Reportes BI</li>
+</ol>
+
 <div class="page-header">
   <h3>Reporte de BI</h3>
 </div>
@@ -59,12 +69,16 @@
 
   
   <div class="col-xs-1">
-    
-    {{ Form::submit('Excel', ['class' => 'btn btn-warning btn-submit'])  }}
+    <button class="btn btn-primary btn-submit">
+      <span class="glyphicon glyphicon-download-alt"></span> Excel
+    </button>
+
   </div>
 
   <div class="col-xs-1">
-    <button type="button" class="btn btn-warning btn-submit" data-toggle="modal" id="grafica" data-target="#graph">Gráfica</button>
+    <button type="button" class="btn btn-primary btn-submit" data-toggle="modal" id="grafica" data-target="#graph">
+      <span class="glyphicon glyphicon-stats"></span> Gráfica
+    </button>
   </div>
 
 </div>
@@ -111,18 +125,19 @@
 
 
 
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-responsive">
+      <thead>
+        <tr>
 
-<div class="table-responsive">
-  <table class="table table-responsive">
-    <thead>
-      <tr>
+        </tr>
+      </thead>
+      <tbody>
 
-      </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
