@@ -20,6 +20,17 @@
   </a>
 </div>
 
+  <div class="" style="margin: 20px inherit">
+     <ul class="nav nav-tabs" role="tablist">
+      @foreach($categories as $category)
+        <li role="presentation" class="{{$active_tab == $category->id ? 'active' : ''}}">
+          <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="tabs">
+            {{$category->name}}
+          </a>
+        </li>
+      @endforeach
+    </ul>
+  </div>
 
 @if(count($furnitures) == 0)
 <div class="alert alert-warning">
@@ -36,9 +47,6 @@
             </th>
             <th>
               Descripción
-            </th>
-            <th>
-              Categoria
             </th>
             <th>
               Unitario
@@ -63,9 +71,6 @@
             </td>
             <td style="max-width:30%;" >
               {{$furniture->specific_description}}
-            </td>
-            <td>
-              {{$furniture->furniture_category ? $furniture->furniture_category->name : 'Sin especificar'}} 
             </td>
             <td>
               ${{$furniture->unitary}}

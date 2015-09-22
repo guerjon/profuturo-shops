@@ -5,13 +5,17 @@ class AdminProductsController extends AdminBaseController
 
   public function index()
   {
-    $active_tab = Session::get('active_tab', Input::get('active_tab', 'ARTICULOS DE OFICINA'));
-    $products = Product::withTrashed();
+    $active_tab = Session::get('active_tab', Input::get('active_tab',1));
     $categories = Category::lists('name');
+    if (Input::has('active_tab')) {
+      $products = Product::withTrashed()->where('category_id',Input::get('active_tab'));
+    }else{
+      $products = Product::withTrashed()->where('category_id',1);
+    }
+   
 
-    Log::info(Input::all());
 
-          $products->where('category_id',Input::get('active_tab'));  
+
     
     return View::make('admin::products.index')->withProducts($products->orderBy('category_id')->orderBy('name')->paginate(10))
                                               ->withCategories(Category::all())

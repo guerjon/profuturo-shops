@@ -3,10 +3,20 @@
 class AdminFurnituresController extends AdminBaseController
 {
 
-
    public function index()
   {
-    return View::make('admin::furnitures.index')->withFurnitures(Furniture::withTrashed()->orderBy('furniture_category_id')->orderBy('name')->paginate(25));
+    $active_tab = Session::get('active_tab', Input::get('active_tab',1));
+    if (Input::has('active_tab')) {
+         $furnitures = Furniture::withTrashed()->where('furniture_category_id',Input::get('active_tab'));
+    }else
+    {
+       $furnitures = Furniture::withTrashed()->where('furniture_category_id',1);
+    }
+
+
+    return View::make('admin::furnitures.index')->withFurnitures($furnitures->orderBy('furniture_category_id')->orderBy('name')->paginate(10))
+                                                ->withCategories(FurnitureCategory::all())
+                                                ->withActiveTab($active_tab);
   }
 
   public function create()

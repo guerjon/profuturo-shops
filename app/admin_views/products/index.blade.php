@@ -18,10 +18,9 @@
 </div>
 
   <div class="" style="margin: 20px inherit">
-    
-    <ul class="nav nav-tabs" role="tablist">
+     <ul class="nav nav-tabs" role="tablist">
       @foreach($categories as $category)
-        <li role="presentation" class="{{$active_tab == $category->name ? 'active' : ''}}">
+        <li role="presentation" class="{{$active_tab == $category->id ? 'active' : ''}}">
           <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="tabs">
             {{$category->name}}
           </a>
@@ -42,9 +41,6 @@
         <thead>
           <tr>
             <th>
-              Categoría
-            </th>
-            <th>
               Nombre corto
             </th>
 
@@ -64,9 +60,7 @@
         <tbody>
           @foreach($products as $product)
           <tr>
-            <td>
-              {{$product->category ? $product->category->name : 'Sin especificar'}}
-            </td>
+
             <td>
               {{$product->name}}
             </td>
