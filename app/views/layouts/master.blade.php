@@ -75,12 +75,16 @@
 
                 <ul class="dropdown-menu" role="menu">
                 @if(Auth::user()->is_admin)
-
-                @else
+                    <li><a href="/perfil">Mi perfil</a></li>
+                @elseif(Auth::user()->ismanager)
+                    <li><a href="/perfil">Mi perfil</a></li>
+                @elseif(Auth::user()->user_paper)
                   <li><a href="/perfil">Mi perfil</a></li>
                   <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
-                  <li><a href="/carrito-mobiliario">Mi carrito(mobiliario)</a></li>
+                  <li><a href="/carrito-muebles">Mi carrito(mobiliario)</a></li>
+                @else
+                  <li><a href="/perfil">Mi perfil</a></li>
                 @endif
                   <li class="divider"></li>
                   <li><a href="/logout">Cerrar sesión</a></li>

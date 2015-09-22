@@ -12,5 +12,6 @@
 	 	<strong>Por favor asigne un consultor.</strong>
 
 	 	</body>
-		
+
+	<a href="http://store.profuturocompras.com.mx/">Contestar solicitud</a>		
 	 </html>

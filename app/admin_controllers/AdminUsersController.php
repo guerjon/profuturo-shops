@@ -7,6 +7,8 @@ class AdminUsersController extends AdminBaseController
   public function index()
   {
     Log::info(Input::get('active_tab'));
+
+    
    
     $active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
 
@@ -58,31 +60,61 @@ class AdminUsersController extends AdminBaseController
         }
 
     return View::make('admin::users.index')
-      ->withAdmins($admins->paginate(25))
-      ->withManagers($managers->paginate(25))
-      ->withUsersRequests($user_requests->paginate(25))
-      ->withUsersPaper($users_paper->paginate(25))
+      ->withAdmins($admins->paginate(10))
+      ->withManagers($managers->paginate(10))
+      ->withUsersRequests($user_requests->paginate(10))
+      ->withUsersPaper($users_paper->paginate(10))
       ->withActiveTab($active_tab);
   }
 
   public function create()
   {
+    $active_tab = Input::get('active_tab');
+
     $user_manager = User::where('role','=','manager')->lists('gerencia','id');
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
     $regions = Region::all()->lists('name','id');
-    return View::make('admin::users.create')->withUser(new User)->withColors($colors)->withManager($user_manager)->withRegions($regions);
+    return View::make('admin::users.create')->withUser(new User)
+                                            ->withColors($colors)
+                                            ->withManager($user_manager)
+                                            ->withRegions($regions)
+                                            ->withActiveTab($active_tab);
   }
 
   public function store()
   {
     $user = new User(Input::except('password_confirmation'));
+    $active_tab = Input::get('active_tab');
 
-    if(Input::get('num_empleado')==null){
+    switch ($active_tab) {
+      case 'admin':     
+        $user->role = 'admin';
+        break;
+      case 'manager':     
+        $user->role = 'manager';
+        break;      
+
+      case 'user_requests':     
+        $user->role = 'user_requests';
+        break;
+
+      case 'users_paper':     
+        $user->role = 'user_paper';
+        break;
+
+        default:
+        # code...
+        break;
+    }
+
+    if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
     }
+    Log::info(Input::all());
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
+      
     }else{
       return View::make('admin::users.create')->withUser($user);
     }
@@ -93,10 +125,11 @@ class AdminUsersController extends AdminBaseController
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
     $user = User::find($user_id);
+    $regions = Region::all()->lists('name','id');
     if(!$user){
       return Redirect::back()->withWarning('No se encontró el usuario o está deshabilitado');
     }
-    return View::make('admin::users.create')->withUser($user)->withColors($colors);
+    return View::make('admin::users.create')->withUser($user)->withColors($colors)->withRegions($regions);
   }
 
   public function update($user_id)

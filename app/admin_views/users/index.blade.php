@@ -28,9 +28,10 @@
   <a href="{{action('AdminApiController@getUsersReport')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-download-alt"></span> Descargar Reporte
   </a>
-  <a href="{{action('AdminUsersController@create')}}" class="btn btn-primary">
+  <a href="{{action('AdminUsersController@create',['active_tab'=>$active_tab])}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Añadir usuario
   </a>
+
 
 </div>
 
@@ -49,7 +50,7 @@
       </li>
       <li role="presentation" class="{{$active_tab == 'user_paper' ? 'active' : ''}}">
         <a href="?active_tab=user_paper&page=1" aria-controls="user_paper" class="tabs">
-          Papeleria
+          Papelería
         </a>
       </li>  
       <li role="presentation" class="{{$active_tab == 'user_requests' ? 'active' : ''}}">

@@ -36,7 +36,25 @@
       'method' => $user->exists ? 'PUT' : 'POST',
       'id'     => 'user-create',
       ])}}
+<<<<<<< HEAD
       <h3>Dar de alta un nuevo Usuario</h3>
+=======
+      @if($active_tab == 'admin')
+        <h3>Dar de alta un nuevo Administrador</h3>
+      @elseif($active_tab == 'manager')
+        <h3>Dar de alta un nuevo Consultor</h3>
+      @elseif($active_tab == 'user_requests')
+        <h3>Dar de alta un nuevo Usuario de proyectos</h3>
+      @else
+        <h3>Dar de alta a un Usuario de papelería</h3>
+      @endif
+
+    <div class="form-group">
+      {{ Form::hidden('role', $user->exists ? $user->role : @$active_tab) }}
+      
+    </div>
+
+>>>>>>> 24a6700ef24e2cf8468bed4d4c16538cb0af2efa
       <div class="form-group">
         {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label'])}}
         <div>
@@ -55,13 +73,14 @@
           {{Form::email('email',null,['class' => 'form-control'])}}
         </div>
       </div>
-
+      @if($active_tab == 'user_paper')
       <div class="form-group">
         {{Form::label('divisional','Divisional',['class' => 'control-label'])}}
         <div>
           {{Form::select('divisional',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
         </div>
       </div>     
+      @endif
 
       <div class="form-group">
         {{Form::label('region_id','Region',['class' => 'control-label'])}}
@@ -98,78 +117,57 @@
           {{Form::password('password_confirmation', ['class' => 'form-control'])}}
         </div>
       </div>
-
       @endunless
 
 
-      <div class="form-group">
-        {{Form::label('role', 'Perfil', ['class' => 'control-label'])}}
-        <div>
-          @if($user->exists)
-            <p class="form-control-static">
-              @if($user->role == 'admin')
-              Administrador
-              @elseif($user->role == 'manager')
-              Consultor
-              @elseif($user->role == 'user_requests')
-              Usuario proyectos
-              @else
-              Usuario papelería
-              @endif
-            </p>
-          @else
-            <label class="radio-inline">{{Form::radio('role', 'admin')}} Administrador</label>
-            <label  class="radio-inline">{{Form::radio('role', 'manager',null,['id'=>'consultor'])}} Consultor</label>
-            <br>
-            <label class="radio-inline">{{Form::radio('role', 'user_requests',null,['id'=>'usuario-proyectos'])}} Usuario proyectos</label>
-            <label  class="radio-inline">{{Form::radio('role', 'user_paper')}} Usuario papelería</label>
-          @endif
-        </div>
-      </div>
+ 
+      <div id="campos-extra">
+          @if(($active_tab == 'manager') || ($active_tab == 'user_requests'))
 
-      <center>
-        <div id="campos-extra">
           <div class="form-group">
-            {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label col-sm-4'])}}
-            <div class="col-sm-8">
-              {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
-            </div>
+            {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label '])}}
+       
+            {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
+         
           </div>
           <div class="form-group">
-            {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label col-sm-4'])}}
-            <div class="col-sm-8">
+              {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
+           
               {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
-            </div>
+           
           </div>
         
           <div class="form-group">
-            {{Form::label('extension', 'Extensión', ['class' => 'control-label col-sm-4'])}}
-            <div class="col-sm-8">
+            {{Form::label('extension', 'Extensión', ['class' => 'control-label '])}}
+           
               {{Form::text('extension', NULL, ['class' => 'form-control'])}}
-            </div>
+          
           </div>
+        
           <div class="form-group">
-            {{Form::label('celular', 'Celular', ['class' => 'control-label col-sm-4'])}}
-            <div class="col-sm-8">
+            {{Form::label('celular', 'Celular', ['class' => 'control-label'])}}
+            
               {{Form::text('celular', NULL, ['class' => 'form-control'])}}
-            </div>
+        
           </div>
-        </div>
-      </center>
-      <center>
-        <div  id = "colores"  class="form-group">
+      </div>
+
+    <center>
+      <div  id = "colores"  class="form-group">
         <label class="radio-inline">
           Color del consultor
         </label>
-            @if(isset($colors))
-              @foreach($colors as $color)
-                <label style="background-color: {{$color->color}}; width:30%" class="radio">
-                {{Form::radio('color_id', $color->id)}}  {{$color->color}}
-                </label>
-              @endforeach  
-            @endif       
-        </div>
-      </center>
+        @if(isset($colors))
+          @foreach($colors as $color)
+            <label style="background-color: {{$color->color}}; width:30%" class="radio">
+            {{Form::radio('color_id', $color->id)}}  {{$color->color}}
+            </label>
+          @endforeach  
+        @endif       
+      </div>
+    </center>
+    @endif
+
 
       <div class="form-group">
         <div class="col-sm-8 col-sm-offset-4">
@@ -184,20 +182,7 @@
 @section('script')
   <script type="text/javascript" >
     $(function(){
-      $('#colores').hide();
-      $('#campos-extra').hide();
-      $('.radio-inline input[type="radio"]').click(function(){
-        if($(this).attr('id') == 'consultor'){
-          $('#colores').show();
-        }else{
-          $('#colores').hide();
-        }
-        if(($(this).attr('id')=='usuario-proyectos') || ($(this).attr('id')=='consultor')){
-          $('#campos-extra').show();
-        }else{
-          $('#campos-extra').hide();
-        }
-      });
+
       $.validator.setDefaults({
         focusCleanup: true
       });
