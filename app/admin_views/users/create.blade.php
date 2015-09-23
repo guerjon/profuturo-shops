@@ -66,10 +66,16 @@
         </div>
       </div>
       <div class="form-group">
-        {{Form::label('email','Correo electrónico',['class' => 'control-label'])}}
+       {{Form::label('email','Correo electrónico',['class' => 'control-label'])}}
+      @if($user->exists)
+        <div>
+          {{Form::email('email',$user->email,['class' => 'form-control'])}}
+        </div>
+      @else
         <div>
           {{Form::email('email',null,['class' => 'form-control'])}}
         </div>
+      @endif  
       </div>
       @if($active_tab == 'user_paper')
       <div class="form-group">
