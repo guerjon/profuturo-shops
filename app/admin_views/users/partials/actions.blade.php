@@ -9,8 +9,8 @@
 
     @if(!$user->trashed())
       
-        <a href="{{action('AdminUsersController@edit', $user->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px" >
-          <span class="glyphicon glyphicon-pencil"></span> Editar
+        <a href="{{action('AdminUsersController@edit', $user->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px;padding-top:2px;" >
+          <span class="glyphicon glyphicon-pencil" style="padding-top:2px;"></span> Editar
         </a>
 
       @unless(Auth::id() == $user->id)
