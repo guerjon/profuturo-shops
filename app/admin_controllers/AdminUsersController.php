@@ -142,7 +142,7 @@ class AdminUsersController extends AdminBaseController
     if(!$user){
       return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario o está deshabilitado');
     }
-    $user->fill(Input::only(['gerencia', 'linea_negocio']));
+    $user->fill(Input::only(['gerencia', 'linea_negocio','email']));
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha actualizado');
     }else{
