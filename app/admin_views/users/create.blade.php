@@ -36,9 +36,7 @@
       'method' => $user->exists ? 'PUT' : 'POST',
       'id'     => 'user-create',
       ])}}
-<<<<<<< HEAD
-      <h3>Dar de alta un nuevo Usuario</h3>
-=======
+
       @if($active_tab == 'admin')
         <h3>Dar de alta un nuevo Administrador</h3>
       @elseif($active_tab == 'manager')
@@ -54,7 +52,7 @@
       
     </div>
 
->>>>>>> 24a6700ef24e2cf8468bed4d4c16538cb0af2efa
+
       <div class="form-group">
         {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label'])}}
         <div>
