@@ -21,7 +21,7 @@
 {{ Form::close() }}
 @if($managers->count() > 0)
 
-<div class="container">
+<div class="container-fluid">
   <div class="table-responsive">
 
     <table class="table table-striped">

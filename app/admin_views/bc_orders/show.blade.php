@@ -14,7 +14,7 @@
 
 <h3>Detalles</h3>
 
-<div class="container">
+<div class="container-fluid">
 <table class="table table-striped">
 
   <thead>

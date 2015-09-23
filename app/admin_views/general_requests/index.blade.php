@@ -49,7 +49,7 @@
 @endif
 @if($requests->count() > 0)
 
-<div class="container">
+<div class="container-fluid">
   <table class="table table-striped">
     <thead>
       <tr>
