@@ -122,6 +122,7 @@ class AdminUsersController extends AdminBaseController
 
   public function edit($user_id)
   {
+    $active_tab = Input::get('active_tab');
     $users_colors_id = User::whereNotNull('color_id')->lists('color_id');
     $colors = Color::all()->except($users_colors_id);
     $user = User::find($user_id);
@@ -129,7 +130,10 @@ class AdminUsersController extends AdminBaseController
     if(!$user){
       return Redirect::back()->withWarning('No se encontró el usuario o está deshabilitado');
     }
-    return View::make('admin::users.create')->withUser($user)->withColors($colors)->withRegions($regions);
+    return View::make('admin::users.create')->withUser($user)
+                                            ->withColors($colors)
+                                            ->withRegions($regions)
+                                            ->withActiveTab($active_tab);
   }
 
   public function update($user_id)
