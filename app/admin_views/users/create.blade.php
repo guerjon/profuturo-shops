@@ -73,9 +73,9 @@
       </div>
       @if($active_tab == 'user_paper')
       <div class="form-group">
-        {{Form::label('divisional','Divisional',['class' => 'control-label'])}}
+        {{Form::label('divisional_id','Divisional',['class' => 'control-label'])}}
         <div>
-          {{Form::select('divisional',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
+          {{Form::select('divisional_id',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
         </div>
       </div>     
       @endif
