@@ -37,7 +37,7 @@
   No se ha creado nuevo mobiliario
 </div>
 @else
-  <div class="container">
+  <div class="container-fluid">
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>

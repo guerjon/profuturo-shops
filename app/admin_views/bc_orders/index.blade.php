@@ -22,7 +22,7 @@
   <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
 </a>
 
-<div class="container">
+<div class="container-fluid">
 <table class="table table-striped">
   <thead>
     <tr>

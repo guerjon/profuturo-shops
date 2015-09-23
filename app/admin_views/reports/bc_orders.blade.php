@@ -48,7 +48,7 @@
 
 <hr>
 
-<div class="container">
+<div class="container-fluid">
   <div class="table-responsive">
     <table class="table table-responsive">
       <thead>
