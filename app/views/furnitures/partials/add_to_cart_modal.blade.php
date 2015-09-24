@@ -51,46 +51,35 @@
                 {{Form::label('ccostos','Centro de costos',['class' => 'control-label'])}}
                 {{Form::text('ccostos',null,['class' => 'form-control'])}}  
               </div>
-              <div class="form-group">
-                
-                {{Form::label('color','Color',['class' => 'control-label'])}}
-              </div>
-              <div class="form-group">
-                
-                <div class="col-md-2">
-                    
-                    {{Form::radio('color','img/azul_palido.png',true)}}
-                    <img src="img/azul_palido.png" class="img-responsive" alt="Azul palido">
-                    
+
+            <div id="color_div" category="{{$activeCategory->id}}"  style="display:none">
+                <div class="form-group">
+                  {{Form::label('color','Color',['class' => 'control-label'])}}
                 </div>
-                
-                <div class="col-md-2">
+                <div class="form-group">
                   
-                  {{Form::radio('color','img/azul_rey.png')}}
-                  <img src="img/azul_rey.png" class="img-responsive" alt="Azul rey">
+                  <div class="col-md-2">                    
+                      {{Form::radio('color','img/azul_palido.png',true)}}
+                      <img src="img/azul_palido.png" class="img-responsive" alt="Azul palido">
+                  </div>
                   
-                </div>
+                  <div class="col-md-2">
+                    {{Form::radio('color','img/azul_rey.png')}}
+                    <img src="img/azul_rey.png" class="img-responsive" alt="Azul rey">
+                  </div>
+                
+                
+                  <div class="col-md-2">
+                      {{Form::radio('color','img/gris.png')}}
+                      <img src="img/gris.png" class="img-responsive" alt="gris">
+                  </div>
+                  <div class="col-md-2">
+                    {{Form::radio('color','img/negro.png')}}
+                    <img src="img/negro.png"  class="img-responsive" alt="negro">                 
+                  </div>
+                </div>                
+            </div>  
               
-              
-                <div class="col-md-2">
-                    
-                    {{Form::radio('color','img/gris.png')}}
-                  <img src="img/gris.png" class="img-responsive" alt="gris">
-                 
-                </div>
-                <div class="col-md-2">
-                 
-                  {{Form::radio('color','img/negro.png')}}
-                  <img src="img/negro.png"  class="img-responsive" alt="negro">
-                 
-                </div>
-              </div>                
-          
-              
-              <div class="form-group">
-                {{Form::label('id_active','Id de activo',['class' => 'control-label'])}}
-                {{Form::number('id_active',null,['class' => 'form-control'])}}  
-              </div>
 
               @endif
             </div>

@@ -69,7 +69,7 @@
       </td>
       <td>
       @if($furniture->pivot->assets == 0)  
-            BIENES Y ENCERES
+            BIENES Y ENSERES
           @elseif($furniture->pivot->assets == 1)
             OFICINA
       @endif 

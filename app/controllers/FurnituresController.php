@@ -12,7 +12,7 @@ class FurnituresController extends BaseController
     }
     $activeCategory = FurnitureCategory::find($category_id);
     $companies = ['AFORE','GRUPO','PENSIONES','PRESTAMOS','FONDOS'];
-    $assets = ['Bienes y enceres','Oficina']; 
+    $assets = ['Bienes y enseres','Oficina']; 
     if($category_id != null){
 
       return View::make('furnitures.index')->with([

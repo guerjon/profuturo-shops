@@ -31,6 +31,7 @@
 {{Form::close()}}
 
 <hr>
+  
 
 @if($furnitures->count() == 0)
   <div class="alert alert-warning">
@@ -114,6 +115,13 @@ $(function(){
     modal.find('#furniture-cart-info').text($(this).find('.furniture-info').text());
     modal.find('#furniture-cart-image').attr('src', $(this).attr('data-image-src'));
     modal.find('form input[name="furniture_id"]').val($(this).attr('data-furniture-id'));
+
+    var category_id = $('#color_div').attr('category');
+    
+    if (category_id == 1){
+      $('#color_div').css('display','block');
+    };
+
     var select = $('form select[name="quantity"]');
     if(select.length == 0) return;
     select.empty();
