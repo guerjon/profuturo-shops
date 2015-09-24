@@ -49,7 +49,7 @@
              <td>{{$user_paper->ccosto}}</td>
              <td>{{$user_paper->gerencia}}</td>
              <td>{{$user_paper->region ? $user_paper->region->name : 'N/A'}}</td>
-             <td>{{$user_paper->divisional}}</td>
+             <td>{{$user_paper->divisional->id}}</td>
              <td>{{$user_paper->linea_negocio}}</td>  
              <td>{{$user_paper->extension}}</td>
             <td>
