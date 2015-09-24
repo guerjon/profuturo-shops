@@ -52,7 +52,7 @@
                 {{Form::text('ccostos',null,['class' => 'form-control'])}}  
               </div>
 
-            <div id="color_div" category="{{$activeCategory->id}}"  style="display:none">
+            <div id="color_div" category="{{$activeCategory ? $activeCategory->id : 0}}"  style="display:none">
                 <div class="form-group">
                   {{Form::label('color','Color',['class' => 'control-label'])}}
                 </div>

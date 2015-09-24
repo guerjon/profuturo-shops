@@ -3,7 +3,7 @@
 @section('content')
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/mobiliario">TODAS</a>
+    <a href="/mobiliario">Todas</a>
   </li>
   @foreach($categories as $category)
   <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
@@ -41,7 +41,8 @@
 
   <div class="list-group">
     @foreach($furnitures as $furniture)
-    <a class="list-group-item" href="#" data-furniture-id="{{$furniture->id}}" data-image-src="{{$furniture->image->url('medium')}}">
+    <a class="list-group-item" href="#" data-furniture-id="{{$furniture->id}}" data-image-src="{{$furniture->image->url('medium')}}"
+     data-category-id="{{$furniture->furniture_category_id}}">
 
       <div class="pull-right">
         @if(Auth::user()->has_limit)
@@ -109,6 +110,7 @@ $(function(){
 
   $('a.list-group-item').click(function(){
     var modal = $('#add-to-cart-modal');
+
     modal.modal('show');
     modal.find('#add-to-cart-modal-title').text($(this).find('.media-heading').text());
     modal.find('#furniture-cart-description').text($(this).find('.furniture-description').text());
@@ -116,7 +118,7 @@ $(function(){
     modal.find('#furniture-cart-image').attr('src', $(this).attr('data-image-src'));
     modal.find('form input[name="furniture_id"]').val($(this).attr('data-furniture-id'));
 
-    var category_id = $('#color_div').attr('category');
+    var category_id = $(this).attr('data-category-id');
     
     if (category_id == 1){
       $('#color_div').css('display','block');
