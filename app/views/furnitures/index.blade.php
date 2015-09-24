@@ -122,6 +122,8 @@ $(function(){
     
     if (category_id == 1){
       $('#color_div').css('display','block');
+    }else{
+      $('#color_div').css('display','none');
     };
 
     var select = $('form select[name="quantity"]');
