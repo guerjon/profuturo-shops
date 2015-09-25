@@ -108,11 +108,17 @@ $(function(){
         $.get('/admin/api/furnitures-subcategories/' + $(this).attr('data-subcategory-id'), function(data){
       if(data.status == 200){
         $('.furniture_subcategories').empty();
-        for (var i = data.subcategories.length - 1; i >= 0; i--) {
-
-          $('.furniture_subcategories').append('<p>'+data.subcategories[i].name+'</p><br>');
+        console.log(data.subcategories)
+        if (data.subcategories.length > 0){
+          for (var i = 0;data.subcategories.length;i++) {
+            
+            
+              $('.furniture_subcategories').append('<p>'+data.subcategories[i].name+'</p><br>');  
+            }
           
-        };
+        }else{
+              $('.furniture_subcategories').append('<div class="alert alert-info">Parece que aun no se han añadido subcategorias a esta categoria</div>');  
+        } 
       }
     });    
   });
