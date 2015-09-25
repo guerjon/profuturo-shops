@@ -32,27 +32,43 @@ class AdminFurnitureSubcategoriesController extends BaseController{
 
   public function edit($subcategory_id)
   {
+    
     $subcategory = FurnitureSubcategory::find($subcategory_id);
+
     if(!$subcategory){
-      return Redirect::to(action('AdminFurnitureSubcategoriesController@index'))->withErrors('No se encontró la categoría');
+      return View::make('admin::furniture_subcategories.create')->withErrors('No se encontro la categoria');
     }else{
-      return View::make('admin::furniture_subcategories.create')->withSubcategory($subcategory);
+
+      return View::make('admin::furniture_subcategories.create')->withSubcategory($subcategory)->withCategory($subcategory->furniture_category);
     }
   }
 
   public function update($subcategory_id)
   {
     $subcategory = FurnitureSubcategory::find($subcategory_id);
+    $categories = FurnitureCategory::all();
+
     if(!$subcategory){
+      Log::info('entro a 1');
       return Redirect::to(action('AdminFurnitureSubcategoriesController@index'))->withErrors('No se encontró la categoría');
     }
     $subcategory->fill(Input::all());
+    
     if($subcategory->save()){
-      $response = Redirect::to(action('AdminFurnitureSubcategoriesController@index'))->withSuccess('Se ha actualizado la categoría');
-      
-      return $response;
+      Log::info('entro a 2');
+      return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se actualizado la subcategoria');
     }else{
+      Log::info('entro a 3');
       return View::make('admin::furniture_subcategories.create')->withSubcategory($subcategory)->withErrors($subcategory->getErrors());
     }
+  }
+
+  public function destroy($subcategory_id){
+    $categories = FurnitureCategory::all(); 
+    $furniture_subcategory = FurnitureSubcategory::find($subcategory_id);
+    $furniture_subcategory->destroy();
+
+    return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se eliminado la subcategoria');
+
   }
 }

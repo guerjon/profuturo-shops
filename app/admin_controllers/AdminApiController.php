@@ -871,8 +871,7 @@ public function getProductOrdersReport()
   {
     Log::info($category_id);
     $subcategories = FurnitureCategory::find($category_id)->furniture_subcategories;
-    
-
+    Log::info('????????????????');
     Log::info($subcategories);
 
         if(Request::ajax()){

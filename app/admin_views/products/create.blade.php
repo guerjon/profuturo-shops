@@ -51,7 +51,13 @@
       <div class="form-group">
         {{Form::label('category_id', 'Categoría')}}
         {{Form::select('category_id', ($product->category ? [] : [NULL => 'Sin especificar']) + Category::lists('name', 'id'), NULL,
-          ['class' => 'form-control'])}}
+          ['class' => 'form-control','id' => 'category_id'])}}
+      </div>
+
+      <div class="form-group">
+        {{Form::label('subcategory_id', 'Subcategoría')}}
+        {{Form::select('subcategory_id', ($product->category ? [] : [NULL => 'Sin especificar']) + Category::lists('name', 'id'), NULL,
+          ['class' => 'form-control','id' => 'category_id'])}}
       </div>
 
       <div class='form-group'>
@@ -67,3 +73,6 @@
 </div>
 
 @stop
+
+
+

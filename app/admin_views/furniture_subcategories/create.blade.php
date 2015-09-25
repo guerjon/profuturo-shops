@@ -5,14 +5,18 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
     <hr>
-    <h2>Añadir nueva subcagetoría para <strong>{{$category->name}}</strong></h2>
+    
     {{Form::model($subcategory, [
       'action' => $subcategory->exists ? ['AdminFurnitureSubcategoriesController@update', $subcategory->id] : 'AdminFurnitureSubcategoriesController@store',
       'method' => $subcategory->exists ? 'PUT' : 'POST',
       'files' => true
       ])}}
-
-      {{Form::hidden('furniture_category_id',$category->id)}}
+       @if($subcategory->exists)
+          <h2>Editar subcagetoría</h2>
+       @else
+          <h2>Añadir nueva subcagetoría para {{$category->name}}</h2>
+          {{Form::hidden('furniture_category_id',$category->id)}}
+       @endif
       
       <div class="form-group">
         {{Form::label('name', 'Nombre')}}

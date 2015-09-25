@@ -71,6 +71,10 @@
           ['class' => 'form-control'])}}
       </div>
 
+      <div class="form-group">
+        {{Form::label('furniture_subcategory_id', 'Subcategoría')}}
+        {{Form::select('furniture_subcategory_id',[], NULL,['class' => 'form-control','id' =>'subcategory_id'])}}
+      </div>
 
 
       <div class="form-group text-center">
@@ -81,3 +85,24 @@
 </div>
 
 @stop
+
+@section('script')
+  <script>
+    $('#category_id').change(function(){
+
+        $.get('/admin/api/furnitures-subcategories/' + $(this).val(), function(data){
+          if(data.status == 200){
+            $('.subcategory_id').empty();
+            if (data.subcategories.length > 0){
+
+              for (var i = 0;i < data.subcategories.length;i++) {
+                  
+                  $('#subcategory_id').append('<option value="'+data.subcategories[i].id+'">'+data.subcategories[i].name+'</option>'); 
+                  
+              }           
+            }
+          }
+        }); 
+    });
+  </script>
+@endsection

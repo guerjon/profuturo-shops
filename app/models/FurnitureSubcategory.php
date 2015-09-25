@@ -12,7 +12,7 @@ class FurnitureSubcategory extends Eloquent implements StaplerableInterface
   protected $rules = [
     'name' => 'required'
   ];
-  protected $fillable = ['name', 'image'];
+  protected $fillable = ['name'];
 
   public function __construct($attributes = array()){
 

@@ -50,7 +50,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 		Route::resource('divisionales','AdminDivisionalController');
 		Route::resource('subcategorias-muebles','AdminFurnitureSubcategoriesController');
-
+		Route::post('subcategorias-muebles/{subcategory_id}/edit','AdminFurnitureSubcategoriesController');
+		
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);

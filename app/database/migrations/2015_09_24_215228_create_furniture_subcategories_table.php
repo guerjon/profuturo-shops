@@ -26,6 +26,11 @@ class CreateFurnitureSubcategoriesTable extends Migration {
 			$table->foreign('furniture_category_id')->references('id')->on('furniture_categories')->onDelete('cascade');
 		});
 
+
+		Schema::table('furnitures', function($table){
+			$table->integer('furniture_subcategory_id')->unsigned()->nullable()->default(NULL);
+			$table->foreign('furniture_subcategory_id')->references('id')->on('furniture_subcategories')->onDelete('SET NULL');
+		});
 	
 	
 	}

@@ -1,3 +1,10 @@
+{{ Form::open([
+  'method' => 'DELETE',
+  'class' => 'form-horizontal',
+  'id' => 'form-subcategory-delete'
+
+  ]) }}
+
 <div id="subcategories" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
