@@ -5,7 +5,7 @@ use Codesleeve\Stapler\ORM\EloquentTrait;
 use Watson\Validating\ValidatingTrait;
 
 
-class Category extends Eloquent implements StaplerableInterface
+class FurnitureSubcategory extends Eloquent implements StaplerableInterface
 {
 
   use EloquentTrait, ValidatingTrait;
@@ -26,16 +26,10 @@ class Category extends Eloquent implements StaplerableInterface
     parent::__construct($attributes);
   }
 
-  public function products()
+  public function furnitureCategory()
   {
-    return $this->hasMany('Product');
+    return $this->belongsTo('FurnitureCategory');
   }
 
-  public function furnitures()
-  {
-    return $this->hasMany('Furniture');
-  }
-
-
-
+  
 }

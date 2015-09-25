@@ -38,6 +38,9 @@
             <th>
               Acciones
             </th>
+            <th>
+              Subcategorias
+            </th>
           </tr>
 
         </thead>
@@ -52,7 +55,21 @@
               {{$category->furnitures->count()}}
             </td>
             <td>
-              {{link_to_action('AdminCategoriesController@edit', 'Editar', [$category->id], ['class' => 'btn btn-default btn-sm']) }}
+              
+              <a href="{{action('AdminCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
+               <span class="glyphicon glyphicon-pencil"></span> Editar
+              </a>              
+
+            </td>
+            <td>
+              
+              <a href="{{action('AdminFurnitureSubcategoriesController@create', ['furniture_category_id' => $category->id])}}" class="btn btn-default btn-sm">
+                Añadir subcategoria <span class="glyphicon glyphicon-plus">
+              </a>                            
+          
+                <button type="button" class="btn btn-default btn-sm btn-sub" data-toggle="modal" data-target="#subcategories" data-subcategory-id="{{$category->id}}"></span> Ver Subcategorias <span class="glyphicon glyphicon-eye-open"> 
+                </button>
+           
             </td>
           </tr>
           @endforeach
@@ -61,7 +78,10 @@
     </div>
   </div>
 @endif
+@include('admin::furniture_subcategories.partials.show')
 @stop
+
+
 
 @section('script')
 <script charset="utf-8">
@@ -82,6 +102,21 @@ $(function(){
       }
     });
   });
+
+
+  $('.btn-sub').click(function(){
+        $.get('/admin/api/furnitures-subcategories/' + $(this).attr('data-subcategory-id'), function(data){
+      if(data.status == 200){
+        $('.furniture_subcategories').empty();
+        for (var i = data.subcategories.length - 1; i >= 0; i--) {
+
+          $('.furniture_subcategories').append('<p>'+data.subcategories[i].name+'</p><br>');
+          
+        };
+      }
+    });    
+  });
+
 
 });
 

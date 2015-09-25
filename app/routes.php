@@ -49,6 +49,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('reports', 'AdminReportsController');
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 		Route::resource('divisionales','AdminDivisionalController');
+		Route::resource('subcategorias-muebles','AdminFurnitureSubcategoriesController');
 
 	});
 

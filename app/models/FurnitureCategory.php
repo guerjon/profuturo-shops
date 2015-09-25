@@ -31,5 +31,8 @@ class FurnitureCategory extends Eloquent implements StaplerableInterface
     return $this->hasMany('Furniture');
   }
 
-  
+  public function furnitureSubcategories(){
+    return $this->hasMany('FurnitureSubcategory');
+  }
+
 }

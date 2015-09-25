@@ -867,4 +867,20 @@ public function getProductOrdersReport()
 
   }
 
+  public function getFurnituresSubcategories($category_id)
+  {
+    Log::info($category_id);
+    $subcategories = FurnitureCategory::find($category_id)->furniture_subcategories;
+    
+
+    Log::info($subcategories);
+
+        if(Request::ajax()){
+          return Response::json([
+            'subcategories' => $subcategories,
+            'status' => '200'
+            ]);
+        }
+  }
+
 }
