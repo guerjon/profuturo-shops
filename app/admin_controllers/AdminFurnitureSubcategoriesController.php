@@ -49,16 +49,16 @@ class AdminFurnitureSubcategoriesController extends BaseController{
     $categories = FurnitureCategory::all();
 
     if(!$subcategory){
-      Log::info('entro a 1');
+    
       return Redirect::to(action('AdminFurnitureSubcategoriesController@index'))->withErrors('No se encontró la categoría');
     }
     $subcategory->fill(Input::all());
     
     if($subcategory->save()){
-      Log::info('entro a 2');
+ 
       return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se actualizado la subcategoria');
     }else{
-      Log::info('entro a 3');
+    
       return View::make('admin::furniture_subcategories.create')->withSubcategory($subcategory)->withErrors($subcategory->getErrors());
     }
   }

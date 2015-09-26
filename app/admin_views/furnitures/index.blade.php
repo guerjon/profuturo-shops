@@ -21,16 +21,34 @@
 </div>
 
   <div class="" style="margin: 20px inherit">
-     <ul class="nav nav-tabs" role="tablist">
+      
       @foreach($categories as $category)
-        <li role="presentation" class="{{$active_tab == $category->id ? 'active' : ''}}">
-          <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="tabs">
-            {{$category->name}}
-          </a>
-        </li>
+      <div class="btn-group">
+            
+              
+                
+                <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="btn btn-default {{$active_tab == $category->id ? 'active' : ''}}">
+                {{$category->name}}
+                </a>  
+                
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+
+                <ul class="dropdown-menu">
+                  @foreach($category->furniture_subcategories as $subcategory)
+                    <li><a href="?active_tab={{$category->id}}&active_subtab={{$subcategory->id}}&page=1">{{$subcategory->name}}</a></li>
+                  @endforeach
+                </ul>  
+
+              </li>
+      
+      </div> 
       @endforeach
-    </ul>
+  
   </div>
+
 
 @if(count($furnitures) == 0)
 <div class="alert alert-warning">
