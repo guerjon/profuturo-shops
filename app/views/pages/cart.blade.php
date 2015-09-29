@@ -51,7 +51,7 @@
 
 
 <!--La variable last_order y accesso vienen del controlador HomeController -->
-@if($last_order !== NULL and $access and Auth::user()->has_limit)
+@if($last_order !== NULL and !$access and Auth::user()->has_limit)
 
 <div class="alert alert-warning">
   Su divisional no puede hacer pedidos por el momento, o ya realizo su pedido.
