@@ -37,9 +37,10 @@ class HomeController extends BaseController {
 	public function getCarrito()
 	{
 		$access = false;
+		$divisional_id = Auth::user()->divisional ? Auth::user()->divisional->id : 0;
 
 		$dates = DB::table('divisionals_users')
-			->where('divisional_id',Auth::user()->divisional->id)
+			->where('divisional_id',$divisional_id)
 			->where('from','<=',\Carbon\Carbon::now())
 			->where('until','>=',\Carbon\Carbon::now());
 
