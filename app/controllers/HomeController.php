@@ -36,7 +36,21 @@ class HomeController extends BaseController {
 
 	public function getCarrito()
 	{
-		return View::make('pages.cart')->withLastOrder(Auth::user()->orders()->orderBy('created_at', 'desc')->first());
+		$access = false;
+
+		$dates = DB::table('divisionals_users')
+			->where('divisional_id',Auth::user()->divisional->id)
+			->where('from','<=',\Carbon\Carbon::now())
+			->where('until','>=',\Carbon\Carbon::now());
+
+		if ($dates->count() > 0){
+			$access = true;
+		}else{
+			$access = false;
+		}
+
+		return View::make('pages.cart')->withLastOrder(Auth::user()->orders()->orderBy('created_at', 'desc')->first())
+									   ->withAccess($access);
 	}
 
 	public function getCarritoMuebles()

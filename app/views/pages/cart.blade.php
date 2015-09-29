@@ -49,9 +49,12 @@
 
 <hr>
 
-@if($last_order !== NULL and $last_order->created_at->month == \Carbon\Carbon::now()->month and Auth::user()->has_limit)
+
+<!--La variable last_order y accesso vienen del controlador HomeController -->
+@if($last_order !== NULL and $access and Auth::user()->has_limit)
+
 <div class="alert alert-warning">
-  Usted ya realizó un pedido de papelería este mes.
+  Su divisional no puede hacer pedidos por el momento, o ya realizo su pedido.
 </div>
 @else
 &nbsp;

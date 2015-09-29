@@ -35,6 +35,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		'role' => 'in:manager,admin,user_requests,user_paper',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
+	protected $appends = ['acceso'];
+	
 
 
 	protected $validationMessages = [
@@ -179,8 +181,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		}
 		return $total;
 	}
-
-	
 
 
 	public function getMenuActionsAttribute(){
