@@ -6,7 +6,7 @@
   <div class="form-group">
     <label for="admin-ccostos" class="control-label col-xs-2">Centro de costos</label>
     <div class="col-xs-2">
-      {{Form::text('admin[employee_number]', (Input::get('admin')['employee_number']), ['class' => 'form-control', 'maxlength' => 6])}}
+      {{Form::text('admin[employee_number]', (Input::get('admin')['employee_number']), ['class' => 'form-control'])}}
     </div>
     <div class="col-xs-1">
       <button type="submit" class="btn btn-block btn-default">
