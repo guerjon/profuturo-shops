@@ -50,7 +50,20 @@ class HomeController extends BaseController {
 			$access = false;
 		}
 
-		return View::make('pages.cart')->withLastOrder(Auth::user()->orders()->orderBy('created_at', 'desc')->first())
+		$last_order = DB::table('users')
+				->join('divisionals_users','divisionals_users.divisional_id','=','users.divisional_id')
+				->join('orders','orders.user_id','=','users.id')
+				->where('orders.created_at','>=','divisionals_users.from')
+				->where('orders.created_at','<=','divisionals_users.until');
+				
+
+		if ($last_order->count() > 0){
+			$last_order = false;
+		}else{
+			$last_order = true;
+		}		
+
+		return View::make('pages.cart')->withLastOrder($last_order)
 									   ->withAccess($access);
 	}
 
