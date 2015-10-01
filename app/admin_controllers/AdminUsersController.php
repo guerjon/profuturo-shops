@@ -138,7 +138,9 @@ class AdminUsersController extends AdminBaseController
 
   public function update($user_id)
   {
+    Log::info(Input::all());
     $user = User::find($user_id);
+    $user->divisional_id = Input::get('divisional_id');
     if(!$user){
       return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario o está deshabilitado.');
     }
