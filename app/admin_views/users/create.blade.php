@@ -174,10 +174,14 @@
 
 
       <div class="form-group">
-        <div class="col-sm-8 col-sm-offset-4">
+      <center>
+        <div>
           {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
-        </div>
+        </div>  
+      </center> 
+      
       </div>
+
     {{Form::close()}}
   </div>
 </div>

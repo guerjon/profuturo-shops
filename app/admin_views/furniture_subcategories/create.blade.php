@@ -33,6 +33,8 @@
         {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg'])}}
       </div>
 
+      
+
     {{Form::close()}}
 
 </div>
