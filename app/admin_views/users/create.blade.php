@@ -77,14 +77,16 @@
         </div>
       @endif  
       </div>
-      @if($active_tab == 'user_paper')
-      <div class="form-group">
-        {{Form::label('divisional_id','Divisional',['class' => 'control-label'])}}
-        <div>
-          {{Form::select('divisional_id',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
-        </div>
-      </div>     
+      
+      @if(($active_tab == 'user_paper')  || ($user->exists ? ($user->role =='user_paper') : false)) 
+        <div class="form-group">
+          {{Form::label('divisional_id','Divisional',['class' => 'control-label'])}}
+          <div>
+            {{Form::select('divisional_id',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
+          </div>
+        </div>     
       @endif
+
 
       <div class="form-group">
         {{Form::label('region_id','Region',['class' => 'control-label'])}}

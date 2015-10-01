@@ -128,7 +128,7 @@ class AdminUsersController extends AdminBaseController
     $user = User::find($user_id);
     $regions = Region::all()->lists('name','id');
     if(!$user){
-      return Redirect::back()->withWarning('No se encontró el usuario o está deshabilitado');
+      return Redirect::back()->withWarning('No se encontró el usuario o está deshabilitado.');
     }
     return View::make('admin::users.create')->withUser($user)
                                             ->withColors($colors)
@@ -140,11 +140,11 @@ class AdminUsersController extends AdminBaseController
   {
     $user = User::find($user_id);
     if(!$user){
-      return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario o está deshabilitado');
+      return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario o está deshabilitado.');
     }
     $user->fill(Input::only(['gerencia', 'linea_negocio','email']));
     if($user->save()){
-      return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha actualizado');
+      return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha actualizado el usuario.');
     }else{
       return Redirect::back()->withErrors($user->getErrors());
     }
@@ -154,14 +154,14 @@ class AdminUsersController extends AdminBaseController
   {
     $user = User::withTrashed()->find($user_id);
     if(!$user){
-      return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario');
+      return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario.');
     }elseif($user->trashed()){
       $user->restore();
-      return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha habilitado nuevamente el usuario');
+      return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha habilitado nuevamente el usuario.');
     }elseif($user->delete()){
-      return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se deshabilitado el usuario');
+      return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se deshabilitado el usuario.');
     }else{
-      return Redirect::to(action('AdminUsersController@index'))->withWarning('No se pudo deshabilitar al usuario');
+      return Redirect::to(action('AdminUsersController@index'))->withWarning('No se pudo deshabilitar al usuario.');
     }
 
   }
