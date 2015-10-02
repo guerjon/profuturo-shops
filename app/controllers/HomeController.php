@@ -65,8 +65,6 @@ class HomeController extends BaseController {
 		}else{
 				$last_order = 1;
 		}		
-		Log::info($last_order);
-		Log::info($access);
 		
 		if ($last_order and $access){
 			$access = true;
