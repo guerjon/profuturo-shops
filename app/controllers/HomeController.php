@@ -49,22 +49,32 @@ class HomeController extends BaseController {
 		}else{
 			$access = false;
 		}
-
+		
 		$last_order = DB::table('users')
 				->join('divisionals_users','divisionals_users.divisional_id','=','users.divisional_id')
 				->join('orders','orders.user_id','=','users.id')
-				->where('orders.created_at','>=','divisionals_users.from')
-				->where('orders.created_at','<=','divisionals_users.until');
+				->where('users.id',Auth::user()->id)
+				->where('orders.created_at','>=',DB::raw('divisionals_users.from'))
+				->where('orders.created_at','<=',DB::raw('divisionals_users.until'));
+						
 				
+				$last_order = $last_order->count();
 
-		if ($last_order->count() > 0){
-			$last_order = false;
+		if($last_order > 0){
+				$last_order = 0;
 		}else{
-			$last_order = true;
+				$last_order = 1;
 		}		
+		Log::info($last_order);
+		Log::info($access);
+		
+		if ($last_order and $access){
+			$access = true;
+		}else{
+			$access = false;
+		}
 
-		return View::make('pages.cart')->withLastOrder($last_order)
-									   ->withAccess($access);
+		return View::make('pages.cart')->withAccess($access);
 	}
 
 	public function getCarritoMuebles()

@@ -66,7 +66,7 @@
         </div>
         {{Form::close()}}
       @else  
-        @if($last_order == NULL and $access)
+        @if($access)
           &nbsp;
           {{Form::open([
             'action' => 'OrdersController@store',
