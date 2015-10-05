@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper',
+		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
 	protected $appends = ['acceso'];

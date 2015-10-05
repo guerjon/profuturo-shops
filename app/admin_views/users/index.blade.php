@@ -55,7 +55,12 @@
         <a href="?active_tab=user_requests&page=1" aria-controls="user_requests" class="tabs">
           Proyectos
         </a>
-      </li>    
+      </li>   
+      <li role="presentation" class="{{$active_tab == 'user_furnitures' ? 'active' : ''}}">
+        <a href="?active_tab=user_furnitures&page=1" aria-controls="user_furnitures" class="tabs">
+          Inmuebles
+        </a>
+      </li>  
     </ul>
   </div>
 
@@ -72,6 +77,9 @@
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_paper' ? 'active' : ''}}" id="user_paper">
       @include('admin::users.partials.users_paper')
     </div>    
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'user_furnitures' ? 'active' : ''}}" id="user_furnitures">
+      @include('admin::users.partials.users_furnitures')
+    </div> 
   </div>
 
 

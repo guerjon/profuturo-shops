@@ -6,10 +6,6 @@ class AdminUsersController extends AdminBaseController
 
   public function index()
   {
-    Log::info(Input::get('active_tab'));
-
-    
-   
     $active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
 
         $admins = User::withTrashed()->where('role', 'admin');
@@ -56,14 +52,27 @@ class AdminUsersController extends AdminBaseController
             if($emp_number = @$input['employee_number']){
               $users_paper->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
-          }           
+          }
         }
+        $users_furnitures = User::where('role', 'user_furnitures');
+        if(Input::has('user_furnitures'))
+        {
+          $input = Input::get('user_furnitures', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+                $users_paper->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+           }
+         }
 
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
       ->withManagers($managers->paginate(10))
       ->withUsersRequests($user_requests->paginate(10))
       ->withUsersPaper($users_paper->paginate(10))
+      ->withUsersFurnitures($users_furnitures->paginate(10))
       ->withActiveTab($active_tab);
   }
 
@@ -87,6 +96,8 @@ class AdminUsersController extends AdminBaseController
     $user = new User(Input::except('password_confirmation'));
     $active_tab = Input::get('active_tab');
 
+    Log::info(Input::all());
+
     switch ($active_tab) {
       case 'admin':     
         $user->role = 'admin';
@@ -102,6 +113,9 @@ class AdminUsersController extends AdminBaseController
       case 'users_paper':     
         $user->role = 'user_paper';
         break;
+      case 'user_furnitures':     
+        $user->role = 'user_furnitures';
+        break;
 
         default:
         # code...
@@ -111,12 +125,13 @@ class AdminUsersController extends AdminBaseController
     if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
     }
+
     Log::info(Input::all());
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
       
     }else{
-      return View::make('admin::users.create')->withUser($user);
+      return Redirect::to(action('AdminUsersController@index'))->withErrors('Se presento un problema al guardar al usuario');
     }
   }
 
