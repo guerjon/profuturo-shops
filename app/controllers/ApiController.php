@@ -46,7 +46,6 @@ class ApiController extends BaseController
     $assets = Input::get('assets');
     $ccostos = Input::get('ccostos');
     $color = Input::get('color');
-    $id_active = Input::get('id_active');
 
 
     if($quantity <= 0){
@@ -75,8 +74,7 @@ class ApiController extends BaseController
                                                     'company' => $company,
                                                     'assets' => $assets,
                                                     'ccostos' => $ccostos,
-                                                    'color' => $color,
-                                                    'id_active' => $id_active]);
+                                                    'color' => $color]);
 
 
     return Response::json([
@@ -88,7 +86,6 @@ class ApiController extends BaseController
       'assets' => $assets,
       'ccostos' => $ccostos,
       'color' => $color,
-      'id_active' => $id_active
       ]);
   }
 

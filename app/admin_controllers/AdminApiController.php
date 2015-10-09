@@ -774,7 +774,8 @@ public function getProductOrdersReport()
         'CENTRO_COSTOS' => $user->ccosto,
         'GERENCIA/NOMBRE' => $user->gerencia,
         'LINEA_DE_NEGOCIO' => $user->linea_negocio,
-        'PERFIL' => $perfil
+        'PERFIL' => $perfil,
+        'Email' => $user->email
       ];
 
     }

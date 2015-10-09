@@ -23,66 +23,47 @@
   'action' => 'AdminApiController@getBIReport',
   'target' => '_blank'
   ])}}
-<div class="row">
-  {{-- <div class="col-xs-2 col-xs-offset-2">
-    {{Form::select('region_id',$regions,null,['class' => 'form-control'])}}
-  </div> --}}
+<center>
 
+  <div class="row">
+      
+    <div class="col-xs-2">
+      {{Form::label('since','DESDE')}}
+      {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+      <br>
+      {{Form::label('until','HASTA')}}
+      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+    </div>
     
-  <div class="col-xs-1">
-    {{Form::label('since','Desde')}}
-    {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
-  </div>
-  
-  <div class="col-xs-1">
-    {{Form::label('until','Hasta')}}
-    {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
-  </div>
+    <div class="col-xs-4">
+      {{Form::label('since','# ORDEN')}}
+      {{Form::text('order_id',null,['class' => 'form-control','placeholder' => 'Ingrese el numero de pedido','id' => 'order' ])}}
+      <br>
+      {{Form::label('ccosto','CCOSTO')}}
+      {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
+    </div>
 
-  <div class="col-xs-2">
-     <label for="order">
-        <input type="checkbox" class="checkbox-filter" data-filter="order"> #Numero de pedido 
-      </label>
-    {{Form::text('order_id',null,['class' => 'form-control','placeholder' => 'Ingrese el numero de pedido','id' => 'order','style' => 'display:none' ])}}
-  </div>
+      
+    <div class="col-xs-4">
+      {{Form::label('category_id','CATEGORIA')}}
+      {{Form::select('category_id',[null => 'Seleccione una categoria'] + $categories,null,['class' => 'form-control','id' => 'category_id'])}}
+      <br>
+      {{Form::label('product_id','PRODUCTO')}}
+      {{Form::select('product_id',[null => 'Seleccione un producto'] +$products,null,['class' => 'form-control','id' => 'product_id'])}}
+    </div>
 
-  <div class="col-xs-2">
-    <label for="order">
-      <input type="checkbox" class="checkbox-filter" data-filter="ccosto"> Ccosto 
-    </label>  
-    {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto','style' => 'display:none'])}}
-  </div>
-  
-  <div class="col-xs-2">
-    <label for="order">
-      <input type="checkbox" class="checkbox-filter" data-filter="category_id"> Categoria  
-    </label>   
-    {{Form::select('category_id',[null => 'Seleccione una categoria'] + $categories,null,['class' => 'form-control','id' => 'category_id','style' => 'display:none'])}}
-  </div>
 
-  <div class="col-xs-2">
-    <label for="order">
-      <input type="checkbox" class="checkbox-filter" data-filter="product_id"> Producto
-    </label>
-    {{Form::select('product_id',[null => 'Seleccione un producto'] +$products,null,['class' => 'form-control','id' => 'product_id','style' => 'display:none'])}}
-  </div>
-
-  
-  <div class="col-xs-1">
-    <button class="btn btn-primary btn-submit">
-      <span class="glyphicon glyphicon-download-alt"></span> Excel
-    </button>
+    <div class="col-xs-2  text-right">
+      <button class="btn btn-primary btn-submit">
+        <span class="glyphicon glyphicon-download-alt"></span> Excel
+      </button>
+      <button type="button" class="btn btn-primary btn-submit" data-toggle="modal" id="grafica" data-target="#graph">
+        <span class="glyphicon glyphicon-stats"></span> Gráfica
+      </button>
+    </div>
 
   </div>
-
-  <div class="col-xs-1">
-    <button type="button" class="btn btn-primary btn-submit" data-toggle="modal" id="grafica" data-target="#graph">
-      <span class="glyphicon glyphicon-stats"></span> Gráfica
-    </button>
-  </div>
-
-</div>
-
+</center>
 {{Form::close()}}
 
 <hr>
@@ -295,16 +276,7 @@ $(function(){
   google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
   update();
 
-  $('.checkbox-filter').change(function(){
-      var campo = $(this).attr('data-filter');
-      if($(this).is(':checked')){
-        $('#'+campo).css('display','block'); 
-      }else{
-        $('#'+campo).css('display','none');  
-      }
-      
-      
-  });
+
 
   $('#filter-form select').change(function(){
      update();

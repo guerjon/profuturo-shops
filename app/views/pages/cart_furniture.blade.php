@@ -34,9 +34,7 @@
       <th>
         Color
       </th>
-      <th>
-        Id del activo
-      </th>
+
       <th>
         Eliminar
       </th>
@@ -80,14 +78,12 @@
       <td>
         <img src="{{$furniture->pivot->color}}" class="col-md-2" alt="Azul palido">
       </td>
-      <td>
-         {{$furniture->pivot->id_active}} 
-      </td>
+
       <td>
         <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="1">Eliminar 1</button>
         <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-furniture-id="{{$furniture->id}}" data-quantity="{{$furniture->pivot->quantity}}"
               data-company="{{$furniture->pivot->company}}" data-company = "{{$furniture->pivot->company}}" data-assets="{{$furniture->pivot->assets}}"
-              data-ccosto="{{$furniture->pivot->company}}"  data-color="{{$furniture->pivot->color}}" data-active="{{$furniture->pivot->id_active}}" >Eliminar todos</button>
+              data-ccosto="{{$furniture->pivot->company}}"  data-color="{{$furniture->pivot->color}}" data-active="{{$furniture->pivot->id_active}}">Eliminar todos</button>
 
       </td>
     </tr>

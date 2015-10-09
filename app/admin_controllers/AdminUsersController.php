@@ -95,7 +95,7 @@ class AdminUsersController extends AdminBaseController
   {
     $user = new User(Input::except('password_confirmation'));
     $active_tab = Input::get('active_tab');
-
+    $user->region_id = Input::get('region_id');
     Log::info(Input::all());
 
     switch ($active_tab) {
@@ -159,7 +159,7 @@ class AdminUsersController extends AdminBaseController
     if(!$user){
       return Redirect::to(action('AdminUsersController@index'))->withWarning('No se encontró el usuario o está deshabilitado.');
     }
-    $user->fill(Input::only(['gerencia', 'linea_negocio','email']));
+    $user->fill(Input::all());
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha actualizado el usuario.');
     }else{

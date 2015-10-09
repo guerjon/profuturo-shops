@@ -91,9 +91,9 @@
 
 
       <div class="form-group">
-        {{Form::label('region_id','Region',['class' => 'control-label'])}}
+        {{Form::label('region_id','Región',['class' => 'control-label'])}}
         <div>
-          {{Form::select('region_id',$regions,null,['class' => 'form-control'])}}
+          {{Form::select('region_id',$regions,$user->exists ? $user->region_id : null,['class' => 'form-control'])}}
         </div>
       </div>   
 
@@ -107,7 +107,7 @@
       <div class="form-group">
         {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label'])}}
         <div>
-          {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],'FONDOS',['class' => 'form-control'])}}
+          {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],$user->exists ? $user->linea_negocio : null,['class' => 'form-control'])}}
         </div>
       </div>
 

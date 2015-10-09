@@ -218,9 +218,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
-					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
 					
-
+					
 
 				]
 				;
@@ -232,6 +231,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
+					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
 				];	
 		}
 	}

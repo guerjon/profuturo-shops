@@ -74,7 +74,10 @@
                   <li><a href="/perfil">Mi perfil</a></li>
                   <li><a href="/pedidos">Mis pedidos</a></li>
                   <li><a href="/carrito">Mi carrito</a></li>
-                  <li><a href="/carrito-muebles">Mi carrito(mobiliario)</a></li>
+                
+                @elseif(Auth::user()->user_furnitures)                  
+                  <li><a href="/perfil">Mi perfil</a></li>
+                  <li><a href="/pedidos-muebles">Mis pedidos</a></li>
                 @else
                   <li><a href="/perfil">Mi perfil</a></li>
                 @endif
