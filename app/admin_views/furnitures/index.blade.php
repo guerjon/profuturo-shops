@@ -25,25 +25,20 @@
       @foreach($categories as $category)
       <div class="btn-group">
             
-              
-                
-                <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="btn btn-default {{$active_tab == $category->id ? 'active' : ''}}">
-                {{$category->name}}
-                </a>  
-                
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span class="caret"></span>
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
+            <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="btn btn-default {{$active_tab == $category->id ? 'active' : ''}}" >
+            {{$category->name}}
+            </a>  
+            
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
 
-                <ul class="dropdown-menu">
-                  @foreach($category->furniture_subcategories as $subcategory)
-                    <li><a href="?active_tab={{$category->id}}&active_subtab={{$subcategory->id}}&page=1">{{$subcategory->name}}</a></li>
-                  @endforeach
-                </ul>  
-
-              </li>
-      
+            <ul class="dropdown-menu">
+              @foreach($category->furniture_subcategories as $subcategory)
+                <li><a href="?active_tab={{$category->id}}&active_subtab={{$subcategory->id}}&page=1">{{$subcategory->name}}</a></li>
+              @endforeach
+            </ul>  
       </div> 
       @endforeach
   
