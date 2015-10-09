@@ -16,7 +16,7 @@
 <hr>
 
 <div class="row">
-
+ <div class="clearfix"></div>
   <div class="col-sm-2 col-xs-3 col-xs-offset-3">
     <a href="{{action('AdminReportsController@getActiveUserOrdersReport')}}"class="thumbnail">
       <img src="/img/img.png" style="width: 100%; height: auto;">
@@ -37,8 +37,9 @@
         <h3 style="text-align:center">Más solicitados</h3>
     </a>
   </div>
-
-  <div class="col-sm-2 col-xs-3 col-xs-offset-3">
+</div>
+<div class="row"> 
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
     <a href="{{action('AdminReportsController@getBIReport')}}"class="thumbnail">
       <img src="/img/img.png" style="width: 100%; height: auto;">
         <h3 style="text-align:center">Reportes BI</h3>
@@ -58,8 +59,10 @@
         <h3 style="text-align:center">Mobiliario</h3>
     </a>
   </div>
+</div>
+<div class="row"> 
 
-  <div class="col-sm-2 col-xs-3 col-xs-offset-3">
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
     <a href="{{action('AdminReportsController@getOrdersReport')}}"class="thumbnail">
       <img src="/img/img.png" style="width: 100%; height: auto;">
         <h3 style="text-align:center">Pedidos papelería</h3>
@@ -79,7 +82,7 @@
         <h3 style="text-align:center">Sol. generales</h3>
     </a>
   </div>
-
+</div>
 </div>
 
 
