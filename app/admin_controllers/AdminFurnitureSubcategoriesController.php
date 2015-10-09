@@ -24,9 +24,9 @@ class AdminFurnitureSubcategoriesController extends BaseController{
     $categories = FurnitureCategory::all();
     $subcategory->furniture_category_id = Input::get('furniture_category_id');
     if($subcategory->save()){
-      return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se añadio la subcategoria');
+      return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withCategories($categories)->withSuccess('Se añadio la subcategoria');
     }else{
-      return View::make('admin::furniture_categories.index')->withCategories($categories)->withErrors($subcategory->getErrors());
+      return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withCategories($categories)->withErrors($subcategory->getErrors());
     }
   }
 
@@ -36,7 +36,7 @@ class AdminFurnitureSubcategoriesController extends BaseController{
     $subcategory = FurnitureSubcategory::find($subcategory_id);
 
     if(!$subcategory){
-      return View::make('admin::furniture_subcategories.create')->withErrors('No se encontro la categoria');
+     return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withErrors('No se encontro la categoria');
     }else{
 
       return View::make('admin::furniture_subcategories.create')->withSubcategory($subcategory)->withCategory($subcategory->furniture_category);
@@ -50,16 +50,16 @@ class AdminFurnitureSubcategoriesController extends BaseController{
 
     if(!$subcategory){
     
-      return Redirect::to(action('AdminFurnitureSubcategoriesController@index'))->withErrors('No se encontró la categoría');
+      return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withErrors('No se encontró la categoría');
     }
     $subcategory->fill(Input::all());
     
     if($subcategory->save()){
  
-      return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se actualizado la subcategoria');
+      return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withCategories($categories)->withSuccess('Se actualizado la subcategoria');
     }else{
     
-      return View::make('admin::furniture_subcategories.create')->withSubcategory($subcategory)->withErrors($subcategory->getErrors());
+     return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withSubcategory($subcategory)->withErrors($subcategory->getErrors());
     }
   }
 
@@ -67,8 +67,7 @@ class AdminFurnitureSubcategoriesController extends BaseController{
     $categories = FurnitureCategory::all(); 
     FurnitureSubcategory::destroy($subcategory_id);
 
-    
-    return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se eliminado la subcategoria');
-
+     return Redirect::to(action('AdminFurnitureCategoriesController@index'))->withCategories($categories)->withSuccess('Se eliminado la subcategoria');
+   
   }
 }
