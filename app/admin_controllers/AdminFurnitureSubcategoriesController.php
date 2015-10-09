@@ -65,9 +65,9 @@ class AdminFurnitureSubcategoriesController extends BaseController{
 
   public function destroy($subcategory_id){
     $categories = FurnitureCategory::all(); 
-    $furniture_subcategory = FurnitureSubcategory::find($subcategory_id);
-    $furniture_subcategory->destroy();
+    FurnitureSubcategory::destroy($subcategory_id);
 
+    
     return View::make('admin::furniture_categories.index')->withCategories($categories)->withSuccess('Se eliminado la subcategoria');
 
   }
