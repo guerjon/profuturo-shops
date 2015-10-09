@@ -12,7 +12,7 @@
           
           <div class="form-group">
             {{Form::label('divisional_id','Divisional')}}
-            {{Form::select('divisional_id',['1' =>1,'2' => 2,'3' => 3,'4' => 4],null,['class' => 'form-control'])}}  
+            {{Form::select('divisional_id',$divisionals_to_select,null,['class' => 'form-control'])}}  
           </div>
           
         <div class="form-gropu">

@@ -617,7 +617,9 @@ public function getProductOrdersReport()
   }
 
   public function getBIReport(){
-    
+    Log::info('centro de costos'.Input::get('ccosto'));
+    Log::info('id del producot'.Input::get('product_id'));
+  
     $report = DB::table('users')->join('orders','orders.user_id','=','users.id')
                                 ->join('order_product','order_product.order_id','=','orders.id')
                                 ->join('products','order_product.product_id','=','products.id')

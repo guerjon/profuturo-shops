@@ -9,22 +9,17 @@ class AdminDivisionalController extends BaseController{
 	 */
 	public function index()
 	{
-		$divisionales_uno = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
-																									->where('divisionals_users.divisional_id','1');
-    
-		$divisionales_dos = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
-																									->where('divisionals_users.divisional_id','2');
-
-		$divisionales_tres = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
-																									->where('divisionals_users.divisional_id','3');
-    
-		$divisionales_cuatro = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
-																									->where('divisionals_users.divisional_id','4');																									
-
-		return View::make('admin::divisionales.index')->withDivisionalesUno($divisionales_uno->get())
-																									->withDivisionalesDos($divisionales_dos->get())
-																									->withDivisionalesTres($divisionales_tres->get())
-																									->withDivisionalesCuatro($divisionales_cuatro->get());
+		Log::info(Input::all());
+		$divisionals_date = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
+			->where('divisionals_users.divisional_id',Input::get('active_tab', '2'));
+		
+		$active_tab = Session::get('active_tab', Input::get('active_tab', '2'));
+		Log::info($divisionals_date->get());
+		return View::make('admin::divisionales.index')
+			->withDivisionals(Divisional::orderBy('id')->get())
+			->withDivisionalsToSelect(Divisional::lists('name','id'))
+			->withdivisionalsDate($divisionals_date->get())
+			->withActiveTab($active_tab);
 	}
 
 
