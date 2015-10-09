@@ -33,12 +33,22 @@
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
+            @if($category->furniture_subcategories->count() > 0)
+              <ul class="dropdown-menu">
+             
+                @foreach($category->furniture_subcategories as $subcategory)
+                  <li><a href="?active_tab={{$category->id}}&active_subtab={{$subcategory->id}}&page=1">{{$subcategory->name}}</a></li>
+                @endforeach
 
-            <ul class="dropdown-menu">
-              @foreach($category->furniture_subcategories as $subcategory)
-                <li><a href="?active_tab={{$category->id}}&active_subtab={{$subcategory->id}}&page=1">{{$subcategory->name}}</a></li>
-              @endforeach
-            </ul>  
+              </ul>  
+            @else
+              <ul class="dropdown-menu">
+                <center>
+                  <li style="color:white">Sin subcategorias</li>  
+                </center>
+              </ul>
+            @endif   
+            
       </div> 
       @endforeach
   
