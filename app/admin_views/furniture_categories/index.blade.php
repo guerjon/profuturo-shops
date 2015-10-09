@@ -60,7 +60,7 @@
             </td>
             <td>
               
-              <a href="{{action('AdminFurnitureSubcategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
+              <a href="{{action('AdminFurnitureCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
                <span class="glyphicon glyphicon-pencil"></span> Editar
               </a>              
 
