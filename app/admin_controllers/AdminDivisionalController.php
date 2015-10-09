@@ -17,7 +17,7 @@ class AdminDivisionalController extends BaseController{
 		Log::info($divisionals_date->get());
 		return View::make('admin::divisionales.index')
 			->withDivisionals(Divisional::orderBy('id')->get())
-			->withDivisionalsToSelect(Divisional::lists('name','id'))
+			->withDivisionalsToSelect(Divisional::orderBy('id')->lists('name','id'))
 			->withdivisionalsDate($divisionals_date->get())
 			->withActiveTab($active_tab);
 	}
