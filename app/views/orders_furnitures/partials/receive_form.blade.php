@@ -56,25 +56,23 @@
       </tbody>
 
 </table>
-<div class="form-group text-right">
-@if($order->status == 0)
-   {{link_to_action('AddFurnituresController@getIndex', 'Agregar mobiliario',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
-    @endif
-
-</div>
     
 
 
-<div class="form-group">
+  <div class="form-group">
+    {{Form::textarea('comments', $order->comments, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la entrega', 'rows' => 3])}}
+  </div>
 
-  {{Form::textarea('comments', $order->comments, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la entrega', 'rows' => 3])}}
+  <div class="form-group text-right">
+    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
+  </div>
 
-</div>
-<div class="form-group text-right">
-  {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
+  <div class="form-group">
+    @if($order->status == 0)
+       {{link_to_action('AddFurnituresController@getIndex', 'Agregar mobiliario',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
+    @endif
+  </div>
   
-</div>
-
 {{Form::close()}}
 
 @section('script')

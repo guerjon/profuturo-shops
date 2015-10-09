@@ -41,15 +41,15 @@ class HomeController extends BaseController {
 
 		$dates = DB::table('divisionals_users')
 			->where('divisional_id',$divisional_id)
-			->where('from','<=',\Carbon\Carbon::now())
-			->where('until','>=',\Carbon\Carbon::now());
+			->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
+			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
 
 		if ($dates->count() > 0){
 			$access = true;
 		}else{
 			$access = false;
 		}
-		
+		Log::info('El usuario tiene acceso por su divisional '.$dates->count());
 		$last_order = DB::table('users')
 				->join('divisionals_users','divisionals_users.divisional_id','=','users.divisional_id')
 				->join('orders','orders.user_id','=','users.id')
