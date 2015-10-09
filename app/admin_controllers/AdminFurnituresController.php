@@ -11,16 +11,15 @@ class AdminFurnituresController extends AdminBaseController
     Log::info(Input::all());
     if (Input::has('active_tab')) {
         $furnitures = Furniture::withTrashed()->where('furniture_category_id',Input::get('active_tab'));
-
+        $subcategory = FurnitureCategory::find(Input::get('active_tab'))->furnitureSubcategories();
         if (Input::has('active_subtab')) {
-          Log::info('entro aqui');
           $furnitures = $furnitures->where('furniture_subcategory_id',Input::get('active_subtab')); 
-          Log::info($furnitures->get());
         }
          
     }else
     {
        $furnitures = Furniture::withTrashed()->where('furniture_category_id',1);
+       $subcategory = FurnitureCategory::find(1)->furnitureSubcategories();
     }
 
 
@@ -28,6 +27,7 @@ class AdminFurnituresController extends AdminBaseController
 
     return View::make('admin::furnitures.index')->withFurnitures($furnitures->orderBy('furniture_category_id')->orderBy('name')->paginate(10))
                                                 ->withCategories(FurnitureCategory::all())
+                                                ->withSubcategories($subcategory->lists('name','id'))
                                                 ->withActiveTab($active_tab);
   }
 
