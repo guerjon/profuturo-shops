@@ -19,7 +19,7 @@
     <span class="glyphicon glyphicon-import"></span> Importar Excel
   </a>
 </div>
-
+{{-- 
   <div class="" style="margin: 20px inherit">
       
       @foreach($categories as $category)
@@ -52,10 +52,10 @@
       </div> 
       @endforeach
   
-  </div>
+  </div> --}}
 
 
-{{--    <div class="" style="margin: 20px inherit">
+   <div class="" style="margin: 20px inherit">
       <ul class="nav nav-tabs" role="tablist">
         @foreach($categories as $category)       
             <li role="presentation" class="{{$active_tab == $category->id ? 'active' : ''}}">
@@ -69,10 +69,14 @@
 
    <br>
   <div class="row">
-    <div class="col col-md-3 col-md-offset-4">
-    {{Form::select('subcategories',[null =>'Seleccione una subcategoria']+$subcategories,null, ['class' => 'form-control','id' => 'subcategoria'])}}
-    </div>
-  </div> --}}
+    {{Form::open(['action' => 'AdminFurnituresController@index','method' => 'GET'])}}
+      <div class="col col-md-3 col-md-offset-4">
+      {{Form::select('active_subtab',[null =>'Seleccione una subcategoria']+$subcategories,null, ['class' => 'form-control','id' => 'subcategoria'])}}
+      </div>
+    {{Form::hidden('active_tab',$active_tab)}}
+    {{Form::submit('Buscar',['class' => 'btn btn-primary'])}}  
+
+  </div>
   <br>
 @if(count($furnitures) == 0)
 <div class="alert alert-warning">
@@ -163,19 +167,3 @@
 
 @stop
 
-
-{{-- @section('script')
-  <script type="text/javascript">
-    $(function(){
-      var categoria_id = $('#categoria').attr('data-category-id');
-      $('#subcategoria').change(function(){
-        subcategoria_id = $(this).val();
-          $.ajax({
-            url: "/admin/mobiliario",
-            type: 'GET',
-            data:{active_tab:categoria_id,active_subtab:subcategoria_id}
-          });
-      });
-    });
-  </script>
-@stop --}}
