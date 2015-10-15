@@ -130,7 +130,7 @@
 
  
       <div id="campos-extra">
-          @if(($active_tab == 'manager') || ($active_tab == 'user_requests'))
+          @if(($active_tab == 'manager'))
 
           <div class="form-group">
             {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label '])}}
