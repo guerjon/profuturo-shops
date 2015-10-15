@@ -885,4 +885,9 @@ public function getProductOrdersReport()
         }
   }
 
+  public function getIndexFurnitures($active_tab,$active_subtab)
+  {
+    
+  }
+
 }
