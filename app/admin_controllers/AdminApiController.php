@@ -132,8 +132,33 @@ class AdminApiController extends AdminBaseController
     }
   }
 
+
+  /**
+  *Metodo auxiliar para el metodo getBcOrdersReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function bcOrdersStatus($report){
+    $orders = clone $report;
+
+    $orders = $orders->select(DB::raw('count(bc_orders.status) as STATUS'))
+                     ->groupBy('bc_orders.status')
+                     ->get();
+
+    $orders_deliver_pending = [];
+
+    foreach ($orders as $order) 
+    {
+     $orders_deliver_pending[] = $order->STATUS;
+    }                                       
+    
+    return $orders_deliver_pending;
+  }
+
+
+
   public function getBcOrdersReport()
   {
+    Log::debug(Input::all());
     ini_set('max_execution_time', '300');
     $query = DB::table('bc_order_business_card')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -155,8 +180,8 @@ class AdminApiController extends AdminBaseController
     ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->whereNull('bc_orders.deleted_at')
-    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
-    ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
+    ->where('bc_orders.created_at','>=',Input::get('since'))
+    ->where('bc_orders.updated_at','<=',Input::get('until'));
 
     $query2 = DB::table('blank_cards_bc_order')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -177,8 +202,8 @@ class AdminApiController extends AdminBaseController
     ")->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->whereNull('bc_orders.deleted_at')
-    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
-    ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
+    ->where('bc_orders.created_at','>=',Input::get('since'))
+    ->where('bc_orders.updated_at','<=',Input::get('until'));
 
     $query3 = DB::table('bc_orders_extras')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -200,8 +225,8 @@ class AdminApiController extends AdminBaseController
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->whereNull('bc_orders.deleted_at')
     ->where('bc_orders_extras.talento_nombre', '!=', "''")->whereNotNull('bc_orders_extras.talento_nombre')
-    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
-    ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
+    ->where('bc_orders.created_at','>=',Input::get('since'))
+    ->where('bc_orders.updated_at','<=',Input::get('until'));
 
 
     $query4 = DB::table('bc_orders_extras')->selectRaw("
@@ -224,9 +249,8 @@ class AdminApiController extends AdminBaseController
     ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
     ->whereNull('bc_orders.deleted_at')
     ->where('bc_orders_extras.gerente_nombre', '!=', "''")->whereNotNull('bc_orders_extras.gerente_nombre')
-    ->where(DB::raw('MONTH(bc_orders.created_at)'), Input::get('month'))
-    ->where(DB::raw('YEAR(bc_orders.updated_at)'), Input::get('year'));
-
+    ->where('bc_orders.created_at','>=',Input::get('since'))
+    ->where('bc_orders.updated_at','<=',Input::get('until'));
 
     switch(Input::get('type')){
       case 1:
@@ -242,6 +266,25 @@ class AdminApiController extends AdminBaseController
         break;
     }
 
+    if(Input::has('ccosto')){
+      $query->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    }
+
+    if (Input::has('num_pedido')){
+      $query->where('bc_orders.id','like','%'.Input::get('num_pedido').'%');
+    }
+
+    if(Input::has('region_id')){
+      $query->where('users.region_id',Input::get('region_id'));
+    }
+
+    $query->join('regions','regions.id','=','users.region_id');
+
+    $orders_by_region = $this->ordersByRegion($query);
+    
+    $orders_status = $this->bcOrdersStatus($query);
+
+
     $q = clone $query;
     $item = $q->first();
 
@@ -252,7 +295,9 @@ class AdminApiController extends AdminBaseController
       return Response::json([
         'status' => 200,
         'orders' => $items,
-        'headers' => $headers
+        'headers' => $headers,
+        'orders_status' => $orders_status,
+        'orders_by_region' => $orders_by_region
         ]);
     }else{
 
@@ -287,7 +332,7 @@ class AdminApiController extends AdminBaseController
   }
 
 
-    public function getFurnituresOrdersReport()
+  public function getFurnituresOrdersReport()
   {
     ini_set('max_execution_time','300');
       $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
@@ -438,7 +483,7 @@ class AdminApiController extends AdminBaseController
   }
 
 
-public function getProductOrdersReport()
+  public function getProductOrdersReport()
   {
     ini_set('max_execution_time','300');
     $query = DB::table('products')
@@ -469,24 +514,22 @@ public function getProductOrdersReport()
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
       $result = [$headers];
-  foreach($query->get() as $item){
-    $itemArray = [];
-  foreach($headers as $header){
-    $itemArray[] = $item->{$header};
-  }
-    $result[] = $itemArray;
-  }
-  if($result){
-   $mes = Input::get('month');
-   $año = Input::get('year');
-    Excel::create('Reporte_Productos_'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('hoja 1',function($sheet)use($result){
-       $sheet->fromArray($result);
-        });
-      })->download('xls');
-  }
-
-
+      foreach($query->get() as $item){
+        $itemArray = [];
+      foreach($headers as $header){
+        $itemArray[] = $item->{$header};
+      }
+        $result[] = $itemArray;
+      }
+      if($result){
+       $mes = Input::get('month');
+       $año = Input::get('year');
+        Excel::create('Reporte_Productos_'.$mes.'_'.$año , function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+            });
+          })->download('xls');
+      }
       return Response::make($data, 200, $headers);
     }
   }
@@ -520,22 +563,22 @@ public function getProductOrdersReport()
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
       $result = [$headers];
-  foreach($query->get() as $item){
-    $itemArray = [];
-  foreach($headers as $header){
-    $itemArray[] = $item->{$header};
-  }
-    $result[] = $itemArray;
-  }
-  if($result){
-   $mes = Input::get('month');
-   $año = Input::get('year');
-    Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
-     $excel->sheet('hoja 1',function($sheet)use($result){
-       $sheet->fromArray($result);
-        });
-      })->download('xls');
-  }
+      foreach($query->get() as $item){
+        $itemArray = [];
+      foreach($headers as $header){
+        $itemArray[] = $item->{$header};
+      }
+        $result[] = $itemArray;
+      }
+      if($result){
+       $mes = Input::get('month');
+       $año = Input::get('year');
+        Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+            });
+          })->download('xls');
+      }
 
       $headers = array(
         'Content-Type' => 'text/csv',
@@ -545,7 +588,9 @@ public function getProductOrdersReport()
     }
   }
 
-
+  /**
+  *Metodo auxiliar para el metodo getBIReport
+  */
   public function ordersByCategory($report){
     $orders_category = clone $report;
 
@@ -563,6 +608,10 @@ public function getProductOrdersReport()
     return $orders_by_category;
   }
 
+  /**
+  *Metodo auxiliar para el metodo getBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
   public function ordersByRegion($report)
   {
     $orders_region = clone $report;
@@ -581,6 +630,10 @@ public function getProductOrdersReport()
     return $orders_by_regions;
   }
 
+  /**
+  *Metodo auxiliar para el metodo getBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
   public function expensesByRegion($report){
     $expenses = clone $report;
 
@@ -598,7 +651,10 @@ public function getProductOrdersReport()
     return $expenses_by_regions; 
   }
 
-
+  /**
+  *Metodo auxiliar para el metodo getBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
   public function ordersStatus($report){
     $orders = clone $report;
 
@@ -617,8 +673,6 @@ public function getProductOrdersReport()
   }
 
   public function getBIReport(){
-    Log::info('centro de costos'.Input::get('ccosto'));
-    Log::info('id del producot'.Input::get('product_id'));
   
     $report = DB::table('users')->join('orders','orders.user_id','=','users.id')
                                 ->join('order_product','order_product.order_id','=','orders.id')
@@ -632,7 +686,6 @@ public function getProductOrdersReport()
 
     if(Input::has('ccosto')){
       $report->where('users.ccosto','like','%'.Input::get('ccosto').'%');
-      
     }
 
     if(Input::has('category_id')){
@@ -724,32 +777,32 @@ public function getProductOrdersReport()
 
 
   public function getTotalUsersReport(){
-       $users =  User::all();
+    $users =  User::all();
 
-       foreach ($users as $user) {
-          $user->pedidos = $user->orders->count();
-          $user->pendientes = $user->orders()->where('status',0)->count();
-          $user->completos = $user->orders()->where('status', 1)->count();
-          $user->incompletos = $user->orders()->where('status',2)->count();
-       }
+    foreach ($users as $user) {
+      $user->pedidos = $user->orders->count();
+      $user->pendientes = $user->orders()->where('status',0)->count();
+      $user->completos = $user->orders()->where('status', 1)->count();
+      $user->incompletos = $user->orders()->where('status',2)->count();
+    }
 
-      if(Request::ajax()){
-      return Response::json([
-        'status' => 200,
-        'users' => $users,
-        ]);
-      }
+    if(Request::ajax()){
+    return Response::json([
+      'status' => 200,
+      'users' => $users,
+      ]);
+    }
   }
 
 
-   public function getGeneralRequestExcel(){
-       $general_request = GeneralRequest::all();
-      if(Request::ajax()){
-      return Response::json([
-        'status' => 200,
-        'users' => $general_request,
-        ]);
-      }
+  public function getGeneralRequestExcel(){
+    $general_request = GeneralRequest::all();
+    if(Request::ajax()){
+    return Response::json([
+      'status' => 200,
+      'users' => $general_request,
+      ]);
+    }
   }
 
   public function getUsersReport()
@@ -793,24 +846,24 @@ public function getProductOrdersReport()
 
   public function getTotalUsersExcel()
   {
-      $users =  User::all();
+    $users =  User::all();
 
-       foreach ($users as $user) {
-          $user->pedidos = $user->orders->count();
-          $user->pendientes = $user->orders()->where('status',0)->count();
-          $user->completos = $user->orders()->where('status', 1)->count();
-          $user->incompletos = $user->orders()->where('status',2)->count();
+     foreach ($users as $user) {
+        $user->pedidos = $user->orders->count();
+        $user->pendientes = $user->orders()->where('status',0)->count();
+        $user->completos = $user->orders()->where('status', 1)->count();
+        $user->incompletos = $user->orders()->where('status',2)->count();
 
-          $result[] = [
-        'CENTRO_COSTOS' => $user->ccosto,
-        'GERENCIA/NOMBRE' => $user->gerencia,
-        'LINEA_DE_NEGOCIO' => $user->linea_negocio,
-        'PEDIDOS' => $user->pedidos,
-        'COMPLETOS' => $user->completos,
-        'INCOMPLETOS' => $user->incompletos,
-        'PENDIENTES' => $user->pendientes
-        ];
-        }
+        $result[] = [
+      'CENTRO_COSTOS' => $user->ccosto,
+      'GERENCIA/NOMBRE' => $user->gerencia,
+      'LINEA_DE_NEGOCIO' => $user->linea_negocio,
+      'PEDIDOS' => $user->pedidos,
+      'COMPLETOS' => $user->completos,
+      'INCOMPLETOS' => $user->incompletos,
+      'PENDIENTES' => $user->pendientes
+      ];
+      }
 
     $datetime = \Carbon\Carbon::now()->format('YmdHi');
     Excel::create('Reporte_usuarios_'.$datetime, function($excel) use($result){
@@ -822,28 +875,28 @@ public function getProductOrdersReport()
 
    public function getGeneralRequestsExcel()
   {
-      $requests =  GeneralRequest::all();
-     
-       foreach ($requests as $request) {
-        $average = $request->satisfaction_survey ? $request->satisfaction_survey->average : 0;
-        
-        $general_request_products = GeneralRequestProduct::where('general_request_id','=',$request->id)->first();
+    $requests =  GeneralRequest::all();
+   
+   foreach ($requests as $request) {
+    $average = $request->satisfaction_survey ? $request->satisfaction_survey->average : 0;
+    
+    $general_request_products = GeneralRequestProduct::where('general_request_id','=',$request->id)->first();
 
-            $result[] = [
-            '# SOLUCIÓN' => $request->id,
-            'TITULO PROYECTO' => $request->project_title,
-            'NOMBRE' => $request->employee_name,
-            'NUMERO' => $request->employee_number,
-            'ESTATUS' => $request->status_str,
-            'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
-            'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
-            'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
-            'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
-            'COMENTARIOS' => $request->comments,
-            'PROMEDIO'  =>  $average,
-            
-            ];
-        }
+        $result[] = [
+        '# SOLUCIÓN' => $request->id,
+        'TITULO PROYECTO' => $request->project_title,
+        'NOMBRE' => $request->employee_name,
+        'NUMERO' => $request->employee_number,
+        'ESTATUS' => $request->status_str,
+        'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
+        'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
+        'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
+        'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
+        'COMENTARIOS' => $request->comments,
+        'PROMEDIO'  =>  $average,
+        
+        ];
+    }
 
     $datetime = \Carbon\Carbon::now()->format('YmdHi');
     Excel::create('Reporte_solicitudes_generales_'.$datetime, function($excel) use($result){

@@ -23,30 +23,86 @@
   'target' => '_blank'
   ])}}
 <div class="row">
-  <div class="col-xs-3 col-xs-offset-1">
+  <div class="col-xs-3">
+    {{Form::label('since','DESDE')}}
+    {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+    <br>
+    {{Form::label('until','HASTA')}}
+    {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+  </div>
+
+  <div class="col-xs-3">
+    {{Form::label('type','TIPO DE TARJETAS')}}
     {{Form::select('type', [
+     null => 'Seleccione un tipo de tarjeta',
      '1' => 'Tarjetas de presentación',
      '2' => 'Tarjetas blancas',
      '3' => 'Atracción de talento',
      '4' => 'Gerente comercial'
     ], NULL, ['class' => 'form-control'])}}
-  </div>
+    <br>
+    {{Form::label('ccosto','CCOSTOS')}}
+    {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
+     </div>
   <div class="col-xs-3">
-    {{Form::selectMonth('month', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
-  </div>
-  <div class="col-xs-2">
-    {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
+    {{Form::label('num_pedido','NUM_PEDIDO')}}
+    {{Form::text('num_pedido',null,['class' => 'form-control','placeholder' => 'Ingrese el numero de pedido','id' => 'num_pedido' ])}}
+    <br>
+    {{Form::label('region_id','REGIÓN ')}}
+    {{Form::select('region_id',[null => "Seleccione una región"]+$regions,null,['class' => 'form-control','placeholder' => 'Ingrese la región','id' => 'region_id' ])}}
   </div>
 
-  <div class="col-xs-3">
-    <button class="btn btn-primary btn-submit">
-        <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-    </button>
+  <div class="col-xs-2  text-right">
+      <button class="btn btn-primary btn-submit">
+          <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+      </button>
+      <button type="button" class="btn btn-primary btn-submit" data-toggle="modal" id="grafica" data-target="#graph">
+        <span class="glyphicon glyphicon-stats"></span> Gráfica
+      </button>
   </div>
 </div>
+
 {{Form::close()}}
 
 <hr>
+
+
+ <!-- Modal para la gráfica-->
+  <div id="graph" class="modal fade " role="dialog">
+    <div class="modal-dialog  modal-lg" style="width:70%">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Gráfica</h4>
+        </div>
+        <div class="modal-body">
+          
+        
+      <center>
+        <div id="chart_div"></div>
+      </center>
+        
+
+        <div class="form-group">
+          <center>
+          <button type="button" class="btn btn-default btn-chart" data-graph="orders_category">Pedidos por tipo de tarjeta</button>
+          <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button>
+          <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button> 
+          <button type="button" class="btn btn-default btn-chart" data-graph="orders_status">Estatus de pedidos</button>                       
+          </center>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+
+    </div>
+  </div> 
+
 
 <div class="container-fluid">
   <div class="table-responsive">
@@ -68,6 +124,88 @@
 
 @section('script')
 <script>
+
+function drawChart(datos,tipo) {
+        console.log(datos);
+        var title = '';
+        var columns = [[]];
+        chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var options = {'width': 650,
+                       'height': 550,
+                       legend:{position:'left'},
+                       is3D: true};
+
+        if(tipo == 'orders_category') 
+        {  
+          title = 'Pedidos por categoría';
+          columns = [['Tipo','Cantidad']]; 
+          for(var i = 0;i < datos.orders_by_category.length;i++){
+            columns.push(datos.orders_by_category[i]);
+          };
+          chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        }  
+
+        if(tipo == 'orders_region') 
+        {
+          title = 'Pedidos por región';
+          columns = [['Regiones','Cantidad']]
+          for(var i = 0;i < datos.orders_by_region.length;i++){
+            columns.push(datos.orders_by_region[i]);
+          };
+           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        };
+
+        if(tipo == 'expensives_region') 
+        {
+          title = 'Gastos por Region';
+          columns = [['Region','Gasto']]
+          for(var i = 0;i < datos.expenses_by_region.length;i++){
+            columns.push(datos.expenses_by_region[i]);
+          };
+           chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        };
+
+
+        if(tipo == 'orders_status') 
+        {
+          title = 'Estado de pedidos';
+          columns = [['Estado','Total']]
+          var estado;
+          for(var i = 0;i < datos.orders_status.length;i++){
+            
+            if (i == 0){
+              estado = 'Pendiente'
+            };
+            if (i == 1){
+              estado = 'Recibido'
+            };
+            if (i == 2){
+              estado = 'Recibido Incompleto';
+            };
+            
+            columns.push([estado,datos.orders_status[i]]);
+           
+            options.slices = {2: {offset: 0.4}};
+          
+          };
+           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        };
+
+
+        if (datos){
+          var data = google.visualization.arrayToDataTable(columns);
+        };
+
+
+        options.title = title;
+
+        // Instantiate and draw our chart, passing in some options.
+        
+        
+        chart.draw(data, options);
+} 
+
+
 function update(){
 
   $('.table tbody').empty();
@@ -104,8 +242,10 @@ function update(){
           tr.append($('<td>').html(orders[i][headers[j]]));
         }
         $('.table tbody').append(tr);
-
-
+        drawChart(data,'orders_category');
+        $('.btn-chart').bind('click',function(){
+          drawChart(data,$(this).attr('data-graph'));
+        });
       }
     }else{
       $('.table tbody').append(
@@ -117,10 +257,67 @@ function update(){
   });
 }
 $(function(){
+  google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
   update();
+
   $('#filter-form select').change(function(){
-    update();
+     update();
   });
+
+  $('#num_pedido').keyup(function(){
+     update();
+  });
+
+  $('#region_id').keyup(function(){
+     update();
+  });
+
+  $('#ccosto').keyup(function(){
+      update();
+  });  
+
+  $('#until').change(function(){
+      update();
+  });  
+
+  $('#since').change(function(){
+      update();
+  });  
+
+  $.ajax({
+          url : '/admin/api/bi-autocomplete',
+          dataType: 'json',
+          success : function(data){
+            if(data.status == 200){
+
+             
+              var orders = data.orders;
+              var ccostos = data.ccostos;
+
+               // $('#order').autocomplete(
+               //   { 
+               //     source:orders,
+               //     minLength: 2
+               //   }
+
+              // );
+
+              $('#ccosto').autocomplete(
+                {
+                  source:ccostos,
+                  minLength: 1
+                }
+              );
+
+            }
+          },error : function(data){
+
+          }
+
+  });
+
 });
+</script>
+
 </script>
 @stop

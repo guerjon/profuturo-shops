@@ -22,7 +22,9 @@ class AdminReportsController extends AdminBaseController{
 
   public function getBcOrdersReport()
   {
-    return View::make('admin::reports.bc_orders');
+    $management = User::where('role','!=','admin')->lists('gerencia');
+    $regions = Region::lists('name','id'); 
+    return View::make('admin::reports.bc_orders')->withManagement($management)->withRegions($regions);
   } 
 
   public function getUserOrdersReport()

@@ -68,7 +68,7 @@
 
 <hr>
 
-      <!-- Modal para la gráfica-->
+  <!-- Modal para la gráfica-->
   <div id="graph" class="modal fade " role="dialog">
     <div class="modal-dialog  modal-lg" style="width:70%">
 
@@ -127,211 +127,194 @@
 @section('script')
 <script>
 
+  function drawChart(datos,tipo) {
+    console.log(datos);
+    var title = '';
+    var columns = [[]];
+    chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    var options = {'width': 650,
+                   'height': 550,
+                   legend:{position:'left'},
+                   is3D: true};
+
+    if(tipo == 'orders_category') 
+    {  
+      title = 'Pedidos por categoría';
+      columns = [['Tipo','Cantidad']]; 
+      for(var i = 0;i < datos.orders_by_category.length;i++){
+        columns.push(datos.orders_by_category[i]);
+      };
+      chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    }  
+
+    if(tipo == 'orders_region') 
+    {
+      title = 'Pedidos por región';
+      columns = [['Regiones','Cantidad']]
+      for(var i = 0;i < datos.orders_by_region.length;i++){
+        columns.push(datos.orders_by_region[i]);
+      };
+       chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    };
+
+    if(tipo == 'expensives_region') 
+    {
+      title = 'Gastos por Region';
+      columns = [['Region','Gasto']]
+      for(var i = 0;i < datos.expenses_by_region.length;i++){
+        columns.push(datos.expenses_by_region[i]);
+      };
+       chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+    };
 
 
-function drawChart(datos,tipo) {
-        console.log(datos);
-        var title = '';
-        var columns = [[]];
-        chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        var options = {'width': 650,
-                       'height': 550,
-                       legend:{position:'left'},
-                       is3D: true};
-
-        if(tipo == 'orders_category') 
-        {  
-          title = 'Pedidos por categoría';
-          columns = [['Tipo','Cantidad']]; 
-          for(var i = 0;i < datos.orders_by_category.length;i++){
-            columns.push(datos.orders_by_category[i]);
-          };
-          chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        }  
-
-        if(tipo == 'orders_region') 
-        {
-          title = 'Pedidos por región';
-          columns = [['Regiones','Cantidad']]
-          for(var i = 0;i < datos.orders_by_region.length;i++){
-            columns.push(datos.orders_by_region[i]);
-          };
-           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        };
-
-        if(tipo == 'expensives_region') 
-        {
-          title = 'Gastos por Region';
-          columns = [['Region','Gasto']]
-          for(var i = 0;i < datos.expenses_by_region.length;i++){
-            columns.push(datos.expenses_by_region[i]);
-          };
-           chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        };
-
-
-        if(tipo == 'orders_status') 
-        {
-          title = 'Estado de pedidos';
-          columns = [['Estado','Total']]
-          var estado;
-          for(var i = 0;i < datos.orders_status.length;i++){
-            
-            if (i == 0){
-              estado = 'Pendiente'
-            };
-            if (i == 1){
-              estado = 'Recibido'
-            };
-            if (i == 2){
-              estado = 'Recibido Incompleto';
-            };
-            
-            columns.push([estado,datos.orders_status[i]]);
-           
-            options.slices = {2: {offset: 0.4}};
-          
-          };
-           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        };
-
-
-        if (datos){
-          var data = google.visualization.arrayToDataTable(columns);
-        };
-
-
-        options.title = title;
-
-        // Instantiate and draw our chart, passing in some options.
+    if(tipo == 'orders_status') 
+    {
+      title = 'Estado de pedidos';
+      columns = [['Estado','Total']]
+      var estado;
+      for(var i = 0;i < datos.orders_status.length;i++){
         
+        if (i == 0){
+          estado = 'Pendiente'
+        };
+        if (i == 1){
+          estado = 'Recibido'
+        };
+        if (i == 2){
+          estado = 'Recibido Incompleto';
+        };
         
-        chart.draw(data, options);
-} 
-
-function update(){
-
-  $('.table tbody').empty();
-  $('.table tbody').append(
-    $('<tr>').attr('class', 'info').append(
-      $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
-    )
-  );
+        columns.push([estado,datos.orders_status[i]]);
+       
+        options.slices = {2: {offset: 0.4}};
+      
+      };
+       chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    };
 
 
-  $.get('/admin/api/bi-report', $('#filter-form').serialize(), function(data){
+    if (datos){
+      var data = google.visualization.arrayToDataTable(columns);
+    };
+
+
+    options.title = title;
+
+    // Instantiate and draw our chart, passing in some options.
+    
+    
+    chart.draw(data, options);
+  } 
+
+  function update(){
 
     $('.table tbody').empty();
-    if(data.status == 200){
+    $('.table tbody').append(
+      $('<tr>').attr('class', 'info').append(
+        $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
+      )
+    );
 
-      var report = data.report;
-      var headers = data.headers;
-      $('.table thead tr').empty();
-      if(report.length == 0){
+
+    $.get('/admin/api/bi-report', $('#filter-form').serialize(), function(data){
+
+      $('.table tbody').empty();
+      if(data.status == 200){
+
+        var report = data.report;
+        var headers = data.headers;
+        $('.table thead tr').empty();
+        if(report.length == 0){
+          $('.table tbody').append(
+            $('<tr>').attr('class', 'warning').append(
+              $('<td>').html('<strong>No hay registros que mostrar</strong>')
+            )
+          );
+          $('.btn-submit').prop('disabled', true);
+          return;
+        }else{
+          $('.btn-submit').prop('disabled', false);
+        }
+
+        //La longitud es -n donde n son los elementos que ocupamos en la grafica
+        for(var i=0; i<headers.length-2; i++){
+          $('.table thead tr').append($('<th>').html(headers[i]));
+        }
+        for(var i=0; i<report.length-2; i++){
+          var tr = $('<tr>');
+
+          for(var j=0; j<headers.length-2; j++){
+            tr.append($('<td>').html(report[i][headers[j]]));
+          }
+          $('.table tbody').append(tr);
+
+
+        }
+       
+        drawChart(data,'orders_category');
+        $('.btn-chart').bind('click',function(){
+          drawChart(data,$(this).attr('data-graph'));
+        });
+
+      }else{
         $('.table tbody').append(
-          $('<tr>').attr('class', 'warning').append(
-            $('<td>').html('<strong>No hay registros que mostrar</strong>')
+          $('<tr>').attr('class', 'danger').append(
+            $('<td>').attr('colspan', $('.table > thead > tr th').length).html(data.status + ':' + data.error_msg)
           )
         );
-        $('.btn-submit').prop('disabled', true);
-        return;
-      }else{
-        $('.btn-submit').prop('disabled', false);
       }
-
-      //La longitud es -n donde n son los elementos que ocupamos en la grafica
-      for(var i=0; i<headers.length-2; i++){
-        $('.table thead tr').append($('<th>').html(headers[i]));
-      }
-      for(var i=0; i<report.length-2; i++){
-        var tr = $('<tr>');
-
-        for(var j=0; j<headers.length-2; j++){
-          tr.append($('<td>').html(report[i][headers[j]]));
-        }
-        $('.table tbody').append(tr);
-
-
-      }
-
-     
-      drawChart(data,'orders_category');
-      $('.btn-chart').bind('click',function(){
-        drawChart(data,$(this).attr('data-graph'));
-      });
-
-    }else{
-      $('.table tbody').append(
-        $('<tr>').attr('class', 'danger').append(
-          $('<td>').attr('colspan', $('.table > thead > tr th').length).html(data.status + ':' + data.error_msg)
-        )
-      );
-    }
-  });
-}
+    });
+  }
 
 
 
-$(function(){
-  google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
-  update();
+  $(function(){
+    google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
+    update();
 
+    $('#filter-form select').change(function(){
+       update();
+    });
 
+    $('#order').keyup(function(){
+       update();
+    });
 
-  $('#filter-form select').change(function(){
-     update();
-  });
+    $('#ccosto').keyup(function(){
+        update();
+    });  
 
+    $('#until').change(function(){
+        update();
+    });  
 
-  $('#order').keyup(function(){
-     update();
-  });
+    $('#since').change(function(){
+        update();
+    });  
 
-  $('#ccosto').keyup(function(){
-      update();
-  });  
+    $.ajax({
+        url : '/admin/api/bi-autocomplete',
+        dataType: 'json',
+        success : function(data){
+          if(data.status == 200){
 
-  $('#until').change(function(){
-      update();
-  });  
+            var orders = data.orders;
+            var ccostos = data.ccostos;
 
-  $('#since').change(function(){
-      update();
-  });  
-
-  $.ajax({
-          url : '/admin/api/bi-autocomplete',
-          dataType: 'json',
-          success : function(data){
-            if(data.status == 200){
-
-             
-              var orders = data.orders;
-              var ccostos = data.ccostos;
-
-               // $('#order').autocomplete(
-               //   { 
-               //     source:orders,
-               //     minLength: 2
-               //   }
-
-              // );
-
-              $('#ccosto').autocomplete(
-                {
-                  source:ccostos,
-                  minLength: 1
-                }
-              );
-
-            }
-          },error : function(data){
-
+            $('#ccosto').autocomplete(
+              {
+                source:ccostos,
+                minLength: 1
+              }
+            );
           }
+        },error : function(data){
+      }
+    });
 
   });
 
-});
 </script>
 
 @stop
