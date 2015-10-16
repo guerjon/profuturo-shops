@@ -161,7 +161,9 @@ class AdminApiController extends AdminBaseController
   {
     $query = DB::table('users')
       ->join('bc_orders','bc_orders.user_id','=','users.id')
-      ->join('regions','regions.id','=','users.region_id');
+      ->join('regions','regions.id','=','users.region_id')
+      ->where('bc_orders.created_at','>=',Input::get('since'))
+      ->where('bc_orders.updated_at','<=',Input::get('until'));
 
     if(Input::has('ccosto')){
       $query->where('users.ccosto','like','%'.Input::get('ccosto').'%');
@@ -174,27 +176,52 @@ class AdminApiController extends AdminBaseController
     if(Input::has('region_id')){
       $query->where('users.region_id',Input::get('region_id'));
     }
+    $orders_by_type[] = [];
 
-    $q1 = clone $query;
+    if(Input::has('type')){
+      switch(Input::get('type')){
+        case "1":
+          $q1 = clone $query;
+          $total_bc_orders = $q1->count();
+          $orders_by_type[0] = ["Tarjetas presentación",$total_bc_orders];
+          break;
+        case "2":
+          $q2 = clone $query;
+          $bc_orders_blank_cards = $q2->join('blank_cards_bc_order','blank_cards_bc_order.bc_order_id','=','bc_orders.id')->count();
+          $orders_by_type[1] = ["Tarjetas Blancas",$bc_orders_blank_cards];
+          break;
+        case "3":
+          $q4 = clone $query;
+          $bc_orders_extras_talento = $q4->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.talento_nombre')->count();  
+          $orders_by_type[2] =["Extras Talento",$bc_orders_extras_talento];
+          break;
+        case "4":
+          $q3 = clone $query;
+          $bc_orders_extras_gerente = $q3->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.gerente_nombre')->count();
+          $orders_by_type[3] = ["Extras Gerente",$bc_orders_extras_gerente];
+          break;
+      }
+    }else{
 
-    $total_bc_orders = $q1->count();
+          $q1 = clone $query;
+          $total_bc_orders = $q1->count();
+          $orders_by_type[0] = ["Tarjetas presentación",$total_bc_orders];
+          
+          $q2 = clone $query;
+          $bc_orders_blank_cards = $q2->join('blank_cards_bc_order','blank_cards_bc_order.bc_order_id','=','bc_orders.id')->count();
+          $orders_by_type[1] = ["Tarjetas Blancas",$bc_orders_blank_cards];
 
-    $q2 = clone $query;
+          $q4 = clone $query;
+          $bc_orders_extras_talento = $q4->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.talento_nombre')->count();  
+          $orders_by_type[2] =["Extras Talento",$bc_orders_extras_talento];
 
-    $bc_orders_blank_cards = $q2->join('blank_cards_bc_order','blank_cards_bc_order.bc_order_id','=','bc_orders.id')->count();
+          $q3 = clone $query;
+          $bc_orders_extras_gerente = $q3->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.gerente_nombre')->count();
+          $orders_by_type[3] = ["Extras Gerente",$bc_orders_extras_gerente];
+
+    }
+    Log::debug($orders_by_type);
     
-    $q3 = clone $query;
-
-    $bc_orders_extras_gerente = $q3->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.gerente_nombre')->count();
-    
-    $q4 = clone $query;
-    $bc_orders_extras_talento = $q4->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.talento_nombre')->count();  
-
-    $orders_by_type[] = ["Tarjetas Blancas",$bc_orders_blank_cards];
-    array_push($orders_by_type,["Tarjetas presentación",$total_bc_orders]);
-    array_push($orders_by_type,["Extras Gerente",$bc_orders_extras_gerente]);
-    array_push($orders_by_type,["Extras Talento",$bc_orders_extras_talento]);
-
     return $orders_by_type;
   }
 

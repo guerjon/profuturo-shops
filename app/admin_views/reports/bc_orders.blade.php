@@ -138,7 +138,9 @@ function drawChart(datos,tipo) {
         {  
           title = 'Pedidos por tipo';
           columns = [['Tipo','Cantidad']]; 
-          
+          console.log("es mejor estar seguro");
+          console.log(datos.orders_by_type);
+          console.log("es mejor estar seguro");
           for(var i = 0;i < datos.orders_by_type.length;i++){
             columns.push(datos.orders_by_type[i]);
           };
@@ -149,6 +151,7 @@ function drawChart(datos,tipo) {
         {
           title = 'Pedidos por región';
           columns = [['Regiones','Cantidad']]
+
           for(var i = 0;i < datos.orders_by_region.length;i++){
             columns.push(datos.orders_by_region[i]);
           };
