@@ -157,50 +157,46 @@ class AdminApiController extends AdminBaseController
   *Metodo auxiliar para el metodo getBcOrdersReport
   *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
   */
-  public function bcOrdersByType($report)
+  public function bcOrdersByType()
   {
-   
-    $total_bc_orders = DB::table('bc_orders')->count();
-    $bc_orders_blank_cards = DB::table('blank_cards_bc_order')->count();
+    $query = DB::table('users')
+      ->join('bc_orders','bc_orders.user_id','=','users.id')
+      ->join('regions','regions.id','=','users.region_id');
+
+    if(Input::has('ccosto')){
+      $query->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    }
+
+    if (Input::has('num_pedido')){
+      $query->where('bc_orders.id','like','%'.Input::get('num_pedido').'%');
+    }
+
+    if(Input::has('region_id')){
+      $query->where('users.region_id',Input::get('region_id'));
+    }
+
+    $q1 = clone $query;
+
+    $total_bc_orders = $q1->count();
+
+    $q2 = clone $query;
+
+    $bc_orders_blank_cards = $q2->join('blank_cards_bc_order','blank_cards_bc_order.bc_order_id','=','bc_orders.id')->count();
     
-    $bc_orders_extras_gerente = DB::table('bc_orders_extras')
-      ->whereNotNull('bc_orders_extras.gerente_nombre')->count();
+    $q3 = clone $query;
+
+    $bc_orders_extras_gerente = $q3->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.gerente_nombre')->count();
     
-    $bc_orders_extras_talento = DB::table('bc_orders_extras')
-     
-      ->whereNotNull('bc_orders_extras.talento_nombre')->count();  
+    $q4 = clone $query;
+    $bc_orders_extras_talento = $q4->join('bc_orders_extras','bc_orders_extras.bc_order_id','=','bc_orders.id')->whereNotNull('bc_orders_extras.talento_nombre')->count();  
 
     $orders_by_type[] = ["Tarjetas Blancas",$bc_orders_blank_cards];
-
     array_push($orders_by_type,["Tarjetas presentación",$total_bc_orders]);
     array_push($orders_by_type,["Extras Gerente",$bc_orders_extras_gerente]);
     array_push($orders_by_type,["Extras Talento",$bc_orders_extras_talento]);
 
     return $orders_by_type;
   }
-
-
-  //   /**
-  // *Metodo auxiliar para el metodo getBIReport
-  // *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
-  // */
-  // public function ordersByRegion($report)
-  // {
-  //   $orders_region = clone $report;
-
-  //   $orders_region = $orders_region->select(DB::raw('count(regions.id) as QUANTITY,regions.name as NAME'))
-  //                                      ->groupBy('regions.id')
-  //                                      ->get();
-
-  //   $orders_by_regions = [];
-
-  //   foreach ($orders_region as $order) 
-  //   {
-  //    $orders_by_regions[] = [$order->NAME,$order->QUANTITY];                     
-  //   }                                       
-
-  //   return $orders_by_regions;
-  // }
 
 
   public function getBcOrdersReport()
@@ -336,7 +332,7 @@ class AdminApiController extends AdminBaseController
 
     $orders_status = $this->bcOrdersStatus($query);
 
-    $orders_by_type = $this->bcOrdersByType($query);
+    $orders_by_type = $this->bcOrdersByType();
     
     $q = clone $query;
     $item = $q->first();
