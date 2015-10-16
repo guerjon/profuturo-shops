@@ -165,8 +165,8 @@ class AdminApiController extends AdminBaseController
       ->where('bc_orders.created_at','>=',Input::get('since'))
       ->where('bc_orders.updated_at','<=',Input::get('until'));
 
-    if(Input::has('ccosto')){
-      $query->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    if(Input::has('divisional_id')){
+      $query->where('users.divisional_id','=',Input::get('divisional_id'));
     }
 
     if (Input::has('num_pedido')){
@@ -220,11 +220,35 @@ class AdminApiController extends AdminBaseController
           $orders_by_type[3] = ["Extras Gerente",$bc_orders_extras_gerente];
 
     }
-    Log::debug($orders_by_type);
     
     return $orders_by_type;
   }
 
+
+  /**
+  *Metodo auxiliar para el metodo getBcOrdersReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function ordersByDivisional($report){
+    $orders_category = clone $report;
+    $orders_category->join('divisionals_users','users.divisional_id','=','divisionals_users.divisional_id')
+                    ->join('divisionals','divisionals.id','=','divisionals_users.divisional_id');
+
+      Log::info($orders_category->get());
+    
+    $orders_category = $orders_category->select(DB::raw('count(users.divisional_id) as QUANTITY,divisionals.name as NAME'))
+                                       ->groupBy('users.divisional_id')
+                                       ->get();
+  
+    $orders_by_category = [];
+
+    foreach ($orders_category as $order) 
+    {
+     $orders_by_category[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_category;
+  }
 
   public function getBcOrdersReport()
   {
@@ -340,8 +364,8 @@ class AdminApiController extends AdminBaseController
         break;
     }
 
-    if(Input::has('ccosto')){
-      $query->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    if(Input::has('divisional_id')){
+      $query->where('users.divisional_id',Input::get('divisional_id'));
     }
 
     if (Input::has('num_pedido')){
@@ -358,8 +382,10 @@ class AdminApiController extends AdminBaseController
   
 
     $orders_status = $this->bcOrdersStatus($query);
+    $orders_by_divisional = $this->ordersByDivisional($query);
 
     $orders_by_type = $this->bcOrdersByType();
+
     
     $q = clone $query;
     $item = $q->first();
@@ -374,7 +400,8 @@ class AdminApiController extends AdminBaseController
         'headers' => $headers,
         'orders_status' => $orders_status,
         'orders_by_region' => $orders_by_region,
-        'orders_by_type' => $orders_by_type
+        'orders_by_type' => $orders_by_type,
+        'orders_by_divisional' => $orders_by_divisional
         ]);
     }else{
 
@@ -391,7 +418,7 @@ class AdminApiController extends AdminBaseController
       }
       if($result){
         $mes = Input::get('month');
-       $año = Input::get('year');
+        $año = Input::get('year');
         Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
          $excel->sheet('hoja 1',function($sheet)use($result){
            $sheet->fromArray($result);

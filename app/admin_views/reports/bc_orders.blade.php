@@ -41,8 +41,8 @@
      '4' => 'Gerente comercial'
     ], NULL, ['class' => 'form-control'])}}
     <br>
-    {{Form::label('ccosto','CCOSTOS')}}
-    {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
+    {{Form::label('divisional_id','DIVISIONAL')}}
+    {{Form::select('divisional_id',[null => "Seleccione una divisional"] + $divisionals,null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
      </div>
   <div class="col-xs-3">
     {{Form::label('num_pedido','NUM_PEDIDO')}}
@@ -89,7 +89,8 @@
           <center>
           <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_type">Pedidos por tipo de tarjeta</button>
           <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_region">Pedidos por región</button>
-          <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_status">Estatus de pedidos</button>                       
+          <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_divisional">Pedidos por Divisional</button>                          
+          <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_status">Estatus de pedidos</button>
           </center>
         </div>
         
@@ -138,9 +139,9 @@ function drawChart(datos,tipo) {
         {  
           title = 'Pedidos por tipo';
           columns = [['Tipo','Cantidad']]; 
-          console.log("es mejor estar seguro");
+         
           console.log(datos.orders_by_type);
-          console.log("es mejor estar seguro");
+         
           for(var i = 0;i < datos.orders_by_type.length;i++){
             columns.push(datos.orders_by_type[i]);
           };
@@ -182,7 +183,18 @@ function drawChart(datos,tipo) {
           };
            chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         };
+        
 
+        if(tipo == 'bc_orders_divisional') 
+        {
+          title = 'Pedidos por divisional';
+          columns = [['Divisional','Cantidad']]
+
+          for(var i = 0;i < datos.orders_by_divisional.length;i++){
+            columns.push(datos.orders_by_divisional[i]);
+          };
+           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        };
 
         if (datos){
           var data = google.visualization.arrayToDataTable(columns);
