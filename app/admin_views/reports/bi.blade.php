@@ -167,7 +167,7 @@
        chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     };
 
-
+    
     if(tipo == 'orders_status') 
     {
       title = 'Estado de pedidos';

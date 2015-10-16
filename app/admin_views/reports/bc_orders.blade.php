@@ -87,10 +87,9 @@
 
         <div class="form-group">
           <center>
-          <button type="button" class="btn btn-default btn-chart" data-graph="orders_category">Pedidos por tipo de tarjeta</button>
-          <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button>
-          <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button> 
-          <button type="button" class="btn btn-default btn-chart" data-graph="orders_status">Estatus de pedidos</button>                       
+          <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_type">Pedidos por tipo de tarjeta</button>
+          <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_region">Pedidos por región</button>
+          <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_status">Estatus de pedidos</button>                       
           </center>
         </div>
         
@@ -135,17 +134,18 @@ function drawChart(datos,tipo) {
                        legend:{position:'left'},
                        is3D: true};
 
-        if(tipo == 'orders_category') 
+        if(tipo == 'bc_orders_type') 
         {  
-          title = 'Pedidos por categoría';
+          title = 'Pedidos por tipo';
           columns = [['Tipo','Cantidad']]; 
-          for(var i = 0;i < datos.orders_by_category.length;i++){
-            columns.push(datos.orders_by_category[i]);
+          
+          for(var i = 0;i < datos.orders_by_type.length;i++){
+            columns.push(datos.orders_by_type[i]);
           };
           chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         }  
 
-        if(tipo == 'orders_region') 
+        if(tipo == 'bc_orders_region') 
         {
           title = 'Pedidos por región';
           columns = [['Regiones','Cantidad']]
@@ -155,18 +155,7 @@ function drawChart(datos,tipo) {
            chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         };
 
-        if(tipo == 'expensives_region') 
-        {
-          title = 'Gastos por Region';
-          columns = [['Region','Gasto']]
-          for(var i = 0;i < datos.expenses_by_region.length;i++){
-            columns.push(datos.expenses_by_region[i]);
-          };
-           chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        };
-
-
-        if(tipo == 'orders_status') 
+        if(tipo == 'bc_orders_status') 
         {
           title = 'Estado de pedidos';
           columns = [['Estado','Total']]
@@ -185,7 +174,7 @@ function drawChart(datos,tipo) {
             
             columns.push([estado,datos.orders_status[i]]);
            
-            options.slices = {2: {offset: 0.4}};
+            options.slices = {2: {offset: 0.2}};
           
           };
            chart = new google.visualization.PieChart(document.getElementById('chart_div'));
@@ -196,11 +185,9 @@ function drawChart(datos,tipo) {
           var data = google.visualization.arrayToDataTable(columns);
         };
 
-
         options.title = title;
 
         // Instantiate and draw our chart, passing in some options.
-        
         
         chart.draw(data, options);
 } 
@@ -240,13 +227,16 @@ function update(){
 
         for(var j=0; j<headers.length; j++){
           tr.append($('<td>').html(orders[i][headers[j]]));
-        }
+        }   
         $('.table tbody').append(tr);
-        drawChart(data,'orders_category');
+      }
+
+      //Esto se debe de poner para que al dar click en el boton se llene la grafica
+        drawChart(data,'bc_orders_type');
         $('.btn-chart').bind('click',function(){
           drawChart(data,$(this).attr('data-graph'));
         });
-      }
+
     }else{
       $('.table tbody').append(
         $('<tr>').attr('class', 'danger').append(

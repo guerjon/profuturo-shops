@@ -150,15 +150,62 @@ class AdminApiController extends AdminBaseController
     {
      $orders_deliver_pending[] = $order->STATUS;
     }                                       
-    
     return $orders_deliver_pending;
   }
 
+  /**
+  *Metodo auxiliar para el metodo getBcOrdersReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function bcOrdersByType($report)
+  {
+   
+    $total_bc_orders = DB::table('bc_orders')->count();
+    $bc_orders_blank_cards = DB::table('blank_cards_bc_order')->count();
+    
+    $bc_orders_extras_gerente = DB::table('bc_orders_extras')
+      ->whereNotNull('bc_orders_extras.gerente_nombre')->count();
+    
+    $bc_orders_extras_talento = DB::table('bc_orders_extras')
+     
+      ->whereNotNull('bc_orders_extras.talento_nombre')->count();  
+
+    $orders_by_type[] = ["Tarjetas Blancas",$bc_orders_blank_cards];
+
+    array_push($orders_by_type,["Tarjetas presentación",$total_bc_orders]);
+    array_push($orders_by_type,["Extras Gerente",$bc_orders_extras_gerente]);
+    array_push($orders_by_type,["Extras Talento",$bc_orders_extras_talento]);
+
+    return $orders_by_type;
+  }
+
+
+  //   /**
+  // *Metodo auxiliar para el metodo getBIReport
+  // *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  // */
+  // public function ordersByRegion($report)
+  // {
+  //   $orders_region = clone $report;
+
+  //   $orders_region = $orders_region->select(DB::raw('count(regions.id) as QUANTITY,regions.name as NAME'))
+  //                                      ->groupBy('regions.id')
+  //                                      ->get();
+
+  //   $orders_by_regions = [];
+
+  //   foreach ($orders_region as $order) 
+  //   {
+  //    $orders_by_regions[] = [$order->NAME,$order->QUANTITY];                     
+  //   }                                       
+
+  //   return $orders_by_regions;
+  // }
 
 
   public function getBcOrdersReport()
   {
-    Log::debug(Input::all());
+    
     ini_set('max_execution_time', '300');
     $query = DB::table('bc_order_business_card')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -174,14 +221,14 @@ class AdminApiController extends AdminBaseController
       business_cards.web AS WEB,
       business_cards.ccosto AS CENTRO_COSTO,
       business_cards.direccion AS DIRECCION,
-      business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA
-      
-    ")->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
-    ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
-    ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-    ->whereNull('bc_orders.deleted_at')
-    ->where('bc_orders.created_at','>=',Input::get('since'))
-    ->where('bc_orders.updated_at','<=',Input::get('until'));
+      business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA")
+      ->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
+      ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
+      ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+      ->whereNull('bc_orders.deleted_at')
+      ->where('bc_orders.created_at','>=',Input::get('since'))
+      ->where('bc_orders.updated_at','<=',Input::get('until')
+    );
 
     $query2 = DB::table('blank_cards_bc_order')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -197,13 +244,13 @@ class AdminApiController extends AdminBaseController
       '' AS WEB,
       users.ccosto AS CENTRO_COSTO,
       '' AS DIRECCION,
-      '' AS DIRECCION_ALTERNATIVA
-      
-    ")->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
-    ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-    ->whereNull('bc_orders.deleted_at')
-    ->where('bc_orders.created_at','>=',Input::get('since'))
-    ->where('bc_orders.updated_at','<=',Input::get('until'));
+      '' AS DIRECCION_ALTERNATIVA")
+      ->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
+      ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+      ->whereNull('bc_orders.deleted_at')
+      ->where('bc_orders.created_at','>=',Input::get('since'))
+      ->where('bc_orders.updated_at','<=',Input::get('until')
+    );
 
     $query3 = DB::table('bc_orders_extras')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -220,14 +267,15 @@ class AdminApiController extends AdminBaseController
       users.ccosto AS CENTRO_COSTO,
       bc_orders_extras.talento_direccion AS DIRECCION,
       '' AS DIRECCION_ALTERNATIVA,
-      'Atracción de talento' AS PUESTO_ATRACCION_GERENTE
-    ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
-    ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-    ->whereNull('bc_orders.deleted_at')
-    ->where('bc_orders_extras.talento_nombre', '!=', "''")->whereNotNull('bc_orders_extras.talento_nombre')
-    ->where('bc_orders.created_at','>=',Input::get('since'))
-    ->where('bc_orders.updated_at','<=',Input::get('until'));
-
+      'Atracción de talento' AS PUESTO_ATRACCION_GERENTE")
+      ->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
+      ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+      ->whereNull('bc_orders.deleted_at')
+      ->where('bc_orders_extras.talento_nombre', '!=', "''")
+      ->whereNotNull('bc_orders_extras.talento_nombre')
+      ->where('bc_orders.created_at','>=',Input::get('since'))
+      ->where('bc_orders.updated_at','<=',Input::get('until')
+    );
 
     $query4 = DB::table('bc_orders_extras')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
@@ -244,19 +292,22 @@ class AdminApiController extends AdminBaseController
       users.ccosto AS CENTRO_COSTO,
       bc_orders_extras.gerente_direccion AS DIRECCION,
       '' AS DIRECCION_ALTERNATIVA,
-      'Gerente comercial' AS PUESTO_ATRACCION_GERENTE
-    ")->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
-    ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-    ->whereNull('bc_orders.deleted_at')
-    ->where('bc_orders_extras.gerente_nombre', '!=', "''")->whereNotNull('bc_orders_extras.gerente_nombre')
-    ->where('bc_orders.created_at','>=',Input::get('since'))
-    ->where('bc_orders.updated_at','<=',Input::get('until'));
+      'Gerente comercial' AS PUESTO_ATRACCION_GERENTE")
+      ->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
+      ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+      ->whereNull('bc_orders.deleted_at')
+      ->where('bc_orders_extras.gerente_nombre', '!=', "''")
+      ->whereNotNull('bc_orders_extras.gerente_nombre')
+      ->where('bc_orders.created_at','>=',Input::get('since'))
+      ->where('bc_orders.updated_at','<=',Input::get('until')
+    );
 
     switch(Input::get('type')){
       case 1:
         break;
       case 2:
         $query = $query2;
+
         break;
       case 3:
         $query = $query3;
@@ -281,10 +332,12 @@ class AdminApiController extends AdminBaseController
     $query->join('regions','regions.id','=','users.region_id');
 
     $orders_by_region = $this->ordersByRegion($query);
-    
+  
+
     $orders_status = $this->bcOrdersStatus($query);
 
-
+    $orders_by_type = $this->bcOrdersByType($query);
+    
     $q = clone $query;
     $item = $q->first();
 
@@ -297,7 +350,8 @@ class AdminApiController extends AdminBaseController
         'orders' => $items,
         'headers' => $headers,
         'orders_status' => $orders_status,
-        'orders_by_region' => $orders_by_region
+        'orders_by_region' => $orders_by_region,
+        'orders_by_type' => $orders_by_type
         ]);
     }else{
 
@@ -925,10 +979,10 @@ class AdminApiController extends AdminBaseController
 
   public function getFurnituresSubcategories($category_id)
   {
-    Log::info($category_id);
+    
     $subcategories = FurnitureCategory::find($category_id)->furniture_subcategories;
-    Log::info('????????????????');
-    Log::info($subcategories);
+    
+    
 
         if(Request::ajax()){
           return Response::json([
