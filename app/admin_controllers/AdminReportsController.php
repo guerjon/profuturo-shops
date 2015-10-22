@@ -72,6 +72,10 @@ class AdminReportsController extends AdminBaseController{
 
   }
 
+  public function createPDF()
+  {
+    
+  }
   
 
 

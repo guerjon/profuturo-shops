@@ -79,6 +79,10 @@
         </div>
         <div class="modal-body">
           
+          {{Form::open(['action' => 'AdminReportsController@createPDF','id' => 'savePDFForm'])}}
+              <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
+              <input type='button' id="downloadBtn" value='Save to PDF'>
+          {{Form::close()}}
         
       <center>
         <div id="chart_div"></div>
