@@ -78,7 +78,7 @@ class AdminReportsController extends AdminBaseController{
     $pdf = App::make('dompdf');
     $pdf->loadHTML(Input::get('htmlContent'));
     $pdf->stream();
-    return Redirect::action('AdminReportsController@getIndex');
+    return Redirect::action('AdminReportsController@getBcOrdersReport');
   }
   
 
