@@ -234,7 +234,7 @@ class AdminApiController extends AdminBaseController
     $orders_category->join('divisionals_users','users.divisional_id','=','divisionals_users.divisional_id')
                     ->join('divisionals','divisionals.id','=','divisionals_users.divisional_id');
 
-      Log::info($orders_category->get());
+    
     
     $orders_category = $orders_category->select(DB::raw('count(users.divisional_id) as QUANTITY,divisionals.name as NAME'))
                                        ->groupBy('users.divisional_id')
@@ -254,6 +254,8 @@ class AdminApiController extends AdminBaseController
   {
     
     ini_set('max_execution_time', '300');
+   
+
     $query = DB::table('bc_order_business_card')->selectRaw("
       bc_orders.created_at as FECHA_PEDIDO,
       bc_orders.id AS NUM_PEDIDO,
@@ -392,46 +394,52 @@ class AdminApiController extends AdminBaseController
 
     $headers = $item ?  array_keys(get_object_vars( $item )) : [];
 
-    if(Request::ajax()){
-      $items = $query->get();
-      return Response::json([
-        'status' => 200,
-        'orders' => $items,
-        'headers' => $headers,
-        'orders_status' => $orders_status,
-        'orders_by_region' => $orders_by_region,
-        'orders_by_type' => $orders_by_type,
-        'orders_by_divisional' => $orders_by_divisional
-        ]);
+
+    if(Input::has("ver-reporte")){
+        
     }else{
 
-      $datetime = \Carbon\Carbon::now()->format('YmdHi');
-      $data = str_putcsv($headers)."\n";
+      if(Request::ajax()){
+        $items = $query->get();
+        return Response::json([
+          'status' => 200,
+          'orders' => $items,
+          'headers' => $headers,
+          'orders_status' => $orders_status,
+          'orders_by_region' => $orders_by_region,
+          'orders_by_type' => $orders_by_type,
+          'orders_by_divisional' => $orders_by_divisional
+          ]);
+      }else{
 
-      $result = [$headers];
-      foreach($query->get() as $item){
-        $itemArray = [];
-      foreach($headers as $header){
-        $itemArray[] = $item->{$header};
-      }
-        $result[] = $itemArray;
-      }
-      if($result){
-        $mes = Input::get('month');
-        $año = Input::get('year');
-        Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
-         $excel->sheet('hoja 1',function($sheet)use($result){
-           $sheet->fromArray($result);
-            });
-          })->download('xls');
-      }
+        $datetime = \Carbon\Carbon::now()->format('YmdHi');
+        $data = str_putcsv($headers)."\n";
+
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+          $mes = Input::get('month');
+          $año = Input::get('year');
+          Excel::create('Reporte_Tarjetas_'.$mes.'_'.$año, function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
 
 
-      $headers = array(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_tp_{$datetime}.csv\"",
-      );
-      return Response::make($data, 200, $headers);
+        $headers = array(
+          'Content-Type' => 'text/csv',
+          'Content-Disposition' => "attachment; filename=\"reporte_pedidos_tp_{$datetime}.csv\"",
+        );
+        return Response::make($data, 200, $headers);
+      } 
     }
   }
 
