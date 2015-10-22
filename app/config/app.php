@@ -125,7 +125,7 @@ return array(
 		//'Codesleeve\LaravelStapler\Providers\L4ServiceProvider',
 		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
-		'Barryvdh\DomPDF\ServiceProvider',
+		//'Barryvdh\DomPDF\ServiceProvider',
 
 
 	),
