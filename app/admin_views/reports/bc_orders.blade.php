@@ -81,15 +81,15 @@
          
           {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
               <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
-              <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar en PDF'>
+              <input type='button' class="btn btn-primary" id="downloadReport" value='Descargar reporte'> 
           {{Form::close()}}  
-         
+              <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar gráfica'>
         
-      <center>
-        <div id="chart_div"></div>
-      </center>
-        
-      <div id="pie_chart_div"></div>
+        <center>
+          <div id="chart_div"></div>
+        </center>
+          
+        <div id="pie_chart_div"></div>
 
         <div class="form-group">
           <center>
@@ -216,10 +216,14 @@ function drawChart(datos,tipo) {
        
         
         google.visualization.events.addListener(chart_1, 'ready', function ()      {
-         chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+          chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+          $("#downloadBtn").on("click", function() {
+            download(chart.getImageURI(), 'fileName.png', "image/png");
+          });
         });
 
          chart_1.draw(data, options);
+
 } 
 
 
@@ -234,6 +238,7 @@ function update(){
   $.get('/admin/api/bc-orders-report', $('#filter-form').serialize(), function(data){
     $('.table tbody').empty();
     if(data.status == 200){
+     
       var orders = data.orders;
       var headers = data.headers;
       $('.table thead tr').empty();
@@ -267,6 +272,11 @@ function update(){
           drawChart(data,$(this).attr('data-graph'));
         });
 
+        
+         
+            
+         
+
     }else{
       $('.table tbody').append(
         $('<tr>').attr('class', 'danger').append(
@@ -275,14 +285,15 @@ function update(){
       );
     }
   });
+  
 }
 $(function(){
   google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
-  update();
+  var data = update();
 
 
-  $("#downloadBtn").on("click", function() {
-
+  $("#downloadReport").on("click", function() {
+      
       var htmlContent = jQuery("#pie_chart_div").html();
       $("#htmlContentHidden").val(htmlContent);
 
