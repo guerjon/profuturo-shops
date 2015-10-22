@@ -8,7 +8,8 @@
 		"laravel/framework": "4.2.*",
 		"watson/validating": "0.10.*",
 		"codesleeve/laravel-stapler": "1.0.*",
-		"maatwebsite/excel": "1.*"
+		"maatwebsite/excel": "1.*",
+		"barryvdh/laravel-dompdf": "0.4.*"
 	},
 	"autoload": {
 		"classmap": [

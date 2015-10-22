@@ -84,6 +84,7 @@
         <div id="chart_div"></div>
       </center>
         
+      <div id="pie_chart_div"></div>
 
         <div class="form-group">
           <center>
@@ -203,8 +204,17 @@ function drawChart(datos,tipo) {
         options.title = title;
 
         // Instantiate and draw our chart, passing in some options.
-        
         chart.draw(data, options);
+
+        var chart_div = document.getElementById('pie_chart_div');
+        var chart_1 = new google.visualization.PieChart(chart_div);
+       
+        
+        google.visualization.events.addListener(chart_1, 'ready', function ()      {
+         chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+        });
+
+         chart_1.draw(data, options);
 } 
 
 
