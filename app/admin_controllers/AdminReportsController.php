@@ -78,7 +78,7 @@ class AdminReportsController extends AdminBaseController{
     $pdf = App::make('dompdf');
     $pdf->loadHTML(Input::get('htmlContent'));
     
-    return $pdf->download('invoice');
+    return $pdf->download('reporte.pdf');
   }
   
 
