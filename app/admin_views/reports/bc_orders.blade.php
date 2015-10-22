@@ -97,13 +97,12 @@
           <div id="chart_div"></div>
         </center>
 
-        <div id = "graficas" style="display:None">
+        <div id = "graficas">
           <h1>Reporte</h1>
             <div id="targeta_grafica"></div>
             <div id="region_grafica"></div>
             <div id="divisional_grafica"></div>
             <div id="estatus_grafica"></div>
-            <h1>Fin</h1>
         </div>
 
 
