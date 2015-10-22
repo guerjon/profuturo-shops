@@ -72,9 +72,15 @@ class AdminReportsController extends AdminBaseController{
 
   }
 
-  public function createPDF()
+  public function postCreatePdf()
   {
-    
+    Log::debug(Input::all());
+
+    $pdf = App::make('dompdf');
+    $pdf->loadHTML(Input::get('htmlContent'));
+    $pdf->save('oli.pdf');
+    $pdf->stream();
+    $pdf->download();
   }
   
 

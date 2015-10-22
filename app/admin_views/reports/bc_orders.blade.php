@@ -78,11 +78,12 @@
           <h4 class="modal-title">Gráfica</h4>
         </div>
         <div class="modal-body">
-          
-          {{Form::open(['action' => 'AdminReportsController@createPDF','id' => 'savePDFForm'])}}
+         
+          {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
               <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
-              <input type='button' id="downloadBtn" value='Save to PDF'>
-          {{Form::close()}}
+              <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar en PDF'>
+          {{Form::close()}}  
+         
         
       <center>
         <div id="chart_div"></div>
@@ -278,6 +279,17 @@ function update(){
 $(function(){
   google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
   update();
+
+
+  $("#downloadBtn").on("click", function() {
+
+      var htmlContent = jQuery("#pie_chart_div").html();
+      $("#htmlContentHidden").val(htmlContent);
+
+      // submit the form
+      $('#savePDFForm').submit();
+  
+  });
 
   $('#filter-form select').change(function(){
      update();
