@@ -78,9 +78,7 @@ class AdminReportsController extends AdminBaseController{
 
     $pdf = App::make('dompdf');
     $pdf->loadHTML(Input::get('htmlContent'));
-    $pdf->save('oli.pdf');
-    $pdf->stream();
-    $pdf->download();
+    return $pdf->stream();
   }
   
 
