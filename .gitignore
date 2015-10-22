@@ -5,8 +5,6 @@
 /public/system
 *.bck
 /*.png
-composer.phar
-composer.lock
 .env.*.php
 .env.php
 .DS_Store
