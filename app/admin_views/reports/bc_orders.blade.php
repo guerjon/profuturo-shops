@@ -78,18 +78,26 @@
           <h4 class="modal-title">Gráfica</h4>
         </div>
         <div class="modal-body">
-         
-          {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
-              <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
-              <input type='button' class="btn btn-primary" id="downloadReport" value='Descargar reporte'> 
-          {{Form::close()}}  
-              <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar gráfica'>
-        
+          <div class="row">
+            <div class="text-right" style="margin:10px">
+
+            {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
+               <div class="form-group">
+                <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
+                <input type='button' class="btn btn-primary" id="downloadReport" value='Descargar reporte'>               
+                <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar gráfica'>
+              </div>
+            {{Form::close()}}  
+              
+            </div>
+            
+          </div>
+          
         <center>
           <div id="chart_div"></div>
         </center>
           
-        <div id="pie_chart_div"></div>
+        <div style="display: none;" id="pie_chart_div"></div>
 
         <div class="form-group">
           <center>
