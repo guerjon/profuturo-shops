@@ -122,10 +122,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
-		'Codesleeve\LaravelStapler\Providers\L4ServiceProvider',
-		//'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
+		//'Codesleeve\LaravelStapler\Providers\L4ServiceProvider',
+		'Codesleeve\LaravelStapler\LaravelStaplerServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
-		'Barryvdh\DomPDF\ServiceProvider',
+		//'Barryvdh\DomPDF\ServiceProvider',
 
 
 	),
@@ -196,7 +196,7 @@ return array(
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Excel' => 'Maatwebsite\Excel\Facades\Excel',
-		'PDF' => 'Barryvdh\DomPDF\Facade',
+		//'PDF' => 'Barryvdh\DomPDF\Facade',
 
 	),
 
