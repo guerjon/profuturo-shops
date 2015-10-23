@@ -97,19 +97,21 @@
           <div id="chart_div"></div>
         </center>
 
+  
         <div id = "mamalonas" style="display:none">
           
         </div>
 
 
         <div id = "graficas" style="display:none">
-          <h1>Reporte</h1>
-            <div id="targeta_grafica"></div>
-            <div id="region_grafica"></div>
-            <div id="divisional_grafica"></div>
-            <div id="estatus_grafica"></div>
+          <h1>Reporte ejecutivo</h1>
+          <h4>Fecha de generación {{\Carbon\Carbon::now()}} </h4>  
+          <br>
+
         </div>
 
+
+        
 
         <div class="form-group">
           <center>
