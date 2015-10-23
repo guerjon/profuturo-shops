@@ -67,7 +67,7 @@
 <hr>
 
 
- <!-- Modal para la gráfica-->
+  <!-- Modal para la gráfica-------------------------------------------------------------------------- -->
   <div id="graph" class="modal fade " role="dialog">
     <div class="modal-dialog  modal-lg" style="width:70%">
 
@@ -78,40 +78,33 @@
           <h4 class="modal-title">Gráfica</h4>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="text-right" style="margin:10px">
-
+          <div style="float:right; margin:5px;">
+            <input type='button' class="btn btn-primary"  id="downloadReport" value='Descargar Reporte'>
+          </div>
+          <div style="float:right; margin:5px;">
+              
             {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
-               <div class="form-group">
+              
                 <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
                 <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar gráfica'>
-              </div>
+              
             {{Form::close()}}
-             <input type='button' class="btn btn-primary" id="downloadReport" value='Descargar Reporte'>
-
-            </div>
 
           </div>
-
+        </div>
+        <br>
         <center>
           <div id="chart_div"></div>
         </center>
 
   
-        <div id = "mamalonas" style="display:none">
-          
-        </div>
-
+        <div id = "mamalonas" style="display:none"></div>
 
         <div id = "graficas" style="display:none">
           <h1>Reporte ejecutivo</h1>
           <h4>Fecha de generación {{\Carbon\Carbon::now()}} </h4>  
           <br>
-
         </div>
-
-
-        
 
         <div class="form-group">
           <center>
@@ -123,13 +116,13 @@
         </div>
 
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        </div>
+
       </div>
 
     </div>
   </div>
+  <!-- Termina modal -------------------------------------------------------------------------- -->
+
 
 
 <div class="container-fluid">
@@ -234,7 +227,12 @@ function drawChart(datos,tipo) {
 
         // Instantiate and draw our chart, passing in some options.
         chart.draw(data, options);
-
+        
+          $("#downloadBtn").on("click",function(){
+            console.log("oli")
+            download(chart.getImageURI(),'Grafica '+title,'image/png');
+          });
+        
 }
 
 
@@ -396,6 +394,7 @@ $(function(){
       $('#savePDFForm').submit();
 
   });
+
 
   $('#filter-form select').change(function(){
      update();
