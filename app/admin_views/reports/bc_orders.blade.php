@@ -236,7 +236,7 @@
 
 
     function reporte(datos){
-              //necesitamos esto para llenar las graficas que llenaran el reporte
+      //necesitamos esto para llenar las graficas que llenaran el reporte
 
       var columns_tarjeta = [[]];
       var columns_region = [[]];
@@ -357,16 +357,17 @@
           }
 
           //Esto se debe de poner para que al dar click en el boton se llene la grafica
-            var chart = drawChart(data,'bc_orders_type');
+          var chart = drawChart(data,'bc_orders_type');
             
+
+            $('.btn-chart').bind('click',function(){
+               chart = drawChart(data,$(this).attr('data-graph'));
+            });
+
+
             $("#downloadBtn").on("click",function(){
                 download(chart.getImageURI(),'Grafica','image/png');
             });
-
-            $('.btn-chart').bind('click',function(){
-              drawChart(data,$(this).attr('data-graph'));
-            });
-
 
         }else{
           $('.table tbody').append(
