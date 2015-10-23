@@ -97,7 +97,12 @@
           <div id="chart_div"></div>
         </center>
 
-        <div id = "graficas">
+        <div id = "mamalonas" style="display:none">
+          
+        </div>
+
+
+        <div id = "graficas" style="display:none">
           <h1>Reporte</h1>
             <div id="targeta_grafica"></div>
             <div id="region_grafica"></div>
@@ -150,9 +155,6 @@ function drawChart(datos,tipo) {
 
         var title = '';
         var columns = [[]];
-
-
-
 
         chart = new google.visualization.PieChart(document.getElementById('chart_div'));
         var options = {
@@ -231,16 +233,13 @@ function drawChart(datos,tipo) {
         // Instantiate and draw our chart, passing in some options.
         chart.draw(data, options);
 
-
-
-
-
 }
 
 
 
 function reporte(datos){
               //necesitamos esto para llenar las graficas que llenaran el reporte
+
         var columns_tarjeta = [[]];
         var columns_region = [[]];
         var columns_divisional = [[]];
@@ -278,8 +277,6 @@ function reporte(datos){
             };
             
             columns_estatus.push([estado,datos.orders_status[i]]);
-           
-            options.slices = {2: {offset: 0.2}};
           
           };
 
@@ -293,31 +290,34 @@ function reporte(datos){
         var data_divisional = google.visualization.arrayToDataTable(columns_divisional);
         var data_estatus = google.visualization.arrayToDataTable(columns_estatus);
 
-        var chart_targeta_grafica = new google.visualization.PieChart(document.getElementById('graficas'));
-        var chart_region_grafica = new google.visualization.PieChart(document.getElementById('graficas'));
-        var chart_divisional_grafica = new google.visualization.PieChart(document.getElementById('graficas'));
-        var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('graficas'));
+
+
+        var chart_targeta_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        var chart_region_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        var chart_divisional_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
         
         google.visualization.events.addListener(chart_targeta_grafica, 'ready', function ()      {
-          $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '">');
+         $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
+
         });
 
         google.visualization.events.addListener(chart_region_grafica, 'ready', function ()      {
-          $('#graficas').append('<img src="' + chart_region_grafica.getImageURI() + '">');
+          $('#graficas').append('<img src="' + chart_region_grafica.getImageURI() + '"><br>');
         });
 
         google.visualization.events.addListener(chart_divisional_grafica, 'ready', function ()      {
-          $('#graficas').append('<img src="' + chart_divisional_grafica.getImageURI() + '">');
+          $('#graficas').append('<img src="' + chart_divisional_grafica.getImageURI() + '"><br>');
         });
 
         google.visualization.events.addListener(chart_estatus_grafica, 'ready', function ()      {
-          $('#graficas').append('<img src="' + chart_estatus_grafica.getImageURI() + '">');
+          $('#graficas').append('<img src="' + chart_estatus_grafica.getImageURI() + '"><br>');
         });  
 
-        chart_targeta_grafica.draw(data_tarjeta, options);
-        chart_region_grafica.draw(data_region, options);
-        chart_divisional_grafica.draw(data_divisional, options);
-        chart_estatus_grafica.draw(data_estatus, options);
+        chart_targeta_grafica.draw(data_tarjeta,options);
+        chart_region_grafica.draw(data_region,options);
+        chart_divisional_grafica.draw(data_divisional,options);
+        chart_estatus_grafica.draw(data_estatus,options);
 }
 
 function update(){
