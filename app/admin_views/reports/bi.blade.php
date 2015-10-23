@@ -369,7 +369,7 @@
           var chart = drawChart(data,'orders_category');
           
           $("#downloadBtn").on("click",function(){
-            download(chart.getImageURI(),'Grafica','image/png');
+            chart = download(chart.getImageURI(),'Grafica','image/png');
           });
 
           $('.btn-chart').bind('click',function(){
