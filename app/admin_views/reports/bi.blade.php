@@ -369,11 +369,11 @@
           var chart = drawChart(data,'orders_category');
           
           $("#downloadBtn").on("click",function(){
-            chart = download(chart.getImageURI(),'Grafica','image/png');
+             download(chart.getImageURI(),'Grafica','image/png');
           });
 
           $('.btn-chart').bind('click',function(){
-            drawChart(data,$(this).attr('data-graph'));
+            chart = drawChart(data,$(this).attr('data-graph'));
           });
 
         }else{
