@@ -27,6 +27,9 @@
         Estatus
       </th>
 
+      <th>
+        
+      </th>
     </tr>
   </thead>
 

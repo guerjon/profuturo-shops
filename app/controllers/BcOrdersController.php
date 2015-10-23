@@ -170,7 +170,8 @@ class BcOrdersController extends BaseController{
     }
     if($order->status == 0) 
     {
-      $order = $order->delete();
+      BcOrder::destroy($order_id);
+
       return Redirect::to(action('BcOrdersController@index'))->withSuccess('Se ha eliminado la orden');  
     }else{
     

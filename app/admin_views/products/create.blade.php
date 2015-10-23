@@ -34,7 +34,6 @@
 
       <div class="form-group">
         {{Form::label('name', 'Nombre corto')}}
-
         {{Form::text('name', NULL, ['class' => 'form-control'])}}
       </div>
 
@@ -58,6 +57,11 @@
         {{Form::label('subcategory_id', 'Subcategoría')}}
         {{Form::select('subcategory_id', ($product->category ? [] : [NULL => 'Sin especificar']) + Category::lists('name', 'id'), NULL,
           ['class' => 'form-control','id' => 'category_id'])}}
+      </div>
+
+      <div class="form-group">
+        {{Form::label('max_stock', 'Maximo')}}
+        {{Form::text('max_stock', NULL, ['class' => 'form-control'])}}
       </div>
 
       <div class='form-group'>
