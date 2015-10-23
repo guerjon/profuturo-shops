@@ -71,7 +71,9 @@ class AdminReportsController extends AdminBaseController{
     ->withProducts($products);
 
   }
-
+  /**
+  *Esta función la usamos para crear el PDF en la seccion de ReportesBI y Reportes Tarjetas
+  */
   public function postCreatePdf()
   {
 
