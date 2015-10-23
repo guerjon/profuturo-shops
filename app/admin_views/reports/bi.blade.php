@@ -156,7 +156,7 @@
       chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       var options = {'width': 650,
                      'height': 550,
-                     legend:{position:'left'},
+                     legend:{position:'right'},
                      is3D: true};
 
       if(tipo == 'orders_category') 
@@ -166,6 +166,8 @@
         for(var i = 0;i < datos.orders_by_category.length;i++){
           columns.push(datos.orders_by_category[i]);
         };
+        options.slices = {2: {offset: 0.4}};
+
         chart = new google.visualization.PieChart(document.getElementById('chart_div'));
       }  
 
@@ -176,7 +178,8 @@
         for(var i = 0;i < datos.orders_by_region.length;i++){
           columns.push(datos.orders_by_region[i]);
         };
-         chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+    
+         chart = new google.visualization.BarChart(document.getElementById('chart_div'));
       };
 
       if(tipo == 'expensives_region') 
@@ -186,7 +189,7 @@
         for(var i = 0;i < datos.expenses_by_region.length;i++){
           columns.push(datos.expenses_by_region[i]);
         };
-         chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+         chart = new google.visualization.BarChart(document.getElementById('chart_div'));
       };
 
       
@@ -210,6 +213,7 @@
           columns.push([estado,datos.orders_status[i]]);
          
           options.slices = {2: {offset: 0.4}};
+         
         
         };
          chart = new google.visualization.PieChart(document.getElementById('chart_div'));

@@ -84,10 +84,9 @@
           <div style="float:right; margin:1px;">
               
             {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
-              
                 <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
                 <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar gráfica'>
-              
+                
             {{Form::close()}}
 
           </div>
@@ -157,7 +156,7 @@
             var options = {
                             'width': 650,
                             'height': 550,
-                            legend:{position:'left'},
+                            legend:{position:'right'},
                             is3D: true
                            };
 
@@ -181,7 +180,7 @@
               for(var i = 0;i < datos.orders_by_region.length;i++){
                 columns.push(datos.orders_by_region[i]);
               };
-               chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+               chart = new google.visualization.BarChart(document.getElementById('chart_div'));
             };
 
             if(tipo == 'bc_orders_status')
