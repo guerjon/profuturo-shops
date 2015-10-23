@@ -266,6 +266,88 @@
       }
     });
   }
+function reporte(datos){
+              //necesitamos esto para llenar las graficas que llenaran el reporte
+
+        var columns_tarjeta = [[]];
+        var columns_region = [[]];
+        var columns_divisional = [[]];
+        var columns_estatus = [[]];
+        columns_tarjeta = [['Tipo','Cantidad']];
+        columns_region = [['Regiones','Cantidad']];
+        columns_divisional = [['Estado','Total']];
+        columns_estatus = [['Estado','Total']];
+
+        var options = {
+                        'width': 650,
+                        'height': 550,
+                        legend:{position:'left'},
+                        is3D: true
+                       };
+
+          for(var i = 0;i < datos.orders_by_type.length;i++){
+            columns_tarjeta.push(datos.orders_by_type[i]);
+          };
+
+          for(var i = 0;i < datos.orders_by_region.length;i++){
+            columns_region.push(datos.orders_by_region[i]);
+          };
+
+          for(var i = 0;i < datos.orders_status.length;i++){
+            
+            if (i == 0){
+              estado = 'Pendiente'
+            };
+            if (i == 1){
+              estado = 'Recibido'
+            };
+            if (i == 2){
+              estado = 'Recibido Incompleto';
+            };
+            
+            columns_estatus.push([estado,datos.orders_status[i]]);
+          
+          };
+
+          for(var i = 0;i < datos.orders_by_divisional.length;i++){
+            columns_divisional.push(datos.orders_by_divisional[i]);
+          };
+
+
+        var data_tarjeta = google.visualization.arrayToDataTable(columns_tarjeta);
+        var data_region = google.visualization.arrayToDataTable(columns_region);
+        var data_divisional = google.visualization.arrayToDataTable(columns_divisional);
+        var data_estatus = google.visualization.arrayToDataTable(columns_estatus);
+
+
+
+        var chart_targeta_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        var chart_region_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        var chart_divisional_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        
+        google.visualization.events.addListener(chart_targeta_grafica, 'ready', function ()      {
+         $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
+
+        });
+
+        google.visualization.events.addListener(chart_region_grafica, 'ready', function ()      {
+          $('#graficas').append('<img src="' + chart_region_grafica.getImageURI() + '"><br>');
+        });
+
+        google.visualization.events.addListener(chart_divisional_grafica, 'ready', function ()      {
+          $('#graficas').append('<img src="' + chart_divisional_grafica.getImageURI() + '"><br>');
+        });
+
+        google.visualization.events.addListener(chart_estatus_grafica, 'ready', function ()      {
+          $('#graficas').append('<img src="' + chart_estatus_grafica.getImageURI() + '"><br>');
+        });  
+
+        chart_targeta_grafica.draw(data_tarjeta,options);
+        chart_region_grafica.draw(data_region,options);
+        chart_divisional_grafica.draw(data_divisional,options);
+        chart_estatus_grafica.draw(data_estatus,options);
+}
 
 
 

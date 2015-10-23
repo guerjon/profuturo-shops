@@ -78,10 +78,10 @@
           <h4 class="modal-title">Gráfica</h4>
         </div>
         <div class="modal-body">
-          <div style="float:right; margin:5px;">
+          <div style="float:right; margin:1px;">
             <input type='button' class="btn btn-primary"  id="downloadReport" value='Descargar Reporte'>
           </div>
-          <div style="float:right; margin:5px;">
+          <div style="float:right; margin:1px;">
               
             {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
               
@@ -91,7 +91,8 @@
             {{Form::close()}}
 
           </div>
-        </div>
+     
+        <br>
         <br>
         <center>
           <div id="chart_div"></div>
@@ -105,7 +106,7 @@
           <h4>Fecha de generación {{\Carbon\Carbon::now()}} </h4>  
           <br>
         </div>
-
+        <div class="modal-footer">
         <div class="form-group">
           <center>
           <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_type">Pedidos por tipo de tarjeta</button>
@@ -114,7 +115,7 @@
           <button type="button" class="btn btn-default btn-chart" data-graph="bc_orders_status">Estatus de pedidos</button>
           </center>
         </div>
-
+        </div>
         </div>
 
       </div>
@@ -228,11 +229,7 @@ function drawChart(datos,tipo) {
         // Instantiate and draw our chart, passing in some options.
         chart.draw(data, options);
         
-          $("#downloadBtn").on("click",function(){
-            console.log("oli")
-            download(chart.getImageURI(),'Grafica '+title,'image/png');
-          });
-        
+        return chart;
 }
 
 
@@ -361,8 +358,12 @@ function update(){
       }
 
       //Esto se debe de poner para que al dar click en el boton se llene la grafica
-        drawChart(data,'bc_orders_type');
+        var chart = drawChart(data,'bc_orders_type');
         
+        $("#downloadBtn").on("click",function(){
+            download(chart.getImageURI(),'Grafica','image/png');
+        });
+
         $('.btn-chart').bind('click',function(){
           drawChart(data,$(this).attr('data-graph'));
         });
@@ -382,7 +383,6 @@ function update(){
 $(function(){
   google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
   var data = update();
-
 
   $("#downloadReport").on("click", function() {
 
@@ -421,39 +421,29 @@ $(function(){
   });
 
   $.ajax({
-          url : '/admin/api/bi-autocomplete',
-          dataType: 'json',
-          success : function(data){
-            if(data.status == 200){
+    url : '/admin/api/bi-autocomplete',
+    dataType: 'json',
+    success : function(data){
+      if(data.status == 200){
 
 
-              var orders = data.orders;
-              var ccostos = data.ccostos;
+        var orders = data.orders;
+        var ccostos = data.ccostos;
 
-               // $('#order').autocomplete(
-               //   {
-               //     source:orders,
-               //     minLength: 2
-               //   }
-
-              // );
-
-              $('#ccosto').autocomplete(
-                {
-                  source:ccostos,
-                  minLength: 1
-                }
-              );
-
-            }
-          },error : function(data){
-
+        $('#ccosto').autocomplete(
+          {
+            source:ccostos,
+            minLength: 1
           }
+        );
 
+      }
+    },error : function(data){
+
+    }
   });
 
 });
 </script>
 
-</script>
 @stop
