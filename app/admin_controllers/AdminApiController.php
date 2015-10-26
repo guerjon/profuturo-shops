@@ -444,6 +444,93 @@ class AdminApiController extends AdminBaseController
   }
 
 
+  /**
+  *Metodo auxiliar para el metodo getFurnituresOrdersReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function furnituresOrdersStatus($report){
+    $orders = clone $report;
+
+    $orders = $orders->select(DB::raw('count(furniture_orders.status) as STATUS'))
+                     ->groupBy('furniture_orders.status')
+                     ->get();
+
+    $orders_deliver_pending = [];
+
+    foreach ($orders as $order) 
+    {
+     $orders_deliver_pending[] = $order->STATUS;
+    }                                       
+    return $orders_deliver_pending;
+  }
+  
+  /**
+  *Metodo auxiliar para el metodo getFurnituresOrdersReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function furnituresOrdersByDivisional($report){
+    $orders_category = clone $report;
+    $orders_category->join('divisionals_users','users.divisional_id','=','divisionals_users.divisional_id')
+                    ->join('divisionals','divisionals.id','=','divisionals_users.divisional_id');
+
+    
+    
+    $orders_category = $orders_category->select(DB::raw('count(users.divisional_id) as QUANTITY,divisionals.name as NAME'))
+                                       ->groupBy('users.divisional_id')
+                                       ->get();
+    $orders_by_category = [];
+
+    foreach ($orders_category as $order) 
+    {
+     $orders_by_category[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_category;
+  }
+
+    /**
+  *Metodo auxiliar para el metodo getFurnituresOrdersReport
+  */
+  public function furnituresOrdersByCategory($report)
+  {
+    $orders_category = clone $report;
+
+    $orders_category = $orders_category->select(DB::raw('count(furniture_categories.id) as QUANTITY,furniture_categories.name as NAME'))
+                                       ->groupBy('furniture_categories.id')
+                                       ->get();
+
+    $orders_by_category = [];
+
+    foreach ($orders_category as $order) 
+    {
+     $orders_by_category[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_category;
+  }
+
+    /**
+  *Metodo auxiliar para el metodo getFurnituresOrdersReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function furnitureExpensesByRegion($report)
+  {
+    $expenses = clone $report;
+
+    $expenses = $expenses->select(DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as EXPENSIVE,regions.name as NAME'))
+                         ->groupBy('regions.id')
+                         ->get();
+
+    $expenses_by_regions = [];
+
+    foreach ($expenses as $expense) 
+    {
+     $expenses_by_regions[] = [$expense->NAME,$expense->EXPENSIVE];                     
+    }                                       
+
+    return $expenses_by_regions; 
+  }
+
   public function getFurnituresOrdersReport()
   {
     ini_set('max_execution_time','300');
@@ -490,24 +577,34 @@ class AdminApiController extends AdminBaseController
       ->leftJoin('users', 'users.id', '=', 'furniture_orders.user_id')
       ->leftJoin('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
       ->orderBy('furniture_orders.id')
-      ->whereNull('furniture_orders.deleted_at');
+      ->whereNull('furniture_orders.deleted_at')
+      ->where('furniture_orders.created_at','>=',Input::get('since'))
+      ->where('furniture_orders.updated_at','<=',Input::get('until'));
 
     if(Input::has('gerencia')){
       $query->where('users.id','=',Input::get('gerencia'));
     }
-    if(Input::has('month_init') && Input::has('month_end')){
-      $query->where(DB::raw('MONTH(furniture_orders.created_at)'),'>=',Input::get('month_init'))
-            ->where(DB::raw('MONTH(furniture_orders.created_at)'),'<=',Input::get('month_end'));
-    }
-    if(Input::has('year')){
-      $query->where(DB::raw('YEAR(furniture_orders.updated_at)'), Input::get('year'));
-    }
+    
     if(Input::has('category_id')){
       $category = Input::get('category_id') + 1;
 
       $query->where('furniture_categories.id','=',$category); 
     }
-    
+
+    if(Input::has('divisional_id')){
+      $query->where('users.divisional_id',Input::get('divisional_id'));
+    }
+
+    if (Input::has('linea_negocio')) {
+      $query->where('linea_negocio',Input::get('linea_negocio'));
+    }
+
+    $query->join('regions','regions.id','=','users.region_id');
+    $orders_status = $this->furnituresOrdersStatus($query);
+    $orders_by_divisional = $this->furnituresOrdersByDivisional($query);
+    $orders_by_region = $this->ordersByRegion($query);
+    $orders_by_category = $this->furnituresOrdersByCategory($query);
+    $expenses_by_region = $this->furnitureExpensesByRegion($query);
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -516,7 +613,13 @@ class AdminApiController extends AdminBaseController
       return Response::json([
         'status' => 200,
         'orders' => $items,
-        'headers' => $headers
+        'headers' => $headers,
+        'orders_status' => $orders_status,
+        'orders_by_divisional' => $orders_by_divisional,
+        'orders_by_region' => $orders_by_region,
+        'orders_by_category' => $orders_by_category,
+        'expenses_by_region' => $expenses_by_region
+
         ]);
     }else{
 
@@ -594,7 +697,6 @@ class AdminApiController extends AdminBaseController
     }
   }
 
-
   public function getProductOrdersReport()
   {
     ini_set('max_execution_time','300');
@@ -645,7 +747,6 @@ class AdminApiController extends AdminBaseController
       return Response::make($data, 200, $headers);
     }
   }
-
 
   public function getActiveUsersReport()
   {
@@ -703,7 +804,8 @@ class AdminApiController extends AdminBaseController
   /**
   *Metodo auxiliar para el metodo getBIReport
   */
-  public function ordersByCategory($report){
+  public function ordersByCategory($report)
+  {
     $orders_category = clone $report;
 
     $orders_category = $orders_category->select(DB::raw('count(categories.id) as QUANTITY,categories.name as NAME'))
@@ -746,7 +848,8 @@ class AdminApiController extends AdminBaseController
   *Metodo auxiliar para el metodo getBIReport
   *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
   */
-  public function expensesByRegion($report){
+  public function expensesByRegion($report)
+  {
     $expenses = clone $report;
 
     $expenses = $expenses->select(DB::raw('SUM(products.price * order_product.quantity) as EXPENSIVE,regions.name as NAME'))
@@ -767,7 +870,8 @@ class AdminApiController extends AdminBaseController
   *Metodo auxiliar para el metodo getBIReport
   *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
   */
-  public function ordersStatus($report){
+  public function ordersStatus($report)
+  {
     $orders = clone $report;
 
     $orders = $orders->select(DB::raw('count(orders.status) as STATUS'))
@@ -784,7 +888,8 @@ class AdminApiController extends AdminBaseController
     return $orders_deliver_pending;
   }
 
-  public function getBIReport(){
+  public function getBIReport()
+  {
   
     $report = DB::table('users')->join('orders','orders.user_id','=','users.id')
                                 ->join('order_product','order_product.order_id','=','orders.id')
@@ -872,7 +977,8 @@ class AdminApiController extends AdminBaseController
     }      
   }
  
-  public function getBIAutocomplete(){
+  public function getBIAutocomplete()
+  {
     
     $orders = Order::all()->lists('id');
     $ccostos = User::all()->lists('ccosto');
@@ -887,8 +993,8 @@ class AdminApiController extends AdminBaseController
     }
   }
 
-
-  public function getTotalUsersReport(){
+  public function getTotalUsersReport()
+  {
     $users =  User::all();
 
     foreach ($users as $user) {
@@ -906,8 +1012,8 @@ class AdminApiController extends AdminBaseController
     }
   }
 
-
-  public function getGeneralRequestExcel(){
+  public function getGeneralRequestExcel()
+  {
     $general_request = GeneralRequest::all();
     if(Request::ajax()){
     return Response::json([
@@ -955,7 +1061,6 @@ class AdminApiController extends AdminBaseController
     })->download('xls');
   }
 
-
   public function getTotalUsersExcel()
   {
     $users =  User::all();
@@ -985,7 +1090,7 @@ class AdminApiController extends AdminBaseController
     })->download('xls');
   }
 
-   public function getGeneralRequestsExcel()
+  public function getGeneralRequestsExcel()
   {
     $requests =  GeneralRequest::all();
    
@@ -1019,7 +1124,8 @@ class AdminApiController extends AdminBaseController
   }
 
 
-  public function getGeneralRequestReport(){
+  public function getGeneralRequestReport()
+  {
     $request = GeneralRequest::all();
     
     $request_products = $request->generalRequestProducts();
@@ -1032,7 +1138,6 @@ class AdminApiController extends AdminBaseController
         'request_products' => $request_products->toArray(),
         ]);
     }
-
   }
 
   public function getFurnituresSubcategories($category_id)
@@ -1051,8 +1156,7 @@ class AdminApiController extends AdminBaseController
   }
 
   public function getIndexFurnitures($active_tab,$active_subtab)
-  {
-    
+  {  
   }
 
 }

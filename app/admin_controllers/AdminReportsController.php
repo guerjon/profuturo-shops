@@ -57,7 +57,12 @@ class AdminReportsController extends AdminBaseController{
     $categories = Category::lists('name','id');
     $management = User::where('role','!=','admin')->lists('gerencia','id');
     $business_line = User::distinct()->where('role','!=','admin')->lists('linea_negocio','linea_negocio');
-    return View::make('admin::reports.furnitures')->withCategories($categories)->withGerencia($management)->withBusinessLine($business_line);
+    $divisionals = Divisional::lists('name','id');
+    return View::make('admin::reports.furnitures')
+        ->withCategories($categories)
+        ->withGerencia($management)
+        ->withBusinessLine($business_line)
+        ->withDivisionals($divisionals);
   }
 
   public function getBIReport(){

@@ -20,39 +20,111 @@
   ])}}
 
   <div class="page-header">
-    <h3>Reporte de pedidos mobiliario
-      <button class="btn btn-primary btn-submit" style="float:right">
-        <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-      </button>
-    </h3>
+    <h3>Reporte de pedidos mobiliario </h3>
+   
+     
+    
+  <br>
   </div>
 
 <div class="row">
-  <div class="col-xs-2 ">GERENCIA:
+  <div class="col-xs-2 ">
+    {{Form::label('gerencia','GERENCIA')}}
     {{Form::select('gerencia',array_merge(array(NULL => 'Seleccione una gerencia'),$gerencia),NUll,['class' => 'form-control'])}}
-  </div>
-  <div class="col-xs-2 ">CATEGORIA:
+    <br>
+    {{Form::label('category_id','CATEGORIA')}}
     {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
   </div>
-  <div class="col-xs-2 ">DESDE:
-    {{Form::selectMonth('month_init',\Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+ 
+    <div class="col-xs-4">
+      {{Form::label('since','DESDE')}}
+      {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+      <br>
+      {{Form::label('until','HASTA')}}
+      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+    </div>
+  <div class="col-xs-4">
+    {{Form::label('linea_negocio','LINEA DE NEGOCIO:')}}
+    {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
+    <br>
+    {{Form::label('divisional_id','DIVISIONAL')}}
+    {{Form::select('divisional_id',[null => "Seleccione una divisional"] + $divisionals,null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
+
   </div>
 
-  <div class="col-xs-2 ">HASTA:
-    {{Form::selectMonth('month_end', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+  <div class="col-xs-2">
+     <button class="btn btn-primary btn-submit"  >
+        <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+      </button>
+
+      <button type="button" class="btn btn-primary btn-submit" data-toggle="modal" id="grafica" data-target="#graph">
+        <span class="glyphicon glyphicon-stats"></span> Gráfica
+      </button>
   </div>
-      
-  <div class="col-xs-2">AÑO:
-    {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
-  </div>
-  <div class="col-xs-2 ">LINEA DE NEGOCIO:
-    {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
-  </div>
+
      <!-- {{ Form::submit('Descargar excel', ['class' => 'btn btn-warning btn-submit','style' => 'float:right; margin-right:10px' ])}} -->
 </div>
 {{Form::close()}}
 
-<hr>
+<!-- Modal para la gráfica--------------------------------------------------------------------------------- -->
+  <div id="graph" class="modal fade " role="dialog">
+    <div class="modal-dialog  modal-lg" style="width:70%">
+
+      <!-- Modal content-->
+      <div class="modal-content" >
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Gráfica</h4>
+        </div>
+        <div class="modal-body">
+          <div style="float:right; margin:1px;">
+            <input type='button' class="btn btn-primary"  id="downloadReport" value='Descargar Reporte'>
+          </div>
+          <div style="float:right; margin:1px;">
+              
+            {{Form::open(['action' => 'AdminReportsController@postCreatePdf','id' => 'savePDFForm','method' => 'post'])}}
+              
+                <input type='hidden' id='htmlContentHidden' name='htmlContent' value=''>
+                <input type='button' class="btn btn-primary" id="downloadBtn" value='Descargar gráfica'>
+              
+            {{Form::close()}}
+
+          </div>  
+        
+        <br>
+        <br>
+      <center>
+        <div id="chart_div"></div>
+      </center>
+        
+        <div id = "mamalonas" style="display:none"></div>
+
+        <div id = "graficas" style="display:none">
+          <h1>Reporte ejecutivo</h1>
+          <h4>Fecha de generación {{\Carbon\Carbon::now()}} </h4>  
+          <br>
+        </div>
+
+
+        
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+            <center>
+            <button type="button" class="btn btn-default btn-chart" data-graph="orders_category">Pedidos por categoria</button>
+            <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button>
+            <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button> 
+            <button type="button" class="btn btn-default btn-chart" data-graph="orders_status">Estatus de pedidos</button>                       
+            </center>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div> 
+
+<!-- Termina modal para la gráfica--------------------------------------------------------------------------------- -->
+
 
 <div class="container-fluid">
   <div class="table-responsive">
@@ -72,60 +144,253 @@
 @stop
 
 @section('script')
-<script>
+  <script>
+    function drawChart(datos,tipo) {
 
-function update(){
-  $('.table tbody').empty();
-  $('.table tbody').append(
-    $('<tr>').attr('class', 'info').append(
-      $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
-    )
-  );
-  $.get('/admin/api/furnitures-orders-report', $('#filter-form').serialize(), function(data){
-    $('.table tbody').empty();
-    if(data.status == 200){
-      var orders = data.orders;
-      var headers = data.headers;
-      if(orders.length == 0){
-        $('.table thead tr').empty();
-        $('.table tbody').append(
-          $('<tr>').attr('class', 'warning').append(
-            $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>No hay registros que mostrar</strong>')
-          )
-        );
-        $('.btn-submit').prop('disabled', true);
-        return;
-      }else{
-        $('.btn-submit').prop('disabled', false);
-      }
+                var title = '';
+                var columns = [[]];
 
-      for(var i=0; i<headers.length; i++){
-        $('.table thead tr').append($('<th>').html(headers[i]));
-      }
-      for(var i=0; i<orders.length; i++){
-        var tr = $('<tr>');
-
-        for(var j=0; j<headers.length; j++){
-          tr.append($('<td>').html(orders[i][headers[j]]));
-        }
-        $('.table tbody').append(tr);
+                chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                var options = {
+                                'width': 650,
+                                'height': 550,
+                                legend:{position:'right'},
+                                is3D: true
+                               };
 
 
-      }
-    }else{
+                if(tipo == 'expensives_region') 
+                {
+                  title = 'Gastos por Region';
+                  columns = [['Region','Gasto']]
+                  for(var i = 0;i < datos.expenses_by_region.length;i++){
+                    columns.push(datos.expenses_by_region[i]);
+                  };
+                   chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                };
+
+                if(tipo == 'bc_orders_region')
+                {
+                  title = 'Pedidos por región';
+                  columns = [['Regiones','Cantidad']]
+
+                  for(var i = 0;i < datos.orders_by_region.length;i++){
+                    columns.push(datos.orders_by_region[i]);
+                  };
+                   chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                };
+
+                if(tipo == 'bc_orders_status')
+                {
+                  title = 'Estado de pedidos';
+                  columns = [['Estado','Total']]
+                  var estado;
+                  for(var i = 0;i < datos.orders_status.length;i++){
+
+                    if (i == 0){
+                      estado = 'Pendiente'
+                    };
+                    if (i == 1){
+                      estado = 'Recibido'
+                    };
+                    if (i == 2){
+                      estado = 'Recibido Incompleto';
+                    };
+
+                    columns.push([estado,datos.orders_status[i]]);
+
+                    options.slices = {2: {offset: 0.2}};
+
+                  };
+                   chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                };
+
+
+                if(tipo == 'bc_orders_divisional')
+                {
+                  title = 'Pedidos por divisional';
+                  columns = [['Divisional','Cantidad']]
+
+                  for(var i = 0;i < datos.orders_by_divisional.length;i++){
+                    columns.push(datos.orders_by_divisional[i]);
+                  };
+                   chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                };
+
+                if (datos){
+                  var data = google.visualization.arrayToDataTable(columns);
+                };
+
+                options.title = title;
+
+                // Instantiate and draw our chart, passing in some options.
+                chart.draw(data, options);
+                
+                return chart;
+    }
+
+    function reporte(datos){
+      //necesitamos esto para llenar las graficas que llenaran el reporte
+
+      var columns_tarjeta = [[]];
+      var columns_region = [[]];
+      var columns_divisional = [[]];
+      var columns_estatus = [[]];
+      columns_tarjeta = [['Tipo','Cantidad']];
+      columns_region = [['Regiones','Cantidad']];
+      columns_divisional = [['Estado','Total']];
+      columns_estatus = [['Estado','Total']];
+
+      var options = {
+                      'width': 650,
+                      'height': 550,
+                      legend:{position:'left'},
+                      is3D: true
+                     };
+
+
+
+      for(var i = 0;i < datos.orders_by_region.length;i++){
+        columns_region.push(datos.orders_by_region[i]);
+      };
+
+      for(var i = 0;i < datos.orders_status.length;i++){
+        
+        if (i == 0){
+          estado = 'Pendiente'
+        };
+        if (i == 1){
+          estado = 'Recibido'
+        };
+        if (i == 2){
+          estado = 'Recibido Incompleto';
+        };
+        
+        columns_estatus.push([estado,datos.orders_status[i]]);
+      
+      };
+
+      for(var i = 0;i < datos.orders_by_divisional.length;i++){
+        columns_divisional.push(datos.orders_by_divisional[i]);
+      };
+
+
+     
+      var data_region = google.visualization.arrayToDataTable(columns_region);
+      var data_divisional = google.visualization.arrayToDataTable(columns_divisional);
+      var data_estatus = google.visualization.arrayToDataTable(columns_estatus);
+
+      
+      var chart_region_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+      var chart_divisional_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+      var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+        
+
+      google.visualization.events.addListener(chart_region_grafica, 'ready', function ()      {
+        $('#graficas').append('<img src="' + chart_region_grafica.getImageURI() + '"><br>');
+      });
+
+      google.visualization.events.addListener(chart_divisional_grafica, 'ready', function ()      {
+        $('#graficas').append('<img src="' + chart_divisional_grafica.getImageURI() + '"><br>');
+      });
+
+      google.visualization.events.addListener(chart_estatus_grafica, 'ready', function ()      {
+        $('#graficas').append('<img src="' + chart_estatus_grafica.getImageURI() + '"><br>');
+      });  
+
+
+      chart_region_grafica.draw(data_region,options);
+      chart_divisional_grafica.draw(data_divisional,options);
+      chart_estatus_grafica.draw(data_estatus,options);
+    }
+
+    function update(){
+      $('.table tbody').empty();
       $('.table tbody').append(
-        $('<tr>').attr('class', 'danger').append(
-          $('<td>').attr('colspan', $('.table > thead > tr th').length).html(data.status + ':' + data.error_msg)
+        $('<tr>').attr('class', 'info').append(
+          $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
         )
       );
+      $.get('/admin/api/furnitures-orders-report', $('#filter-form').serialize(), function(data){
+        $('.table tbody').empty();
+        if(data.status == 200){
+          reporte(data);
+          var orders = data.orders;
+          var headers = data.headers;
+          if(orders.length == 0){
+            $('.table thead tr').empty();
+            $('.table tbody').append(
+              $('<tr>').attr('class', 'warning').append(
+                $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>No hay registros que mostrar</strong>')
+              )
+            );
+            $('.btn-submit').prop('disabled', true);
+            return;
+          }else{
+            $('.btn-submit').prop('disabled', false);
+          }
+
+          for(var i=0; i<headers.length; i++){
+            $('.table thead tr').append($('<th>').html(headers[i]));
+          }
+          for(var i=0; i<orders.length; i++){
+            var tr = $('<tr>');
+
+            for(var j=0; j<headers.length; j++){
+              tr.append($('<td>').html(orders[i][headers[j]]));
+            }
+            $('.table tbody').append(tr);
+          }
+            var chart = drawChart(data,'bc_orders_type');
+
+            $('.btn-chart').bind('click',function(){
+               chart = drawChart(data,$(this).attr('data-graph'));
+            });
+
+
+            $("#downloadBtn").on("click",function(){
+                download(chart.getImageURI(),'Grafica','image/png');
+            });
+          
+        }else{
+          $('.table tbody').append(
+            $('<tr>').attr('class', 'danger').append(
+              $('<td>').attr('colspan', $('.table > thead > tr th').length).html(data.status + ':' + data.error_msg)
+            )
+          );
+        }
+      });
     }
-  });
-}
-$(function(){
-  update();
-  $('#filter-form select').change(function(){
-    update();
-  });
-});
-</script>
+    $(function(){
+      google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
+      
+      var data = update();
+
+      $("#downloadReport").on("click", function() {
+
+          var htmlContent = $("#graficas").html();
+
+          $("#htmlContentHidden").val(htmlContent);
+
+          // submit the form
+          $('#savePDFForm').submit();
+
+      });
+      $('#filter-form select').change(function(){
+        update();
+      });
+      $('#until').change(function(){
+        update();
+      });  
+
+      $('#since').change(function(){
+        update();
+      });
+
+      $('#order').keyup(function(){
+        update();
+      });
+
+    });
+  </script>
 @stop

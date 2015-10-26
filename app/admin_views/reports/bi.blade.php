@@ -61,7 +61,7 @@
         <span class="glyphicon glyphicon-stats"></span> Gráfica
       </button>
     </div>
-
+    
   </div>
 </center>
 {{Form::close()}}
