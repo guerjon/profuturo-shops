@@ -111,10 +111,10 @@
         <div class="modal-footer">
           <div class="form-group">
             <center>
-            <button type="button" class="btn btn-default btn-chart" data-graph="orders_category">Pedidos por categoria</button>
-            <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button>
-            <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button> 
-            <button type="button" class="btn btn-default btn-chart" data-graph="orders_status">Estatus de pedidos</button>                       
+            <button type="button" class="btn btn-default btn-chart" data-graph="expensives_region">Gastos por región</button>
+            <button type="button" class="btn btn-default btn-chart" data-graph="orders_region">Pedidos por región</button> 
+            <button type="button" class="btn btn-default btn-chart" data-graph="orders_status">Estatus de pedidos</button>
+            <button type="button" class="btn btn-default btn-chart" data-graph="orders_divisional">Pedidos por divisional</button>                       
             </center>
           </div>
         </div>
@@ -157,30 +157,31 @@
                                 legend:{position:'right'},
                                 is3D: true
                                };
-
+     
+          
 
                 if(tipo == 'expensives_region') 
                 {
                   title = 'Gastos por Region';
-                  columns = [['Region','Gasto']]
+                  columns = [['Región','Gasto']]
                   for(var i = 0;i < datos.expenses_by_region.length;i++){
                     columns.push(datos.expenses_by_region[i]);
                   };
-                   chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                   chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
                 };
 
-                if(tipo == 'bc_orders_region')
+                if(tipo == 'orders_region')
                 {
                   title = 'Pedidos por región';
-                  columns = [['Regiones','Cantidad']]
+                  columns = [['Región','Cantidad']]
 
                   for(var i = 0;i < datos.orders_by_region.length;i++){
                     columns.push(datos.orders_by_region[i]);
                   };
-                   chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                   chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
                 };
 
-                if(tipo == 'bc_orders_status')
+                if(tipo == 'orders_status')
                 {
                   title = 'Estado de pedidos';
                   columns = [['Estado','Total']]
@@ -206,7 +207,7 @@
                 };
 
 
-                if(tipo == 'bc_orders_divisional')
+                if(tipo == 'orders_divisional')
                 {
                   title = 'Pedidos por divisional';
                   columns = [['Divisional','Cantidad']]
@@ -232,13 +233,13 @@
     function reporte(datos){
       //necesitamos esto para llenar las graficas que llenaran el reporte
 
-      var columns_tarjeta = [[]];
-      var columns_region = [[]];
+      var columns_region_gasto = [[]];
+      var columns_region_orden= [[]];
       var columns_divisional = [[]];
       var columns_estatus = [[]];
-      columns_tarjeta = [['Tipo','Cantidad']];
-      columns_region = [['Regiones','Cantidad']];
-      columns_divisional = [['Estado','Total']];
+      columns_region_gasto = [['Región','Gasto']];
+      columns_region_orden= [['Región','Cantidad']];
+      columns_divisional = [['Divisional','Cantidad']];
       columns_estatus = [['Estado','Total']];
 
       var options = {
@@ -247,11 +248,13 @@
                       legend:{position:'left'},
                       is3D: true
                      };
-
-
+                     
+      for(var i = 0;i < datos.expenses_by_region.length;i++){
+        columns_region_gasto.push(datos.expenses_by_region[i]);
+      };
 
       for(var i = 0;i < datos.orders_by_region.length;i++){
-        columns_region.push(datos.orders_by_region[i]);
+        columns_region_orden.push(datos.orders_by_region[i]);
       };
 
       for(var i = 0;i < datos.orders_status.length;i++){
@@ -270,18 +273,19 @@
       
       };
 
-      for(var i = 0;i < datos.orders_by_divisional.length;i++){
+       for(var i = 0;i < datos.orders_by_divisional.length;i++){
         columns_divisional.push(datos.orders_by_divisional[i]);
       };
 
-
      
-      var data_region = google.visualization.arrayToDataTable(columns_region);
+      var data_region = google.visualization.arrayToDataTable(columns_region_gasto);
+      var data_expensives_region = google.visualization.arrayToDataTable(columns_region_orden);
       var data_divisional = google.visualization.arrayToDataTable(columns_divisional);
       var data_estatus = google.visualization.arrayToDataTable(columns_estatus);
 
       
-      var chart_region_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
+      var chart_region_grafica = new google.visualization.ColumnChart(document.getElementById('mamalonas'));
+      var chart_region_expensives_grafica = new google.visualization.ColumnChart(document.getElementById('mamalonas'));
       var chart_divisional_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
       var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
         
@@ -289,6 +293,10 @@
       google.visualization.events.addListener(chart_region_grafica, 'ready', function ()      {
         $('#graficas').append('<img src="' + chart_region_grafica.getImageURI() + '"><br>');
       });
+
+      google.visualization.events.addListener(chart_region_expensives_grafica, 'ready', function ()      {
+        $('#graficas').append('<img src="' + chart_region_expensives_grafica.getImageURI() + '"><br>');
+      }); 
 
       google.visualization.events.addListener(chart_divisional_grafica, 'ready', function ()      {
         $('#graficas').append('<img src="' + chart_divisional_grafica.getImageURI() + '"><br>');
@@ -300,8 +308,10 @@
 
 
       chart_region_grafica.draw(data_region,options);
+      chart_region_expensives_grafica.draw(data_expensives_region,options);
       chart_divisional_grafica.draw(data_divisional,options);
       chart_estatus_grafica.draw(data_estatus,options);
+
     }
 
     function update(){
@@ -341,7 +351,7 @@
             }
             $('.table tbody').append(tr);
           }
-            var chart = drawChart(data,'bc_orders_type');
+            var chart = drawChart(data,'expensives_region');
 
             $('.btn-chart').bind('click',function(){
                chart = drawChart(data,$(this).attr('data-graph'));
@@ -367,7 +377,7 @@
       var data = update();
 
       $("#downloadReport").on("click", function() {
-
+          $('#mamalonas').empty();
           var htmlContent = $("#graficas").html();
 
           $("#htmlContentHidden").val(htmlContent);
