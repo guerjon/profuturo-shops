@@ -3,9 +3,8 @@
 
 		<div class="welcome">
 			Numero de orden: {{$order->id}}
-			Cantidad: {{$order->pivot->quantity}}
-			
-
+			Cantidad: {{$order->pivot}}
+		
 		</div>
 	
 	 	</body>
