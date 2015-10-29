@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.appssoriano-ariza.com',
+	'host' => 'appssoriano-ariza.com',
 
 	/*
 	|--------------------------------------------------------------------------
