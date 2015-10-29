@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.profuturocompras.com.mx',
+	'host' => 'mail.appssoriano-ariza.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'email@profuturocompras.com.mx', 'name' => 'email@profuturocompras.com.mx'),
+	'from' => array('address' => 'mail@appssoriano-ariza.com', 'name' => 'mail@appssoriano-ariza.com'),
 
 	/*
 	|--------------------------------------------------------------------------
