@@ -80,7 +80,7 @@ return array(
 	|
 	*/
 
-	'username' => 'email@profuturocompras.com.mx',
+	'username' => 'mail@appssoriano-ariza.com',
 
 	/*
 	|--------------------------------------------------------------------------
