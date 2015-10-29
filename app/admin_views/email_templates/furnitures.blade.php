@@ -3,13 +3,10 @@
 
 		<div class="welcome">
 			Numero de orden: {{$order->id}}
+			Cantidad: {{$order->pivot->quantity}}
 			
-			@foreach($products as $product)
-					Cantidad {{$product->quantity}}
-					Producto:{{$product->name}}
-				@endforeach
-	
-		</div
+
+		</div>
 	
 	 	</body>
 	 </html>
