@@ -44,5 +44,5 @@ class CreateFurnitureSubcategoriesTable extends Migration {
 	{
 		Schema::drop('furniture_subcategories');
 	}
-
+	
 }

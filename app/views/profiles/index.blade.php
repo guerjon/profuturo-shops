@@ -36,9 +36,7 @@
       </div>
 				
 			</center>
-			
-	
-
+		
 			<div class="form-group">
 				{{Form::label('nombre','Nombre(s)',['class'=>'control-label','required'])}}
 				{{Form::text('nombre',null,['class' => 'form-control'])}}			
@@ -65,8 +63,15 @@
 				{{Form::number('num_empleado',null,['class' => 'form-control'])}}			
 			</div>
 
+			<div class="form-group">
+				{{Form::label('num_empleado_1','Numero de empleado 2',['class'=>'control-label','required' => 'true'])}}
+				{{Form::number('num_empleado_1',null,['class' => 'form-control'])}}			
+			</div>
 
-
+			<div class="form-group">
+				{{Form::label('num_empleado_2','Numero de empleado 3',['class'=>'control-label','required' => 'true'])}}
+				{{Form::number('num_empleado_2',null,['class' => 'form-control'])}}			
+			</div>
 
 			<center>
 				<div class="form-group">

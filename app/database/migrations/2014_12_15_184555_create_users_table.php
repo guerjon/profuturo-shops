@@ -18,7 +18,10 @@ class CreateUsersTable extends Migration {
 		  $table->increments('id');
 			$table->string('ccosto');
 			$table->string('gerencia');
+			$table->string('num_empleado_1');
+			$table->string('num_empleado_2');
 			$table->string('linea_negocio');
+
 			$table->string('password');
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper','user_furnitures'])->default('user_paper');
