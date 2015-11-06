@@ -308,10 +308,10 @@
       for(var i = 0;i < datos.expenses_by_region.length;i++){
         $('#graficas').append('<tr>');
         $('#graficas').append('<td>');
-        $('#graficas').append('Datos exactos: ' +datos.expenses_by_region[i][0] + '<br>');
+        $('#graficas').append(datos.expenses_by_region[i] + '<br>');
         $('#graficas').append('</td>');
-        $('#graficas').append('<tr>');
-        $('#graficas').append(datos.expenses_by_region[i][1] + '<br>');
+        $('#graficas').append('<td>');
+        $('#graficas').append(datos.expenses_by_region[i] + '<br>');
         $('#graficas').append('</td>');
         $('#graficas').append('</tr>');
       };
