@@ -302,7 +302,7 @@
       $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
       //Con esto agregamos las tablas en el pdf
       $('#graficas').append('<center>');
-      $('#graficas').append('<table class = "table table-striped">');
+      $('#graficas').append('<table>');
       $('#graficas').append('<thead><th>Región</th><th>Gasto</th></thead>');
       $('#graficas').append('<tbody>')
       for(var i = 0;i < datos.expenses_by_region.length;i++){
