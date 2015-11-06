@@ -302,20 +302,21 @@
       $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
       //Con esto agregamos las tablas en el pdf
       $('#graficas').append('<center>');
-      $('#graficas').append('<table>');
-      $('#graficas').append('<thead><th>Región</th><th>Gasto</th></thead>');
-      $('#graficas').append('<tbody>')
+      $('#graficas').append('<div  class="row">');
+      
+    
       for(var i = 0;i < datos.expenses_by_region.length;i++){
-        $('#graficas').append('<tr>');
-        $('#graficas').append('<td>');
+        $('#graficas').append('<div class="col-md-6">');
         $('#graficas').append(datos.expenses_by_region[i] + '<br>');
-        $('#graficas').append('</td>');
-        $('#graficas').append('<td>');
+        $('#graficas').append('</div>');
+        
+        $('#graficas').append('<div class="col-md-6">');
         $('#graficas').append(datos.expenses_by_region[i] + '<br>');
-        $('#graficas').append('</td>');
-        $('#graficas').append('</tr>');
+        $('#graficas').append('</div');
+
       };
-      $('#graficas').append('</tbody>');
+      $('#graficas').append('/<center>');
+      $('#graficas').append('</div>');
 
 
       });
