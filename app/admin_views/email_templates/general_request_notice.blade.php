@@ -1,7 +1,7 @@
 	 <html>
 	 	<body>
 
-		<p>Se ha creado una nueva solicitud general</p>
+		<p>Se ha creado una nueva solicitud</p>
 		<br>
 		Usuario: {{$user->gerencia}}
 		<br>

@@ -50,7 +50,6 @@ class GeneralRequestsController extends BaseController{
     $user = Auth::user();
     $email = 'i.gutierrez@soriano-ariza.com';
     //karina.ascencionhernandez@profuturo.com.mx
-    Log::info("mando el correo");
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
       $message->to($email)->subject("Solicitud general hecha.");
     });
@@ -85,7 +84,7 @@ class GeneralRequestsController extends BaseController{
       });
     }else{
       Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado){
-        $message->to($email,$name)->subject("Cambio de estado en tu solicitud");
+        $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
       });
     }
     

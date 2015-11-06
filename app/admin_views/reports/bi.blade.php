@@ -102,8 +102,10 @@
         <div id = "mamalonas" style="display:none"></div>
 
         <div id = "graficas" style="display:none">
-          <h1>Reporte ejecutivo</h1>
-          <h4>Fecha de generación {{\Carbon\Carbon::now()}} </h4>  
+          <center>
+            <h1>Reporte ejecutivo</h1>
+            <h4>Fecha de generación {{\Carbon\Carbon::now()}} </h4>    
+          </center>
           <br>
         </div>
 
@@ -296,7 +298,14 @@
       var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
       
       google.visualization.events.addListener(chart_targeta_grafica, 'ready', function ()      {
-       $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
+      $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
+      $('#graficas').append('<center>');
+      for(var i = 0;i < datos.expenses_by_region.length;i++){
+        
+        $('#graficas').append('Datos exactos: ' +datos.expenses_by_region[i] + '<br>');
+        $('#graficas').append(datos.expenses_by_region[i] + '<br>');
+      };
+      $('#graficas').append('</center>');
 
       });
 
