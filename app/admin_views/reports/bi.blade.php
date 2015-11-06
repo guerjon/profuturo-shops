@@ -298,14 +298,25 @@
       var chart_estatus_grafica = new google.visualization.PieChart(document.getElementById('mamalonas'));
       
       google.visualization.events.addListener(chart_targeta_grafica, 'ready', function ()      {
+      
       $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
+      //Con esto agregamos las tablas en el pdf
       $('#graficas').append('<center>');
+      $('#graficas').append('<table class = "table table-striped">');
+      $('#graficas').append('<thead><th>Región</th><th>Gasto</th></thead>');
+      $('#graficas').append('<tbody>')
       for(var i = 0;i < datos.expenses_by_region.length;i++){
-        
-        $('#graficas').append('Datos exactos: ' +datos.expenses_by_region[i] + '<br>');
-        $('#graficas').append(datos.expenses_by_region[i] + '<br>');
+        $('#graficas').append('<tr>');
+        $('#graficas').append('<td>');
+        $('#graficas').append('Datos exactos: ' +datos.expenses_by_region[i][0] + '<br>');
+        $('#graficas').append('</td>');
+        $('#graficas').append('<tr>');
+        $('#graficas').append(datos.expenses_by_region[i][1] + '<br>');
+        $('#graficas').append('</td>');
+        $('#graficas').append('</tr>');
       };
-      $('#graficas').append('</center>');
+      $('#graficas').append('</tbody>');
+
 
       });
 
