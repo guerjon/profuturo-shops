@@ -306,10 +306,11 @@
       
       google.visualization.events.addListener(chart_targeta_grafica, 'ready', function ()      {
       
+      $('#graficas').append('<center><div style="width:80%;background:#E1E1E1"><h2>Pedidos por categoria</h2></div></center>');
       $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
       //Con esto agregamos las tablas en el pdf
       $('#graficas').append('<center>');
-      $('#graficas').append('<div  class="row">');
+      $('#graficas').append('<div  style="text-align:center">');
       
     
       for(var i = 0;i < datos.expenses_by_region.length;i++){
