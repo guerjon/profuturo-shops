@@ -57,7 +57,7 @@ class GeneralRequestsController extends BaseController{
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
       $message->to($email)->subject("Solicitud general hecha.");
     });
-    Log::info("mando el correo");
+   
 
     
     return Redirect::to(action('GeneralRequestsController@index'))->withSuccess("Se ha guardado su solicitud con id {$request->id}");
