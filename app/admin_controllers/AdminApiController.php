@@ -921,6 +921,14 @@ class AdminApiController extends AdminBaseController
       $report->where('orders.created_at','<=',Input::get('until'));
     }
 
+    if (Input::has('divisional_id')) {
+      $report->where('users.divisional_id',Input::get('divisional_id'));
+    }
+
+    if(Input::has('region_id')){
+      $report->where('users.region_id',Input::get('region_id'));
+    }
+
     $orders_by_category = $this->ordersByCategory($report);
     $orders_by_region = $this->ordersByRegion($report);
     $expenses_by_region = $this->expensesByRegion($report);

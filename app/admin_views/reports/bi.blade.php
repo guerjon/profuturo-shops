@@ -35,7 +35,7 @@
       {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
     </div>
     
-    <div class="col-xs-4">
+    <div class="col-xs-2">
       {{Form::label('since','# ORDEN')}}
       {{Form::text('order_id',null,['class' => 'form-control','placeholder' => 'Ingrese el numero de pedido','id' => 'order' ])}}
       <br>
@@ -44,7 +44,7 @@
     </div>
 
       
-    <div class="col-xs-4">
+    <div class="col-xs-3">
       {{Form::label('category_id','CATEGORIA')}}
       {{Form::select('category_id',[null => 'Seleccione una categoria'] + $categories,null,['class' => 'form-control','id' => 'category_id'])}}
       <br>
@@ -52,6 +52,13 @@
       {{Form::select('product_id',[null => 'Seleccione un producto'] +$products,null,['class' => 'form-control','id' => 'product_id'])}}
     </div>
 
+    <div class="col-xs-3">
+      {{Form::label('divisional_id','DIVISIONAL')}}
+      {{Form::select('divisional_id',[null => 'Seleccione una divisional'] + Divisional::lists('name','id'),null,['class' => 'form-control','id' => 'category_id'])}}
+      <br>
+      {{Form::label('region_id','REGIONAL')}}
+      {{Form::select('region_id',[null => 'Seleccione una región'] + Region::lists('name','id'),null,['class' => 'form-control','id' => 'product_id'])}}
+    </div>
 
     <div class="col-xs-2  text-right">
       <button class="btn btn-primary btn-submit">
