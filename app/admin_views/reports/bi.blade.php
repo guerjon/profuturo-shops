@@ -310,15 +310,15 @@
       $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
       //Con esto agregamos las tablas en el pdf
       
-      $('#graficas').append('<div  style="text-align:center;margin:0 auto;">');
+      $('#graficas').append('<div  style="text-align:center;">');
       
     
       for(var i = 0;i < datos.expenses_by_region.length;i++){
-        $('#graficas').append('<div class="col-md-6">');
+        $('#graficas').append('<div style="margin:0 auto;">');
         $('#graficas').append(datos.expenses_by_region[i] + '<br>');
         $('#graficas').append('</div>');
         
-        $('#graficas').append('<div class="col-md-6">');
+        $('#graficas').append('<div style="margin:0 auto;">');
         $('#graficas').append(datos.expenses_by_region[i] + '<br>');
         $('#graficas').append('</div');
 
