@@ -317,7 +317,7 @@
           $('#graficas').append(datos.orders_by_category[i] + '<br>');
         };
       
-        $('#graficas').append('</div><br><br><br><br><br><br>');
+        $('#graficas').append('</div><br><br><br><br><br><br><br><br><br><br><br><br>');
 
 
       });
@@ -333,7 +333,7 @@
           $('#graficas').append(datos.orders_by_region[i] + '<br>');
         };
       
-        $('#graficas').append('</div><br><br><br><br><br><br>');
+        $('#graficas').append('</div><br><br><br><br><br><br><br><br><br><br><br><br>');
       
 
       });
@@ -348,7 +348,7 @@
           $('#graficas').append(datos.expenses_by_region[i] + '<br>');
         };
       
-        $('#graficas').append('</div><br><br><br><br><br><br>');
+        $('#graficas').append('</div><br><br><br><br><br><br><br><br><br><br><br><br>');
 
       });
       
@@ -362,7 +362,7 @@
           $('#graficas').append(datos.orders_status[i] + '<br>');
         };
       
-        $('#graficas').append('</div><br><br><br><br><br><br>');
+        $('#graficas').append('</div><br><br><br><br><br><br><br><br><br><br><br><br>');
       });  
 
       chart_targeta_grafica.draw(data_tarjeta,options);
