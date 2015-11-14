@@ -306,38 +306,35 @@
       
       google.visualization.events.addListener(chart_targeta_grafica, 'ready', function ()      {
       
-      $('#graficas').append('<center><div style="width:80%;background:#E1E1E1;margin:0 auto;"><h2>Pedidos por categoria</h2></div></center>');
-      $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
-      //Con esto agregamos las tablas en el pdf
-      
-      $('#graficas').append('<div  style="text-align:center;">');
-      
-    
-      for(var i = 0;i < datos.expenses_by_region.length;i++){
-        $('#graficas').append('<div style="margin:0 auto;">');
-        $('#graficas').append(datos.expenses_by_region[i] + '<br>');
-        $('#graficas').append('</div>');
+        $('#graficas').append('<center><div style="width:80%;background:#E1E1E1;margin:0 auto;"><h2>Pedidos por categoria</h2></div></center>');
+        $('#graficas').append('<img src="' + chart_targeta_grafica.getImageURI() + '"><br>');
+        //Con esto agregamos las tablas en el pdf
         
-        $('#graficas').append('<div style="margin:0 auto;">');
-        $('#graficas').append(datos.expenses_by_region[i] + '<br>');
-        $('#graficas').append('</div');
-
-      };
+        $('#graficas').append('<div style="margin:0 auto; border-style: solid; border-width: 1px;">');
+        
+          
+        for(var i = 0;i < datos.expenses_by_region.length;i++){
+          $('#graficas').append(datos.expenses_by_region[i] + '<br>');
+        };
       
-      $('#graficas').append('</div>');
+        $('#graficas').append('</div><br>');
 
 
       });
 
+      
       google.visualization.events.addListener(chart_region_grafica, 'ready', function ()      {
+        $('#graficas').append('<center><div style="width:80%;background:#E1E1E1;margin:0 auto;"><h2>Pedidos por región</h2></div></center>');
         $('#graficas').append('<img src="' + chart_region_grafica.getImageURI() + '"><br>');
       });
-
+      
       google.visualization.events.addListener(chart_divisional_grafica, 'ready', function ()      {
+        $('#graficas').append('<center><div style="width:80%;background:#E1E1E1;margin:0 auto;"><h2>Gastos por región</h2></div></center>');
         $('#graficas').append('<img src="' + chart_divisional_grafica.getImageURI() + '"><br>');
       });
-
+      
       google.visualization.events.addListener(chart_estatus_grafica, 'ready', function ()      {
+        $('#graficas').append('<center><div style="width:80%;background:#E1E1E1;margin:0 auto;"><h2>Estatus pedidos</h2></div></center>');
         $('#graficas').append('<img src="' + chart_estatus_grafica.getImageURI() + '"><br>');
       });  
 

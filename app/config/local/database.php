@@ -24,9 +24,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'sorianoariza_profuturo_compras',
+			'database'  => 'appssori_store',
 			'username'  => 'root',
-			//'password'  => '',
+			'password'  => 'root',
 			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
