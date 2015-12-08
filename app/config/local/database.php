@@ -24,7 +24,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'appssori_store',
+			'database'  => 'sorianoariza_profuturo_compras',
 			'username'  => 'root',
 			'password'  => 'root',
 			'password'  => 'root',

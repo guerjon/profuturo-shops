@@ -73,6 +73,13 @@
 				{{Form::number('num_empleado_2',null,['class' => 'form-control'])}}			
 			</div>
 
+
+			<div class="form-group">
+				{{Form::label('password','Contraseña',['class'=>'control-label','required' => 'true'])}}
+				{{Form::password('password',['class' => 'form-control'])}}			
+			</div>
+
+
 			<center>
 				<div class="form-group">
 				{{Form::submit('Guardar',['class' => 'btn btn-warning'])}}
