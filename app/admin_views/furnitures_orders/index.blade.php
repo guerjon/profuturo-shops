@@ -17,6 +17,27 @@
 </div>
 
 @else
+
+  {{Form::open([
+    'method' => 'GET',
+    'class' => 'form-inline'
+    ])}}
+
+    <div class="form-group">
+      {{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'CCOSTOS'])}}
+    </div>
+
+    <div class="form-group">
+      {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-filter"></span> Filtrar
+      </button>
+    </div>
+
+  {{Form::close()}}
   
 <a href="{{action('AdminFurnituresOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
   <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
@@ -28,7 +49,7 @@
       <tr>
 
          <th>
-         Nombre CC
+        Gerencia
         </th>
         <th>
           Centro de costos

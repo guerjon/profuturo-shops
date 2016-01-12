@@ -41,9 +41,17 @@ class AdminFurnituresOrdersController extends BaseController
       })->download('xlsx');
     }
 
+
     }
+
+    $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
+    $orders = FurnitureOrder::join('users','furniture_orders.user_id','=','users.id')->orderBy('furniture_orders.created_at', 'desc');
+    if(Input::has('ccosto'))
+      $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    if(Input::has('gerencia'))
+      $orders->where('ccosto', Input::get('gerencia'));
         
-    return View::make('admin::furnitures_orders.index')->withOrders(FurnitureOrder::orderBy('created_at', 'desc')->get());
+    return View::make('admin::furnitures_orders.index')->withOrders($orders->get())->withGerencias($gerencias);
   }
 
   public function show($order_id)

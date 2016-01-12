@@ -8,6 +8,11 @@
     <div class="col-xs-2">
       {{Form::text('user_paper[employee_number]', (Input::get('user_paper')['employee_number']), ['class' => 'form-control'])}}
     </div>
+    <label for="user-paper-employee-number" class="control-label col-xs-2">Gerencia</label>
+    <div class="col-xs-2">
+      {{Form::text('user_paper[gerencia]', (Input::get('user_paper')['gerencia']), ['class' => 'form-control'])}}
+    </div>
+
 {{--     <div class="col-xs-3">
       {{ Form::select('executive[management_id]', $managements,
         Input::get('executive')['management_id'], ['class' => 'form-control']) }}

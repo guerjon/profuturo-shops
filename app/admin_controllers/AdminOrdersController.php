@@ -43,7 +43,15 @@ class AdminOrdersController extends BaseController
 
     }
         
-    return View::make('admin::orders.index')->withOrders(Order::orderBy('created_at', 'desc')->get());
+    $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
+    $orders = Order::join('users','orders.user_id','=','users.id')->orderBy('orders.created_at', 'desc');
+    if(Input::has('ccosto'))
+	$orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    if(Input::has('gerencia'))
+        $orders->where('users.ccosto', Input::get('gerencia'));
+
+
+    return View::make('admin::orders.index')->withOrders($orders->get())->withGerencias($gerencias);
   }
 
   public function show($order_id)
@@ -69,3 +77,4 @@ class AdminOrdersController extends BaseController
 
 
 }
+

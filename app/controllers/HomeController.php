@@ -69,7 +69,7 @@ class HomeController extends BaseController {
 		if ($last_order and $access){
 			$access = true;
 		}else{
-			$access = false;
+			$access = true;
 		}
 
 		return View::make('pages.cart')->withAccess($access);

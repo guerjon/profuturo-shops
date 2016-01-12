@@ -32,6 +32,10 @@
     <div class="form-group">
       {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'Numero de empleado'])}}
     </div>
+    <div class="form-group">
+      {{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'Centro de costos'])}}
+    </div>
+
 
     <div class="form-group">
       {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
