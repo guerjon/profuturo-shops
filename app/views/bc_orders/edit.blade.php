@@ -125,7 +125,7 @@
       </div>
      
       <div class="col-xs-2">
-      {{Form::select('nombre_puesto',array('retiro' => 'Asesor en Retiro','previsional' =>'Asesor Previsional','servicio' =>'Asesor en servicio','ejecutivo'=>'Ejecutivo de cuenta'), NULL, ['class' => 'form-control'])}}
+      {{Form::select('nombre_puesto',array('Asesor en Retiro' => 'Asesor en Retiro','Asesor Previsional' =>'Asesor Previsional','Ejecutivo de Cuenta'=>'Ejecutivo de cuenta'), NULL, ['class' => 'form-control'])}}
       </div>
       <div class="col-xs-5">
       {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}

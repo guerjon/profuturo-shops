@@ -21,7 +21,26 @@
     <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
   </a>
 
+  {{Form::open([
+    'method' => 'GET',
+    'class' => 'form-inline'
+    ])}}
 
+    <div class="form-group">
+      {{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'CCOSTOS'])}}
+    </div>
+
+    <div class="form-group">
+      {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-filter"></span> Filtrar
+      </button>
+    </div>
+
+  {{Form::close()}}
   
 <div class="container-fluid">
   <table class="table table-striped">
@@ -29,7 +48,7 @@
       <tr>
 
          <th>
-         Nombre CC
+        Gerencia
         </th>
         <th>
           Centro de costos
@@ -104,3 +123,4 @@
 
 @endif
 @stop
+

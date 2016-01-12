@@ -21,7 +21,7 @@ class GeneralRequestsController extends BaseController{
   {
     $request = new GeneralRequest(Input::except('budget','quantity','unit_price','name'));
     /*agregando el valor adicional a los campos*/
-    $request->employee_name = Auth::user()->nombre;
+    $request->employee_name = Auth::user()->gerencia;
     $request->employee_email = Auth::user()->email;
     $request->employee_cellphone = Auth::user()->celular;
     $request->employee_number = Auth::user()->num_empleado;

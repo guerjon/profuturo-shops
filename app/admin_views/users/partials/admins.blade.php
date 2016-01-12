@@ -8,6 +8,11 @@
     <div class="col-xs-2">
       {{Form::text('admin[employee_number]', (Input::get('admin')['employee_number']), ['class' => 'form-control'])}}
     </div>
+    <label for="admin-ccostos" class="control-label col-xs-2">Gerencia</label>
+    <div class="col-xs-2">
+      {{Form::text('admin[gerencia]',(Input::get('admin')['gerencia']),['class' => 'form-control'])}}
+    </div>
+
     <div class="col-xs-1">
       <button type="submit" class="btn btn-block btn-default">
         <span class="glyphicon glyphicon-search"></span> 
@@ -15,6 +20,8 @@
     </div>
   </div>
 {{ Form::close() }}
+
+
 @if($admins->count() > 0)
 
 <div class="container-fluid">

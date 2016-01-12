@@ -18,6 +18,9 @@ class AdminUsersController extends AdminBaseController
             if($emp_number = @$input['employee_number']){
               $admins->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
+            if($gerencia  = @$input['gerencia']){
+              $admins->where('gerencia', 'LIKE', "%{$gerencia}%");
+	    }
           }
         }
 
@@ -30,6 +33,10 @@ class AdminUsersController extends AdminBaseController
             if($emp_number = @$input['employee_number']){
               $managers->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
+            if($gerencia = @$input['gerencia']){
+              $managers->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+
           }         
         }
         $user_requests = User::where('role', 'user_requests');
@@ -38,9 +45,13 @@ class AdminUsersController extends AdminBaseController
           if(!is_array($input)){
             Log::warning("I did not receive an array");
           }else{
-            if($emp_number = @$input['employee_number']){
+            if($emp_number = @$input['emp_number']){
               $user_requests->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
+            if($gerencia = @$input['gerencia']){
+              $user_requests->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+
           }   
         }
         $users_paper = User::where('role', 'user_paper');
@@ -52,6 +63,9 @@ class AdminUsersController extends AdminBaseController
             if($emp_number = @$input['employee_number']){
               $users_paper->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
+            if($gerencia = @$input['gerencia']){
+              $users_paper->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
           }
         }
         $users_furnitures = User::where('role', 'user_furnitures');
@@ -62,10 +76,14 @@ class AdminUsersController extends AdminBaseController
             Log::warning("I did not receive an array");
           }else{
             if($emp_number = @$input['employee_number']){
-                $users_paper->where('ccosto', 'LIKE', "%{$emp_number}%");
+                $users_furnitures->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
-           }
-         }
+            if($gerencia = @$input['gerencia']){
+                $users_furnitures->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+
+          }
+        }
 
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
