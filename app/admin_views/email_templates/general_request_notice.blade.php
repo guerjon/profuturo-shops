@@ -179,7 +179,7 @@
 					</tbody>
 				</table>
 			<center>
-				<a href="http://profuturo-compras.appssoriano-ariza.com/" class="boton">Contestar solicitud</a>		
+				<a href="http://store.profuturocompras.com.mx/solicitudes-generales" class="boton">Contestar solicitud</a>		
 			</center>	
 		</body>
   </html>
