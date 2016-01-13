@@ -1,6 +1,7 @@
 /bootstrap/compiled.php
 /app/config/local/
 /app/config/app.php
+/app/storage
 /vendor
 /public/system
 *.bck
