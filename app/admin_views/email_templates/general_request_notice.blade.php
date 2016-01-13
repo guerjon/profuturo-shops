@@ -157,7 +157,7 @@
 								Usuario				
 							</td>
 							<td>
-								Nombre usuario
+								{{$user->gerencia}}
 							</td>
 						</tr>
 						<tr>
@@ -165,7 +165,7 @@
 								Número de solicitud
 							</td>
 							<td>
-								10
+								{{$general_request->id}}
 							</td>
 						</tr>
 						<tr>
