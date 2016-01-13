@@ -3,7 +3,7 @@
 class AdminGeneralRequestsAssignController extends AdminBaseController{
 
   public function getIndex(){
-    return View::make('admin::general_requests_assign.index')->withRequests(GeneralRequest::orderBy(DB::raw('manager_id IS NULL'),'desc')->get())->withManagers(User::where('role', 'manager')
+    return View::make('admin::general_requests_assign.index')->withRequests(GeneralRequest::orderBy('created_at','desc')->orderBy(DB::raw('manager_id IS NULL'),'desc')->get())->withManagers(User::where('role', 'manager')
       ->orderBy('gerencia'));
   }
 

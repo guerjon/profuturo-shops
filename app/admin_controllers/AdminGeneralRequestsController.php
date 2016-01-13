@@ -28,7 +28,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
 
     $active_category = ['ASIGNADO','NO ASIGNADO'];
     return View::make('admin::general_requests.index')->withAssigneds($assigneds)->withActiveCategory($active_category)
-    ->withRequests($request->orderBy('rating','desc')->paginate(10))->withActiveTab($active_tab)
+    ->withRequests($request->orderBy('created_at','desc')->orderBy('rating','desc')->paginate(10))->withActiveTab($active_tab)
     ->withUsers(User::where('role', 'user_requests')->lists('gerencia','id'));
   }
 

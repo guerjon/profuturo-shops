@@ -29,6 +29,9 @@
           Estatus
         </th>
         <th>
+          Fecha de solicitud
+        </th>
+        <th>
           Presupuesto
         </th>
         <th>
@@ -37,6 +40,7 @@
         <th class="text-center">
           Asignar asesor
         </th>
+  
       </tr>
     </thead>
     <tbody>
@@ -51,9 +55,12 @@
         <td>
           {{$request->getStatusStrAttribute()}}
         </td>
-
         <td>
-          {{money_format("%.2n",$request->unit_price * $request->quantity)}}
+          {{$request->created_at->format('d-m-Y')}}
+        </td>
+        <td>
+          {{-- money_format("%.2n",$request->unit_price * $request->quantity) --}}
+          {{number_format($request->unit_price * $request->quantity,2)}}
         </td>
         <td>
           @if($request->manager != null)
@@ -69,13 +76,18 @@
           @else
           <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Asignar</button>
           @endif
+          <button data-toggle="modal" data-target="#show-modal" class="btn  btn-primary detail-btn" data-request-id="{{$request->id}}">
+            Detalles
+          </button>
         </td>
+
       </tr>
       @endforeach
     </tbody>
   </table>
 </div>
 
+@include('admin::general_requests_assign.partials.show')
 @include('admin::general_requests_assign.partials.assign_modal')
 
 @else
@@ -104,7 +116,53 @@ $(function(){
     path : '/img/raty'
   });
 
+  $('.detail-btn').click(function(){
+    $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
+      if(data.status == 200){
+        var info = data.request;
+        for(key in info){
+          $('#request-' + key).text(info[key]);         
+        }
+        $('input[name="request_id"]').val(info.id); 
 
-})
+        var estatus = ['Acabo de recibir tu solicitud, en breve me comunicare contigo',
+                     'En estos momentos estoy localizando los proveedores que pueden contar con el artículo que necesitas',
+                     'Me encuentro en espera de las cotizaciones por parte de los proveedores seleccionados',
+                     'Ya recibí las propuestas correspondientes, estoy en proceso de análisis de costo beneficio',
+                     'Te comparto el cuadro comparativo con las mejores ofertas de acuerdo a tu necesidad',
+                     'Conforme a tu elección…, ingresa tu solicitud en People Soft',
+                     'Ya se envió la orden de compra al proveedor',
+                     '','Tu pedido llego en excelentes condiciones, en el domicilio… y recibió…',
+                     'Fue un placer atenderte, me apoyarías con la siguiente encuesta de satisfacción.'];
+        var info_status = parseInt(info.status);
+        
+        $("#status").empty();
+        for(i = info_status; i < 10;i++){
+        var opciones = "<option value='"+i+"'>"+estatus[i]+"</options>"; 
+       
+        $("#status").append(opciones);
+        }
+        
+        $('select[name="status"]').val(info.status); 
+
+
+        // $('input[name="evaluation"][value ='+ info.evaluation +']').prop('checked', true); 
+        var date = info['deliver_date'].split(/[- :]/);
+
+        $('#status option[value=7]').text("La fecha de tu pedido es el " + date[2] + '-' + date[1] + '-' + date[0]);          
+        var product_info = data.products;
+        
+        for(var i = 0; i < product_info.length; i++){
+          
+          var name = "<tr><td>"+product_info[i].name+"</td>" + "<td>"+product_info[i].quantity+"</td>" + "<td>"+product_info[i].unit_price+"</td></tr>";
+         $("#table_products").empty();
+         $("#table_products").append(name);        
+         }
+        }
+    });
+  });
+
+
+});
 </script>
 @stop
