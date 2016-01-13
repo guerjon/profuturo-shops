@@ -15,6 +15,9 @@ Route::get('/mockups/{view}', function($view){
 	return View::make("mockups.{$view}");
 });
 
+Route::get('plantilla',function(){
+	return View::make('admin::email_templates.general_request_notice');
+});
 Route::controller('encuesta-satisfaccion','SatisfactionSurveyController');
 
 Route::get('login', 'AuthController@getLogin');

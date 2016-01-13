@@ -47,6 +47,7 @@ class GeneralRequestsController extends BaseController{
       }
       $products--;
     }
+    
     $user = Auth::user();
     $email = 'i.gutierrez@soriano-ariza.com';
     //karina.ascencionhernandez@profuturo.com.mx
