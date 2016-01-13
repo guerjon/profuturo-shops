@@ -89,13 +89,15 @@
         </div>     
       @endif
 
-
-      <div class="form-group">
-        {{Form::label('region_id','Región',['class' => 'control-label'])}}
-        <div>
-          {{Form::select('region_id',$regions,$user->exists ? $user->region_id : null,['class' => 'form-control'])}}
-        </div>
-      </div>   
+      @if(!($active_tab == 'user_requests')) 
+        <div class="form-group">
+          {{Form::label('region_id','Región',['class' => 'control-label'])}}
+          <div>
+            {{Form::select('region_id',$regions,$user->exists ? $user->region_id : null,['class' => 'form-control'])}}
+          </div>
+        </div>   
+      @endif
+      
 
       <div class="form-group">
         {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label'])}}
