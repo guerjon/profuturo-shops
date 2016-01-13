@@ -53,31 +53,31 @@ return array(
 		),
 
 		//credenciales para servidor appssoriano-ariza.com
-		'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'appssori_store',
-			//'username'  => 'appssori_store',
-			//'password'  => 'appssori_store@1',
-			'username'  => 'root',
-			'password'  => 'root',
-			
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
-
-		//credenciales para servidor de profuturocompras.com.mx
 		// 'mysql' => array(
 		// 	'driver'    => 'mysql',
 		// 	'host'      => 'localhost',
-		// 	'database'  => 'profcom_store',
-		// 	'username'  => 'profcom_store',
-		// 	'password'  => 'profcom_store@1',
+		// 	'database'  => 'appssori_store',
+		// 	//'username'  => 'appssori_store',
+		// 	//'password'  => 'appssori_store@1',
+		// 	'username'  => 'root',
+		// 	'password'  => 'root',
+			
 		// 	'charset'   => 'utf8',
 		// 	'collation' => 'utf8_unicode_ci',
 		// 	'prefix'    => '',
 		// ),
+
+		//credenciales para servidor de profuturocompras.com.mx
+		'mysql' => array(
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'profcom_store',
+			'username'  => 'profcom_store',
+			'password'  => 'profcom_store@1',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',
