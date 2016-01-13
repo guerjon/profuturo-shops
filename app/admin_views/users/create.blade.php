@@ -129,7 +129,7 @@
 
 
  
-          @if(($active_tab == 'manager') or ($active_tab == 'user_requests'))
+  @if(($active_tab == 'manager') or ($active_tab == 'user_requests'))
 	  @unless($active_tab == 'user_requests')
       <div id="campos-extra">
           <div class="form-group">
@@ -160,6 +160,8 @@
         
           </div>
       </div>
+
+
     @unless($active_tab == 'user_requests')
     <center>
       <div  id = "colores"  class="form-group">
@@ -176,7 +178,14 @@
       </div>
     </center>
     @endunless
-    @endif
+  @endif
+  @if($active_tab == "user_furnitures")
+      <div class="form-group">
+          {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
+          {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
+      </div>
+  @endif
+  
 
 
       <div class="form-group">
