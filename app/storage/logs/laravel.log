@@ -4441,3 +4441,153 @@ Stack trace:
 #16 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/public/index.php(49): Illuminate\Foundation\Application->run()
 #17 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/server.php(19): require_once('/Users/jonguer/...')
 #18 {main} [] []
+[2016-01-13 01:12:16] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.42,"name":"mysql"} []
+[2016-01-13 01:12:16] local.INFO: select count(*) as aggregate from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null {"bindings":[],"time":0.33,"name":"mysql"} []
+[2016-01-13 01:12:16] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null order by `rating` desc limit 10 offset 0 {"bindings":[],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:12:16] local.INFO: select `gerencia`, `id` from `users` where `users`.`deleted_at` is null and `role` = 'user_requests' {"bindings":["user_requests"],"time":0.34,"name":"mysql"} []
+[2016-01-13 01:12:16] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.84,"name":"mysql"} []
+[2016-01-13 01:12:16] local.ERROR: exception 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' with message 'Controller method not found.' in /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:254
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->missingMethod(Array)
+#1 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#2 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('missingMethod', Array)
+#3 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(HomeController), Object(Illuminate\Routing\Route), 'missingMethod')
+#4 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'HomeController', 'missingMethod')
+#5 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Array)
+#6 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#7 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#8 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#9 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#10 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#11 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#16 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/public/index.php(49): Illuminate\Foundation\Application->run()
+#17 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/server.php(19): require_once('/Users/jonguer/...')
+#18 {main} [] []
+[2016-01-13 01:12:18] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.42,"name":"mysql"} []
+[2016-01-13 01:12:18] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.31,"name":"mysql"} []
+[2016-01-13 01:13:03] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '16' limit 1 {"bindings":["16"],"time":0.38,"name":"mysql"} []
+[2016-01-13 01:13:03] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 16 {"bindings":[16],"time":0.31,"name":"mysql"} []
+[2016-01-13 01:13:46] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.49,"name":"mysql"} []
+[2016-01-13 01:13:46] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.37,"name":"mysql"} []
+[2016-01-13 01:13:53] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.49,"name":"mysql"} []
+[2016-01-13 01:13:53] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.36,"name":"mysql"} []
+[2016-01-13 01:13:57] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.42,"name":"mysql"} []
+[2016-01-13 01:13:57] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.34,"name":"mysql"} []
+[2016-01-13 01:14:35] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.46,"name":"mysql"} []
+[2016-01-13 01:14:35] local.INFO: select count(*) as aggregate from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null {"bindings":[],"time":0.38,"name":"mysql"} []
+[2016-01-13 01:14:35] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null order by `rating` desc limit 10 offset 0 {"bindings":[],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:14:35] local.INFO: select `gerencia`, `id` from `users` where `users`.`deleted_at` is null and `role` = 'user_requests' {"bindings":["user_requests"],"time":0.34,"name":"mysql"} []
+[2016-01-13 01:14:35] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.5,"name":"mysql"} []
+[2016-01-13 01:14:35] local.ERROR: exception 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' with message 'Controller method not found.' in /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:254
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->missingMethod(Array)
+#1 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#2 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('missingMethod', Array)
+#3 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(HomeController), Object(Illuminate\Routing\Route), 'missingMethod')
+#4 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'HomeController', 'missingMethod')
+#5 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Array)
+#6 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#7 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#8 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#9 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#10 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#11 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#16 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/public/index.php(49): Illuminate\Foundation\Application->run()
+#17 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/server.php(19): require_once('/Users/jonguer/...')
+#18 {main} [] []
+[2016-01-13 01:14:38] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:14:38] local.INFO: select count(*) as aggregate from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null {"bindings":[],"time":0.32,"name":"mysql"} []
+[2016-01-13 01:14:38] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null order by `rating` desc limit 10 offset 0 {"bindings":[],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:14:38] local.INFO: select `gerencia`, `id` from `users` where `users`.`deleted_at` is null and `role` = 'user_requests' {"bindings":["user_requests"],"time":0.34,"name":"mysql"} []
+[2016-01-13 01:14:38] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.49,"name":"mysql"} []
+[2016-01-13 01:14:38] local.ERROR: exception 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' with message 'Controller method not found.' in /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:254
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->missingMethod(Array)
+#1 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#2 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('missingMethod', Array)
+#3 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(HomeController), Object(Illuminate\Routing\Route), 'missingMethod')
+#4 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'HomeController', 'missingMethod')
+#5 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Array)
+#6 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#7 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#8 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#9 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#10 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#11 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#16 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/public/index.php(49): Illuminate\Foundation\Application->run()
+#17 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/server.php(19): require_once('/Users/jonguer/...')
+#18 {main} [] []
+[2016-01-13 01:14:48] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.43,"name":"mysql"} []
+[2016-01-13 01:14:48] local.INFO: select count(*) as aggregate from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null {"bindings":[],"time":0.31,"name":"mysql"} []
+[2016-01-13 01:14:48] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null order by `rating` desc limit 10 offset 0 {"bindings":[],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:14:48] local.INFO: select `gerencia`, `id` from `users` where `users`.`deleted_at` is null and `role` = 'user_requests' {"bindings":["user_requests"],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:14:48] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.52,"name":"mysql"} []
+[2016-01-13 01:14:48] local.ERROR: exception 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' with message 'Controller method not found.' in /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:254
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->missingMethod(Array)
+#1 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#2 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('missingMethod', Array)
+#3 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(HomeController), Object(Illuminate\Routing\Route), 'missingMethod')
+#4 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'HomeController', 'missingMethod')
+#5 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Array)
+#6 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#7 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#8 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#9 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#10 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#11 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#16 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/public/index.php(49): Illuminate\Foundation\Application->run()
+#17 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/server.php(19): require_once('/Users/jonguer/...')
+#18 {main} [] []
+[2016-01-13 01:14:48] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.52,"name":"mysql"} []
+[2016-01-13 01:14:48] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.44,"name":"mysql"} []
+[2016-01-13 01:15:53] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.69,"name":"mysql"} []
+[2016-01-13 01:15:53] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.48,"name":"mysql"} []
+[2016-01-13 01:16:19] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.47,"name":"mysql"} []
+[2016-01-13 01:16:19] local.INFO: select count(*) as aggregate from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null {"bindings":[],"time":0.33,"name":"mysql"} []
+[2016-01-13 01:16:19] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `manager_id` is not null order by `rating` desc limit 10 offset 0 {"bindings":[],"time":0.4,"name":"mysql"} []
+[2016-01-13 01:16:19] local.INFO: select `gerencia`, `id` from `users` where `users`.`deleted_at` is null and `role` = 'user_requests' {"bindings":["user_requests"],"time":0.49,"name":"mysql"} []
+[2016-01-13 01:16:20] local.INFO: select * from `users` where `users`.`deleted_at` is null and `users`.`id` = 1 limit 1 {"bindings":[1],"time":0.51,"name":"mysql"} []
+[2016-01-13 01:16:20] local.ERROR: exception 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' with message 'Controller method not found.' in /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php:254
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->missingMethod(Array)
+#1 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Controller.php(231): call_user_func_array(Array, Array)
+#2 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(93): Illuminate\Routing\Controller->callAction('missingMethod', Array)
+#3 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(62): Illuminate\Routing\ControllerDispatcher->call(Object(HomeController), Object(Illuminate\Routing\Route), 'missingMethod')
+#4 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(967): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'HomeController', 'missingMethod')
+#5 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Array)
+#6 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Route.php(109): call_user_func_array(Object(Closure), Array)
+#7 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1033): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#8 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Routing/Router.php(1001): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#9 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(775): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#10 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(745): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#11 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Session/Middleware.php(72): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#12 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Queue.php(47): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#13 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Cookie/Guard.php(51): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#14 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/stack/builder/src/Stack/StackedHttpKernel.php(23): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#15 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(641): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#16 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/public/index.php(49): Illuminate\Foundation\Application->run()
+#17 /Users/jonguer/Dropbox/Proyectos/profuturo-compras-web/server.php(19): require_once('/Users/jonguer/...')
+#18 {main} [] []
+[2016-01-13 01:16:20] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.5,"name":"mysql"} []
+[2016-01-13 01:16:20] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.41,"name":"mysql"} []
+[2016-01-13 01:16:23] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.51,"name":"mysql"} []
+[2016-01-13 01:16:23] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.55,"name":"mysql"} []
+[2016-01-13 01:16:26] local.INFO: select * from `general_requests` where `general_requests`.`deleted_at` is null and `general_requests`.`id` = '3' limit 1 {"bindings":["3"],"time":0.46,"name":"mysql"} []
+[2016-01-13 01:16:26] local.INFO: select * from `general_request_products` where `general_request_products`.`general_request_id` = 3 {"bindings":[3],"time":0.39,"name":"mysql"} []
