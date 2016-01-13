@@ -45,7 +45,7 @@ class AdminUsersController extends AdminBaseController
           if(!is_array($input)){
             Log::warning("I did not receive an array");
           }else{
-            if($emp_number = @$input['emp_number']){
+            if($emp_number = @$input['employee_number']){
               $user_requests->where('ccosto', 'LIKE', "%{$emp_number}%");
             }
             if($gerencia = @$input['gerencia']){

@@ -75,7 +75,7 @@
   </div>
 </div>
 <div class="text-center">
-  {{ $users_requests->appends(Input::only(['users_requests']) + ['active_tab' => 'users_requests'])->links()}}
+  {{ $users_requests->appends(Input::only(['users_requests']) + ['active_tab' => 'user_requests'])->links()}}
 </div>
 @else
 <div class="alert alert-info">
