@@ -29,6 +29,9 @@
           Estatus
         </th>
         <th>
+          Fecha de solicitud
+        </th>
+        <th>
           Presupuesto
         </th>
         <th>
@@ -52,7 +55,9 @@
         <td>
           {{$request->getStatusStrAttribute()}}
         </td>
-
+        <td>
+          {{$request->created_at->format('d-m-Y')}}
+        </td>
         <td>
           {{-- money_format("%.2n",$request->unit_price * $request->quantity) --}}
           {{number_format($request->unit_price * $request->quantity,2)}}

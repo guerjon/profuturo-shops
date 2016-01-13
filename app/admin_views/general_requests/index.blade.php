@@ -115,7 +115,7 @@
         </td>
       
         <td>
-          <button data-toggle="modal" data-target="#request-modal" class="btn btn-xs btn-primary detail-btn" 
+          <button data-toggle="modal" data-target="#request-modal" class="btn  btn-primary detail-btn" 
                   data-request-id="{{$request->id}}">Detalles</button>
         </td>
       </tr>
