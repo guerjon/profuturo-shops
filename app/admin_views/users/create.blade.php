@@ -13,195 +13,184 @@
   </ol>
 
 
-<div class="row">
+  <div class="row">
 
-  <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">
 
-    @if($user->getErrors()->count() > 0)
-      <div class="alert alert-danger">
-        @if($user->getErrors()->count() == 1)
-          {{$user->getErrors()->first()}}
-        @else
-          Ocurrieron errores al guardar el nuevo usuario:
-          <ul>
-            @foreach($user->getErrors()->all() as $error)
-            <li>{{$error}}</li>
-            @endforeach
-          </ul>
-        @endif
-      </div>
-    @endif
-    {{Form::model($user, [
-      'action' => $user->exists ? ['AdminUsersController@update', $user->id] : 'AdminUsersController@store',
-      'method' => $user->exists ? 'PUT' : 'POST',
-      'id'     => 'user-create',
-      ])}}
-
-      @if($active_tab == 'admin')
-        <h3>Dar de alta un nuevo Administrador</h3>
-      @elseif($active_tab == 'manager')
-        <h3>Dar de alta un nuevo Consultor</h3>
-      @elseif($active_tab == 'user_requests')
-        <h3>Dar de alta un nuevo Usuario de proyectos</h3>
-      @elseif($active_tab =='user_furnitures')  
-        <h3>Dar de alta a un nuevo Usuario de muebles</h3>
-      @else
-        <h3>Dar de alta a un Usuario de papelería</h3>
-      @endif
-
-    <div class="form-group">
-      {{ Form::hidden('role', $user->exists ? $user->role : @$active_tab) }}
-      
-    </div>
-
-
-      <div class="form-group">
-        {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label'])}}
-        <div>
-          @if($user->exists)
-          <p class="form-control-static">
-            {{$user->ccosto}}
-          </p>
+      @if($user->getErrors()->count() > 0)
+        <div class="alert alert-danger">
+          @if($user->getErrors()->count() == 1)
+            {{$user->getErrors()->first()}}
           @else
-          {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
+            Ocurrieron errores al guardar el nuevo usuario:
+            <ul>
+              @foreach($user->getErrors()->all() as $error)
+              <li>{{$error}}</li>
+              @endforeach
+            </ul>
           @endif
         </div>
-      </div>
-      <div class="form-group">
-       {{Form::label('email','Correo electrónico',['class' => 'control-label'])}}
-      @if($user->exists)
-        <div>
-          {{Form::email('email',$user->email,['class' => 'form-control'])}}
-        </div>
-      @else
-        <div>
-          {{Form::email('email',null,['class' => 'form-control'])}}
-        </div>
-      @endif  
-      </div>
-      
-      @if(($active_tab == 'user_paper')  || ($user->exists ? ($user->role =='user_paper') : false)) 
-        <div class="form-group">
-          {{Form::label('divisional_id','Divisional',['class' => 'control-label'])}}
-          <div>
-            {{Form::select('divisional_id',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
-          </div>
-        </div>     
       @endif
+      {{Form::model($user, [
+        'action' => $user->exists ? ['AdminUsersController@update', $user->id] : 'AdminUsersController@store',
+        'method' => $user->exists ? 'PUT' : 'POST',
+        'id'     => 'user-create',
+        ])}}
 
-      @if(!($active_tab == 'user_requests')) 
+        @if($active_tab == 'admin')
+          <h3>Dar de alta un nuevo Administrador</h3>
+        @elseif($active_tab == 'manager')
+          <h3>Dar de alta un nuevo Consultor</h3>
+        @elseif($active_tab == 'user_requests')
+          <h3>Dar de alta un nuevo Usuario de proyectos</h3>
+        @elseif($active_tab =='user_furnitures')  
+          <h3>Dar de alta a un nuevo Usuario de muebles</h3>
+        @else
+          <h3>Dar de alta a un Usuario de papelería</h3>
+        @endif
+
+        {{ Form::hidden('role', $user->exists ? $user->role : @$active_tab) }}
+
         <div class="form-group">
-          {{Form::label('region_id','Región',['class' => 'control-label'])}}
+          {{Form::label('ccosto', 'Centro de costos', ['class' => 'control-label'])}}
           <div>
-            {{Form::select('region_id',$regions,$user->exists ? $user->region_id : null,['class' => 'form-control'])}}
+            @if($user->exists)
+              <p class="form-control-static">
+                {{$user->ccosto}}
+              </p>
+            @else
+              {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}
+            @endif
           </div>
-        </div>   
-      @endif
-      
-
-      <div class="form-group">
-        {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label'])}}
-        <div>
-          {{Form::text('gerencia', NULL, ['class' => 'form-control'])}}
         </div>
-      </div>
 
-      <div class="form-group">
-        {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label'])}}
-        <div>
-          {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],$user->exists ? $user->linea_negocio : null,['class' => 'form-control'])}}
+        <div class="form-group">
+          {{Form::label('email','Correo electrónico',['class' => 'control-label'])}}
+          @if($user->exists)
+            <div>
+              {{Form::email('email',$user->email,['class' => 'form-control'])}}
+            </div>
+          @else
+            <div>
+              {{Form::email('email',null,['class' => 'form-control'])}}
+            </div>
+          @endif  
         </div>
-      </div>
+        
+        @if(($active_tab == 'user_paper')  || ($user->exists ? ($user->role =='user_paper') : false)) 
+          <div class="form-group">
+            {{Form::label('divisional_id','Divisional',['class' => 'control-label'])}}
+            <div>
+              {{Form::select('divisional_id',[1 => '1',2 => '2',3 => '3',4 => '4'],null,['class' => 'form-control'])}}
+            </div>
+          </div>     
+        @endif
 
-      @unless($user->exists)
-      <div class="form-group">
-        {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
-        <div>
-          {{Form::password('password', ['class' => 'form-control'])}}
-        </div>
-      </div>
+        @if(!($active_tab == 'user_requests')) 
+          <div class="form-group">
+            {{Form::label('region_id','Región',['class' => 'control-label'])}}
+            <div>
+              {{Form::select('region_id',$regions,$user->exists ? $user->region_id : null,['class' => 'form-control'])}}
+            </div>
+          </div>   
+        @endif
+        
 
-      <div class="form-group">
-        {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label'])}}
-        <div>
-          {{Form::password('password_confirmation', ['class' => 'form-control'])}}
+        <div class="form-group">
+          {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label'])}}
+          <div>
+            {{Form::text('gerencia', NULL, ['class' => 'form-control'])}}
+          </div>
         </div>
-      </div>
+
+        <div class="form-group">
+          {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label'])}}
+          <div>
+            {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],$user->exists ? $user->linea_negocio : null,['class' => 'form-control'])}}
+          </div>
+        </div>
+
+        @unless($user->exists)
+        <div class="form-group">
+          {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
+          <div>
+            {{Form::password('password', ['class' => 'form-control'])}}
+          </div>
+        </div>
+
+        <div class="form-group">
+          {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label'])}}
+          <div>
+            {{Form::password('password_confirmation', ['class' => 'form-control'])}}
+          </div>
+        </div>
+        @endunless
+
+
+   
+    @if(($active_tab == 'manager') or ($active_tab == 'user_requests'))
+  	  @unless($active_tab == 'user_requests')
+
+        <div id="campos-extra">
+            <div class="form-group">
+              {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label '])}}    
+              {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
+            </div>
+        </div>
+
       @endunless
 
-
- 
-  @if(($active_tab == 'manager') or ($active_tab == 'user_requests'))
-	  @unless($active_tab == 'user_requests')
-      <div id="campos-extra">
-          <div class="form-group">
-            {{Form::label('nombre', 'Nombre de Usuario de Solicitudes', ['class' => 'control-label '])}}
-       
-            {{Form::text('nombre', NULL, ['class' => 'form-control'])}}
-         
-          </div>
-          @endunless
-          <div class="form-group">
-              {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
-           
-              {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
-           
-          </div>
-        
-          <div class="form-group">
-            {{Form::label('extension', 'Extensión', ['class' => 'control-label '])}}
-           
-              {{Form::text('extension', NULL, ['class' => 'form-control'])}}
+        <div id="campos-extra">
+            <div class="form-group">
+                {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
+                {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
+            </div>
           
-          </div>
-        
-          <div class="form-group">
-            {{Form::label('celular', 'Celular', ['class' => 'control-label'])}}
-            
+            <div class="form-group">
+              {{Form::label('extension', 'Extensión', ['class' => 'control-label '])}} 
+              {{Form::text('extension', NULL, ['class' => 'form-control'])}}
+            </div>
+          
+            <div class="form-group">
+              {{Form::label('celular', 'Celular', ['class' => 'control-label'])}}
               {{Form::text('celular', NULL, ['class' => 'form-control'])}}
-        
-          </div>
-      </div>
+            </div>
+        </div>
 
-
-    @unless($active_tab == 'user_requests')
-    <center>
-      <div  id = "colores"  class="form-group">
-        <label class="radio-inline">
-          Color del consultor
-        </label>
-        @if(isset($colors))
-          @foreach($colors as $color)
-            <label style="background-color: {{$color->color}}; width:30%" class="radio">
-            {{Form::radio('color_id', $color->id)}}  {{$color->color}}
-            </label>
-          @endforeach  
-        @endif       
-      </div>
-    </center>
-    @endunless
-  @endif
-  @if($active_tab == "user_furnitures")
-      <div class="form-group">
-          {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
-          {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
-      </div>
-  @endif
-  
-
-
-      <div class="form-group">
+      @unless($active_tab == 'user_requests')
       <center>
-        <div>
-          {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
-        </div>  
+        <div  id = "colores"  class="form-group">
+          <label class="radio-inline">
+            Color del consultor
+          </label>
+          @if(isset($colors))
+            @foreach($colors as $color)
+              <label style="background-color: {{$color->color}}; width:30%" class="radio">
+              {{Form::radio('color_id', $color->id)}}  {{$color->color}}
+              </label>
+            @endforeach  
+          @endif       
+        </div>
+      </center>
+      @endunless
+    @endif
+
+    @if($active_tab == "user_furnitures")
+        <div class="form-group">
+            {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
+            {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
+        </div>
+    @endif
+    
+      
+      <center>         
+        {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-primary'])}}
       </center> 
       
-      </div>
 
-    {{Form::close()}}
+      {{Form::close()}}
+    </div>
   </div>
-</div>
 @stop
 
 @section('script')
