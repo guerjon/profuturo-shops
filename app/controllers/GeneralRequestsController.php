@@ -50,7 +50,7 @@ class GeneralRequestsController extends BaseController{
     
     $user = Auth::user();
     
-    $email = 'i.gutierrez@soriano-ariza.com';
+    /*    $email = 'i.gutierrez@soriano-ariza.com';
     //
 
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
@@ -59,15 +59,21 @@ class GeneralRequestsController extends BaseController{
     $email = "jona_54_.com@ciencias.unam.mx";
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
       $message->to($email)->subject("Solicitud general hecha.");
-    });
+    });*/
     
     $email = "karina.ascencionhernandez@profuturo.com.mx";
+    
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
       $message->to($email)->subject("Solicitud general hecha.");
     });
-    Log::info("mando el correo");
 
+    $email = Auth::user()->email;
+
+    Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
+      $message->to($email)->subject("Tu solicitud general fue enviada.");
+    });
     
+    Log::info("mando el correo");
     return Redirect::to(action('GeneralRequestsController@index'))->withSuccess("Se ha guardado su solicitud con id {$request->id}");
   }
 
@@ -85,15 +91,48 @@ class GeneralRequestsController extends BaseController{
     $estado = $request->status_str;
     $base = app_path();
 
+
+
     if($status == 9){
+    
+
       Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
-
       });
+    
+      $email = "karina.ascencionhernandez@profuturo.com.mx";
+    
+      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+        $message->to($email,$name)->subject("La solicitud ".$request." ha sido completada satisfactoriamente. ");
+      });
+
+
+      $email = $request->manager->email;
+
+      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+        $message->to($email,$name)->subject("La solicitud ".$request." ha sido completada satisfactoriamente. ");
+      });
+
     }else{
+
       Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
       });
+
+
+      $email = "karina.ascencionhernandez@profuturo.com.mx";
+    
+      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+        $message->to($email,$name)->subject("La solicitud ".$request." cambio de estatus. ");
+      });
+
+
+      $email = $request->manager->email;
+
+      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+        $message->to($email,$name)->subject("La solicitud ".$request." cambio de estatus. ");
+      });
+
     }
     
 
