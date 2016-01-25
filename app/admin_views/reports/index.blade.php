@@ -3,7 +3,7 @@
 @section('content')
 
   <ol class="breadcrumb">
-    <a href="#" class="back-btn">
+    <a href="{{URL::previous()}}" class="back-btn">
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
@@ -80,6 +80,14 @@
     <a href="{{action('AdminReportsController@getGeneralRequestReport')}}"class="thumbnail">
       <img src="/img/img.png" style="width: 100%; height: auto;">
         <h3 style="text-align:center">Sol. generales</h3>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
+    <a href="{{action('AdminReportsController@getAllProductsReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Pedidos por estado</h3>
     </a>
   </div>
 </div>

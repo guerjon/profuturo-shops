@@ -67,6 +67,8 @@ class GeneralRequest extends Eloquent
       case 9: return  'Fue un placer atenderte, me apoyarías con la siguiente encuesta de satisfacción.';
       break;
       case 10: return 'La encuesta ha sido contestada';
+      break;
+      case 11: return 'Encuesta cancelada;';
       default: return 'Desconocido';
     }
   }

@@ -108,6 +108,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/laroute.js"></script>
     <script src="/js/bootstrap/bootstrap.min.js"></script>
     <script src="/js/raty/lib/jquery.raty.js"></script>
     <script src="http://jqueryvalidation.org/files/dist/jquery.validate.min.js"></script>
@@ -119,6 +120,7 @@
     <script type="text/javascript"
      src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
     <script charset="utf-8">
+
     $(function(){
       $.slidebars();
     });

@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <a href="#" class="back-btn">
+  <a href="{{URL::previous()}}" class="back-btn">
     <span class="glyphicon glyphicon-arrow-left"></span> Regresar
   </a>
     &nbsp;&nbsp;&nbsp;
