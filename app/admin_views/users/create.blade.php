@@ -45,6 +45,8 @@
           <h3>Dar de alta un nuevo Usuario de proyectos</h3>
         @elseif($active_tab =='user_furnitures')  
           <h3>Dar de alta a un nuevo Usuario de muebles</h3>
+        @elseif($active_tab =='user_loader')
+          <h3>Dar de alta a un nuevo Usuario para cargas</h3>  
         @else
           <h3>Dar de alta a un Usuario de papelería</h3>
         @endif

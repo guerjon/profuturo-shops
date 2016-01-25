@@ -60,7 +60,12 @@
         <a href="?active_tab=user_furnitures&page=1" aria-controls="user_furnitures" class="tabs">
           Inmuebles
         </a>
-      </li>  
+      </li>
+      <li role="presentation" class="{{$active_tab == 'user_loader' ? 'active' : ''}}">
+        <a href="?active_tab=user_loader&page=1" aria-controls="user_loader" class="tabs">
+          Cargador sucursal
+        </a>
+      </li>   
     </ul>
   </div>
 
@@ -79,6 +84,9 @@
     </div>    
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_furnitures' ? 'active' : ''}}" id="user_furnitures">
       @include('admin::users.partials.users_furnitures')
+    </div> 
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'user_loader' ? 'active' : ''}}" id="user_loader">
+      @include('admin::users.partials.users_loader')
     </div> 
   </div>
 
