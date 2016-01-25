@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-    <a href="#" class="back-btn">
+    <a href="{{URL::previous()}}" class="back-btn">
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
@@ -80,6 +80,9 @@
         <th>
 
         </th>
+        <th>
+          
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -118,6 +121,12 @@
           <button data-toggle="modal" data-target="#request-modal" class="btn  btn-primary detail-btn" 
                   data-request-id="{{$request->id}}">Detalles</button>
         </td>
+        <td>
+          {{Form::open(['action' => ['AdminGeneralRequestsController@destroy',$request->id],'method' => 'DELETE'])}}
+            <button  type="submit" class="btn  btn-primary btn-danger btn-cancel">Cancelar</button>
+          {{Form::close()}}
+        </td>
+
       </tr>
 
       @endforeach
@@ -198,6 +207,13 @@ $(function(){
   $('#submit-btn').click(function(){
     $('#update-form').submit(); 
   });
+
+  // $('.btn-cancel').click(function(){
+
+  //   var action = laroute('AdminGeneralRequestsController@destroy',{general_requests: $(this).attr('data-request-id')});
+  //   console.log(action);
+  // });
+
 
 });
 

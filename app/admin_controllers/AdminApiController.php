@@ -62,7 +62,8 @@ class AdminApiController extends AdminBaseController
       'KA003035' as INTROD,
       categories.name as CATEGORY,
       products.id_people as ID_PEOPLE,
-      (products.price * order_product.quantity) as PRICE
+      (products.price * order_product.quantity) as PRICE,
+      orders.id as ORDER_ID
       "))
       ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
@@ -664,14 +665,18 @@ class AdminApiController extends AdminBaseController
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
-        if(Request::ajax()){
-          $items = $query->get();
-          return Response::json([
-            'status' => 200,
-            'orders' => $items,
-            'headers' => $headers
-            ]);
-        }else{
+    if(Request::ajax()){
+
+      $items = $query->get();
+      Log::debug('?????????????????');
+      Log::debug($items,$headers);
+      Log::debug('-----------------');
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
       $data = str_putcsv($headers)."\n";
@@ -686,8 +691,8 @@ class AdminApiController extends AdminBaseController
         $result[] = $itemArray;
       }
       if($result){
-       $mes = Input::get('month');
-       $año = Input::get('year');
+        $mes = Input::get('month');
+        $año = Input::get('year');
         Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
          $excel->sheet('hoja 1',function($sheet)use($result){
            $sheet->fromArray($result);
@@ -929,6 +934,10 @@ class AdminApiController extends AdminBaseController
       $report->where('users.region_id',Input::get('region_id'));
     }
 
+    if(Input::has('status')){
+      $report->where('orders.status',Input::get('status'));
+    }
+
     $orders_by_category = $this->ordersByCategory($report);
     $orders_by_region = $this->ordersByRegion($report);
     $expenses_by_region = $this->expensesByRegion($report);
@@ -1165,6 +1174,85 @@ class AdminApiController extends AdminBaseController
 
   public function getIndexFurnitures($active_tab,$active_subtab)
   {  
+  }
+
+
+  public function getAllProducts()
+  {
+    $report = DB::table('users')->join('orders','orders.user_id','=','users.id')
+                                ->join('bc_orders','bc_orders.user_id','=','users.id')
+                                ->join('furniture_orders','furniture_orders.user_id','=','users.id')
+                                ->join('order_product','order_product.order_id','=','orders.id')
+                                ->join('products','order_product.product_id','=','products.id')
+                                ->join('categories','products.category_id','=','categories.id')
+                                ->join('regions','regions.id','=','users.region_id');
+
+
+
+    if(Input::has('category_id')){
+      $report->where('categories.id',Input::get('category_id'));
+    }
+
+
+    if(Input::has('since')){
+      $report->where('orders.created_at','>=',Input::get('since'));
+    }
+
+    if(Input::has('until')){
+      $report->where('orders.created_at','<=',Input::get('until'));
+    }
+
+
+    if(Input::has('status')){
+      $report->where('orders.status',Input::get('status'));
+    }
+
+
+    $report->select(DB::raw("orders.id as ORDEN,
+                            products.name as PRODUCTO,
+                            order_product.quantity as CANTIDAD,
+                            order_product.quantity * products.price as TOTAL,
+                            categories.name as CATEGORIA, 
+                            users.ccosto as CCOSTO,
+                            users.gerencia as GERENCIA,
+                            users.linea_negocio as LINEA_NEGOCIO,
+                            orders.created_at as FECHA,
+                            users.email as CORREO,
+                            orders.comments as COMENTARIOS,
+                            categories.id as CATEGORIA_ID,
+                            regions.id as REGION_ID"));
+
+    $q = clone $report;
+    $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
+
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'headers' => $headers,
+        'report' => $report->get()]);
+    }else{
+
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+      foreach($report->get() as $item){
+          $itemArray = [];
+        
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+        
+          $result[] = $itemArray;
+      }
+      if($result){
+        Excel::create('Reporte_Todos los productos', function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+         });
+        })->download('xls');   
+      }
+    }      
   }
 
 }

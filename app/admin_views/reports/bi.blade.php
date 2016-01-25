@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <a href="#" class="back-btn">
+  <a href="{{URL::previous()}}" class="back-btn">
     <span class="glyphicon glyphicon-arrow-left"></span> Regresar
   </a>
     &nbsp;&nbsp;&nbsp;
@@ -60,7 +60,12 @@
       {{Form::select('region_id',[null => 'Seleccione una región'] + Region::lists('name','id'),null,['class' => 'form-control','id' => 'product_id'])}}
     </div>
 
-    <div class="col-xs-2  text-right">
+    <div class="col-xs-2">
+      {{Form::label('status','STATUS')}}
+      {{Form::select('status',[null => 'Seleccione un estado de orden'] + ['0' => 'PENDIENTE','1' => 'RECIBIDO','2' => 'RECIBIDO INCOMPLETO'],null,['class' => 'form-control','id' => 'product_id'])}}
+      <br>
+  
+    
       <button class="btn btn-primary btn-submit">
         <span class="glyphicon glyphicon-download-alt"></span> Excel
       </button>

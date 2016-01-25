@@ -49,9 +49,21 @@ class AdminReportsController extends AdminBaseController{
 
   public function getGeneralRequestReport()
   {
+    
     return View::make('admin::reports.general_request');
   }
 
+  /**
+  *Este metodo nos lleva a la vista donde estaran todas las ordenes de productos, muebles y tarjetas y tendra filtro para empleado
+  *@return regresa la vista donde encontraremos el reporte.
+  */
+  public function getAllProductsReport()
+  {
+    $categories = Category::all()->lists('name','id');
+    $products = Product::all()->lists('name','id');
+
+    return View::make('admin::reports.all_products')->withCategories($categories)->withProducts($products);;
+  }
   public function getFurnituresOrdersReport()
   {
     $categories = Category::lists('name','id');

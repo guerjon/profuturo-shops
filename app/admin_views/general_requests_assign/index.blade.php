@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-    <a href="#" class="back-btn">
+    <a href="{{URL::previous()}}" class="back-btn">
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
@@ -40,7 +40,12 @@
         <th class="text-center">
           Asignar asesor
         </th>
-  
+        <th>
+          
+        </th>
+        <th>
+          
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -69,18 +74,27 @@
               <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red"></span>
           @endif
         </td>
-        <td class="text-center">
+        
           @if($request->manager != null)
-          <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Reasignar</button>
-          <p class="text-muted"><small>Asignado a: {{$request->manager->gerencia}}</small></p>
+          <td class="text-center">
+            <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Reasignar</button>
+            <p class="text-muted"><small>Asignado a: {{$request->manager->gerencia}}</small></p>
+          </td>
           @else
-          <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Asignar</button>
+          <td>
+            <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Asignar</button>
+          </td>
           @endif
+        <td>
           <button data-toggle="modal" data-target="#show-modal" class="btn  btn-primary detail-btn" data-request-id="{{$request->id}}">
             Detalles
           </button>
         </td>
-
+        <td>
+          {{Form::open(['action' => ['AdminGeneralRequestsAssignController@deleteDestroy',$request->id],'method' => 'DELETE'])}}
+            <button  type="submit" class="btn  btn-primary btn-danger btn-cancel">Cancelar</button>
+          {{Form::close()}}
+        </td>
       </tr>
       @endforeach
     </tbody>

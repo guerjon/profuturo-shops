@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "76490ae1cb4bc757e8d62ff2d8da4cf2",
-    "content-hash": "c8481d23327fa934e258626e2c8508a2",
+    "hash": "c976a3902497caead889d7923bda1ff1",
+    "content-hash": "4117687175510811498390a696116715",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -104,20 +104,20 @@
         },
         {
             "name": "codesleeve/laravel-stapler",
-            "version": "v1.0.05",
+            "version": "v1.0.06",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeSleeve/laravel-stapler.git",
-                "reference": "79d644b495754c955f652fee8a6ca799f923bec6"
+                "reference": "1433117da9a5d691ab0a081d69571713ef6cad98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeSleeve/laravel-stapler/zipball/79d644b495754c955f652fee8a6ca799f923bec6",
-                "reference": "79d644b495754c955f652fee8a6ca799f923bec6",
+                "url": "https://api.github.com/repos/CodeSleeve/laravel-stapler/zipball/1433117da9a5d691ab0a081d69571713ef6cad98",
+                "reference": "1433117da9a5d691ab0a081d69571713ef6cad98",
                 "shasum": ""
             },
             "require": {
-                "codesleeve/stapler": "1.0.*",
+                "codesleeve/stapler": "1.1.*",
                 "laravel/framework": "4.*|5.*",
                 "php": ">=5.4.0"
             },
@@ -150,27 +150,27 @@
                 "stapler",
                 "upload"
             ],
-            "time": "2015-09-21 00:06:39"
+            "time": "2016-01-19 06:09:13"
         },
         {
             "name": "codesleeve/stapler",
-            "version": "v1.0.06",
+            "version": "v1.1.01",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeSleeve/stapler.git",
-                "reference": "76d6fa48d263b70437ba92b7c2c053b79dbb5cc6"
+                "reference": "17a0093ddeb6209857d15cb2a2a95b867197fef1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeSleeve/stapler/zipball/76d6fa48d263b70437ba92b7c2c053b79dbb5cc6",
-                "reference": "76d6fa48d263b70437ba92b7c2c053b79dbb5cc6",
+                "url": "https://api.github.com/repos/CodeSleeve/stapler/zipball/17a0093ddeb6209857d15cb2a2a95b867197fef1",
+                "reference": "17a0093ddeb6209857d15cb2a2a95b867197fef1",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "~1",
                 "imagine/imagine": "~0.6.2",
                 "php": ">=5.4",
-                "symfony/http-foundation": "~2.3"
+                "symfony/http-foundation": "~2.3|~3.0"
             },
             "require-dev": {
                 "aws/aws-sdk-php": "2.4.*@dev",
@@ -203,7 +203,7 @@
                 "s3",
                 "upload"
             ],
-            "time": "2015-09-19 01:27:59"
+            "time": "2016-01-19 05:48:05"
         },
         {
             "name": "d11wtq/boris",
@@ -784,6 +784,53 @@
                 "laravel"
             ],
             "time": "2016-01-02 20:27:55"
+        },
+        {
+            "name": "lord/laroute",
+            "version": "v1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aaronlord/laroute.git",
+                "reference": "75b028fa1b2553888ce6af41bc689999951689a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aaronlord/laroute/zipball/75b028fa1b2553888ce6af41bc689999951689a4",
+                "reference": "75b028fa1b2553888ce6af41bc689999951689a4",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "dev-master",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Lord\\Laroute": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Lord",
+                    "email": "hello@aaronlord.is"
+                }
+            ],
+            "description": "Access Laravels URL/Route helper functions, from JavaScript.",
+            "keywords": [
+                "javascript",
+                "laravel",
+                "routes",
+                "routing"
+            ],
+            "time": "2014-07-23 15:13:32"
         },
         {
             "name": "maatwebsite/excel",
@@ -1733,16 +1780,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.1",
+            "version": "v2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc"
+                "reference": "ee278f7c851533e58ca307f66305ccb9188aceda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/a5eb815363c0388e83247e7e9853e5dbc14999cc",
-                "reference": "a5eb815363c0388e83247e7e9853e5dbc14999cc",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/ee278f7c851533e58ca307f66305ccb9188aceda",
+                "reference": "ee278f7c851533e58ca307f66305ccb9188aceda",
                 "shasum": ""
             },
             "require": {
@@ -1789,20 +1836,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-10-30 20:15:42"
+            "time": "2016-01-13 10:28:07"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.8.1",
+            "version": "v2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "a7ad724530a764d70c168d321ac226ba3d2f10fc"
+                "reference": "637b64d0ee10f44ae98dbad651b1ecdf35a11e8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a7ad724530a764d70c168d321ac226ba3d2f10fc",
-                "reference": "a7ad724530a764d70c168d321ac226ba3d2f10fc",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/637b64d0ee10f44ae98dbad651b1ecdf35a11e8c",
+                "reference": "637b64d0ee10f44ae98dbad651b1ecdf35a11e8c",
                 "shasum": ""
             },
             "require": {
@@ -1838,7 +1885,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-22 10:25:57"
+            "time": "2016-01-13 10:28:07"
         },
         {
             "name": "symfony/finder",
@@ -2067,12 +2114,12 @@
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Routing.git",
+                "url": "https://github.com/symfony/routing.git",
                 "reference": "46142c34ea830f47429df6e15faec3a33292d618"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/46142c34ea830f47429df6e15faec3a33292d618",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/46142c34ea830f47429df6e15faec3a33292d618",
                 "reference": "46142c34ea830f47429df6e15faec3a33292d618",
                 "shasum": ""
             },

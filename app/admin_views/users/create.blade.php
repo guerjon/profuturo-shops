@@ -3,7 +3,7 @@
 @section('content')
 
   <ol class="breadcrumb">
-    <a href="#" class="back-btn">
+    <a href="{{URL::previous()}}" class="back-btn">
       <span class="glyphicon glyphicon-arrow-left"></span> Regresar
     </a>
       &nbsp;&nbsp;&nbsp;
@@ -176,10 +176,22 @@
     @endif
 
     @if($active_tab == "user_furnitures")
-        <div class="form-group">
-            {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
-            {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
-        </div>
+      
+      <div class="form-group">
+        {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
+        {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
+      </div>
+      
+      <div class="form-group">
+        {{Form::label('extension', 'Extensión', ['class' => 'control-label '])}} 
+        {{Form::text('extension', NULL, ['class' => 'form-control'])}}
+      </div>
+
+      <div class="form-group">
+        {{Form::label('celular', 'Celular', ['class' => 'control-label'])}}
+        {{Form::text('celular', NULL, ['class' => 'form-control'])}}
+      </div>
+
     @endif
     
       
