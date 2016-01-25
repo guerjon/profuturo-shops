@@ -85,12 +85,30 @@ class AdminUsersController extends AdminBaseController
           }
         }
 
+        $users_loader = User::where('role', 'user_loader');
+        if(Input::has('user_loader'))
+        {
+          $input = Input::get('user_loader', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+                $users_loader->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+            if($gerencia = @$input['gerencia']){
+                $users_loader->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+          }
+        }
+
+
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
       ->withManagers($managers->paginate(10))
       ->withUsersRequests($user_requests->paginate(10))
       ->withUsersPaper($users_paper->paginate(10))
       ->withUsersFurnitures($users_furnitures->paginate(10))
+      ->withUsersLoader($users_loader->paginate(10))
       ->withActiveTab($active_tab);
   }
 
@@ -114,7 +132,6 @@ class AdminUsersController extends AdminBaseController
     $user = new User(Input::except('password_confirmation'));
     $active_tab = Input::get('active_tab');
     $user->region_id = Input::get('region_id');
-    Log::info(Input::all());
 
     switch ($active_tab) {
       case 'admin':     
@@ -131,25 +148,30 @@ class AdminUsersController extends AdminBaseController
       case 'users_paper':     
         $user->role = 'user_paper';
         break;
+
       case 'user_furnitures':     
         $user->role = 'user_furnitures';
         break;
 
+      case 'user_loader':     
+        $user->role = 'user_loader';
+        break;
+
         default:
-        # code...
+        
         break;
     }
 
     if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
     }
-
+    Log::debug('Aqui=============================');
     Log::info(Input::all());
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
       
     }else{
-      return Redirect::to(action('AdminUsersController@index'))->withErrors('Se presento un problema al guardar al usuario');
+      return Redirect::to(action('AdminUsersController@index'))->withErrors($user->getErrors());
     }
   }
 
