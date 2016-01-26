@@ -68,6 +68,9 @@ Route::group(['before' => 'auth'], function(){
 
 	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');
+	
+	Route::resource('cargas','LoadsController');
+
 	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');
 	Route::get('productos/{category}', 'ProductsController@index');
@@ -85,5 +88,8 @@ Route::group(['before' => 'auth'], function(){
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');
 	Route::controller('encuesta-satisfacción','SatisfactionSurveyController');
 	Route::controller('/', 'HomeController');
+
+
+
 
 });

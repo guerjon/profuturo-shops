@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures',
+		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
 	protected $appends = ['acceso'];
@@ -227,6 +227,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('GeneralRequestsController@index') => 'Solicitudes generales',
 				];
+			case 'user_loader':
+				return [
+					 action('LoadsController@index') => 'Cargas',
+				];	
 			case 'user_furnitures':
 				return [
 					action('FurnituresController@index') => 'Mobiliario',
