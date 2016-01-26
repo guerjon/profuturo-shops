@@ -40,9 +40,7 @@
           <th>C. Costos</th>
           <th>Gerencia</th>
           <th>Región</th>
-          <th>Divisional</th>
           <th>Línea de negocio</th>
-          <th>Extensión</th>
           <th></th>
       
         </tr>
@@ -54,9 +52,7 @@
              <td>{{$user_loader->ccosto}}</td>
              <td>{{$user_loader->gerencia}}</td>
              <td>{{$user_loader->region ? $user_loader->region->name : 'N/A'}}</td>
-             <td>{{$user_loader->divisional ? $user_loader->divisional->id : 'N/A' }}</td>
              <td>{{$user_loader->linea_negocio}}</td>  
-             <td>{{$user_loader->extension}}</td>
             <td>
               @include('admin::users.partials.actions', ['user' => $user_loader])
             </td>
