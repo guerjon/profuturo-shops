@@ -129,6 +129,8 @@ class AdminUsersController extends AdminBaseController
 
   public function store()
   {
+    
+
     $user = new User(Input::except('password_confirmation'));
     $active_tab = Input::get('active_tab');
     $user->region_id = Input::get('region_id');
