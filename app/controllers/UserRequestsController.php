@@ -10,7 +10,7 @@ class UserRequestsController extends BaseController
     $active_category = ['ASIGNADO','NO ASIGNADO'];
 
 
-    return View::make('general_requests.index')->withRequests(Auth::user()->assigned_requests)
+    return View::make('general_requests.index')->withRequests(Auth::user()->assignedRequests()->orderBy('created_at')->get())
     												  ->withAssigneds($assigneds)
     												  ->withActiveCategory($active_category)
     												  ->withActiveTab($active_tab);

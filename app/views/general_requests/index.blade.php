@@ -34,6 +34,9 @@
           Presupuesto
         </th>
         <th>
+          Fecha de solicitud
+        </th>
+        <th>
           
         </th>
       </tr>
@@ -52,6 +55,9 @@
         </td>
         <td>
           {{ $request->unit_price * $request->quantity}}
+        </td>
+        <td>
+          {{ $request->created_at}}
         </td>
         @if($request->status == 9)
             <td>
