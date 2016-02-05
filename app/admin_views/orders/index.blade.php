@@ -35,6 +35,10 @@
     </div>
 
     <div class="form-group">
+      {{Form::select('divisional_id', [NULL => 'Todas las divisionales'] + Divisional::orderBy('id')->lists('name','id'), Input::get('gerencia'), ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
       <button type="submit" class="btn btn-primary">
         <span class="glyphicon glyphicon-filter"></span> Filtrar
       </button>
