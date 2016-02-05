@@ -54,7 +54,7 @@
           Centro de costos
         </th>
         <th>
-          No. pedido
+          No. pedidos
         </th>
 
         <th>
