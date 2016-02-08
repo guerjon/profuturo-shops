@@ -43,7 +43,7 @@ class AdminBcOrdersController extends AdminBaseController{
     }
 
     $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
-    $orders = BcOrder::join('users','bc_orders.user_id','=','users.id')->orderBy('bc_orders.created_at', 'desc');
+    $orders = BcOrder::orderBy('bc_orders.created_at', 'desc');
     if(Input::has('ccosto'))
       $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
     if(Input::has('gerencia'))
@@ -54,8 +54,7 @@ class AdminBcOrdersController extends AdminBaseController{
 
   public function show($bc_order_id)
   {
-    $bc_order = BcOrder::find($bc_order_id);
-
+    $bc_order = BcOrder::find($bc_order_id);    
   	$blank_card = DB::table('blank_cards_bc_order')->where('bc_order_id', $bc_order_id)->first();
     $extra = $bc_order->extra; 
     return View::make('admin::bc_orders.show')->withBcOrder($bc_order)->withBlankCard($blank_card)->withExtra($extra);
