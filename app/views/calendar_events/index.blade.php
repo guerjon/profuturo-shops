@@ -121,6 +121,7 @@ $(function(){
         for(var i = 0; i < product_info.length; i++){
           
           var name = "<tr><td>"+product_info[i].name+"</td>" + "<td>"+product_info[i].quantity+"</td>" + "<td>"+product_info[i].unit_price+"</td></tr>";
+          $('#table_products').empty();
           $("#table_products").append(name);        
          }
       }
