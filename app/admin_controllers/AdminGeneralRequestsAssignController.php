@@ -3,7 +3,7 @@
 class AdminGeneralRequestsAssignController extends AdminBaseController{
 
   public function getIndex(){
-    return View::make('admin::general_requests_assign.index')->withRequests(GeneralRequest::where('status','!=','11')->orderBy('created_at','desc')->orderBy(DB::raw('manager_id IS NULL'),'desc')->get())->withManagers(User::where('role', 'manager')
+    return View::make('admin::general_requests_assign.index')->withRequests(GeneralRequest::withTrashed()->where('status','!=','11')->orderBy('created_at','desc')->orderBy(DB::raw('manager_id IS NULL'),'desc')->get())->withManagers(User::where('role', 'manager')
       ->orderBy('gerencia'));
   }
 
@@ -50,8 +50,8 @@ class AdminGeneralRequestsAssignController extends AdminBaseController{
 
     $general_request = GeneralRequest::find($id);
     if($general_request){
-      $general_request->status = 11;
-      if($general_request->save()){
+      
+      if($general_request->delete()){
         return Redirect::action('AdminGeneralRequestsAssignController@getIndex')->withSuccess('Se cancelo la orden exitosamente.');
       }else{
         return Redirect::back()->withErrors('No se pudo cancelar  la orden');

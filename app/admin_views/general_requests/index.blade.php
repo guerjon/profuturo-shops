@@ -122,8 +122,6 @@
                   data-request-id="{{$request->id}}">Detalles</button>
         </td>
         <td>
-            
-
           @if(!$request->trashed())
                 {{Form::open(['action' => ['AdminGeneralRequestsController@destroy',$request->id],'method' => 'DELETE'])}}
                   <button  type="submit" class="btn  btn-primary btn-danger btn-cancel">
@@ -135,9 +133,7 @@
               <span class="glyphicon glyphicon-ok"></span> Habilitar
             </button>
           @endif
-
         </td>
-
       </tr>
 
       @endforeach
