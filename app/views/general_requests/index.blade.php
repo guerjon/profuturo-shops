@@ -66,9 +66,9 @@
                 Contestar encuesta</button> 
             </td>
         @else
-            <td>
-              
-            </td>
+      <td>
+        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>
+      </td>
         @endif
       </tr>
       @endforeach
@@ -281,10 +281,6 @@
                       {{Form::text('unit_price[]', NULL, ['class' => 'form-control'])}}
                   </div>
 
-{{--                   <div class="col-xs-4">
-                      {{Form::label('budget', 'Presupuesto')}}
-                      {{Form::text('budget[]', NULL,['class' => 'form-control','disabled' => 'disabled'])}}
-                  </div> --}}
               </div> 
               <hr>
           </div>
@@ -292,6 +288,7 @@
       </div>  
   </div>
  @include('general_requests.partials.satisfaction_survey'); 
+ @include('general_requests.partials.show')
 @stop
 
 @section('script')
@@ -316,6 +313,53 @@
     }
 
   $(function(){
+
+      $('.detail-btn').click(function(){
+    $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
+      if(data.status == 200){
+        var info = data.request;
+        for(key in info){
+          $('#request-' + key).text(info[key]);         
+        }
+        $('input[name="request_id"]').val(info.id); 
+
+        var estatus = ['Acabo de recibir tu solicitud, en breve me comunicare contigo',
+                     'En estos momentos estoy localizando los proveedores que pueden contar con el artículo que necesitas',
+                     'Me encuentro en espera de las cotizaciones por parte de los proveedores seleccionados',
+                     'Ya recibí las propuestas correspondientes, estoy en proceso de análisis de costo beneficio',
+                     'Te comparto el cuadro comparativo con las mejores ofertas de acuerdo a tu necesidad',
+                     'Conforme a tu elección…, ingresa tu solicitud en People Soft',
+                     'Ya se envió la orden de compra al proveedor',
+                     '','Tu pedido llego en excelentes condiciones, en el domicilio… y recibió…',
+                     'Fue un placer atenderte, me apoyarías con la siguiente encuesta de satisfacción.'];
+        var info_status = parseInt(info.status);
+        
+        $("#status").empty();
+        for(i = info_status; i < 10;i++){
+        var opciones = "<option value='"+i+"'>"+estatus[i]+"</options>"; 
+       
+        $("#status").append(opciones);
+        }
+        
+        $('select[name="status"]').val(info.status); 
+
+
+        // $('input[name="evaluation"][value ='+ info.evaluation +']').prop('checked', true); 
+        var date = info['deliver_date'].split(/[- :]/);
+
+        $('#status option[value=7]').text("La fecha de tu pedido es el " + date[2] + '-' + date[1] + '-' + date[0]);          
+        var product_info = data.products;
+        
+        for(var i = 0; i < product_info.length; i++){
+          
+          var name = "<tr><td>"+product_info[i].name+"</td>" + "<td>"+product_info[i].quantity+"</td>" + "<td>"+product_info[i].unit_price+"</td></tr>";
+         $("#table_products").empty();
+         $("#table_products").append(name);        
+         }
+        }
+    });
+  });
+
 
     $('#create-request-modal').advancedStepper();
     $('.btn-next').prop('disabled', true);

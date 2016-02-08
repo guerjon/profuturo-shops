@@ -9,7 +9,7 @@
     &nbsp;&nbsp;&nbsp;
   <li><a href="/">Inicio</a></li>
   <li><a href="/admin/reports/index">Reportes</a></li>
-  <li class="active">Reportes BI</li>
+  <li class="active">Reportes Todos los pedidos</li>
 </ol>
 
 <div class="page-header">
