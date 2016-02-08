@@ -44,7 +44,8 @@ class AdminOrdersController extends BaseController
     }
         
     $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
-    $orders = Order::join('users','orders.user_id','=','users.id')->orderBy('orders.created_at', 'desc');
+    $orders = Order::orderBy('orders.created_at', 'desc');
+
 
     if(Input::has('ccosto'))
 	     $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');

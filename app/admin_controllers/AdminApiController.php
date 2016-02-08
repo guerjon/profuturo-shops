@@ -955,7 +955,19 @@ class AdminApiController extends AdminBaseController
                             users.email as CORREO,
                             orders.comments as COMENTARIOS,
                             categories.id as CATEGORIA_ID,
-                            regions.id as REGION_ID"));
+                            regions.id as REGION_ID
+                            "));
+    
+    // CASE 
+    //                             WHEN orders.status = '0'  
+    //                               THEN PENDIENTE
+    //                             WHEN orders.status = '1'
+    //                               THEN RECIBIDO
+    //                             WHEN orders.status = '2'
+    //                               THEN RECIBIDO_INCOMPLETO  
+    //                             ELSE INDEFINIDO 
+    //                           END AS ESTATUS
+    
 
     $q = clone $report;
     $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
