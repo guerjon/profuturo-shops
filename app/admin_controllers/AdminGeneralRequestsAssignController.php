@@ -45,6 +45,17 @@ class AdminGeneralRequestsAssignController extends AdminBaseController{
     }
   }
 
+
+  public function putUpdate($id)
+  {
+    $general_request = GeneralRequest::withTrashed()->find($id);
+    if($general_request->restore()){
+        return Redirect::action('AdminGeneralRequestsAssignController@getIndex')->withSuccess('Se restauro la orden exitosamente.');
+    }else{
+      return Redirect::back()->withErrors('Ocurrio un error al restaurar la orden');
+    }
+  }
+
   public function deleteDestroy($id)
   {
 

@@ -129,9 +129,11 @@
                   </button>
                 {{Form::close()}}
           @else
-            <button type="submit" class="btn btn-success" >
-              <span class="glyphicon glyphicon-ok"></span> Habilitar
-            </button>
+            {{Form::open(['action' => ['AdminGeneralRequestsController@update',$request->id],'method' => 'PUT'])}}
+              <button type="submit" class="btn btn-success" >
+                <span class="glyphicon glyphicon-ok"></span> Habilitar
+              </button>
+            {{Form::close()}}
           @endif
         </td>
       </tr>
