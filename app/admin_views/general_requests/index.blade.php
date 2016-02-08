@@ -122,9 +122,20 @@
                   data-request-id="{{$request->id}}">Detalles</button>
         </td>
         <td>
-          {{Form::open(['action' => ['AdminGeneralRequestsController@destroy',$request->id],'method' => 'DELETE'])}}
-            <button  type="submit" class="btn  btn-primary btn-danger btn-cancel">Cancelar</button>
-          {{Form::close()}}
+            
+
+          @if(!$request->trashed())
+                {{Form::open(['action' => ['AdminGeneralRequestsController@destroy',$request->id],'method' => 'DELETE'])}}
+                  <button  type="submit" class="btn  btn-primary btn-danger btn-cancel">
+                    <span class="glyphicon glyphicon-remove"></span> Cancelar
+                  </button>
+                {{Form::close()}}
+          @else
+            <button type="submit" class="btn btn-success" >
+              <span class="glyphicon glyphicon-ok"></span> Habilitar
+            </button>
+          @endif
+
         </td>
 
       </tr>

@@ -3,7 +3,7 @@
 class AdminGeneralRequestsController extends AdminBaseController{
 
   public function index(){
-  	$request = GeneralRequest::select('*');
+  	$request = GeneralRequest::select('*')->withTrashed();
 
     $active_tab = Input::get('active_tab', 'assigned');
   
@@ -28,7 +28,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
 
     $active_category = ['ASIGNADO','NO ASIGNADO'];
     return View::make('admin::general_requests.index')->withAssigneds($assigneds)->withActiveCategory($active_category)
-    ->withRequests($request->where('status','!=','11')->orderBy('created_at','desc')->orderBy('rating','desc')->paginate(10))->withActiveTab($active_tab)
+    ->withRequests($request->orderBy('created_at','desc')->orderBy('rating','desc')->paginate(10))->withActiveTab($active_tab)
     ->withUsers(User::where('role', 'user_requests')->lists('gerencia','id'));
   }
 
@@ -50,8 +50,8 @@ class AdminGeneralRequestsController extends AdminBaseController{
   {
     $general_request = GeneralRequest::find($id);
     if($general_request){
-      $general_request->status = 11;
-      if($general_request->save()){
+      
+      if($general_request->delete()){
         return Redirect::action('AdminGeneralRequestsController@index')->withSuccess('Se cancelo la orden exitosamente.');
       }else{
         return Redirect::back()->withErrors('No se pudo cancelar  la orden');
