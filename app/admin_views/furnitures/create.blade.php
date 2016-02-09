@@ -76,6 +76,10 @@
         {{Form::select('furniture_subcategory_id',[], NULL,['class' => 'form-control','id' =>'subcategory_id'])}}
       </div>
 
+      <div class='form-group'>
+        {{Form::label('image', 'Imagen')}}
+        {{Form::file('image')}}
+      </div>
 
       <div class="form-group text-center">
         {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg'])}}
