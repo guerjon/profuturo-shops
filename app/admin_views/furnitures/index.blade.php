@@ -19,41 +19,6 @@
     <span class="glyphicon glyphicon-import"></span> Importar Excel
   </a>
 </div>
-{{-- 
-  <div class="" style="margin: 20px inherit">
-      
-      @foreach($categories as $category)
-      <div class="btn-group">
-            
-            <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="btn btn-default {{$active_tab == $category->id ? 'active' : ''}}" >
-            {{$category->name}}
-            </a>  
-            
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            @if($category->furniture_subcategories->count() > 0)
-              <ul class="dropdown-menu">
-             
-                @foreach($category->furniture_subcategories as $subcategory)
-                  <li><a href="?active_tab={{$category->id}}&active_subtab={{$subcategory->id}}&page=1">{{$subcategory->name}}</a></li>
-                @endforeach
-
-              </ul>  
-            @else
-              <ul class="dropdown-menu">
-                <center>
-                  <li style="color:white">Sin subcategorias</li>  
-                </center>
-              </ul>
-            @endif   
-            
-      </div> 
-      @endforeach
-  
-  </div> --}}
-
 
    <div class="" style="margin: 20px inherit">
       <ul class="nav nav-tabs" role="tablist">
