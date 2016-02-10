@@ -104,20 +104,20 @@
         },
         {
             "name": "codesleeve/laravel-stapler",
-            "version": "v1.0.06",
+            "version": "v1.0.07",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeSleeve/laravel-stapler.git",
-                "reference": "1433117da9a5d691ab0a081d69571713ef6cad98"
+                "reference": "3bc886fc381397f7387b24e7a05d3a16dd24848f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeSleeve/laravel-stapler/zipball/1433117da9a5d691ab0a081d69571713ef6cad98",
-                "reference": "1433117da9a5d691ab0a081d69571713ef6cad98",
+                "url": "https://api.github.com/repos/CodeSleeve/laravel-stapler/zipball/3bc886fc381397f7387b24e7a05d3a16dd24848f",
+                "reference": "3bc886fc381397f7387b24e7a05d3a16dd24848f",
                 "shasum": ""
             },
             "require": {
-                "codesleeve/stapler": "1.1.*",
+                "codesleeve/stapler": "1.2.*",
                 "laravel/framework": "4.*|5.*",
                 "php": ">=5.4.0"
             },
@@ -150,20 +150,20 @@
                 "stapler",
                 "upload"
             ],
-            "time": "2016-01-19 06:09:13"
+            "time": "2016-01-30 22:26:13"
         },
         {
             "name": "codesleeve/stapler",
-            "version": "v1.1.01",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CodeSleeve/stapler.git",
-                "reference": "17a0093ddeb6209857d15cb2a2a95b867197fef1"
+                "reference": "f15aa58d3dac213aefce27dd5885730d9bc31387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CodeSleeve/stapler/zipball/17a0093ddeb6209857d15cb2a2a95b867197fef1",
-                "reference": "17a0093ddeb6209857d15cb2a2a95b867197fef1",
+                "url": "https://api.github.com/repos/CodeSleeve/stapler/zipball/f15aa58d3dac213aefce27dd5885730d9bc31387",
+                "reference": "f15aa58d3dac213aefce27dd5885730d9bc31387",
                 "shasum": ""
             },
             "require": {
@@ -203,7 +203,7 @@
                 "s3",
                 "upload"
             ],
-            "time": "2016-01-19 05:48:05"
+            "time": "2016-01-30 21:39:33"
         },
         {
             "name": "d11wtq/boris",
@@ -672,16 +672,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v4.2.18",
+            "version": "v4.2.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "ce1fc065de4e58fcf243fb7b84fe3d156e1f6ac9"
+                "reference": "93d7dc4a51bb54fe99f070eabbc9a8fd7989f32b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/ce1fc065de4e58fcf243fb7b84fe3d156e1f6ac9",
-                "reference": "ce1fc065de4e58fcf243fb7b84fe3d156e1f6ac9",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/93d7dc4a51bb54fe99f070eabbc9a8fd7989f32b",
+                "reference": "93d7dc4a51bb54fe99f070eabbc9a8fd7989f32b",
                 "shasum": ""
             },
             "require": {
@@ -783,7 +783,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-01-02 20:27:55"
+            "time": "2016-02-02 14:55:02"
         },
         {
             "name": "lord/laroute",

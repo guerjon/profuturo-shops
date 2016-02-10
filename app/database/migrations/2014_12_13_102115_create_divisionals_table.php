@@ -13,8 +13,8 @@ class CreateDivisionalsTable extends Migration {
 	public function up()
 	{
 		Schema::create('divisionals',function($table){
-				$table->increments('id');
-				$table->timestamps();
+			$table->increments('id');
+			$table->timestamps();
 		});
 	}
 

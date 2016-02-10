@@ -102,13 +102,13 @@
         )
       );
 
-
       $.get('/admin/api/all-products', $('#filter-form').serialize(), function(data){
 
         $('.table tbody').empty();
         if(data.status == 200){
           var report = data.report;
           var headers = data.headers;
+          console.log(data.headers);
           $('.table thead tr').empty();
           if(report.length == 0){
             $('.table tbody').append(
@@ -133,11 +133,7 @@
               tr.append($('<td>').html(report[i][headers[j]]));
             }
             $('.table tbody').append(tr);
-
-
           }
-         
-
         }else{
           $('.table tbody').append(
             $('<tr>').attr('class', 'danger').append(

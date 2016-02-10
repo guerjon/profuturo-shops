@@ -9,25 +9,37 @@
       <div class="modal-body">
 
         <h3 id="request-project_title"></h3>
-
-        Solicitud hecha por: <strong id="request-employee_name"></strong> con número de empleado <strong id="request-employee_number"></strong>
+        
+          Solicitud hecha por: <b><strong id="request-employee_name"></b></strong> con número de empleado <strong id="request-employee_number"></strong>
         <br>
-        <div class="row">
-          <div class="col-xs-4" style="width:50%;">
-            Extensión: <strong id="request-employee_ext"></strong><br>
-            Celular: <strong id="request-employee_cellphone"></strong><br>
-            Correo electrónico: <strong id="request-employee_email"></strong><br>
-          </div>
-         
+        
+          
+        <div class="form-group">
+              Destino de proyecto: <strong id="request-project_dest" class="label-control"></strong>
+              <br>
+              
+              Número de empleado: <strong id="request-employee_number" class="label-control"></strong>
+              <br>
+
+                Extensión: <strong id="request-employee_ext" class="label-control"></strong>    
+              
+              <br>
+              
+                Celular: <strong id="request-employee_cellphone" class="label-control"></strong>
+              
+              <br>
+              
+                Correo electrónico: <strong id="request-employee_email" class="label-control"></strong>      
         </div>
 
         <hr>
 
          Fecha del evento: <strong id="request-project_date_formatted"></strong><br>
-         Fecha de entrega: <strong id="request-deliver_date_formatted"></strong>
+         Fecha de entrega: <strong id="request-deliver_date_formatted"></strong><br>
+         Comentarios:  <strong id="request-comments"></strong>
         <br><br><br>
 
-       <strong>Solicitó: </strong>   <strong id="request-project_kind_st"></strong><br><br>
+       
         <table class="table">
           <thead>
             <tr>

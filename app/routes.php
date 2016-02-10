@@ -55,7 +55,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('divisionales','AdminDivisionalController');
 		Route::resource('subcategorias-muebles','AdminFurnitureSubcategoriesController');
 		Route::post('subcategorias-muebles/{subcategory_id}/edit','AdminFurnitureSubcategoriesController');
-		
+		Route::resource('address','AdminAddressController',['only' => 'update']);
 		
 	});
 

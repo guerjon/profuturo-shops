@@ -87,10 +87,11 @@ class AdminApiController extends AdminBaseController
     }
     if(Input::has('category_id')){
       $category = Input::get('category_id') + 1;
-
       $query->where('categories.id','=',$category); 
     }
-    
+    if(Input::has('divisional_id')){
+      $query->where('users.divisional_id','=',Input::get('divisional_id')); 
+    }
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -955,18 +956,17 @@ class AdminApiController extends AdminBaseController
                             users.email as CORREO,
                             orders.comments as COMENTARIOS,
                             categories.id as CATEGORIA_ID,
-                            regions.id as REGION_ID
+                            regions.id as REGION_ID,
+                            CASE orders.status
+                              when '0'
+                              then 'PENDIENTE'
+                              when '1'
+                              then 'RECIBIDO'
+                              when '2'
+                              then 'RECIBIDO_INCOMPLETO'
+                            END AS ESTADO
                             "));
-    
-    // CASE 
-    //                             WHEN orders.status = '0'  
-    //                               THEN PENDIENTE
-    //                             WHEN orders.status = '1'
-    //                               THEN RECIBIDO
-    //                             WHEN orders.status = '2'
-    //                               THEN RECIBIDO_INCOMPLETO  
-    //                             ELSE INDEFINIDO 
-    //                           END AS ESTATUS
+  
     
 
     $q = clone $report;
@@ -1232,7 +1232,8 @@ class AdminApiController extends AdminBaseController
                             users.email as CORREO,
                             orders.comments as COMENTARIOS,
                             categories.id as CATEGORIA_ID,
-                            regions.id as REGION_ID"));
+                            regions.id as REGION_ID,
+                            orders.status as ESTADO"));
 
     $q = clone $report;
     $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
@@ -1254,7 +1255,6 @@ class AdminApiController extends AdminBaseController
         foreach($headers as $header){
           $itemArray[] = $item->{$header};
         }
-        
           $result[] = $itemArray;
       }
       if($result){
