@@ -144,8 +144,9 @@ $(function(){
     $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
       if(data.status == 200){
         var info = data.request;
+
         for(key in info){
-          $('#request-' + key).text(info[key]);         
+             $('#request-' + key).text(info[key]);
         }
         $('input[name="request_id"]').val(info.id); 
 
