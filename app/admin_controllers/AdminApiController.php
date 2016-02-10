@@ -956,7 +956,15 @@ class AdminApiController extends AdminBaseController
                             users.email as CORREO,
                             orders.comments as COMENTARIOS,
                             categories.id as CATEGORIA_ID,
-                            regions.id as REGION_ID
+                            regions.id as REGION_ID,
+                            CASE orders.status
+                              when '0'
+                              then 'PENDIENTE'
+                              when '1'
+                              then 'RECIBIDO'
+                              when '2'
+                              then 'RECIBIDO_INCOMPLETO'
+                            END AS ESTADO
                             "));
   
     
