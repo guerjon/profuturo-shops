@@ -12,7 +12,7 @@ class CreateFurnitureSubcategoriesTable extends Migration {
 	 */
 	public function up()
 	{
-			Schema::create('furniture_subcategories', function($table)
+		Schema::create('furniture_subcategories', function($table)
 		{
 		  $table->increments('id');
 			$table->string('name');

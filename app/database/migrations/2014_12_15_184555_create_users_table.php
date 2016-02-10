@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration {
 
 		Schema::create('users', function($table)
 		{
-		  $table->increments('id');
+		 	$table->increments('id');
 			$table->string('ccosto');
 			$table->string('gerencia');
 			$table->string('num_empleado_1');
@@ -25,17 +25,15 @@ class CreateUsersTable extends Migration {
 			$table->string('password');
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper','user_furnitures'])->default('user_paper');
-			$table->integer('region_id')->unsigned()->nullable();
 			$table->integer('divisional_id')->unsigned()->nullable();
-
+			$table->integer('region_id')->unsigned()->nullable();
+			
+			$table->foreign('divisional_id')->references('id')->on('divisional_id')->onDelete('cascade');
 			$table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
 			
 			$table->rememberToken();
-		  $table->timestamps();
-		});
-
-
-			
+		  	$table->timestamps();
+		});			
 
 	}
 

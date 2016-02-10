@@ -62,7 +62,7 @@
           {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
         </div>
         <div class="form-group text-right">
-          <button type="submit" class="btn btn-warning">Enviar pedido</a>
+          <button type="button" class="btn btn-warning btn-confirm" data-toggle="modal" data-target="#confirm-modal">Enviar pedido</button>
         </div>
         {{Form::close()}}
       @else  
@@ -78,7 +78,7 @@
             {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
           </div>
           <div class="form-group text-right">
-            <button type="submit" class="btn btn-warning">Enviar pedido</a>
+            <button type="button" class="btn btn-warning btn-confirm" data-toggle="modal" data-target="#confirm-modal">Enviar pedido</button>
           </div>
           {{Form::close()}}
           @else
@@ -88,6 +88,8 @@
         @endif
      @endif
   @endif
+
+@include('pages.partials.confirm')  
 
 @stop
 
@@ -107,6 +109,10 @@
       });
     });
 
+  $('#btn-accept').click(function(){
+    foreach
+  });
+
   $('form').submit(function(e){
     if(confirm("¿Esta seguro que quiere enviar este pedido, no habrá cambios después de ser enviado?")){
       $('.btn-warning').prop('disabled', true);
@@ -114,7 +120,7 @@
       $('.btn-warning').prop('disabled', false);
       e.preventDefault();
     }
- });
+  });
 
 });
 

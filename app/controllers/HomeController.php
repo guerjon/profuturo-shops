@@ -71,8 +71,9 @@ class HomeController extends BaseController {
 		}else{
 			$access = true;
 		}
-
-		return View::make('pages.cart')->withAccess($access);
+		
+		$address = Address::where('ccostos',Auth::user()->ccosto)->first();
+		return View::make('pages.cart')->withAccess($access)->withAddress($address);
 	}
 
 	public function getCarritoMuebles()
