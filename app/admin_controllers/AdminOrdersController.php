@@ -55,8 +55,8 @@ class AdminOrdersController extends BaseController
     if(Input::has('divisional_id'))
         $orders->where('users.divisional_id', Input::get('divisional_id'));
 
-
-    return View::make('admin::orders.index')->withOrders($orders->get())->withGerencias($gerencias);
+      $addresses = Address::all();
+    return View::make('admin::orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias)->withAddresses($addresses);
   }
 
   public function show($order_id)

@@ -87,10 +87,11 @@ class AdminApiController extends AdminBaseController
     }
     if(Input::has('category_id')){
       $category = Input::get('category_id') + 1;
-
       $query->where('categories.id','=',$category); 
     }
-    
+    if(Input::has('divisional_id')){
+      $query->where('users.divisional_id','=',Input::get('divisional_id')); 
+    }
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
