@@ -73,7 +73,11 @@
             'role' => 'form',
             'id' => 'send-order-form'
             ])}}
-
+  
+          @if($address != null)
+          {{Form::hidden('domicilio_original',$address->domicilio,['class' => 'appends'])}}
+          @endif
+          
           <div class="form-group">
             {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
           </div>
@@ -110,7 +114,10 @@
     });
 
   $('#btn-accept').click(function(){
-    foreach
+     var cambio = $('#posible_cambio').clone();
+     cambio.attr('hidden',true);
+     cambio.appendTo('#send-order-form');
+     $('#send-order-form').submit();
   });
 
   $('form').submit(function(e){

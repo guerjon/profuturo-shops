@@ -10,12 +10,23 @@ class OrdersController extends BaseController
 
   public function store()
   {
-
+    
     if(Auth::user()->cart_products->count() == 0)
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
-    $order = new Order(Input::all());
+  
+    if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
+      $address = Address::where('ccostos',Auth::user()->ccosto)->first();
+      $address->posible_cambio = Input::get('posible_cambio');
+      if($address->save()){
+        Log::debug("Guardo de dirección exitoso");
+      }else{
+        Log::debug($address->getErrors());
+      }
+    }    
+
+    $order = new Order(Input::except('domicilio_original','posible_cambio'));
     $order->user_id = Auth::id();
     if($order->save()){
       foreach(Auth::user()->cart_products as $product)

@@ -16,8 +16,7 @@
             </h4>            
           </center>
           <b>
-            {{Form::textarea('posible_cambio',$address->domicilio,['class' => 'form-control appends'])}}
-            {{Form::hidden('domicilio_original',$address->domicilio,['class' => 'appends'])}}
+            {{Form::textarea('posible_cambio',$address->domicilio,['class' => 'form-control','id' => 'posible_cambio'])}}            
           </b>
           <center>
             <h5>
