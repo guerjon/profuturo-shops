@@ -11,7 +11,6 @@
     <li class="active">Solicitudes Generales</li>
   </ol>
 
-
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$active_tab == 'assigned' ?  'active' : ''}}">
     <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'assigned'])}}">Asignadas</a> 
@@ -216,12 +215,6 @@ $(function(){
   $('#submit-btn').click(function(){
     $('#update-form').submit(); 
   });
-
-  // $('.btn-cancel').click(function(){
-
-  //   var action = laroute('AdminGeneralRequestsController@destroy',{general_requests: $(this).attr('data-request-id')});
-  //   console.log(action);
-  // });
 
 
 });

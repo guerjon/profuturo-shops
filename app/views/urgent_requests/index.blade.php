@@ -103,6 +103,7 @@ $(function(){
                      'Me encuentro en espera de las cotizaciones por parte de los proveedores seleccionados',
                      'Ya recibí las propuestas correspondientes, estoy en proceso de análisis de costo beneficio',
                      'Te comparto el cuadro comparativo con las mejores ofertas de acuerdo a tu necesidad',
+                     'Recotizar',
                      'Conforme a tu elección…, ingresa tu solicitud en People Soft',
                      'Ya se envió la orden de compra al proveedor',
                      '','Tu pedido llego en excelentes condiciones, en el domicilio… y recibió…',
@@ -119,7 +120,7 @@ $(function(){
 
         var date = info['deliver_date'].split(/[- :]/);
 
-        $('#status option[value=7]').text("La fecha de tu pedido es el " + date[2] + '-' + date[1] + '-' + date[0]);          
+        $('#status option[value=8]').text("La fecha de tu pedido es el " + date[2] + '-' + date[1] + '-' + date[0]);          
         var product_info = data.products;
         
         for(var i = 0; i < product_info.length; i++){
@@ -141,7 +142,7 @@ $(function(){
     path : '/img/raty',
     readOnly: true
   });
-  $('#submit-btn').click(function(){
+  $('#guardar').click(function(){
      $('#update-form').submit(); 
   });
 });

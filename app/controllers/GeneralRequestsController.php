@@ -50,17 +50,6 @@ class GeneralRequestsController extends BaseController{
     
     $user = Auth::user();
     
-    /*    $email = 'i.gutierrez@soriano-ariza.com';
-    //
-
-    Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
-      $message->to($email)->subject("Solicitud general hecha.");
-    });
-    $email = "jona_54_.com@ciencias.unam.mx";
-    Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
-      $message->to($email)->subject("Solicitud general hecha.");
-    });*/
-    
     $email = "karina.ascencionhernandez@profuturo.com.mx";
     
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
@@ -93,7 +82,7 @@ class GeneralRequestsController extends BaseController{
 
 
 
-    if($status == 9){
+    if($status == 10){
     
 
       Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base],function($message) use ($email,$name,$estado){
