@@ -102,6 +102,7 @@
           @endif
         @endforeach
         @yield('content')
+        
       </div>
     </div>
 
@@ -120,15 +121,14 @@
     <script type="text/javascript"
      src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
     <script charset="utf-8">
-
-    $(function(){
-      $.slidebars();
-    });
+      $(function(){
+        $.slidebars();
+      });
     </script>
 
-      <script type="text/javascript">
+    <script type="text/javascript">
        
-       var currentDate = new Date();
+      var currentDate = new Date();
 
       $.datepicker.regional['es'] = {
         closeText: 'Cerrar',
@@ -148,7 +148,7 @@
       $.datepicker.setDefaults($.datepicker.regional['es']);
       $('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
      
-  </script>
+    </script>
 
     @yield('script')
   </body>

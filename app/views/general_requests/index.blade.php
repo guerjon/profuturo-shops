@@ -86,7 +86,7 @@
 
 @endif
 
-@include('general_requests.partials.satisfaction_survey'); 
+@include('general_requests.partials.satisfaction_survey') 
 @include('general_requests.partials.show')
 @include('general_requests.partials.survey')
 
