@@ -150,13 +150,15 @@
 
           $('#status option[value=8]').text("La fecha de tu pedido es el " + date[2] + '-' + date[1] + '-' + date[0]);          
           var product_info = data.products;
-          
+          $("#table_products").empty();
           for(var i = 0; i < product_info.length; i++){
             
             var name = "<tr><td>"+product_info[i].name+"</td>" + "<td>"+product_info[i].quantity+"</td>" + "<td>"+product_info[i].unit_price+"</td></tr>";
-           $("#table_products").empty();
-           $("#table_products").append(name);        
-           }
+            $("#table_products").append(name);        
+          } 
+           
+           
+           
           }
       });
     });
