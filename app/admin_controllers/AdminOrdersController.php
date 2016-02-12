@@ -44,18 +44,19 @@ class AdminOrdersController extends BaseController
     }
         
     $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
-    $orders = Order::orderBy('orders.created_at', 'desc');
+    $orders = Order::orderBy('orders.created_at', 'desc')->join('users','users.id','=','orders.user_id');
 
 
     if(Input::has('ccosto'))
 	     $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+
     if(Input::has('gerencia'))
         $orders->where('users.ccosto', Input::get('gerencia'));
 
     if(Input::has('divisional_id'))
         $orders->where('users.divisional_id', Input::get('divisional_id'));
 
-      $addresses = Address::all();
+    $addresses = Address::all();
     return View::make('admin::orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias)->withAddresses($addresses);
   }
 
