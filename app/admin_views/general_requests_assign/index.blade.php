@@ -163,9 +163,8 @@ $(function(){
         
         $("#status").empty();
         for(i = info_status; i < 10;i++){
-        var opciones = "<option value='"+i+"'>"+estatus[i]+"</options>"; 
-       
-        $("#status").append(opciones);
+          var opciones = "<option value='"+i+"'>"+estatus[i]+"</options>"; 
+          $("#status").append(opciones);
         }
         
         $('select[name="status"]').val(info.status); 
