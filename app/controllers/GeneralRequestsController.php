@@ -62,7 +62,7 @@ class GeneralRequestsController extends BaseController{
       $message->to($email)->subject("Tu solicitud general fue enviada.");
     });
     
-    Log::info("mando el correo");
+    
     return Redirect::to(action('GeneralRequestsController@index'))->withSuccess("Se ha guardado su solicitud con id {$request->id}");
   }
 
@@ -90,14 +90,14 @@ class GeneralRequestsController extends BaseController{
     
       $email = "karina.ascencionhernandez@profuturo.com.mx";
     
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base,'request' => $request],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
 
       $email = $request->manager->email;
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base,'request' => $request],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
