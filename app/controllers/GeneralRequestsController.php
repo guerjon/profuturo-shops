@@ -84,8 +84,7 @@ class GeneralRequestsController extends BaseController{
 
     if($status == 10){
     
-
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base],function($message) use ($email,$name,$estado){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base,'request' => $request],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
       });
     
@@ -98,13 +97,13 @@ class GeneralRequestsController extends BaseController{
 
       $email = $request->manager->email;
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
     }else{
 
-        Log::debug($email."--------------");
+      
       Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
       });
@@ -116,7 +115,6 @@ class GeneralRequestsController extends BaseController{
         $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
       });
  
-
 
       $email = $request->manager->email;
 

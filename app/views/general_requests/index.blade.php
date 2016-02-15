@@ -138,7 +138,7 @@
           var info_status = parseInt(info.status);
           
           $("#status").empty();
-          for(i = info_status; i < 10;i++){
+          for(i = info_status; i < 11;i++){
           var opciones = "<option value='"+i+"'>"+estatus[i]+"</options>"; 
          
           $("#status").append(opciones);
