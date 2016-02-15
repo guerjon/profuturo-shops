@@ -90,35 +90,35 @@ class GeneralRequestsController extends BaseController{
     
       $email = "karina.ascencionhernandez@profuturo.com.mx";
     
-      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
 
       $email = $request->manager->email;
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
     }else{
 
       
-      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
       });
 
 
       $email = "karina.ascencionhernandez@profuturo.com.mx";
     
-      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
       });
  
 
       $email = $request->manager->email;
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
       });
 
