@@ -59,17 +59,9 @@
         <td>
           {{ $request->created_at}}
         </td>
-        @if($request->status == 10)
-            <td>
-               <button data-toggle="modal" data-target="#request-modal-satisfaction-survey" class="btn btn-sm btn-default survey-btn"
-                       data-request-id="{{$request->id}}" >
-                Contestar encuesta</button> 
-            </td>
-        @else
       <td>
         <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>
       </td>
-        @endif
       </tr>
       @endforeach
     </tbody>
