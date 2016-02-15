@@ -9,10 +9,10 @@ class SatisfactionSurveyController extends BaseController{
 		$survey = SatisfactionSurvey::where('general_request_id',$id)->first();
 		if($survey){
 			$general_request = GeneralRequest::find($id);
-			return View::make('satisfaction_survey.index')->withRequests($general_request)->withSurvey($survey);			
+			return View::make('satisfaction_survey.index')->withGeneralRequest($general_request)->withSurvey($survey);			
 		}else{
 			$general_request = GeneralRequest::find($id);
-			return View::make('satisfaction_survey.index')->withRequests($general_request);			
+			return View::make('satisfaction_survey.index')->withGeneralRequest($general_request);			
 		}
 
 	}
