@@ -11,13 +11,41 @@
   <li class="active">Direcciones</li>
 </ol>
 
-<div class="text-right">
-  <a href="{{action('AdminAddressController@create')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus"></span> Agregar nueva dirección
-  </a>
-</div>
-
   <br>
+
+  <div class="text-right">
+  	<a class="btn btn-primary" href="/direcciones/create"><span class="glyphicon glyphicon-plus"></span>  Añadir dirección</a>
+  </div>
+  	<div class="row">
+		{{Form::open([
+		  'id' => 'filter-form',
+		  'method' => 'GET',
+		  'action' => 'AddressController@index',
+		  'target' => '_blank'
+		  ])}}
+			<div class="row col-xs-offset-2">
+			  <div class="col-xs-2 ">
+			    {{Form::text('ccostos',null,['class' => 'form-control','placeholder' => 'CCOSTO'])}}
+			  </div>
+			  <div class="col-xs-2">
+			    {{Form::text('gerencia',null,['class' => 'form-control','placeholder' => 'GERENCIA'])}}
+			  </div>
+
+			  <div class="col-xs-2">
+			    {{Form::text('regional',null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
+			  </div>
+
+			  <div class="col-xs-2">
+			    {{Form::text('INMUEBLE',null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
+			  </div>
+
+			  <button class="btn btn-primary btn-submit">
+			    <span class="glyphicon glyphicon-search"></span> BUSCAR
+			  </button>
+
+			</div>
+		{{Form::close()}}
+  </div>
   <br>
 @if(count($addresses) == 0)
 <div class="alert alert-warning">
@@ -33,7 +61,10 @@
               CCOSTOS
             </th>
             <th>
-              GERENCIA
+             	GERENCIA
+            </th>
+            <th>
+            	DIVISIONAL
             </th>
             <th>
               REGIONAL
@@ -46,6 +77,9 @@
             </th>
             <th>
               DOMICILIO	
+            </th>
+            <th>
+            	
             </th>
           </tr>
         </thead>
@@ -60,6 +94,9 @@
             	{{$address->gerencia}}
             </td>
             <td>
+            	{{$address->divisional}}
+            </td>
+            <td>
             	{{$address->regional}}
             </td>
             <td>
@@ -70,6 +107,28 @@
             </td>
 			<td>
 				{{$address->domicilio}}
+			</td>
+			<td>
+				{{Form::open([
+				  'action' => ['AddressController@destroy', $address->id],
+				  'method' => 'DELETE',
+				  'class' => 'form-horizontal',
+				  'style' => 'display: inline',
+				  ])}}
+
+				  <div class="btn-group">
+				      
+				        <a href="{{action('AddressController@edit', $address->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px;padding-top:2px;" >
+				          <span class="glyphicon glyphicon-pencil" style="padding-top:2px;"></span> Editar
+				        </a>
+
+				        <button type="submit" class="btn btn-danger btn-xs" style="height:25px;margin:2px">
+				          <span class="glyphicon glyphicon-remove"></span> Eliminar
+				        </button>
+	
+				   
+				  </div>
+				{{Form::close()}}
 			</td>
           </tr>
           @endforeach

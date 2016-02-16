@@ -35,7 +35,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
-	protected $appends = ['acceso'];
 	
 
 
@@ -183,6 +182,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	}
 
 
+
 	public function getMenuActionsAttribute(){
 		switch($this->role){
 			case 'admin':
@@ -201,7 +201,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminFurnituresController@index') => 'Mobiliario',
 					action('AdminFurnitureCategoriesController@index') => 'Categorías de mobiliario',
 					action('AdminDivisionalController@index') => 'Divisionales',
-					action('AdminAddressController@index') => 'Direcciones',
+
 
 				];
 			case 'manager':
@@ -219,18 +219,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
-					
-					
-
-				]
-				;
+				];
 			case 'user_requests':
 				return [
 					action('GeneralRequestsController@index') => 'Solicitudes generales',
 				];
 			case 'user_loader':
 				return [
-					 action('LoadsController@index') => 'Cargas',
+					action('AddressController@index') => 'Direcciones',
+					action('LoadsController@index') => 'Cargas',
 				];	
 			case 'user_furnitures':
 				return [

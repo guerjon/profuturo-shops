@@ -21,6 +21,9 @@ class CreateAddressTable extends Migration {
 			$table->string('inmueble');
 			$table->text('domicilio');
 			$table->text('posible_cambio')->default('null');
+			$table->timestamps();
+			$table->timestamp('deleted_at');
+
 		});
 	}
 

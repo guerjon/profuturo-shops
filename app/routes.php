@@ -70,6 +70,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');
 	
 	Route::resource('cargas','LoadsController');
+	Route::resource('direcciones','AddressController');
 
 	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');

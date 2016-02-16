@@ -195,9 +195,6 @@ class ApiController extends BaseController
     $quantity   = Input::get('quantity');
     $order_id   = Input::get('order_id');
     $product_id = Input::get('product_id');
-    Log::info('quantity'.$quantity);
-    Log::info('order_id'.$order_id);
-    Log::info('product_id'.$product_id);
     $order = Order::find($order_id);
     if((($order->products()->where('products.id',$product_id)->first()->pivot->quantity) -$quantity) == 0 ){
         DB::table('order_product')
@@ -248,9 +245,6 @@ class ApiController extends BaseController
     $quantity   = Input::get('quantity');
     $order_id   = Input::get('order_id');
     $furniture_id = Input::get('furniture_id');
-    Log::info('quantity'.$quantity);
-    Log::info('order_id'.$order_id);
-    Log::info('furniture_id'.$furniture_id);
     $order = FurnitureOrder::find($order_id);
     if((($order->furnitures()->where('furnitures.id',$furniture_id)->first()->pivot->quantity) -$quantity) == 0 ){
         DB::table('furniture_orders')
@@ -296,5 +290,24 @@ class ApiController extends BaseController
     
   }
 
+
+  public function getUser()
+  {
+
+    
+    $ccosto = Input::get('ccostos');
+    $user = User::with('region')->where('ccosto',$ccosto)->first();
+    
+    if($user){
+      return Response::json([
+        'status' => 200,
+        'user' => $user
+      ]);
+    }else{
+      return Response::json([
+        'status' => 404
+      ]);
+    }
+  }
 
 }
