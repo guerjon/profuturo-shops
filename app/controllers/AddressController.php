@@ -9,8 +9,18 @@ class AddressController extends \BaseController {
 	 */
 	public function index()
 	{
-		$addresses = Address::orderBy('ccostos')->get();
-		return View::make('address.index')->withAddresses($addresses);
+		$addresses = Address::orderBy('ccostos');
+		if(Input::has('ccostos'))
+			$addresses->where('ccostos','LIKE','%'.Input::get('ccostos').'%');
+		if(Input::has('regional'))
+			$addresses->where('regional','LIKE','%'.Input::get('regional').'%');
+		if(Input::has('divisional'))
+			$addresses->where('divisional','LIKE','%'.Input::get('divisional').'%');
+		if(Input::has('linea_de_negocio'))
+			$addresses->where('linea_de_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
+
+
+		return View::make('address.index')->withAddresses($addresses->get());
 	}
 
 

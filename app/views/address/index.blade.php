@@ -16,28 +16,29 @@
   <div class="text-right">
   	<a class="btn btn-primary" href="/direcciones/create"><span class="glyphicon glyphicon-plus"></span>  Añadir dirección</a>
   </div>
+  <br>
   	<div class="row">
 		{{Form::open([
 		  'id' => 'filter-form',
 		  'method' => 'GET',
 		  'action' => 'AddressController@index',
-		  'target' => '_blank'
 		  ])}}
-			<div class="row col-xs-offset-2">
-			  <div class="col-xs-2 ">
+			<div class="row" style="margin:1%">
+			  <div class="col-xs-2 col-xs-offset-1">
 			    {{Form::text('ccostos',null,['class' => 'form-control','placeholder' => 'CCOSTO'])}}
 			  </div>
-			  <div class="col-xs-2">
-			    {{Form::text('gerencia',null,['class' => 'form-control','placeholder' => 'GERENCIA'])}}
+
+			  <div class="col-xs-2" >
+			    {{Form::select('regional',Region::lists('name','name'),null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
 			  </div>
 
 			  <div class="col-xs-2">
-			    {{Form::text('regional',null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
+			    {{Form::select('divisional',[null => 'Todas las divisionales']+Divisional::lists('name','name'),null,['class' => 'form-control','placeholder' => 'DIVISIONAL'])}}
 			  </div>
 
-			  <div class="col-xs-2">
-			    {{Form::text('INMUEBLE',null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
-			  </div>
+        <div class="col-xs-2">
+          {{Form::select('linea_de_negocio',['AFORE' => 'AFORE','FONDOS' => 'FONDOS','PENSION' => 'PENSIÓN'],null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
+        </div>
 
 			  <button class="btn btn-primary btn-submit">
 			    <span class="glyphicon glyphicon-search"></span> BUSCAR
