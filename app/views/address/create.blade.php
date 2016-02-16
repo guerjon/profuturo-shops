@@ -25,7 +25,7 @@
       <p id = "aviso" >Para agregar una nueva dirección primero debes seleccionar el CCOSTO del usuario</p>
       <div class="form-group">
         {{Form::label('ccostos', 'CCOSTOS')}}
-        {{Form::select('ccostos',$ccostos,NULL, ['class' => 'form-control','id' => 'ccostos'])}}
+        {{Form::text('ccostos',NULL, ['class' => 'form-control','id' => 'ccostos'])}}
       </div>
 
       <div class="form-group" style="background-color:#FCFAFA;">
@@ -57,7 +57,7 @@
 
 
       <div class="form-group text-center">
-        {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg'])}}
+        {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg','id' => 'boton'])}}
       </div>
     {{Form::close()}}
   </div>
@@ -67,9 +67,45 @@
 
 @section('script')
   <script>
-    $('#ccostos').change(function(){
+    $(function(){
+      $('#boton').prop('disabled',true);
+          $.ajax({
+            url : '/api/ccostos-autocomplete',
+            dataType: 'json',
+            success : function(data){
+              console.log(data);
+              if(data.status == 200){
+
+                var orders = data.orders;
+                var ccostos = data.ccostos;
+
+                $('#ccostos').autocomplete(
+                  {
+                    source:ccostos,
+                    minLength: 1,
+                    select: function(event,ui){
+                      llena_inputs(ui)
+                    },
+                  }
+                );
+                
+              }
+            },error : function(data){
+              }
+          });
+
+
+      
+      
+      
+      
+
+    });
+
+    function llena_inputs(ui){
+
         $('.datos').empty();
-        $.get('/api/user/',{ccostos : $(this).val()}, function(data){
+        $.get('/api/user/',{ccostos : ui.item.value }, function(data){
           if(data.status == 200){
             
             $('#gerencia').val(data.user.gerencia);
@@ -91,6 +127,7 @@
             $('#aviso').append('<div class="alert alert-danger">El centro de costos no esta registrado.</div>')
           }
         }); 
-    });
+    }
+
   </script>
 @endsection

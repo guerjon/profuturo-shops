@@ -310,4 +310,20 @@ class ApiController extends BaseController
     }
   }
 
+
+  public function getCcostosAutocomplete()
+  {
+    
+    
+    $ccostos = User::where('role','!=','admin')->lists('ccosto');
+ 
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
 }
