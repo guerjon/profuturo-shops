@@ -65,7 +65,12 @@
         <a href="?active_tab=user_loader&page=1" aria-controls="user_loader" class="tabs">
           Cargador sucursal
         </a>
-      </li>   
+      </li>
+      <li role="presentation" class="{{$active_tab == 'user_mac' ? 'active' : ''}}">
+        <a href="?active_tab=user_mac&page=1" aria-controls="user_mac" class="tabs">
+          MAC
+        </a>
+      </li>    
     </ul>
   </div>
 
@@ -87,6 +92,9 @@
     </div> 
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_loader' ? 'active' : ''}}" id="user_loader">
       @include('admin::users.partials.users_loader')
+    </div> 
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'users_mac' ? 'active' : ''}}" id="users_mac">
+      @include('admin::users.partials.users_mac')
     </div> 
   </div>
 

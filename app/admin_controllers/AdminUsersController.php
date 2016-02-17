@@ -102,6 +102,23 @@ class AdminUsersController extends AdminBaseController
         }
 
 
+        $users_mac = User::where('role', 'user_mac');
+        if(Input::has('user_mac'))
+        {
+          $input = Input::get('user_mac', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+                $users_mac->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+            if($gerencia = @$input['gerencia']){
+                $users_mac->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+          }
+        }
+
+
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
       ->withManagers($managers->paginate(10))
@@ -109,6 +126,7 @@ class AdminUsersController extends AdminBaseController
       ->withUsersPaper($users_paper->paginate(10))
       ->withUsersFurnitures($users_furnitures->paginate(10))
       ->withUsersLoader($users_loader->paginate(10))
+      ->withUsersMac($users_mac->paginate(10))
       ->withActiveTab($active_tab);
   }
 
