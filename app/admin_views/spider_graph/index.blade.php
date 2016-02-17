@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-	<h1>Estadisticas de encuestas</h1>
+	<h1>Estadísticas de Encuestas</h1>
 	<hr>
 
 	<div class="row">
@@ -28,7 +28,7 @@
 
 	      		<div class="form-group">
 		    		{{Form::label('consultor','CONSULTOR')}}
-					{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor'])}}		
+					{{Form::select('consultor',[null => "Todos los consultores"] + $consultores,null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor'])}}		
 	      		</div>	
 		
 			
@@ -99,11 +99,11 @@
 									{
 										className: data.surveys[0].id,
 										axes: [
-											{axis : "¿Cómo consideras la actitud de servicio del consultor?",value: data.surveys[0].uno },
-											{axis : "¿Qué te parecio el seguimiento del Consultor?",value: data.surveys[0].dos },
-											{axis : "¿Cómo calificarías los tiempos de respuesta?",value: data.surveys[0].tres },
-											{axis : "Los productos entregados cumplen con las características solicitadas?",value: data.surveys[0].cuatro },
-											{axis : "¿Volverías a usar la plataforma para realizar nuevas solicitudes?",value: data.surveys[0].cinco },
+											{axis : "Actitud del consultor",value: data.surveys[0].uno },
+											{axis : "Seguimiento del consultor",value: data.surveys[0].dos },
+											{axis : "Tiempos respuesta consultor",value: data.surveys[0].tres },
+											{axis : "Calidad de producto",value: data.surveys[0].cuatro },
+											{axis : "Facilidad plataforma",value: data.surveys[0].cinco },
 										]
 									}
 								];
@@ -114,6 +114,7 @@
 														+ parseFloat(data.surveys[0].cuatro + parseFloat(data.surveys[0].cinco));
 								promedio_total /= 5 ; 
 
+								$('#tbody').empty();
 								$('#tbody').append('<td>'+data.surveys[0].total+'</td>');
 								$('#tbody').append('<td>'+promedio_total+'</td>');
 
@@ -137,17 +138,6 @@
 
 
 	                var ccostos = data.ccostos;
-	                var solicitud = data.request;
-	                
-	                $('#consultor').autocomplete(
-	                  {
-	                    source:ccostos,
-	                    minLength: 1,
-	                    select: function(event,ui){
-	                      actualiza();
-	                    },
-	                  }
-	                );
 
 	                $('#solicitud').autocomplete(
 	                  {

@@ -1174,8 +1174,6 @@ class AdminApiController extends AdminBaseController
     
     $subcategories = FurnitureCategory::find($category_id)->furniture_subcategories;
     
-    
-
         if(Request::ajax()){
           return Response::json([
             'subcategories' => $subcategories,
@@ -1289,7 +1287,7 @@ class AdminApiController extends AdminBaseController
       $surveys->where('general_requests.created_at','<',Input::get('until'));
 
     if(Input::has('consultor'))
-      $surveys->where('ccosto','=',Input::get('consultor'));
+      $surveys->where('users.id','=',Input::get('id'));
 
     if(Input::has('solicitud'))
       $surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));
