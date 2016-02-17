@@ -56,6 +56,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('subcategorias-muebles','AdminFurnitureSubcategoriesController');
 		Route::post('subcategorias-muebles/{subcategory_id}/edit','AdminFurnitureSubcategoriesController');
 		Route::resource('address','AdminAddressController');
+		Route::get('grafica-arana','AdminSpiderGraphController@getIndex');
 		
 	});
 

@@ -93,13 +93,6 @@
             },error : function(data){
               }
           });
-
-
-      
-      
-      
-      
-
     });
 
     function llena_inputs(ui){

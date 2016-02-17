@@ -1267,4 +1267,55 @@ class AdminApiController extends AdminBaseController
     }      
   }
 
+
+  public function getSurvey()
+  {
+
+    $surveys = DB::table('satisfaction_surveys')->select(
+        DB::raw('avg(question_one) as uno,
+                  avg(question_two) as dos,
+                  avg(question_three) as tres,
+                  avg(question_four) as cuatro,
+                  avg(question_five) as cinco,
+                  count(general_requests.id) as total'
+                  ))
+            ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
+            ->join('users','users.id','=','general_requests.manager_id');
+
+    if(Input::has('since'))
+      $surveys->where('general_requests.created_at','>',Input::get('since'));
+
+    if(Input::has('until'))
+      $surveys->where('general_requests.created_at','<',Input::get('until'));
+
+    if(Input::has('consultor'))
+      $surveys->where('ccosto','=',Input::get('consultor'));
+
+    if(Input::has('solicitud'))
+      $surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));
+
+
+      return Response::json([
+        'status' => 200,
+        'surveys' => $surveys->get(),
+      ]);
+  }
+
+  public function getCcostosAutocomplete()
+  {
+    
+    $ccostos = User::where('role','=','manager')->lists('ccosto');
+    $request = GeneralRequest::lists('id');
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'ccostos' => $ccostos,
+        'request' => $request,
+      ]);
+    }
+  }
+
+
+
+
 }
