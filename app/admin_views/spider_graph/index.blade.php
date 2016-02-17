@@ -9,23 +9,23 @@
 			<div class="col col-xs-10">
 				<div class="form-group">
 					{{Form::label('since','DESDE')}}
-	      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'since' ])}}	
+	      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'since','disabled' ])}}	
 				</div>
 			
 				<div class="form-group">
 		      		{{Form::label('until','HASTA')}}
-	    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until' ])}}
+	    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until','disabled' ])}}
 				</div>
 	      		
 	      		<div class="form-group">
 		    		{{Form::label('solicitud','SOLICITUD')}}
-					{{Form::text('solicitud',null,['class' => 'filter form-control','placeholder datepicker' => '# SOLICITUD','id' => 'solicitud'])}}		
+					{{Form::text('solicitud',null,['class' => 'filter form-control','placeholder datepicker' => '# SOLICITUD','id' => 'solicitud','disabled'])}}		
 	      		</div>
 	    	
 
 	      		<div class="form-group">
 		    		{{Form::label('consultor','CONSULTOR')}}
-					{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor'])}}		
+					{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor','disabled'])}}		
 	      		</div>	
 		
 			
@@ -70,7 +70,10 @@
 
 		$(function(){
 
+			$('.filter').prop('disabled',false);
+
 			$('.filter').change(function(){
+
 				actualiza();
 			});
 
