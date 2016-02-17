@@ -3,29 +3,32 @@
 @section('content')
 	<h1>Estadisticas de encuestas</h1>
 	<hr>
-	<div class="row">
 
+	<div class="row">
+		<center>
+			<img src="/images/loading.gif" alt="Cargando..." id="loading" width="400" height="400">
+		</center>
 		<div class="col col-xs-5" style="margin:5%" >
-			<div class="col col-xs-10">
+			<div class="col col-xs-10" id="formularios" hidden>
 				<div class="form-group">
 					{{Form::label('since','DESDE')}}
-	      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'since','disabled' ])}}	
+	      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'since'])}}	
 				</div>
 			
 				<div class="form-group">
 		      		{{Form::label('until','HASTA')}}
-	    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until','disabled' ])}}
+	    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until' ])}}
 				</div>
 	      		
 	      		<div class="form-group">
 		    		{{Form::label('solicitud','SOLICITUD')}}
-					{{Form::text('solicitud',null,['class' => 'filter form-control','placeholder datepicker' => '# SOLICITUD','id' => 'solicitud','disabled'])}}		
+					{{Form::text('solicitud',null,['class' => 'filter form-control','placeholder datepicker' => '# SOLICITUD','id' => 'solicitud'])}}		
 	      		</div>
 	    	
 
 	      		<div class="form-group">
 		    		{{Form::label('consultor','CONSULTOR')}}
-					{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor','disabled'])}}		
+					{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor'])}}		
 	      		</div>	
 		
 			
@@ -70,7 +73,8 @@
 
 		$(function(){
 
-			$('.filter').prop('disabled',false);
+			$('#loading').prop('hidden',true);
+			$('#formularios').prop('hidden',false);
 
 			$('.filter').change(function(){
 
