@@ -1,49 +1,54 @@
 @extends('layouts.master')
 
 @section('content')
-	
-	<div class="row"  >
+	<h1>Estadisticas de encuestas</h1>
+	<hr>
+	<div class="row">
 
-		<div class="col col-xs-3" style="margin:4%">
-			<div class="form-group">
-				{{Form::label('since','DESDE')}}
-      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'since' ])}}	
-			</div>
-		
-			<div class="form-group">
-	      		{{Form::label('until','HASTA')}}
-    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until' ])}}
-			</div>
-      		
-      		<div class="form-group">
-	    		{{Form::label('solicitud','SOLICITUD')}}
-				{{Form::text('solicitud',null,['class' => 'filter form-control','placeholder datepicker' => '# SOLICITUD','id' => 'solicitud'])}}		
-      		</div>
-    	
-
-      		<div class="form-group">
-	    		{{Form::label('consultor','CONSULTOR')}}
-				{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor'])}}		
-      		</div>
+		<div class="col col-xs-5" style="margin:5%" >
+			<div class="col col-xs-10">
+				<div class="form-group">
+					{{Form::label('since','DESDE')}}
+	      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'since' ])}}	
+				</div>
 			
-			<center style="margin-top:10%">
-				<table class="table table-straped">
-					<thead id="thead">
-						<th>
-							TOTAL SOLICITUDES
-						</th>
-						<th>
-							PROMEDIO TOTAL
-						</th>
-					</thead>
-					<tbody id="tbody">
-						
-					</tbody>
-				</table>
-			</center>
+				<div class="form-group">
+		      		{{Form::label('until','HASTA')}}
+	    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until' ])}}
+				</div>
+	      		
+	      		<div class="form-group">
+		    		{{Form::label('solicitud','SOLICITUD')}}
+					{{Form::text('solicitud',null,['class' => 'filter form-control','placeholder datepicker' => '# SOLICITUD','id' => 'solicitud'])}}		
+	      		</div>
+	    	
+
+	      		<div class="form-group">
+		    		{{Form::label('consultor','CONSULTOR')}}
+					{{Form::text('consultor',null,['class' => 'filter form-control','placeholder datepicker' => '# CONSULTOR','id' => 'consultor'])}}		
+	      		</div>	
+		
+			
+				<center >
+					<table class="table table-straped">
+						<thead id="thead">
+							<th>
+								TOTAL SOLICITUDES
+							</th>
+							<th>
+								PROMEDIO TOTAL
+							</th>
+						</thead>
+						<tbody id="tbody">
+							
+						</tbody>
+					</table>
+				</center>
+			</div>
+
 		</div>
-		<div class="col col-xs-6 " >
-			<div class="chart-container" id ="chart-container" style="float:right;"></div>		
+		<div class="col col-xs-5" >
+			<div class="chart-container" id ="chart-container" ></div>		
 		</div>
 
 	</div>
