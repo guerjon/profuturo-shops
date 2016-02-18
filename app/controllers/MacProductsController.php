@@ -2,86 +2,29 @@
 
 class MacProductsController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
+	public function index($category_id = NULL)
 	{
-		$mac_products = MacProducts::where('unidad_')
-		return View::make('mac_products.index');
+
+	    $products = MacProduct::select('*');
+
+	    if($category_id){
+	      $activeCategory = MacCategory::find($category_id);
+	      if(!$activeCategory){
+	        return $this->index()->withErrors('No se encontró la categoría');
+	      }
+	      $products->where('category_id', $category_id);
+
+	    }
+
+	    if(Input::has('name')){
+	      $products->where('name', 'like', "%".Input::get('name')."%");
+	    }
+
+	    return View::make('mac_products.index')->with([
+	      'products' => $products->paginate(15),
+	      'categories' => MacCategory::all(),
+	      'activeCategory' => @$activeCategory,
+	      ]);
 	}
-
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 
 }

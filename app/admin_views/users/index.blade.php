@@ -93,11 +93,12 @@
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_loader' ? 'active' : ''}}" id="user_loader">
       @include('admin::users.partials.users_loader')
     </div>   
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'user_mac' ? 'active' : ''}}" id="users_mac">
+      @include('admin::users.partials.users_mac')
+    </div> 
   </div>
 
-  <div role="tabpanel" class="tab-pane {{$active_tab == 'users_mac' ? 'active' : ''}}" id="users_mac">
-      @include('admin::users.partials.users_mac')
-  </div> 
+  
 
 
 @stop

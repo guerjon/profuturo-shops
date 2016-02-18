@@ -104,6 +104,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->role == 'user_paper';
 	}
 
+	public function getUserMacAttribute()
+	{
+		return $this->role == 'user_mac';
+	}
+	
 	public function cartProducts()
 	{
 		return $this->belongsToMany('Product', 'cart_products')->withPivot('quantity');
@@ -112,6 +117,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	public function cartFurnitures()
 	{
 		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity','company','assets','ccostos','color','id_active');
+	}
+
+	public function cartMac()
+	{
+		return $this->belongsToMany('MacProduct', 'cart_mac_products')->withPivot('quantity');
 	}
 
 	public function orders()
@@ -137,6 +147,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->hasMany('FurnitureOrder');
 	}
 
+	public function macOrders()
+	{
+		return $this->hasMany('MacOrder');
+	}
+	
 	public function bcOrders()
 	{
 		return $this->hasMany('BcOrder');
@@ -181,7 +196,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $total;
 	}
 
-
+	public function getCartTotalMacAttribute()
+	{
+		$total = 0;
+		foreach($this->cart_Mac as $p){
+			$total += $p->price * $p->pivot->quantity;
+		}
+		return $total;
+	}
 
 	public function getMenuActionsAttribute(){
 		switch($this->role){
@@ -202,6 +224,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminFurnitureCategoriesController@index') => 'Categorías de mobiliario',
 					action('AdminDivisionalController@index') => 'Divisionales',
 					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas',
+					action('AdminMacProductsController@index') => 'Productos Mac',
 
 				];
 			case 'manager':
@@ -239,7 +262,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 			case 'user_mac':
 				return [
 					action('MacProductsController@index') => 'Productos',
-					'/carrito' => 'Mi carrito (papelería)',
+					'/carrito-mac' => 'Mi carrito (papelería)',
 				];	
 		}
 	}

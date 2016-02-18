@@ -4,23 +4,24 @@
 
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/productos">TODAS</a>
+    <a href="/mac-productos">TODAS</a>
   </li>
   @foreach($categories as $category)
   <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
-    <a href="/productos/{{$category->id}}">{{$category->name}}</a>
+    <a href="/mac-productos/{{$category->id}}">{{$category->name}}</a>
   </li>
   @endforeach
 </ul>
 
 <br>
 
+&nbsp;
+
 
 {{Form::open([
 'class' => 'form-horizontal',
 'method' => 'GET'
 ])}}
-
 
 
 {{Form::label('name', 'Nombre corto', ['class' => 'control-label col-xs-2 col-xs-offset-5'])}}
@@ -72,6 +73,7 @@
             {{$product->description}}
           </p>
         </div>
+
       </div>
     </a>
     @endforeach
@@ -86,7 +88,8 @@
   </nav>
 </div>
 
-@include('products.partials.add_to_cart_modal')
+
+@include('orders.partials.add_to_order')
 
 @stop
 
@@ -133,13 +136,12 @@ $(function(){
   });
 
   $('#add-to-cart-modal .submit-btn').click(function(){
-    var $this = $(this);
-    $this.prop('disabled', true);
     var formData = $('#add-to-cart-modal form').serialize();
-    $.post('/api/add-to-cart', formData, function(data){
+    $.post('/api/add-product', formData, function(data){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
-        alert(data.msg);
+       window.location.replace("/pedidos/{{$order_id}}");
+       alert("Se agrego su producto exitosamente");
         var newq = data.new_q;
         if(newq > 0){
           var item = $('a[data-product-id="'+ data.product_id +'"]');
@@ -155,14 +157,13 @@ $(function(){
             }else{
               label.find('.product-current-stock').html(newq);
             }
-
-
           }
         }
-      }else{
-        alert(data.error_msg);
       }
-      $this.prop('disabled', false);
+      if(data.status == 500){
+        alert("El producto ya habia sido agregado con anterioridad")
+      }
+
     });
   });
 });

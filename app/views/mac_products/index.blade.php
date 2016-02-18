@@ -4,11 +4,11 @@
 
 <ul class="nav nav-tabs">
   <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/productos">TODAS</a>
+    <a href="/mac-productos">TODAS</a>
   </li>
   @foreach($categories as $category)
   <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
-    <a href="/productos/{{$category->id}}">{{$category->name}}</a>
+    <a href="/mac-productos/{{$category->id}}">{{$category->name}}</a>
   </li>
   @endforeach
 </ul>
@@ -95,7 +95,7 @@
 $(function(){
   $('a.list-group-item').click(function(){
     var modal = $('#add-to-cart-modal');
-    modal.modal('show');
+    modal.modal('show');    
     modal.find('#add-to-cart-modal-title').text($(this).find('.media-heading').text());
     modal.find('#product-cart-description').text($(this).find('.product-description').text());
     modal.find('#product-cart-info').text($(this).find('.product-info').text());
@@ -136,7 +136,7 @@ $(function(){
     var $this = $(this);
     $this.prop('disabled', true);
     var formData = $('#add-to-cart-modal form').serialize();
-    $.post('/api/add-to-cart', formData, function(data){
+    $.post('/api/add-to-cart-mac', formData, function(data){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
         alert(data.msg);

@@ -57,7 +57,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::post('subcategorias-muebles/{subcategory_id}/edit','AdminFurnitureSubcategoriesController');
 		Route::resource('address','AdminAddressController');
 		Route::get('grafica-arana','AdminSpiderGraphController@getIndex');
-		
+		Route::resource('productos-mac','AdminMacProductsController');
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
@@ -79,10 +79,15 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('productos', 'ProductsController@index');
 
 	Route::get('mac-productos', 'MacProductsController@index');
+	Route::get('mac-productos/{category}', 'MacProductsController@index');
+	Route::resource('pedidos-mac','MacOrdersController');
 
 	Route::get('mobiliario', 'FurnituresController@index');
 	Route::get('mobiliario/{category}/{subcategory}', 'FurnituresController@index');
 	Route::get('mobiliario/{category}', 'FurnituresController@index');
+
+
+
 
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');

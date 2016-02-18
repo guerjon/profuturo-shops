@@ -39,7 +39,7 @@ class AdminUsersController extends AdminBaseController
 
           }         
         }
-        $user_requests = User::where('role', 'user_requests');
+        $user_requests = User::withTrashed()->where('role', 'user_requests');
         if(Input::has('user_requests')){
            $input = Input::get('user_requests', []);
           if(!is_array($input)){
@@ -54,7 +54,7 @@ class AdminUsersController extends AdminBaseController
 
           }   
         }
-        $users_paper = User::where('role', 'user_paper');
+        $users_paper = User::withTrashed()->where('role', 'user_paper');
         if(Input::has('user_paper')){
            $input = Input::get('user_paper', []);
           if(!is_array($input)){
@@ -68,7 +68,7 @@ class AdminUsersController extends AdminBaseController
             }
           }
         }
-        $users_furnitures = User::where('role', 'user_furnitures');
+        $users_furnitures = User::withTrashed()->where('role', 'user_furnitures');
         if(Input::has('user_furnitures'))
         {
           $input = Input::get('user_furnitures', []);
@@ -85,7 +85,7 @@ class AdminUsersController extends AdminBaseController
           }
         }
 
-        $users_loader = User::where('role', 'user_loader');
+        $users_loader = User::withTrashed()->where('role', 'user_loader');
         if(Input::has('user_loader'))
         {
           $input = Input::get('user_loader', []);
@@ -102,7 +102,7 @@ class AdminUsersController extends AdminBaseController
         }
 
 
-        $users_mac = User::where('role', 'user_mac');
+        $users_mac = User::withTrashed()->where('role', 'user_mac');
         if(Input::has('user_mac'))
         {
           $input = Input::get('user_mac', []);
@@ -154,7 +154,7 @@ class AdminUsersController extends AdminBaseController
     $user->region_id = Input::get('region_id');
 
     switch ($active_tab) {
-      case 'admin':     
+      case 'admin':
         $user->role = 'admin';
         break;
       case 'manager':     
@@ -180,10 +180,11 @@ class AdminUsersController extends AdminBaseController
         $user->role = 'user_mac';
         break;
 
-        default:
-        
-        break;
+        default:        
+          break;
     }
+
+      
 
     if(Input::get('num_empleado') == null){
       $user->num_empleado = null;

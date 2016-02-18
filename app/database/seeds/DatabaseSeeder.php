@@ -19,9 +19,9 @@ class DatabaseSeeder extends Seeder {
 			'ccosto' => 1
 			]);
 
-		$this->call('PaperProductSeeder');
-		$this->call('UserSeeder');
-		$this->call('ColorSeeder');
+		// $this->call('PaperProductSeeder');
+		// $this->call('UserSeeder');
+		// $this->call('ColorSeeder');
 		
 	}
 

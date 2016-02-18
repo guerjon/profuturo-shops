@@ -40,7 +40,9 @@ class MacProduct extends Eloquent implements StaplerableInterface
 
   public function category()
   {
-    return $this->belongsTo('Category');
+    return $this->belongsTo('MacCategory');
   }
+
+  protected $dates = ['deleted_at'];
 
 }
