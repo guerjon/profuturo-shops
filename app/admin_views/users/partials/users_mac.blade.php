@@ -13,10 +13,6 @@
       {{Form::text('user_mac[gerencia]', (Input::get('user_mac')['gerencia']), ['class' => 'form-control'])}}
     </div>
 
-{{--     <div class="col-xs-3">
-      {{ Form::select('executive[management_id]', $managements,
-        Input::get('executive')['management_id'], ['class' => 'form-control']) }}
-    </div> --}}
     <div class="col-xs-1">
       <button type="submit" class="btn btn-block btn-default">
         <span class="glyphicon glyphicon-search"></span>
@@ -26,9 +22,7 @@
 {{ Form::close() }}
 
 
-
-
-@if($users_paper->count() > 0)
+@if($users_mac->count() > 0)
 
 <div class="container-fluid">
   <div class="table-responsive">
@@ -40,8 +34,6 @@
           <th>C. Costos</th>
           <th>Gerencia</th>
           <th>Región</th>
-          <th>Divisional</th>
-          <th>Línea de negocio</th>
           <th>Extensión</th>
           <th></th>
       
@@ -49,14 +41,11 @@
       </thead>
 
       <tbody>
-        @foreach ($users_paper as $user_mac)
+        @foreach ($users_mac as $user_mac)
           <tr class="{{(Session::get('focus') == $user_mac->id) ? 'info' : ''}}">
              <td>{{$user_mac->ccosto}}</td>
              <td>{{$user_mac->gerencia}}</td>
              <td>{{$user_mac->region ? $user_mac->region->name : 'N/A'}}</td>
-             <td>{{$user_mac->divisional ? $user_mac->divisional->id : 'N/A' }}</td>
-             <td>{{$user_mac->linea_negocio}}</td>  
-             <td>{{$user_mac->extension}}</td>
             <td>
               @include('admin::users.partials.actions', ['user' => $user_mac])
             </td>
@@ -69,7 +58,7 @@
   </div>
 </div>
 <div class="text-center">
-  {{ $users_paper->appends(Input::only(['user_mac']) + ['active_tab' => 'user_mac'])->links()}}
+  {{ $users_mac->appends(Input::only(['user_mac']) + ['active_tab' => 'user_mac'])->links()}}
 </div>
 @else
 <div class="alert alert-info">

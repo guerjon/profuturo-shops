@@ -78,6 +78,8 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
 
+	Route::get('mac-productos', 'MacProductsController@index');
+
 	Route::get('mobiliario', 'FurnituresController@index');
 	Route::get('mobiliario/{category}/{subcategory}', 'FurnituresController@index');
 	Route::get('mobiliario/{category}', 'FurnituresController@index');

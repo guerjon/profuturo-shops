@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader',
+		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
 	
@@ -234,6 +234,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
 					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
+				];
+
+			case 'user_mac':
+				return [
+					action('MacProductsController@index') => 'Productos',
+					'/carrito' => 'Mi carrito (papelería)',
 				];	
 		}
 	}

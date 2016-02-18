@@ -20,7 +20,7 @@ class CreateAddressTable extends Migration {
 			$table->string('divisional');
 			$table->string('inmueble');
 			$table->text('domicilio');
-			$table->text('posible_cambio')->default('null');
+			$table->text('posible_cambio')->nullable()->default(null);
 			$table->timestamps();
 			$table->timestamp('deleted_at');
 

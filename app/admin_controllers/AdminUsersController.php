@@ -176,6 +176,9 @@ class AdminUsersController extends AdminBaseController
       case 'user_loader':     
         $user->role = 'user_loader';
         break;
+      case 'user_mac':     
+        $user->role = 'user_mac';
+        break;
 
         default:
         
@@ -185,8 +188,7 @@ class AdminUsersController extends AdminBaseController
     if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
     }
-    Log::debug('Aqui=============================');
-    Log::info(Input::all());
+    
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
       

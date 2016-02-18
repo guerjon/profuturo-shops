@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDivisionalsTable extends Migration {
+class CreateMacProductsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,14 @@ class CreateDivisionalsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('divisionals',function($table){
+		Schema::create('mac_products',function($table){
 			$table->increments('id');
-			$table->timestamps();
+			$table->text('name');
+			$table->integer('max_stock');
+			$table->text('measure_unit');
+			$table->integer('id_people_mac');
+			$table->float('price');
+
 		});
 	}
 
@@ -25,7 +30,7 @@ class CreateDivisionalsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('divisionals');
+		Schema::drop('mac_products');
 	}
 
 }
