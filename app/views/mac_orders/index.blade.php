@@ -37,6 +37,9 @@
       <th>
         Estatus
       </th>
+      <th>
+        
+      </th>
     
     </tr>
   </thead>

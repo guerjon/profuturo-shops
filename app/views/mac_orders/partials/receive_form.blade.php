@@ -1,5 +1,5 @@
 {{Form::open([
-  'action' => ['OrdersController@postReceive', $order->id],
+  'action' => ['MacOrdersController@postReceive', $order->id],
 
   ])}}
 
@@ -58,7 +58,7 @@
 </table>
 <div class="form-group text-right">
 @if($order->status == 0)
-   {{link_to_action('AddProductsController@getIndex', 'Agregar producto',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
+   {{link_to_action('AddMacProductsController@getIndex', 'Agregar producto',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
     @endif
 
 </div>
@@ -81,7 +81,7 @@
 <script charset="utf-8">
   $(function(){
     $('.table .btn-danger').click(function(){
-      $.post('/api/destroy-products', {
+      $.post('/api/destroy-mac-products', {
         product_id : $(this).attr('data-product-id'),
         quantity   : $(this).attr('data-quantity'),
         order_id   : $(this).attr('data-order-id')

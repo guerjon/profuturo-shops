@@ -50,6 +50,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('agenda-evento', 'AdminCalendarEventsController@show');
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
+		Route::resource('orders-mac','AdminMacOrdersController');
+
 		
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 		Route::resource('divisionales','AdminDivisionalController');
@@ -74,6 +76,8 @@ Route::group(['before' => 'auth'], function(){
 	Route::resource('direcciones','AddressController');
 
 	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
+	
+
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
@@ -81,6 +85,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('mac-productos', 'MacProductsController@index');
 	Route::get('mac-productos/{category}', 'MacProductsController@index');
 	Route::resource('pedidos-mac','MacOrdersController');
+	Route::post('pedidos-mac/{order_id}', 'MacOrdersController@postReceive');
 
 	Route::get('mobiliario', 'FurnituresController@index');
 	Route::get('mobiliario/{category}/{subcategory}', 'FurnituresController@index');
@@ -92,6 +97,8 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
 	Route::controller('agregar-mobiliario','AddFurnituresController');
+	Route::controller('agregar-producto-mac','AddMacProductsController');
+
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');

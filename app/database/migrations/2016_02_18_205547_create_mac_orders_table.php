@@ -19,6 +19,7 @@ class CreateMacOrdersTable extends Migration {
 			$table->tinyInteger('status')->unsigned()->default(0);
 			$table->timestamps();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->string('receive_comments');
 			$table->softDeletes();
 		});
 	}

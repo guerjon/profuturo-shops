@@ -17,8 +17,11 @@ class CreateMacOrderMacProductTable extends Migration {
 		  	$table->integer('mac_order_id')->unsigned();
 			$table->integer('mac_product_id')->unsigned();
 			$table->integer('quantity');
+			$table->text('status');
+			$table->text('comments');
 			$table->foreign('mac_order_id')->references('id')->on('mac_orders')->onDelete('cascade');
 			$table->foreign('mac_product_id')->references('id')->on('mac_products')->onDelete('cascade');
+
 		});
 	}
 

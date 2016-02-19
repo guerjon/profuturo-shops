@@ -137,10 +137,10 @@ $(function(){
 
   $('#add-to-cart-modal .submit-btn').click(function(){
     var formData = $('#add-to-cart-modal form').serialize();
-    $.post('/api/add-product', formData, function(data){
+    $.post('/api/add-mac-product', formData, function(data){
       if(data.status == 200){
         $('#add-to-cart-modal').modal('hide');
-       window.location.replace("/pedidos/{{$order_id}}");
+       window.location.replace("/pedidos-mac/{{$order_id}}");
        alert("Se agrego su producto exitosamente");
         var newq = data.new_q;
         if(newq > 0){

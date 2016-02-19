@@ -15,10 +15,10 @@ class CreateMacOrderComplainsTable extends Migration {
 		Schema::create('mac_order_complains', function($table)
 		{
 		  	$table->increments('id');
-			$table->integer('order_id')->unsigned();
+			$table->integer('mac_order_id')->unsigned();
 			$table->text('complain');
 		  	$table->timestamps();
-			$table->foreign('order_id')->references('id')->on('mac_orders')->onDelete('cascade');
+			$table->foreign('mac_order_id')->references('id')->on('mac_orders')->onDelete('cascade');
 		});
 	}
 

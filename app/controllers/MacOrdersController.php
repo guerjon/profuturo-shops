@@ -49,7 +49,7 @@ class MacOrdersController extends \BaseController {
 
   public function show($order_id)
   {
-    $order = Auth::user()->orders()->find($order_id);
+    $order = Auth::user()->macOrders()->find($order_id);
 
     if(!$order){
       return Redirect::to('/')->withWarning('No se encontró la orden');

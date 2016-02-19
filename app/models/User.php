@@ -216,6 +216,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminOrdersController@index') => 'Pedidos papelería',
 					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
 					action('AdminFurnituresOrdersController@index') => 'Pedidos mobiliario',
+					action('AdminMacOrdersController@index') => 'Pedidos MAC',
 					action('AdminCalendarEventsController@index') => 'Agenda',
 					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
