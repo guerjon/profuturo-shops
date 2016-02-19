@@ -31,7 +31,7 @@ class MacOrdersController extends \BaseController {
       foreach(Auth::user()->cart_mac as $product)
       {
         $order->products()->attach($product->id, ['quantity' => $product->pivot->quantity]);
-        Auth::user()->cartProducts()->detach($product->id);
+        Auth::user()->cartMac()->detach($product->id);
       }
     }
 

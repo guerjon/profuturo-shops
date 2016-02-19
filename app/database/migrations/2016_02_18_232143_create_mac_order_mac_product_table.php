@@ -14,11 +14,11 @@ class CreateMacOrderMacProductTable extends Migration {
 	{
 		Schema::create('mac_order_mac_product', function($table)
 		{
-		  $table->integer('order_id')->unsigned();
-			$table->integer('product_id')->unsigned();
+		  	$table->integer('mac_order_id')->unsigned();
+			$table->integer('mac_product_id')->unsigned();
 			$table->integer('quantity');
-			$table->foreign('order_id')->references('id')->on('mac_orders')->onDelete('cascade');
-			$table->foreign('product_id')->references('id')->on('mac_products')->onDelete('cascade');
+			$table->foreign('mac_order_id')->references('id')->on('mac_orders')->onDelete('cascade');
+			$table->foreign('mac_product_id')->references('id')->on('mac_products')->onDelete('cascade');
 		});
 	}
 
@@ -29,11 +29,7 @@ class CreateMacOrderMacProductTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('mac_order_mac_product', function($table){
-			$table->dropForeign('mac_order_product_order_id_foreign');
-			$table->dropForeign('mac_order_product_product_id_foreign');
-		});
-		Schema::drop('mac_order_product');
+		Schema::drop('mac_order_mac_product');
 	}
 
 }
