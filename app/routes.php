@@ -39,6 +39,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('products', 'AdminProductsController');
 		Route::resource('mobiliario','AdminFurnituresController');
 		Route::resource('importar-mobiliario','AdminFurnitureImporterController');
+		Route::resource('importar-productos-mac','AdminMacProductsImporterController');
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);

@@ -15,6 +15,9 @@
   <a href="{{action('AdminMacProductsController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Agregar producto
   </a>
+  <a href="{{action('AdminMacProductsImporterController@create')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-import"></span> Importar Excel
+  </a>
 </div>
 
   <div class="" style="margin: 20px inherit">
