@@ -15,7 +15,7 @@
 {{Form::open([
   'id' => 'filter-form',
   'method' => 'GET',
-  'action' => 'AdminApiController@getMacOrdersReport',
+  'action' => 'AdminApiController@getMacOrders',
   'target' => '_blank'
   ])}}
 
@@ -83,7 +83,7 @@ function update(){
       $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
     )
   );
-  $.get('/admin/api/mac-orders-report', $('#filter-form').serialize(), function(data){
+  $.get('/admin/api/mac-orders', $('#filter-form').serialize(), function(data){
     $('.table tbody').empty();
     if(data.status == 200){
       var orders = data.orders;

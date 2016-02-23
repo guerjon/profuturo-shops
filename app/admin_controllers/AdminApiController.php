@@ -135,11 +135,12 @@ class AdminApiController extends AdminBaseController
   }
 
 
-  public function getMacOrdersReport()
+
+  public function getMacOrders()
   {
     ini_set('max_execution_time','300');
     
-      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(DB::raw("
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, mac_order_mac_product"))->select(DB::raw("
       mac_orders.created_at as FECHA_PEDIDO,
       '9999999999999990000000000' AS EIP_CTL_ID,
       1 as LOADER_REQ,
@@ -148,10 +149,9 @@ class AdminApiController extends AdminBaseController
       @rownum:=@rownum+1 as GROUP_SEQ_NUM,
       'KA003035' as REQUESTOR_ID,
       DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
-      products.sku as INV_ITEM_ID,
-      products.name as DESCR254_MIXED,
-      products.measure_unit as UNIT_OF_MEASURE,
-      order_product.quantity as QTY_REQ,
+      mac_products.name as DESCR254_MIXED,
+      mac_products.measure_unit as UNIT_OF_MEASURE,
+      mac_order_mac_product.quantity as QTY_REQ,
       0 as PRICE_REQ,
       'MXN' as CURRENCY_CD,
       '' as VENDOR_ID,
@@ -174,17 +174,15 @@ class AdminApiController extends AdminBaseController
       '' as CAP_NUM,
       '' as SHIP_TO_CUST_ID,
       'KA003035' as INTROD,
-      categories.name as CATEGORY,
-      products.id_people as ID_PEOPLE,
-      (products.price * order_product.quantity) as PRICE,
+      mac_categories.name as CATEGORY,
+      (mac_products.price * mac_order_mac_product.quantity) as PRICE,
       mac_orders.id as ORDER_ID
       "))
-      ->join('products', 'products.id', '=', 'order_product.product_id')
-      ->join('orders', 'mac_orders.id' , '=', 'order_product.order_id')
+      ->join('mac_products', 'mac_products.id', '=', 'mac_order_mac_product.mac_product_id')
+      ->join('mac_orders', 'mac_orders.id' , '=', 'mac_order_mac_product.mac_order_id')
       ->leftJoin('users', 'users.id', '=', 'mac_orders.user_id')
-      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
-      ->orderBy('mac_orders.id')
-      ->whereNull('mac_orders.deleted_at');
+      ->leftJoin('mac_categories', 'mac_products.category_id', '=', 'mac_categories.id')
+      ->orderBy('mac_orders.id')->whereNull('mac_orders.deleted_at');
 
     // if(Input::has('gerencia')){
     //   $query->where('users.id','=',Input::get('gerencia'));
