@@ -59,7 +59,7 @@
     </div>
     <div class="col-xs-2">
       <button class="btn btn-primary btn-submit">
-        <span class="glyphicon glyphicon-download-alt"></span> Excel
+        <span class="glyphicon glyphicon-download-alt"></span> Descargar Excel
       </button>
     </div>
   </div>
