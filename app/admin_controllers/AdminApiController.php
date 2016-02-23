@@ -175,8 +175,7 @@ class AdminApiController extends AdminBaseController
       '' as SHIP_TO_CUST_ID,
       'KA003035' as INTROD,
       mac_categories.name as CATEGORY,
-      (mac_products.price * mac_order_mac_product.quantity) as PRICE,
-      mac_orders.id as ORDER_ID
+      (mac_products.price * mac_order_mac_product.quantity) as PRICE
       "))
       ->join('mac_products', 'mac_products.id', '=', 'mac_order_mac_product.mac_product_id')
       ->join('mac_orders', 'mac_orders.id' , '=', 'mac_order_mac_product.mac_order_id')
@@ -184,26 +183,29 @@ class AdminApiController extends AdminBaseController
       ->leftJoin('mac_categories', 'mac_products.category_id', '=', 'mac_categories.id')
       ->orderBy('mac_orders.id')->whereNull('mac_orders.deleted_at');
 
-    // if(Input::has('gerencia')){
-    //   $query->where('users.id','=',Input::get('gerencia'));
-    // }
+
     if(Input::has('month_init') && Input::has('month_end')){
       $query->where(DB::raw('MONTH(mac_orders.created_at)'),'>=',Input::get('month_init'))
             ->where(DB::raw('MONTH(mac_orders.created_at)'),'<=',Input::get('month_end'));
     }
-    if(Input::has('year')){
+    if(Input::has('year'))
       $query->where(DB::raw('YEAR(mac_orders.updated_at)'), Input::get('year'));
-    }
-    // if(Input::has('linea_negocio')){
-    //   $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
-    // }
-    // if(Input::has('category_id')){
-    //   $category = Input::get('category_id') + 1;
-    //   $query->where('categories.id','=',$category); 
-    // }
-    // if(Input::has('divisional_id')){
-    //   $query->where('users.divisional_id','=',Input::get('divisional_id')); 
-    // }
+
+
+    if(Input::has('status'))
+      $query->where('mac_orders.status','=',Input::get('status'));
+
+    if(Input::has('category_id'))
+      $query->where('mac_categories.id','=',$Input::get('category_id')); 
+
+    if(Input::has('divisional_id'))
+      $query->where('users.divisional_id','=',Input::get('divisional_id')); 
+
+    if(Input::has('ccosto'))
+      $query->where('users.ccosto','=',Input::get('ccosto')); 
+
+    if(Input::has('order_id'))
+      $query->where('mac_orders.id',Input::get('order_id'));
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -1122,6 +1124,23 @@ class AdminApiController extends AdminBaseController
   {
     
     $orders = Order::all()->lists('id');
+    $ccostos = User::all()->lists('ccosto');
+ 
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'orders' => $orders,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
+
+  public function getBIMacAutocomplete()
+  {
+    
+    $orders = MacOrder::all()->lists('id');
     $ccostos = User::all()->lists('ccosto');
  
 

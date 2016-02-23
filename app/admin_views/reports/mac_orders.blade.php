@@ -11,47 +11,58 @@
   <li><a href="/admin/reports/index">Reportes</a></li>
   <li class="active">Pedidos MAC</li>
 </ol>
-
 {{Form::open([
   'id' => 'filter-form',
   'method' => 'GET',
   'action' => 'AdminApiController@getMacOrders',
   'target' => '_blank'
-  ])}}
-
-<div class="page-header">
-  <h3>Reporte de pedidos MAC
-    <button class="btn btn-primary btn-submit" style="float:right">
-      <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-    </button>
-  </h3>
-</div>
-
-<div class="row">
-  {{--   <div class="col-xs-3 ">GERENCIA:
-      {{Form::select('gerencia',array_merge(array(NULL => 'Seleccione una gerencia'),$gerencia),NUll,['class' => 'form-control'])}}
-    </div>
-    <div class="col-xs-3 ">CATEGORIA:
-      {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
-    </div> --}}
-    <div class="col-xs-3 ">DESDE:
-      {{Form::selectMonth('month_init', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
-    </div>
-
-    <div class="col-xs-3 ">HASTA:
-      {{Form::selectMonth('month_end', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+])}}
+  <div class="row">
+      
+    <div class="col-xs-2">
+      {{Form::label('since','DESDE')}}
+      {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+      <br>
+      {{Form::label('until','HASTA')}}
+      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
     </div>
     
-    <div class="col-xs-3">AÑO:
-      {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
+    <div class="col-xs-2">
+      {{Form::label('since','# ORDEN')}}
+      {{Form::text('order_id',null,['class' => 'form-control','placeholder' => 'Ingrese el numero de pedido','id' => 'order' ])}}
+      <br>
+      {{Form::label('ccosto','CCOSTO')}}
+      {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
     </div>
-    {{--   <div class="col-xs-3">LINEA DE NEGOCIO:
-      {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
+
+      
+    <div class="col-xs-3">
+      {{Form::label('category_id','CATEGORIA')}}
+      {{Form::select('category_id',[null => 'Seleccione una categoria'] + $categories,null,['class' => 'form-control','id' => 'category_id'])}}
+      <br>
+      {{Form::label('product_id','PRODUCTO')}}
+      {{Form::select('product_id',[null => 'Seleccione un producto'] +$products,null,['class' => 'form-control','id' => 'product_id'])}}
     </div>
-    <div class="col-xs-3">DIVISIONALES
-      {{Form::select('divisional_id', [NULL => 'Todas las divisionales'] + Divisional::orderBy('id')->lists('name','id'), Input::get('gerencia'), ['class' => 'form-control'])}}
-    </div> --}}
-</div>
+
+    <div class="col-xs-3">
+      {{Form::label('divisional_id','DIVISIONAL')}}
+      {{Form::select('divisional_id',[null => 'Seleccione una divisional'] + Divisional::lists('name','id'),null,['class' => 'form-control','id' => 'category_id'])}}
+      <br>
+      {{Form::label('region_id','REGIONAL')}}
+      {{Form::select('region_id',[null => 'Seleccione una región'] + Region::lists('name','id'),null,['class' => 'form-control','id' => 'product_id'])}}
+    </div>
+
+    <div class="col-xs-2">
+      {{Form::label('status','STATUS')}}
+      {{Form::select('status',[null => 'Seleccione un estado de orden'] + ['0' => 'PENDIENTE','1' => 'RECIBIDO','2' => 'RECIBIDO INCOMPLETO'],null,['class' => 'form-control','id' => 'product_id'])}}
+      <br>
+    </div>
+    <div class="col-xs-2">
+      <button class="btn btn-primary btn-submit">
+        <span class="glyphicon glyphicon-download-alt"></span> Excel
+      </button>
+    </div>
+  </div>
 {{Form::close()}}
 
 <hr>
@@ -123,9 +134,44 @@ function update(){
 }
 $(function(){
   update();
-  $('#filter-form select').change(function(){
+  $('#filter-form *').change(function(){
     update();
   });
+      $('#order').keyup(function(){
+         update();
+      });
+
+      $('#ccosto').keyup(function(){
+          update();
+      });  
+
+      $('#until').change(function(){
+          update();
+      });  
+
+      $('#since').change(function(){
+          update();
+      });
+
+       $.ajax({
+          url : '/admin/api/bi-mac-autocomplete',
+          dataType: 'json',
+          success : function(data){
+            if(data.status == 200){
+
+              var orders = data.orders;
+              var ccostos = data.ccostos;
+
+              $('#ccosto').autocomplete(
+                {
+                  source:ccostos,
+                  minLength: 1
+                }
+              );
+            }
+          },error : function(data){
+        }
+      });
 });
 </script>
 @stop
