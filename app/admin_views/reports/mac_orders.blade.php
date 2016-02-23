@@ -52,16 +52,17 @@
       {{Form::select('region_id',[null => 'Seleccione una región'] + Region::lists('name','id'),null,['class' => 'form-control','id' => 'product_id'])}}
     </div>
 
-    <div class="col-xs-2">
+    <div class="col-xs-2 ">
       {{Form::label('status','STATUS')}}
       {{Form::select('status',[null => 'Seleccione un estado de orden'] + ['0' => 'PENDIENTE','1' => 'RECIBIDO','2' => 'RECIBIDO INCOMPLETO'],null,['class' => 'form-control','id' => 'product_id'])}}
       <br>
     </div>
-    <div class="col-xs-2">
-      <button class="btn btn-primary btn-submit">
+    <br>
+
+      <button class="btn btn-primary btn-submit" style="margin-left:4%;margin-top:1%;">
         <span class="glyphicon glyphicon-download-alt"></span> Descargar Excel
       </button>
-    </div>
+    
   </div>
 {{Form::close()}}
 
