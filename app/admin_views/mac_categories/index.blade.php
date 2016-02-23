@@ -12,8 +12,7 @@
     <li class="active">Categorías MAC</li>
   </ol>
 
-<div class="text-right"><span class="glyphicon glyphicon-plus"></span>
-  
+<div class="text-right">
   <a href="{{action('AdminMacCategoriesController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Agregar categoría
   </a>
