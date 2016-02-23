@@ -135,6 +135,120 @@ class AdminApiController extends AdminBaseController
   }
 
 
+  public function getMacOrdersReport()
+  {
+    ini_set('max_execution_time','300');
+    
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, order_product"))->select(DB::raw("
+      mac_orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'KA003035' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      products.sku as INV_ITEM_ID,
+      products.name as DESCR254_MIXED,
+      products.measure_unit as UNIT_OF_MEASURE,
+      order_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'KA003035' as INTROD,
+      categories.name as CATEGORY,
+      products.id_people as ID_PEOPLE,
+      (products.price * order_product.quantity) as PRICE,
+      mac_orders.id as ORDER_ID
+      "))
+      ->join('products', 'products.id', '=', 'order_product.product_id')
+      ->join('orders', 'mac_orders.id' , '=', 'order_product.order_id')
+      ->leftJoin('users', 'users.id', '=', 'mac_orders.user_id')
+      ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->orderBy('mac_orders.id')
+      ->whereNull('mac_orders.deleted_at');
+
+    // if(Input::has('gerencia')){
+    //   $query->where('users.id','=',Input::get('gerencia'));
+    // }
+    if(Input::has('month_init') && Input::has('month_end')){
+      $query->where(DB::raw('MONTH(mac_orders.created_at)'),'>=',Input::get('month_init'))
+            ->where(DB::raw('MONTH(mac_orders.created_at)'),'<=',Input::get('month_end'));
+    }
+    if(Input::has('year')){
+      $query->where(DB::raw('YEAR(mac_orders.updated_at)'), Input::get('year'));
+    }
+    // if(Input::has('linea_negocio')){
+    //   $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
+    // }
+    // if(Input::has('category_id')){
+    //   $category = Input::get('category_id') + 1;
+    //   $query->where('categories.id','=',$category); 
+    // }
+    // if(Input::has('divisional_id')){
+    //   $query->where('users.divisional_id','=',Input::get('divisional_id')); 
+    // }
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+            $datetime = \Carbon\Carbon::now()->format('YmdHi');
+            $data = str_putcsv($headers)."\n";
+
+
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('reporte_mac'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
+
+            $headers = array(
+              'Content-Type' => 'text/csv',
+              'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+            );
+            return Response::make($data, 200, $headers);
+    }
+  }
+
+
   /**
   *Metodo auxiliar para el metodo getBcOrdersReport
   *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.

@@ -100,6 +100,13 @@ class AdminReportsController extends AdminBaseController{
     return $pdf->download('Reporte.pdf');
   }
   
-
+  public function getMacOrdersReport()
+  {
+    // $categories = Category::lists('name','id');
+    // $management = User::where('role','!=','admin')->lists('gerencia','id');
+    // $business_line = User::distinct()->where('role','!=','admin')->lists('linea_negocio','linea_negocio');
+    
+    return View::make('admin::reports.mac_orders');
+  }
 
 }
