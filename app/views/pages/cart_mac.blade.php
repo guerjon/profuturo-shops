@@ -113,17 +113,8 @@
      var cambio = $('#posible_cambio').clone();
      cambio.attr('hidden',true);
      cambio.appendTo('#send-order-form');
-     $('#send-order-form').submit();
-  });
-
-  $('form').submit(function(e){
-    $(this).attr('action','/pedidos-mac');
-    if(confirm("¿Esta seguro que quiere enviar este pedido, no habrá cambios después de ser enviado?")){
-      $('.btn-warning').prop('disabled', true);
-    }else{
-      $('.btn-warning').prop('disabled', false);
-      e.preventDefault();
-    }
+    $('#send-order-form').attr('action','/pedidos-mac');
+    $('#send-order-form').submit();
   });
 
 });
