@@ -41,6 +41,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('importar-mobiliario','AdminFurnitureImporterController');
 		Route::resource('importar-productos-mac','AdminMacProductsImporterController');
 		Route::resource('categories', 'AdminCategoriesController');
+		Route::resource('mac-categories','AdminMacCategoriesController');
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
@@ -51,6 +52,9 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('agenda-evento', 'AdminCalendarEventsController@show');
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
+		Route::controller('general-orders','AdminOrdersGeneralController');
+		Route::controller('general-producs','AdminProductsGeneralController');
+		Route::controller('general-categories','AdminCategoriesGeneralController');
 		Route::resource('orders-mac','AdminMacOrdersController');
 
 		

@@ -26,8 +26,8 @@ class CreateMacProductsTable extends Migration {
 			$table->timestamp('image_updated_at')->nullable();
 			$table->timestamps();
 
-			$table->integer('category_id')->unsigned()->nullable()->default(NULL);
-			$table->foreign('category_id')->references('id')->on('mac_categories')->onDelete('SET NULL');
+			$table->integer('mac_category_id')->unsigned()->nullable()->default(NULL);
+			$table->foreign('mac_category_id')->references('id')->on('mac_categories')->onDelete('SET NULL');
 
 			$table->softDeletes();
 		});

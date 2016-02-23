@@ -9,13 +9,15 @@
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
     <li><a href="/admin/general-categories/index">Categorías</a></li>
-    <li class="active">Categorías Papeleria</li>
+    <li class="active">Categorías MAC</li>
   </ol>
 
-<div class="text-right">
-  <a href="{{action('AdminCategoriesController@create')}}" class="btn btn-primary">
+<div class="text-right"><span class="glyphicon glyphicon-plus"></span>
+  
+  <a href="{{action('AdminMacCategoriesController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Agregar categoría
   </a>
+  
 </div>
 
 
@@ -51,15 +53,16 @@
               {{$category->name}}
             </td>
             <td>
-              {{$category->products->count()}}
+              
             </td>
             <td>
-              <a href="{{action('AdminCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
+              <a href="{{action('AdminMacCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
                <span class="glyphicon glyphicon-pencil"></span> Editar
               </a>
             </td>
           </tr>
           @endforeach
+
         </tbody>
       </table>
     </div>

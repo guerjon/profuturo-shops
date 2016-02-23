@@ -210,22 +210,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 			case 'admin':
 				return [
 					action('AdminUsersController@index') => 'Usuarios',
-					action('AdminCategoriesController@index') => 'Categorías',
-					action('AdminProductsController@index') => 'Productos',
-					action('AdminBusinessCardsController@index') => 'Tarjetas de presentación',
-					action('AdminOrdersController@index') => 'Pedidos papelería',
-					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
-					action('AdminFurnituresOrdersController@index') => 'Pedidos mobiliario',
-					action('AdminMacOrdersController@index') => 'Pedidos MAC',
+					action('AdminCategoriesGeneralController@getIndex') => 'Categorías',
+					action('AdminProductsGeneralController@getIndex') => 'Productos',
+					action('AdminOrdersGeneralController@getIndex') => 'Pedidos',
 					action('AdminCalendarEventsController@index') => 'Agenda',
 					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
 					action('AdminReportsController@getIndex') => 'Reportes',
-					action('AdminFurnituresController@index') => 'Mobiliario',
-					action('AdminFurnitureCategoriesController@index') => 'Categorías de mobiliario',
 					action('AdminDivisionalController@index') => 'Divisionales',
 					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas',
-					action('AdminMacProductsController@index') => 'Productos Mac',
 
 				];
 			case 'manager':

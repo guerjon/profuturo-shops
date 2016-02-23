@@ -21,7 +21,7 @@
 
       <fieldset>
         <legend>
-          Importar un archivo Excel con información de productos mac
+          Importar un archivo Excel con información de productos MAC
         </legend>
         <div class="form-group">
           {{Form::label('file', 'Archivo Excel')}}
