@@ -130,4 +130,22 @@ class GeneralRequestsController extends BaseController{
   return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
   } 
 
+
+
+  public function show($id)
+  {
+    $general_request = GeneralRequest::find($id);
+    if($general_request){
+      
+      if($general_request->delete()){
+        return Redirect::action('GeneralRequestsController@index')->withSuccess('Se cancelo la orden exitosamente.');
+      }else{
+        return Redirect::back()->withErrors('No se pudo cancelar  la orden');
+      }
+      
+    }else{
+        return Redirect::back()->withErrors('No se encontro la orden');
+    }
+  }
+
 }
