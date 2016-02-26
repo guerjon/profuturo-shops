@@ -61,6 +61,7 @@
         </td>
       <td>
         <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>
+        <button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">Eliminar</button>
       </td>
       </tr>
       @endforeach
@@ -81,6 +82,7 @@
 @include('general_requests.partials.satisfaction_survey') 
 @include('general_requests.partials.show')
 @include('general_requests.partials.survey')
+@include('general_requests.partials.confirmation_delete')
 
 @stop
 
@@ -106,6 +108,17 @@
   }
 
   $(function(){
+
+    $('.btn-delete').click(function(){
+      var id = $(this).attr('data-request-id');
+      $('#form-delete').attr('action','/solicitudes-generales/'+id);
+      $('#form-delete').attr('method','DELETE');
+    })
+
+
+    $('#eliminar').click(function(){
+      $('#form-delete').submit();
+    });
 
 
     $('.detail-btn').click(function(){

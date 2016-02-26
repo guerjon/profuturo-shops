@@ -62,7 +62,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
     if($general_request){
       
       if($general_request->delete()){
-        return Redirect::action('AdminGeneralRequestsController@index')->withSuccess('Se cancelo la orden exitosamente.');
+        return Redirect::action('GeneralRequestsController@index')->withSuccess('Se cancelo la orden exitosamente.');
       }else{
         return Redirect::back()->withErrors('No se pudo cancelar  la orden');
       }
