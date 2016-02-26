@@ -119,14 +119,7 @@
      cambio.appendTo('#send-order-form');
      $('#send-order-form').submit();
   });
-
-
 });
-
-
-
-
-
 
 </script>
 @stop
