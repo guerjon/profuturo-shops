@@ -47,6 +47,8 @@
           <h3>Dar de alta a un nuevo Usuario de muebles</h3>
         @elseif($active_tab =='user_loader')
           <h3>Dar de alta a un nuevo Usuario para cargas</h3>  
+        @elseif($active_tab =='user_mac')
+          <h3>Dar de alta a un nuevo Usuario MAC</h3>  
         @else
           <h3>Dar de alta a un Usuario de papelería</h3>
         @endif
@@ -79,7 +81,8 @@
           @endif  
         </div>
         
-        @if(($active_tab == 'user_paper')  || ($user->exists ? ($user->role =='user_paper') : false)) 
+        @if(($active_tab == 'user_paper' || $active_tab == 'user_mac' )  || ($user->exists ? ($user->role =='user_paper' || $active_tab == 'user_mac' ) : false)) 
+
           <div class="form-group">
             {{Form::label('divisional_id','Divisional',['class' => 'control-label'])}}
             <div>

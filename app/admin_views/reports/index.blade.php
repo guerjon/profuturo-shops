@@ -90,6 +90,13 @@
         <!--<h3 style="text-align:center">Pedidos por estado</h3>-->
     </a>
   </div>
+
+  <div class="col-sm-2 col-xs-3 ">
+    <a href="{{action('AdminReportsController@getMacOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+        <h3 style="text-align:center">Reporte BI MAC</h3>
+    </a>
+  </div>
 </div>
 </div>
 

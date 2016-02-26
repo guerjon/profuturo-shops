@@ -42,6 +42,10 @@ class CreateFurnitureSubcategoriesTable extends Migration {
 	 */
 	public function down()
 	{
+		Schema::table('furnitures', function($table){
+			$table->dropForeign('furnitures_furniture_subcategory_id_foreign');
+		});
+
 		Schema::drop('furniture_subcategories');
 	}
 	

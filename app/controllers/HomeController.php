@@ -80,4 +80,12 @@ class HomeController extends BaseController {
 	{
 		return View::make('pages.cart_furniture')->withLastOrder(Auth::user()->furnitureOrders()->orderBy('created_at', 'desc')->first());
 	}
+
+	public function getCarritoMac()
+	{
+		$address = Address::where('ccostos',Auth::user()->ccosto)->first();
+		return View::make('pages.cart_mac')
+		->withLastOrder(Auth::user()->MacOrders()->orderBy('created_at', 'desc')->first())
+		->withAddress($address);	
+	}
 }

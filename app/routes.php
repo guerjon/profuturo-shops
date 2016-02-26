@@ -39,7 +39,9 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('products', 'AdminProductsController');
 		Route::resource('mobiliario','AdminFurnituresController');
 		Route::resource('importar-mobiliario','AdminFurnitureImporterController');
+		Route::resource('importar-productos-mac','AdminMacProductsImporterController');
 		Route::resource('categories', 'AdminCategoriesController');
+		Route::resource('mac-categories','AdminMacCategoriesController');
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
@@ -50,6 +52,11 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('agenda-evento', 'AdminCalendarEventsController@show');
 		Route::controller('api', 'AdminApiController');
 		Route::controller('reports', 'AdminReportsController');
+		Route::controller('general-orders','AdminOrdersGeneralController');
+		Route::controller('general-producs','AdminProductsGeneralController');
+		Route::controller('general-categories','AdminCategoriesGeneralController');
+		Route::resource('orders-mac','AdminMacOrdersController');
+
 		
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 		Route::resource('divisionales','AdminDivisionalController');
@@ -57,7 +64,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::post('subcategorias-muebles/{subcategory_id}/edit','AdminFurnitureSubcategoriesController');
 		Route::resource('address','AdminAddressController');
 		Route::get('grafica-arana','AdminSpiderGraphController@getIndex');
-		
+		Route::resource('productos-mac','AdminMacProductsController');
 	});
 
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
@@ -74,17 +81,29 @@ Route::group(['before' => 'auth'], function(){
 	Route::resource('direcciones','AddressController');
 
 	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
+	
+
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');
 	Route::get('productos/{category}', 'ProductsController@index');
 	Route::get('productos', 'ProductsController@index');
+
+	Route::get('mac-productos', 'MacProductsController@index');
+	Route::get('mac-productos/{category}', 'MacProductsController@index');
+	Route::resource('pedidos-mac','MacOrdersController');
+	Route::post('pedidos-mac/{order_id}', 'MacOrdersController@postReceive');
 
 	Route::get('mobiliario', 'FurnituresController@index');
 	Route::get('mobiliario/{category}/{subcategory}', 'FurnituresController@index');
 	Route::get('mobiliario/{category}', 'FurnituresController@index');
 
+
+
+
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
 	Route::controller('agregar-producto','AddProductsController');
 	Route::controller('agregar-mobiliario','AddFurnituresController');
+	Route::controller('agregar-producto-mac','AddMacProductsController');
+
 	Route::controller('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');

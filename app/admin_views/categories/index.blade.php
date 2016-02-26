@@ -8,11 +8,14 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li class="active">Categorías</li>
+    <li><a href="/admin/general-categories/index">Categorías</a></li>
+    <li class="active">Categorías Papeleria</li>
   </ol>
 
 <div class="text-right">
-  {{link_to_action('AdminCategoriesController@create', 'Agregar categoría', NULL, ['class' => 'btn btn-primary'])}}
+  <a href="{{action('AdminCategoriesController@create')}}" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> Agregar categoría
+  </a>
 </div>
 
 

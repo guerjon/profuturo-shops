@@ -17,6 +17,9 @@ class CreateRegionsTable extends Migration {
 			$table->string('name');
 		});
 
+		Schema::table('users',function($table){
+			$table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+		});
 	}
 
 	/**
@@ -25,9 +28,11 @@ class CreateRegionsTable extends Migration {
 	 * @return void
 	 */
 	public function down()
-	{
+	{	
+		Schema::table('users', function($table){
+			$table->dropForeign('users_region_id_foreign');
+		});
 		Schema::drop('regions');
 	}
 
 }
-

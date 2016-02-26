@@ -15,28 +15,6 @@
 
 <br>
 
-&nbsp;
-<!-- <ul class="nav nav-pills">
-  <li role="presentation" class="active"><a href="#">Productos</a></li>
-  <li role="presentation"><a href="pedidos">Mis pedidos</a></li>
-</ul>
-
-<div class="pull-right">
-  <form class="form-inline">
-    <label>Buscar</label>
-    <input type="text" class="form-control">
-  </form>
-</div>
-
-<br>
-
-<ul class="nav nav-tabs">
-  <li role="presentation" class="active"><a href="#">Todos</a></li>
-  <li role="presentation"><a href="#">Oficina</a></li>
-  <li role="presentation"><a href="#">Móviles</a></li>
-  <li role="presentation"><a href="#">Impresión</a></li>
-  <li role="presentation"><a href="#">Orden</a></li>
-</ul> -->
 
 {{Form::open([
 'class' => 'form-horizontal',

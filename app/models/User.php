@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader',
+		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
 	
@@ -104,6 +104,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->role == 'user_paper';
 	}
 
+	public function getUserMacAttribute()
+	{
+		return $this->role == 'user_mac';
+	}
+	
 	public function cartProducts()
 	{
 		return $this->belongsToMany('Product', 'cart_products')->withPivot('quantity');
@@ -112,6 +117,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	public function cartFurnitures()
 	{
 		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity','company','assets','ccostos','color','id_active');
+	}
+
+	public function cartMac()
+	{
+		return $this->belongsToMany('MacProduct', 'cart_mac_products')->withPivot('quantity');
 	}
 
 	public function orders()
@@ -137,6 +147,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->hasMany('FurnitureOrder');
 	}
 
+	public function macOrders()
+	{
+		return $this->hasMany('MacOrder');
+	}
+	
 	public function bcOrders()
 	{
 		return $this->hasMany('BcOrder');
@@ -181,25 +196,27 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $total;
 	}
 
-
+	public function getCartTotalMacAttribute()
+	{
+		$total = 0;
+		foreach($this->cart_Mac as $p){
+			$total += $p->price * $p->pivot->quantity;
+		}
+		return $total;
+	}
 
 	public function getMenuActionsAttribute(){
 		switch($this->role){
 			case 'admin':
 				return [
 					action('AdminUsersController@index') => 'Usuarios',
-					action('AdminCategoriesController@index') => 'Categorías',
-					action('AdminProductsController@index') => 'Productos',
-					action('AdminBusinessCardsController@index') => 'Tarjetas de presentación',
-					action('AdminOrdersController@index') => 'Pedidos papelería',
-					action('AdminBcOrdersController@index') => 'Pedidos tarjetas',
-					action('AdminFurnituresOrdersController@index') => 'Pedidos mobiliario',
+					action('AdminCategoriesGeneralController@getIndex') => 'Categorías',
+					action('AdminProductsGeneralController@getIndex') => 'Productos',
+					action('AdminOrdersGeneralController@getIndex') => 'Pedidos',
 					action('AdminCalendarEventsController@index') => 'Agenda',
 					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
 					action('AdminReportsController@getIndex') => 'Reportes',
-					action('AdminFurnituresController@index') => 'Mobiliario',
-					action('AdminFurnitureCategoriesController@index') => 'Categorías de mobiliario',
 					action('AdminDivisionalController@index') => 'Divisionales',
 					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas',
 
@@ -234,6 +251,13 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
 					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
+				];
+
+			case 'user_mac':
+				return [
+					action('MacProductsController@index') => 'Productos',
+					'/carrito-mac' => 'Mi carrito (papelería)',
+					action('MacOrdersController@index') => 'Mis pedidos',
 				];	
 		}
 	}

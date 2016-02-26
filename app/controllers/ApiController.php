@@ -89,6 +89,40 @@ class ApiController extends BaseController
       ]);
   }
 
+  public function postAddToCartMac()
+  {
+     $q = Input::get('quantity');
+        if($q <= 0){
+          return Response::json([
+            'status' => 500,
+            'error_msg' => 'La cantidad debe ser un entero positivo menor o igual a 5'
+            ]);
+        }
+
+        $product = MacProduct::find(Input::get('product_id'));
+
+        if(!$product){
+          return Response::json([
+            'status' => 500,
+            'error_msg' => 'No se encontró el producto'
+            ]);
+        }
+
+        if(Auth::user()->cart_mac->contains($product->id)){
+          $q += Auth::user()->cartMac()->where('id', $product->id)->first()->pivot->quantity;
+          Auth::user()->cartMac()->detach($product->id);
+        }
+
+        Auth::user()->cartMac()->attach($product->id, ['quantity' => $q]);
+
+
+      return Response::json([
+      'status' => 200,
+      'msg' => "Se han añadido $q piezas al carrito",
+      'product_id' => $product->id,
+      'new_q' => $q,
+      ]);
+  }
 
 
   public function postRemoveFromCart()
@@ -133,6 +167,50 @@ class ApiController extends BaseController
       ]);
 
   }
+
+  public function postRemoveFromCartMac()
+  {
+    $q = Input::get('quantity');
+    if($q <= 0){
+      return Response::json([
+        'status' => 500,
+        'error_msg' => 'La cantidad debe ser un entero positivo'
+        ]);
+      }
+
+    $product = MacProduct::find(Input::get('product_id'));
+
+    if(!$product){
+      return Response::json([
+        'status' => 500,
+        'error_msg' => 'No se encontró el producto'
+        ]);
+    }
+
+    if(!Auth::user()->cart_mac->contains($product->id)){
+      return Response::json([
+        'status' => 200,
+        'new_q' => 0,
+        'product_id' => $product->id,
+        ]);
+    }
+
+    $q = Auth::user()->cartMac()->where('id', $product->id)->first()->pivot->quantity - $q;
+    Auth::user()->cartMac()->detach($product->id);
+    if($q <= 0){
+      $q = 0;
+    }else{
+      Auth::user()->cartMac()->attach($product->id, ['quantity' => $q]);
+    }
+
+    return Response::json([
+      'status' => 200,
+      'new_q' => $q,
+      'product_id' => $product->id,
+      ]);
+
+  }
+
 
 
   public function postRemoveFromCartFurniture()
@@ -215,6 +293,34 @@ class ApiController extends BaseController
         ]);
   }
 
+
+
+  public function postDestroyMacProducts()
+  {
+    $quantity   = Input::get('quantity');
+    $order_id   = Input::get('order_id');
+    $product_id = Input::get('product_id');
+    $order = MacOrder::find($order_id);
+    if((($order->products()->where('mac_products.id',$product_id)->first()->pivot->quantity) -$quantity) == 0 ){
+        DB::table('mac_order_mac_product')
+    ->where('mac_order_id','=',$order_id)
+    ->where('mac_product_id','=',$product_id)
+    ->delete();   
+  }else{
+     DB::table('mac_order_mac_product')
+    ->where('mac_order_id','=',$order_id)
+    ->where('mac_product_id','=',$product_id)
+    ->update(array('quantity'=> DB::raw('quantity-1')));
+  } 
+
+
+     return Response::json([
+        'status' => 200,
+        'error_msg' => 'No se encontró el producto'
+        ]);
+  }
+
+
   public function postAddProduct()
   {
     $order_id = Input::get('order_id');
@@ -227,6 +333,31 @@ class ApiController extends BaseController
     if(count($query) == 0){
       DB::table('order_product')->insert(
       ['order_id' => $order_id, 'product_id' => $product_id, 'quantity' => $quantity]);
+   
+     return Response::json([
+        'status' => 200
+        ]);
+    }
+    else{
+      return Response::json([
+        'status' => 500
+        ]);
+    }
+    
+  }
+
+  public function postAddMacProduct()
+  {
+    $order_id = Input::get('order_id');
+    $product_id = Input::get('product_id');
+    $quantity = Input::get('quantity');
+    $query =  DB::table('mac_order_mac_product')->select('mac_product_id')
+    ->where('mac_order_id','=',$order_id)
+    ->where('mac_product_id','=',$product_id)->get();
+
+    if(count($query) == 0){
+      DB::table('mac_order_mac_product')->insert(
+      ['mac_order_id' => $order_id, 'mac_product_id' => $product_id, 'quantity' => $quantity]);
    
      return Response::json([
         'status' => 200

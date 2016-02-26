@@ -135,6 +135,120 @@ class AdminApiController extends AdminBaseController
   }
 
 
+
+  public function getMacOrders()
+  {
+    ini_set('max_execution_time','300');
+    
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, mac_order_mac_product"))->select(DB::raw("
+      mac_orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'KA003035' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      mac_products.name as DESCR254_MIXED,
+      mac_products.measure_unit as UNIT_OF_MEASURE,
+      mac_order_mac_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'KA003035' as INTROD,
+      mac_categories.name as CATEGORY,
+      (mac_products.price * mac_order_mac_product.quantity) as PRICE
+      "))
+      ->join('mac_products', 'mac_products.id', '=', 'mac_order_mac_product.mac_product_id')
+      ->join('mac_orders', 'mac_orders.id' , '=', 'mac_order_mac_product.mac_order_id')
+      ->leftJoin('users', 'users.id', '=', 'mac_orders.user_id')
+      ->leftJoin('mac_categories', 'mac_products.category_id', '=', 'mac_categories.id')
+      ->orderBy('mac_orders.id')->whereNull('mac_orders.deleted_at');
+
+
+    if(Input::has('month_init') && Input::has('month_end')){
+      $query->where(DB::raw('MONTH(mac_orders.created_at)'),'>=',Input::get('month_init'))
+            ->where(DB::raw('MONTH(mac_orders.created_at)'),'<=',Input::get('month_end'));
+    }
+    if(Input::has('year'))
+      $query->where(DB::raw('YEAR(mac_orders.updated_at)'), Input::get('year'));
+
+
+    if(Input::has('status'))
+      $query->where('mac_orders.status','=',Input::get('status'));
+
+    if(Input::has('category_id'))
+      $query->where('mac_categories.id','=',$Input::get('category_id')); 
+
+    if(Input::has('divisional_id'))
+      $query->where('users.divisional_id','=',Input::get('divisional_id')); 
+
+    if(Input::has('ccosto'))
+      $query->where('users.ccosto','=',Input::get('ccosto')); 
+
+    if(Input::has('order_id'))
+      $query->where('mac_orders.id',Input::get('order_id'));
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->get();
+      return Response::json([
+        'status' => 200,
+        'orders' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+            $datetime = \Carbon\Carbon::now()->format('YmdHi');
+            $data = str_putcsv($headers)."\n";
+
+
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('reporte_mac'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
+
+            $headers = array(
+              'Content-Type' => 'text/csv',
+              'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+            );
+            return Response::make($data, 200, $headers);
+    }
+  }
+
+
   /**
   *Metodo auxiliar para el metodo getBcOrdersReport
   *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
@@ -1022,6 +1136,23 @@ class AdminApiController extends AdminBaseController
     }
   }
 
+
+  public function getBIMacAutocomplete()
+  {
+    
+    $orders = MacOrder::all()->lists('id');
+    $ccostos = User::all()->lists('ccosto');
+ 
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'orders' => $orders,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
   public function getTotalUsersReport()
   {
     $users =  User::all();
@@ -1174,8 +1305,6 @@ class AdminApiController extends AdminBaseController
     
     $subcategories = FurnitureCategory::find($category_id)->furniture_subcategories;
     
-    
-
         if(Request::ajax()){
           return Response::json([
             'subcategories' => $subcategories,
@@ -1289,7 +1418,7 @@ class AdminApiController extends AdminBaseController
       $surveys->where('general_requests.created_at','<',Input::get('until'));
 
     if(Input::has('consultor'))
-      $surveys->where('ccosto','=',Input::get('consultor'));
+      $surveys->where('users.id','=',Input::get('id'));
 
     if(Input::has('solicitud'))
       $surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));

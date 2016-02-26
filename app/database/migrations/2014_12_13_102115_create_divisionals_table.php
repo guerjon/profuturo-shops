@@ -25,7 +25,7 @@ class CreateDivisionalsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('divisional');
+		Schema::drop('divisionals');
 	}
 
 }

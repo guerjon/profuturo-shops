@@ -8,8 +8,10 @@ class AdminSpiderGraphController extends \BaseController {
 	 * @return Response
 	 */
 	public function getIndex()
-	{
-		return View::make('admin::spider_graph.index');
+	{	
+		$consultores = User::where('role','manager')->lists('nombre','id');
+		
+		return View::make('admin::spider_graph.index')->withConsultores($consultores);
 	}
 
 
