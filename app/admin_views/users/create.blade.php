@@ -131,7 +131,7 @@
         </div>
         @endunless
 
-
+        
    
     @if(($active_tab == 'manager') or ($active_tab == 'user_requests'))
   	  @unless($active_tab == 'user_requests')
@@ -199,6 +199,21 @@
 
     @endif
     
+    @if($user->exists)
+          <div class="form-group">
+            {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
+            <div>
+              {{Form::password('password', ['class' => 'form-control'])}}
+            </div>
+          </div>
+
+          <div class="form-group">
+            {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label'])}}
+            <div>
+              {{Form::password('password_confirmation', ['class' => 'form-control'])}}
+            </div>
+          </div>
+    @endif
       
       <center>         
         {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-primary'])}}

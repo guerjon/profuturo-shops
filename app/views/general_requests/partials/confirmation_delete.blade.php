@@ -13,7 +13,7 @@
           </h3>
           
         </center>
-            
+          <!--Este formulario por alguna razón envia a show y no a delete !-->  
           {{Form::open(['method' => 'DELETE', 'id' => 'form-delete']) }}
           {{ Form::close()}}
         </div>
