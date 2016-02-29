@@ -9,12 +9,12 @@ class AdminDivisionalController extends BaseController{
 	 */
 	public function index()
 	{
-		Log::info(Input::all());
+		
 		$divisionals_date = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
 			->where('divisionals_users.divisional_id',Input::get('active_tab', '2'));
 		
 		$active_tab = Session::get('active_tab', Input::get('active_tab', '2'));
-		Log::info($divisionals_date->get());
+		
 		return View::make('admin::divisionales.index')
 			->withDivisionals(Divisional::orderBy('id')->get())
 			->withDivisionalsToSelect(Divisional::orderBy('id')->lists('name','id'))
@@ -43,11 +43,9 @@ class AdminDivisionalController extends BaseController{
 	{
 		Log::info(Input::all());
 
-		DB::table('divisionals_users')->insert(['from' => Input::get('from'),
-																					 'until' => Input::get('until'),
-																					 'divisional_id' => Input::get('divisional_id')]);
+		DB::table('divisionals_users')->insert(['from' => Input::get('from'),'until' => Input::get('until'),'divisional_id' => Input::get('divisional_id')]);
 
-	 return Redirect::to(action('AdminDivisionalController@index'))->withInfo('Se ha agregado la fecha a la divisional.');	
+	 	return Redirect::to(action('AdminDivisionalController@index'))->withInfo('Se ha agregado la fecha a la divisional.');	
 	}
 
 
