@@ -35,26 +35,23 @@
     {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
   </div>
   <div class="col-xs-3 ">DESDE:
-    {{Form::selectMonth('month_init', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
+    {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
   </div>
 
-  <div class="col-xs-3 ">HASTA:
-    {{Form::selectMonth('month_end', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
-  </div>
+  
 </div>
 <br>
 <div class="row">
   
-  <div class="col-xs-3">AÑO:
-    {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
-  </div>
   <div class="col-xs-3">LINEA DE NEGOCIO:
     {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
   </div>
   <div class="col-xs-3">DIVISIONALES
     {{Form::select('divisional_id', [NULL => 'Todas las divisionales'] + Divisional::orderBy('id')->lists('name','id'), Input::get('gerencia'), ['class' => 'form-control'])}}
   </div>
-
+<div class="col-xs-3 ">HASTA:
+    {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+  </div>
 </div>
 {{Form::close()}}
 
@@ -130,6 +127,9 @@ function update(){
 $(function(){
   update();
   $('#filter-form select').change(function(){
+    update();
+  });
+  $('.datepicker').change(function(){
     update();
   });
 });
