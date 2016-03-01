@@ -75,13 +75,7 @@ class AdminApiController extends AdminBaseController
     if(Input::has('gerencia')){
       $query->where('users.id','=',Input::get('gerencia'));
     }
-    if(Input::has('month_init') && Input::has('month_end')){
-      $query->where(DB::raw('MONTH(orders.created_at)'),'>=',Input::get('month_init'))
-            ->where(DB::raw('MONTH(orders.created_at)'),'<=',Input::get('month_end'));
-    }
-    if(Input::has('year')){
-      $query->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'));
-    }
+    
     if(Input::has('linea_negocio')){
       $query->where('users.linea_negocio','=',Input::get('linea_negocio'));
     }
@@ -92,6 +86,15 @@ class AdminApiController extends AdminBaseController
     if(Input::has('divisional_id')){
       $query->where('users.divisional_id','=',Input::get('divisional_id')); 
     }
+
+    if(Input::has('since')){
+      $query->where('orders.created_at','>=',Input::get('since'));
+    }
+
+    if(Input::has('until')){
+      $query->where('orders.created_at','<=',Input::get('until'));
+    }
+
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -117,9 +120,8 @@ class AdminApiController extends AdminBaseController
           $result[] = $itemArray;
         }
         if($result){
-         $mes = Input::get('month');
-         $año = Input::get('year');
-          Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
+         
+          Excel::create('reporte_papeleria', function($excel) use($result){
            $excel->sheet('hoja 1',function($sheet)use($result){
              $sheet->fromArray($result);
               });
