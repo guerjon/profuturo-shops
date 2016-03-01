@@ -115,7 +115,7 @@
           </div>
         </div>
 
-        @unless($user->exists || $active_tab == 'user_paper')
+        @unless($user->exists)
         <div class="form-group">
           {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
           <div>
