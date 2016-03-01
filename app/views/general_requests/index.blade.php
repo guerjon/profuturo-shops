@@ -108,6 +108,17 @@
   }
 
   $(function(){
+       
+      var currentDate = new Date();
+
+      $.datepicker.regional['es'] = {
+
+        minDate: currentDate,
+      };
+      $.datepicker.setDefaults($.datepicker.regional['es']);
+      $('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
+     
+    
 
     $('.btn-delete').click(function(){
       var id = $(this).attr('data-request-id');
