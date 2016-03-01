@@ -89,13 +89,13 @@
                 {{$order->user->ccosto}}
               </td>
               <td>
-                {{link_to_action('AdminOrdersController@show', $order->id, [$order->id])}}
+                {{link_to_action('AdminOrdersController@show', $order->order_id, [$order->order_id])}}
               </td>
               <td>
                 {{$order->comments}}
               </td>
               <td>
-                {{$order->created_at->format('d-m-Y')}}
+                {{$order->order_date}}
               </td>
               <td>
                 @if($order->status == 0)
