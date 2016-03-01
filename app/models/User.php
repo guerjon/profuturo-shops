@@ -99,7 +99,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->role == 'user_requests';	
 	}
 
-	public function getUserPaperAttribute()
+	public function getIsUserPaperAttribute()
 	{
 		return $this->role == 'user_paper';
 	}

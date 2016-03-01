@@ -114,21 +114,21 @@
             {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],$user->exists ? $user->linea_negocio : null,['class' => 'form-control'])}}
           </div>
         </div>
-
-        @unless($user->exists)
-        <div class="form-group">
-          {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
-          <div>
-            {{Form::password('password', ['class' => 'form-control'])}}
+  
+        @unless($user->exists || ($active_tab == 'user_mac'))
+          <div class="form-group">
+            {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
+            <div>
+              {{Form::password('password', ['class' => 'form-control'])}}
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label'])}}
-          <div>
-            {{Form::password('password_confirmation', ['class' => 'form-control'])}}
+          <div class="form-group">
+            {{Form::label('password_confirmation', 'Confirma contraseña', ['class' => 'control-label'])}}
+            <div>
+              {{Form::password('password_confirmation', ['class' => 'form-control'])}}
+            </div>
           </div>
-        </div>
         @endunless
 
         
@@ -199,6 +199,7 @@
 
     @endif
     
+
     @if($user->exists)
           <div class="form-group">
             {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}

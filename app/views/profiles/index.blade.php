@@ -53,7 +53,7 @@
 			</div>
 
 			<div class="form-group">
-				{{Form::label('extension','Extención',['class'=>'control-label','required' => 'true'])}}
+				{{Form::label('extension','Extensión',['class'=>'control-label','required' => 'true'])}}
 				{{Form::text('extension',null,['class' => 'form-control'])}}			
 			</div>
 
