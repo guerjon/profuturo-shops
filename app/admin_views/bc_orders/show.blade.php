@@ -31,6 +31,15 @@
       <th>
         Comentarios
       </th>
+      <th>
+        Dirección
+      </th>
+      <th>
+        Teléfono
+      </th>
+      <th>
+        Celular
+      </th>
     </tr>
   </thead>
 
@@ -49,55 +58,57 @@
       <td>
         {{$card->pivot->status ? '' : $card->pivot->comments}}
       </td>
-
+      <td>
+        {{$card->direccion}}
+      </td>
+      <td>
+        {{$card->telefono}}
+      </td>
+      <td>
+        {{$card->celular}}
+      </td>
     </tr>
     @endforeach
-     @if($blank_card)
-    <tr>
-      <td>
-        Tarjetas blancas
-      </td>
-      <td>
-        {{$blank_card->quantity}}
-      </td>
+    @if($blank_card)
+      <tr>
+        <td>
+          Tarjetas blancas
+        </td>
+        <td>
+          {{$blank_card->quantity}}
+        </td>
 
-      <td>
-      @if($blank_card->status == 1)
-      Completo
-      @else
-      Incompleto
-      @endif
-      
-      </td>
-
-      <td>
-        {{$blank_card->status ? ' ' : $blank_card->comments}}
-      </td>
-
-
-    </tr>
+        <td>
+          @if($blank_card->status == 1)
+          Completo
+          @else
+          Incompleto
+          @endif
+        </td>
+        <td>
+          {{$blank_card->status ? ' ' : $blank_card->comments}}
+        </td>
+      </tr>
     @endif
     @if($bc_order->extra)
-    <tr>
-    <td>
-      {{$bc_order->extra->talento_nombre}}
-    </td>
-    <td>
-      100
-    </td>
-    <td>
-      @if($bc_order->extra->talento_estatus == 1)
-      Completo
-      @else
-      Incompleto
-      @endif
-    </td>
-    <td>
-      {{$bc_order->extra->talento_estatus ? '' : $bc_order->extra->talento_comentarios}}
-    </td>
-    
-    </tr>
-    
+      <tr>
+        <td>
+          {{$bc_order->extra->talento_nombre}}
+        </td>
+        <td>
+          100
+        </td>
+        <td>
+          @if($bc_order->extra->talento_estatus == 1)
+          Completo
+          @else
+          Incompleto
+          @endif
+        </td>
+        <td>
+          {{$bc_order->extra->talento_estatus ? '' : $bc_order->extra->talento_comentarios}}
+        </td>
+      </tr>
     <tr>
     <td>
       {{$bc_order->extra->gerente_nombre}}
@@ -113,15 +124,15 @@
       Incompleto
       @endif
     </td>
-    <td>
-     {{$bc_order->extra->gerente_estatus ? '' : $bc_order->extra->gerente_comentarios}}
-    </td>
-    
+      <td>
+       {{$bc_order->extra->gerente_estatus ? '' : $bc_order->extra->gerente_comentarios}}
+      </td>
     </tr>
+    
+      
+    
     @endif
 
-
-   
   </tbody>
 
 </table>
