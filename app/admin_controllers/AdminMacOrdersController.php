@@ -44,7 +44,7 @@ class AdminMacOrdersController extends BaseController
     }
         
     $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
-    $orders = MacOrder::select(DB::raw('*,mac_orders.id as order_id'))->orderBy('mac_orders.created_at', 'desc')->join('users','users.id','=','mac_orders.user_id');
+    $orders = MacOrder::select(DB::raw('*,mac_orders.id as order_id,mac_orders.created_at as mac_created_at'))->orderBy('mac_orders.created_at', 'desc')->join('users','users.id','=','mac_orders.user_id');
 
 
     if(Input::has('ccosto'))

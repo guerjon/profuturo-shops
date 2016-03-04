@@ -91,7 +91,7 @@
                 {{$order->comments}}
               </td>
               <td>
-                {{$order->created_at->format('d-m-Y')}}
+                {{$order->mac_created_at}}
               </td>
               <td>
                 @if($order->status == 0)
