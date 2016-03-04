@@ -114,10 +114,9 @@
                   @if($address->ccostos == $order->user->ccosto)
                       {{$address->domicilio}}
                       @if($address->posible_cambio != null)
-                      <button data-id="{{$address->id}}" data-domicilio="{{$address->domicilio}}" data-posible-cambio="{{$address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
-                        Ver cambio domicilio
-                      </button>
-                          
+                        <button data-id="{{$address->id}}" data-domicilio="{{$address->domicilio}}" data-posible-cambio="{{$address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
+                          Ver cambio domicilio
+                        </button>
                       @endif
                   @endif
                 @endforeach
