@@ -4,13 +4,11 @@
   ]) }}
   {{ Form::hidden('active_tab', 'admin') }}
   <div class="form-group">
-    <label for="admin-ccostos" class="control-label col-xs-2">Centro de costos</label>
     <div class="col-xs-2">
-      {{Form::text('admin[employee_number]', (Input::get('admin')['employee_number']), ['class' => 'form-control'])}}
+      {{Form::text('admin[employee_number]', (Input::get('admin')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
     </div>
-    <label for="admin-ccostos" class="control-label col-xs-2">Gerencia</label>
     <div class="col-xs-2">
-      {{Form::text('admin[gerencia]',(Input::get('admin')['gerencia']),['class' => 'form-control'])}}
+      {{Form::text('admin[gerencia]',(Input::get('admin')['gerencia']),['placeholder' => 'Gerencia','class' => 'form-control'])}}
     </div>
 
     <div class="col-xs-1">

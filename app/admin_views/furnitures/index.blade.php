@@ -35,7 +35,7 @@
    <br>
   <div class="row">
     {{Form::open(['action' => 'AdminFurnituresController@index','method' => 'GET'])}}
-      <div class="col col-md-3 col-md-offset-4">
+      <div class="col col-md-3">
       {{Form::select('active_subtab',[null =>'Seleccione una subcategoria']+$subcategories,null, ['class' => 'form-control','id' => 'subcategoria'])}}
       </div>
     {{Form::hidden('active_tab',$active_tab)}}

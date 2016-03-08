@@ -4,19 +4,14 @@
   ]) }}
   {{ Form::hidden('active_tab', 'user_paper') }}
   <div class="form-group">
-    <label for="user-paper-employee-number" class="control-label col-xs-2">Centro de costos</label>
+
     <div class="col-xs-2">
-      {{Form::text('user_paper[employee_number]', (Input::get('user_paper')['employee_number']), ['class' => 'form-control'])}}
+      {{Form::text('user_paper[employee_number]', (Input::get('user_paper')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
     </div>
-    <label for="user-paper-employee-number" class="control-label col-xs-2">Gerencia</label>
     <div class="col-xs-2">
-      {{Form::text('user_paper[gerencia]', (Input::get('user_paper')['gerencia']), ['class' => 'form-control'])}}
+      {{Form::text('user_paper[gerencia]', (Input::get('user_paper')['gerencia']), ['placeholder' => 'Gerencia','class' => 'form-control'])}}
     </div>
 
-{{--     <div class="col-xs-3">
-      {{ Form::select('executive[management_id]', $managements,
-        Input::get('executive')['management_id'], ['class' => 'form-control']) }}
-    </div> --}}
     <div class="col-xs-1">
       <button type="submit" class="btn btn-block btn-default">
         <span class="glyphicon glyphicon-search"></span>
