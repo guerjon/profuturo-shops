@@ -33,7 +33,7 @@
   </a>
 </div>
 
-<h3>Centros de costos</h3>
+<h3>Usuarios</h3>
   <div class="" style="margin: 20px inherit">
     <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="{{$active_tab == 'admin' ? 'active' : ''}}">
