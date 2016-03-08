@@ -11,7 +11,7 @@
     <li class="active">Pedidos</li>
   </ol>
 
-<h2 style="text-align:center">Pedidos</h2>
+<h2>Pedidos</h2>
 
 <hr>
 

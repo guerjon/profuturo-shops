@@ -11,7 +11,7 @@
     <li class="active">Categorías</li>
   </ol>
 
-<h2 style="text-align:center">Categorías</h2>
+<h2>Categorías</h2>
 
 <hr>
 

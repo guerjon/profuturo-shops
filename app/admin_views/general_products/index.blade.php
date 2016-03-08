@@ -11,7 +11,7 @@
     <li class="active">Productos</li>
   </ol>
 
-<h2 style="text-align:center">Productos</h2>
+<h2>Productos</h2>
 
 <hr>
 
