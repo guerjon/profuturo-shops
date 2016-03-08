@@ -3,21 +3,16 @@
   'class' => 'form-horizontal'
   ]) }}
   {{ Form::hidden('active_tab', 'user_requests') }}
+  
   <div class="form-group">
-    <label for="user-request-employee-number" class="control-label col-xs-2">Número de Empleado</label>
+    <label for="user-request-employee-number" class="control-label"></label>
     <div class="col-xs-2">
-      {{Form::text('user_requests[employee_number]', (Input::get('user_requests')['employee_number']), ['class' => 'form-control'])}}
+      {{Form::text('user_requests[employee_number]', (Input::get('user_requests')['employee_number']), ['placeholder' => 'Número de Empleado', 'class' => 'form-control'])}}
     </div>
-
-    <label for="user-request-employee-number" class="control-label col-xs-2">Gerencia</label>
+    
     <div class="col-xs-2">
-      {{Form::text('user_requests[gerencia]', (Input::get('user_requests')['gerencia']), ['class' => 'form-control'])}}
+      {{Form::text('user_requests[gerencia]', (Input::get('user_requests')['gerencia']), ['placeholder' => 'Gerencia', 'class' => 'form-control'])}}
     </div>
-
-{{--     <div class="col-xs-3">
-      {{ Form::select('executive[management_id]', $managements,
-        Input::get('executive')['management_id'], ['class' => 'form-control']) }}
-    </div> --}}
     <div class="col-xs-1">
       <button type="submit" class="btn btn-block btn-default">
         <span class="glyphicon glyphicon-search"></span>

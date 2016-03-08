@@ -23,7 +23,7 @@
   'target' => '_blank'
   ])}}
 <div class="row">
-  <div class="col-xs-4 col-xs-offset-2">
+  <div class="col-xs-4">
     {{Form::selectMonth('month', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
   </div>
   <div class="col-xs-2">

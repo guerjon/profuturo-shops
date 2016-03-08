@@ -4,13 +4,12 @@
   ]) }}
   {{ Form::hidden('active_tab', 'user_mac') }}
   <div class="form-group">
-    <label for="user-paper-employee-number" class="control-label col-xs-2">Centro de costos</label>
+  
     <div class="col-xs-2">
-      {{Form::text('user_mac[employee_number]', (Input::get('user_mac')['employee_number']), ['class' => 'form-control'])}}
+      {{Form::text('user_mac[employee_number]', (Input::get('user_mac')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
     </div>
-    <label for="user-paper-employee-number" class="control-label col-xs-2">Gerencia</label>
     <div class="col-xs-2">
-      {{Form::text('user_mac[gerencia]', (Input::get('user_mac')['gerencia']), ['class' => 'form-control'])}}
+      {{Form::text('user_mac[gerencia]', (Input::get('user_mac')['gerencia']), ['placeholder' => 'Gerencia','class' => 'form-control'])}}
     </div>
 
     <div class="col-xs-1">
