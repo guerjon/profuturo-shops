@@ -20,21 +20,18 @@
   <div class="col-sm-2 col-xs-3 col-xs-offset-3">
     <a href="{{action('AdminReportsController@getActiveUserOrdersReport')}}"class="thumbnail">
       <img src="/img/mayores_pedidos.png" style="width: 100%; height: auto;">
-	<h3 style="text-align:center">Mayores pedidos</h3>
-    </a>
+	  </a>
   </div>
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getUserOrdersReport')}}"class="thumbnail">
-      <img src="/img/img.png" style="width: 100%; height: auto;">
-        <h3 style="text-align:center">Usuarios sin pedidos</h3>
+      <img src="/img/mas_solicitados.png" style="width: 100%; height: auto;">
     </a>
   </div>
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getProductOrdersReport')}}"class="thumbnail">
       <img src="/img/mas_solicitados.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Más solicitados</h3>-->
     </a>
   </div>
 </div>
@@ -42,21 +39,18 @@
   <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
     <a href="{{action('AdminReportsController@getBIReport')}}"class="thumbnail">
       <img src="/img/reporte_bi.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Reportes BI</h3>-->
     </a>
   </div>
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getTotalUserOrdersReport')}}"class="thumbnail">
       <img src="/img/pedidos_totales.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Pedidos totales</h3>-->
     </a>
   </div>
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getFurnituresOrdersReport')}}"class="thumbnail">
       <img src="/img/mobiliario.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Mobiliario</h3>-->
     </a>
   </div>
 </div>
@@ -65,21 +59,18 @@
   <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
     <a href="{{action('AdminReportsController@getOrdersReport')}}"class="thumbnail">
       <img src="/img/pedidos_papeleria.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Pedidos papelería</h3>-->
     </a>
   </div>
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getBcOrdersReport')}}"class="thumbnail">
       <img src="/img/pedidos_tarjetas.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Pedidos tarjetas</h3>-->
     </a>
   </div>
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getGeneralRequestReport')}}"class="thumbnail">
       <img src="/img/solicitudes_generales.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Sol. generales</h3>-->
     </a>
   </div>
 </div>
@@ -87,14 +78,12 @@
   <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
     <a href="{{action('AdminReportsController@getAllProductsReport')}}"class="thumbnail">
       <img src="/img/pedidos_estatus.png" style="width: 100%; height: auto;">
-        <!--<h3 style="text-align:center">Pedidos por estado</h3>-->
     </a>
   </div>
 
   <div class="col-sm-2 col-xs-3 ">
     <a href="{{action('AdminReportsController@getMacOrdersReport')}}"class="thumbnail">
       <img src="/img/img.png" style="width: 100%; height: auto;">
-        <h3 style="text-align:center">Reporte BI MAC</h3>
     </a>
   </div>
 </div>
