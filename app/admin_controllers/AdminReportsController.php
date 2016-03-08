@@ -38,9 +38,64 @@ class AdminReportsController extends AdminBaseController{
     return View::make('admin::reports.product_orders')->withCategories($categories);
   }
 
+  function  getActiveUserOrdersReportQuery()
+  {
+    $query = DB::table('users')
+    ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
+      DB::raw('sum(order_product.quantity) as quantity'))
+    ->join('orders','users.id','=','orders.user_id')
+    ->join('order_product','orders.id','= ','order_product.order_id')
+    ->groupBy('users.id')
+    ->orderBy('quantity', 'DESC');
+
+    return $query;
+  }
+
+    function getActiveUserOrdersReportExcel()
+    { 
+       ini_set('max_execution_time','300');
+      $query = AdminReportsController::getActiveUserOrdersReportQuery();
+     
+      
+      $query->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))->where(DB::raw('YEAR(orders.created_at)'), Input::get('year'));
+        
+      $q = clone $query;
+      $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+      foreach($query->get() as $item){
+        $itemArray = [];
+      foreach($headers as $header){
+        $itemArray[] = $item->{$header};
+      }
+        $result[] = $itemArray;
+      }
+      if($result){
+       $mes = Input::get('month');
+       $año = Input::get('year');
+        Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+            });
+          })->download('xls');
+      }
+
+      $headers = array(
+        'Content-Type' => 'text/csv',
+        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+      );
+      return Response::make($data, 200, $headers);
+    }
+
    public function getActiveUserOrdersReport()
   {
-    return View::make('admin::reports.active_user_orders');
+    ini_set('max_execution_time','300');
+    
+    $query = AdminReportsController::getActiveUserOrdersReportQuery();
+    $query->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))->where(DB::raw('YEAR(orders.created_at)'), Input::get('year'));
+
+      return View::make('admin::reports.active_user_orders')->withProducts($query->paginate(10));
   }
 
   public function getTotalUserOrdersReport(){

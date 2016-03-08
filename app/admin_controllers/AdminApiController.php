@@ -870,58 +870,8 @@ class AdminApiController extends AdminBaseController
     }
   }
 
-  public function getActiveUsersReport()
-  {
-    ini_set('max_execution_time','300');
-    $query = DB::table('users')
-    ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
-      DB::raw('sum(order_product.quantity) as quantity'))
-    ->join('orders','users.id','=','orders.user_id')
-    ->join('order_product','orders.id','= ','order_product.order_id')
-    ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month') )
-    ->where(DB::raw('YEAR(orders.created_at)'), Input::get('year') )
-    ->groupBy('users.id')
-    ->orderBy('quantity', 'DESC');
 
 
-    $q = clone $query;
-    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
-    if(Request::ajax()){
-      $items = $query->get();
-      return Response::json([
-        'status' => 200,
-        'orders' => $items,
-        'headers' => $headers
-        ]);
-    }else{
-
-      $datetime = \Carbon\Carbon::now()->format('YmdHi');
-      $data = str_putcsv($headers)."\n";
-      $result = [$headers];
-      foreach($query->get() as $item){
-        $itemArray = [];
-      foreach($headers as $header){
-        $itemArray[] = $item->{$header};
-      }
-        $result[] = $itemArray;
-      }
-      if($result){
-       $mes = Input::get('month');
-       $año = Input::get('year');
-        Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
-         $excel->sheet('hoja 1',function($sheet)use($result){
-           $sheet->fromArray($result);
-            });
-          })->download('xls');
-      }
-
-      $headers = array(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
-      );
-      return Response::make($data, 200, $headers);
-    }
-  }
 
   /**
   *Metodo auxiliar para el metodo getBIReport
