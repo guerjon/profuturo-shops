@@ -65,7 +65,10 @@
 @stop
 
 @section('script')
+<script src="/js/manual_pagination.js"></script>
 <script>
+
+
 
 function update(){
 
@@ -83,11 +86,11 @@ function update(){
       var orders_full = jQuery.parseJSON( data.orders );
       var orders = orders_full.data;
       var headers = ['ID', 'CENTRO_DE_COSTOS', 'GERENCIA','LINEA_NEGOCIO','Cantidad'];
-      $('#number_page').val(orders_full.current_page);
+      var pagination = ('#pagination');
 
+      $('#number_page').val(orders_full.current_page);
       $('.table thead tr').empty();
       
-
       if(orders.length == 0){
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
@@ -114,28 +117,29 @@ function update(){
         $('.table tbody').append(tr);
       }
 
-      $('#pagination').empty();
-      console.log(orders_full.current_page);
-      if(orders_full.current_page == 1){
-        $('#pagination').append('<li class="disabled"><span>&laquo;</span></li>') 
-      }
-      else{
-        var page = parseInt(orders_full.current_page) - 1;
-        $('#pagination').append('<li><a data-page="' +page+'" class="pagina"><span>&laquo;</span></a></li>')
-      }
+        $('#pagination').empty();
+        firstSpanCreate($('#pagination'),orders_full);
         
+        if(orders_full.total > 100){
 
-      for (var i = 1; i < orders_full.last_page +1; i++) {
-        if(i == orders_full.current_page){
-          $('#pagination').append('<li class="active"><a data-page="' +i+'" role="button" class="pagina"><span>' +i+'</span></a></li>');  
+          if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
+            listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);
+            spanPointsCreate($('#pagination'));
+            listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
+
+          }else{
+            listsCreate($('#pagination'),orders_full,1,9);
+            spanPointsCreate($('#pagination'));
+            listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
+          }
+          
+
         }else{
-          $('#pagination').append('<li><a role="button" data-page="' +i+'" class="pagina">'+i+'</a></li>'); 
+
+            listsCreate($('#pagination'),orders_full,1,orders_full.last_page+1);      
         }
-      };
-      if(orders_full.current_page == orders_full.last_page)
-        $('#pagination').append('<li class="disabled"><a data-page="' +i+'"><span>&raquo;</span></a> </li>')
-      else
-        $('#pagination').append('<li><a data-page="' +(orders_full.current_page+1)+'" class="pagina"><span>&raquo;</span></a> </li>')
+
+         lastSpanCreate($('#pagination'),orders_full);
 
     }else{
       $('.table tbody').append(
@@ -149,7 +153,6 @@ function update(){
 $(function(){
   update();
   $('#filter-form select').change(function(){
-
     update();
   });
 
