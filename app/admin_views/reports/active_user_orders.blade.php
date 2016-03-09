@@ -123,17 +123,23 @@ function update(){
         if(orders_full.total > 100){
 
           if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
-            listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);
-            spanPointsCreate($('#pagination'));
-            listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
-
+              
+              if(orders_full.current_page+1 == orders_full.last_page - 3){
+                spanPointsCreate($('#pagination'));
+                listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.last_page+1);            
+                
+              }else{
+                
+                listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);            
+                spanPointsCreate($('#pagination'));
+                listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);      
+              }
           }else{
             listsCreate($('#pagination'),orders_full,1,9);
             spanPointsCreate($('#pagination'));
             listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
           }
-          
-
+        
         }else{
 
             listsCreate($('#pagination'),orders_full,1,orders_full.last_page+1);      
