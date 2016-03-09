@@ -22,13 +22,14 @@
   'action' => 'AdminApiController@getBcOrdersReport',
   'target' => '_blank'
   ])}}
-<div class="row">
-  <div class="col-xs-3">
-    {{Form::label('since','DESDE')}}
-    {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
-    <br>
-    {{Form::label('until','HASTA')}}
-    {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+    {{Form::hidden('page',null,['id' => 'number_page'])}}
+  <div class="row">
+    <div class="col-xs-3">
+      {{Form::label('since','DESDE')}}
+      {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+      <br>
+      {{Form::label('until','HASTA')}}
+      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
   </div>
 
   <div class="col-xs-3">
@@ -141,10 +142,13 @@
   </div>
 </div>
 
+  <center>
+    <ul class="pagination" id="pagination"></ul>
+  </center>
 @stop
 
 @section('script')
-  
+  <script src="/js/manual_pagination.js"></script>
   <script>
 
     function drawChart(datos,tipo) {
@@ -327,10 +331,14 @@
         $('.table tbody').empty();
         if(data.status == 200){
           reporte(data);
-
-          var orders = data.orders;
+          var orders_full = jQuery.parseJSON( data.orders_full );
+          var orders = orders_full.data;
           var headers = data.headers;
+          var pagination = ('#pagination');
+
+          $('#number_page').val(orders_full.current_page);
           $('.table thead tr').empty();
+          
           if(orders.length == 0){
             $('.table tbody').append(
               $('<tr>').attr('class', 'warning').append(
@@ -338,6 +346,7 @@
               )
             );
             $('.btn-submit').prop('disabled', true);
+            $('#pagination').empty();
             return;
           }else{
             $('.btn-submit').prop('disabled', false);
@@ -346,6 +355,8 @@
           for(var i=0; i<headers.length; i++){
             $('.table thead tr').append($('<th>').html(headers[i]));
           }
+
+
           for(var i=0; i<orders.length; i++){
             var tr = $('<tr>');
 
@@ -354,6 +365,30 @@
             }
             $('.table tbody').append(tr);
           }
+
+          $('#pagination').empty();
+          firstSpanCreate($('#pagination'),orders_full);
+          if(orders_full.total > 100){
+            if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
+                if(orders_full.current_page+1 == orders_full.last_page - 3){
+                  spanPointsCreate($('#pagination'));
+                  listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.last_page+1);            
+                }else{
+                  listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);            
+                  spanPointsCreate($('#pagination'));
+                  listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);      
+                }
+            }else{
+              listsCreate($('#pagination'),orders_full,1,9);
+              spanPointsCreate($('#pagination'));
+              listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
+            }
+          }else{
+              listsCreate($('#pagination'),orders_full,1,orders_full.last_page+1);      
+          }
+           lastSpanCreate($('#pagination'),orders_full);
+
+
 
           //Esto se debe de poner para que al dar click en el boton se llene la grafica
           var chart = drawChart(data,'bc_orders_type');
@@ -394,6 +429,13 @@
 
       });
 
+      $(document).on('click', '.pagina', function(){
+        event.preventDefault();
+        var page = $(this).attr('data-page');
+        $('#number_page').val(page);
+        $('#pagination').empty();
+        update();
+      });
 
       $('#filter-form select').change(function(){
          update();

@@ -24,7 +24,7 @@
   'target' => '_blank'
   ])}}
 <center>
-
+  {{Form::hidden('page',null,['id' => 'number_page'])}}
   <div class="row">
       
     <div class="col-xs-2">
@@ -155,11 +155,14 @@
       </table>
     </div>
   </div>
-
+  <center>
+    <ul class="pagination" id="pagination"></ul>
+  </center>
 
 @stop
 
 @section('script')
+  <script src="/js/manual_pagination.js"></script>
   <script>
 
     //funcion para dibujar las graficas de google que se muestran en la ventana modal
@@ -394,35 +397,63 @@
         $('.table tbody').empty();
         if(data.status == 200){
           reporte(data);
-          var report = data.report;
+
+          var orders_full = jQuery.parseJSON( data.orders_full );
+          var orders = orders_full.data;
           var headers = data.headers;
+          var pagination = ('#pagination');
+
+          $('#number_page').val(orders_full.current_page);
           $('.table thead tr').empty();
-          if(report.length == 0){
+          
+          if(orders.length == 0){
             $('.table tbody').append(
               $('<tr>').attr('class', 'warning').append(
                 $('<td>').html('<strong>No hay registros que mostrar</strong>')
               )
             );
             $('.btn-submit').prop('disabled', true);
+            $('#pagination').empty();
             return;
           }else{
             $('.btn-submit').prop('disabled', false);
           }
 
-          //La longitud es -n donde n son los elementos que ocupamos en la grafica
-          for(var i=0; i<headers.length-2; i++){
+          for(var i=0; i<headers.length; i++){
             $('.table thead tr').append($('<th>').html(headers[i]));
           }
-          for(var i=0; i<report.length-2; i++){
+
+
+          for(var i=0; i<orders.length; i++){
             var tr = $('<tr>');
 
-            for(var j=0; j<headers.length-2; j++){
-              tr.append($('<td>').html(report[i][headers[j]]));
+            for(var j=0; j<headers.length; j++){
+              tr.append($('<td>').html(orders[i][headers[j]]));
             }
             $('.table tbody').append(tr);
-
-
           }
+
+          $('#pagination').empty();
+          firstSpanCreate($('#pagination'),orders_full);
+          if(orders_full.total > 100){
+            if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
+                if(orders_full.current_page+1 == orders_full.last_page - 3){
+                  spanPointsCreate($('#pagination'));
+                  listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.last_page+1);            
+                }else{
+                  listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);            
+                  spanPointsCreate($('#pagination'));
+                  listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);      
+                }
+            }else{
+              listsCreate($('#pagination'),orders_full,1,9);
+              spanPointsCreate($('#pagination'));
+              listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
+            }
+          }else{
+              listsCreate($('#pagination'),orders_full,1,orders_full.last_page+1);      
+          }
+           lastSpanCreate($('#pagination'),orders_full);
          
           var chart = drawChart(data,'orders_category');
           
@@ -447,7 +478,14 @@
     $(function(){
       google.load('visualization', '1', {'packages':['corechart'], "callback": drawChart});
       update();
-
+      
+      $(document).on('click', '.pagina', function(){
+        event.preventDefault();
+        var page = $(this).attr('data-page');
+        $('#number_page').val(page);
+        $('#pagination').empty();
+        update();
+      });
       $("#downloadReport").on("click", function() {
 
           var htmlContent = $("#graficas").html();

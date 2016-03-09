@@ -57,11 +57,9 @@
   </div>
 </div>
 
-   <center>
-      <ul class="pagination" id="pagination" >
-        
-      </ul>
-    </center>
+  <center>
+    <ul class="pagination" id="pagination"></ul>
+  </center>
 @stop
 
 @section('script')
@@ -78,6 +76,7 @@ function update(){
       $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
     )
   );
+
   $.get('/admin/api/active-users-report', $('#filter-form').serialize(), function(data){
     $('.table tbody').empty();
     
@@ -108,6 +107,7 @@ function update(){
         $('.table thead tr').append($('<th>').html(headers[i]));
       }
       headers = ['id','ccosto','gerencia','linea_negocio','quantity'];
+
       for(var i=0; i<orders.length; i++){
         var tr = $('<tr>');
 
@@ -117,36 +117,27 @@ function update(){
         $('.table tbody').append(tr);
       }
 
-        $('#pagination').empty();
-        firstSpanCreate($('#pagination'),orders_full);
-        
-        if(orders_full.total > 100){
-
-          if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
-              
-              if(orders_full.current_page+1 == orders_full.last_page - 3){
-                spanPointsCreate($('#pagination'));
-                listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.last_page+1);            
-                
-              }else{
-                
-                listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);            
-                spanPointsCreate($('#pagination'));
-                listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);      
-              }
-          }else{
-            listsCreate($('#pagination'),orders_full,1,9);
-            spanPointsCreate($('#pagination'));
-            listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
-          }
-        
+      $('#pagination').empty();
+      firstSpanCreate($('#pagination'),orders_full);
+      if(orders_full.total > 100){
+        if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
+            if(orders_full.current_page+1 == orders_full.last_page - 3){
+              spanPointsCreate($('#pagination'));
+              listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.last_page+1);            
+            }else{
+              listsCreate($('#pagination'),orders_full,orders_full.current_page-7,orders_full.current_page+1);            
+              spanPointsCreate($('#pagination'));
+              listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);      
+            }
         }else{
-
-            listsCreate($('#pagination'),orders_full,1,orders_full.last_page+1);      
+          listsCreate($('#pagination'),orders_full,1,9);
+          spanPointsCreate($('#pagination'));
+          listsCreate($('#pagination'),orders_full,orders_full.last_page - 2,orders_full.last_page+1);  
         }
-
-         lastSpanCreate($('#pagination'),orders_full);
-
+      }else{
+          listsCreate($('#pagination'),orders_full,1,orders_full.last_page+1);      
+      }
+       lastSpanCreate($('#pagination'),orders_full);
     }else{
       $('.table tbody').append(
         $('<tr>').attr('class', 'danger').append(

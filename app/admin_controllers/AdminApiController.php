@@ -99,10 +99,10 @@ class AdminApiController extends AdminBaseController
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
     if(Request::ajax()){
-      $items = $query->get();
+      
       return Response::json([
         'status' => 200,
-        'orders' => $items,
+        'orders_full' => $query->paginate(10)->toJson(),
         'headers' => $headers
         ]);
     }else{
@@ -212,10 +212,10 @@ class AdminApiController extends AdminBaseController
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
     if(Request::ajax()){
-      $items = $query->get();
+      $items = $query->paginate(10)->toJson();
       return Response::json([
         'status' => 200,
-        'orders' => $items,
+        'orders_full' => $items,
         'headers' => $headers
         ]);
     }else{
@@ -518,10 +518,13 @@ class AdminApiController extends AdminBaseController
     }else{
 
       if(Request::ajax()){
-        $items = $query->get();
+        
+        $orders_full = clone $query;
+
         return Response::json([
           'status' => 200,
-          'orders' => $items,
+          'orders' => $query->get(),
+          'orders_full' => $orders_full->paginate(10)->toJson(),
           'headers' => $headers,
           'orders_status' => $orders_status,
           'orders_by_region' => $orders_by_region,
@@ -725,12 +728,14 @@ class AdminApiController extends AdminBaseController
     $expenses_by_region = $this->furnitureExpensesByRegion($query);
 
     $q = clone $query;
+    $orders_full = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
     if(Request::ajax()){
       $items = $query->get();
       return Response::json([
         'status' => 200,
         'orders' => $items,
+        'orders_full' => $orders_full->paginate(10)->toJson(),
         'headers' => $headers,
         'orders_status' => $orders_status,
         'orders_by_divisional' => $orders_by_divisional,
@@ -782,12 +787,12 @@ class AdminApiController extends AdminBaseController
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
-    if(Request::ajax()){
 
-      $items = $query->get();
+    if(Request::ajax()){
+      
       return Response::json([
         'status' => 200,
-        'orders' => $items,
+        'orders_full' => $query->paginate(10)->toJson(),
         'headers' => $headers
         ]);
     }else{
@@ -1034,7 +1039,7 @@ class AdminApiController extends AdminBaseController
 
     $q = clone $report;
     $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
-
+    $orders_full = clone $report;
 
     if(Request::ajax()){
       return Response::json([
@@ -1044,7 +1049,9 @@ class AdminApiController extends AdminBaseController
         'orders_by_region' => $orders_by_region,
         'expenses_by_region' => $expenses_by_region,
         'orders_status' => $orders_status,
-        'report' => $report->get()]);
+        'report' => $report->get(),
+        'orders_full' => $orders_full->paginate(10)->toJson()
+        ]);
     }else{
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
@@ -1104,7 +1111,7 @@ class AdminApiController extends AdminBaseController
 
   public function getTotalUsersReport()
   {
-    $users =  User::all();
+    $users =  User::select('*');
 
     foreach ($users as $user) {
       $user->pedidos = $user->orders->count();
@@ -1114,20 +1121,20 @@ class AdminApiController extends AdminBaseController
     }
 
     if(Request::ajax()){
-    return Response::json([
-      'status' => 200,
-      'users' => $users,
-      ]);
-    }
+      return Response::json([
+        'status' => 200,
+        'orders_full' => $users->paginate(10)->toJson(),
+        ]);
+      }
   }
 
   public function getGeneralRequestExcel()
   {
-    $general_request = GeneralRequest::all();
+    $general_request = GeneralRequest::select('*');
     if(Request::ajax()){
-    return Response::json([
-      'status' => 200,
-      'users' => $general_request,
+      return Response::json([
+        'status' => 200,
+        'orders_full' => $general_request->paginate(10)->toJson(),
       ]);
     }
   }
@@ -1209,18 +1216,17 @@ class AdminApiController extends AdminBaseController
     $general_request_products = GeneralRequestProduct::where('general_request_id','=',$request->id)->first();
 
         $result[] = [
-        '# SOLUCIÓN' => $request->id,
-        'TITULO PROYECTO' => $request->project_title,
-        'NOMBRE' => $request->employee_name,
-        'NUMERO' => $request->employee_number,
-        'ESTATUS' => $request->status_str,
-        'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
-        'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
-        'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
-        'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
-        'COMENTARIOS' => $request->comments,
-        'PROMEDIO'  =>  $average,
-        
+          '# SOLUCIÓN' => $request->id,
+          'TITULO PROYECTO' => $request->project_title,
+          'NOMBRE' => $request->employee_name,
+          'NUMERO' => $request->employee_number,
+          'ESTATUS' => $request->status_str,
+          'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
+          'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
+          'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
+          'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
+          'COMENTARIOS' => $request->comments,
+          'PROMEDIO'  =>  $average,
         ];
     }
 
@@ -1245,21 +1251,19 @@ class AdminApiController extends AdminBaseController
         'status' => 200,
         'request' => $request->toArray(),
         'request_products' => $request_products->toArray(),
-        ]);
+      ]);
     }
   }
 
   public function getFurnituresSubcategories($category_id)
   {
-    
     $subcategories = FurnitureCategory::find($category_id)->furniture_subcategories;
-    
-        if(Request::ajax()){
-          return Response::json([
-            'subcategories' => $subcategories,
-            'status' => '200'
-            ]);
-        }
+    if(Request::ajax()){
+      return Response::json([
+        'subcategories' => $subcategories,
+        'status' => '200'
+        ]);
+    }
   }
 
   public function getIndexFurnitures($active_tab,$active_subtab)
@@ -1267,61 +1271,61 @@ class AdminApiController extends AdminBaseController
   }
 
 
-public function getActiveUsersReport()
+  public function getActiveUsersReport()
   {
-   
-    ini_set('max_execution_time','300');
+     
+      ini_set('max_execution_time','300');
 
-    $query = DB::table('users')
-    ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
-      DB::raw('sum(order_product.quantity) as quantity'))
-    ->join('orders','users.id','=','orders.user_id')
-    ->join('order_product','orders.id','= ','order_product.order_id')
-    ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month') )
-    ->where(DB::raw('YEAR(orders.created_at)'), Input::get('year') )
-    ->groupBy('users.id')
-    ->orderBy('quantity', 'DESC');
+      $query = DB::table('users')
+      ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
+        DB::raw('sum(order_product.quantity) as quantity'))
+      ->join('orders','users.id','=','orders.user_id')
+      ->join('order_product','orders.id','= ','order_product.order_id')
+      ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month') )
+      ->where(DB::raw('YEAR(orders.created_at)'), Input::get('year') )
+      ->groupBy('users.id')
+      ->orderBy('quantity', 'DESC');
 
 
-    $q = clone $query;
-    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
-    if(Request::ajax() ){
-      $paginate = clone $query;
-      return Response::json([
-        'status' => 200,
-        'orders' => $query->paginate(10)->toJson(),
-        'headers' => $headers,
-        ]);
+      $q = clone $query;
+      $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+      if(Request::ajax() ){
+        $paginate = clone $query;
+        return Response::json([
+          'status' => 200,
+          'orders' => $query->paginate(10)->toJson(),
+          'headers' => $headers,
+          ]);
 
-    }else{
+      }else{
 
-      $datetime = \Carbon\Carbon::now()->format('YmdHi');
-      $data = str_putcsv($headers)."\n";
-      $result = [$headers];
-      foreach($query->get() as $item){
-        $itemArray = [];
-      foreach($headers as $header){
-        $itemArray[] = $item->{$header};
+        $datetime = \Carbon\Carbon::now()->format('YmdHi');
+        $data = str_putcsv($headers)."\n";
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
+
+        $headers = array(
+          'Content-Type' => 'text/csv',
+          'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+        );
+        return Response::make($data, 200, $headers);
       }
-        $result[] = $itemArray;
-      }
-      if($result){
-       $mes = Input::get('month');
-       $año = Input::get('year');
-        Excel::create('Reporte_Usuarios_Inactivos_'.$mes.'_'.$año , function($excel) use($result){
-         $excel->sheet('hoja 1',function($sheet)use($result){
-           $sheet->fromArray($result);
-            });
-          })->download('xls');
-      }
-
-      $headers = array(
-        'Content-Type' => 'text/csv',
-        'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
-      );
-      return Response::make($data, 200, $headers);
-    }
-  }
+}
 
 
   public function getAllProducts()
@@ -1378,7 +1382,7 @@ public function getActiveUsersReport()
       return Response::json([
         'status' => 200,
         'headers' => $headers,
-        'report' => $report->get()]);
+        'orders' => $report->paginate(10)->toJson()]);
     }else{
 
       $datetime = \Carbon\Carbon::now()->format('YmdHi');
