@@ -115,11 +115,15 @@ function update(){
       }
 
       $('#pagination').empty();
-
-      if(orders_full.current_page == 1)
-        $('#pagination').append('<li class="disabled"><span>&laquo;</span></li>')
-      else
-        $('#pagination').append('<li><a data-page="' +(i-1)+'" class="pagina"><span>&laquo;</span></a></li>')
+      console.log(orders_full.current_page);
+      if(orders_full.current_page == 1){
+        $('#pagination').append('<li class="disabled"><span>&laquo;</span></li>') 
+      }
+      else{
+        var page = parseInt(orders_full.current_page) - 1;
+        $('#pagination').append('<li><a data-page="' +page+'" class="pagina"><span>&laquo;</span></a></li>')
+      }
+        
 
       for (var i = 1; i < orders_full.last_page +1; i++) {
         if(i == orders_full.current_page){
@@ -129,9 +133,9 @@ function update(){
         }
       };
       if(orders_full.current_page == orders_full.last_page)
-        $('#pagination').append('<li class="disabled"><a data-page="' +i+'" class="pagina"><span>&raquo;</span></a> </li>')
+        $('#pagination').append('<li class="disabled"><a data-page="' +i+'"><span>&raquo;</span></a> </li>')
       else
-        $('#pagination').append('<li class="disabled"><a data-page="' +(i+1)+'" class="pagina"><span>&raquo;</span></a> </li>')
+        $('#pagination').append('<li><a data-page="' +(orders_full.current_page+1)+'" class="pagina"><span>&raquo;</span></a> </li>')
 
     }else{
       $('.table tbody').append(
