@@ -120,6 +120,7 @@
     <script src="/js/download.js"></script>
     <script type="text/javascript"
      src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
+    <script type="text/javascript" src="/js/jquery.bootpag.js"></script>
     <script charset="utf-8">
       $(function(){
         $.slidebars();

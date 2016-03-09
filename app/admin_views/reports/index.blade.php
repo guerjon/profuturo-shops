@@ -18,7 +18,7 @@
 <div class="row">
  <div class="clearfix"></div>
   <div class="col-sm-2 col-xs-3 col-xs-offset-3">
-    <a href="{{action('AdminReportsController@getActiveUserOrdersReport')}}"class="thumbnail">
+    <a href="{{action('AdminReportsController@getActiveUserOrdersChangeReport')}}"class="thumbnail">
       <img src="/img/mayores_pedidos.png" style="width: 100%; height: auto;">
 	  </a>
   </div>

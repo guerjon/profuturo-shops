@@ -88,14 +88,25 @@ class AdminReportsController extends AdminBaseController{
       return Response::make($data, 200, $headers);
     }
 
+   public function getActiveUserOrdersChangeReport()
+  {
+    ini_set('max_execution_time','300');
+
+    $query = AdminReportsController::getActiveUserOrdersReportQuery();
+    $query->where(DB::raw('MONTH(orders.created_at)'), \Carbon\Carbon::now('America/Mexico_City')->month)->where(DB::raw('YEAR(orders.created_at)'), \Carbon\Carbon::now('America/Mexico_City')->year);
+
+    return View::make('admin::reports.active_user_orders')->withOrders($query->paginate(10));
+  }
+
+
    public function getActiveUserOrdersReport()
   {
     ini_set('max_execution_time','300');
-    
+
     $query = AdminReportsController::getActiveUserOrdersReportQuery();
     $query->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))->where(DB::raw('YEAR(orders.created_at)'), Input::get('year'));
 
-      return View::make('admin::reports.active_user_orders')->withProducts($query->paginate(10));
+    return View::make('admin::reports.active_user_orders')->withOrders($query->paginate(10));
   }
 
   public function getTotalUserOrdersReport(){
