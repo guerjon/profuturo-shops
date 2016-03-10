@@ -43,6 +43,9 @@ class AdminBusinessCardsController extends BaseController{
     $file = Input::file('file');
     $created = 0;
     $updated = 0;
+    
+    $business_cards =  BusinessCard::where('id','>','0')->delete();
+    
     $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
 
       $reader->each(function($sheet)use(&$created, &$updated){
@@ -85,7 +88,7 @@ class AdminBusinessCardsController extends BaseController{
               'celular' => $row->celular,
               'email' => $row->email,
             ]);
-
+            $cart->restore();
             if($card->save()){
               $updated++;
             }
