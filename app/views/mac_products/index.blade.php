@@ -116,7 +116,7 @@ $(function(){
     }
 
     var selectMax = max - current;
-    selectMax = Math.min(selectMax, 50);
+    selectMax = Math.min(selectMax, 100);
     if(selectMax == 0){
       modal.find('.alert.alert-warning').show();
       modal.find('form').hide();

@@ -184,12 +184,14 @@ class AdminApiController extends AdminBaseController
       '' as SHIP_TO_CUST_ID,
       'KA003035' as INTROD,
       mac_categories.name as CATEGORY,
-      (mac_products.price * mac_order_mac_product.quantity) as PRICE
+      (mac_products.price * mac_order_mac_product.quantity) as PRICE,
+      address.domicilio as ADDRESS
       "))
       ->join('mac_products', 'mac_products.id', '=', 'mac_order_mac_product.mac_product_id')
       ->join('mac_orders', 'mac_orders.id' , '=', 'mac_order_mac_product.mac_order_id')
       ->leftJoin('users', 'users.id', '=', 'mac_orders.user_id')
       ->leftJoin('mac_categories', 'mac_products.category_id', '=', 'mac_categories.id')
+      ->leftJoin('address','address.ccostos','=','users.ccosto')
       ->orderBy('mac_orders.id')->whereNull('mac_orders.deleted_at');
 
 

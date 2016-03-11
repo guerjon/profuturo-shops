@@ -6,30 +6,36 @@ class AdminMacOrdersController extends BaseController
   public function index()
   {
     if(Input::get('export') == 'xls'){
-    $query =  MacOrder::orderBy('created_at', 'desc')->with('user');
+    $query = DB::table('users')->select('*','mac_orders.id as order_id','mac_orders.created_at as order_created_at')
+              ->join('mac_orders','mac_orders.user_id','=','users.id')
+              ->leftJoin('address','users.ccosto','=','address.ccostos')
+              ->orderBy('mac_orders.created_at','desc');
     
     $q = clone $query;
-    $headers = ['NOMBRE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS'];
+    $headers = ['NOMBRE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS','DIRECCIÓN'];
     $result = [$headers];
 
     foreach ($query->get() as $item) {
     $itemArray = [];
-    $itemArray['NOMBRE_CC']    = $item->user->gerencia;
-    $itemArray['CCOSTOS']     = $item->user->ccosto;
-    $itemArray['NO_PEDIDO']   = $item->id;
+    $itemArray['NOMBRE_CC']    = $item->gerencia;
+    $itemArray['CCOSTOS']     = $item->ccosto;
+    $itemArray['NO_PEDIDO']   = $item->order_id;
     $itemArray['COMENTARIOS'] = $item->comments;
-    $itemArray['CREADO']      = $item->created_at->format('d-m-Y');
+    $itemArray['CREADO']      = $item->order_created_at;
+
     if($item->status == 0){
         $itemArray['ESTATUS'] = 'PENDIENTE';
-      }elseif($item->status == 1){
-        $itemArray['ESTATUS'] = 'Recibido ';
-      }elseif($item->status==2){
-         $itemArray['ESTATUS'] = 'Recibido Incompleto';
-      }elseif($item->status==2){
-        $itemArray['ESTATUS'] = 'Recibido incompleto';
-      }
-     
+    }elseif($item->status == 1){
+      $itemArray['ESTATUS'] = 'Recibido ';
+    }elseif($item->status==2){
+       $itemArray['ESTATUS'] = 'Recibido Incompleto';
+    }elseif($item->status==2){
+      $itemArray['ESTATUS'] = 'Recibido incompleto';
+    }
+
+    $itemArray['DIRECCION'] = $item->domicilio;  
     $result[] = $itemArray;
+
     }
 
     if($result){
