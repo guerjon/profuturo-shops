@@ -4,6 +4,8 @@
 	
 @if(isset($survey))
 	<div class="alert alert-info">La encuesta ya se ha sido contestada. Gracias.</div>
+@elseif($errors->count() > 0)
+  <div class="alert alert-danger">No se encontro la solicitud general</div>
 @else
    <div class="row" >
       <div class="col-xs-10  col-xs-offset-1">
@@ -53,7 +55,7 @@
                                   </td>     
                                   <td>
                                     <label for="explain_1" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_1',null,['class' => 'form-control','size' => '20x3'])}}
+                                    {{Form::textarea('explain_1',null,['class' => 'form-control','size' => '20x3','required'])}}
                                   </td>
                                 </tr>
                                 <tr>
@@ -82,7 +84,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_2" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_2',null,['class' => 'form-control','size' => '20x3'])}}
+                                    {{Form::textarea('explain_2',null,['class' => 'form-control','size' => '20x3','required'])}}
                                   </td> 
 
                                 </tr>
@@ -116,7 +118,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_3" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_3',null,['class' => 'form-control','size' => '20x3'])}}
+                                    {{Form::textarea('explain_3',null,['class' => 'form-control','size' => '20x3','required'])}}
                                   </td>
                           </tr>
                                 <tr>
@@ -146,7 +148,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_4" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_4',null,['class' => 'form-control','size' => '20x3'])}}
+                                    {{Form::textarea('explain_4',null,['class' => 'form-control','size' => '20x3','required'])}}
                                   </td>
                                 </tr>
                                 <tr>
@@ -176,7 +178,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_5" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_5',null,['class' => 'form-control','size' => '20x3'])}}
+                                    {{Form::textarea('explain_5',null,['class' => 'form-control','size' => '20x3','required'])}}
                                   </td>
                                 </tr>
                               </tbody>

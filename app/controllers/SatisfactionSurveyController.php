@@ -9,10 +9,20 @@ class SatisfactionSurveyController extends BaseController{
 		$survey = SatisfactionSurvey::where('general_request_id',$id)->first();
 		if($survey){
 			$general_request = GeneralRequest::find($id);
-			return View::make('satisfaction_survey.index')->withGeneralRequest($general_request)->withSurvey($survey);			
+			if($general_request){
+				return View::make('satisfaction_survey.index')->withGeneralRequest($general_request)->withSurvey($survey);	
+			}else{
+				return View::make('satisfaction_survey.index')->withErrors('La solicitud general fue eliminada o desabilitada.');	
+			}
+			
 		}else{
 			$general_request = GeneralRequest::find($id);
-			return View::make('satisfaction_survey.index')->withGeneralRequest($general_request);			
+			if($general_request){
+				return View::make('satisfaction_survey.index')->withGeneralRequest($general_request);				
+			}else{
+				return View::make('satisfaction_survey.index')->withErrors('La solicitud general fue eliminada o desabilitada.');		
+			}
+			
 		}
 
 	}
