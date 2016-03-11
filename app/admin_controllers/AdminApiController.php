@@ -63,12 +63,14 @@ class AdminApiController extends AdminBaseController
       categories.name as CATEGORY,
       products.id_people as ID_PEOPLE,
       (products.price * order_product.quantity) as PRICE,
-      orders.id as ORDER_ID
+      orders.id as ORDER_ID,
+      address.domicilio as ADDRESS
       "))
       ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
       ->leftJoin('users', 'users.id', '=', 'orders.user_id')
       ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->leftJoin('address', 'address.ccostos', '=', 'users.ccosto')
       ->orderBy('orders.id')
       ->whereNull('orders.deleted_at');
 
@@ -98,6 +100,11 @@ class AdminApiController extends AdminBaseController
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    foreach ($q as $qs) {
+      $q->tonteria = 1;
+    }
+    
+
     if(Request::ajax()){
       
       return Response::json([
