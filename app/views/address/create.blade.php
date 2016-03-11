@@ -25,7 +25,7 @@
       <p id = "aviso" >Para agregar una nueva dirección primero debes seleccionar el CCOSTO del usuario</p>
       <div class="form-group">
         {{Form::label('ccostos', 'CCOSTOS')}}
-        {{Form::text('ccostos',NULL, ['class' => 'form-control','id' => 'ccostos'])}}
+        {{Form::text('ccostos',NULL, ['class' => 'form-control','id' => 'ccostos','required','readonly'])}}
       </div>
 
       <div class="form-group" style="background-color:#FCFAFA;">
@@ -47,14 +47,13 @@
 
        <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('inmueble', 'INMUEBLE')}}
-        {{Form::text('inmueble', NULL, ['class' => 'form-control'])}}
+        {{Form::text('inmueble', NULL, ['class' => 'form-control','required'])}}
       </div>
 
        <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('domicilio', 'DOMICILIO')}}
-        {{Form::textarea('domicilio', NULL, ['class' => 'form-control','rows' => 4])}}
+        {{Form::textarea('domicilio', NULL, ['class' => 'form-control','rows' => 4,'required'])}}
       </div>
-
 
       <div class="form-group text-center">
         {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg','id' => 'boton'])}}
@@ -68,7 +67,7 @@
 @section('script')
   <script>
     $(function(){
-      $('#boton').prop('disabled',true);
+        $('#ccostos').attr('readonly',false)
           $.ajax({
             url : '/api/ccostos-autocomplete',
             dataType: 'json',

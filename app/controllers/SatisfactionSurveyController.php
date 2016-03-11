@@ -20,12 +20,8 @@ class SatisfactionSurveyController extends BaseController{
 	public function postQuestions($id)
 	{	
 
-		$survey = new SatisfactionSurvey();
-		$survey->question_one = Input::get('question_one');
-		$survey->question_two = Input::get('question_two');
-		$survey->question_three = Input::get('question_three');
-		$survey->question_four = Input::get('question_four');
-		$survey->question_five = Input::get('question_five');
+		$survey = new SatisfactionSurvey(Input::all());
+		
 		$survey->general_request_id = $id;
 
 		if($survey->save()){

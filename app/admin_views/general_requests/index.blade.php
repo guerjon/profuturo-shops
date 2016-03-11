@@ -12,6 +12,9 @@
   </ol>
 
 <ul class="nav nav-tabs">
+  <li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
+  </li>
   <li role="presentation" class="{{$active_tab == 'assigned' ?  'active' : ''}}">
     <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'assigned'])}}">Asignadas</a> 
   </li>

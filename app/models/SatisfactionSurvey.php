@@ -3,6 +3,7 @@
 class SatisfactionSurvey extends Eloquent 
 {
 
+  protected $guarded = [];
   protected $appends = ['average'];
 
   public function generalRequest(){

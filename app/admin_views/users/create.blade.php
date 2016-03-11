@@ -100,7 +100,7 @@
           </div>   
         @endif
         
-
+      
         <div class="form-group">
           {{Form::label('gerencia', 'Nombre/Gerencia', ['class' => 'control-label'])}}
           <div>
@@ -114,7 +114,14 @@
             {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],$user->exists ? $user->linea_negocio : null,['class' => 'form-control'])}}
           </div>
         </div>
-  
+        
+        @if($active_tab == 'user_loader')
+            <div class="form-group">
+                {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
+                {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
+            </div>
+        @endif  
+
         @unless($user->exists || ($active_tab == 'user_mac'))
           <div class="form-group">
             {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
@@ -131,7 +138,7 @@
           </div>
         @endunless
 
-        
+  
    
     @if(($active_tab == 'manager') or ($active_tab == 'user_requests'))
   	  @unless($active_tab == 'user_requests')

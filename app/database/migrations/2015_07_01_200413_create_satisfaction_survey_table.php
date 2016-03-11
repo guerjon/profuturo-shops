@@ -18,8 +18,11 @@ class CreateSatisfactionSurveyTable extends Migration {
 			$table->integer('question_two');
 			$table->integer('question_three');
 			$table->integer('question_four');
-			$table->integer('question_five');
-			$table->integer('question_six');
+			$table->text('explain_1');
+			$table->text('explain_2');
+			$table->text('explain_3');
+			$table->text('explain_4');
+			$table->text('explain_5');
 			$table->integer('general_request_id')->unsigned();
 			$table->longText('comments')->nullable();
 			$table->foreign('general_request_id')->references('id')->on('general_requests')->onDelete('cascade');

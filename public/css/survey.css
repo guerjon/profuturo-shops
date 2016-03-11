@@ -1,0 +1,164 @@
+
+.content {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 0px;
+
+  border: 1px solid #ccc;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  -webkit-box-shadow: 3px 3px 10px #ccc;
+  -moz-box-shadow:    3px 3px 10px #ccc;
+  box-shadow:         3px 3px 10px #ccc;
+}
+
+.content .stack-content {
+  padding-left: 15px;
+  padding-right: 15px; 
+}
+
+.graph-title {
+  background-color: #00396c;
+  color: white;
+  padding: 8px;
+
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
+}
+
+.simbology-section {
+  width: 22%;
+  float: left;
+  height: 90%;
+  margin-right: 3%;
+  padding: .2em;
+}
+
+.simbology {
+  width: 100%;
+  list-style: none;
+  margin: .5em auto;
+  font-size: .8em;
+  text-align: left;
+  font-weight: normal;
+}
+
+.ico  {
+  width: 1.2em;
+  height: 1.2em;
+  
+  display: inline-block;
+  margin-right: .5em;
+  
+  -webkit-border-radius: .6em;
+  -moz-border-radius: .6em;
+  border-radius: .6em;
+}
+
+.ico, .resizable {
+  cursor: pointer;
+}
+
+.resizable, .total, .random {
+  padding: 0;
+  /*border: 1px solid white;*/
+  border: none;
+  position: relative;
+}
+
+.graph-container .resizable:hover {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+  opacity: .7;
+}
+
+.resizable-1, .ico-1 {
+  background: rgb(217,221,227);
+}
+.resizable-2, .ico-2 {
+  background: rgb(96,109,126);
+}
+.resizable-3, .ico-3 {
+  background: rgb(98,132,140);
+}
+.resizable-4, .ico-4 {
+  background: rgb(58,117,165);
+}
+.resizable-5, .ico-5 {
+  background: rgb(0,76,148);
+}
+.resizable-6, .ico-6 {
+  background: rgb(225,189,174);
+}
+.resizable-7, .ico-7 {
+  background: rgb(204,161,169);
+}
+.resizable-8, .ico-8 {
+  background: rgb(86,164,129);
+}
+.resizable-9, .ico-9 {
+  background: rgb(0,136,148);
+}
+.resizable-10, .ico-10 {
+  background: rgb(47,57,71);
+}
+.resizable-11, .ico-11 {
+  background: rgb(146,55,59);
+}
+.resizable-12, .ico-12 {
+  background: rgb(120,34,65);
+}
+.resizable-13, .ico-13 {
+  background: rgb(160,39,83);
+}
+.resizable-14, .ico-14 {
+  background: rgb(138,108,113);
+}
+.resizable-15, .ico-15 {
+  background: rgb(181,147,116);
+}
+.resizable-16, .ico-16 {
+  background: rgb(141,106,89);
+}
+.resizable-17, .ico-17 {
+  background: rgb(85,54,44);
+}
+.resizable-18, .ico-18 {
+  background: rgb(240,181,0);
+}
+.resizable-19, .ico-19 {
+  background: rgb(202,123,0);
+}
+
+.resizable-content, .random-content {
+  position: relative;
+  font-size: .8em;
+  color: white;
+  /*text-shadow: 1px 1px black;*/
+}
+
+.chart-pie-label {
+  font-size: 8pt; 
+  text-align: center; 
+  color: white;
+  /*text-shadow: 1px 1px black;*/
+}
+
+.ui-tooltip {
+  background: white !important;
+}
+
+.tac {
+  /*width: 100%;*/
+  background-color: white;
+  margin-bottom: 15px;
+  /*box-shadow: 3px 3px 10px rgba(0,0,0,0.40);*/
+}
+
+

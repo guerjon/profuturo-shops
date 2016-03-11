@@ -152,5 +152,6 @@
     </script>
 
     @yield('script')
+    @yield('css')
   </body>
 </html>

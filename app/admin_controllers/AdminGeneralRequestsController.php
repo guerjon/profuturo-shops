@@ -9,7 +9,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
   
     if($active_tab == 'assigned'){
         $request->whereNotNull('manager_id');
-    }else{
+    }elseif($active_tab == 'not_assigned'){
       $request->whereNull('manager_id');
     }
 
