@@ -23,9 +23,7 @@
     <table class="table-striped table">
       <thead>
         <tr>
-          <th style="max-width: 60px;">
 
-          </th>
 
           <th>
             Número de empleado
@@ -38,6 +36,9 @@
             Puesto
           </th>
           <th>
+          </th>
+          <th>
+
           </th>
         </tr>
       </thead>
@@ -68,9 +69,9 @@
           </td>
         </tr>
         @endforeach
-        <tr>
+        <tr class=" escondido">
            <td style="max-width: 60px;" class="text-center">
-            {{Form::checkbox("talent[]", $card->id)}}
+            {{Form::checkbox("talent[]", $card->id,null,['id' => 'talent'])}}
           </td>
           <td>
            Talento
@@ -84,9 +85,9 @@
             {{Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
           </td>
       </tr>
-       <tr>
+       <tr class="escondido">
            <td style="max-width: 60px;" class="text-center">
-            {{Form::checkbox("manager[]", $card->id)}}
+            {{Form::checkbox("manager[]", $card->id,null,['id' => 'manager'])}}
           </td>
           <td>
           Gerente
@@ -104,7 +105,7 @@
 
     </table>
 
-      <div class="text-right">
+      <div class="text-right escondido">
       {{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-warning'])}}
     </div>
     {{Form::close()}}
@@ -121,10 +122,35 @@
 @section('script')
 <script>
 $(function(){
-  $('form .btn').click(function(){
-    $(this).prop('disabled', true);
-    $(this).parents('form').submit();
+
+  $("input[type=checkbox]").change(function(){
+
+
+      $('.escondido').show();
+
+
   });
+ 
+  $('form .btn').click(function(event){
+    event.preventDefault();
+    var n = $( "input:checked" ).length;
+    
+    if ($("#talent").is(":checked"))
+      n = n-1;
+    
+    if ($("#manager").is(":checked"))
+      n = n-1;
+    
+    if(n >= 1){
+      $(this).prop('disabled', true);
+      $(this).parents('form').submit();
+    }else{
+      alert('Se debe de seleccionar por lo menos un usuario.');
+    }
+
+  });
+
+  $('')
 });
 </script>
 @stop
