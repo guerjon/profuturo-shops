@@ -11,14 +11,12 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		User::create([
-			'password' => 'admin',
-			'role' => 'admin',
-			'gerencia' => 'Iván Gutiérrez',
-			'linea_negocio' => 'AFORE',
-			'ccosto' => 1
-			]);
-
+		$this->call('DivisionalSeeder');
+		$this->call('RegionSeeder');
+		$this->call('ColorSeeder');
+		$this->call('CategorySeeder');
+		$this->call('FurnitureCategorySeeder');
+		
 		// $this->call('PaperProductSeeder');
 		// $this->call('UserSeeder');
 		// $this->call('ColorSeeder');

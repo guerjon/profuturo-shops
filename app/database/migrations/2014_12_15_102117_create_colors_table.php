@@ -17,11 +17,6 @@ class CreateColorsTable extends Migration {
 			$table->string('color');
 			$table->timestamps();
 		});
-
-		Schema::table('users',function($table){
-		$table->integer('color_id')->unsigned()->nullable()->default(NULL);	
-		$table->foreign('color_id')->references('id')->on('colors')->onDelete('SET NULL');
-		});
 	}
 
 	/**
@@ -31,10 +26,6 @@ class CreateColorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('users',function($table){
-			$table->dropForeign('users_color_id_foreign');
-			$table->dropColumn('color_id');
-		});
 		Schema::drop('colors');
 	}
 

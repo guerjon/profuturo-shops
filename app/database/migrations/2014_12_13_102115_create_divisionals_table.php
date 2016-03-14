@@ -14,6 +14,7 @@ class CreateDivisionalsTable extends Migration {
 	{
 		Schema::create('divisionals',function($table){
 			$table->increments('id');
+			$table->string('name');
 			$table->timestamps();
 		});
 	}

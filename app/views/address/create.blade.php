@@ -23,6 +23,7 @@
       'files' => true
       ])}}
       <p id = "aviso" >Para agregar una nueva dirección primero debes seleccionar el CCOSTO del usuario</p>
+      <p>Si el usuario ya tiene asignada la dirección esta es editable.</p>
       <div class="form-group">
         {{Form::label('ccostos', 'CCOSTOS')}}
         {{Form::text('ccostos',NULL, ['class' => 'form-control','id' => 'ccostos','required','readonly'])}}
@@ -97,7 +98,7 @@
     function llena_inputs(ui){
 
         $('.datos').empty();
-        $.get('/api/user/',{ccostos : ui.item.value }, function(data){
+        $.get('/api/user-direcction/',{ccostos : ui.item.value }, function(data){
           if(data.status == 200){
             
             $('#gerencia').val(data.user.gerencia);
@@ -111,8 +112,12 @@
             if(data.user.divisional_id == 4)
               $('#divisional').val("DIRECCION REGIONAL DE NEGOCIOS DE GOBIERNO Y PENSIONES");  
 
-            $('#regional').val(data.user.region.name);
+            $('#regional').val(data.user.regional);
             $('#linea_de_negocio').val(data.user.linea_negocio);
+            $('#inmueble').val(data.user.inmueble);
+            $('#domicilio').val(data.user.domicilio);
+
+            console.log(data);
 
           }else{
             $('#aviso').empty();

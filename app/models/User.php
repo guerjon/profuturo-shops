@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac',
+		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac,user_loader',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
 	
@@ -161,7 +161,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	{
 		return $this->hasMany('BusinessCard', 'ccosto', 'ccosto');
 	}
-
 
 	public function generalRequests()
 	{

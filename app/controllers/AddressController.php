@@ -46,6 +46,11 @@ class AddressController extends \BaseController {
 	 */
 	public function store()
 	{
+		$address = Address::where('ccostos',Input::get('ccostos'))->first();
+		if($address){
+			return Redirect::back()->withErrors("El centro de costos ya tiene una dirección asignada");
+		}
+
 		$address = new Address(Input::all());
 		if($address->save())
 			return Redirect::action('AddressController@index')->withSuccess('Se añadio la dirección con exito');

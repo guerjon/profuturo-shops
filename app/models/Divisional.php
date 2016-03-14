@@ -3,7 +3,7 @@
 class Divisional extends Eloquent{
 
 
-protected $fillable = ['id'];
+protected $fillable = ['id','name'];
 
 protected $guarded = ['updated_at','created_at'];
 

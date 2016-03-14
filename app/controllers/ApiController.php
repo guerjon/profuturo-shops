@@ -423,12 +423,30 @@ class ApiController extends BaseController
 
 
   public function getUser()
-  {
-
-    
+  {    
     $ccosto = Input::get('ccostos');
     $user = User::with('region')->where('ccosto',$ccosto)->first();
     
+    if($user){
+      return Response::json([
+        'status' => 200,
+        'user' => $user
+      ]);
+    }else{
+      return Response::json([
+        'status' => 404
+      ]);
+    }
+  }
+
+    public function getUserDirecction()
+  {
+    $user = DB::table('users')
+              ->join('regions','regions.id','=','users.region_id')
+              ->leftJoin('address','address.ccostos','=','users.ccosto')
+              ->where('ccosto','=',Input::get('ccostos'))
+              ->first();
+
     if($user){
       return Response::json([
         'status' => 200,

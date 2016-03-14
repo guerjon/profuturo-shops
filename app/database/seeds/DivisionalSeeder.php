@@ -5,12 +5,11 @@ class DivisionalSeeder extends Seeder
 
 	public function run()
 	{
-			for ($i=0; $i < 4; $i++) { 
-				$divisional =	Divisional::create(['id' => $i]);
-				$divisional->save();
-			}
-
-		
+		if($h = fopen('app/database/csvs/divisionales.csv', 'r')){
+			
+		    while($row = fgetcsv($h)){
+		    	$divisional = Divisional::create(['name' => $row[0]]);
+		    }
+    	}
 	}
-
 }
