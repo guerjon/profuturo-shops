@@ -1,6 +1,6 @@
 <?
 
-class AddressSeeder extends Seeder
+class AddressSedder extends Seeder
 {
 
 	public function run()
