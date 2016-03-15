@@ -17,13 +17,14 @@ class OrdersController extends BaseController
     }
   
     if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-      $address = Address::where('ccostos',Auth::user()->ccosto)->first();
-      $address->posible_cambio = Input::get('posible_cambio');
-      if($address->save()){
+      $user = User::where('ccosto',Auth::user()->ccosto)->first;
+      $user->posible_cambio = Input::get('posible_cambio');
+      if($user->save()){
         Log::debug("Guardo de dirección exitoso");
       }else{
-        Log::debug($address->getErrors());
+        Log::debug($user->getErrors());
       }
+
     }    
 
     $order = new Order(Input::except('domicilio_original','posible_cambio'));

@@ -41,9 +41,10 @@ class AdminDivisionalController extends BaseController{
 	 */
 	public function store()
 	{
-		Log::info(Input::all());
+		
 
-		DB::table('divisionals_users')->insert(['from' => Input::get('from'),'until' => Input::get('until'),'divisional_id' => Input::get('divisional_id')]);
+		DB::table('divisionals_users')->insert(['from' => Input::get('from'),'until' => Input::get('until'),'divisional_id' => Input::get('divisional_id'),
+			'user_id' => 1]);
 
 	 	return Redirect::to(action('AdminDivisionalController@index'))->withInfo('Se ha agregado la fecha a la divisional.');	
 	}

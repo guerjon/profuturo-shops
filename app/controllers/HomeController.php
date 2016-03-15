@@ -54,9 +54,9 @@ class HomeController extends BaseController {
 		
 		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
 		
-		$address = Address::where('ccostos',Auth::user()->ccosto)->first();
+		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		
-		return View::make('pages.cart')->withAccess($access)->withAddress($address);
+		return View::make('pages.cart')->withAccess($access)->withUser($user);
 	}
 
 	public function getCarritoMuebles()
@@ -66,7 +66,7 @@ class HomeController extends BaseController {
 
 	public function getCarritoMac()
 	{
-		$address = Address::where('ccostos',Auth::user()->ccosto)->first();
+		$address = User::where('ccosto',Auth::user()->ccosto)->first();
 		return View::make('pages.cart_mac')
 		->withLastOrder(Auth::user()->MacOrders()->orderBy('created_at', 'desc')->first())
 		->withAddress($address);	

@@ -9,14 +9,14 @@
         <h4 class="modal-title">Verifique los datos antes de enviar el pedido</h4>
       </div>
       <div class="modal-body">
-        @if($address != null)
+        @if($user != null)
           <center>
             <h4>
               ¿La dirección de envio es correcta?
             </h4>            
           </center>
           <b>
-            {{Form::textarea('posible_cambio',$address->domicilio,['class' => 'form-control','id' => 'posible_cambio'])}}            
+            {{Form::textarea('posible_cambio',$user->domicilio,['class' => 'form-control','id' => 'posible_cambio'])}}            
           </b>
           <center>
             <h5>

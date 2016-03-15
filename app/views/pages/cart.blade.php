@@ -39,7 +39,6 @@
             <td>
               <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="1">Eliminar 1</button>
               <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="{{$product->pivot->quantity}}">Eliminar todos</button>
-
             </td>
           </tr>
           @endforeach
@@ -74,8 +73,8 @@
             'id' => 'send-order-form'
             ])}}
   
-          @if($address != null)
-          {{Form::hidden('domicilio_original',$address->domicilio,['class' => 'appends'])}}
+          @if($user != null)
+          {{Form::hidden('domicilio_original',$user->domicilio,['class' => 'appends'])}}
           @endif
           
           <div class="form-group">
