@@ -9,13 +9,14 @@ class AddressController extends \BaseController {
 	 */
 	public function index()
 	{
-		$addresses = Address::orderBy('ccostos');
+		$addresses = User::orderBy('domicilio');
+
 		if(Input::has('ccostos'))
-			$addresses->where('ccostos','LIKE','%'.Input::get('ccostos').'%');
+			$addresses->where('ccosto','LIKE','%'.Input::get('ccostos').'%');
 		if(Input::has('regional'))
-			$addresses->where('regional','LIKE','%'.Input::get('regional').'%');
+			$addresses->where('region_id',Input::get('regional'));
 		if(Input::has('divisional'))
-			$addresses->where('divisional','LIKE','%'.Input::get('divisional').'%');
+			$addresses->where('divisional_id',Input::get('divisional'));
 		if(Input::has('linea_de_negocio'))
 			$addresses->where('linea_de_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
 

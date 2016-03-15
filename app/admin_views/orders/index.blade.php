@@ -110,16 +110,12 @@
                 @endif
               </td>
               <td>
-                @foreach($addresses as $address)
-                  @if($address->ccostos == $order->user->ccosto)
-                      {{$address->domicilio}}
-                      @if($address->posible_cambio != null)
-                        <button data-id="{{$address->id}}" data-domicilio="{{$address->domicilio}}" data-posible-cambio="{{$address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
-                          Ver cambio domicilio
-                        </button>
-                      @endif
-                  @endif
-                @endforeach
+                {{$order->user->domicilio}}
+                @if($order->user->posible_cambio != null)
+                  <button data-id="{{$order->user->id}}" data-domicilio="{{$order->user->domicilio}}" data-posible-cambio="{{$order->user->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
+                    Ver cambio domicilio
+                  </button>
+                @endif
               </td>
               <td>
                 {{Form::open(array('action' =>['AdminOrdersController@destroy',$order->id],

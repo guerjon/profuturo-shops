@@ -8,7 +8,6 @@ class AdminOrdersController extends BaseController
     if(Input::get('export') == 'xls'){
     $query = DB::table('users')->select('*','orders.id as order_id','orders.created_at as order_created_at')
               ->join('orders','orders.user_id','=','users.id')
-              ->leftJoin('address','users.ccosto','=','address.ccostos')
               ->orderBy('orders.created_at','desc');
     
     $q = clone $query;
@@ -61,8 +60,8 @@ class AdminOrdersController extends BaseController
     if(Input::has('divisional_id'))
         $orders->where('users.divisional_id', Input::get('divisional_id'));
 
-    $addresses = Address::all();
-    return View::make('admin::orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias)->withAddresses($addresses);
+    
+    return View::make('admin::orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias);
   }
 
   public function show($order_id)

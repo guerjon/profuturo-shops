@@ -29,11 +29,11 @@
 			  </div>
 
 			  <div class="col-xs-2" >
-			    {{Form::select('regional',Region::lists('name','name'),null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
+			    {{Form::select('regional',Region::lists('name','id'),null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
 			  </div>
 
 			  <div class="col-xs-2">
-			    {{Form::select('divisional',[null => 'Todas las divisionales']+Divisional::lists('name','name'),null,['class' => 'form-control','placeholder' => 'DIVISIONAL'])}}
+			    {{Form::select('divisional',[null => 'Todas las divisionales']+Divisional::lists('name','id'),null,['class' => 'form-control','placeholder' => 'DIVISIONAL'])}}
 			  </div>
 
         <div class="col-xs-2">
@@ -89,19 +89,19 @@
           @foreach($addresses as $address)
           <tr>
             <td>
-            	{{$address->ccostos}}
+            	{{$address->ccosto}}
             </td>
             <td>
             	{{$address->gerencia}}
             </td>
             <td>
-            	{{$address->divisional}}
+            	{{$address->divisional ? $address->divisional->name : "N/A"}}
             </td>
             <td>
-            	{{$address->regional}}
+            	{{$address->region ? $address->region->name : "N/A"}}
             </td>
             <td>
-            	{{$address->linea_de_negocio}}
+            	{{$address->linea_negocio}}
             </td>
             <td>
             	{{$address->inmueble}}
