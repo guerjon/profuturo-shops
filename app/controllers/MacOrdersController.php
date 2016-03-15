@@ -16,12 +16,12 @@ class MacOrdersController extends \BaseController {
     }
   
     if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-      $address = Address::where('ccostos',Auth::user()->ccosto)->first();
-      $address->posible_cambio = Input::get('posible_cambio');
-      if($address->save()){
+      $user = User::where('ccosto',Auth::user()->ccosto)->first;
+      $user->posible_cambio = Input::get('posible_cambio');
+      if($user->save()){
         Log::debug("Guardo de dirección exitoso");
       }else{
-        Log::debug($address->getErrors());
+        Log::debug($address->getErrPs());
       }
     }    
 
@@ -35,15 +35,7 @@ class MacOrdersController extends \BaseController {
       }
     }
 
-    // if(Auth::user()->email != null){
-    //     $user = Auth::user();
-    //     $products = $order->products();
-    //     $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
-
-    //     Mail::send('admin::email_templates.furnitures',$email_info,function($message) use($user){
-    //     $message->to("jona_54_.com@ciencias.unam.mx",$user->gerencia)->subject('Sobre su pedido');
-    //   });   
-    // }
+  
     return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');
   }
 
