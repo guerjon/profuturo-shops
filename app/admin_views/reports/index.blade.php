@@ -25,7 +25,7 @@
 
   <div class="col-sm-2 col-xs-3">
     <a href="{{action('AdminReportsController@getUserOrdersReport')}}"class="thumbnail">
-      <img src="/img/mas_solicitados.png" style="width: 100%; height: auto;">
+      <img src="/img/usuarios_pedidos.png" style="width: 100%; height: auto;">
     </a>
   </div>
 
