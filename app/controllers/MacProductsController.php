@@ -12,7 +12,7 @@ class MacProductsController extends \BaseController {
 	      if(!$activeCategory){
 	        return $this->index()->withErrors('No se encontró la categoría');
 	      }
-	      $products->where('category_id', $category_id);
+	      $products->where('mac_category_id', $category_id);
 
 	    }
 
