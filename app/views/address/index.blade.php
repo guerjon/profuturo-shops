@@ -12,11 +12,6 @@
 </ol>
 
   <br>
-
-  <div class="text-right">
-  	<a class="btn btn-primary" href="/direcciones/create"><span class="glyphicon glyphicon-plus"></span>  Añadir dirección</a>
-  </div>
-  <br>
   	<div class="row">
 		{{Form::open([
 		  'id' => 'filter-form',
@@ -48,7 +43,7 @@
 		{{Form::close()}}
   </div>
   <br>
-@if(count($addresses) == 0)
+@if(count($users) == 0)
 <div class="alert alert-warning">
   Actualmente no hay direcciones.
 </div>
@@ -86,51 +81,38 @@
         </thead>
 
         <tbody>
-          @foreach($addresses as $address)
+          @foreach($users as $user)
           <tr>
             <td>
-            	{{$address->ccosto}}
+            	{{$user->ccosto}}
             </td>
             <td>
-            	{{$address->gerencia}}
+            	{{$user->gerencia}}
             </td>
             <td>
-            	{{$address->divisional ? $address->divisional->name : "N/A"}}
+            	{{$user->divisional ? $user->divisional->name : "N/A"}}
             </td>
             <td>
-            	{{$address->region ? $address->region->name : "N/A"}}
+            	{{$user->region ? $user->region->name : "N/A"}}
             </td>
             <td>
-            	{{$address->linea_negocio}}
+            	{{$user->linea_negocio}}
             </td>
             <td>
-            	{{$address->inmueble}}
+            	{{$user->inmueble}}
             </td>
-			<td>
-				{{$address->domicilio}}
-			</td>
-			<td>
-				{{Form::open([
-				  'action' => ['AddressController@destroy', $address->id],
-				  'method' => 'DELETE',
-				  'class' => 'form-horizontal',
-				  'style' => 'display: inline',
-				  ])}}
+      			<td>
+      				  {{$user->domicilio}}
+      			</td>
+      			<td>
+      				  <div class="btn-group">
+      				      
+      				        <a href="{{action('AddressController@edit', $user->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px;padding-top:2px;" >
+      				          <span class="glyphicon glyphicon-pencil" style="padding-top:2px;"></span> Editar
+      				        </a>
 
-				  <div class="btn-group">
-				      
-				        <a href="{{action('AddressController@edit', $address->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px;padding-top:2px;" >
-				          <span class="glyphicon glyphicon-pencil" style="padding-top:2px;"></span> Editar
-				        </a>
-
-				        <button type="submit" class="btn btn-danger btn-xs" style="height:25px;margin:2px">
-				          <span class="glyphicon glyphicon-remove"></span> Eliminar
-				        </button>
-	
-				   
-				  </div>
-				{{Form::close()}}
-			</td>
+      				  </div>
+      			</td>
           </tr>
           @endforeach
         </tbody>

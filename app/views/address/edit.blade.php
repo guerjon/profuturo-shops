@@ -17,46 +17,46 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
 
-    {{Form::model($address, [
-      'action' => $address->exists ? ['AddressController@update', $address->id] : 'AddressController@store',
-      'method' => $address->exists ? 'PUT' : 'POST',
+    {{Form::model($user, [
+      'action' => ['AddressController@update', $user->id],
+      'method' => 'PUT',
       'files' => true
       ])}}
       <p id = "aviso" >Para agregar una nueva dirección primero debes seleccionar el CCOSTO del usuario</p>
       <div class="form-group">
-        {{Form::label('ccostos', 'CCOSTOS')}}
-        {{Form::text('ccostos',$address->ccostos, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
+        {{Form::label('ccosto', 'CCOSTOS')}}
+        {{Form::text('ccosto',$user->ccosto, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
       </div>
 
       <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('gerencia', 'GERENCIA:')}} 
-        {{Form::text('gerencia',$address->gerencia, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
+        {{Form::text('gerencia',$user->gerencia, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
       </div>
 
 
       <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('divisional', 'DIVISIONAL:')}} 
-        {{Form::text('divisional',$address->divisional, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
+        {{Form::text('divisional',$user->divisional->name, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
       </div>
 
       <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('regional', 'REGIONAL:')}} 
-        {{Form::text('regional',$address->regional, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
+        {{Form::text('regional',$user->region->name, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
       </div>
 
       <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('linea_de_negocio', 'LÍNEA DE NEGOCIO:')}} 
-        {{Form::text('linea_de_negocio',$address->linea_de_negocio, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
+        {{Form::text('linea_de_negocio',$user->linea_negocio, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
       </div>
 
        <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('inmueble', 'INMUEBLE')}}
-        {{Form::text('inmueble', NULL, ['class' => 'form-control'])}}
+        {{Form::text('inmueble',$user->inmueble, ['class' => 'form-control'])}}
       </div>
 
        <div class="form-group" style="background-color:#FCFAFA;">
-        {{Form::label('domicilio', 'DOMICILIO')}}
-        {{Form::textarea('domicilio', NULL, ['class' => 'form-control','rows' => 4])}}
+        {{Form::label('posible_cambio', 'DOMICILIO')}}
+        {{Form::textarea('posible_cambio',$user->domicilio, ['class' => 'form-control','rows' => 4])}}
       </div>
 
 

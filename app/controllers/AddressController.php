@@ -9,19 +9,18 @@ class AddressController extends \BaseController {
 	 */
 	public function index()
 	{
-		$addresses = User::orderBy('domicilio');
+		$users = User::orderBy('ccosto');
 
 		if(Input::has('ccostos'))
-			$addresses->where('ccosto','LIKE','%'.Input::get('ccostos').'%');
+			$users->where('ccosto','LIKE','%'.Input::get('ccostos').'%');
 		if(Input::has('regional'))
-			$addresses->where('region_id',Input::get('regional'));
+			$users->where('region_id',Input::get('regional'));
 		if(Input::has('divisional'))
-			$addresses->where('divisional_id',Input::get('divisional'));
+			$users->where('divisional_id',Input::get('divisional'));
 		if(Input::has('linea_de_negocio'))
-			$addresses->where('linea_de_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
+			$users->where('linea_de_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
 
-
-		return View::make('address.index')->withAddresses($addresses->get());
+		return View::make('address.index')->withUsers($users->get());
 	}
 
 
@@ -41,38 +40,6 @@ class AddressController extends \BaseController {
 
 
 	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$address = Address::where('ccostos',Input::get('ccostos'))->first();
-		if($address){
-			return Redirect::back()->withErrors("El centro de costos ya tiene una dirección asignada");
-		}
-
-		$address = new Address(Input::all());
-		if($address->save())
-			return Redirect::action('AddressController@index')->withSuccess('Se añadio la dirección con exito');
-		else
-			return Redirect::back()->withErrors($addresses->getErrors());
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
@@ -80,8 +47,8 @@ class AddressController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$address = Address::find($id);
-		return View::make('address.edit')->withAddress($address);
+		$user = User::find($id);
+		return View::make('address.edit')->withUser($user);
 	}
 
 
@@ -93,10 +60,10 @@ class AddressController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$address = Address::find($id);
-		if($address){
-			if($address->update(Input::all())){
-				return Redirect::action('AddressController@index')->withSuccess('La dirección se ha guardado correctamente');
+		$user = User::find($id);
+		if($user){
+			if($user->update(Input::only('inmueble','domicilio'))){
+				return Redirect::action('AddressController@index')->withInfo('La dirección se enviara al administrador para su aprobación.');
 			}else{
 				return Redirect::back()->withErrors('Ha ocurrido un error al actualizar la dirección');
 			}	
@@ -104,26 +71,4 @@ class AddressController extends \BaseController {
 			return Redirect::back()->withErrors('No sé ha encontrado la dirección');
 		}
 	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		$address = Address::find($id);
-		if($address){
-			if($address->delete()){
-				return Redirect::action('AdminAddressController@index')->withSuccess('Se ha eliminado la dirección para este centro de costos');
-			}else{
-				return Redirect::back()->withErrors('Sucedio un error al tratar de eliminar la dirección');
-			}
-		}else{
-			return Redirect::back()->withErrors('No se encontro la dirección');
-		}
-	}
-
 }
