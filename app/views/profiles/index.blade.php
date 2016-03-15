@@ -56,8 +56,14 @@
 				{{Form::label('extension','Extensión',['class'=>'control-label','required' => 'true'])}}
 				{{Form::text('extension',null,['class' => 'form-control'])}}			
 			</div>
-
-
+		@if(Auth::user()->role == "user_requests")
+	          <div class="form-group">
+	            {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
+	            <div>
+	              {{Form::password('password', ['class' => 'form-control'])}}
+	            </div>
+	          </div>
+	        @endif
 			<center>
 				<div class="form-group">
 				{{Form::submit('Guardar',['class' => 'btn btn-warning'])}}
