@@ -17,8 +17,8 @@
   color: #fff;
   background-color: #004a8d;
   border-color: #003d74;
-  
-  line-height: 20px;;
+  line-height: 20px;
+  border-radius: 3px;
   
 }
 .sub-menu li a {
