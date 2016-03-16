@@ -15,7 +15,7 @@ class CreateOrderProductTable extends Migration {
 
 		Schema::create('order_product', function($table)
 		{
-		  $table->integer('order_id')->unsigned();
+		    $table->integer('order_id')->unsigned();
 			$table->integer('product_id')->unsigned();
 			$table->integer('quantity');
 			$table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

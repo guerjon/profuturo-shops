@@ -55,38 +55,47 @@
             <ul class="nav navbar-nav navbar-right">
 
               @if(Auth::check())
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                  {{HTML::image(Auth::user()->image->url('mini'), Auth::user()->nombre, ['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'] )}}
-                  
-                  
-                  {{Auth::user()->nombre}}
-                  | {{Auth::user()->gerencia}}
-                  <span class="caret"></span>
-                </a>
-
-                <ul class="dropdown-menu" role="menu">
-                @if(Auth::user()->is_admin)
-                    <li><a href="/perfil">Mi perfil</a></li>
-                @elseif(Auth::user()->ismanager)
-                    <li><a href="/perfil">Mi perfil</a></li>
-                @elseif(Auth::user()->user_paper)
-                  <li><a href="/perfil">Mi perfil</a></li>
-                  <li><a href="/pedidos">Mis pedidos</a></li>
-                  <li><a href="/carrito">Mi carrito</a></li>
-                
-                @elseif(Auth::user()->user_furnitures)                  
-                  <li><a href="/perfil">Mi perfil</a></li>
-                  <li><a href="/pedidos-muebles">Mis pedidos</a></li>
+              <li>
+                @if(Auth::user()->messages->count() == 0)
+                  <a href="">{{HTML::image('/images/message.png',null,['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
                 @else
-                  <li><a href="/perfil">Mi perfil</a></li>
+                  <a href="">{{HTML::image('/images/message.png',null,['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
                 @endif
-                  <li class="divider"></li>
-                  <li><a href="/logout">Cerrar sesión</a></li>
-                </ul>
               </li>
-              @else
-              <li><a href="/login">Iniciar sesión</a></li>
+
+                <li class="dropdown">
+
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    {{HTML::image(Auth::user()->image->url('mini'), Auth::user()->nombre, ['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'] )}}
+                    
+                    
+                    {{Auth::user()->nombre}}
+                    | {{Auth::user()->gerencia}}
+                    <span class="caret"></span>
+
+                  </a>
+
+                  <ul class="dropdown-menu" role="menu">
+                  @if(Auth::user()->is_admin)
+                        <li><a href="/perfil">Mi perfil</a></li>
+                    @elseif(Auth::user()->ismanager)
+                        <li><a href="/perfil">Mi perfil</a></li>
+                    @elseif(Auth::user()->user_paper)
+                      <li><a href="/perfil">Mi perfil</a></li>
+                      <li><a href="/pedidos">Mis pedidos</a></li>
+                      <li><a href="/carrito">Mi carrito</a></li>
+                    @elseif(Auth::user()->user_furnitures)                  
+                      <li><a href="/perfil">Mi perfil</a></li>
+                      <li><a href="/pedidos-muebles">Mis pedidos</a></li>
+                    @else
+                      <li><a href="/perfil">Mi perfil</a></li>
+                  @endif
+                    <li class="divider"></li>
+                    <li><a href="/logout">Cerrar sesión</a></li>
+                  </ul>
+                </li>
+                @else
+                <li><a href="/login">Iniciar sesión</a></li>
               @endif
             </ul>
           </div><!-- /.navbar-collapse -->

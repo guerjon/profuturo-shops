@@ -86,6 +86,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	}
 
 
+    public function messages()
+    {
+        return $this->belongsToMany('Message');
+    }
+
 	public function getIsAdminAttribute()
 	{
 		return $this->role == 'admin';
