@@ -61,6 +61,7 @@
       </div>
     {{Form::close()}}
   </div>
+  
 </div>
 
 @stop
@@ -75,7 +76,7 @@
             success : function(data){
               console.log(data);
               if(data.status == 200){
-
+console.log(data);
                 var orders = data.orders;
                 var ccostos = data.ccostos;
 
@@ -102,7 +103,7 @@
           if(data.status == 200){
             
             $('#gerencia').val(data.user.gerencia);
-
+            
             if(data.user.divisional_id == 1)
               $('#divisional').val("DIRECCION MERCADOTECNIA Y VALOR AL CLIENTE");  
             if(data.user.divisional_id == 2)

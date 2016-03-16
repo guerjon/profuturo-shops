@@ -55,13 +55,14 @@
             <ul class="nav navbar-nav navbar-right">
 
               @if(Auth::check())
-              <li>
+   {{--            <li>
                 @if(Auth::user()->messages->count() == 0)
-                  <a href="">{{HTML::image('/images/message.png',null,['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
+                  <a href="">{{HTML::image('/images/message.png',null,['id' => 'message','class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
                 @else
-                  <a href="">{{HTML::image('/images/message.png',null,['class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
+                  <a href="">{{HTML::image('/images/message_2.png',null,['id' => 'message','class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
                 @endif
-              </li>
+                <div class="notification-circle"><span>1</span></div>
+              </li> --}}
 
                 <li class="dropdown">
 

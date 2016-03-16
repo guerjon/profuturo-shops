@@ -39,8 +39,7 @@ class AddressController extends \BaseController {
 	 */
 	public function create()
 	{
-		$ccosto = Address::where('role','!=','admin')->orderBy('ccosto')->lists('ccosto','ccosto');
-		return View::make('address.create')->withAddress(new Address)->withRegions($regions)->withDivisionals($divisionals)->withCcostos($ccosto);
+		return View::make('address.create')->withAddress(new Address);
 	}
 
 
@@ -61,6 +60,10 @@ class AddressController extends \BaseController {
 		}
 	}
 
+	public function store()
+	{
+		
+	}
 
 	/**
 	 * Update the specified resource in storage.

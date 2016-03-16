@@ -19,22 +19,6 @@
 		  'action' => 'AddressController@index',
 		  ])}}
 			<div class="row" style="margin:1%">
-			 <!--  <div class="col-xs-2 col-xs-offset-1">
-			    {{Form::text('ccostos',null,['class' => 'form-control','placeholder' => 'CCOSTO'])}}
-			  </div>
-
-			  <div class="col-xs-2" >
-			    {{Form::select('regional',[null=>"TODAS REGIONES"] + Region::lists('name','id'),null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
-			  </div>
-
-			  <div class="col-xs-2">
-			    {{Form::select('divisional',[null => 'TODAS LAS DIVISIONALES']+Divisional::lists('name','id'),null,['class' => 'form-control','placeholder' => 'DIVISIONAL'])}}
-			  </div>
-
-        <div class="col-xs-2">
-          {{Form::select('linea_de_negocio',[NULL => 'LINEA DE NEGOCIO','AFORE' => 'AFORE','FONDOS' => 'FONDOS','PENSION' => 'PENSIÓN'],null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
-        </div> -->
-
         <div class="col-xs-2">
           {{Form::select('inmueble',[null => 'TODOS LOS INMUEBLES']+Address::orderBy('inmueble')->lists('inmueble','inmueble'),null,['class' => 'form-control','placeholder' => ''])}}
         </div>
@@ -48,11 +32,15 @@
         </div>
 
 
+        <div class="col-xs-6">
+  			  <button class="btn btn-primary btn-submit">
+  			    <span class="glyphicon glyphicon-search"></span> BUSCAR
+  			  </button>
+            <a style="float:right;" href="{{action('AddressController@create')}}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Añadir dirección</a>
+        </div>
 
-			  <button class="btn btn-primary btn-submit">
-			    <span class="glyphicon glyphicon-search"></span> BUSCAR
-			  </button>
-
+        
+        
 			</div>
 		{{Form::close()}}
   </div>
