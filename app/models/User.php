@@ -142,6 +142,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->belongsTo('Color');
 	}
 
+	public function address(){
+		return $this->belongsTo('Address');
+	}
+
 	public function furnitureOrders()
 	{
 		return $this->hasMany('FurnitureOrder');

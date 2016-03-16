@@ -24,15 +24,15 @@
 			  </div>
 
 			  <div class="col-xs-2" >
-			    {{Form::select('regional',Region::lists('name','id'),null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
+			    {{Form::select('regional',[null=>"TODAS REGIONES"] + Region::lists('name','id'),null,['class' => 'form-control','placeholder' => 'REGIONAL'])}}
 			  </div>
 
 			  <div class="col-xs-2">
-			    {{Form::select('divisional',[null => 'Todas las divisionales']+Divisional::lists('name','id'),null,['class' => 'form-control','placeholder' => 'DIVISIONAL'])}}
+			    {{Form::select('divisional',[null => 'TODAS LAS DIVISIONALES']+Divisional::lists('name','id'),null,['class' => 'form-control','placeholder' => 'DIVISIONAL'])}}
 			  </div>
 
         <div class="col-xs-2">
-          {{Form::select('linea_de_negocio',['AFORE' => 'AFORE','FONDOS' => 'FONDOS','PENSION' => 'PENSIÓN'],null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
+          {{Form::select('linea_de_negocio',[NULL => 'LINEA DE NEGOCIO','AFORE' => 'AFORE','FONDOS' => 'FONDOS','PENSION' => 'PENSIÓN'],null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
         </div>
 
 			  <button class="btn btn-primary btn-submit">
@@ -99,10 +99,10 @@
             	{{$user->linea_negocio}}
             </td>
             <td>
-            	{{$user->inmueble}}
+            	{{$user->address ? $user->address->inmueble : "N/A"}}
             </td>
       			<td>
-      				  {{$user->domicilio}}
+      				  {{$user->address ? $user->address->domicilio : "N/A"}}
       			</td>
       			<td>
       				  <div class="btn-group">

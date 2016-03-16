@@ -68,7 +68,6 @@ class ProfileController extends \BaseController {
 	public function update($id)
 	{
 		$user = Auth::user();
-
 		$user->fill(Input::all());	
 
 		    if($user->save()){

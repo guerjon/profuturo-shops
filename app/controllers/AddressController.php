@@ -9,7 +9,7 @@ class AddressController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::orderBy('ccosto');
+		$users = User::orderBy('address_id','desc');
 
 		if(Input::has('ccostos'))
 			$users->where('ccosto','LIKE','%'.Input::get('ccostos').'%');
@@ -18,7 +18,7 @@ class AddressController extends \BaseController {
 		if(Input::has('divisional'))
 			$users->where('divisional_id',Input::get('divisional'));
 		if(Input::has('linea_de_negocio'))
-			$users->where('linea_de_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
+			$users->where('linea_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
 
 		return View::make('address.index')->withUsers($users->get());
 	}

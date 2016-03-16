@@ -19,9 +19,6 @@ class CreateUsersTable extends Migration {
 			$table->string('ccosto');
 			$table->string('gerencia');
 			$table->string('linea_negocio');
-			$table->text('inmueble');
-			$table->text('domicilio');
-			$table->text('posible_cambio');
 			$table->string('password');
 			$table->boolean('has_limit')->default(true);
 			$table->enum('role', ['admin', 'manager', 'user_requests', 'user_paper','user_furnitures','user_mac','user_loader'])->default('user_paper');

@@ -31,10 +31,10 @@
 
       <fieldset>
         <legend>
-          Importar un archivo con direcciones de sucursales
+          Importar excel con direcciones de sucursales
         </legend>
         <div class="form-group">
-          {{Form::label('file', 'Archivo')}}
+          {{Form::label('file', 'Excel')}}
           {{Form::file('file')}}
         </div>
 
