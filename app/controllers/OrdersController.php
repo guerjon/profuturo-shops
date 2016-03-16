@@ -17,12 +17,13 @@ class OrdersController extends BaseController
     }
   
     if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-      $user = User::where('ccosto',Auth::user()->ccosto)->first;
-      $user->posible_cambio = Input::get('posible_cambio');
-      if($user->save()){
+      
+      $address = Auth::user()->address;
+      $address->posible_cambio = Input::get('posible_cambio');
+      if($address->save()){
         Log::debug("Guardo de dirección exitoso");
       }else{
-        Log::debug($user->getErrors());
+        Log::debug($address->getErrors());
       }
 
     }    

@@ -62,7 +62,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('divisionales','AdminDivisionalController');
 		Route::resource('subcategorias-muebles','AdminFurnitureSubcategoriesController');
 		Route::post('subcategorias-muebles/{subcategory_id}/edit','AdminFurnitureSubcategoriesController');
-		Route::resource('address','AdminAddressController');
+		Route::resource('address','AdminAddressController',['only' => ['update']]);
+		Route::resource('mac-address','AdminMacAddressController',['only' => ['update']]);
 		Route::get('grafica-arana','AdminSpiderGraphController@getIndex');
 		Route::resource('productos-mac','AdminMacProductsController');
 	});

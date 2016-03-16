@@ -9,16 +9,24 @@ class AddressController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::orderBy('address_id','desc');
+		$users = Address::orderBy('inmueble');
 
-		if(Input::has('ccostos'))
+		/*if(Input::has('ccostos'))
 			$users->where('ccosto','LIKE','%'.Input::get('ccostos').'%');
 		if(Input::has('regional'))
 			$users->where('region_id',Input::get('regional'));
 		if(Input::has('divisional'))
 			$users->where('divisional_id',Input::get('divisional'));
 		if(Input::has('linea_de_negocio'))
-			$users->where('linea_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');
+			$users->where('linea_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');*/
+
+		if(Input::has('inmueble'))
+			$users->where('inmueble',Input::get('inmueble'));
+
+		if(Input::has('codigo_postal'))
+			$users->where('domicilio','LIKE','%'.Input::get('codigo_postal').'%');
+		if(Input::has('calle'))
+			$users->where('domicilio','LIKE','%'.Input::get('calle').'%');
 
 		return View::make('address.index')->withUsers($users->get());
 	}
@@ -31,10 +39,7 @@ class AddressController extends \BaseController {
 	 */
 	public function create()
 	{
-		
-		$regions = Region::lists('name');
-		$divisionals = Divisional::lists('name');
-		$ccosto = User::where('role','!=','admin')->orderBy('ccosto')->lists('ccosto','ccosto');
+		$ccosto = Address::where('role','!=','admin')->orderBy('ccosto')->lists('ccosto','ccosto');
 		return View::make('address.create')->withAddress(new Address)->withRegions($regions)->withDivisionals($divisionals)->withCcostos($ccosto);
 	}
 
@@ -47,8 +52,13 @@ class AddressController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$user = User::find($id);
-		return View::make('address.edit')->withUser($user);
+
+		$user = Address::find($id);
+		if($user){
+			return View::make('address.edit')->withUser($user);
+		}else{
+			return Redirect::back()->withErrors(["No se encontro la dirección"]);
+		}
 	}
 
 
@@ -60,9 +70,9 @@ class AddressController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$user = User::find($id);
+		$user = Address::find($id);
 		if($user){
-			if($user->update(Input::only('inmueble','domicilio'))){
+			if($user->update(Input::only('inmueble','posible_cambio'))){
 				return Redirect::action('AddressController@index')->withInfo('La dirección se enviara al administrador para su aprobación.');
 			}else{
 				return Redirect::back()->withErrors('Ha ocurrido un error al actualizar la dirección');

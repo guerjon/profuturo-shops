@@ -3,7 +3,7 @@
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    {{Form::open(['action' => 'AdminAddressController@update','method' => 'put','id' => 'change-address-form'])}}
+    {{Form::open(['action' => 'AdminAddressController@show','method' => 'post','id' => 'change-address-form'])}}
     <input type="text" class="hidden" id="valor_aprobado" name="aprobado">
     <div class="modal-content">
       <div class="modal-header">

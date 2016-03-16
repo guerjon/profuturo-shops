@@ -8,6 +8,7 @@ class AdminMacOrdersController extends BaseController
     if(Input::get('export') == 'xls'){
     $query = DB::table('users')->select('*','mac_orders.id as order_id','mac_orders.created_at as order_created_at')
               ->join('mac_orders','mac_orders.user_id','=','users.id')
+              ->leftJoin('address','address.id','=','users.address_id')
               ->orderBy('mac_orders.created_at','desc');
     
     $q = clone $query;
@@ -48,7 +49,7 @@ class AdminMacOrdersController extends BaseController
 
     }
         
-    $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
+    $gerencias = User::withTrashed()->where('role','user_mac')->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
     $orders = MacOrder::select(DB::raw('*,mac_orders.id as order_id,mac_orders.created_at as mac_created_at'))->orderBy('mac_orders.created_at', 'desc')->join('users','users.id','=','mac_orders.user_id');
 
 

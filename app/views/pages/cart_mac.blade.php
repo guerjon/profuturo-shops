@@ -58,10 +58,8 @@
           'id' => 'send-order-form'
           ])}}
 
-          @if($address != null)
-            {{Form::hidden('domicilio_original',$address->domicilio,['class' => 'appends'])}}
-          @endif
-          
+        {{Form::hidden('domicilio_original',$user->address ? $user->address->domicilio : null,['class' => 'appends'])}}
+    
         <div class="form-group">
           {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
         </div>
@@ -72,12 +70,13 @@
       @else  
           &nbsp;
           {{Form::open([
-            'action' => 'OrdersController@store',
+            'action' => 'MacOrdersController@store',
             'role' => 'form',
             'id' => 'send-order-form'
             ])}}
     
           
+          {{Form::hidden('domicilio_original',$user->address ? $user->address->domicilio : null,['class' => 'appends'])}}
           <div class="form-group">
             {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
           </div>

@@ -110,9 +110,9 @@
                 @endif
               </td>
               <td>
-                {{$order->user->domicilio}}
-                @if($order->user->posible_cambio != null)
-                  <button data-id="{{$order->user->id}}" data-domicilio="{{$order->user->domicilio}}" data-posible-cambio="{{$order->user->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
+                {{$order->user->address ? $order->user->address->domicilio : "N/A"}}
+                @if($order->user->address ? ($order->user->address->posible_cambio != null) : false )
+                  <button data-id="{{$order->user->address->id}}" data-domicilio="{{$order->user->address->domicilio}}" data-posible-cambio="{{$order->user->address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
                     Ver cambio domicilio
                   </button>
                 @endif

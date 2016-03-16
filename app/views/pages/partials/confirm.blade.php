@@ -16,7 +16,7 @@
             </h4>            
           </center>
           <b>
-            {{Form::textarea('posible_cambio',$user->domicilio,['class' => 'form-control','id' => 'posible_cambio'])}}            
+            {{Form::textarea('posible_cambio',$user->address ? $user->address->domicilio : "Sin dirección",['class' => 'form-control','id' => 'posible_cambio'])}}            
           </b>
           <center>
             <h5>

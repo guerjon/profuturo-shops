@@ -19,7 +19,7 @@
 		  'action' => 'AddressController@index',
 		  ])}}
 			<div class="row" style="margin:1%">
-			  <div class="col-xs-2 col-xs-offset-1">
+			 <!--  <div class="col-xs-2 col-xs-offset-1">
 			    {{Form::text('ccostos',null,['class' => 'form-control','placeholder' => 'CCOSTO'])}}
 			  </div>
 
@@ -33,7 +33,21 @@
 
         <div class="col-xs-2">
           {{Form::select('linea_de_negocio',[NULL => 'LINEA DE NEGOCIO','AFORE' => 'AFORE','FONDOS' => 'FONDOS','PENSION' => 'PENSIÓN'],null,['class' => 'form-control','placeholder' => 'INMUEBLE'])}}
+        </div> -->
+
+        <div class="col-xs-2">
+          {{Form::select('inmueble',[null => 'TODOS LOS INMUEBLES']+Address::orderBy('inmueble')->lists('inmueble','inmueble'),null,['class' => 'form-control','placeholder' => ''])}}
         </div>
+
+        <div class="col-xs-2">
+          {{Form::text('codigo_postal',null,['class' => 'form-control','placeholder' => 'CODIGO POSTAL'])}}
+        </div>
+
+        <div class="col-xs-2">
+          {{Form::text('calle',null,['class' => 'form-control','placeholder' => 'CALLE'])}}
+        </div>
+
+
 
 			  <button class="btn btn-primary btn-submit">
 			    <span class="glyphicon glyphicon-search"></span> BUSCAR
@@ -45,7 +59,7 @@
   <br>
 @if(count($users) == 0)
 <div class="alert alert-warning">
-  Actualmente no hay direcciones.
+  No se encontro ninguna dirección.
 </div>
 @else
   <div class="container-fluid">
@@ -53,7 +67,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>
+<!--             <th>
               CCOSTOS
             </th>
             <th>
@@ -67,7 +81,7 @@
             </th>
             <th>
               LINEA DE NEGOCIO
-            </th>
+            </th> -->
             <th>
               INMUEBLE
             </th>
@@ -83,7 +97,7 @@
         <tbody>
           @foreach($users as $user)
           <tr>
-            <td>
+<!--             <td>
             	{{$user->ccosto}}
             </td>
             <td>
@@ -103,8 +117,14 @@
             </td>
       			<td>
       				  {{$user->address ? $user->address->domicilio : "N/A"}}
-      			</td>
+      			</td> -->
+            <td>
+              {{$user->inmueble}}
+            </td>
       			<td>
+              {{$user->domicilio}}
+            </td>
+            <td>
       				  <div class="btn-group">
       				      
       				        <a href="{{action('AddressController@edit', $user->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px;padding-top:2px;" >

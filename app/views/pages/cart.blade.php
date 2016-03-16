@@ -56,7 +56,7 @@
           'role' => 'form',
           'id' => 'send-order-form'
           ])}}
-
+        {{Form::hidden('domicilio_original',$user->address ? $user->address->domicilio : null,['class' => 'appends'])}}
         <div class="form-group">
           {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
         </div>
@@ -74,7 +74,8 @@
             ])}}
   
           @if($user != null)
-          {{Form::hidden('domicilio_original',$user->domicilio,['class' => 'appends'])}}
+          {{Form::hidden('domicilio_original',$user->address ? $user->address->domicilio : null,['class' => 'appends'])}}
+
           @endif
           
           <div class="form-group">

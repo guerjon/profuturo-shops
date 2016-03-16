@@ -22,32 +22,6 @@
       'method' => 'PUT',
       'files' => true
       ])}}
-      <p id = "aviso" >Para agregar una nueva dirección primero debes seleccionar el CCOSTO del usuario</p>
-      <div class="form-group">
-        {{Form::label('ccosto', 'CCOSTOS')}}
-        {{Form::text('ccosto',$user->ccosto, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
-      </div>
-
-      <div class="form-group" style="background-color:#FCFAFA;">
-        {{Form::label('gerencia', 'GERENCIA:')}} 
-        {{Form::text('gerencia',$user->gerencia, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
-      </div>
-
-
-      <div class="form-group" style="background-color:#FCFAFA;">
-        {{Form::label('divisional', 'DIVISIONAL:')}} 
-        {{Form::text('divisional',$user->divisional->name, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
-      </div>
-
-      <div class="form-group" style="background-color:#FCFAFA;">
-        {{Form::label('regional', 'REGIONAL:')}} 
-        {{Form::text('regional',$user->region->name, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
-      </div>
-
-      <div class="form-group" style="background-color:#FCFAFA;">
-        {{Form::label('linea_de_negocio', 'LÍNEA DE NEGOCIO:')}} 
-        {{Form::text('linea_de_negocio',$user->linea_negocio, ['class' => 'form-control','id' => 'ccostos','readonly'])}}
-      </div>
 
        <div class="form-group" style="background-color:#FCFAFA;">
         {{Form::label('inmueble', 'INMUEBLE')}}
@@ -58,7 +32,6 @@
         {{Form::label('posible_cambio', 'DOMICILIO')}}
         {{Form::textarea('posible_cambio',$user->domicilio, ['class' => 'form-control','rows' => 4])}}
       </div>
-
 
       <div class="form-group text-center">
         {{Form::submit('Guardar', ['class' => 'btn btn-warning btn-lg'])}}
@@ -71,7 +44,7 @@
 
 @section('script')
   <script>
-    $('#ccostos').change(function(){
+    /*$('#ccostos').change(function(){
         $('.datos').empty();
         $.get('/api/user/',{ccostos : $(this).val()}, function(data){
           if(data.status == 200){
@@ -95,6 +68,6 @@
             $('#aviso').append('<div class="alert alert-danger">El centro de costos no esta registrado.</div>')
           }
         }); 
-    });
+    });*/
   </script>
 @endsection

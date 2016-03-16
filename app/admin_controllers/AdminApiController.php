@@ -64,12 +64,13 @@ class AdminApiController extends AdminBaseController
       products.id_people as ID_PEOPLE,
       (products.price * order_product.quantity) as PRICE,
       orders.id as ORDER_ID,
-      users.domicilio as ADDRESS
+      address.domicilio as ADDRESS
       "))
       ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
       ->leftJoin('users', 'users.id', '=', 'orders.user_id')
       ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+      ->leftJoin('address','address.id','=','users.address_id')
       ->orderBy('orders.id')
       ->whereNull('orders.deleted_at');
 
@@ -184,12 +185,13 @@ class AdminApiController extends AdminBaseController
       'KA003035' as INTROD,
       mac_categories.name as CATEGORY,
       (mac_products.price * mac_order_mac_product.quantity) as PRICE,
-      users.domicilio as ADDRESS
+      address.domicilio as ADDRESS
       "))
       ->join('mac_products', 'mac_products.id', '=', 'mac_order_mac_product.mac_product_id')
       ->join('mac_orders', 'mac_orders.id' , '=', 'mac_order_mac_product.mac_order_id')
       ->leftJoin('users', 'users.id', '=', 'mac_orders.user_id')
       ->leftJoin('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id')
+      ->leftJoin('address','address.id','=','users.address_id')
       ->orderBy('mac_orders.id')->whereNull('mac_orders.deleted_at');
 
 
