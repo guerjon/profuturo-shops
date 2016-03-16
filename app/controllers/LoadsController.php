@@ -34,7 +34,7 @@ class LoadsController extends \BaseController {
 
         $sheet->each(function($row)use(&$created, &$updated,&$users_updated){
 
-		$address = Address::where(['domicilio' => $row->domicilio])->first();
+		$address = Address::where(['gerencia' => $row->gerencia])->first();
 		$user = User::where('ccosto',$row->ccostos)->first();
 		if($user){
 			if($address){
