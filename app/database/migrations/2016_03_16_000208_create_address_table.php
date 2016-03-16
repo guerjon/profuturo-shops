@@ -17,7 +17,7 @@ class CreateAddressTable extends Migration {
 			$table->text('inmueble');
 			$table->text('domicilio');
 			$table->text('posible_cambio');
-
+			$table->string('gerencia');
 			$table->timestamps();
 		});
 
