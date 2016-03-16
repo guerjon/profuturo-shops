@@ -93,7 +93,7 @@
 				<li class="">
 					<a href="{{action('AdminMacOrdersController@index')}}">
 						
-						Pedidos mac
+						Pedidos MAC
 					</a>
 				</li>
 			</ul>
