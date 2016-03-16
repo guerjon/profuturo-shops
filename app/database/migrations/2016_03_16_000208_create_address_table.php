@@ -17,6 +17,7 @@ class CreateAddressTable extends Migration {
 			$table->text('inmueble');
 			$table->text('domicilio');
 			$table->text('posible_cambio');
+
 			$table->timestamps();
 		});
 
@@ -37,7 +38,9 @@ class CreateAddressTable extends Migration {
 	{
 		Schema::table('users',function($table){
 			$table->dropForeign('users_address_id_foreign');
+			$table->drop('address_id');
 		});
+
 		Schema::drop('address');
 	}
 

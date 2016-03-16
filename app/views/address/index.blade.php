@@ -83,6 +83,9 @@
               LINEA DE NEGOCIO
             </th> -->
             <th>
+              GERENCIA
+            </th>
+            <th>
               INMUEBLE
             </th>
             <th>
@@ -118,6 +121,9 @@
       			<td>
       				  {{$user->address ? $user->address->domicilio : "N/A"}}
       			</td> -->
+            <td>
+              {{$user->gerencia}}
+            </td>
             <td>
               {{$user->inmueble}}
             </td>

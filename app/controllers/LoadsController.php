@@ -39,7 +39,7 @@ class LoadsController extends \BaseController {
 		if($user){
 			if($address){
 				$user->address_id = $address->id;
-			    $address->update(['domicilio' => $row->domicilio,'inmueble' => $row->inmueble]);
+			    $address->update(['domicilio' => $row->domicilio,'inmueble' => $row->inmueble,'gerencia' => $row->gerencia]);
 
 			    if($address->isDirty()){
 				    $address->save();
@@ -49,6 +49,7 @@ class LoadsController extends \BaseController {
 				$address = new Address([
 				  'domicilio' => $row->domicilio,
 				  'inmueble' => $row->inmueble,
+				  'gerencia' => $row->gerencia,
 				]);
 				if($address->save()){
 					$user->address_id = $address->id;
