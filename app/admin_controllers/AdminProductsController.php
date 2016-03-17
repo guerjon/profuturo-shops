@@ -8,9 +8,9 @@ class AdminProductsController extends AdminBaseController
     $active_tab = Session::get('active_tab', Input::get('active_tab',1));
     $categories = Category::lists('name');
     if (Input::has('active_tab')) {
-      $products = Product::withTrashed()->where('category_id',Input::get('active_tab'));
+      $products = Product::where('category_id',Input::get('active_tab'));
     }else{
-      $products = Product::withTrashed()->where('category_id',1);
+      $products = Product::where('category_id',1);
     }
    
 
