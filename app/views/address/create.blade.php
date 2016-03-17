@@ -11,6 +11,17 @@
   <li class="active">Agregar dirección</li>
 </ol>
 
+
+  @if($errors->count() > 0)
+    <div class="alert alert-danger">
+      <ul>
+        @foreach($errors as $error)
+          <li>{{$error}}</li>
+        @endforeach
+      </ul>
+    </div>
+  @endif
+
 <h3>Agregar nueva dirección</h3>
 <hr>
 
@@ -70,13 +81,15 @@
   <script>
     $(function(){
         $('#ccostos').attr('readonly',false)
+        
+
           $.ajax({
             url : '/api/ccostos-autocomplete',
             dataType: 'json',
             success : function(data){
               console.log(data);
               if(data.status == 200){
-console.log(data);
+                
                 var orders = data.orders;
                 var ccostos = data.ccostos;
 
@@ -89,7 +102,8 @@ console.log(data);
                     },
                   }
                 );
-                
+              
+
               }
             },error : function(data){
               }
@@ -113,7 +127,7 @@ console.log(data);
             if(data.user.divisional_id == 4)
               $('#divisional').val("DIRECCION REGIONAL DE NEGOCIOS DE GOBIERNO Y PENSIONES");  
 
-            $('#regional').val(data.user.regional);
+            $('#regional').val(data.user.region.name);
             $('#linea_de_negocio').val(data.user.linea_negocio);
             $('#inmueble').val(data.user.inmueble);
             $('#domicilio').val(data.user.domicilio);

@@ -62,7 +62,22 @@ class AddressController extends \BaseController {
 
 	public function store()
 	{
-		
+		$address = new Address(Input::only(['inmueble','domicilio','gerencia']));
+		$user = User::where('ccosto',Input::get('ccostos'))->first();
+		if($user){
+			if($address->save()){
+				$user->address_id = $address->id;
+				if($user->save()){
+					return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario');
+				}else{
+					return Redirect::back()->withErrors(["Se guardo la dirección pero no se asocio al usuario"]);
+				}
+			}else{
+				return Redirect::back()->withErrors(["No se pudo guardar la dirección"]);
+			}
+		}else{
+			return Redirect::back()->withErrors(["No se encontro al usuario."]);
+		}
 	}
 
 	/**

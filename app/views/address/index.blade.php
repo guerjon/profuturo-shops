@@ -55,21 +55,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-<!--             <th>
-              CCOSTOS
-            </th>
-            <th>
-             	GERENCIA
-            </th>
-            <th>
-            	DIVISIONAL
-            </th>
-            <th>
-              REGIONAL
-            </th>
-            <th>
-              LINEA DE NEGOCIO
-            </th> -->
+
             <th>
               GERENCIA
             </th>
@@ -88,27 +74,7 @@
         <tbody>
           @foreach($users as $user)
           <tr>
-<!--             <td>
-            	{{$user->ccosto}}
-            </td>
-            <td>
-            	{{$user->gerencia}}
-            </td>
-            <td>
-            	{{$user->divisional ? $user->divisional->name : "N/A"}}
-            </td>
-            <td>
-            	{{$user->region ? $user->region->name : "N/A"}}
-            </td>
-            <td>
-            	{{$user->linea_negocio}}
-            </td>
-            <td>
-            	{{$user->address ? $user->address->inmueble : "N/A"}}
-            </td>
-      			<td>
-      				  {{$user->address ? $user->address->domicilio : "N/A"}}
-      			</td> -->
+
             <td>
               {{$user->gerencia}}
             </td>
@@ -120,11 +86,9 @@
             </td>
             <td>
       				  <div class="btn-group">
-      				      
       				        <a href="{{action('AddressController@edit', $user->id)}}" class="btn btn-warning btn-xs" style="height:25px;margin:2px;padding-top:2px;" >
       				          <span class="glyphicon glyphicon-pencil" style="padding-top:2px;"></span> Editar
       				        </a>
-
       				  </div>
       			</td>
           </tr>

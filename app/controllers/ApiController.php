@@ -441,11 +441,7 @@ class ApiController extends BaseController
 
     public function getUserDirecction()
   {
-    $user = DB::table('users')
-              ->join('regions','regions.id','=','users.region_id')
-              ->leftJoin('address','address.ccostos','=','users.ccosto')
-              ->where('ccosto','=',Input::get('ccostos'))
-              ->first();
+    $user = User::with('region')->where('ccosto',Input::get('ccostos'))->first();
 
     if($user){
       return Response::json([
