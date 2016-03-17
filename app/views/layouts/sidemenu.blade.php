@@ -4,7 +4,7 @@
   @else
 	
 	  @foreach(Auth::user()->menu_actions as $action => $name)
-	  	@if(Auth::user()->is_admin)
+	  	@if(Auth::user()->role == "admin")
 
 		  	@if($name == "Categorías")	
 				<li class="" >
@@ -100,8 +100,9 @@
 						</li>
 					</ul>
 				</li>
-		
+			
 		@endif
+			<li role="presentation">{{link_to($action, $name)}}</li>
 		@else
 			<li role="presentation">{{link_to($action, $name)}}</li>
 		@endif
