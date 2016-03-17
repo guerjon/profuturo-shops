@@ -102,7 +102,9 @@
 				</li>
 			
 		@endif
-			<li role="presentation">{{link_to($action, $name)}}</li>
+			@if($name != "Categorías" and $name != "Pedidos" and $name != "Productos" )
+				<li role="presentation">{{link_to($action, $name)}}</li>
+			@endif
 		@else
 			<li role="presentation">{{link_to($action, $name)}}</li>
 		@endif
