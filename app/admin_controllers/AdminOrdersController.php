@@ -47,7 +47,7 @@ class AdminOrdersController extends BaseController
 
     }
         
-    $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
+    $gerencias = User::orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
     $orders = Order::select(DB::raw('*,orders.created_at as order_date,orders.id as order_id'))->orderBy('orders.created_at', 'desc')->join('users','users.id','=','orders.user_id');
 
 
