@@ -85,6 +85,5 @@ class AdminOrdersController extends BaseController
     return Redirect::to(action('AdminOrdersController@index'))->withSuccess('Se ha eliminado la orden');
   }
 
-
 }
 

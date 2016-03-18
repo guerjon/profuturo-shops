@@ -1464,6 +1464,18 @@ class AdminApiController extends AdminBaseController
   }
 
 
+  public function postNotificationMarker()
+  {
+      $message = Message::find(Input::get('id'));
+      $message->read_at = \Carbon\Carbon::now();
+      if($message->save()){
+        return Response::json([
+          'status' => 200
+        ]);
+      }
+
+
+  }
 
 
 }

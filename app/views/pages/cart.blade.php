@@ -3,6 +3,16 @@
 
 @section('content')
 
+@if($errors->count() > 0)
+<div class="alert alert-danger">
+  <ul>
+    @foreach($errors->all() as $error)
+    <li>{{$error}}</li>
+    @endforeach
+  </ul>
+</div>
+@endif
+
     @if(Auth::user()->cart_products->count() == 0)
       <div class="alert alert-warning">
         Sin artículos en el carrito. Haga click <a href="/productos" class="alert-link">aquí</a> para ver los productos disponibles.

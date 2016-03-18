@@ -43,7 +43,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('mac-categories','AdminMacCategoriesController');
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
-		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy']]);
+		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy','store']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('furnitures-orders', 'AdminFurnituresOrdersController', ['only' => ['index', 'show','destroy']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');

@@ -10,23 +10,81 @@ class OrdersController extends BaseController
 
   public function store()
   {
-    
+    $address = Auth::user()->address;
+    $user = Auth::user();
+    $values = [ 'sender_id' => Auth::user()->id,
+                'receiver_id' => '1',
+                'body' => "El usuario " + Auth::user()->ccosto + "ha solicitado un cambio de domicilio",
+                'type' => 'pedidos'
+              ];
+
     if(Auth::user()->cart_products->count() == 0)
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
-  
-    if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-      
-      $address = Auth::user()->address;
-      $address->posible_cambio = Input::get('posible_cambio');
-      if($address->save()){
-        Log::debug("Guardo de dirección exitoso");
+
+    //Direcciones y notificaciones
+    if(!$address){
+      if(Input::has('posible_cambio')){
+        $address = new Address(['posible_cambio' => Input::get('posible_cambio')]);
+        if($address->save()){
+          //Al guardar el posible cambio lo asignamos al usuario
+          $user = Auth::user();
+          $user->address_id = $address->id;
+          //Vamos a crear los mensajes para la notificacion
+
+
+          $message = new Message($values);
+
+          if($message->save()){
+            //si el mensaje se guardo ya podemos relacionarlo con el usuario.
+            $admin = User::find(1);
+            $admin->messages()->attach($message->id);
+
+            if($user->save() and $admin->save()){
+              Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
+            }else{
+              return Redirect::back()->withErrors("El usuario no pudo guardarse");
+            }
+          }
+        }else{
+            Log::debug($address->getErrors());
+        }
       }else{
-        Log::debug($address->getErrors());
+        return Redirect::back()->withErrors("El pedido no puede ser enviado sin dirección.");
+      }
+    }else{
+      if(Auth::user()->address->domicilio == ""){
+        return Redirect::back()->withErrors("El centro de costos ya tiene una dirección pero aun no ha sido aprobada por el administrador.");
       }
 
-    }    
+      if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
+        $address = Auth::user()->address;
+        $address->posible_cambio = Input::get('posible_cambio');
+        if($address->save()){
+          //Al guardar el posible cambio lo asignamos al usuario
+          $user->address_id = $address->id;
+          //Vamos a crear los mensajes para la notificacion
+        }else{
+            Log::debug($address->getErrors());
+        }        
+      }
+      $message = new Message($values);
+        if($message->save()){
+          //si el mensaje se guardo ya podemos relacionarlo con el usuario.
+          $admin = User::find(1);
+          $admin->messages()->attach($message->id);
+          if($user->save() and $admin->save()){
+            Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
+          }else{
+            return Redirect::back()->withErrors("El usuario no pudo guardarse");
+          }
+        }else{
+          Log::debug("La notificación no se guardo");
+        }
+    }  
+
+    //orden
 
     $order = new Order(Input::except('domicilio_original','posible_cambio'));
     $order->user_id = Auth::id();

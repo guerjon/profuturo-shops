@@ -28,6 +28,7 @@
       @include('layouts.sidemenu')
     </div>
 
+
     <div id="sb-site">
       <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
         <div class="container-fluid">
@@ -55,14 +56,20 @@
             <ul class="nav navbar-nav navbar-right">
 
               @if(Auth::check())
-   {{--            <li>
-                @if(Auth::user()->messages->count() == 0)
-                  <a href="">{{HTML::image('/images/message.png',null,['id' => 'message','class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
-                @else
-                  <a href="">{{HTML::image('/images/message_2.png',null,['id' => 'message','class' => 'img-rounded','style' => ' height: 30px;width: 30px;'])}}</a>
+                @if(Auth::user()->role == "admin")                
+                  <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" class="message-image">
+                        {{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
+                        <span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu" id="notifications-lists">
+                      @foreach(Auth::user()->messages as $message)
+                        <li><a href="/admin/{{$message->type}}" class="notification-link" data-notification-id="{{$message->id}}">El usuario <b>{{$message->body}}</b> Ha solicitado un cambio de domicilio</a></li>
+                      @endforeach
+                    </ul>
+                  </li>
                 @endif
-                <div class="notification-circle"><span>1</span></div>
-              </li> --}}
 
                 <li class="dropdown">
 
@@ -95,7 +102,8 @@
                     <li><a href="/logout">Cerrar sesión</a></li>
                   </ul>
                 </li>
-                @else
+              
+              @else
                 <li><a href="/login">Iniciar sesión</a></li>
               @endif
             </ul>
@@ -134,6 +142,41 @@
     <script charset="utf-8">
       $(function(){
         $.slidebars();
+        // function updateAlerts() {
+        //    $.ajax({
+        //       url : "/check.php",
+        //       type : "POST",
+        //       data : {
+        //          method : 'checkAlerts'
+        //       },
+        //       success : function(data, textStatus, XMLHttpRequest) {
+        //          var response = $.parseJSON(data);
+
+        //          // Update the DOM to show the new alerts!
+        //          if (response.friendRequests > 0) {
+        //             // update the number in the DOM and make sure it is visible...
+        //             $('#unreadFriendRequestsNum').show().text(response.friendRequests);
+        //          }
+        //          else {
+        //             // Hide the number, since there are no pending friend requests
+        //             $('#unreadFriendRequestsNum').hide();
+        //          }
+
+        //          // Do something similar for unreadMessages, if required...
+        //       }
+        //    });
+        //    setTimeout('updateAlerts()', 15000); // Every 15 seconds.
+        // }
+
+
+        $('.notification-link').click(function(event){
+            $.post('/admin/api/notification-marker',{id:$(this).attr('data-notification-id')},function(data){
+              if(data.status == 200){
+                $(this).click()
+              }
+            });
+        });
+
       });
     </script>
 
@@ -159,9 +202,14 @@
       $.datepicker.setDefaults($.datepicker.regional['es']);
       $('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
      
+
+
     </script>
 
     @yield('script')
-    @yield('css')
+
+
+    
+    
   </body>
 </html>
