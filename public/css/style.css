@@ -79,9 +79,23 @@
     top:0px;
     margin-left:28px;
     margin-top: 3px;
-
 }
 
+.numberCircleNotification{
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    background: red;
+    border: 2px solid white;
+    color: white;
+    text-align: center;
+    font: 10px Arial, sans-serif;
+    position:absolute;
+    top:0px;
+    margin-left:21px;
+    margin-top: 3px;
+}
 #notifications-lists li{
   background-color: #00396c;
   color:white;
@@ -102,4 +116,9 @@
   color: #fff;
   text-decoration: none;
   padding: 10px 10px 10px 20px;
+}
+
+
+.message-lists{
+  
 }
