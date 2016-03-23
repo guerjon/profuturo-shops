@@ -68,7 +68,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('productos-mac','AdminMacProductsController');
 	});
 
-	Route::resource('message','MessageController');
+	Route::resource('message','MessageController',['only' => ['store']]);
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::resource('perfil','ProfileController');
 	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);

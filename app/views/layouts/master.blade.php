@@ -15,11 +15,10 @@
 		<link rel="stylesheet" href="/css/calendario.css" media="screen" title="no title" charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 	</head>
 	<body>
@@ -60,7 +59,7 @@
 
 								@if(Auth::user()->role == "admin")                
 									<li>
-										<a href="#" type="button" data-toggle="modal" data-target="#myModal">
+										<a href="#" type="button" data-toggle="modal" data-target="#message-modal">
 												{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 												<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
 										</a>
@@ -121,7 +120,9 @@
 			</div>
 		</div>
 
-				
+
+
+		@include('pages.partials.message')
 
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -136,11 +137,12 @@
 		<script src="/js/slidebars.js"></script>
 		<script src="/js/jquery.datetimepicker.js"></script>
 		<script src="/js/download.js"></script>
-
 		<script type="text/javascript"
 		 src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
 		<script type="text/javascript" src="/js/jquery.bootpag.js"></script>
 		<script type="text/javascript" src="/js/date-picker-configuration.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
 		<script charset="utf-8">
 			$(function(){
 				$.slidebars();
@@ -151,31 +153,30 @@
 						}
 					});
 				});
+
+				$(".js-example-basic-multiple").select2({
+					 "language": {
+				       "noResults": function(){
+				           return "No se encontraron resultados.";
+				       }
+					 }
+				});
+
+				$('#post-message-modal-button').click(function(){
+					$('#post-message-modal-form').submit();
+				});
 			});
+
+
+
 		</script>
 
 
-	
+		
 		@yield('script')
 
 		
-	<div class="modal fade" role="dialog" id="myModal" >
-		<div class="modal-dialog" >
-			<div class="modal-content" >
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Modal title</h4>
-				</div>
-				<div class="modal-body">
-					<p>One fine body&hellip;</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 
+		
 	</body>
 </html>

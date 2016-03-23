@@ -13,7 +13,7 @@ class AddMessagesColumn extends Migration {
 	public function up()
 	{
 		Schema::table('messages', function($table) {
-     		$table->enum('type',['orders','furnitures-orders','orders-mac','loader']);       
+     		$table->enum('type',['orders','furnitures-orders','orders-mac','loader','personal']);       
      		$table->string('body',400);
         });
 	}
