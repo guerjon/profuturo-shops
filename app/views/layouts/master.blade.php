@@ -57,14 +57,14 @@
 
 							@if(Auth::check())
 
-								@if(Auth::user()->role == "admin")                
+{{-- 								@if(Auth::user()->role == "admin")                
 									<li>
 										<a href="#" type="button" data-toggle="modal" data-target="#message-modal">
 												{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 												<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
 										</a>
 									</li>
-								@endif
+								@endif --}}
 
 								<li class="dropdown">
 
@@ -120,12 +120,7 @@
 			</div>
 		</div>
 
-
-
-		@include('pages.partials.message')
-
-
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<!--jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="/js/laroute.js"></script>
@@ -165,10 +160,9 @@
 				$('#post-message-modal-button').click(function(){
 					$('#post-message-modal-form').submit();
 				});
+
+
 			});
-
-
-
 		</script>
 
 

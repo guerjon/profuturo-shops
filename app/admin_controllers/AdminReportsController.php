@@ -174,4 +174,13 @@ class AdminReportsController extends AdminBaseController{
     return View::make('admin::reports.mac_orders')->withCategories($categories)->withProducts($products);
   }
 
+  
+  public function getCorporationOrdersReport()
+  {
+    $categories = CorporationCategory::lists('name','id');
+    $products = CorporationProduct::lists('name','id');
+
+    return View::make('admin::reports.corporative_orders')->withCategories($categories)->withProducts($products);
+  }
+
 }

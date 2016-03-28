@@ -25,13 +25,13 @@ class HomeController extends BaseController {
 
 	public function postPassword(){
 		$email = Input::get('email');
-    $password = Input::get('password');
+	    $password = Input::get('password');
 
-    Auth::user()->email = $email;
-    Auth::user()->password = $password;
-    Auth::user()->save();
-		$credentials = ['ccosto' => Auth::user()->ccosto,'password' => 'password']; 	
-    return View::make('hello')->withSuccess('Se ha guardado su información exitosamente')->withCredentials($credentials);
+	    Auth::user()->email = $email;
+	    Auth::user()->password = $password;
+	    Auth::user()->save();
+			$credentials = ['ccosto' => Auth::user()->ccosto,'password' => 'password']; 	
+	    return View::make('hello')->withSuccess('Se ha guardado su información exitosamente')->withCredentials($credentials);
 	}
 
 	public function getCarrito()
@@ -69,6 +69,14 @@ class HomeController extends BaseController {
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		return View::make('pages.cart_mac')
 		->withLastOrder(Auth::user()->MacOrders()->orderBy('created_at', 'desc')->first())
+		->withUser($user);	
+	}
+
+	public function getCarritoCorporativo()
+	{
+		$user = User::where('ccosto',Auth::user()->ccosto)->first();
+		return View::make('pages.cart_corporation')
+		->withLastOrder(Auth::user()->CorporationOrders()->orderBy('created_at', 'desc')->first())
 		->withUser($user);	
 	}
 }

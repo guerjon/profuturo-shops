@@ -71,6 +71,11 @@
           MAC
         </a>
       </li>    
+      <li role="presentation" class="{{$active_tab == 'user_corporation' ? 'active' : ''}}">
+        <a href="?active_tab=user_corporation&page=1" aria-controls="user_corporation" class="tabs">
+          Corporativo
+        </a>
+      </li>    
     </ul>
   </div>
 
@@ -95,6 +100,9 @@
     </div>   
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_mac' ? 'active' : ''}}" id="users_mac">
       @include('admin::users.partials.users_mac')
+    </div> 
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'user_corporation' ? 'active' : ''}}" id="users_corporation">
+      @include('admin::users.partials.users_corporation')
     </div> 
   </div>
 

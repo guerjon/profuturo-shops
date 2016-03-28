@@ -6,12 +6,12 @@ use Watson\Validating\ValidatingTrait;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 
-class MacProduct extends Eloquent implements StaplerableInterface
+class CorporationProduct extends Eloquent implements StaplerableInterface
 {
 
   use EloquentTrait, ValidatingTrait,SoftDeletingTrait;
 
-  protected $fillable = ['name','description', 'image', 'max_stock', 'measure_unit','mac_category_id'];
+  protected $fillable = ['name','description', 'image', 'max_stock', 'measure_unit','corporation_category_id'];
 
   protected $rules = [
     'name' => 'required',
@@ -22,7 +22,7 @@ class MacProduct extends Eloquent implements StaplerableInterface
     parent::boot();
     parent::bootStapler();
     Product::deleting(function($product){
-        DB::table('cart_mac_products')->where('mac_product_id', $product->id)->delete();
+      DB::table('cart_corporation_products')->where('corporation_product_id', $product->id)->delete();
     });
   }
 
@@ -40,7 +40,7 @@ class MacProduct extends Eloquent implements StaplerableInterface
 
   public function category()
   {
-    return $this->belongsTo('MacCategory');
+    return $this->belongsTo('CorporationCategory');
   }
 
   protected $dates = ['deleted_at'];

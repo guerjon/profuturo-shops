@@ -32,7 +32,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $rules = [
 		'gerencia' => 'required',
-		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac,user_loader',
+		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac,user_loader,user_corporation',
 		'num_empleado' =>'unique:users,num_empleado'
 	];
 	
@@ -114,6 +114,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->role == 'user_mac';
 	}
 	
+	public function getUserCorporationAttribute()
+	{
+		return $this->role == 'user_corporation';
+	}
+
 	public function cartProducts()
 	{
 		return $this->belongsToMany('Product', 'cart_products')->withPivot('quantity');
@@ -127,6 +132,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	public function cartMac()
 	{
 		return $this->belongsToMany('MacProduct', 'cart_mac_products')->withPivot('quantity');
+	}
+
+	public function cartCorporation()
+	{
+		return $this->belongsToMany('CorporationProduct', 'cart_corporation_products')->withPivot('quantity');
 	}
 
 	public function orders()
@@ -159,6 +169,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	public function macOrders()
 	{
 		return $this->hasMany('MacOrder');
+	}
+
+	public function corporationOrders()
+	{
+		return $this->hasMany('CorporationOrder');
 	}
 	
 	public function bcOrders()
@@ -227,7 +242,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminReportsController@getIndex') => 'Reportes',
 					action('AdminDivisionalController@index') => 'Divisionales',
 					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas',
-
 				];
 			case 'manager':
 				return [
@@ -266,6 +280,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('MacProductsController@index') => 'Productos',
 					'/carrito-mac' => 'Mi carrito (papelería)',
 					action('MacOrdersController@index') => 'Mis pedidos',
+				];
+			case 'user_corporation':
+				return [
+					action('CorporationProductsController@index') => 'Productos',
+					'/carrito-corporativo' => 'Mi carrito (papeleria)',
+					action('CorporationOrdersController@index') => 'Mis Pedidos',
 				];	
 		}
 	}

@@ -27,7 +27,7 @@
     </div>
     @endif
     {{Form::model($product, [
-      'action' => $product->exists ? ['AdminMacProductsController@update', $product->id] : 'AdminMacProductsController@store',
+      'action' => $product->exists ? ['AdminCorporationProductsController@update', $product->id] : 'AdminCorporationProductsController@store',
       'method' => $product->exists ? 'PUT' : 'POST',
       'files' => true
       ])}}
@@ -48,8 +48,8 @@
       </div>
 
       <div class="form-group">
-        {{Form::label('mac_category_id', 'Categoría')}}
-        {{Form::select('mac_category_id', ($product->category ? [] : [NULL => 'Sin especificar']) + MacCategory::lists('name', 'id'), NULL,
+        {{Form::label('corporation_category_id', 'Categoría')}}
+        {{Form::select('corporation_category_id', ($product->category ? [] : [NULL => 'Sin especificar']) + CorporationCategory::lists('name', 'id'), NULL,
           ['class' => 'form-control','id' => 'category_id'])}}
       </div>
 

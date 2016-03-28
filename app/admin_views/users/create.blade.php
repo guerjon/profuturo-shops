@@ -49,6 +49,8 @@
           <h3>Dar de alta a un nuevo Usuario para cargas</h3>  
         @elseif($active_tab =='user_mac')
           <h3>Dar de alta a un nuevo Usuario MAC</h3>  
+        @elseif($active_tab =='user_corporation')
+          <h3>Dar de alta a un nuevo Usuario Coporativo</h3>  
         @else
           <h3>Dar de alta a un Usuario de papelería</h3>
         @endif

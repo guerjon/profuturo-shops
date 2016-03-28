@@ -25,9 +25,6 @@ class AdminMacProductsController extends AdminBaseController{
   public function store()
   {
     $product = new MacProduct(Input::all());
-    if(Input::has('mac_category_id') and Input::get('mac_category_id')){
-      $product->mac_category_id = Input::get('mac_category_id');
-    }
 
     if($product->save()){
       return Redirect::to(action('AdminMacProductsController@index'))->withSuccess('Se ha creado el nuevo producto');

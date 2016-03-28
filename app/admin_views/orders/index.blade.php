@@ -118,7 +118,7 @@
                 @endif
               </td>
               <td>
-                {{Form::open(array('action' =>['AdminOrdersController@destroy',$order->id],
+                {{Form::open(array('action' =>['AdminOrdersController@destroy',$order->order_id],
                 'method' => 'delete'))}}
                   <button type="submit" class="btn btn-danger btn-xs">
                     <span class="glyphicon glyphicon-remove"></span> Eliminar

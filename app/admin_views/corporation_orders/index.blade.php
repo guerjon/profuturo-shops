@@ -8,7 +8,7 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li class="active">Pedidos MAC</li>
+    <li class="active">Pedidos Corporation</li>
   </ol>
 
   @if($orders->count() == 0)
@@ -16,7 +16,7 @@
       No se han realizado pedidos todavía.
     </div>
   @else
-    <a href="{{action('AdminMacOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+    <a href="{{action('AdminCorporationOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
       <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
     </a>
 
@@ -85,13 +85,13 @@
                 {{$order->user->ccosto}}
               </td>
               <td>
-                {{link_to_action('AdminMacOrdersController@show', $order->order_id, [$order->order_id])}}
+                {{link_to_action('AdminCorporationOrdersController@show', $order->order_id, [$order->order_id])}}
               </td>
               <td>
                 {{$order->comments}}
               </td>
               <td>
-                {{$order->mac_created_at}}
+                {{$order->corporation_created_at}}
               </td>
               <td>
                 @if($order->status == 0)
@@ -114,7 +114,7 @@
                 @endif
               </td>
               <td>
-                {{Form::open(array('action' =>['AdminMacOrdersController@destroy',$order->order_id],
+                {{Form::open(array('action' =>['AdminCorporationOrdersController@destroy',$order->order_id],
                 'method' => 'delete'))}}
                   <button type="submit" class="btn btn-danger btn-xs">
                     <span class="glyphicon glyphicon-remove"></span> Eliminar
@@ -143,7 +143,7 @@
 
           $('#domicilio').text($(this).attr('data-domicilio'));
           $('#posible_cambio').text($(this).attr('data-posible-cambio'));
-          var action = 'mac-address/'+ $(this).attr('data-id');
+          var action = 'Corporation-address/'+ $(this).attr('data-id');
           $('#change-address-form').attr('action',action);          
           modal.show();
       });

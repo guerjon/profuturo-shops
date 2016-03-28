@@ -259,7 +259,119 @@ class AdminApiController extends AdminBaseController
     }
   }
 
+  public function getCorporationOrders()
+  {
+    ini_set('max_execution_time','300');
+    
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, corporation_order_corporation_product"))->select(DB::raw("
+      corporation_orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'KA003035' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      corporation_products.name as DESCR254_MIXED,
+      corporation_products.measure_unit as UNIT_OF_MEASURE,
+      corporation_order_corporation_product.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'KA003035' as INTROD,
+      corporation_categories.name as CATEGORY,
+      (corporation_products.price * corporation_order_corporation_product.quantity) as PRICE,
+      address.domicilio as ADDRESS
+      "))
+      ->join('corporation_products', 'corporation_products.id', '=', 'corporation_order_corporation_product.corp_product_id')
+      ->join('corporation_orders', 'corporation_orders.id' , '=', 'corporation_order_corporation_product.corp_order_id')
+      ->leftJoin('users', 'users.id', '=', 'corporation_orders.user_id')
+      ->leftJoin('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id')
+      ->leftJoin('address','address.id','=','users.address_id')
+      ->orderBy('corporation_orders.id')->whereNull('corporation_orders.deleted_at');
 
+
+    if(Input::has('month_init') && Input::has('month_end')){
+      $query->where(DB::raw('MONTH(corporation_orders.created_at)'),'>=',Input::get('month_init'))
+            ->where(DB::raw('MONTH(corporation_orders.created_at)'),'<=',Input::get('month_end'));
+    }
+    if(Input::has('year'))
+      $query->where(DB::raw('YEAR(corporation_orders.updated_at)'), Input::get('year'));
+
+
+    if(Input::has('status'))
+      $query->where('corporation_orders.status','=',Input::get('status'));
+
+    if(Input::has('category_id'))
+      $query->where('corporation_categories.id','=',Input::get('category_id')); 
+
+    if(Input::has('divisional_id'))
+      $query->where('users.divisional_id','=',Input::get('divisional_id')); 
+
+    if(Input::has('ccosto'))
+      $query->where('users.ccosto','=',Input::get('ccosto')); 
+
+    if(Input::has('order_id'))
+      $query->where('corporation_orders.id',Input::get('order_id'));
+
+    $q = clone $query;
+    $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+    if(Request::ajax()){
+      $items = $query->paginate(10)->toJson();
+      return Response::json([
+        'status' => 200,
+        'orders_full' => $items,
+        'headers' => $headers
+        ]);
+    }else{
+
+            $datetime = \Carbon\Carbon::now()->format('YmdHi');
+            $data = str_putcsv($headers)."\n";
+
+
+        $result = [$headers];
+        foreach($query->get() as $item){
+          $itemArray = [];
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+          $result[] = $itemArray;
+        }
+        if($result){
+         $mes = Input::get('month');
+         $año = Input::get('year');
+          Excel::create('reporte_mac'.$mes.'_'.$año , function($excel) use($result){
+           $excel->sheet('hoja 1',function($sheet)use($result){
+             $sheet->fromArray($result);
+              });
+            })->download('xls');
+        }
+
+            $headers = array(
+              'Content-Type' => 'text/csv',
+              'Content-Disposition' => "attachment; filename=\"reporte_pedidos_{$datetime}.csv\"",
+            );
+            return Response::make($data, 200, $headers);
+    }
+  }
   /**
   *Metodo auxiliar para el metodo getBcOrdersReport
   *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
@@ -1109,6 +1221,21 @@ class AdminApiController extends AdminBaseController
     $ccostos = User::all()->lists('ccosto');
  
 
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'orders' => $orders,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
+  public function getBICorporationAutocomplete()
+  {
+    
+    $orders = CorporationOrder::all()->lists('id');
+    $ccostos = User::all()->lists('ccosto');
+ 
     if(Request::ajax()){
       return Response::json([
         'status' => 200,

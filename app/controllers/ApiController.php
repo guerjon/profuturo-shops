@@ -89,6 +89,41 @@ class ApiController extends BaseController
       ]);
   }
 
+  public function postAddToCartCorporation()
+  {
+     $q = Input::get('quantity');
+        if($q <= 0){
+          return Response::json([
+            'status' => 500,
+            'error_msg' => 'La cantidad debe ser un entero positivo menor o igual a 5'
+            ]);
+        }
+
+        $product = CorporationProduct::find(Input::get('product_id'));
+
+        if(!$product){
+          return Response::json([
+            'status' => 500,
+            'error_msg' => 'No se encontró el producto'
+            ]);
+        }
+
+        if(Auth::user()->cart_corporation->contains($product->id)){
+          $q += Auth::user()->cartCorporation()->where('id', $product->id)->first()->pivot->quantity;
+          Auth::user()->cartCorporation()->detach($product->id);
+        }
+
+        Auth::user()->cartCorporation()->attach($product->id, ['quantity' => $q]);
+
+
+      return Response::json([
+      'status' => 200,
+      'msg' => "Se han añadido $q piezas al carrito",
+      'product_id' => $product->id,
+      'new_q' => $q,
+      ]);
+  }
+
   public function postAddToCartMac()
   {
      $q = Input::get('quantity');
@@ -212,6 +247,49 @@ class ApiController extends BaseController
   }
 
 
+  public function postRemoveFromCartCorporation()
+  {
+    $q = Input::get('quantity');
+    if($q <= 0){
+      return Response::json([
+        'status' => 500,
+        'error_msg' => 'La cantidad debe ser un entero positivo'
+        ]);
+      }
+
+    $product = CorporationProduct::find(Input::get('product_id'));
+
+    if(!$product){
+      return Response::json([
+        'status' => 500,
+        'error_msg' => 'No se encontró el producto'
+        ]);
+    }
+
+    if(!Auth::user()->cart_corporation->contains($product->id)){
+      return Response::json([
+        'status' => 200,
+        'new_q' => 0,
+        'product_id' => $product->id,
+        ]);
+    }
+
+    $q = Auth::user()->cartCorporation()->where('id', $product->id)->first()->pivot->quantity - $q;
+    Auth::user()->cartCorporation()->detach($product->id);
+    if($q <= 0){
+      $q = 0;
+    }else{
+      Auth::user()->cartCorporation()->attach($product->id, ['quantity' => $q]);
+    }
+
+    return Response::json([
+      'status' => 200,
+      'new_q' => $q,
+      'product_id' => $product->id,
+      ]);
+
+  }
+
 
   public function postRemoveFromCartFurniture()
   {
@@ -306,18 +384,42 @@ class ApiController extends BaseController
     ->where('mac_order_id','=',$order_id)
     ->where('mac_product_id','=',$product_id)
     ->delete();   
-  }else{
-     DB::table('mac_order_mac_product')
-    ->where('mac_order_id','=',$order_id)
-    ->where('mac_product_id','=',$product_id)
-    ->update(array('quantity'=> DB::raw('quantity-1')));
-  } 
+    }else{
+       DB::table('mac_order_mac_product')
+      ->where('mac_order_id','=',$order_id)
+      ->where('mac_product_id','=',$product_id)
+      ->update(array('quantity'=> DB::raw('quantity-1')));
+    } 
 
 
-     return Response::json([
-        'status' => 200,
-        'error_msg' => 'No se encontró el producto'
-        ]);
+   return Response::json([
+      'status' => 200,
+      'error_msg' => 'No se encontró el producto'
+      ]);
+  }
+
+  public function postDestroyCorporationProducts()
+  {
+    $quantity   = Input::get('quantity');
+    $order_id   = Input::get('order_id');
+    $product_id = Input::get('product_id');
+    $order = CorporationOrder::find($order_id);
+    if((($order->products()->where('corporation_products.id',$product_id)->first()->pivot->quantity) -$quantity) == 0 ){
+        DB::table('corporation_order_corporation_product')
+    ->where('corp_order_id','=',$order_id)
+    ->where('corp_product_id','=',$product_id)
+    ->delete();   
+    }else{
+       DB::table('corporation_order_corporation_product')
+      ->where('corp_order_id','=',$order_id)
+      ->where('corp_product_id','=',$product_id)
+      ->update(array('quantity'=> DB::raw('quantity-1')));
+    } 
+
+   return Response::json([
+      'status' => 200,
+      'error_msg' => 'No se encontró el producto'
+      ]);
   }
 
 
@@ -370,6 +472,32 @@ class ApiController extends BaseController
     }
     
   }
+
+  public function postAddCorporationProduct()
+  {
+    $order_id = Input::get('order_id');
+    $product_id = Input::get('product_id');
+    $quantity = Input::get('quantity');
+    $query =  DB::table('corporation_order_corporation_product')->select('corporation_product_id')
+    ->where('corporation_order_id','=',$order_id)
+    ->where('corporation_product_id','=',$product_id)->get();
+
+    if(count($query) == 0){
+      DB::table('corporation_order_corporation_product')->insert(
+      ['corporation_order_id' => $order_id, 'corporation_product_id' => $product_id, 'quantity' => $quantity]);
+   
+     return Response::json([
+        'status' => 200
+        ]);
+    }
+    else{
+      return Response::json([
+        'status' => 500
+        ]);
+    }
+    
+  }
+
 
   public function postDestroyFurniture()
   {

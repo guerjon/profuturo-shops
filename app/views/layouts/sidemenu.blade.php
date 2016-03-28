@@ -30,6 +30,11 @@
 							Categorías MAC
 						</a>
 					</li>
+					<li class="">
+						<a href="{{action('AdminCorporationCategoriesController@index')}}">	
+							Categorías Corporativo
+						</a>
+					</li>
 				</ul>
 			</li>
 			@elseif($name == "Productos")
@@ -61,6 +66,12 @@
 							<a href="{{action('AdminMacProductsController@index')}}">
 								
 								Productos MAC
+							</a>
+						</li>
+						<li class="">
+							<a href="{{action('AdminCorporationProductsController@index')}}">
+								
+								Productos Corporativo
 							</a>
 						</li>
 					</ul>
@@ -96,6 +107,12 @@
 							<a href="{{action('AdminMacOrdersController@index')}}">
 								
 								Pedidos MAC
+							</a>
+						</li>
+						<li class="">
+							<a href="{{action('AdminCorporationOrdersController@index')}}">
+								
+								Pedidos Corporativo
 							</a>
 						</li>
 					</ul>

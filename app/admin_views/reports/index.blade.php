@@ -86,6 +86,11 @@
       <img src="/img/img.png" style="width: 100%; height: auto;">
     </a>
   </div>
+  <div class="col-sm-2 col-xs-3 ">
+    <a href="{{action('AdminReportsController@getCorporationOrdersReport')}}"class="thumbnail">
+      <img src="/img/img.png" style="width: 100%; height: auto;">
+    </a>
+  </div>
 </div>
 </div>
 
