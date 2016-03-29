@@ -56,14 +56,14 @@
 						<ul class="nav navbar-nav navbar-right">
 
 							@if(Auth::check())
-{{-- 
+
 								<li>
-									<a href="#" id="message" type="button" >
+									<a href="#" class="message-type" data-type="enviados" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
 									</a>
 								</li>
-								 --}}
+								
 
 								<li class="dropdown">
 
@@ -160,82 +160,51 @@
 					$('#post-message-modal-form').submit();
 				});
 
-				$('#message').click(function(){
-					$('#message-modal .modal-body table tbody').empty();
-					$('#message-modal .modal-body table thead').empty();
-					$.get('/api/messages/',{active_tab_message:'enviados'},function(data){
-
-						var messages = jQuery.parseJSON(data.messages);
-						var datos = messages.data;
-						console.log(datos);
-						var table = $('#message-table').clone();
-						table.removeAttr('id');
-						table.attr('id','message-table-body');
-						table.find('thead').append('<th>CCOSTOS</th><th>MENSAJE</th>');
-						for (var i = datos.length - 1; i >= 0; i--) {
-							
-							table.find('tbody').append('<tr><td>'+datos.ccosto+'</td> <td>' + datos.body +'</td>');
-						
-							$('#message-modal .modal-body').append(table);
-							
-						};
-					});
-					var modal =  $('#message-modal').modal();
-				});
-
-				$('#recibidos').click(function(){
-					$('#message-modal .modal-body table tbody').empty();
-					$('#message-modal .modal-body table thead').empty();
-					
-					$.get('/api/messages/',{active_tab_message:'recibidos'},function(data){
-							
-						var messages = jQuery.parseJSON(data.messages);
-						var datos = messages.data;
-						var table = $('#message-table-body');
-						console.log(datos);
-						table.find('tbody').empty();
-
-							$('#recibidos').parent().addClass('active');
-							$('#enviados').parent().removeClass('active');
-
-						table.find('thead').append('<th>CCOSTOS</th><th>MENSAJE</th>');
-						for (var i = datos.length - 1; i >= 0; i--) {
-							table.find('tbody').append('<tr><td>'+datos.messages[i].ccosto+'</td> <td>' + datos.messages[i].body +'</td>');
-						
-							$('#message-modal .modal-body').append(table);
-							
-						};
-					});
-					var modal =  $('#message-modal').modal();
-				});
-
-				$('#enviados').click(function(){
-					$('#message-modal .modal-body table tbody').empty();
-					$('#message-modal .modal-body table thead').empty();
-
-					$.get('/api/messages/',{active_tab_message:'enviados'},function(data){
-
-						var messages = jQuery.parseJSON(data.messages);
-						var datos = messages.data;			
-						var table = $('#message-table-body');
-						console.log(datos);
-						table.find('tbody').empty();
-						
-						
-							$('#enviados').parent().addClass('active');
-							$('#recibidos').parent().removeClass('active');
-
-						table.find('thead').append('<th>CCOSTOS</th><th>MENSAJE</th>');
-						for (var i = datos.length - 1; i >= 0; i--) {
-							table.find('tbody').append('<tr><td>'+datos.messages[i].ccosto+'</td> <td>' + datos.messages[i].body +'</td>');
-						
-							$('#message-modal .modal-body').append(table);
-						};
-					});
-					var modal =  $('#message-modal').modal();
+				$('.message-type').click(function(){
+					messages_update($(this).attr('data-type'));
 				});
 
 			});
+
+			function  messages_update(type){
+
+					$('#message-modal .modal-body table').empty();
+					$('#message-modal .modal-body table').empty();
+
+					$.get('/api/messages/',{active_tab_message: type},function(data){
+
+						var messages = jQuery.parseJSON(data.messages);
+						var datos = messages.data;
+						var table = $('#message-table').clone();
+
+						table.removeAttr('id');
+						$('#message-table').remove();
+						table.attr('id','message-table');	
+
+						if(type == 'enviados'){
+							$('#recibidos').parent().removeClass('active');
+							$('#enviados').parent().addClass('active');
+						}else{
+							$('#enviados').parent().removeClass('active');
+							$('#recibidos').parent().addClass('active');
+						}
+						
+						table.append('<thead><th>CCOSTOS</th><th>MENSAJE</th></thead>');
+						table.append('<tbody>');
+
+						for (var i = datos.length - 1; i >= 0; i--) {
+							
+							table.append('<tr><td>'+datos[i].ccosto+'</td> <td>' + datos[i].body +'</td></tr>');
+						
+							$('#message-modal .modal-body').append(table);
+							
+						};
+						table.append('</tbody>');
+
+					});
+					var modal =  $('#message-modal').modal();
+			}	
+
 
 		</script>
 

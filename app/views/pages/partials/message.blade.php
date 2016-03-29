@@ -21,17 +21,18 @@
 				<div class="modal-body">
 					<ul class="nav nav-tabs">
 					    <li role="presentation" class="active">
-					        <a href="#" aria-controls="admin" class="tabs" id="enviados">
+					        <a href="#" aria-controls="admin" class="tabs message-type" data-type="enviados" id="enviados">
 					        	Enviados
 					        </a>
       					</li>
       					<li role="presentation" class="">
-					        <a href="#" aria-controls="admin" class="tabs" id="recibidos">
+					        <a href="#" aria-controls="admin" class="tabs message-type" id="recibidos">
 					        	Recibidos
 					        </a>
       					</li>
 					</ul>
 				</div>
+						
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				</div>
@@ -89,12 +90,7 @@
 	</div>
 
 	<table class="table table-bordered" id="message-table">
-		<thead>
 
-		</thead>
-		<tbody>
-			
-		</tbody>
 	</table>
 
 @endif
