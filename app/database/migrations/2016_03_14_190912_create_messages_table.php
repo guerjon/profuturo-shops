@@ -17,7 +17,6 @@ class CreateMessagesTable extends Migration {
             $table->increments('id');
             $table->integer('sender_id')->unsigned();
             $table->integer('receiver_id')->unsigned();
-            $table->text('body');
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });
