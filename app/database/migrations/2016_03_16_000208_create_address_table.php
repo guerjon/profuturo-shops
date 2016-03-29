@@ -21,12 +21,12 @@ class CreateAddressTable extends Migration {
 			$table->timestamps();
 		});
 
-		Schema::table('users',function($table){
+		// Schema::table('users',function($table){
 		
-			$table->integer('address_id')->unsigned()->nullable()->default(NULL);
-			$table->foreign('address_id')->references('id')->on('address')->onDelete('SET NULL');
+		// 	$table->integer('address_id')->unsigned()->nullable()->default(NULL);
+		// 	$table->foreign('address_id')->references('id')->on('address')->onDelete('SET NULL');
 	
-		});
+		// });
 	}
 
 	/**
@@ -36,10 +36,10 @@ class CreateAddressTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('users',function($table){
-			$table->dropForeign('users_address_id_foreign');
-			$table->drop('address_id');
-		});
+		// Schema::table('users',function($table){
+		// 	$table->dropForeign('users_address_id_foreign');
+		// 	$table->drop('address_id');
+		// });
 
 		Schema::drop('address');
 	}
