@@ -29,9 +29,9 @@ class MessageController extends \BaseController {
 		}
 
 		if($count == sizeof($users)){
-			return Redirect::back()->withSuccess('El mensaje fue enviado con exito a los usuarios');
+			return Redirect::back()->withSuccess('El mensaje fue enviado con exito');
 		}else{
-			return Redirect::back()->withErrors('El mensaje no pudo ser enviado en su totalidad.');
+			return Redirect::back()->withErrors('El mensaje no pudo ser enviado');
 		}
 	}
 }

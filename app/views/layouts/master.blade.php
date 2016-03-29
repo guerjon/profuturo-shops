@@ -56,14 +56,14 @@
 						<ul class="nav navbar-nav navbar-right">
 
 							@if(Auth::check())
-
+{{-- 
 								<li>
 									<a href="#" id="message" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
 									</a>
 								</li>
-								
+								 --}}
 
 								<li class="dropdown">
 
@@ -164,14 +164,17 @@
 					$('#message-modal .modal-body table tbody').empty();
 					$('#message-modal .modal-body table thead').empty();
 					$.get('/api/messages/',{active_tab_message:'enviados'},function(data){
-						console.log(data);
+
+						var messages = jQuery.parseJSON(data.messages);
+						var datos = messages.data;
+						console.log(datos);
 						var table = $('#message-table').clone();
 						table.removeAttr('id');
 						table.attr('id','message-table-body');
 						table.find('thead').append('<th>CCOSTOS</th><th>MENSAJE</th>');
-						for (var i = data.messages.length - 1; i >= 0; i--) {
+						for (var i = datos.length - 1; i >= 0; i--) {
 							
-							table.find('tbody').append('<tr><td>'+data.messages[i].ccosto+'</td> <td>' + data.messages[i].body +'</td>');
+							table.find('tbody').append('<tr><td>'+datos.ccosto+'</td> <td>' + datos.body +'</td>');
 						
 							$('#message-modal .modal-body').append(table);
 							
@@ -185,16 +188,19 @@
 					$('#message-modal .modal-body table thead').empty();
 					
 					$.get('/api/messages/',{active_tab_message:'recibidos'},function(data){
-											console.log(data);		
+							
+						var messages = jQuery.parseJSON(data.messages);
+						var datos = messages.data;
 						var table = $('#message-table-body');
+						console.log(datos);
 						table.find('tbody').empty();
 
 							$('#recibidos').parent().addClass('active');
 							$('#enviados').parent().removeClass('active');
 
 						table.find('thead').append('<th>CCOSTOS</th><th>MENSAJE</th>');
-						for (var i = data.messages.length - 1; i >= 0; i--) {
-							table.find('tbody').append('<tr><td>'+data.messages[i].ccosto+'</td> <td>' + data.messages[i].body +'</td>');
+						for (var i = datos.length - 1; i >= 0; i--) {
+							table.find('tbody').append('<tr><td>'+datos.messages[i].ccosto+'</td> <td>' + datos.messages[i].body +'</td>');
 						
 							$('#message-modal .modal-body').append(table);
 							
@@ -208,8 +214,11 @@
 					$('#message-modal .modal-body table thead').empty();
 
 					$.get('/api/messages/',{active_tab_message:'enviados'},function(data){
-									console.log(data);				
+
+						var messages = jQuery.parseJSON(data.messages);
+						var datos = messages.data;			
 						var table = $('#message-table-body');
+						console.log(datos);
 						table.find('tbody').empty();
 						
 						
@@ -217,8 +226,8 @@
 							$('#recibidos').parent().removeClass('active');
 
 						table.find('thead').append('<th>CCOSTOS</th><th>MENSAJE</th>');
-						for (var i = data.messages.length - 1; i >= 0; i--) {
-							table.find('tbody').append('<tr><td>'+data.messages[i].ccosto+'</td> <td>' + data.messages[i].body +'</td>');
+						for (var i = datos.length - 1; i >= 0; i--) {
+							table.find('tbody').append('<tr><td>'+datos.messages[i].ccosto+'</td> <td>' + datos.messages[i].body +'</td>');
 						
 							$('#message-modal .modal-body').append(table);
 						};

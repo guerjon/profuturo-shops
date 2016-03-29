@@ -603,9 +603,9 @@ class ApiController extends BaseController
     $active_tab_message = Input::get('active_tab_message');
 
     if($active_tab_message == 'enviados'){
-      $messages = DB::table('messages')->join('users','users.id','=','receiver_id')->where('sender_id',Auth::user()->id)->get();
+      $messages = DB::table('messages')->join('users','users.id','=','receiver_id')->where('sender_id',Auth::user()->id)->orderBy('messages.created_at')->paginate(10)->toJson();
     }else{
-      $messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->get();
+      $messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->orderBy('messages.created_at')->paginate(10)->toJson();
     }
     
     
