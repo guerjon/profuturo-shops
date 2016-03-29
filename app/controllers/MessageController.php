@@ -21,7 +21,7 @@ class MessageController extends \BaseController {
 
 				if($message->save()){
 					$user->messages()->attach($message->id);
-				$count++;
+					$count++;
 				}
 			}else{
 				return Redirect::back()->withErrors('No se encontro el usuario.');
@@ -29,7 +29,7 @@ class MessageController extends \BaseController {
 		}
 
 		if($count == sizeof($users)){
-			return Redirect::back()->withSuccess('El mensaje fue enviado con exito a los 5 usuarios');
+			return Redirect::back()->withSuccess('El mensaje fue enviado con exito a los usuarios');
 		}else{
 			return Redirect::back()->withErrors('El mensaje no pudo ser enviado en su totalidad.');
 		}

@@ -597,4 +597,22 @@ class ApiController extends BaseController
     }
   }
 
+
+  public function getMessages()
+  {
+    $active_tab_message = Input::get('active_tab_message');
+
+    if($active_tab_message == 'enviados'){
+      $messages = DB::table('messages')->join('users','users.id','=','receiver_id')->where('sender_id',Auth::user()->id)->get();
+    }else{
+      $messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->get();
+    }
+    
+    
+    return Response::json([
+      'messages' => $messages,
+    ]);
+
+  }
+
 }

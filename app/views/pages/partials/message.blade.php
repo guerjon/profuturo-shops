@@ -20,19 +20,17 @@
 				</div>
 				<div class="modal-body">
 					<ul class="nav nav-tabs">
-					    <li role="presentation" class="active}}">
-					        <a href="#" aria-controls="admin" class="tabs">
+					    <li role="presentation" class="active">
+					        <a href="#" aria-controls="admin" class="tabs" id="enviados">
 					        	Enviados
 					        </a>
       					</li>
       					<li role="presentation" class="">
-					        <a href="#" aria-controls="admin" class="tabs">
+					        <a href="#" aria-controls="admin" class="tabs" id="recibidos">
 					        	Recibidos
 					        </a>
       					</li>
 					</ul>
-					
-					
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -40,6 +38,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
+
 
 	<div class="modal fade select_users_modal" id="select_users_modal"  role="dialog" aria-hidden="true">
 		<div class="modal-dialog" style="z-index: 2147483647">
@@ -63,12 +62,18 @@
 				<div class="modal-body">
 					{{Form::open(['action' => 'MessageController@store','method' => 'post','id' => 'post-message-modal-form'])}}
 						<div class="form-group">
-							{{Form::select(
-								'users[]',
-								User::where('role','!=','admin')->lists('ccosto','id'),
-								null,
-								['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
-							}}
+							@if(Auth::user()->role == 'admin')
+								{{Form::select(
+									'users[]',
+									User::where('role','!=','admin')->lists('ccosto','id'),
+									null,
+									['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
+								}}
+							@else
+								<p>Este mensaje sera enviado al administrador.</p>
+								{{Form::hidden('users[]',1,null)}}
+							@endif
+
 						</div>
 						<div class="form-group">
 							{{Form::textArea('mensaje',null,['class' => 'form-control','placeholder' =>  'Ingrese el mensaje','required'])}}	
@@ -82,6 +87,16 @@
 			</div>
 		</div>
 	</div>
+
+	<table class="table table-bordered" id="message-table">
+		<thead>
+
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+
 @endif
 
 
