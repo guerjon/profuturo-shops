@@ -57,12 +57,12 @@
 
 							@if(Auth::check())
 
-								<li>
+{{-- 								<li>
 									<a href="#" class="message-type" data-type="enviados" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
 									</a>
-								</li>
+								</li> --}}
 								
 
 								<li class="dropdown">
@@ -135,8 +135,9 @@
 		 src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
 		<script type="text/javascript" src="/js/jquery.bootpag.js"></script>
 		<script type="text/javascript" src="/js/date-picker-configuration.js"></script>
-		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+		<script src="/js/messages.js"></script>
+
 		<script charset="utf-8">
 			$(function(){
 				$.slidebars();
@@ -163,51 +164,8 @@
 				$('.message-type').click(function(){
 					messages_update($(this).attr('data-type'));
 				});
-
 			});
-
-			function  messages_update(type){
-
-					$('#message-modal .modal-body table').empty();
-					$('#message-modal .modal-body table').empty();
-
-					$.get('/api/messages/',{active_tab_message: type},function(data){
-
-						var messages = jQuery.parseJSON(data.messages);
-						var datos = messages.data;
-						var table = $('#message-table').clone();
-
-						table.removeAttr('id');
-						$('#message-table').remove();
-						table.attr('id','message-table');	
-
-						if(type == 'enviados'){
-							$('#recibidos').parent().removeClass('active');
-							$('#enviados').parent().addClass('active');
-						}else{
-							$('#enviados').parent().removeClass('active');
-							$('#recibidos').parent().addClass('active');
-						}
-						
-						table.append('<thead><th>CCOSTOS</th><th>MENSAJE</th></thead>');
-						table.append('<tbody>');
-
-						for (var i = datos.length - 1; i >= 0; i--) {
-							
-							table.append('<tr><td>'+datos[i].ccosto+'</td> <td>' + datos[i].body +'</td></tr>');
-						
-							$('#message-modal .modal-body').append(table);
-							
-						};
-						table.append('</tbody>');
-
-					});
-					var modal =  $('#message-modal').modal();
-			}	
-
-
 		</script>
-
 
 		
 		@yield('script')

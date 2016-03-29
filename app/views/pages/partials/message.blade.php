@@ -31,6 +31,10 @@
 					        </a>
       					</li>
 					</ul>
+					<center>
+    					<ul class="pagination" id="pagination"></ul>
+  					</center>
+  					
 				</div>
 						
 				<div class="modal-footer">
