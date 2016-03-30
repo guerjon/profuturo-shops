@@ -65,7 +65,7 @@ class AdminApiController extends AdminBaseController
       (products.price * order_product.quantity) as PRICE,
       orders.id as ORDER_ID,
       address.domicilio as ADDRESS,
-      orders.mba_code as MBA
+      products.mba_code as MBA
       "))
       ->join('products', 'products.id', '=', 'order_product.product_id')
       ->join('orders', 'orders.id' , '=', 'order_product.order_id')
