@@ -36,25 +36,22 @@
   }
 
 
-function  messages_update(type,page){
+function  messages_update(type){
 
   $('#message-modal .modal-body table').empty();
   $('#message-modal .modal-body table').empty();
 
-  $.get('/api/messages/',{active_tab_message:type,page:page},function(data){
-
+  $.get('/api/messages/',{active_tab_message:type},function(data){
+    $('#message-modal .modal-body .alert-info').remove();
     var messages = jQuery.parseJSON(data.messages);
-    var datos = messages.data;  
-
+    var datos = messages.data;
 
     if(datos.length == 0){
-      console.log(datos.length)
-          $('#message-modal modal-body').append(
+          
+          $('#message-modal .modal-body').append(
             '<div  class="alert alert-info">Aun no hay mensajes disponibles.</div>'
           );
-          $('.btn-submit').prop('disabled', true);
-          $('#pagination_pagination_message').empty();
-          return;
+      return;
     }
 
     var table = $('#message-table').clone();
