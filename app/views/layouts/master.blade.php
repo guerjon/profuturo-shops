@@ -165,20 +165,17 @@
 					messages_update($(this).attr('data-type'));
 				});
 
-				$(document).on('click', '.pagina', function(){
+				$(document).on('click', '.pagina_mensage', function(){
 			        event.preventDefault();
 			        var page = $(this).attr('data-page');
 			        $('#number_page').val(page);
-			        $('#pagination').empty();
+			        $('#pagination_message').empty();
 
 			        if($('#enviados').parent().hasClass('active')){
 			        	messages_update('enviados',page);
 			        }else{
 			        	messages_update('recibidos',page);
 			        }
-			        	
-			        
-			        	
       			});
 			});
 		</script>

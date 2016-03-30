@@ -53,7 +53,7 @@ function  messages_update(type,page){
             '<div  class="alert alert-info">Aun no hay mensajes disponibles.</div>'
           );
           $('.btn-submit').prop('disabled', true);
-          $('#pagination').empty();
+          $('#pagination_pagination_message').empty();
           return;
     }
 
@@ -63,7 +63,7 @@ function  messages_update(type,page){
     table.removeAttr('id');
     $('#message-table').remove();
     table.attr('id','message-table');
-    $('#pagination').empty();
+    $('#pagination_pagination_message').empty();
 
     if(type == 'enviados'){
       $('#recibidos').parent().removeClass('active');
@@ -83,27 +83,27 @@ function  messages_update(type,page){
       $('#message-modal .modal-body').append(table);
       
     };
-          firstSpanCreate($('#pagination'),messages);
+          firstSpanCreate($('#pagination_pagination_message'),messages);
           
           if(messages.total > 100){
             if(messages.current_page > 8 && messages.current_page < messages.last_page - 2){
                 if(messages.current_page+1 == messages.last_page - 3){
-                  spanPointsCreate($('#pagination'));
-                  listsCreate($('#pagination'),messages,messages.current_page-7,messages.last_page+1);            
+                  spanPointsCreate($('#pagination_pagination_message'));
+                  listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.last_page+1);            
                 }else{
-                  listsCreate($('#pagination'),messages,messages.current_page-7,messages.current_page+1);            
-                  spanPointsCreate($('#pagination'));
-                  listsCreate($('#pagination'),messages,messages.last_page - 2,messages.last_page+1);      
+                  listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.current_page+1);            
+                  spanPointsCreate($('#pagination_pagination_message'));
+                  listsCreate($('#pagination_pagination_message'),messages,messages.last_page - 2,messages.last_page+1);      
                 }
             }else{
-              listsCreate($('#pagination'),messages,1,9);
-              spanPointsCreate($('#pagination'));
-              listsCreate($('#pagination'),messages,messages.last_page - 2,messages.last_page+1);  
+              listsCreate($('#pagination_pagination_message'),messages,1,9);
+              spanPointsCreate($('#pagination_pagination_message'));
+              listsCreate($('#pagination_pagination_message'),messages,messages.last_page - 2,messages.last_page+1);  
             }
           }else{
-              listsCreate($('#pagination'),messages,1,messages.last_page+1);      
+              listsCreate($('#pagination_pagination_message'),messages,1,messages.last_page+1);      
           }
-           lastSpanCreate($('#pagination'),messages);
+           lastSpanCreate($('#pagination_pagination_message'),messages);
 
     table.append('</tbody>');
 

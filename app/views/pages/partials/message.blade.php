@@ -37,7 +37,7 @@
 						
 				<div class="modal-footer">
 					<center>
-    					<ul class="pagination" id="pagination"></ul>
+    					<ul class="pagination_message" id="pagination_message"></ul>
   					</center>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				</div>
