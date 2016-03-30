@@ -60,7 +60,7 @@
 								<li>
 									<a href="#" class="message-type" data-type="enviados" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
-											<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
+											<span class="numberCircle"></span>
 									</a>
 								</li>
 								
@@ -139,6 +139,8 @@
 		<script src="/js/messages.js"></script>
 
 		<script charset="utf-8">
+
+
 			$(function(){
 				$.slidebars();
 				$('.notification-link').click(function(event){
@@ -165,6 +167,10 @@
 					messages_update($(this).attr('data-type'));
 				});
 
+				window.setInterval(function(){
+  					
+				}, 5000);
+
 				$(document).on('click', '.pagina_mensage', function(){
 			        event.preventDefault();
 			        var page = $(this).attr('data-page');
@@ -177,6 +183,21 @@
 			        	messages_update('recibidos',page);
 			        }
       			});
+
+      			(function worker() {
+				  $.ajax({
+				    url: '/api/count-messages/', 
+				    success: function(data) {
+				      $('.numberCircle').text(data.number_messages);
+				    },
+				    complete: function() {
+				      // Schedule the next request when the current one's complete
+				      setTimeout(worker, 5000);
+				    }
+				  });
+				})();
+				    
+
 			});
 		</script>
 		@yield('script')

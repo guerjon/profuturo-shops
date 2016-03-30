@@ -614,4 +614,13 @@ class ApiController extends BaseController
 
   }
 
+ public function getCountMessages()
+ {
+    $number_messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->count();
+    
+    return Response::json([
+      'number_messages' => $number_messages,
+    ]);
+ }
+
 }

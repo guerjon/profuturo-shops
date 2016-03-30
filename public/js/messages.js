@@ -35,75 +35,93 @@
     object.append('<li class="disabled"><span>...</span></li><li>');
   }
 
+  /**
+    *Actualiza los mensajes dentro de la venta modal
+  */
+  function  messages_update(type){
 
-function  messages_update(type){
+    $('#message-modal .modal-body table').empty();
+    $('#message-modal .modal-body table').empty();
 
-  $('#message-modal .modal-body table').empty();
-  $('#message-modal .modal-body table').empty();
+    $.get('/api/messages/',{active_tab_message:type},function(data){
+      $('#message-modal .modal-body .alert-info').remove();
+      var messages = jQuery.parseJSON(data.messages);
+      var datos = messages.data;
 
-  $.get('/api/messages/',{active_tab_message:type},function(data){
-    $('#message-modal .modal-body .alert-info').remove();
-    var messages = jQuery.parseJSON(data.messages);
-    var datos = messages.data;
+      if(datos.length == 0){
+            
+            $('#message-modal .modal-body').append(
+              '<div  class="alert alert-info">Aun no hay mensajes disponibles.</div>'
+            );
+        return;
+      }
 
-    if(datos.length == 0){
-          
-          $('#message-modal .modal-body').append(
-            '<div  class="alert alert-info">Aun no hay mensajes disponibles.</div>'
-          );
-      return;
-    }
-
-    var table = $('#message-table').clone();
+      var table = $('#message-table').clone();
 
 
-    table.removeAttr('id');
-    $('#message-table').remove();
-    table.attr('id','message-table');
-    $('#pagination_pagination_message').empty();
+      table.removeAttr('id');
+      $('#message-table').remove();
+      table.attr('id','message-table');
+      $('#pagination_pagination_message').empty();
 
-    if(type == 'enviados'){
-      $('#recibidos').parent().removeClass('active');
-      $('#enviados').parent().addClass('active');
-    }else{
-      $('#enviados').parent().removeClass('active');
-      $('#recibidos').parent().addClass('active');
-    }
-    
-    table.append('<thead><th>CCOSTOS</th><th>MENSAJE</th></thead>');
-    table.append('<tbody>');
-
-    for (var i = datos.length - 1; i >= 0; i--) {
+      if(type == 'enviados'){
+        $('#recibidos').parent().removeClass('active');
+        $('#enviados').parent().addClass('active');
+      }else{
+        $('#enviados').parent().removeClass('active');
+        $('#recibidos').parent().addClass('active');
+      }
       
-      table.append('<tr><td>'+datos[i].ccosto+'</td> <td>' + datos[i].body +'</td></tr>');
-    
-      $('#message-modal .modal-body').append(table);
+      table.append('<thead><th>CCOSTOS</th><th>MENSAJE</th></thead>');
+      table.append('<tbody>');
+      console.log(datos);
+      for (var i = datos.length - 1; i >= 0; i--) {
+
+        if(datos[i].ccosto == 1){
+          table.append('<tr class="message_row"><td>Administrador</td><td>' + datos[i].body +'</td></tr>');
+        }else{
+          table.append('<tr class="message_row" ><td>'+datos[i].ccosto+'</td> <td>' + datos[i].body +'</td></tr>');
+        }
+        
       
-    };
-          firstSpanCreate($('#pagination_pagination_message'),messages);
-          
-          if(messages.total > 100){
-            if(messages.current_page > 8 && messages.current_page < messages.last_page - 2){
-                if(messages.current_page+1 == messages.last_page - 3){
-                  spanPointsCreate($('#pagination_pagination_message'));
-                  listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.last_page+1);            
-                }else{
-                  listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.current_page+1);            
-                  spanPointsCreate($('#pagination_pagination_message'));
-                  listsCreate($('#pagination_pagination_message'),messages,messages.last_page - 2,messages.last_page+1);      
-                }
+        $('#message-modal .modal-body').append(table);
+        
+      };
+            firstSpanCreate($('#pagination_pagination_message'),messages);
+            
+            if(messages.total > 100){
+              if(messages.current_page > 8 && messages.current_page < messages.last_page - 2){
+                  if(messages.current_page+1 == messages.last_page - 3){
+                    spanPointsCreate($('#pagination_pagination_message'));
+                    listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.last_page+1);            
+                  }else{
+                    listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.current_page+1);            
+                    spanPointsCreate($('#pagination_pagination_message'));
+                    listsCreate($('#pagination_pagination_message'),messages,messages.last_page - 2,messages.last_page+1);      
+                  }
+              }else{
+                listsCreate($('#pagination_pagination_message'),messages,1,9);
+                spanPointsCreate($('#pagination_pagination_message'));
+                listsCreate($('#pagination_pagination_message'),messages,messages.last_page - 2,messages.last_page+1);  
+              }
             }else{
-              listsCreate($('#pagination_pagination_message'),messages,1,9);
-              spanPointsCreate($('#pagination_pagination_message'));
-              listsCreate($('#pagination_pagination_message'),messages,messages.last_page - 2,messages.last_page+1);  
+                listsCreate($('#pagination_pagination_message'),messages,1,messages.last_page+1);      
             }
-          }else{
-              listsCreate($('#pagination_pagination_message'),messages,1,messages.last_page+1);      
-          }
-           lastSpanCreate($('#pagination_pagination_message'),messages);
+             lastSpanCreate($('#pagination_pagination_message'),messages);
 
-    table.append('</tbody>');
+      table.append('</tbody>');
 
-  });
-  var modal =  $('#message-modal').modal();
-} 
+    });
+    var modal =  $('#message-modal').modal();
+
+    $(document).on('mouseover','.message_row',function(){
+        $(this).addClass('active');
+    });
+    $(document).on('mouseleave','.message_row',function(){
+        $(this).removeClass('active');
+    });
+
+  } 
+
+
+  
