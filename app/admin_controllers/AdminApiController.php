@@ -1215,21 +1215,365 @@ class AdminApiController extends AdminBaseController
     }
   }
 
-
-  public function getBIMacAutocomplete()
+/**
+  *=============================================================MAC REPORTS ==================================================
+  
+  *Metodo auxiliar para el metodo getMacBIReport 
+  */
+  public function ordersByMacCategory($report)
   {
+    $orders_category = clone $report;
+    $orders_category = $orders_category->select(DB::raw('count(mac_categories.id) as QUANTITY,mac_categories.name as NAME'))
+                                       ->groupBy('mac_categories.id')
+                                       ->get();
+
+    $orders_by_category = [];
+
+    foreach ($orders_category as $order) 
+    {
+     $orders_by_category[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_category;
+  }
+
+
+
+  /**
+  *Metodo auxiliar para el metodo getMacBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function ordersMacStatus($report)
+  {
+    $orders = clone $report;
+
+    $orders = $orders->select(DB::raw('count(mac_orders.status) as STATUS'))
+                     ->groupBy('mac_orders.status')
+                     ->get();
+
+    $orders_deliver_pending = [];
+
+    foreach ($orders as $order) 
+    {
+     $orders_deliver_pending[] = $order->STATUS;
+    }                                       
     
-    $orders = MacOrder::all()->lists('id');
-    $ccostos = User::all()->lists('ccosto');
- 
+    return $orders_deliver_pending;
+  }
+
+  /**
+  *Metodo auxiliar para el metodo getBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function expensesByMacRegion($report)
+  {
+    $expenses = clone $report;
+
+    $expenses = $expenses->select(DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) as EXPENSIVE,regions.name as NAME'))
+                         ->groupBy('regions.id')
+                         ->get();
+
+    $expenses_by_regions = [];
+
+    foreach ($expenses as $expense) 
+    {
+     $expenses_by_regions[] = [$expense->NAME,$expense->EXPENSIVE];                     
+    }                                       
+
+    return $expenses_by_regions; 
+  }
+
+  public function getMacBIReport()
+  {
+  
+    $report = DB::table('users')->join('mac_orders','mac_orders.user_id','=','users.id')
+                                ->join('mac_order_mac_product','mac_order_mac_product.mac_order_id','=','mac_orders.id')
+                                ->join('mac_products','mac_order_mac_product.mac_product_id','=','mac_products.id')
+                                ->join('mac_categories','mac_products.mac_category_id','=','mac_categories.id')
+                                ->join('regions','regions.id','=','users.region_id');
+
+    if(Input::has('order_id')){
+      $report->where('mac_orders.id','like','%'.Input::get('order_id').'%');
+    }
+
+    if(Input::has('ccosto')){
+      $report->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    }
+
+    if(Input::has('category_id')){
+      $report->where('mac_categories.id',Input::get('category_id'));
+    }
+
+    if(Input::has('product_id')){
+      $report->where('mac_product_id',Input::get('product_id'));
+    }
+
+    if(Input::has('since')){
+      $report->where('mac_orders.created_at','>=',Input::get('since'));
+    }
+
+    if(Input::has('until')){
+      $report->where('mac_orders.created_at','<=',Input::get('until'));
+    }
+
+    if (Input::has('divisional_id')) {
+      $report->where('users.divisional_id',Input::get('divisional_id'));
+    }
+
+    if(Input::has('region_id')){
+      $report->where('users.region_id',Input::get('region_id'));
+    }
+
+    if(Input::has('status')){
+      $report->where('mac_orders.status',Input::get('status'));
+    }
+
+    $orders_by_category = $this->ordersByMacCategory($report);
+    $orders_by_region = $this->ordersByRegion($report);
+    $expenses_by_region = $this->expensesByMacRegion($report);
+    $orders_status = $this->ordersMacStatus($report);
+
+    $report->select(DB::raw("mac_orders.id as ORDEN,
+                            mac_products.name as PRODUCTO,
+                            mac_order_mac_product.quantity as CANTIDAD,
+                            mac_order_mac_product.quantity * mac_products.price as TOTAL,
+                            mac_categories.name as CATEGORIA, 
+                            users.ccosto as CCOSTO,
+                            users.gerencia as GERENCIA,
+                            users.linea_negocio as LINEA_NEGOCIO,
+                            mac_orders.created_at as FECHA,
+                            users.email as CORREO,
+                            mac_orders.comments as COMENTARIOS,
+                            mac_categories.id as CATEGORIA_ID,
+                            regions.id as REGION_ID,
+                            CASE mac_orders.status
+                              when '0'
+                              then 'PENDIENTE'
+                              when '1'
+                              then 'RECIBIDO'
+                              when '2'
+                              then 'RECIBIDO_INCOMPLETO'
+                            END AS ESTADO
+                            "))->orderBy('mac_orders.created_at','desc');
+    $q = clone $report;
+    $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
+    $orders_full = clone $report;
 
     if(Request::ajax()){
       return Response::json([
         'status' => 200,
-        'orders' => $orders,
-        'ccostos' => $ccostos
-      ]);
+        'headers' => $headers,
+        'orders_by_category' => $orders_by_category,
+        'orders_by_region' => $orders_by_region,
+        'expenses_by_region' => $expenses_by_region,
+        'orders_status' => $orders_status,
+        'report' => $report->get(),
+        'orders_full' => $orders_full->paginate(10)->toJson()
+        ]);
+    }else{
+
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+      foreach($report->get() as $item){
+          $itemArray = [];
+        
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+        
+          $result[] = $itemArray;
+      }
+      if($result){
+        Excel::create('Reporte_Mac_BI', function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+         });
+        })->download('xls');   
+      }
+    }      
+  }
+
+
+
+
+/**
+  *=============================================================Corporation REPORTS ==================================================
+  
+*/
+
+  public function ordersByCorporationCategory($report)
+  {
+    $orders_category = clone $report;
+    $orders_category = $orders_category->select(DB::raw('count(corporation_categories.id) as QUANTITY,corporation_categories.name as NAME'))
+                                       ->groupBy('corporation_categories.id')
+                                       ->get();
+
+    $orders_by_category = [];
+
+    foreach ($orders_category as $order) 
+    {
+     $orders_by_category[] = [$order->NAME,$order->QUANTITY];                     
+    }                                       
+
+    return $orders_by_category;
+  }
+
+
+
+  /**
+  *Metodo auxiliar para el metodo getCorporationBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function ordersCorporationStatus($report)
+  {
+    $orders = clone $report;
+
+    $orders = $orders->select(DB::raw('count(corporation_orders.status) as STATUS'))
+                     ->groupBy('corporation_orders.status')
+                     ->get();
+
+    $orders_deliver_pending = [];
+
+    foreach ($orders as $order) 
+    {
+     $orders_deliver_pending[] = $order->STATUS;
+    }                                       
+    
+    return $orders_deliver_pending;
+  }
+
+  /**
+  *Metodo auxiliar para el metodo getBIReport
+  *Recibe una consulta ya con un reporte donde se tuvo que haber seleccionado la tabla regions.
+  */
+  public function expensesByCorporationRegion($report)
+  {
+    $expenses = clone $report;
+
+    $expenses = $expenses->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as EXPENSIVE,regions.name as NAME'))
+                         ->groupBy('regions.id')
+                         ->get();
+
+    $expenses_by_regions = [];
+
+    foreach ($expenses as $expense) 
+    {
+     $expenses_by_regions[] = [$expense->NAME,$expense->EXPENSIVE];                     
+    }                                       
+
+    return $expenses_by_regions; 
+  }
+
+  public function getCorporationBIReport()
+  {
+  
+    $report = DB::table('users')->join('corporation_orders','corporation_orders.user_id','=','users.id')
+                                ->join('corporation_order_corporation_product','corporation_order_corporation_product.corporation_order_id','=','corporation_orders.id')
+                                ->join('corporation_products','corporation_order_corporation_product.corporation_product_id','=','corporation_products.id')
+                                ->join('corporation_categories','corporation_products.corporation_category_id','=','corporation_categories.id')
+                                ->join('regions','regions.id','=','users.region_id');
+
+    if(Input::has('order_id')){
+      $report->where('corporation_orders.id','like','%'.Input::get('order_id').'%');
     }
+
+    if(Input::has('ccosto')){
+      $report->where('users.ccosto','like','%'.Input::get('ccosto').'%');
+    }
+
+    if(Input::has('category_id')){
+      $report->where('corporation_categories.id',Input::get('category_id'));
+    }
+
+    if(Input::has('product_id')){
+      $report->where('corporation_product_id',Input::get('product_id'));
+    }
+
+    if(Input::has('since')){
+      $report->where('corporation_orders.created_at','>=',Input::get('since'));
+    }
+
+    if(Input::has('until')){
+      $report->where('corporation_orders.created_at','<=',Input::get('until'));
+    }
+
+    if (Input::has('divisional_id')) {
+      $report->where('users.divisional_id',Input::get('divisional_id'));
+    }
+
+    if(Input::has('region_id')){
+      $report->where('users.region_id',Input::get('region_id'));
+    }
+
+    if(Input::has('status')){
+      $report->where('corporation_orders.status',Input::get('status'));
+    }
+
+    $orders_by_category = $this->ordersByCorporationCategory($report);
+    $orders_by_region = $this->ordersByRegion($report);
+    $expenses_by_region = $this->expensesByCorporationRegion($report);
+    $orders_status = $this->ordersCorporationStatus($report);
+
+    $report->select(DB::raw("corporation_orders.id as ORDEN,
+                            corporation_products.name as PRODUCTO,
+                            corporation_order_corporation_product.quantity as CANTIDAD,
+                            corporation_order_corporation_product.quantity * corporation_products.price as TOTAL,
+                            corporation_categories.name as CATEGORIA, 
+                            users.ccosto as CCOSTO,
+                            users.gerencia as GERENCIA,
+                            users.linea_negocio as LINEA_NEGOCIO,
+                            corporation_orders.created_at as FECHA,
+                            users.email as CORREO,
+                            corporation_orders.comments as COMENTARIOS,
+                            corporation_categories.id as CATEGORIA_ID,
+                            regions.id as REGION_ID,
+                            CASE corporation_orders.status
+                              when '0'
+                              then 'PENDIENTE'
+                              when '1'
+                              then 'RECIBIDO'
+                              when '2'
+                              then 'RECIBIDO_INCOMPLETO'
+                            END AS ESTADO
+                            "))->orderBy('corporation_orders.created_at','desc');
+    $q = clone $report;
+    $headers = $report->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
+    $orders_full = clone $report;
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'headers' => $headers,
+        'orders_by_category' => $orders_by_category,
+        'orders_by_region' => $orders_by_region,
+        'expenses_by_region' => $expenses_by_region,
+        'orders_status' => $orders_status,
+        'report' => $report->get(),
+        'orders_full' => $orders_full->paginate(10)->toJson()
+        ]);
+    }else{
+
+      $datetime = \Carbon\Carbon::now()->format('YmdHi');
+      $data = str_putcsv($headers)."\n";
+      $result = [$headers];
+      foreach($report->get() as $item){
+          $itemArray = [];
+        
+        foreach($headers as $header){
+          $itemArray[] = $item->{$header};
+        }
+        
+          $result[] = $itemArray;
+      }
+      if($result){
+        Excel::create('Reporte_corporation_BI', function($excel) use($result){
+         $excel->sheet('hoja 1',function($sheet)use($result){
+           $sheet->fromArray($result);
+         });
+        })->download('xls');   
+      }
+    }      
   }
 
   public function getBICorporationAutocomplete()
@@ -1592,7 +1936,6 @@ class AdminApiController extends AdminBaseController
     }
   }
 
-
   public function postNotificationMarker()
   {
       $message = Message::find(Input::get('id'));
@@ -1602,8 +1945,6 @@ class AdminApiController extends AdminBaseController
           'status' => 200
         ]);
       }
-
-
   }
 
 

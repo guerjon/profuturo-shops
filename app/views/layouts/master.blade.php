@@ -57,14 +57,13 @@
 
 							@if(Auth::check())
 
-								<li>
+	{{-- 							<li>
 									<a href="#" class="message-type" data-type="enviados" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle"></span>
 									</a>
-								</li>
+								</li> --}}
 								
-
 								<li class="dropdown">
 
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -184,18 +183,17 @@
 			        }
       			});
 
-      			(function worker() {
-				  $.ajax({
-				    url: '/api/count-messages/', 
-				    success: function(data) {
-				      $('.numberCircle').text(data.number_messages);
-				    },
-				    complete: function() {
-				      // Schedule the next request when the current one's complete
-				      setTimeout(worker, 5000);
-				    }
-				  });
-				})();
+    //   			(function worker() {
+				//   $.ajax({
+				//     url: '/api/count-messages/', 
+				//     success: function(data) {
+				//       $('.numberCircle').text(data.number_messages);
+				//     },
+				//     complete: function() {
+				//       setTimeout(worker, 5000);
+				//     }
+				//   });
+				// })();
 				    
 
 			});

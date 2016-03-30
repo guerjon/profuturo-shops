@@ -92,6 +92,20 @@
     </a>
   </div>
 </div>
+<div class="row">
+  <div class="col-sm-2 col-xs-3 col-xs-offset-3 ">
+    <a href="{{action('AdminReportsController@getBiMacReport')}}"class="thumbnail">
+      <img src="/img/reporte_bi.png" style="width: 100%; height: auto;">
+    </a>
+  </div>
+
+  <div class="col-sm-2 col-xs-3 ">
+    <a href="{{action('AdminReportsController@getBiCorporationReport')}}"class="thumbnail">
+      <img src="/img/reporte_bi.png" style="width: 100%; height: auto;">
+    </a>
+  </div>
+
+</div>
 </div>
 
 

@@ -183,4 +183,29 @@ class AdminReportsController extends AdminBaseController{
     return View::make('admin::reports.corporative_orders')->withCategories($categories)->withProducts($products);
   }
 
+
+  public function getBiMacReport()
+  {
+    $users = User::all();
+    $categories = MacCategory::all()->lists('name','id');
+    $products = MacProduct::all()->lists('name','id');
+
+    return View::make('admin::reports.mac_bi')
+    ->withUsers($users)
+    ->withCategories($categories)
+    ->withProducts($products);
+  }
+
+  public function getBiCorporationReport()
+  {
+    $users = User::all();
+    $categories = CorporationCategory::all()->lists('name','id');
+    $products = CorporationProduct::all()->lists('name','id');
+
+    return View::make('admin::reports.corporation_bi')
+    ->withUsers($users)
+    ->withCategories($categories)
+    ->withProducts($products);
+  }
+
 }
