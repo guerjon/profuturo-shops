@@ -125,6 +125,7 @@
           }
 
           $('#pagination').empty();
+          
           firstSpanCreate($('#pagination'),orders_full);
           if(orders_full.total > 100){
             if(orders_full.current_page > 8 && orders_full.current_page < orders_full.last_page - 2){
