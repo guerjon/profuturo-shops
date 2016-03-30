@@ -183,17 +183,17 @@
 			        }
       			});
 
-    //   			(function worker() {
-				//   $.ajax({
-				//     url: '/api/count-messages/', 
-				//     success: function(data) {
-				//       $('.numberCircle').text(data.number_messages);
-				//     },
-				//     complete: function() {
-				//       setTimeout(worker, 5000);
-				//     }
-				//   });
-				// })();
+      			(function worker() {
+				  $.ajax({
+				    url: '/api/count-messages/', 
+				    success: function(data) {
+				      $('.numberCircle').text(data.number_messages);
+				    },
+				    complete: function() {
+				      setTimeout(worker, 5000);
+				    }
+				  });
+				})();
 				    
 
 			});
