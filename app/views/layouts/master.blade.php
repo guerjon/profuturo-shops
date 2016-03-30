@@ -57,12 +57,12 @@
 
 							@if(Auth::check())
 
-	{{-- 							<li>
+								<li>
 									<a href="#" class="message-type" data-type="enviados" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle"></span>
 									</a>
-								</li> --}}
+								</li>
 								
 								<li class="dropdown">
 
