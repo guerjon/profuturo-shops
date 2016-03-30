@@ -63,19 +63,14 @@ class OrdersController extends BaseController
             Log::debug($address->getErrors());
         }        
       }
-      $message = new Message($values);
-        if($message->save()){
-          //si el mensaje se guardo ya podemos relacionarlo con el usuario.
-          $admin = User::find(1);
-          $admin->messages()->attach($message->id);
-          if($user->save() and $admin->save()){
+      // $message = new Message($values);
+      //   if($message->save()){
+      //     //si el mensaje se guardo ya podemos relacionarlo con el usuario.
+      //     $admin = User::find(1);
+      //     $admin->messages()->attach($message->id);
+          if($user->save()){
             Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
-          }else{
-            return Redirect::back()->withErrors("El usuario no pudo guardarse");
           }
-        }else{
-          Log::debug("La notificación no se guardo");
-        }
     }  
 
     //orden
