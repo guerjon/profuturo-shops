@@ -57,7 +57,7 @@
 
 							@if(Auth::check())
 
-{{-- 								<li>
+	{{-- 							<li>
 									<a href="#" class="message-type" data-type="enviados" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle">  {{Auth::user()->messages->count()}}</span>
@@ -164,6 +164,22 @@
 				$('.message-type').click(function(){
 					messages_update($(this).attr('data-type'));
 				});
+
+				$(document).on('click', '.pagina', function(){
+			        event.preventDefault();
+			        var page = $(this).attr('data-page');
+			        $('#number_page').val(page);
+			        $('#pagination').empty();
+
+			        if($('#enviados').parent().hasClass('active')){
+			        	messages_update('enviados',page);
+			        }else{
+			        	messages_update('recibidos',page);
+			        }
+			        	
+			        
+			        	
+      			});
 			});
 		</script>
 

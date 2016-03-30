@@ -31,13 +31,14 @@
 					        </a>
       					</li>
 					</ul>
-					<center>
-    					<ul class="pagination" id="pagination"></ul>
-  					</center>
+					
   					
 				</div>
 						
 				<div class="modal-footer">
+					<center>
+    					<ul class="pagination" id="pagination"></ul>
+  					</center>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div><!-- /.modal-content -->
