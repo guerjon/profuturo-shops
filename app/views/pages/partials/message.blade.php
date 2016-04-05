@@ -1,14 +1,14 @@
 @if(Auth::check())
 
 	<div class="modal fade" role="dialog" id="message-modal" >
-		<div class="modal-dialog" style="z-index: 2147483647">
-			<div class="modal-content" >
+		<div class="modal-dialog modal-lg" style="z-index: 2147483647">
+			<div class="modal-content">
 				<div class="modal-header">
 					<div class="row">
-						<div class="col col-xs-8">
+						<div class="col col-xs-9">
 							<h4 class="modal-title">Mensajes directos</h4>
 						</div>
-						<div class="col col-xs-2">
+						<div class="col col-xs-1">
 						    <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#select_users_modal" class="btn btn-primary btn-sm">
 	    						<span class="glyphicon glyphicon-plus"></span> Mensaje nuevo
 	  						</a>
@@ -92,7 +92,7 @@
 		</div>
 	</div>
 
-	<table class="table table-bordered" id="message-table">
+	<table class="table table-responsive table-bordered" id="message-table">
 
 	</table>
 

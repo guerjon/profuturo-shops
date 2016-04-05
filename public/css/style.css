@@ -118,7 +118,36 @@
   padding: 10px 10px 10px 20px;
 }
 
+.fast-actions:hover span {
+  left: 4%;
+  width: 150px;
+  height: 20px;
+} 
 
-.message-lists{
-  
+.fast-actions span {
+  font-size: 12px;
+  text-align: center;
+  position: absolute;
+  left: -9999px;
+  color:white; 
+  background-color: #00396c;
+  margin-left:25px;
 }
+
+.fast-actions:hover div{
+  left: 4%;
+} 
+
+.fast-actions div{
+  position: absolute;
+  left: -9999px;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent; 
+  border-right:10px solid #00396c; 
+  margin-left:20px;
+  bottom:-7px;
+}
+
+
+
+

@@ -75,19 +75,27 @@
       table.attr('id','message-table');
       $('#pagination_pagination_message').empty();
 
-      
     
-      
-      
-      table.append('<thead><th>CCOSTOS</th><th>MENSAJE</th></thead>');
+      table.append('<thead><th>CCOSTOS</th><th style="border-right: 0px;">MENSAJE</th><th style="border-left: 0px;"></th></thead>');
       table.append('<tbody>');
-     
+     console.log(datos);
       for (var i = datos.length - 1; i >= 0; i--) {
 
         if(datos[i].ccosto == 1){
-          table.append('<tr class="message_row"><td>Administrador</td><td>' + datos[i].body +'</td></tr>');
+
+          table.append('<tr class="message_row"><td>Administrador</td><td style="border-right:0px;">' +
+                         datos[i].body +'</td><td widht="20" style="border-left:0px;">' + 
+                         '<span style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span> Responder</span></span> ' +
+                         '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><span><div class="arrow"></div>Marcar como no leido</span></span>' +
+                         '</td></tr>');
         }else{
-          table.append('<tr class="message_row" ><td>'+datos[i].ccosto+'</td> <td>' + datos[i].body +'</td></tr>');
+          table.append('<tr class="message_row" ><td>'+
+            datos[i].ccosto+
+            '</td> <td style="border-right: 0px;">' +
+            datos[i].body +'</td><td width="20" style="border-left: 0px;">'+ 
+            '<span data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span>Responder</span></span>' +
+            '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><div class="arrow"></div><span>Marcar como no leido</span></span>' +
+            '</td></tr>');
         }
         
       
@@ -124,14 +132,23 @@
     // $('.message_row').hover(function(e){
 
     // });
+    $(document).on('click','.fast-actions',function(){
+      $('#message-modal').modal('toggle');
+      $('#select_users_modal').modal();
+      var ccostos = $(this).attr('data-ccosto');
+
+      $('#search-ccosto');
+    });
 
   
     $(document).on('mouseover','.message_row',function(){
         $(this).addClass('active');
-        
+        $(this).find('.fast-actions').css('visibility','visible');
+
     });
     $(document).on('mouseleave','.message_row',function(){
         $(this).removeClass('active');
+        $(this).find('.fast-actions').css('visibility','hidden');
     });
 
   } 
