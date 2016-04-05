@@ -93,7 +93,7 @@
             datos[i].ccosto+
             '</td> <td style="border-right: 0px;">' +
             datos[i].body +'</td><td width="20" style="border-left: 0px;">'+ 
-            '<span data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span>Responder</span></span>' +
+            '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span>Responder</span></span>' +
             '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><div class="arrow"></div><span>Marcar como no leido</span></span>' +
             '</td></tr>');
         }
@@ -136,8 +136,12 @@
       $('#message-modal').modal('toggle');
       $('#select_users_modal').modal();
       var ccostos = $(this).attr('data-ccosto');
-
-      $('#search-ccosto');
+      var id = $(this).attr('data-id');
+      (".js-example-disabled").prop("disabled", true);
+      $('.js-example-basic-multiple').append('<option value="'+id+'" selected="selected">'+ccostos+'</option>');
+      
+      
+       
     });
 
   

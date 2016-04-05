@@ -55,9 +55,8 @@
 							@if(Auth::check())
 
 								<li>
-									<a href="#" class="message-type" data-type="recibidos" type="button" >
-											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
-											<span class="numberCircle"></span>
+									<a href="#" class="message-type message-parent-image" data-type="recibidos" type="button" >
+										{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  	
 									</a>
 								</li>
 								
@@ -139,6 +138,7 @@
 
 			$(function(){
 				$.slidebars();
+
 				$('.notification-link').click(function(event){
 					$.post('/admin/api/notification-marker',{id:$(this).attr('data-notification-id')},function(data){
 						if(data.status == 200){
@@ -178,14 +178,19 @@
 			        }
       			});
 
+
       			(function worker() {
 				  $.ajax({
 				    url: '/api/count-messages/', 
 				    success: function(data) {
 				    	if(data.number_messages > 0)
-				      		$('.numberCircle').show().text(data.number_messages);
-				      	else
-				      		$('.numberCircle').hide();
+				    		if(($('.message-parent-image').find('.numberCircle')).length == 0 )
+				    			$('.message-parent-image').append('<span class="numberCircle">'+data.number_messages+'</span>')
+				      	else{
+				      		if(data.number_messages < 1){
+				      			$('.numberCircle').remove();
+				      		}
+				      	}
 				    },
 				    complete: function() {
 				      setTimeout(worker, 5000);

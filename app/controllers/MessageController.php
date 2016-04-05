@@ -5,6 +5,7 @@ class MessageController extends \BaseController {
 	public function store()
 	{
 		$users = Input::get('users');
+		Log::debug(Input::all());
 		$message_body = Input::get('mensaje');
 		$count = 0;
 
