@@ -137,11 +137,10 @@
       $('#select_users_modal').modal();
       var ccostos = $(this).attr('data-ccosto');
       var id = $(this).attr('data-id');
-      (".js-example-disabled").prop("disabled", true);
+      $('.js-example-basic-multiple').select2('destroy').removeAttr('multiple').attr('disabled','disabled');
       $('.js-example-basic-multiple').append('<option value="'+id+'" selected="selected">'+ccostos+'</option>');
       
-      
-       
+
     });
 
   
