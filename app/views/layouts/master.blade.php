@@ -26,9 +26,6 @@
 			@include('layouts.sidemenu')
 		</div>
 
-
-
-
 		<div id="sb-site">
 			<nav class="navbar navbar-fixed-top navbar-default" role="navigation">
 				<div class="container-fluid">
@@ -58,7 +55,7 @@
 							@if(Auth::check())
 
 								<li>
-									<a href="#" class="message-type" data-type="enviados" type="button" >
+									<a href="#" class="message-type" data-type="recibidos" type="button" >
 											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  
 											<span class="numberCircle"></span>
 									</a>
@@ -162,14 +159,12 @@
 					$('#post-message-modal-form').submit();
 				});
 
-				$('.message-type').click(function(){
+				$(document).on('click','.message-type',function(){
+
 					messages_update($(this).attr('data-type'));
+					changeTab($(this).attr('data-type'));
 				});
-
-				window.setInterval(function(){
-  					
-				}, 5000);
-
+				
 				$(document).on('click', '.pagina_mensage', function(){
 			        event.preventDefault();
 			        var page = $(this).attr('data-page');
@@ -177,9 +172,9 @@
 			        $('#pagination_message').empty();
 
 			        if($('#enviados').parent().hasClass('active')){
-			        	messages_update('enviados',page);
+			        	messages_update('enviados');
 			        }else{
-			        	messages_update('recibidos',page);
+			        	messages_update('recibidos');
 			        }
       			});
 
@@ -187,15 +182,16 @@
 				  $.ajax({
 				    url: '/api/count-messages/', 
 				    success: function(data) {
-				      $('.numberCircle').text(data.number_messages);
+				    	if(data.number_messages > 0)
+				      		$('.numberCircle').show().text(data.number_messages);
+				      	else
+				      		$('.numberCircle').hide();
 				    },
 				    complete: function() {
 				      setTimeout(worker, 5000);
 				    }
 				  });
 				})();
-				    
-
 			});
 		</script>
 		@yield('script')

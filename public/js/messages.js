@@ -35,6 +35,16 @@
     object.append('<li class="disabled"><span>...</span></li><li>');
   }
 
+  function changeTab(type){
+    if(type == 'enviados'){
+        $('#recibidos').parent().removeClass('active');
+        $('#enviados').parent().addClass('active');
+      }else{
+        $('#enviados').parent().removeClass('active');
+        $('#recibidos').parent().addClass('active');
+      }
+  }
+
   /**
     *Actualiza los mensajes dentro de la venta modal
   */
@@ -47,34 +57,31 @@
       $('#message-modal .modal-body .alert-info').remove();
       var messages = jQuery.parseJSON(data.messages);
       var datos = messages.data;
-
+      
+      
       if(datos.length == 0){
             
             $('#message-modal .modal-body').append(
               '<div  class="alert alert-info">Aun no hay mensajes disponibles.</div>'
             );
+
         return;
       }
 
       var table = $('#message-table').clone();
-
 
       table.removeAttr('id');
       $('#message-table').remove();
       table.attr('id','message-table');
       $('#pagination_pagination_message').empty();
 
-      if(type == 'enviados'){
-        $('#recibidos').parent().removeClass('active');
-        $('#enviados').parent().addClass('active');
-      }else{
-        $('#enviados').parent().removeClass('active');
-        $('#recibidos').parent().addClass('active');
-      }
+      
+    
+      
       
       table.append('<thead><th>CCOSTOS</th><th>MENSAJE</th></thead>');
       table.append('<tbody>');
-      console.log(datos);
+     
       for (var i = datos.length - 1; i >= 0; i--) {
 
         if(datos[i].ccosto == 1){
@@ -114,8 +121,14 @@
     });
     var modal =  $('#message-modal').modal();
 
+    // $('.message_row').hover(function(e){
+
+    // });
+
+  
     $(document).on('mouseover','.message_row',function(){
         $(this).addClass('active');
+        
     });
     $(document).on('mouseleave','.message_row',function(){
         $(this).removeClass('active');

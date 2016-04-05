@@ -610,6 +610,7 @@ class ApiController extends BaseController
     
     return Response::json([
       'messages' => $messages,
+      'active_tab_message' => $active_tab_message
     ]);
 
   }

@@ -20,19 +20,17 @@
 				</div>
 				<div class="modal-body">
 					<ul class="nav nav-tabs">
+						<li role="presentation" class="">
+					        <a href="#" aria-controls="admin" class="tabs message-type" data-type="recibidos" id="recibidos">
+					        	Recibidos
+					        </a>
+      					</li>
 					    <li role="presentation" class="active">
 					        <a href="#" aria-controls="admin" class="tabs message-type" data-type="enviados" id="enviados">
 					        	Enviados
 					        </a>
       					</li>
-      					<li role="presentation" class="">
-					        <a href="#" aria-controls="admin" class="tabs message-type" id="recibidos">
-					        	Recibidos
-					        </a>
-      					</li>
 					</ul>
-					
-  					
 				</div>
 						
 				<div class="modal-footer">
