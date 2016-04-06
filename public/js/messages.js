@@ -135,51 +135,6 @@
       var ccostos = $(this).attr('data-ccosto');
       var id = $(this).attr('data-id');
       $('#search-ccostos').select2('destroy');
-      $('#search-ccostos').select2({
-
-        placeholder: "Search for a repository",
-        minimumInputLength: 1,
-        ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
-            url: "https://api.github.com/search/repositories",
-            dataType: 'json',
-            quietMillis: 250,
-            data: function (term, page) {
-                return {
-                    q: term, // search term
-                };
-            },
-            results: function (data, page) { // parse the results into the format expected by Select2.
-                // since we are using custom formatting functions we do not need to alter the remote JSON data
-                return { results: data.items };
-            },
-            cache: true
-        },
-        initSelection: function(element, callback) {
-            // the input tag has a value attribute preloaded that points to a preselected repository's id
-            // this function resolves that id attribute to an object that select2 can render
-            // using its formatResult renderer - that way the repository name is shown preselected
-            var id = $(element).val();
-            if (id !== "") {
-                $.ajax("https://api.github.com/repositories/" + id, {
-                    dataType: "json"
-                }).done(function(data) { callback(data); });
-            }
-        },
-        formatResult: repoFormatResult, // omitted for brevity, see the source of this page
-        formatSelection: repoFormatSelection,  // omitted for brevity, see the source of this page
-        dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
-        escapeMarkup: function (m) { return m; 
-      }
-      // $('.js-example-basic-multiple').select2('destroy').removeAttr('multiple').attr('disabled','disabled').remove();
-      // $('#select_users_modal').find('p').remove();
-      // if(ccostos == 1){
-      //   $('#select_users_modal').find('textarea').before('<p>El mensaje sera enviado al <b>Administrador.</b></p>');  
-      // }else{
-      //   $('#select_users_modal').find('textarea').before('<p>El mensaje sera enviado al usuario con CCOSTO <b>'+ccostos+'</b>.</p>');  
-      // }
-      
-      // $('#post-message-modal-form').append('<select class="hidden" name="users[]"><option selected="selected" value="'+id+'">ccostos</option></select>');
-      
     });
 
     $(document).on('mouseover','.message_row',function(){
@@ -192,17 +147,7 @@
         $(this).find('.fast-actions').css('visibility','hidden');
     });
 
-    // $(document).on('click','#mensaje-nuevo',function(){
-    //   var hay_select  = $('#select_users_modal .modal-body').find('select').lenght;
-
-    //   if(hay_select == 0){
-    //     $('#select_users_modal').find('textarea').before(magic_select);
-    //   }
-
-    //     $('#select_users_modal').modal().show();
-    // });
-
-  } 
+  }
 
 
   

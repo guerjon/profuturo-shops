@@ -62,28 +62,28 @@
 								
 								@if(Auth::user()->role == 'user_paper')
 									<li>
-										<a href="/carrito" style="font-size:30px" >
+										<a href="/carrito" style="font-size:32px" >
 											<span class="glyphicon glyphicon-shopping-cart"></span>
 										</a>
 									</li>
 
 								@elseif(Auth::user()->role == 'user_furnitures')
 									<li>
-										<a href="/carrito_muebles">
+										<a href="/carrito_muebles" style="font-size:32px">
 											<span class="glyphicon glyphicon-shopping-cart"></span>
 										</a>
 									</li>
 
-								@elseif(Auth::user()->role == 'user_mac')
+								@elseif(Auth::user()->role == 'user_mac' )
 									<li>
-										<a href="/carrito_mac">
+										<a href="/carrito_mac" style="font-size:32px">
 											<span class="glyphicon glyphicon-shopping-cart"></span>
 										</a>
 									</li>
 
 								@elseif(Auth::user()->role == 'user_corporation')
 									<li>
-										<a href="/carrito-corporativo">
+										<a href="/carrito-corporativo" style="font-size:32px">
 											<span class="glyphicon glyphicon-shopping-cart"></span>
 										</a>
 									</li>
