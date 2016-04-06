@@ -134,7 +134,9 @@
       $('#select_users_modal').modal();
       var ccostos = $(this).attr('data-ccosto');
       var id = $(this).attr('data-id');
-      $('#search-ccostos').select2('destroy');
+    
+      $('#search-ccostos').val(id).select2();
+
     });
 
     $(document).on('mouseover','.message_row',function(){
