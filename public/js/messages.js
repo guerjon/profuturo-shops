@@ -85,7 +85,7 @@
 
           table.append('<tr class="message_row"><td>Administrador</td><td style="border-right:0px;">' +
                          datos[i].body +'</td><td widht="20" style="border-left:0px;">' + 
-                         '<span style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span> Responder</span></span> ' +
+                         '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'" style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span> Responder</span></span> ' +
                          '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><span><div class="arrow"></div>Marcar como no leido</span></span>' +
                          '</td></tr>');
         }else{
@@ -137,8 +137,15 @@
       $('#select_users_modal').modal();
       var ccostos = $(this).attr('data-ccosto');
       var id = $(this).attr('data-id');
-      $('.js-example-basic-multiple').select2('destroy').removeAttr('multiple').attr('disabled','disabled');
+      $('.js-example-basic-multiple').select2('destroy').removeAttr('multiple').attr('disabled','disabled').remove();
+      $('#select_users_modal').find('p').remove();
+      if(ccostos == 1){
+        $('#select_users_modal').find('textarea').before('<p>El mensaje sera enviado al <b>Administrador.</b></p>');  
+      }else{
+        $('#select_users_modal').find('textarea').before('<p>El mensaje sera enviado al usuario con CCOSTO <b>'+ccostos+'</b>.</p>');  
+      }
       
+      $('#post-message-modal-form').append('<select class="hidden" name="users[]"><option selected="selected" value="'+id+'">ccostos</option></select>');
       
     });
 
