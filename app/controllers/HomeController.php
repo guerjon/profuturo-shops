@@ -52,8 +52,6 @@ class HomeController extends BaseController {
 				->where('orders.created_at','>=',DB::raw('divisionals_users.from'))
 				->where('orders.created_at','<=',DB::raw('DATE_ADD(divisionals_users.until,INTERVAL 1 DAY)'));
 		
-
-
 		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
 		
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();

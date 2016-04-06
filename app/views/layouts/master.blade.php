@@ -60,6 +60,35 @@
 									</a>
 								</li>
 								
+								@if(Auth::user()->role == 'user_paper')
+									<li>
+										<a href="/carrito" style="font-size:30px" >
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+
+								@elseif(Auth::user()->role == 'user_furnitures')
+									<li>
+										<a href="/carrito_muebles">
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+
+								@elseif(Auth::user()->role == 'user_mac')
+									<li>
+										<a href="/carrito_mac">
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+
+								@elseif(Auth::user()->role == 'user_corporation')
+									<li>
+										<a href="/carrito-corporativo">
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+								@endif
+
 								<li class="dropdown">
 
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -70,6 +99,7 @@
 										<span class="caret"></span>
 
 									</a>
+
 
 									<ul class="dropdown-menu" role="menu">
 									@if(Auth::user()->is_admin)
@@ -138,6 +168,7 @@
 
 			$(function(){
 				$.slidebars();
+				window.magic_select = $('#search-ccostos').clone();
 
 				$('.notification-link').click(function(event){
 					$.post('/admin/api/notification-marker',{id:$(this).attr('data-notification-id')},function(data){
