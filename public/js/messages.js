@@ -76,7 +76,12 @@
       $('#pagination_pagination_message').empty();
 
     
-      table.append('<thead><th>CCOSTOS</th><th style="border-right: 0px;">MENSAJE</th><th style="border-left: 0px;"></th></thead>');
+      table.append('<thead>' +
+                      '<th style="border-right: 0px;border-left:0px">CCOSTO</th>' +
+                      '<th style="border-right: 0px;border-left:0px">MENSAJE</th>' +
+                      '<th style="border-right: 0px;border-left:0px">FECHA</th>' +
+                      '<th style="border-left: 0px;"></th>' +
+                   '</thead>');
       table.append('<tbody>');
      
       for (var i = datos.length - 1; i >= 0; i--) {
@@ -84,18 +89,31 @@
         if(datos[i].ccosto == 1){
 
           table.append('<tr class="message_row"><td>Administrador</td><td style="border-right:0px;">' +
-                         datos[i].body +'</td><td widht="20" style="border-left:0px;">' + 
+                         datos[i].body +'</td></td><td style="border-right:0px;">'+ datos[i].created_at+'</td><td widht="20" style="border-left:0px;">' +
                          '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'" style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span> Responder</span></span> ' +
-                         '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><span><div class="arrow"></div>Marcar como no leido</span></span>' +
-                         '</td></tr>');
+                         '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions"><span><div class="arrow"></div>Marcar como no leido</span></span>' +
+                         '</tr>');
         }else{
-          table.append('<tr class="message_row" ><td>'+
-            datos[i].ccosto+
-            '</td> <td style="border-right: 0px;">' +
-            datos[i].body +'</td><td width="20" style="border-left: 0px;">'+ 
-            '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span>Responder</span></span>' +
-            '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><div class="arrow"></div><span>Marcar como no leido</span></span>' +
-            '</td></tr>');
+          table.append('<tr class="message_row" > '+
+                          '<td style="border-right:0px;">'+
+                            datos[i].ccosto+
+                         '</td>' +
+                         '<td style="border-right: 0px;border-left:0px;">' +
+                          datos[i].body+
+                         '</td>' +
+                        '<td style="border-right:0px;border-left:0px;">'+
+                          datos[i].created_at+
+                        '</td>' +
+                        '<td width="20" style="border-left: 0px;border-left:0px;">'+ 
+                        '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions ">'+
+                            '<div class="arrow"></div>'+
+                            '<span>Responder</span>' +
+                        '</span>' +
+                        '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions ">'+
+                          '<div class="arrow"></div>'+
+                          '<span>Marcar como no leido</span>'+
+                        '</span>' +
+                      '</tr>');
         }
         
       
