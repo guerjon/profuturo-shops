@@ -254,8 +254,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('ProductsController@index') => 'Productos',
 					action('BusinessCardsController@index') => 'Tarjetas de presentación',
-					'/carrito' => 'Mi carrito (papelería)',
-					
 					action('OrdersController@index') => 'Mis pedidos (papelería)',
 					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
 				];
@@ -272,19 +270,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
-					action('OrderFurnituresController@index') => 'Mis pedidos (mobiliario)',
 				];
 
 			case 'user_mac':
 				return [
 					action('MacProductsController@index') => 'Productos',
-					'/carrito-mac' => 'Mi carrito (papelería)',
 					action('MacOrdersController@index') => 'Mis pedidos',
 				];
 			case 'user_corporation':
 				return [
 					action('CorporationProductsController@index') => 'Productos',
-					'/carrito-corporativo' => 'Mi carrito (papeleria)',
 					action('CorporationOrdersController@index') => 'Mis Pedidos',
 				];	
 		}
