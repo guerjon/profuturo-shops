@@ -69,14 +69,14 @@
 
 								@elseif(Auth::user()->role == 'user_furnitures')
 									<li>
-										<a href="/carrito-muebles" style="font-size:32px">
+										<a href="/carrito_muebles" style="font-size:32px">
 											<span class="glyphicon glyphicon-shopping-cart"></span>
 										</a>
 									</li>
 
 								@elseif(Auth::user()->role == 'user_mac' )
 									<li>
-										<a href="/carrito_mac" style="font-size:32px">
+										<a href="/carrito-mac" style="font-size:32px">
 											<span class="glyphicon glyphicon-shopping-cart"></span>
 										</a>
 									</li>
