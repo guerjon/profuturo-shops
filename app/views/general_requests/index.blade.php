@@ -72,9 +72,11 @@
 @if(Auth::user()->isUserRequests)
 
   <div class="text-right">
-
+  @if($access)
     <a data-toggle="modal" data-target="#create-request-modal" class="btn btn-warning">Crear nueva solicitud</a>
-
+  @else
+    <p>Se necesita contestar las encuesta de satisfacción para continuar.</p>
+  @endif
   </div>
 
 @endif
