@@ -9,8 +9,8 @@
 							<h4 class="modal-title">Mensajes directos</h4>
 						</div>
 						<div class="col col-xs-1">
-						    <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#select_users_modal" class="btn btn-primary btn-sm">
-	    						<span class="glyphicon glyphicon-plus"></span> Mensaje nuevo
+						    <a href="#" class="btn btn-primary" data-dismiss="modal" id="new-message">
+	    						<span class="glyphicon glyphicon-plus" ></span> Mensaje nuevo
 	  						</a>
 						</div>
 						<div class="col col-xs-2">
@@ -67,12 +67,7 @@
 					{{Form::open(['action' => 'MessageController@store','method' => 'post','id' => 'post-message-modal-form'])}}
 						<div class="form-group">
 							@if(Auth::user()->role == 'admin')
-								{{Form::select(
-									'users[]',
-									User::where('role','!=','admin')->lists('ccosto','id'),
-									null,
-									['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
-								}}
+								<div id="users-select"></div>
 							@else
 								<p>Este mensaje sera enviado al administrador.</p>
 								{{Form::hidden('users[]',1,null)}}
@@ -86,16 +81,31 @@
 				</div> 
 
 				<div class="modal-footer">
+					<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por Usuario</button>
+					<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
+					<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
 					<button id="post-message-modal-button" type="button" class="btn btn-default">Enviar</button>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<!-- Resources Don´t erase -------------------------------------------------------------------------- !-->
+	
 	<table class="table table-responsive table-bordered" id="message-table">
 
 	</table>
+	
+	{{Form::select('users[]',User::where('role','!=','admin')->lists('ccosto','id'),null,
+		['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
+	}}
+
+
+	
+
 
 @endif
+
+
 
 

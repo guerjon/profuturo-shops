@@ -69,13 +69,7 @@
           Estatus: <select name="status" id="status" class='form-control'></select>
           @endif   
           <br>                                                                      
-        {{--   Evaluación:
-          {{Form::radio('evaluation',1)}}1
-          {{Form::radio('evaluation',2)}}2
-          {{Form::radio('evaluation',3)}}3
-          {{Form::radio('evaluation',4)}}4
-          {{Form::radio('evaluation',5)}}5 --}}
-        
+
           {{ Form::close()}}
         </div>
       </div>
@@ -84,7 +78,6 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-default" id="submit-btn">Guardar</button>
     
-        <!-- <button type="button" class="btn btn-warning">Save changes</button> -->
       </div>
       @endif
     </div>

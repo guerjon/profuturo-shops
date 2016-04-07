@@ -77,6 +77,7 @@
 
     
       table.append('<thead>' +
+                      '<th style="border-right: 0px;border-left:0px">GERENCIA</th>' +
                       '<th style="border-right: 0px;border-left:0px">CCOSTO</th>' +
                       '<th style="border-right: 0px;border-left:0px">MENSAJE</th>' +
                       '<th style="border-right: 0px;border-left:0px">FECHA</th>' +
@@ -88,14 +89,35 @@
 
         if(datos[i].ccosto == 1){
 
-          table.append('<tr class="message_row"><td>Administrador</td><td style="border-right:0px;">' +
-                         datos[i].body +'</td></td><td style="border-right:0px;">'+ datos[i].created_at+'</td><td widht="20" style="border-left:0px;">' +
-                         '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'" style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span> Responder</span></span> ' +
-                         '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions"><span><div class="arrow"></div>Marcar como no leido</span></span>' +
-                         '</tr>');
+          table.append('<tr class="message_row"> '+
+                            '<td style="border-right:0px;">'+
+                              datos[i].gerencia+
+                            '</td>' +
+                            '<td style="border-right: 0px;border-left:0px;">'+
+                              'Administrador'+
+                           '</td>' +
+                           '<td style="border-right: 0px;border-left:0px;"><h5>' +
+                            datos[i].body+
+                           '</h5></td>' +
+                          '<td style="border-right:0px;border-left:0px;">'+
+                            datos[i].created_at+
+                          '</td>' +
+                          '<td width="20" style="border-left: 0px;border-left:0px;">'+
+                          '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions ">'+
+                              '<div class="arrow"></div>'+
+                              '<span>Responder</span>' +
+                          '</span>' +
+                          '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions ">'+
+                            '<div class="arrow"></div>'+
+                            '<span>Marcar como no leido</span>'+
+                          '</span>' +
+                        '</tr>');
         }else{
-          table.append('<tr class="message_row" > '+
+          table.append('<tr class="message_row"> '+
                           '<td style="border-right:0px;">'+
+                            datos[i].gerencia+
+                          '</td>' +
+                          '<td style="border-right: 0px;border-left:0px;">'+
                             datos[i].ccosto+
                          '</td>' +
                          '<td style="border-right: 0px;border-left:0px;">' +
@@ -168,6 +190,8 @@
     });
 
   }
+
+  
 
 
   
