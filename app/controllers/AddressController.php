@@ -78,9 +78,9 @@ class AddressController extends \BaseController {
 					if($address->save()){
 
 						Mail::send('admin::email_templates.address_change',['address' => $address,'user' => $user],function($message){
-        					$message->to("jona_54_.com@hotmail.com")->subject('Se solicita aprobación un cambio de domicilio');
+        					$message->to("karina.ascencionhernandez@profuturo.com.mx")->subject('Se solicita aprobación un cambio de domicilio');
         				});  
-						//karina.ascencionhernandez@profuturo.com.mx
+						
 						return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario, se enviara un mensaje al administrador para su aprobación.');
 						
 					}

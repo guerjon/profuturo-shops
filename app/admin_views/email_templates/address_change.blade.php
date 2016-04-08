@@ -12,6 +12,7 @@
 		<h3>{{$address->posible_cambio}}</h3>
 		<br>
 		Para aprobar este cambio de click aquí 
+		<br>
 		http://store.profuturocompras.com.mx/admin/users?active_tab=user_mac&user_mac%5Bemployee_number%5D={{$user->ccosto}}&user_mac%5Bgerencia%5D=
  	</body>
  </html>
