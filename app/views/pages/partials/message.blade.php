@@ -9,8 +9,8 @@
 							<h4 class="modal-title">Mensajes directos</h4>
 						</div>
 						<div class="col col-xs-1">
-						    <a href="#" class="btn btn-primary" data-dismiss="modal" id="new-message">
-	    						<span class="glyphicon glyphicon-plus" ></span> Mensaje nuevo
+						    <a href="#" data-dismiss="modal" class="btn btn-primary message-type " id="new_message_button" data-type = "user" >
+	    						<span class="glyphicon glyphicon-plus " ></span> Mensaje nuevo
 	  						</a>
 						</div>
 						<div class="col col-xs-2">
@@ -67,7 +67,9 @@
 					{{Form::open(['action' => 'MessageController@store','method' => 'post','id' => 'post-message-modal-form'])}}
 						<div class="form-group">
 							@if(Auth::user()->role == 'admin')
-								<div id="users-select"></div>
+								<div id="users-select">
+
+								</div>
 							@else
 								<p>Este mensaje sera enviado al administrador.</p>
 								{{Form::hidden('users[]',1,null)}}
@@ -81,7 +83,7 @@
 				</div> 
 
 				<div class="modal-footer">
-					<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por Usuario</button>
+					<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por usuario</button>
 					<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
 					<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
 					<button id="post-message-modal-button" type="button" class="btn btn-default">Enviar</button>
@@ -97,7 +99,29 @@
 	</table>
 	
 
+	<div class="hide">	
+		{{Form::select(
+			'users[]',
+			User::where('role','!=','admin')->lists('ccosto','id'),
+			null,
+			['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%'])
+		}}
 
+		{{Form::select(
+			'divisional[]',
+			Divisional::lists('name','id'),
+			null,
+			['id' => 'search-divisional','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%'])
+		}}
+
+		{{Form::select(
+			'regions[]',
+			Region::lists('name','id'),
+			null,
+			['id' => 'search-region','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%'])
+		}}
+		<input type="text" class="hide" name="message_type" id="hidden-message-type">
+	</div>
 
 	
 

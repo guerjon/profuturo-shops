@@ -186,9 +186,7 @@
 					 }
 				});
 
-				$('#post-message-modal-button').click(function(){
-					$('#post-message-modal-form').submit();
-				});
+
 
 				$(document).on('click','.message-type',function(){
 
@@ -250,31 +248,53 @@
 
 
 				$('.message-type').click(function(){
+					
+					$('#users-select').empty();
 					type = $(this).attr('data-type');
+					var message_type = $('#hidden-message-type').clone();
+					message_type.val(type);
+					message_type.appendTo('#users-select');
+
 					if(type == 'user'){
+						
+						var search_ccostos = $('#search-ccostos').clone();
+						
+						search_ccostos.appendTo('#users-select');
+						search_ccostos.select2({placeholder: "Selecccione los usuarios."});
+						
+						$(this).prop('disabled',true);
+						$(this).next().prop('disabled',false);
+						$(this).next().next().prop('disabled',false);
+						if($(this).is('#new_message_button')){
+							$('#select_users_modal').modal();		
+						}
 						
 					}
 
 					if(type == 'divisional'){
 
+						var search_divisional = $('#search-divisional').clone();
+						search_divisional.appendTo('#users-select');
+						search_divisional.select2({placeholder: "Selecccione a las divisionales."});
+						
+						$(this).prop('disabled',true);
+						$(this).next().prop('disabled',false);
+						$(this).prev().prop('disabled',false);
+
 					}
-					if(type == region){
+					if(type == 'region'){
+
+						var search_region = $('#search-region').clone();
+						search_region.appendTo('#users-select');
+						search_region.select2({placeholder: "Selecccione a las regiones."});
+
+						$('#users-select');
+						$(this).prop('disabled',true);
+						$(this).next().prop('disabled',false);
+						$(this).prev().prop('disabled',false);
 
 					}
 				});
-
-				$('#new-message').click(function(){
-					$('#users-select').empty();
-					var search_ccostos = $('#search-ccostos').clone();
-					
-					search_ccostos.select2('destroy');
-					search_ccostos.appendTo($('#users-select')).select2();
-
-					$('#select_users_modal').modal();
-
-				});
-
-
 
 			});
 		</script>

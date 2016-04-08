@@ -190,6 +190,10 @@
         $(this).find('.fast-actions').css('visibility','hidden');
     });
 
+    $(document).on('click','#post-message-modal-button',function(){
+      console.log($('#post-message-modal-form'));
+      $('#post-message-modal-form').submit();
+    });
   }
 
   
