@@ -23,8 +23,7 @@
     <table class="table-striped table">
       <thead>
         <tr>
-
-
+          <th></th>
           <th>
             Número de empleado
           </th>
