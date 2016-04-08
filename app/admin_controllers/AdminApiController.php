@@ -98,6 +98,10 @@ class AdminApiController extends AdminBaseController
       $query->where('orders.created_at','<=',Input::get('until'));
     }
 
+    if(Input::has('since'))
+      $query->where('orders.created_at','>=',Input::get('since'));
+    if(Input::has('until'))
+      $query->where('orders.created_at','<=',Input::get('until'));
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
@@ -198,12 +202,6 @@ class AdminApiController extends AdminBaseController
       ->orderBy('mac_orders.id')->whereNull('mac_orders.deleted_at');
 
 
-    if(Input::has('month_init') && Input::has('month_end')){
-      $query->where(DB::raw('MONTH(mac_orders.created_at)'),'>=',Input::get('month_init'))
-            ->where(DB::raw('MONTH(mac_orders.created_at)'),'<=',Input::get('month_end'));
-    }
-    if(Input::has('year'))
-      $query->where(DB::raw('YEAR(mac_orders.updated_at)'), Input::get('year'));
 
 
     if(Input::has('status'))
@@ -220,6 +218,12 @@ class AdminApiController extends AdminBaseController
 
     if(Input::has('order_id'))
       $query->where('mac_orders.id',Input::get('order_id'));
+
+    if(Input::has('since'))
+      $query->where('mac_orders.created_at','>=',Input::get('since'));
+    if(Input::has('until'))
+      $query->where('mac_orders.created_at','<=',Input::get('until'));
+
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
