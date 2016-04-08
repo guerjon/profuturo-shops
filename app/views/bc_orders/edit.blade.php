@@ -39,7 +39,7 @@
            {{Form::text("card[{$card->id}][nombre]", $card->nombre, ['class' => 'form-control'])}}
         </td>
         <td>
-          {{$card->direccion}}
+          {{$card->direccion_alternativa}}
         </td>
         <td>
           {{Form::text("card[{$card->id}][direccion_alternativa]", $card->direccion_alternativa,['class' => 'form-control'])}}
@@ -139,7 +139,6 @@
 
   @else 
   Las tarjetas blancas no estan disponibles ya que se llego limite de 100. 
-
   @endif
 
   <div class="form-group text-right">

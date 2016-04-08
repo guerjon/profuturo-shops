@@ -35,6 +35,9 @@
         Dirección
       </th>
       <th>
+        Dirección alternativa
+      </th>
+      <th>
         Teléfono
       </th>
       <th>
@@ -59,7 +62,10 @@
         {{$card->pivot->status ? '' : $card->pivot->comments}}
       </td>
       <td>
-        {{$card->direccion}}
+        {{$card->direccion_alternativa}}
+      </td>
+      <td>
+        {{$card->direccion_alternativa}}
       </td>
       <td>
         {{$card->telefono}}
