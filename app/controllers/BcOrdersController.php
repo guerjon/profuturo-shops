@@ -60,7 +60,7 @@ class BcOrdersController extends BaseController{
               if(strpos($card->nombre_puesto, 'Director') !== FALSE and $director_requested >= 100){
                 $bc_order->delete();
                 return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para director al mes');
-              }elseif(strpos($card->nombre_puesto, 'Gerente') !== FALSE and $manager_requested >= 100){
+              }elseif($manager_requested >= 100){
                 $bc_order->delete();
                 return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para gerente al mes');
               }

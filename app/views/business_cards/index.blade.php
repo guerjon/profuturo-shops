@@ -124,11 +124,7 @@
 $(function(){
 
   $("input[type=checkbox]").change(function(){
-
-
       $('.escondido').show();
-
-
   });
  
   $('form .btn').click(function(event){
