@@ -569,7 +569,7 @@ class ApiController extends BaseController
 
     public function getUserDirecction()
   {
-    $user = User::with('region')->where('ccosto',Input::get('ccostos'))->first();
+    $user = User::with('region')->with('address')->where('ccosto',Input::get('ccostos'))->first();
 
     if($user){
       return Response::json([

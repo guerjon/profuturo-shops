@@ -42,14 +42,14 @@ class AdminBcOrdersController extends AdminBaseController{
 
     }
 
-    $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
-    $orders = BcOrder::orderBy('bc_orders.created_at', 'desc');
+    
+    $orders = DB::table('bc_orders')->select('*','bc_orders.id as order_id')->join('users','users.id','=','bc_orders.user_id')->orderBy('bc_orders.created_at', 'desc');
     if(Input::has('ccosto'))
       $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
     if(Input::has('gerencia'))
-      $orders->where('ccosto', Input::get('gerencia'));
+      $orders->where('users.id', Input::get('gerencia'));
 
-    return View::make('admin::bc_orders.index')->withBcOrders($orders->get())->withGerencias($gerencias);
+    return View::make('admin::bc_orders.index')->withBcOrders($orders->get());
   }
 
   public function show($bc_order_id)

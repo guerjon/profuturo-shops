@@ -105,8 +105,35 @@
       @include('admin::users.partials.users_corporation')
     </div> 
   </div>
-
+  
+  @include('admin::address.partials.change_address')
   
 
 
 @stop
+@section('script')
+  <script>
+    $(function(){
+      $('#cambio').click(function(){
+          var modal = $('#change-address').modal();
+
+          $('#domicilio').text($(this).attr('data-domicilio'));
+          $('#posible_cambio').text($(this).attr('data-posible-cambio'));
+          var action = 'address/'+ $(this).attr('data-id');
+          $('#change-address-form').attr('action',action);          
+          modal.show();
+      });
+
+
+      $('.approve').click(function(){
+        console.log($(this).attr('data-value'));
+        if($(this).attr('data-value') == 1)
+          $('#valor_aprobado').val(1);
+        else
+          $('#valor_aprobado').val(0);
+
+        $('#change-address-form').submit();
+      });
+    });
+  </script>
+@endsection

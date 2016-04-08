@@ -16,7 +16,7 @@ class AdminAddressController extends AdminBaseController
 			
 			if($address->save()){
 				
-				return Redirect::action('AdminOrdersController@index')->withSuccess('Se actualizo correctamente la dirección');
+				return Redirect::back()->withSuccess('Se actualizo correctamente la dirección');
 			}else{
 				return Redirect::back()->withErrors('Surgio algun error al querer guardar la dirección');
 			}

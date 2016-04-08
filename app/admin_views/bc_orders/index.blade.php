@@ -11,7 +11,29 @@
     <li class="active">Pedidos de Tarjetas</li>
   </ol>
 
-@if($bc_orders->count() == 0)
+
+  {{Form::open([
+    'method' => 'GET',
+    'class' => 'form-inline'
+    ])}}
+
+    <div class="form-group">
+      {{Form::select('ccosto', [NULL => 'Todos los CCOSTOS'] + User::where('role','user_paper')->lists('ccosto','id'), Input::get('gerencia'), ['id' =>'select-gerencia-bc-orders','class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+      {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + User::where('role','user_paper')->lists('gerencia','id'), Input::get('gerencia'), ['id' =>'select-gerencia-bc-orders','class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">
+        <span class="glyphicon glyphicon-filter"></span> Filtrar
+      </button>
+    </div>
+  
+  {{Form::close()}}
+<br>
+@if(sizeof($bc_orders) == 0)
 <div class="alert alert-info">
   No hay pedidos de tarjetas de presentación
 </div>
@@ -22,26 +44,7 @@
   <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
 </a>
 
-  {{Form::open([
-    'method' => 'GET',
-    'class' => 'form-inline'
-    ])}}
 
-    <div class="form-group">
-      {{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'CCOSTOS'])}}
-    </div>
-
-    <div class="form-group">
-      {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
-    </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-filter"></span> Filtrar
-      </button>
-    </div>
-
-  {{Form::close()}}
 
 <div class="container-fluid">
 <table class="table table-striped">
@@ -74,19 +77,19 @@
     @foreach($bc_orders as $order)
     <tr>
       <td>
-        {{$order->user->ccosto}}
+        {{$order->ccosto}}
       </td>
       <td>
-        {{$order->user->gerencia}}
+        {{$order->gerencia}}
       </td>
       <td>
-        {{link_to_action('AdminBcOrdersController@show', $order->id, [$order->id])}}
+        {{link_to_action('AdminBcOrdersController@show', $order->order_id, [$order->order_id])}}
       </td>
       <td>
         {{$order->comments}}
       </td>
       <td>
-        {{$order->created_at->format('d-m-Y')}}
+        {{$order->created_at}}
       </td>
       <td>
         @if($order->status == 0)
@@ -116,3 +119,13 @@
 
 @endif
 @stop
+
+
+@section('script')
+  @parent
+  <script>
+    $(function(){
+        $('#select-gerencia-bc-orders').select2();
+    });
+  </script>
+@endsection

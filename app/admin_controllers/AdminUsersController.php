@@ -139,7 +139,7 @@ class AdminUsersController extends AdminBaseController
       ->withAdmins($admins->paginate(10))
       ->withManagers($managers->paginate(10))
       ->withUsersRequests($user_requests->paginate(10))
-      ->withUsersPaper($users_paper->paginate(10))
+      ->withUsersPaper($users_paper->with('address')->paginate(10))
       ->withUsersFurnitures($users_furnitures->paginate(10))
       ->withUsersLoader($users_loader->paginate(10))
       ->withUsersMac($users_mac->paginate(10))

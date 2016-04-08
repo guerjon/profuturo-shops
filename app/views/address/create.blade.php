@@ -115,7 +115,7 @@
         $('.datos').empty();
         $.get('/api/user-direcction/',{ccostos : ui.item.value }, function(data){
           if(data.status == 200){
-            
+            console.log(data);
             $('#gerencia').val(data.user.gerencia);
             
             if(data.user.divisional_id == 1)
@@ -129,8 +129,8 @@
 
             $('#regional').val(data.user.region.name);
             $('#linea_de_negocio').val(data.user.linea_negocio);
-            $('#inmueble').val(data.user.inmueble);
-            $('#domicilio').val(data.user.domicilio);
+            $('#inmueble').val(data.user.address.inmueble);
+            $('#domicilio').val(data.user.address.domicilio);
 
             console.log(data);
 

@@ -11,15 +11,6 @@ class AddressController extends \BaseController {
 	{
 		$users = Address::orderBy('inmueble');
 
-		/*if(Input::has('ccostos'))
-			$users->where('ccosto','LIKE','%'.Input::get('ccostos').'%');
-		if(Input::has('regional'))
-			$users->where('region_id',Input::get('regional'));
-		if(Input::has('divisional'))
-			$users->where('divisional_id',Input::get('divisional'));
-		if(Input::has('linea_de_negocio'))
-			$users->where('linea_negocio','LIKE','%'.Input::get('linea_de_negocio').'%');*/
-
 		if(Input::has('inmueble'))
 			$users->where('inmueble',Input::get('inmueble'));
 
@@ -62,22 +53,40 @@ class AddressController extends \BaseController {
 
 	public function store()
 	{
-		$address = new Address(Input::only(['inmueble','domicilio','gerencia']));
 		$user = User::where('ccosto',Input::get('ccostos'))->first();
+
 		if($user){
-			if($address->save()){
-				$user->address_id = $address->id;
-				if($user->save()){
-					return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario');
-				}else{
-					return Redirect::back()->withErrors(["Se guardo la dirección pero no se asocio al usuario"]);
+			if($user->address_id == 0){
+				$address = new Address(Input::only(['inmueble','domicilio','gerencia']));		
+
+				if($address->save()){
+					$user->address_id = $address->id;
+					if($user->save()){
+						return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario');	
+					}else{Log::debug('f');
+						return Redirect::back()->withErrors(["Se guardo la dirección pero no se asocio al usuario"]);	
+					}
 				}
 			}else{
-				return Redirect::back()->withErrors(["No se pudo guardar la dirección"]);
+				$address = Address::find($user->address_id);
+				if($address){
+					Message::sendMessage(Auth::user()->id,1,"Se solicita un cambio de domicilio para el usuario con CCOSTO :". $user->ccosto);
+					$address->update(['posible_cambio' => Input::get('domicilio')]);
+
+					if($address->save()){
+						return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario, se enviara un mensaje al administrador para su aprobación.');
+					}
+				}else{
+					Log::debug('s');
+					return Redirect::back()->withErrors(["No se pudo guardar la dirección"]);	
+				}				
 			}
+
 		}else{
+			Log::debug('f');
 			return Redirect::back()->withErrors(["No se encontro al usuario."]);
 		}
+
 	}
 
 	/**

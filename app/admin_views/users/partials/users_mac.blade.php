@@ -34,6 +34,7 @@
           <th>Gerencia</th>
           <th>Región</th>
           <th>Extensión</th>
+          <th>Domicilio</th>
           <th></th>
       
         </tr>
@@ -45,10 +46,16 @@
              <td>{{$user_mac->ccosto}}</td>
              <td>{{$user_mac->gerencia}}</td>
              <td>{{$user_mac->region ? $user_mac->region->name : 'N/A'}}</td>
+             <td>{{$user_mac->address ? $user_mac->address->domicilio : 'N/A'}}
+                @if($user_mac->address ? ($user_mac->address->posible_cambio != null) : false )
+                  <button data-id="{{$user_mac->address->id}}" data-domicilio="{{$user_mac->address->domicilio}}" data-posible-cambio="{{$user_mac->address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
+                    Ver cambio domicilio
+                  </button>
+                @endif
+              </td>
             <td>
               @include('admin::users.partials.actions', ['user' => $user_mac])
             </td>
-   
            </tr>
         @endforeach
       </tbody>
