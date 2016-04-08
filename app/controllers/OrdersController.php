@@ -26,7 +26,13 @@ class OrdersController extends BaseController
     //Direcciones y notificaciones
     if(!$address){
       if(Input::has('posible_cambio')){
-        $address = new Address(['posible_cambio' => Input::get('posible_cambio')]);
+        if(Auth::user()->address_id != 0 || Auth::user()->address == null)
+          $address = new Address(['posible_cambio' => Input::get('posible_cambio')]);
+        else{
+          $address = Address::find(Auth::user()->address_id);
+          $address->update(['posible_cambio' => Input::get('posible_cambio')]);
+        }
+          
         if($address->save()){
           //Al guardar el posible cambio lo asignamos al usuario
           $user = Auth::user();

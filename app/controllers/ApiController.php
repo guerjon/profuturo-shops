@@ -597,6 +597,19 @@ class ApiController extends BaseController
     }
   }
 
+  public function getCcostosSelect2()
+  {
+    
+    $ccostos = User::where('role','!=','admin')->lists('ccosto','id');
+ 
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
 
   public function getMessages()
   {
@@ -618,9 +631,10 @@ class ApiController extends BaseController
  public function getCountMessages()
  {
     $number_messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->count();
-    
+    $status =  ($number_messages > 0) ? 200 : 404;
     return Response::json([
       'number_messages' => $number_messages,
+      'status' => $status
     ]);
  }
 

@@ -11,10 +11,19 @@ class GeneralRequestsController extends BaseController{
     $assigneds = ['ASIGNADO','NO ASIGNADO'];
     $active_category = ['ASIGNADO','NO ASIGNADO'];
 
+    $access = DB::table('general_requests')
+                    ->select(DB::raw('count(*) as access'))
+                    ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+                    ->where('user_id',Auth::user()->id)
+                    ->where('satisfaction_surveys.question_one','=','0')->get();
+
+    $access = $access > 1 ? false : true;
+                         
     $requests = Auth::user()->generalRequests()->orderBy('rating')->get();
     return View::make('general_requests.index')->withRequests($requests)
                                                ->withActiveCategory($active_category)
-                                               ->withActiveTab($active_tab);
+                                               ->withActiveTab($active_tab)
+                                               ->withAccess($access);
   }
 
   public function store()
@@ -78,49 +87,53 @@ class GeneralRequestsController extends BaseController{
     $email = $request->employee_email;
     $name = $request->employee_name;
     $estado = $request->status_str;
-    $base = app_path();
+    
 
 
 
     if($status == 10){
+      $direccion = "encuesta-satisfaccion/questions/".$request->id;
     
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'base' => $base,'request' => $request],function($message) use ($email,$name,$estado){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => $direccion,'request' => $request],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
       });
     
       $email = "karina.ascencionhernandez@profuturo.com.mx";
     
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
 
       $email = $request->manager->email;
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request],function($message) use ($email,$name,$estado,$request){
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
     }else{
-
       
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado){
+      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request,'direccion' => ''],function($message) use ($email,$name,$estado){
         $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
       });
 
+      // Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request,'direccion' => ''],function($message) use ($email,$name,$estado){
+      //   $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
+      // });
 
-      $email = "karina.ascencionhernandez@profuturo.com.mx";
+
+      // $email = "karina.ascencionhernandez@profuturo.com.mx";
     
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
-        $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
-      });
+      // Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request,'direccion' => ''],function($message) use ($email,$name,$estado,$request){
+      //   $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
+      // });
  
 
-      $email = $request->manager->email;
+      // $email = $request->manager->email;
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request],function($message) use ($email,$name,$estado,$request){
-        $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
-      });
+      // Mail::send('admin::email_templates.general_request',['estado' => $estado,'request' => $request,'direccion' => ''],function($message) use ($email,$name,$estado,$request){
+      //   $message->to($email,$name)->subject("La solicitud ".$request->id." cambio de estatus. ");
+      // });
 
     }
     

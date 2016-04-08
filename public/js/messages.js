@@ -76,26 +76,67 @@
       $('#pagination_pagination_message').empty();
 
     
-      table.append('<thead><th>CCOSTOS</th><th style="border-right: 0px;">MENSAJE</th><th style="border-left: 0px;"></th></thead>');
+      table.append('<thead>' +
+                      '<th style="border-right: 0px;border-left:0px">GERENCIA</th>' +
+                      '<th style="border-right: 0px;border-left:0px">CCOSTO</th>' +
+                      '<th style="border-right: 0px;border-left:0px">MENSAJE</th>' +
+                      '<th style="border-right: 0px;border-left:0px">FECHA</th>' +
+                      '<th style="border-left: 0px;"></th>' +
+                   '</thead>');
       table.append('<tbody>');
-     console.log(datos);
+     
       for (var i = datos.length - 1; i >= 0; i--) {
 
         if(datos[i].ccosto == 1){
 
-          table.append('<tr class="message_row"><td>Administrador</td><td style="border-right:0px;">' +
-                         datos[i].body +'</td><td widht="20" style="border-left:0px;">' + 
-                         '<span style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span> Responder</span></span> ' +
-                         '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><span><div class="arrow"></div>Marcar como no leido</span></span>' +
-                         '</td></tr>');
+          table.append('<tr class="message_row"> '+
+                            '<td style="border-right:0px;">'+
+                              datos[i].gerencia+
+                            '</td>' +
+                            '<td style="border-right: 0px;border-left:0px;">'+
+                              'Administrador'+
+                           '</td>' +
+                           '<td style="border-right: 0px;border-left:0px;"><h5>' +
+                            datos[i].body+
+                           '</h5></td>' +
+                          '<td style="border-right:0px;border-left:0px;">'+
+                            datos[i].created_at+
+                          '</td>' +
+                          '<td width="20" style="border-left: 0px;border-left:0px;">'+
+                          '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions ">'+
+                              '<div class="arrow"></div>'+
+                              '<span>Responder</span>' +
+                          '</span>' +
+                          '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions ">'+
+                            '<div class="arrow"></div>'+
+                            '<span>Marcar como no leido</span>'+
+                          '</span>' +
+                        '</tr>');
         }else{
-          table.append('<tr class="message_row" ><td>'+
-            datos[i].ccosto+
-            '</td> <td style="border-right: 0px;">' +
-            datos[i].body +'</td><td width="20" style="border-left: 0px;">'+ 
-            '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions "><div class="arrow"></div><span>Responder</span></span>' +
-            '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions "><div class="arrow"></div><span>Marcar como no leido</span></span>' +
-            '</td></tr>');
+
+          table.append('<tr class="message_row"> '+
+                          '<td style="border-right:0px;">'+
+                            datos[i].gerencia+
+                          '</td>' +
+                          '<td style="border-right: 0px;border-left:0px;">'+
+                            datos[i].ccosto+
+                         '</td>' +
+                         '<td style="border-right: 0px;border-left:0px;">' +
+                          datos[i].body+
+                         '</td>' +
+                        '<td style="border-right:0px;border-left:0px;">'+
+                          datos[i].created_at+
+                        '</td>' +
+                        '<td width="20" style="border-left: 0px;border-left:0px;">'+ 
+                        '<span data-id="' + datos[i].id +'" data-ccosto="' + datos[i].ccosto +'"  style="visibility:hidden" class="glyphicon glyphicon-share-alt fast-actions ">'+
+                            '<div class="arrow"></div>'+
+                            '<span>Responder</span>' +
+                        '</span>' +
+                        '<span style="visibility:hidden" class="glyphicon glyphicon-record fast-actions ">'+
+                          '<div class="arrow"></div>'+
+                          '<span>Marcar como no leido</span>'+
+                        '</span>' +
+                      '</tr>');
         }
         
       
@@ -108,7 +149,7 @@
               if(messages.current_page > 8 && messages.current_page < messages.last_page - 2){
                   if(messages.current_page+1 == messages.last_page - 3){
                     spanPointsCreate($('#pagination_pagination_message'));
-                    listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.last_page+1);            
+                    listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.last_page+1);         
                   }else{
                     listsCreate($('#pagination_pagination_message'),messages,messages.current_page-7,messages.current_page+1);            
                     spanPointsCreate($('#pagination_pagination_message'));
@@ -129,22 +170,16 @@
     });
     var modal =  $('#message-modal').modal();
 
-    // $('.message_row').hover(function(e){
-
-    // });
     $(document).on('click','.fast-actions',function(){
       $('#message-modal').modal('toggle');
       $('#select_users_modal').modal();
       var ccostos = $(this).attr('data-ccosto');
       var id = $(this).attr('data-id');
-      var defaultData =[{id:id,text:ccostos}];
-      console.log($('.js-example-basic-multiple').data().select2.updateSelection(defaultData));
-      
-      
-       
+
+      $('#search-ccostos').val(id).select2();
+
     });
 
-  
     $(document).on('mouseover','.message_row',function(){
         $(this).addClass('active');
         $(this).find('.fast-actions').css('visibility','visible');
@@ -155,7 +190,9 @@
         $(this).find('.fast-actions').css('visibility','hidden');
     });
 
-  } 
+  }
+
+  
 
 
   

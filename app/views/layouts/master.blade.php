@@ -60,6 +60,35 @@
 									</a>
 								</li>
 								
+								@if(Auth::user()->role == 'user_paper')
+									<li>
+										<a href="/carrito" style="font-size:32px" >
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+
+								@elseif(Auth::user()->role == 'user_furnitures')
+									<li>
+										<a href="/carrito_muebles" style="font-size:32px">
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+
+								@elseif(Auth::user()->role == 'user_mac' )
+									<li>
+										<a href="/carrito-mac" style="font-size:32px">
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+
+								@elseif(Auth::user()->role == 'user_corporation')
+									<li>
+										<a href="/carrito-corporativo" style="font-size:32px">
+											<span class="glyphicon glyphicon-shopping-cart"></span>
+										</a>
+									</li>
+								@endif
+
 								<li class="dropdown">
 
 									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -70,6 +99,7 @@
 										<span class="caret"></span>
 
 									</a>
+
 
 									<ul class="dropdown-menu" role="menu">
 									@if(Auth::user()->is_admin)
@@ -138,6 +168,7 @@
 
 			$(function(){
 				$.slidebars();
+				window.magic_select = $('#search-ccostos').clone();
 
 				$('.notification-link').click(function(event){
 					$.post('/admin/api/notification-marker',{id:$(this).attr('data-notification-id')},function(data){
@@ -178,7 +209,9 @@
 			        }
       			});
 
-
+				/**
+				*Función que realiza la petición al servidor para ver si hay mensajes nuevos
+				*/
       			(function worker() {
 				  $.ajax({
 				    url: '/api/count-messages/', 
@@ -197,6 +230,52 @@
 				    }
 				  });
 				})();
+
+				$('#message-by-divisional').click(function(){
+					$('#users-select').html(
+						'<select class="form-control">'+
+							'<option value="null">Seleccione la divisional</option>'+
+							'<option value="1">DIRECCION MERCADOTECNIA Y VALOR AL CLIENTE</option>'+
+							'<option value="2">DIRECCION DIVISIONAL SUR</option>'+
+							'<option value="3">DIRECCION DIVISIONAL NORTE</option>'+
+							'<option value="4">DIRECCION REGIONAL DE NEGOCIOS DE GOBIERNO Y PENSIONES</option>'+
+						'</select>');
+					
+					$('#message-options').empty();
+
+					$('#message-by-user').appendTo($('#message-options'));
+					$('#message-by-region').appendTo($('#message-options'));
+
+				});
+
+
+				$('.message-type').click(function(){
+					type = $(this).attr('data-type');
+					if(type == 'user'){
+						
+					}
+
+					if(type == 'divisional'){
+
+					}
+					if(type == region){
+
+					}
+				});
+
+				$('#new-message').click(function(){
+					$('#users-select').empty();
+					var search_ccostos = $('#search-ccostos').clone();
+					
+					search_ccostos.select2('destroy');
+					search_ccostos.appendTo($('#users-select')).select2();
+
+					$('#select_users_modal').modal();
+
+				});
+
+
+
 			});
 		</script>
 		@yield('script')

@@ -187,7 +187,8 @@ class AdminApiController extends AdminBaseController
       mac_categories.name as CATEGORY,
       (mac_products.price * mac_order_mac_product.quantity) as PRICE,
       address.domicilio as ADDRESS,
-      mac_orders.id as ORDER_ID
+      mac_orders.id as ORDER_ID,
+      mac_products.mba_code as MBA
       "))
       ->join('mac_products', 'mac_products.id', '=', 'mac_order_mac_product.mac_product_id')
       ->join('mac_orders', 'mac_orders.id' , '=', 'mac_order_mac_product.mac_order_id')
@@ -1200,6 +1201,22 @@ class AdminApiController extends AdminBaseController
   }
  
   public function getBIAutocomplete()
+  {
+    
+    $orders = Order::all()->lists('id');
+    $ccostos = User::all()->lists('ccosto');
+ 
+
+    if(Request::ajax()){
+      return Response::json([
+        'status' => 200,
+        'orders' => $orders,
+        'ccostos' => $ccostos
+      ]);
+    }
+  }
+
+  public function getBIMacAutocomplete()
   {
     
     $orders = Order::all()->lists('id');
