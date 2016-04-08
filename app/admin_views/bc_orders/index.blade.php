@@ -18,7 +18,8 @@
     ])}}
 
     <div class="form-group">
-      {{Form::select('ccosto', [NULL => 'Todos los CCOSTOS'] + User::where('role','user_paper')->lists('ccosto','id'), Input::get('gerencia'), ['id' =>'select-gerencia-bc-orders','class' => 'form-control'])}}
+      {{Form::select('ccosto', [NULL => 'Todos los CCOSTOS'] + User::where('role','user_paper')->lists('ccosto','id'), Input::get('ccosto'), 
+      ['id' =>'select-ccostos-bc-orders','class' => 'form-control'])}}
     </div>
 
     <div class="form-group">
@@ -122,10 +123,11 @@
 
 
 @section('script')
-  @parent
+  
   <script>
     $(function(){
         $('#select-gerencia-bc-orders').select2();
+        $('#select-ccostos-bc-orders').select2();
     });
   </script>
 @endsection
