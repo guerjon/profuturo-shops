@@ -42,7 +42,7 @@ class BcOrdersController extends BaseController{
           ->where(DB::raw('bc_orders.user_id'), Auth::id())
           ->where(DB::raw('business_cards.nombre_puesto'), 'LIKE', '%Director%')
           ->where(DB::raw('bc_orders.updated_at'), '>=', $date->toDateString())->first()->quantity;
-        $manager_requested = DB::table('bc_order_business_card')->select(DB::raw('SUM(quantity) as quantity'))
+            $manager_requested = DB::table('bc_order_business_card')->select(DB::raw('SUM(quantity) as quantity'))
           ->leftJoin('business_cards', 'bc_order_business_card.business_card_id', '=', 'business_cards.id')
           ->leftJoin('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
           ->where(DB::raw('bc_orders.user_id'), Auth::id())
@@ -60,7 +60,7 @@ class BcOrdersController extends BaseController{
               if(strpos($card->nombre_puesto, 'Director') !== FALSE and $director_requested >= 100){
                 $bc_order->delete();
                 return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para director al mes');
-              }elseif($manager_requested >= 100){
+              }elseif(strpos($card->nombre_puesto, 'Gerente') !== FALSE and $manager_requested >= 100){
                 $bc_order->delete();
                 return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para gerente al mes');
               }
