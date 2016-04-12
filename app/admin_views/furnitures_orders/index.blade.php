@@ -11,7 +11,7 @@
     <li class="active">Pedidos Mobiliario</li>
   </ol>
 
-@if($orders->count() == 0)
+@if(sizeof($orders) == 0)
 <div class="alert alert-info">
   No se han realizado pedidos todavía.
 </div>
@@ -78,19 +78,19 @@
       @foreach($orders as $order)
       <tr>
       <td>
-      {{$order->user->gerencia}}
+      {{$order->gerencia}}
       </td>
         <td>
-          {{$order->user->ccosto}}
+          {{$order->ccosto}}
         </td>
         <td>
-          {{link_to_action('AdminFurnituresOrdersController@show', $order->id, [$order->id])}}
+          {{link_to_action('AdminFurnituresOrdersController@show', $order->order_id, [$order->order_id])}}
         </td>
         <td>
           {{$order->comments}}
         </td>
         <td>
-          {{$order->created_at->format('d-m-Y')}}
+          {{$order->order_created_at}}
         </td>
            <td>
           @if($order->status == 0)
@@ -98,10 +98,7 @@
           @elseif($order->status==1)
           Recibido <span class="glyphicon glyphicon-check"></span>
           @elseif($order->status==2)
-          Recibido incompleto.
-          @if($complain = $order->order_complain)
-          <small>{{$complain->complain}}</small>
-          @endif
+          Recibido incompleto.          
           @endif
         </td>
          <td>

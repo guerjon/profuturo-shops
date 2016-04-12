@@ -45,7 +45,11 @@ class AdminFurnituresOrdersController extends BaseController
     }
 
     $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
-    $orders = FurnitureOrder::join('users','furniture_orders.user_id','=','users.id')->orderBy('furniture_orders.created_at', 'desc');
+    $orders = DB::table('furniture_orders')
+                ->select(DB::raw('*,furniture_orders.id as order_id,furniture_orders.created_at as order_created_at'))
+                ->join('users','furniture_orders.user_id','=','users.id')
+                ->orderBy('furniture_orders.created_at', 'desc');
+
     if(Input::has('ccosto'))
       $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
     if(Input::has('gerencia'))
