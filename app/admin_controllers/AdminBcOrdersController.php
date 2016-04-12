@@ -43,7 +43,7 @@ class AdminBcOrdersController extends AdminBaseController{
     }
 
     
-    $orders = DB::table('bc_orders')->select('*','bc_orders.id as order_id')->join('users','users.id','=','bc_orders.user_id')->orderBy('bc_orders.created_at', 'desc');
+    $orders = DB::table('bc_orders')->select('*','bc_orders.id as order_id','bc_orders.created_at as order_created_at')->join('users','users.id','=','bc_orders.user_id')->orderBy('bc_orders.created_at', 'desc');
     if(Input::has('ccosto'))
       $orders->where('users.id',Input::get('ccosto'));
     if(Input::has('gerencia'))

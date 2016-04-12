@@ -90,7 +90,7 @@
         {{$order->comments}}
       </td>
       <td>
-        {{$order->created_at}}
+        {{$order->order_created_at}}
       </td>
       <td>
         @if($order->status == 0)
