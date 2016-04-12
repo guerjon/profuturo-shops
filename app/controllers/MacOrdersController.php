@@ -17,14 +17,22 @@ class MacOrdersController extends \BaseController {
   
     if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
       
-      $address = Auth::user()->address;
-      $address->posible_cambio = Input::get('posible_cambio');
-      if($address->save()){
-        Log::debug("Guardo de dirección exitoso");
+        $address = Auth::user()->address;
+        if($address){
+          $address->posible_cambio = Input::get('posible_cambio');
+        if($address->save()){
+          Log::debug("Guardo de dirección exitoso");
+        }else{
+          Log::debug($address->getErrors());
+        }
       }else{
-        Log::debug($address->getErrors());
-      }
-
+        $address = new Address(['domicilio' => Input::get('posible_cambio')]);
+        if($address->save()){
+          Auth::user()->address_id = $address->id;
+          Auth::user()->save();
+          Log::debug('Se creo la dirección y se asigno al usuario');
+        }
+      } 
     }   
 
     $order = new MacOrder(Input::except('domicilio_original','posible_cambio'));
