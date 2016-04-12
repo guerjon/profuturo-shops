@@ -2,6 +2,15 @@
 @extends('layouts.master')
 
 @section('content')
+@if($errors->count() > 0)
+  <div class="alert alert-danger">
+    <ul>
+      @foreach($errors->all() as $error)
+      <li>{{$error}}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
 
     @if(Auth::user()->cart_mac->count() == 0)
       <div class="alert alert-warning">

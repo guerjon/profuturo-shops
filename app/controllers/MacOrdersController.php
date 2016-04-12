@@ -9,14 +9,18 @@ class MacOrdersController extends \BaseController {
 
   public function store()
   {
-    
+  
     if(Auth::user()->cart_mac->count() == 0)
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
+
+    if(!Input::has('domicilio_original') and !Input::has('posible_cambio'))
+          return Redirect::back()->withErrors('Se necesita una dirección para enviar el pedido');
+
   
     if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-      
+        
         $address = Auth::user()->address;
         if($address){
           $address->posible_cambio = Input::get('posible_cambio');
@@ -26,7 +30,9 @@ class MacOrdersController extends \BaseController {
           Log::debug($address->getErrors());
         }
       }else{
+          
         $address = new Address(['domicilio' => Input::get('posible_cambio')]);
+
         if($address->save()){
           Auth::user()->address_id = $address->id;
           Auth::user()->save();
