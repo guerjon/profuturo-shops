@@ -69,15 +69,15 @@
           </div>
           <div class="col col-xs-6">
           <?
-          $access = false;
+          $access_survey = false;
           $surveys = DB::table('general_requests')
                 ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
                 ->where('satisfaction_surveys.general_request_id',$request->id)->count();
 
           if($request->status == 10 and $surveys == 0)
-            $access = true;
+            $access_survey = true;
         ?>
-          @if($access)
+          @if($access_survey)
             {{Form::open(['method' => 'get','action' => 'SatisfactionSurveyController@getSurvey'])}}
               <input type="text" class="hide" value="{{$request->id}}" name="general_request_id">
               <button type="submit" class="btn btn-sm btn-info btn-survey" data-request-id="{{$request->id}}">Contestar encuesta</button>
