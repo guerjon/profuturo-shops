@@ -60,8 +60,31 @@
           {{ $request->created_at}}
         </td>
       <td>
-        <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>
-        <button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">Eliminar</button>
+        <div class="row">
+          <div class="col col-xs-3">
+            <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>    
+          </div>
+          <div class="col col-xs-3">
+            <button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">Eliminar</button>    
+          </div>
+          <div class="col col-xs-6">
+          <?
+          $access = false;
+          $surveys = DB::table('general_requests')
+                ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+                ->where('satisfaction_surveys.general_request_id',$request->id)->count();
+
+          if($request->status == 10 and $surveys == 0)
+            $access = true;
+        ?>
+          @if($access)
+            {{Form::open(['method' => 'get','action' => 'SatisfactionSurveyController@getSurvey'])}}
+              <input type="text" class="hide" value="{{$request->id}}" name="general_request_id">
+              <button type="submit" class="btn btn-sm btn-info btn-survey" data-request-id="{{$request->id}}">Contestar encuesta</button>
+            {{Form::close()}}
+          @endif    
+          </div>
+        </div>
       </td>
       </tr>
       @endforeach
@@ -72,7 +95,7 @@
 @if(Auth::user()->isUserRequests)
 
   <div class="text-right">
-  @if($access)
+  @if(!$access)
     <a data-toggle="modal" data-target="#create-request-modal" class="btn btn-warning">Crear nueva solicitud</a>
   @else
     <p>Se necesita contestar las encuesta de satisfacción para continuar.</p>
@@ -218,6 +241,8 @@
     });
 
   });
+
+
 
 </script>
 @stop

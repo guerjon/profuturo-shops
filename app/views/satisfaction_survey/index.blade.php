@@ -151,36 +151,6 @@
                                     {{Form::textarea('explain_4',null,['class' => 'form-control','size' => '20x3','required'])}}
                                   </td>
                                 </tr>
-                                <tr>
-                                  <td>
-                                    {{Form::label('question_four','¿Volverías a usar la plataforma para realizar nuevas solicitudes?')}}
-                                  </td>
-                                  <td>
-                                        <label class="radio-inline">
-                                          {{Form::radio('question_four','1',['default' => 'true'])}} Totalmente de acuerdo
-                                        </label>
-                                  </td>
-                                  <td>
-                                      <label for="" class="radio-inline">
-                                          {{Form::radio('question_four','2')}}De acuerdo
-                                      </label>
-                                        
-                                  </td>
-                                  <td>
-                                      <label for="" class="radio-inline">
-                                        {{Form::radio('question_four','3')}}En desacuerdo  
-                                      </label>      
-                                  </td>
-                                  <td>
-                                      <label for="" class="radio-inline">
-                                        {{Form::radio('question_four','4')}} Totalmente en desacuerdo
-                                      </label>
-                                  </td>
-                                  <td>
-                                    <label for="explain_5" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_5',null,['class' => 'form-control','size' => '20x3','required'])}}
-                                  </td>
-                                </tr>
                               </tbody>
                               
                             </table>

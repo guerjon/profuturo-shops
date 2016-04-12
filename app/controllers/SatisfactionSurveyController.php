@@ -22,30 +22,30 @@ class SatisfactionSurveyController extends BaseController{
 			}else{
 				return View::make('satisfaction_survey.index')->withErrors('La solicitud general fue eliminada o desabilitada.');		
 			}
-			
 		}
 
 	}
 
 	public function postQuestions($id)
 	{	
-
+		//Despues de contestar la encuesta la creamos
 		$survey = new SatisfactionSurvey(Input::all());
-		
+		//le asignamos el general_request de donde viene
 		$survey->general_request_id = $id;
 
 		if($survey->save()){
-			return Redirect::back()->withSuccess('La encuesta se guardo correctamente,gracias.')->withSatisfactionSurvey($survey);
+			return Redirect::action('GeneralRequestsController@index')->withSuccess('La encuesta se guardo correctamente, gracias.')->withSatisfactionSurvey($survey);
 		}else{
-			return Redirect::back()->withErrors('La encuesta no se pudo guardar, intente mas tarde.');
+			return Redirect::action('GeneralRequestsController@index')->withErrors('Algo salio mal al guardar la encuesta intente mas tarde.');
 		}
 	}
+
+
 
 	public function getIndex(){
 		$requests = Auth::user()->generalRequests()->orderBy('rating')->get();
 
 		return View::make('general_requests.index')->withRequests($requests);	
-
 	}
 
 	public function postSatisfactionSurvey(){
@@ -77,4 +77,26 @@ class SatisfactionSurveyController extends BaseController{
 			}
 		}	
 	}	
+
+	public function getSurvey()
+	{
+		$id = Input::get('general_request_id');
+		$survey = SatisfactionSurvey::where('general_request_id',$id)->first();
+		if($survey){
+			$general_request = GeneralRequest::find($id);
+			if($general_request){
+				return View::make('satisfaction_survey.index')->withGeneralRequest($general_request)->withSurvey($survey);	
+			}else{
+				return View::make('satisfaction_survey.index')->withErrors('La solicitud general fue eliminada o desabilitada.');	
+			}
+			
+		}else{
+			$general_request = GeneralRequest::find($id);
+			if($general_request){
+				return View::make('satisfaction_survey.index')->withGeneralRequest($general_request);				
+			}else{
+				return View::make('satisfaction_survey.index')->withErrors('La solicitud general fue eliminada o desabilitada.');		
+			}
+		}
+	}
 }

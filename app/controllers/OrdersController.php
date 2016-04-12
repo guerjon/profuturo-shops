@@ -39,9 +39,6 @@ class OrdersController extends BaseController
           $user->address_id = $address->id;
           //Vamos a crear los mensajes para la notificacion
 
-
-          
-
           
             if($user->save()){
               Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
