@@ -12,12 +12,20 @@ class GeneralRequestsController extends BaseController{
     $active_category = ['ASIGNADO','NO ASIGNADO'];
 
     $access = DB::table('general_requests')
-                    ->select(DB::raw('count(*) as access'))
-                    ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
                     ->where('user_id',Auth::user()->id)
-                    ->where('satisfaction_surveys.question_one','=','0')->get();
+                    ->where('general_requests.status',10)
+                    ->count();
 
-    $access = $access > 1 ? false : true;
+    $surveys_answered = DB::table('general_requests')
+                          ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+                          ->where('user_id',Auth::user()->id)
+                          ->count();                
+                    Log::debug('--------------------------------------------');
+                    
+    Log::debug("numero de solicitudes hechas".$access);
+    Log::debug("numero de encuestas contestadas".$surveys_answered);
+
+    $access = $access  == $surveys_answered ? true : false;
                          
     $requests = Auth::user()->generalRequests()->orderBy('rating')->get();
     return View::make('general_requests.index')->withRequests($requests)
