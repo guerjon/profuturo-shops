@@ -1,34 +1,35 @@
 @extends('layouts.master')
 
 @section('content')
-<ul class="nav nav-tabs">
-  <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
-    <a href="/mobiliario">Todas</a>
-  </li>
-  @foreach($categories as $category)
-  <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
-    <a href="/mobiliario/{{$category->id}}">{{$category->name}}</a>
-  </li> 
-  @endforeach
-</ul>
-<br>
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="{{$activeCategory ? '' : 'active'}}">
+      <a href="/mobiliario">Todas</a>
+    </li>
+    @foreach($categories as $category)
+    <li role="presentation" class="{{($activeCategory !== NULL and $activeCategory->id == $category->id) ? 'active' : ''}}">
+      <a href="/mobiliario/{{$category->id}}">{{$category->name}}</a>
+    </li> 
+    @endforeach
+  </ul>
+  <br>
 
-{{Form::open([
-'class' => 'form-horizontal',
-'method' => 'GET'
-])}}
+  {{Form::open([
+  'class' => 'form-horizontal',
+  'method' => 'GET'
+  ])}}
 
 {{Form::label('name', 'Nombre corto', ['class' => 'control-label col-xs-2 col-xs-offset-5'])}}
 
-<div class="col-xs-4">
-  {{Form::text('name', Input::get('name'), ['class' => 'form-control'])}}
-</div>
+    <div class="col-xs-4">
+      {{Form::text('name', Input::get('name'), ['class' => 'form-control'])}}
+    </div>
 
 
-<div class="col-xs-1 text-right">
-  {{Form::submit('Buscar', ['class' => 'btn btn-default'])}}
-</div>
-{{Form::close()}}
+    <div class="col-xs-1 text-right">
+      {{Form::submit('Buscar', ['class' => 'btn btn-default'])}}
+    </div>
+  
+  {{Form::close()}}
 
 <hr>
   

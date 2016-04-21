@@ -7,14 +7,17 @@ class FurnituresController extends BaseController
   {
 
     $furnitures = Furniture::select('*');
+    
     if(Input::has('name')){
       $furnitures->where('name', 'like', "%".Input::get('name')."%");
     }
+   
     $activeCategory = FurnitureCategory::find($category_id);
     $companies = ['AFORE','GRUPO','PENSIONES','PRESTAMOS','FONDOS'];
     $assets = ['Bienes y enseres','Oficina']; 
+    
     if($category_id != null){
-
+      
       return View::make('furnitures.index')->with([
       'furnitures' => $furnitures->where('furniture_category_id','=',$category_id)->paginate(15),
       'categories' => FurnitureCategory::all(),
