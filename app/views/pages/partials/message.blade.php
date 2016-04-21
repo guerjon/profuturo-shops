@@ -9,7 +9,7 @@
 							<h4 class="modal-title">Mensajes directos</h4>
 						</div>
 						<div class="col col-xs-1">
-						    <a href="#" data-dismiss="modal" class="btn btn-primary message-type " id="new_message_button" data-type = "user" >
+						    <a href="#" data-dismiss="modal" data-role="{{Auth::user()->role}}" class="btn btn-primary message-type " id="new_message_button" data-type = "user" >
 	    						<span class="glyphicon glyphicon-plus " ></span> Mensaje nuevo
 	  						</a>
 						</div>
@@ -79,15 +79,18 @@
 						<div class="form-group">
 							{{Form::textArea('mensaje',null,['class' => 'form-control','placeholder' =>  'Ingrese el mensaje','required'])}}	
 						</div>
+						<input value="user" type="text" class="hide" name="message_type" id="hidden-message-type">
+
 					{{Form::close()}}
 				</div> 
-
-				<div class="modal-footer">
-					<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por usuario</button>
-					<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
-					<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
-					<button id="post-message-modal-button" type="button" class="btn btn-default">Enviar</button>
-				</div>
+				
+					<div class="modal-footer">
+						<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por usuario</button>
+						<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
+						<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
+						<button id="post-message-modal-button" type="button" class="btn btn-default">Enviar</button>
+					</div>
+				
 			</div>
 		</div>
 	</div>

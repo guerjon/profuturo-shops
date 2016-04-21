@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Profuturo Insumos</title>
-
+	
 		<!-- Bootstrap -->
 		<!--<link rel="stylesheet" href="/css/slidebars.css" media="screen" title="no title" charset="utf-8">-->
 		<!--<link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">-->
@@ -126,8 +126,8 @@
 								<li><a href="/login">Iniciar sesión</a></li>
 							@endif
 						</ul>
-					</div><!-- /.navbar-collapse -->
-				</div><!-- /.container-fluid -->
+					</div>
+				</div>
 			</nav>
 			<div class="container-fluid">
 
@@ -186,10 +186,8 @@
 					 }
 				});
 
-
-
 				$(document).on('click','.message-type',function(){
-
+					//messages_update esta en el archivo messages.js 
 					messages_update($(this).attr('data-type'));
 					changeTab($(this).attr('data-type'));
 				});
@@ -294,6 +292,13 @@
 						$(this).prev().prop('disabled',false);
 
 					}
+					if($(this).attr('data-role') != 'admin'){
+						$('.modal-footer .message-type').remove();
+					}
+				});
+		
+				$('#message-modal').on('hidden.bs.modal', function () {
+					$('.numberCircle').remove();
 				});
 
 			});

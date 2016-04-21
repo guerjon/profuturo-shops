@@ -614,11 +614,31 @@ class ApiController extends BaseController
   public function getMessages()
   {
     $active_tab_message = Input::get('active_tab_message');
-    Log::debug(Input::all());
+    
+        $mark_messages = Message::where('receiver_id',Auth::user()->id)
+                                    ->orderBy('messages.created_at','desc')
+                                    ->get();
+        
+        foreach ($mark_messages as $messages){
+          $messages->update(['read_at' => \Carbon\Carbon::now()]);
+        }
+
     if($active_tab_message == 'enviados'){
-      $messages = DB::table('messages')->join('users','users.id','=','receiver_id')->where('sender_id',Auth::user()->id)->orderBy('messages.created_at','desc')->paginate(5)->toJson();
+
+      $messages = DB::table('messages')
+        ->join('users','users.id','=','receiver_id')
+        ->where('sender_id',Auth::user()->id)
+        ->orderBy('messages.created_at')
+        ->paginate(5)
+        ->toJson();
+
     }else{
-      $messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->orderBy('messages.created_at','desc')->paginate(5)->toJson();
+      $messages = DB::table('messages')
+        ->join('users','users.id','=','sender_id')
+        ->where('receiver_id',Auth::user()->id)
+        ->orderBy('messages.created_at')
+        ->paginate(5)
+        ->toJson();
     }
     
     return Response::json([
@@ -630,7 +650,12 @@ class ApiController extends BaseController
 
  public function getCountMessages()
  {
-    $number_messages = DB::table('messages')->join('users','users.id','=','sender_id')->where('receiver_id',Auth::user()->id)->count();
+    $number_messages = DB::table('messages')
+                          ->join('users','users.id','=','sender_id')
+                          ->where('receiver_id',Auth::user()->id)
+                          ->where('read_at',null)
+                          ->count();
+
     $status =  ($number_messages > 0) ? 200 : 404;
     return Response::json([
       'number_messages' => $number_messages,

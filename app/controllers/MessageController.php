@@ -4,15 +4,16 @@ class MessageController extends \BaseController {
 
 	public function store()
 	{
+
 		$users = Input::get('users');
 		Log::debug(Input::all());
 		$body = Input::get('mensaje');
 		
 		$type = Input::get('message_type');
-
+		
 		switch ($type) {
 			case 'user':
-					
+				
 				if($this->sendUserMessage(Input::get('users'),$body))
 					return Redirect::back()->withSuccess('El mensaje fue enviado con exito');
 				else
@@ -37,6 +38,8 @@ class MessageController extends \BaseController {
 					return Redirect::back()->withErrors("Algo salio mal");
 					
 				break;
+
+
 		}
 	}
 
