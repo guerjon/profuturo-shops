@@ -23,7 +23,18 @@
       'role' => 'form'
       ])}}
       <div class="text-center">
-        <img id="img-home" src="/img/home.png">
+        <div class="row">
+          <div class="col">
+            <img id="img-home" src="/img/home.png">    
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <img id="img-inside" src="/img/text-login.png">  
+          </div>
+        </div>
+        
+
       </div>
       <div class="form-group">
         {{Form::label('ccosto', 'Centro de costos o número de empleado:')}}

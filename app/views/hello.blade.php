@@ -29,6 +29,8 @@
 	</style>
 	<div class="welcome">
 		<img id="img-inside" src="/img/inside.png">
+		<img id="img-inside" src="/img/text-home.png">
+
 	</div>
 
 @if(@$success)

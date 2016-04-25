@@ -24,6 +24,7 @@
       ])}}
       <div class="text-center">
         <img id="img-home" src="/img/home.png">
+        <img id="img-inside" src="/img/text-home.png">
       </div>
       <div class="form-group">
         {{Form::label('email', 'Correo electrónico')}}
