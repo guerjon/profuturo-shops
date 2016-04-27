@@ -1912,29 +1912,38 @@ class AdminApiController extends AdminBaseController
 
   public function getSurvey()
   {
+    Log::debug(Input::all());
+    
 
     $surveys = DB::table('satisfaction_surveys')->select(
         DB::raw('avg(question_one) as uno,
                   avg(question_two) as dos,
                   avg(question_three) as tres,
                   avg(question_four) as cuatro,
-                  avg(question_five) as cinco,
                   count(general_requests.id) as total'
                   ))
             ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
             ->join('users','users.id','=','general_requests.manager_id');
 
+    
     if(Input::has('since'))
       $surveys->where('general_requests.created_at','>',Input::get('since'));
 
     if(Input::has('until'))
       $surveys->where('general_requests.created_at','<',Input::get('until'));
 
-    if(Input::has('consultor'))
-      $surveys->where('users.id','=',Input::get('id'));
+    if(Input::has('gerencia'))
+      $surveys->where('users.id','=',Input::get('gerencia'));
 
     if(Input::has('solicitud'))
-      $surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));
+      $surveys->where('general_requests.id','=',Input::get('solicitud'));
+
+    if(Input::has('encuesta')){
+      $surveys->where('satisfaction_surveys.id','=',Input::get('encuesta'));
+    }
+
+    if(Input::has('regional'))
+      $surveys->where('users.region_id','=',Input::get('regional'));
 
 
       return Response::json([

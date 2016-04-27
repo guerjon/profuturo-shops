@@ -15,11 +15,15 @@
 		<link rel="stylesheet" href="/css/calendario.css" media="screen" title="no title" charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+		
+		<link href="/css/select2.css" rel="stylesheet">
+		<link href="/css/select2-bootstrap.css"  rel="stylesheet">
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 		<![endif]-->
+		
 	</head>
 	<body>
 		<div class="sb-slidebar sb-left">
@@ -160,7 +164,7 @@
 		 src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['corechart']}]}"></script>
 		<script type="text/javascript" src="/js/jquery.bootpag.js"></script>
 		<script type="text/javascript" src="/js/date-picker-configuration.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+		<script src="/js/select2.full.js"></script>
 		<script src="/js/messages.js"></script>
 
 		<script charset="utf-8">
