@@ -35,22 +35,22 @@
                                   </td>
                                   <td>
                                     <label class="radio-inline">
-                                      {{Form::radio('question_one','1',['default' => 'true'])}} Excelente
+                                      {{Form::radio('question_one','10',['default' => 'true'])}} Excelente
                                     </label>
                                   </td>
                                   <td>
                                     <label for="question_one" class="radio-inline">
-                                        {{Form::radio('question_one','2')}}Buena
+                                        {{Form::radio('question_one','8')}}Buena
                                     </label>
                                   </td>
                                   <td>
                                     <label for="question_one" class="radio-inline">
-                                      {{Form::radio('question_one','3')}}Mala  
+                                      {{Form::radio('question_one','5')}}Mala  
                                     </label>                      
                                   </td>
                                   <td>
                                     <label for="question_one" class="radio-inline">
-                                      {{Form::radio('question_one','4')}} Muy mala
+                                      {{Form::radio('question_one','3')}} Muy mala
                                     </label> 
                                   </td>     
                                   <td>
@@ -64,22 +64,22 @@
                                   </td>
                                   <td>
                                         <label class="radio-inline">
-                                          {{Form::radio('question_two','1',['default' => 'true'])}} Excelente
+                                          {{Form::radio('question_two','10',['default' => 'true'])}} Excelente
                                         </label>
                                   </td>
                                   <td>
                                       <label for="question_two" class="radio-inline">
-                                          {{Form::radio('question_two','2')}}Bueno
+                                          {{Form::radio('question_two','8')}}Bueno
                                       </label>
                                   </td>
                                   <td>
                                       <label for="question_two" class="radio-inline">
-                                        {{Form::radio('question_two','3')}}Malo  
+                                        {{Form::radio('question_two','5')}}Malo  
                                       </label>             
                                   </td>
                                   <td>
                                       <label for="question_two" class="radio-inline">
-                                        {{Form::radio('question_two','4')}} Muy malo
+                                        {{Form::radio('question_two','3')}} Muy malo
                                       </label>
                                   </td>
                                   <td>
@@ -94,18 +94,18 @@
                                   </td>
                                   <td>
                                         <label class="radio-inline">
-                                          {{Form::radio('question_three','1',['default' => 'true'])}} Excelentes
+                                          {{Form::radio('question_three','10',['default' => 'true'])}} Excelentes
                                         </label>
                                   </td>
                                   <td>
                                       <label for="question_three" class="radio-inline">
-                                          {{Form::radio('question_three','2')}}Buenos
+                                          {{Form::radio('question_three','8')}}Buenos
                                       </label>
                                         
                                   </td>
                                   <td>
                                       <label for="question_three" class="radio-inline">
-                                        {{Form::radio('question_three','3')}}Malos 
+                                        {{Form::radio('question_three','5')}}Malos 
                                       </label>
 
                                         
@@ -113,7 +113,7 @@
                                   </td>
                                   <td>
                                       <label for="question_three" class="radio-inline">
-                                        {{Form::radio('question_three','4')}} Muy malos
+                                        {{Form::radio('question_three','3')}} Muy malos
                                       </label>                      
                                   </td>
                                   <td>
@@ -127,23 +127,23 @@
                                   </td>
                                   <td>
                                         <label class="radio-inline">
-                                          {{Form::radio('question_four','1',['default' => 'true'])}} Totalmente de acuerdo
+                                          {{Form::radio('question_four','10',['default' => 'true'])}} Totalmente de acuerdo
                                         </label>
                                   </td>
                                   <td>
                                       <label for="question_four" class="radio-inline">
-                                          {{Form::radio('question_four','2')}}De acuerdo 
+                                          {{Form::radio('question_four','8')}}De acuerdo 
                                       </label>
                                         
                                   </td>
                                   <td>
                                       <label for="question_four" class="radio-inline">
-                                        {{Form::radio('question_four','3')}}En desacuerdo   
+                                        {{Form::radio('question_four','5')}}En desacuerdo   
                                       </label>
                                   </td>
                                   <td>
                                       <label for="question_four" class="radio-inline">
-                                        {{Form::radio('question_four','4')}} Totalmente en desacuerdo
+                                        {{Form::radio('question_four','3')}} Totalmente en desacuerdo
                                       </label>
                                   </td>
                                   <td>
