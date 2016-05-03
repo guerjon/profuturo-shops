@@ -26,7 +26,7 @@
                             'role' => 'form',
                         ])}}
 
-                            <table class="table table-striped">
+                            <table class="table table-striped" style="color:black">
 
                               <tbody>
                                 <tr>

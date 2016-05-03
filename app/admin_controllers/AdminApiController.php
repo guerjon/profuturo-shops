@@ -1925,30 +1925,45 @@ class AdminApiController extends AdminBaseController
             ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
             ->join('users','users.id','=','general_requests.manager_id');
 
-    
-    if(Input::has('since'))
+    $comments = DB::table('satisfaction_surveys')->select(DB::raw('explain_1,explain_2,explain_3,explain_4,satisfaction_surveys.general_request_id'))
+                  ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
+                  ->join('users','users.id','=','general_requests.manager_id');
+
+    if(Input::has('since')){
       $surveys->where('general_requests.created_at','>',Input::get('since'));
+      $comments->where('general_requests.created_at','>',Input::get('since'));
 
-    if(Input::has('until'))
+    }
+
+    if(Input::has('until')){
       $surveys->where('general_requests.created_at','<',Input::get('until'));
+      $comments->where('general_requests.created_at','<',Input::get('until'));
+    }
 
-    if(Input::has('gerencia'))
+    if(Input::has('gerencia')){
       $surveys->where('users.id','=',Input::get('gerencia'));
+      $comments->where('users.id','=',Input::get('gerencia'));
+    }
 
-    if(Input::has('solicitud'))
+    if(Input::has('solicitud')){
       $surveys->where('general_requests.id','=',Input::get('solicitud'));
+      $comments->where('general_requests.id','=',Input::get('solicitud'));
+    }
 
     if(Input::has('encuesta')){
       $surveys->where('satisfaction_surveys.id','=',Input::get('encuesta'));
+      $comments->where('satisfaction_surveys.id','=',Input::get('encuesta'));
     }
 
-    if(Input::has('regional'))
+    if(Input::has('regional')){
       $surveys->where('users.region_id','=',Input::get('regional'));
-
+      $comments->where('users.region_id','=',Input::get('regional'));
+    }
 
       return Response::json([
         'status' => 200,
         'surveys' => $surveys->get(),
+        'comments' => $comments->get()
       ]);
   }
 

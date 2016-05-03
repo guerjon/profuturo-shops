@@ -10,7 +10,7 @@
 		</center>
 
 		<div class="row">	
-			<div class="col col-md-4">
+			<div class="col col-md-3">
 				<div class="form-group">
 					{{Form::label('gerencia','GERENCIA',['class' => 'label-control'])}}
 					{{Form::select(
@@ -21,7 +21,7 @@
 					}}
 				</div>
 			</div>
-			<div class="col col-md-4">
+			<div class="col col-md-3">
 				<div class="form-group">
 		    		{{Form::label('solicitud','# SOLICITUD',['class' => 'label-control'])}}
 					{{Form::select(
@@ -32,16 +32,7 @@
 					}}		
 	      		</div>
 			</div>
-			<div class="col col-md-4">
-				<div class="form-group">
-					{{Form::label('encuesta','# ENCUESTA',['class' => 'label-control'])}}
-					{{Form::select('encuesta',[null => 'Todas las encuestas'] + SatisfactionSurvey::orderBy('id')->lists('id','id'),null,['class' => ' form-control select-2 filter','id' => 'encuesta'])}}
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			
-			<div class="col col-md-4">			
+			<div class="col col-md-3">			
 				<div class="form-group">
 					<div class="form-group">
 						{{Form::label('regional','Encuestas por regional',['class' => 'label-control'])}}
@@ -50,21 +41,16 @@
 				</div>
 			</div>
 
-			<div class="col col-md-4">
+			<div class="col col-md-3">
 				<div class="form-group">
-					{{Form::label('since','DESDE')}}
-	      			{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'filter form-control datepicker ','id' => 'since'])}}	
-				</div>
-			</div>
-			<div class="col col-md-4">
-				<div class="form-group">
-		      		{{Form::label('until','HASTA')}}
-	    	  		{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'filter form-control datepicker','id' => 'until' ])}}
+					{{Form::label('encuesta','# ENCUESTA',['class' => 'label-control'])}}
+					{{Form::select('encuesta',[null => 'Todas las encuestas'] + SatisfactionSurvey::orderBy('id')->lists('id','id'),null,['class' => ' form-control select-2 filter','id' => 'encuesta'])}}
 				</div>
 			</div>
 		</div>
-		
 
+		
+		<hr>
 		<div class="row">
 			<div class="col col-xs-3">
 				<div class="wrapper">
@@ -76,7 +62,7 @@
 			                        <span id="promedio_total"></span>
 			                    </p>
 			                </div>
-			                <ul class="features">
+			                <ul class="features" style=" overflow: scroll;height: 300px;color:black;font-size:15px">
 								<li>Actitud del consultor: <span class="fontawesome-star" id="actitud_consultor"></span ></li>
 			                    <li>Seguimiento del consultor: <span class="fontawesome-star" id="seguimiento_consultor"></span></li>
 			                    <li>Tiempos respuesta consultor: <span class="fontawesome-star" id="tiempos_respuesta"></span></li>
@@ -96,18 +82,16 @@
 				<div class="wrapper">
 			        <div class="pricing-table group"> 
 			            <div class="block professional fl">
-			                <h2 class="title">Solicitudes seleccionadas</h2>
+			                <h2 class="title">Solicitudes promediadas</h2>
 			                <div class="content">
 			                    <p class="price">
 			                        <span id="total_solicitudes"></span>
 			                    </p>
 			                </div>
-			                <ul class="features">
+			                <div id="general-requests-id"></div>
+			                <ul class="features" id="comments" style=" overflow: scroll;height: 300px;color:black;font-size:15px">
 
-			                    <li><span class="fontawesome-star" id="actitud_consultor"></span >Actitud del consultor: 10</li>
-			                    <li><span class="fontawesome-star" id="seguimiento_consultor"></span>Seguimiento del consultor</li>
-			                    <li><span class="fontawesome-star" id="tiempos_respuesta"></span>Tiempos respuesta consultor</li>
-			                    <li><span class="fontawesome-star" id="calidad_producto"></span>Calidad del producto</li>
+			                    
 	
 			                </ul>
 			            </div>
@@ -124,6 +108,7 @@
 @parent
 	<style href="/css/table_style.css"></style>
 	<script type="text/javascript" src="/js/chart/dist/Chart.js"></script>
+	<script type="text/javascript" src="/js/jquery.number.min.js"></script>
 	  
 	<script>
 		$(function(){
@@ -144,41 +129,50 @@
 
 			function actualiza(){
 				$.get('/admin/api/survey',{
-					since: $('#since').val(),
-					until: $('#until').val(),
 					consultor: $('#consultor').val(),
 					solicitud: $('#solicitud').val(),
 					gerencia: $('#gerencia').val(),
 					encuesta: $('#encuesta').val(),
 					regional: $('#regional').val(),
 
-					},function(data){
+					},function(datos){
 
-						if(data.status = 200){
+						if(datos.status = 200){
+							$('#total_solicitudes').html(datos.surveys[0].total);
 							
-							console.log(data);
-								$('#total_solicitudes').html(data.surveys[0].total);
-								
-								var promedio_total = parseFloat(data.surveys[0].uno) + parseFloat(data.surveys[0].dos) + parseFloat(data.surveys[0].tres)
-														+ parseFloat(data.surveys[0].cuatro);
-								promedio_total /= 5 ;
-								
-								$('#promedio_total').html(promedio_total);
-								$('#actitud_consultor').html(data.surveys[0].uno);
-								$('#seguimiento_consultor').html(data.surveys[0].dos);
-								$('#tiempos_respuesta').html(data.surveys[0].tres);
-								$('#calidad_producto').html(data.surveys[0].cuatro);
+							var promedio_total = parseFloat(datos.surveys[0].uno) + parseFloat(datos.surveys[0].dos) + parseFloat(datos.surveys[0].tres) + parseFloat(datos.surveys[0].cuatro);
+
+							promedio_total /= 4 ;
+
 							
+							$('#promedio_total').html($.number(promedio_total,'3'));
+							$('#actitud_consultor').html($.number(datos.surveys[0].uno,'3'));
+							$('#seguimiento_consultor').html($.number(datos.surveys[0].dos,'3'));
+							$('#tiempos_respuesta').html($.number(datos.surveys[0].tres,'3'));
+							$('#calidad_producto').html($.number(datos.surveys[0].cuatro,'3'));
+							$('#comments').empty();
+							for (var i = datos.comments.length - 1; i >= 0; i--) {
 								
-							if(data.surveys[0].uno != null){
+									$('#comments').append(
+										"<h3><a href='general-requests/"+datos.comments[i].general_request_id+"'>Solitud general:"+ datos.comments[i].general_request_id+"</a></h3>");
+									$('#comments').append('<ul>');
+									$('#comments').append('<li>'+datos.comments[i].explain_1+'</li>')
+									$('#comments').append('<li>'+datos.comments[i].explain_2+'</li>')
+									$('#comments').append('<li>'+datos.comments[i].explain_3+'</li>')
+									$('#comments').append('<li>'+datos.comments[i].explain_4+'</li>')
+									$('#comments').append('</ul>');
+								
+							};
+							
+							if(datos.surveys[0].uno != null){
 
 								var data = 
 								{
-								    labels: [
+								    labels: [	
 								    			"Actitud del consultor",
 								    			"Seguimiento del consultor",
 								    			"Tiempos respuesta consultor",
-								    			"Calidad de producto"
+								    			"Calidad de producto",
 								    		],
 								    datasets: [{
 
@@ -189,17 +183,19 @@
 									            pointBorderColor: "#fff",
 									            pointHoverBackgroundColor: "#fff",
 									            pointHoverBorderColor: "rgba(179,181,198,1)",
-									            data: [
-									            		data.surveys[0].uno,
-									            		data.surveys[0].dos,
-									        			data.surveys[0].tres,
-									        			data.surveys[0].cuatro,
+									            data: 
+									            	[
+									            		parseFloat(datos.surveys[0].uno),
+									            		parseFloat(datos.surveys[0].dos),
+									        			parseFloat(datos.surveys[0].tres),
+									        			parseFloat(datos.surveys[0].cuatro),
 									        		]
-									        }]			    
+									        }],
+									fill : true			    
 								};
-
+								$('#chart-container').empty();
 								var myRadarChart = new Chart($('#chart-container'), {
-								    type: 'radar',
+								    type: 'bar',
 								    data: data,
 								});
 								
