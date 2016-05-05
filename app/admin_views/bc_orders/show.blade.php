@@ -134,9 +134,6 @@
        {{$bc_order->extra->gerente_estatus ? '' : $bc_order->extra->gerente_comentarios}}
       </td>
     </tr>
-    
-      
-    
     @endif
 
   </tbody>

@@ -109,7 +109,9 @@
                   @endif
                 @endif
               </td>
+
               <td>
+                
                 {{$order->user->address ? $order->user->address->domicilio : "N/A"}}
                 @if($order->user->address ? ($order->user->address->posible_cambio != null) : false )
                   <button data-id="{{$order->user->address->id}}" data-domicilio="{{$order->user->address->domicilio}}" data-posible-cambio="{{$order->user->address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">

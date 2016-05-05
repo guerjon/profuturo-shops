@@ -12,6 +12,7 @@
   </ol>
 
 
+
   {{Form::open([
     'method' => 'GET',
     'class' => 'form-inline'
@@ -34,6 +35,15 @@
   
   {{Form::close()}}
 <br>
+
+  @if(sizeof($errors) > 0)
+    <div class="alert alert-danger">
+      @foreach($errors as $error)
+        {{$error}}
+      @endforeach
+    </div>
+  @endif
+
 @if(sizeof($bc_orders) == 0)
 <div class="alert alert-info">
   No hay pedidos de tarjetas de presentación

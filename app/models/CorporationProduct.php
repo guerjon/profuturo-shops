@@ -17,12 +17,13 @@ class CorporationProduct extends Eloquent implements StaplerableInterface
     'name' => 'required',
   ];
 
+  protected $dates = ['deleted_at'];
   public static function boot()
   {
     parent::boot();
     parent::bootStapler();
     Product::deleting(function($product){
-      DB::table('cart_corporation_products')->where('corporation_product_id', $product->id)->delete();
+        DB::table('cart_corporation_products')->where('corporation_product_id', $product->id)->delete();
     });
   }
 
@@ -42,7 +43,4 @@ class CorporationProduct extends Eloquent implements StaplerableInterface
   {
     return $this->belongsTo('CorporationCategory');
   }
-
-  protected $dates = ['deleted_at'];
-
 }

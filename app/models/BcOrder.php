@@ -5,10 +5,10 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 class BcOrder extends Eloquent
 {
 
-  use SoftDeletingTrait;
-  
+  use SoftDeletingTrait;  
   
   protected $guarded = [''];
+  protected $dates = ['deleted_at'];
 
   public function businessCards()
   {

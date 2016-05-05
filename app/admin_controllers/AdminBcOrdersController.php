@@ -1,35 +1,34 @@
-<?
+AdminBcOrdersController.php<?
 
 class AdminBcOrdersController extends AdminBaseController{
 
   public function index()
   {
    if(Input::get('export') == 'xls'){
-    $query =  BcOrder::orderBy('created_at', 'desc');
     
-
+    $query =  BcOrder::orderBy('created_at', 'desc');
     $q = clone $query;
     $headers =  $headers = ['CLAVE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS'];
     $result = [$headers];
 
     foreach ($query->get() as $item) {
-    $itemArray = [];
-    $itemArray['GERENCIA']    = $item->user->gerencia;
-    $itemArray['CCOSTOS']     = $item->user->ccosto;
-    $itemArray['NO_PEDIDO']   = $item->id;
-    $itemArray['COMENTARIOS'] = $item->comments;
-    $itemArray['CREADO']      = $item->created_at->format('d-m-Y');
-    if($item->status == 0){
-        $itemArray['ESTATUS'] = 'PENDIENTE';
-      }elseif($item->status == 1){
-        $itemArray['ESTATUS'] = 'Recibido ';
-      }elseif($item->status==2){
-         $itemArray['ESTATUS'] = 'Recibido Incompleto';
-      }elseif($item->status==2){
-        $itemArray['ESTATUS'] = 'Recibido incompleto';
-      }
-     
-    $result[] = $itemArray;
+      $itemArray = [];
+      $itemArray['GERENCIA']    = $item->user->gerencia;
+      $itemArray['CCOSTOS']     = $item->user->ccosto;
+      $itemArray['NO_PEDIDO']   = $item->id;
+      $itemArray['COMENTARIOS'] = $item->comments;
+      $itemArray['CREADO']      = $item->created_at->format('d-m-Y');
+      if($item->status == 0){
+          $itemArray['ESTATUS'] = 'PENDIENTE';
+        }elseif($item->status == 1){
+          $itemArray['ESTATUS'] = 'Recibido ';
+        }elseif($item->status==2){
+           $itemArray['ESTATUS'] = 'Recibido Incompleto';
+        }elseif($item->status==2){
+          $itemArray['ESTATUS'] = 'Recibido incompleto';
+        }
+       
+      $result[] = $itemArray;
     }
 
     if($result){
@@ -54,7 +53,12 @@ class AdminBcOrdersController extends AdminBaseController{
 
   public function show($bc_order_id)
   {
-    $bc_order = BcOrder::find($bc_order_id);    
+    $bc_order = BcOrder::find($bc_order_id);
+    
+    if(!$bc_order){
+      return Redirect::back()->with(['errors' => ['No se encontro la orden o fue eliminada.'] ]);  
+    }
+
   	$blank_card = DB::table('blank_cards_bc_order')->where('bc_order_id', $bc_order_id)->first();
     $extra = $bc_order->extra; 
     return View::make('admin::bc_orders.show')->withBcOrder($bc_order)->withBlankCard($blank_card)->withExtra($extra);
