@@ -56,7 +56,13 @@
         {{$card->pivot->quantity}}
       </td>
       <td>
-        {{$card->pivot->status ? 'Completo' : 'Incompleto'}}
+        @if($bc_order->status == 0)
+          Pendiente
+        @elseif($bc_order->status==1)
+          Recibido <span class="glyphicon glyphicon-check"></span>
+        @elseif($bc_order->status==2)
+          Recibido incompleto.
+        @endif
       </td>
       <td>
         {{$card->pivot->status ? '' : $card->pivot->comments}}
@@ -85,15 +91,26 @@
         </td>
 
         <td>
-          @if($blank_card->status == 1)
-          Completo
-          @else
-          Incompleto
+          @if($bc_order->status == 0)
+            Pendiente
+          @elseif($bc_order->status==1)
+            Recibido <span class="glyphicon glyphicon-check"></span>
+          @elseif($bc_order->status==2)
+            Recibido incompleto.
           @endif
         </td>
         <td>
           {{$blank_card->status ? ' ' : $blank_card->comments}}
         </td>
+        <td>
+        </td>
+        <td>
+          {{$blank_card->direccion_alternativa_tarjetas}}
+        </td>
+        <td>
+          {{$blank_card->telefono_tarjetas}}
+        </td>
+        <td></td>
       </tr>
     @endif
     @if($bc_order->extra)
@@ -106,9 +123,9 @@
         </td>
         <td>
           @if($bc_order->extra->talento_estatus == 1)
-          Completo
+            Completo
           @else
-          Incompleto
+            Incompleto
           @endif
         </td>
         <td>
@@ -123,12 +140,13 @@
       100
     </td>
     <td>
-      
-      @if($bc_order->extra->gerente_estatus == 1)
-      Completo
-      @else
-      Incompleto
-      @endif
+        @if($bc_order->status == 0)
+          Pendiente
+        @elseif($bc_order->status==1)
+          Recibido <span class="glyphicon glyphicon-check"></span>
+        @elseif($bc_order->status==2)
+          Recibido incompleto.
+        @endif
     </td>
       <td>
        {{$bc_order->extra->gerente_estatus ? '' : $bc_order->extra->gerente_comentarios}}
