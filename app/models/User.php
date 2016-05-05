@@ -30,6 +30,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	protected $guarded = ['remember_token', 'created_at', 'updated_at'];
 
+	protected $dates = ['deleted_at'];
+	
 	protected $rules = [
 		'gerencia' => 'required',
 		'role' => 'in:manager,admin,user_requests,user_paper,user_furnitures,user_loader,user_mac,user_loader,user_corporation',

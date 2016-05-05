@@ -53,20 +53,18 @@ class AddressController extends \BaseController {
 
 	public function store()
 	{
-		$user = User::where('ccosto',Input::get('ccostos'))->first();
-		Log::debug(Input::all());
+		$user = User::where('ccosto',Input::get('ccostos'))->whereNull('deleted_at')->first();
+
 		if($user){
 			Log::debug($user);
 
 			if($user->address_id == 0){
-				$address = new Address(Input::only(['inmueble','domicilio','gerencia']));		
+				$address =  new Address(Input::only(['inmueble','domicilio','gerencia']));		
 
 				if($address->save()){
-					if($user->update(['address_id' => $address->id])){
+					DB::update('update users set address_id = '.$address->id.' where ccosto = '.Input::get('ccostos'));
 						return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario');	
-					}else{
-						return Redirect::back()->withErrors("Se guardo la dirección pero no se asocio al usuario");	
-					}
+					
 				}
 			}else{
 				$address = Address::find($user->address_id);
@@ -82,18 +80,16 @@ class AddressController extends \BaseController {
         					$message->to("karina.ascencionhernandez@profuturo.com.mx")->subject('Se solicita aprobación un cambio de domicilio');
         				});  
 						
-						return Redirect::action('AddressController@index')->withSuccess('Se ha guardado y asociado la dirección al usuario, se enviara un mensaje al administrador para su aprobación.');
+						return Redirect::action('AddressController@index')->with(['errors' => ['Se ha guardado y asociado la dirección al usuario, se enviara un mensaje al administrador para su aprobación.']]);
 						
 					}
 				}else{
-					Log::debug('s');
-					return Redirect::back()->withErrors("No se pudo guardar la dirección");	
+					return Redirect::back()->with(['errors' => ["No se pudo guardar la dirección"]]);	
 				}				
 			}
 
 		}else{
-			Log::debug('f');
-			return Redirect::back()->withErrors("No se encontro al usuario.");
+			return Redirect::back()->with(['errors' => ["No se encontro al usuario."]]);
 		}
 
 	}

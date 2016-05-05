@@ -12,15 +12,14 @@
 </ol>
 
 
-  @if($errors->count() > 0)
+  @if(sizeof($errors) > 0)
     <div class="alert alert-danger">
-      <ul>
-        @foreach($errors as $error)
-          <li>{{$error}}</li>
-        @endforeach
-      </ul>
+      @foreach($errors as $error)
+        {{$error}}
+      @endforeach
     </div>
   @endif
+
 
 <h3>Agregar nueva dirección</h3>
 <hr>

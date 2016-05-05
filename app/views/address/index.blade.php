@@ -37,10 +37,7 @@
   			    <span class="glyphicon glyphicon-search"></span> BUSCAR
   			  </button>
             <a style="float:right;" href="{{action('AddressController@create')}}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span>Añadir dirección</a>
-        </div>
-
-        
-        
+        </div>        
 			</div>
 		{{Form::close()}}
   </div>
