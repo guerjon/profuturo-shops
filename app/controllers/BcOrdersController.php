@@ -72,10 +72,7 @@ class BcOrdersController extends BaseController{
          return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent]))
       ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden'); 
       }
-
-  
-
-
+      
     else{
       return Redirect::to(URL::previous())->withErrors('No se selecciono ninguna tarjeta');
     }
@@ -88,11 +85,6 @@ class BcOrdersController extends BaseController{
     $talent = Input::get("talent");
    
     $bc_order = BcOrder::find($bc_order_id);
-    $bc_order_phones = [];
-
-    foreach ($bc_order->business_cards as $card) {
-      array_push($bc_order_phones, $card->telefono);
-    }
 
     $remaining_cards = 200 - Auth::user()->bcOrders()
       ->leftJoin('blank_cards_bc_order', 'blank_cards_bc_order.bc_order_id', '=','bc_orders.id')
@@ -106,32 +98,31 @@ class BcOrdersController extends BaseController{
         ->withRemainingCards($remaining_cards)
         ->withManager($manager)
         ->withTalent($talent);
-        // ->withPhones($bc_order_phones);
-    //->withTalent($talent)->withManager($manager);
   }
 
   public function update($bc_order_id)
   {
-    $bc_order = BcOrder::withTrashed()->find($bc_order_id);
-    $bc_order->restore();
+    $bc_order = BcOrder::find($bc_order_id);
+    //$bc_order = BcOrder::withTrashed()->find($bc_order_id);
+    // $bc_order->restore();
     $bc_order->confirmed = true;
     $bc_order->comments = Input::get('comments');
-    $bc_order_phones = [];
-    $bc_order_new_phones = [];
-    foreach ($bc_order->business_cards as $card) {
-      array_push($bc_order_phones, $card->telefono);
-    }
+    // $bc_order_phones = [];
+    // $bc_order_new_phones = [];
+    // foreach ($bc_order->business_cards as $card) {
+    //   array_push($bc_order_phones, $card->telefono);
+    // }
 
-    foreach (Input::get('card', []) as $id => $card) {
-      foreach ($card as $nombre => $dato) {
-        if($nombre == 'telefono')
-          array_push($bc_order_new_phones , $dato);  
-      }
+    // foreach (Input::get('card', []) as $id => $card) {
+    //   foreach ($card as $nombre => $dato) {
+    //     if($nombre == 'telefono')
+    //       array_push($bc_order_new_phones , $dato);  
+    //   }
         
-    }
+    // }
     
-    if(empty(array_diff($bc_order_phones, $bc_order_new_phones)))
-      return Redirect::back()->withDanger('Para hacer un nuevo pedido de tarjetas se necesita cambiar el teléfono.');
+    // if(empty(array_diff($bc_order_phones, $bc_order_new_phones)))
+    //   return Redirect::back()->withDanger('Para hacer un nuevo pedido de tarjetas se necesita cambiar el teléfono.');
 
     foreach(Input::get('card', []) as $id => $card){
       $bc = BusinessCard::find($id);

@@ -46,7 +46,7 @@
         </td>
         <td>
           {{Form::text("card[{$card->id}][telefono]", $card->telefono, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
-          'onkeypress'=>"$('#save').prop('disabled',false)"])}}
+          'onkeypress'=>"$('#save').removeClass('hidden')"])}}
         </td>
         <td>
           {{Form::text("card[{$card->id}][celular]", $card->celular, ['class' => 'form-control cellphone'])}}
@@ -150,14 +150,12 @@
   <div class="form-group text-right">
     <button type="button" id="cancel-order-button" class="btn btn-lg btn-danger">Cancelar orden</button>
 
-    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning','id'=>'save','disabled'])}}
+    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning hidden','id'=>'save'])}}
   </div>
 
 
 {{Form::close()}}
 
-
-<? $bc_order->delete() ?>
 @stop
 
 
@@ -173,10 +171,12 @@ $(function(){
 $(function(){
 
   $('#save').click(function(){
-
       $(this).prop('disabled',true);
       $('#form').submit();
   });
+
+
+
 
 }
   
