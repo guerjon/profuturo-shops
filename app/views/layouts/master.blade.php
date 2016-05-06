@@ -135,7 +135,7 @@
 			</nav>
 			<div class="container-fluid">
 
-				@foreach(['info', 'success', 'warning'] as $val)
+				@foreach(['info', 'success', 'warning','danger'] as $val)
 					@if(Session::has($val))
 					<div class="alert alert-{{$val}}">
 						{{Session::pull($val)}}

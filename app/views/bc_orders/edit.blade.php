@@ -175,7 +175,9 @@ $(function(){
 </script>
 <script>
 $(function(){
+  
   $('#save').click(function(){
+
       $(this).prop('disabled',true);
       $('#form').submit();
   });

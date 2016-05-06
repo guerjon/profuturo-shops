@@ -85,9 +85,14 @@ class BcOrdersController extends BaseController{
 
     $manager = Input::get("manager");
     $talent = Input::get("talent");
-  
    
     $bc_order = BcOrder::find($bc_order_id);
+    $bc_order_phones = [];
+
+    foreach ($bc_order->business_cards as $card) {
+      array_push($bc_order_phones, $card->telefono);
+    }
+
     $remaining_cards = 200 - Auth::user()->bcOrders()
       ->leftJoin('blank_cards_bc_order', 'blank_cards_bc_order.bc_order_id', '=','bc_orders.id')
       ->select(DB::raw('SUM(quantity) as blank'))
@@ -95,7 +100,12 @@ class BcOrdersController extends BaseController{
       ->where(DB::raw('YEAR(bc_orders.updated_at)'), DB::raw('YEAR(NOW())'))
       ->first()->blank;
 
-    return View::make('bc_orders.edit')->withBcOrder($bc_order)->withRemainingCards($remaining_cards)->withManager($manager)->withTalent($talent);
+    return View::make('bc_orders.edit')
+        ->withBcOrder($bc_order)
+        ->withRemainingCards($remaining_cards)
+        ->withManager($manager)
+        ->withTalent($talent);
+        // ->withPhones($bc_order_phones);
     //->withTalent($talent)->withManager($manager);
   }
 
@@ -104,6 +114,22 @@ class BcOrdersController extends BaseController{
     $bc_order = BcOrder::find($bc_order_id);
     $bc_order->confirmed = true;
     $bc_order->comments = Input::get('comments');
+    $bc_order_phones = [];
+    $bc_order_new_phones = [];
+    foreach ($bc_order->business_cards as $card) {
+      array_push($bc_order_phones, $card->telefono);
+    }
+
+    foreach (Input::get('card', []) as $id => $card) {
+      foreach ($card as $nombre => $dato) {
+        if($nombre == 'telefono')
+          array_push($bc_order_new_phones , $dato);  
+      }
+        
+    }
+    
+    if(empty(array_diff($bc_order_phones, $bc_order_new_phones)))
+      return Redirect::back()->withDanger('Para hacer un nuevo pedido de tarjetas se necesita cambiar el teléfono.');
 
     foreach(Input::get('card', []) as $id => $card){
       $bc = BusinessCard::find($id);
@@ -112,6 +138,7 @@ class BcOrdersController extends BaseController{
         $bc->save();
       }
     }
+
     $bc_order->save();
 
     if(Input::has('blank_cards') and Input::get('blank_cards') > 0){
