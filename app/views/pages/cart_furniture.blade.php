@@ -7,7 +7,7 @@
 <div class="alert alert-warning">
 
 
-  Sin artículos en el carrito. Haga click <a href="/muebles" class="alert-link">aquí</a> para ver el mobiliario disponible.
+  Sin artículos en el carrito. Haga click <a href="/mobiliario" class="alert-link">aquí</a> para ver el mobiliario disponible.
 
 </div>
 @else
