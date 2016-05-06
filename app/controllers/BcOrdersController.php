@@ -68,6 +68,7 @@ class BcOrdersController extends BaseController{
           
              $talent = count(Input::get('talent',[]));
              $manager = count(Input::get('manager',[]));
+
          return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent]))
       ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden'); 
       }
@@ -111,7 +112,8 @@ class BcOrdersController extends BaseController{
 
   public function update($bc_order_id)
   {
-    $bc_order = BcOrder::find($bc_order_id);
+    $bc_order = BcOrder::withTrashed()->find($bc_order_id);
+    $bc_order->restore();
     $bc_order->confirmed = true;
     $bc_order->comments = Input::get('comments');
     $bc_order_phones = [];

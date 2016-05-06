@@ -156,12 +156,8 @@
 
 {{Form::close()}}
 
-{{Form::open([
-  'method' => 'DELETE',
-  'action' => ['BcOrdersController@destroy', $bc_order->id],
-  'id' => 'cancel-order-form'
-  ])}}
-{{Form::close()}}
+
+<? $bc_order->delete() ?>
 @stop
 
 
@@ -175,16 +171,13 @@ $(function(){
 </script>
 <script>
 $(function(){
-  
+
   $('#save').click(function(){
 
       $(this).prop('disabled',true);
       $('#form').submit();
   });
 
-  $('#cancel-order-button').click(function(){
-    $('#cancel-order-form').submit();
-  });
 }
   
 
