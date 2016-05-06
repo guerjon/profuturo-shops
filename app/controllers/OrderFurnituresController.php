@@ -16,7 +16,8 @@ class OrderFurnituresController extends BaseController
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
-    $order = new FurnitureOrder(Input::all());
+    Log::debug(Input::all());
+    $order = new FurnitureOrder(Input::except('color'));
     $order->user_id = Auth::id();
 
     if($order->save()){
@@ -26,13 +27,12 @@ class OrderFurnituresController extends BaseController
                                                     'company' => $furniture->pivot->company,
                                                     'assets' => $furniture->pivot->assets,
                                                     'ccostos' => $furniture->pivot->ccostos,
-                                                    'color' => $furniture->pivot->color,
+                                                    'color' => Input::get('color'),
                                                     'id_active' => $furniture->pivot->id_active,
                                                     ]);
         Auth::user()->cartFurnitures()->detach($furniture->id);
       }
     }
-
     return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');
   }
 

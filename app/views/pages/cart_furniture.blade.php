@@ -29,9 +29,6 @@
         Bienes
       </th>
       <th>
-        Centro de costos
-      </th>
-      <th>
         Color
       </th>
 
@@ -73,9 +70,6 @@
       @endif 
       </td>
       <td>
-        {{$furniture->pivot->ccostos}}
-      </td>
-      <td>
         <img src="{{$furniture->pivot->color}}" class="col-md-2" alt="Azul palido">
       </td>
 
@@ -106,6 +100,8 @@
   'id' => 'send-order-form'
   ])}}
 
+  <input type="text" class="hidden" name="color" value ="{{$furniture->pivot->color}}">
+  
 <div class="form-group">
   {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
 </div>

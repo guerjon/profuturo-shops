@@ -11,7 +11,7 @@ class Furniture extends Eloquent implements StaplerableInterface
 
   use EloquentTrait, ValidatingTrait,SoftDeletingTrait;
 
-  protected $fillable = ['name', 'description','max_stock','measure_unit','sku','id_peole_soft','specific_description'
+  protected $fillable = ['color','name', 'description','max_stock','measure_unit','sku','id_peole_soft','specific_description'
                         ,'surface','unitary','key','delivery_time','business_conditions','furniture_category_id','furniture_subcategory_id','image'];
 
   protected $rules = [

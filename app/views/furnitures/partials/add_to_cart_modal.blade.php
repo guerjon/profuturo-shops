@@ -71,11 +71,11 @@
                 
                   <div class="col-md-2">
                       {{Form::radio('color','img/gris.png')}}
-                      <img src="img/gris.png" class="img-responsive" alt="gris">
+                      <img src="img/gris.png" class="img-responsive" alt="Gris">
                   </div>
                   <div class="col-md-2">
                     {{Form::radio('color','img/negro.png')}}
-                    <img src="img/negro.png"  class="img-responsive" alt="negro">                 
+                    <img src="img/negro.png"  class="img-responsive" alt="Negro">                 
                   </div>
                 </div>                
             </div>  

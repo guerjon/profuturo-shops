@@ -13,7 +13,7 @@ class CreateColorColumnFurniture extends Migration {
 	public function up()
 	{
 		Schema::table('cart_furnitures',function($table){
-			$table->string('color');
+			$table->string('color')->nullable();
 		});
 	}
 

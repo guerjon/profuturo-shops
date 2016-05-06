@@ -35,13 +35,16 @@ class FurnituresController extends BaseController
 
   public function postReceive($order_id)
   {
+
     $order = FurnitureOrder::find($order_id);
     $complete = 1;
+    
     foreach(Input::get('furniture') as $id => $furniture){
       $pivot = $order->furnitures()->where('id', $id)->first()->pivot;
       $complete *= $furniture['status'];
       $pivot->status = $furniture['status'];
       $pivot->comments = $furniture['comments'];
+
       $pivot->save();
     }
 

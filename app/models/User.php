@@ -128,7 +128,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 
 	public function cartFurnitures()
 	{
-		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity','company','assets','ccostos','id_active');
+		return $this->belongsToMany('Furniture', 'cart_furnitures')->withPivot('quantity','company','assets','ccostos','id_active','color');
 	}
 
 	public function cartMac()
