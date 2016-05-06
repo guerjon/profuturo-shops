@@ -30,7 +30,7 @@
     {{Form::select('gerencia',array_merge(array(NULL => 'Seleccione una gerencia'),$gerencia),NUll,['class' => 'form-control'])}}
     <br>
     {{Form::label('category_id','CATEGORIA')}}
-    {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),$categories),NUll,['class' => 'form-control'])}}
+    {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),FurnitureCategory::lists('name','id')),NUll,['class' => 'form-control'])}}
   </div>
  
     <div class="col-xs-4">
