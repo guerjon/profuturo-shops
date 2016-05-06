@@ -38,7 +38,7 @@
       {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
       <br>
       {{Form::label('until','HASTA')}}
-      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->addDay(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
     </div>
   <div class="col-xs-4">
     {{Form::label('linea_negocio','LINEA DE NEGOCIO:')}}
