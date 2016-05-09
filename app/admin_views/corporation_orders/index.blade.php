@@ -118,10 +118,10 @@
               </td>
               <td>
                 @if($order->extra_order)
-                  <span class="glyphicon glyphicon-ok">
-                      Orden extra  
-                  </span>
-                  
+                  <div>
+                    Orden extra  
+                    <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                  </div>
                 @endif
               </td>
               <td>
