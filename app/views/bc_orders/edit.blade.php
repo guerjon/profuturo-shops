@@ -175,9 +175,6 @@ $(function(){
       $('#form').submit();
   });
 
-
-
-
 }
   
 
