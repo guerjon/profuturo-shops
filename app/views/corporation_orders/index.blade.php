@@ -38,6 +38,9 @@
         Estatus
       </th>
       <th>
+        Orden extra
+      </th>
+      <th>
         
       </th>
     
@@ -66,6 +69,14 @@
           @if($complain = $order->order_complain)
           <small>{{$complain->complain}}</small>
           @endif
+        @endif
+      </td>
+      <td>
+        @if($order->extra_order)
+          <div>
+            Orden extra  
+            <span class="glyphicon glyphicon-ok" style="color:green"></span>
+          </div>
         @endif
       </td>
       @if($order->status == 0)

@@ -69,6 +69,9 @@
               Domicilio
             </th>
             <th>
+              Orden extra  
+            </th>
+            <th>
              Acciones
             </th>
             
@@ -111,6 +114,14 @@
                   <button data-id="{{$order->user->address->id}}" data-domicilio="{{$order->user->address->domicilio}}" data-posible-cambio="{{$order->user->address->posible_cambio}}" class="btn btn-primary btn-xs" id="cambio">
                     Ver cambio domicilio
                   </button>
+                @endif
+              </td>
+              <td>
+                @if($order->extra_order)
+                  <span class="glyphicon glyphicon-ok">
+                      Orden extra  
+                  </span>
+                  
                 @endif
               </td>
               <td>

@@ -74,7 +74,17 @@ class CorporationOrdersController extends \BaseController {
     }
     //orden
 
-    $order = new CorporationOrder(Input::except('domicilio_original','posible_cambio'));
+    $firstDay = \Carbon\Carbon::parse('first day of this month')->format('Y-m-d');
+    $lastDay =   \Carbon\Carbon::parse('last day of this month')->format('Y-m-d');
+    //Cuenta las ordenes que se han hecho en este mes
+    $orders_by_month = DB::table('corporation_orders')
+                        ->where('created_at','>=',$firstDay)
+                        ->where('created_at','<',$lastDay)
+                        ->where('user_id',Auth::user()->id)
+                        ->count();
+    
+    $extra_order = $orders_by_month > 0 ? true : false;
+    $order = new CorporationOrder(Input::except('domicilio_original','posible_cambio') + ['extra_order' => $extra_order]);
     $order->user_id = Auth::id();
     if($order->save()){
       foreach(Auth::user()->cart_corporation as $product)
