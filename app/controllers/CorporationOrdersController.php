@@ -9,23 +9,68 @@ class CorporationOrdersController extends \BaseController {
 
   public function store()
   {
-    
+    $address = Auth::user()->address;
+    $user = Auth::user();
+    $values = [ 'sender_id' => Auth::user()->id,
+                'receiver_id' => '1',
+                'body' => "El usuario " + Auth::user()->ccosto + "ha solicitado un cambio de domicilio",
+                'type' => 'pedidos'
+              ];
+
     if(Auth::user()->cart_corporation->count() == 0)
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
-  
-    if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-      
-      $address = Auth::user()->address;
-      $address->posible_cambio = Input::get('posible_cambio');
-      if($address->save()){
-        Log::debug("Guardo de dirección exitoso");
+
+    //Direcciones y notificaciones
+    if(!$address){
+      if(Input::has('posible_cambio')){
+        if(Auth::user()->address_id != 0 || Auth::user()->address == null)
+          $address = new Address(['posible_cambio' => Input::get('posible_cambio')]);
+        else{
+          $address = Address::find(Auth::user()->address_id);
+          $address->update(['posible_cambio' => Input::get('posible_cambio')]);
+        }
+          
+        if($address->save()){
+          //Al guardar el posible cambio lo asignamos al usuario
+          $user = Auth::user();
+          $user->address_id = $address->id;
+          //Vamos a crear los mensajes para la notificacion
+
+          
+            if($user->save()){
+              Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
+            }
+          
+        }else{
+            Log::debug($address->getErrors());
+        }
       }else{
-        Log::debug($address->getErrors());
+        return Redirect::back()->withErrors("El pedido no puede ser enviado sin dirección.");
+      }
+    }else{
+      if(Auth::user()->address->domicilio == ""){
+        return Redirect::back()->withErrors("El centro de costos ya tiene una dirección pero aun no ha sido aprobada por el administrador.");
       }
 
-    }   
+      if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
+        $address = Auth::user()->address;
+        $address->posible_cambio = Input::get('posible_cambio');
+        if($address->save()){
+          //Al guardar el posible cambio lo asignamos al usuario
+          $user->address_id = $address->id;
+          //Vamos a crear los mensajes para la notificacion
+        }else{
+            Log::debug($address->getErrors());
+        }        
+      }
+
+      if($user->save()){
+        Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
+      }
+    }
+    //orden
 
     $order = new CorporationOrder(Input::except('domicilio_original','posible_cambio'));
     $order->user_id = Auth::id();
@@ -37,7 +82,16 @@ class CorporationOrdersController extends \BaseController {
       }
     }
 
-  
+    if(Auth::user()->email != null){
+        $user = Auth::user();
+        $products = $order->products();
+        $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
+
+        Mail::send('admin::email_templates.furnitures',$email_info,function($message) use($user){
+        $message->to("jona_54_.com@ciencias.unam.mx",$user->gerencia)->subject('Sobre su pedido');
+      });   
+    }
+   
     return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');
   }
 
