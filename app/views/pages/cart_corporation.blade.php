@@ -1,7 +1,16 @@
-
 @extends('layouts.master')
 
+
 @section('content')
+  @if(sizeof($errors) > 0)
+  <div class="alert alert-danger">
+    <ul>
+      @foreach($errors as $error)
+      <li>{{$error}}</li>
+      @endforeach
+    </ul>
+  </div>
+  @endif
 
     @if(Auth::user()->cart_corporation->count() == 0)
       <div class="alert alert-warning">

@@ -9,6 +9,7 @@ class CorporationOrdersController extends \BaseController {
 
   public function store()
   {
+
     $address = Auth::user()->address;
     $user = Auth::user();
     $values = [ 'sender_id' => Auth::user()->id,
@@ -50,8 +51,9 @@ class CorporationOrdersController extends \BaseController {
         return Redirect::back()->withErrors("El pedido no puede ser enviado sin dirección.");
       }
     }else{
+
       if(Auth::user()->address->domicilio == ""){
-        return Redirect::back()->withErrors("El centro de costos ya tiene una dirección pero aun no ha sido aprobada por el administrador.");
+        return Redirect::back()->with(['errors' => ["El centro de costos ya tiene una dirección pero aun no ha sido aprobada por el administrador, se necesita su aprovación para continuar."]]);
       }
 
       if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
@@ -82,17 +84,17 @@ class CorporationOrdersController extends \BaseController {
       }
     }
 
-    if(Auth::user()->email != null){
-        $user = Auth::user();
-        $products = $order->products();
-        $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
+    // if(Auth::user()->email != null){
+    //     $user = Auth::user();
+    //     $products = $order->products();
+    //     $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
 
-        Mail::send('admin::email_templates.furnitures',$email_info,function($message) use($user){
-        $message->to("jona_54_.com@ciencias.unam.mx",$user->gerencia)->subject('Sobre su pedido');
-      });   
-    }
+    //     Mail::send('admin::email_templates.furnitures',$email_info,function($message) use($user){
+    //       $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
+    //     });   
+    // }
    
-    return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');
+    return Redirect::action('CorporationOrdersController@index')->withSuccess('Se ha enviado su pedido satisfactoriamente');
   }
 
   public function show($order_id)
