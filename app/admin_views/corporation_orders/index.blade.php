@@ -143,7 +143,7 @@
 
           $('#domicilio').text($(this).attr('data-domicilio'));
           $('#posible_cambio').text($(this).attr('data-posible-cambio'));
-          var action = 'Corporation-address/'+ $(this).attr('data-id');
+          var action = 'corporation-address/'+ $(this).attr('data-id');
           $('#change-address-form').attr('action',action);          
           modal.show();
       });
