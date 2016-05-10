@@ -43,6 +43,9 @@
       <th>
         Celular
       </th>
+      <th>
+        Email
+      </th>
     </tr>
   </thead>
 
@@ -79,6 +82,7 @@
       <td>
         {{$card->celular}}
       </td>
+      <td></td>
     </tr>
     @endforeach
     @if($blank_card)
@@ -111,6 +115,9 @@
           {{$blank_card->telefono_tarjetas}}
         </td>
         <td></td>
+        <td>
+          {{$blank_card->email}}
+        </td>
       </tr>
     @endif
     @if($bc_order->extra)
