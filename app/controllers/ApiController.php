@@ -249,44 +249,88 @@ class ApiController extends BaseController
 
   public function postRemoveFromCartCorporation()
   {
-    $q = Input::get('quantity');
-    if($q <= 0){
-      return Response::json([
-        'status' => 500,
-        'error_msg' => 'La cantidad debe ser un entero positivo'
-        ]);
+    if(Input::get('product_id') == 10000){
+      
+      $quantity = DB::table('cart_corporation_products')
+                ->select('quantity')
+                ->where('corporation_product_id',Input::get('product_id'))
+                ->where('description',Input::get('description'))->first()->quantity;
+
+      if($quantity == 1){
+        DB::table('cart_corporation_products')
+                ->select('quantity')
+                ->where('corporation_product_id',Input::get('product_id'))
+                ->where('description',Input::get('description'))->delete();
+                return Response::json([
+                  'status' => 200,
+                  'new_q' => 0
+                ]);
+      }else{
+        $number_delete = Input::get('quantity');
+        $new_quantity = $quantity - $number_delete;
+
+        if($new_quantity == 0){
+          DB::table('cart_corporation_products')
+                ->select('quantity')
+                ->where('corporation_product_id',Input::get('product_id'))
+                ->where('description',Input::get('description'))->delete();
+                return Response::json([
+                  'status' => 200,
+                  'new_q' => 0
+                ]);
+        }
+
+         DB::table('cart_corporation_products')
+                ->select('quantity')
+                ->where('corporation_product_id',Input::get('product_id'))
+                ->where('description',Input::get('description'))->update(['quantity' => $new_quantity]);
+                return Response::json([
+                  'status' => 200,
+                  'new_q' => 0
+                ]);
+      }
+    }else{
+      $q = Input::get('quantity');
+      if($q <= 0){
+        return Response::json([
+          'status' => 500,
+          'error_msg' => 'La cantidad debe ser un entero positivo'
+          ]);
+        }
+
+      $product = CorporationProduct::find(Input::get('product_id'));
+
+      if(!$product){
+        return Response::json([
+          'status' => 500,
+          'error_msg' => 'No se encontró el producto'
+          ]);
       }
 
-    $product = CorporationProduct::find(Input::get('product_id'));
+      if(!Auth::user()->cart_corporation->contains($product->id)){
+        return Response::json([
+          'status' => 200,
+          'new_q' => 0,
+          'product_id' => $product->id,
+          ]);
+      }
 
-    if(!$product){
-      return Response::json([
-        'status' => 500,
-        'error_msg' => 'No se encontró el producto'
-        ]);
-    }
+      $q = Auth::user()->cartCorporation()->where('id', $product->id)->first()->pivot->quantity - $q;
+      Auth::user()->cartCorporation()->detach($product->id);
+      if($q <= 0){
+        $q = 0;
+      }else{
+        Auth::user()->cartCorporation()->attach($product->id, ['quantity' => $q]);
+      }
 
-    if(!Auth::user()->cart_corporation->contains($product->id)){
       return Response::json([
         'status' => 200,
-        'new_q' => 0,
+        'new_q' => $q,
         'product_id' => $product->id,
         ]);
+
     }
 
-    $q = Auth::user()->cartCorporation()->where('id', $product->id)->first()->pivot->quantity - $q;
-    Auth::user()->cartCorporation()->detach($product->id);
-    if($q <= 0){
-      $q = 0;
-    }else{
-      Auth::user()->cartCorporation()->attach($product->id, ['quantity' => $q]);
-    }
-
-    return Response::json([
-      'status' => 200,
-      'new_q' => $q,
-      'product_id' => $product->id,
-      ]);
 
   }
 
@@ -670,5 +714,30 @@ class ApiController extends BaseController
     }
     
  }
+  /**
+  *Anade productos externos como si fueran productos del carrito
+  */
+  public function postExternalProducts(){
 
+
+    $product = CorporationProduct::find(10000);
+
+    if(!$product){
+      return Redirect::back()->with(['errors' => ['No se encontro el producto intente mas tarde.']]);
+    }
+
+    $description = Input::get('description');
+    $quantity = Input::get('quantity');
+
+    for ($i=0; $i < sizeof($description); $i++) { 
+      Auth::user()
+        ->cartCorporation()
+        ->attach($product->id, ['quantity' => $quantity[$i],'description' =>  $description[$i]]);
+    }
+
+    return Redirect::back()->withSuccess('Se agregaron los productos correctamente.');
+  }
 }
+
+
+

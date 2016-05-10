@@ -29,7 +29,7 @@
     @foreach($order->products as $product)
     <tr>
       <td>
-        {{$product->name}}
+        {{$product->id == 10000  ? $product->pivot->description : $product->name}}
       </td>
       <td>
         {{$product->pivot->quantity}}
@@ -56,12 +56,7 @@
       </tbody>
 
 </table>
-<div class="form-group text-right">
-@if($order->status == 0)
-   {{link_to_action('AddCorporationProductsController@getIndex', 'Agregar producto',[$order->id], ['class' => 'btn btn-lg btn-warning'])}}
-    @endif
 
-</div>
     
 
 

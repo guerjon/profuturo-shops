@@ -8,7 +8,7 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="admin/orders-corporation">Pedidos Papelería</a></li>
+    <li><a href="admin/orders-corporation">Pedidos Corporativos</a></li>
     <li class="active">Detalles</li>
   </ol>
 
@@ -45,10 +45,10 @@
     @foreach($order->products as $product)
     <tr>
       <td>
-        {{$product->name}}
+        {{$product->id == 10000  ? $product->pivot->description : $product->name}}
       </td>
 
-      <td class="product-quantity text-center">
+      <td class="product-quantity">
         {{$product->pivot->quantity}}
       </td>
 

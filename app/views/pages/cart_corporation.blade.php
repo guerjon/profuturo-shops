@@ -12,10 +12,18 @@
   </div>
   @endif
 
+      <div class="text-right">
+          <button class="btn btn-primary" data-toggle="modal" data-target="#external-products">
+            <span class="glyphicon glyphicon-plus"></span>
+            Añadir productos externos</button>
+      </div>
+      <br>
     @if(Auth::user()->cart_corporation->count() == 0)
+      
       <div class="alert alert-warning">
         Sin artículos en el carrito. Haga click <a href="/corporation-productos" class="alert-link">aquí</a> para ver los productos disponibles.
       </div>
+      
       @else
 
       <table class="table table-striped">
@@ -38,7 +46,7 @@
           @foreach(Auth::user()->cart_corporation as $product)
           <tr>
             <td>
-              {{$product->name}}
+              {{$product->id == 10000  ? $product->pivot->description : $product->name}}
             </td>
 
             <td class="product-quantity">
@@ -46,8 +54,8 @@
             </td>
 
             <td>
-              <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="1">Eliminar 1</button>
-              <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-product-id="{{$product->id}}" data-quantity="{{$product->pivot->quantity}}">Eliminar todos</button>
+              <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-description="{{$product->pivot->description}}" data-product-id="{{$product->id}}" data-quantity="1">Eliminar 1</button>
+              <button onclick="this.disable=true;" class="btn btn-xs btn-danger" data-description="{{$product->pivot->description}}" data-product-id="{{$product->id}}" data-quantity="{{$product->pivot->quantity}}">Eliminar todos</button>
 
             </td>
           </tr>
@@ -98,6 +106,7 @@
   @endif
 
 @include('pages.partials.confirm')  
+@include('pages.partials.external_productos')  
 
 @stop
 
@@ -107,7 +116,8 @@
     $('.table .btn-danger').click(function(){
       $.post('/api/remove-from-cart-corporation', {
         product_id : $(this).attr('data-product-id'),
-        quantity : $(this).attr('data-quantity')
+        quantity : $(this).attr('data-quantity'),
+        description: $(this).attr('data-description')
       }, function(data){
         if(data.status == 200){
           location.reload();
@@ -127,10 +137,16 @@
 
 });
 
+  //Clona y agrega el campo descripcion y cantidad a el formulario de la modal external-products
+  $('#add_external_product').click(function(){
+      var container = $('.description_container').first().clone();
+      $('.description_container').last().after(container);
+  });
+  
 
-
-
-
+  $('#save-extra-products').click(function(){
+      $('#external-products form').submit();
+  });
 
 </script>
 @stop

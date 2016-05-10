@@ -11,7 +11,10 @@ class CorporationOrder extends Eloquent
 
   public function products()
   {
-    return $this->belongsToMany('CorporationProduct','corporation_order_corporation_product','corp_order_id','corp_product_id')->withPivot('quantity', 'status', 'comments')->withTrashed();
+    return $this->
+            belongsToMany('CorporationProduct','corporation_order_corporation_product','corp_order_id','corp_product_id')
+            ->withPivot('quantity', 'status', 'comments','description')
+            ->withTrashed();
   }
 
 
