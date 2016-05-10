@@ -112,7 +112,7 @@
         @endif
       </td>
        <td>
-   {{Form::open(array('action' =>['AdminBcOrdersController@destroy',$order->id],
+   {{Form::open(array('action' =>['AdminBcOrdersController@destroy',$order->order_id],
    'method' => 'delete'))}}
 
     <button type="submit" class="btn btn-danger btn-xs">
