@@ -8,6 +8,7 @@ class AdminOrdersController extends BaseController
     if(Input::get('export') == 'xls'){
     $query = DB::table('users')->select('*','orders.id as order_id','orders.created_at as order_created_at')
               ->join('orders','orders.user_id','=','users.id')
+              ->leftJoin('address','address.id','=','users.address_id')
               ->orderBy('orders.created_at','desc');
     
     $q = clone $query;
