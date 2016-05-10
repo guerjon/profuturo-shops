@@ -39,22 +39,59 @@
       </td>
     </tr>
     @endforeach
+  </tbody>
+</table>
+<h3>Tarjetas blancas</h3>
+@if($blank_card)
+<table class="table table-striped">
+  <thead>
+    <th>
+      Cantidad
+    </th>
+    <th>
+      Nombre de puesto
+    </th>
+    <th>
+      Dirección alternativa
+    </th>
+    <th>
+      Teléfono
+    </th>
+    <th>
+      Email
+    </th>
+    <th>
+      Comentarios
+    </th>
+    <th>
+      Estatus
+    </th>
+  </thead>
 
-
-    @if($blank_card)
-    
+  <tbody>    
     <tr>
-      <td>
-        Tarjetas blancas
-      </td>
+
       <td>
         {{$blank_card->quantity}}
       </td>
+
       <td>
-        {{Form::select("blank_cards_status",['Incompleto', 'Completo'], $blank_card->status, ['class' => 'form-control'])}}
+        {{$blank_card->nombre_puesto}}
+      </td>
+      <td>
+        {{$blank_card->direccion_alternativa_tarjetas}}
+      </td>
+      <td>
+        {{$blank_card->telefono_tarjetas}}
+      </td>
+      <td>
+        {{$blank_card->email}}
       </td>
       <td>
         {{Form::text("blank_cards_comments", $blank_card->comments, ['class' => 'form-control']) }}
+      </td>
+      <td>
+        {{Form::select("blank_cards_status",['Incompleto', 'Completo'], $blank_card->status, ['class' => 'form-control'])}}
       </td>
     </tr>
     
@@ -91,6 +128,7 @@
         <td>
           {{Form::text("gerente_comentarios",$bc_order->extra->gerente_comentarios, ['class' => 'form-control']) }}
         </td>
+        
     </tr>
     
     @endif
