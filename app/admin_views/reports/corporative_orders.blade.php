@@ -32,8 +32,8 @@
       {{Form::label('since','# ORDEN')}}
       {{Form::text('order_id',null,['class' => 'form-control','placeholder' => 'Ingrese el numero de pedido','id' => 'order' ])}}
       <br>
-      {{Form::label('ccosto','CCOSTO')}}
-      {{Form::text('ccosto',null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
+      {{Form::label('gerencia','USUARIO')}}
+      {{Form::text('gerencia',null,['class' => 'form-control','placeholder' => 'Ingrese un usuario','id' => 'gerencia'])}}
     </div>
 
       
@@ -43,14 +43,6 @@
       <br>
       {{Form::label('product_id','PRODUCTO')}}
       {{Form::select('product_id',[null => 'Seleccione un producto'] +$products,null,['class' => 'form-control','id' => 'product_id'])}}
-    </div>
-
-    <div class="col-xs-3">
-      {{Form::label('divisional_id','DIVISIONAL')}}
-      {{Form::select('divisional_id',[null => 'Seleccione una divisional'] + Divisional::lists('name','id'),null,['class' => 'form-control','id' => 'category_id'])}}
-      <br>
-      {{Form::label('region_id','REGIONAL')}}
-      {{Form::select('region_id',[null => 'Seleccione una región'] + Region::lists('name','id'),null,['class' => 'form-control','id' => 'product_id'])}}
     </div>
 
     <div class="col-xs-2 ">
@@ -184,7 +176,7 @@ $(function(){
          update();
       });
 
-      $('#ccosto').keyup(function(){
+      $('#gerencia').keyup(function(){
           update();
       });  
 
@@ -203,11 +195,11 @@ $(function(){
             if(data.status == 200){
 
               var orders = data.orders;
-              var ccostos = data.ccostos;
+              var gerencia = data.gerencia;
 
               $('#ccosto').autocomplete(
                 {
-                  source:ccostos,
+                  source:gerencia,
                   minLength: 1
                 }
               );

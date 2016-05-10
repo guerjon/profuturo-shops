@@ -333,8 +333,8 @@ class AdminApiController extends AdminBaseController
     if(Input::has('divisional_id'))
       $query->where('users.divisional_id','=',Input::get('divisional_id')); 
 
-    if(Input::has('ccosto'))
-      $query->where('users.ccosto','=',Input::get('ccosto')); 
+    if(Input::has('gerencia'))
+      $query->where('users.gerencia','like','%'.Input::get('gerencia').'%'); 
 
     if(Input::has('order_id'))
       $query->where('corporation_orders.id',Input::get('order_id'));
@@ -1597,13 +1597,13 @@ class AdminApiController extends AdminBaseController
   {
     
     $orders = CorporationOrder::all()->lists('id');
-    $ccostos = User::all()->lists('ccosto');
+    $gerencia = User::all()->lists('gerencia');
  
     if(Request::ajax()){
       return Response::json([
         'status' => 200,
         'orders' => $orders,
-        'ccostos' => $ccostos
+        'gerencia' => $gerencia
       ]);
     }
   }
