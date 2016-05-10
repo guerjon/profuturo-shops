@@ -133,11 +133,14 @@
                                           'Gerente de aportaciones voluntarias' => 'Gerente de aportaciones voluntarias'
                                           ), NULL, ['class' => 'form-control'])}}
       </div>
-      <div class="col-xs-5">
-      {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}
+      <div class="col-xs-4">
+        {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}
       </div>
-      <div class="col-xs-3">
-      {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Telefono'])}}
+      <div class="col-xs-2">
+        {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Telefono'])}}
+      </div>
+      <div class="col-xs-2">
+        {{Form::text('email',NULL, ['class' => 'form-control','placeholder' => 'Correo electronico'])}}
       </div>
     </div>
     @endif

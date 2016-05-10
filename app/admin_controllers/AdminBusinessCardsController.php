@@ -4,22 +4,19 @@ class AdminBusinessCardsController extends BaseController{
 
   public function index()
   {
-   $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
+    $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
     $cards = BusinessCard::withTrashed()->orderBy('gerencia')->orderBy('no_emp');
 
     if(Input::has('no_emp')){
       $cards->where('no_emp','like','%'.Input::get('no_emp').'%');
-	Log::info("entro a 1");	   
     }
+
     if(Input::has('gerencia')){
       $cards->where('gerencia', Input::get('gerencia'));
-	Log::info("entro a 2");	   
-
     }
+
     if(Input::has('ccosto')){
       $cards->where('ccosto','like','%'.Input::get('ccosto').'%');
-	Log::info("entro a 3");	   
-
     }
 
     return View::make('admin::business_cards.index')->withCards($cards->paginate(50))->withGerencias($gerencias);
