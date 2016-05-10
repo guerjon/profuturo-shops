@@ -536,13 +536,13 @@ class AdminApiController extends AdminBaseController
       DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
       'Tarjetas blancas' AS NOMBRE,
       blank_cards_bc_order.nombre_puesto AS NOMBRE_PUESTO,
-      '' AS EMAIL,
-      '' AS TELEFONO,
+      blank_cards_bc_order.email AS EMAIL,
+      blank_cards_bc_order.telefono_tarjetas AS TELEFONO,
       '' AS CELULAR,
       '' AS WEB,
       users.ccosto AS CENTRO_COSTO,
       '' AS DIRECCION,
-      '' AS DIRECCION_ALTERNATIVA")
+      blank_cards_bc_order.direccion_alternativa AS DIRECCION_ALTERNATIVA")
       ->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
       ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
       ->whereNull('bc_orders.deleted_at')
