@@ -16,24 +16,28 @@
 <br>
 
 
-{{Form::open([
-'class' => 'form-horizontal',
-'method' => 'GET'
-])}}
+  {{Form::open([
+  'class' => 'form-horizontal',
+  'method' => 'GET'
+  ])}}
 
-
-
-{{Form::label('name', 'Nombre corto', ['class' => 'control-label col-xs-2 col-xs-offset-5'])}}
-
-<div class="col-xs-4">
-  {{Form::text('name', Input::get('name'), ['class' => 'form-control'])}}
-</div>
-
-
-<div class="col-xs-1 text-right">
-  {{Form::submit('Buscar', ['class' => 'btn btn-default'])}}
-</div>
-{{Form::close()}}
+    <div class="row">
+      <div class="col-xs-6"></div>
+      <div class="col-xs-4">
+        @if($activeCategory == null)
+          {{Form::select('name',[null => 'Todos los productos'] +CorporationProduct::lists('name','name'),null,['class' => 'form-control','id' => 'name'])}}
+        @else
+          {{Form::select('name',[null => 'Todos los productos'] +CorporationProduct::where('corporation_category_id',$activeCategory->id)->lists('name','name'),null,['class' => 'form-control','id' => 'name'])}}
+        @endif
+      </div>
+    <div class="col-xs-2">
+      <button class="btn btn-primary">
+        <span class="glyphicon glyphicon-search"></span>
+          Buscar
+      </button>
+    </div>
+  </div>
+  {{Form::close()}}
 
 <hr>
 
@@ -90,6 +94,7 @@
 @section('script')
 <script>
 $(function(){
+  $('#name').select2({'theme' : 'bootstrap','placeholder' : 'Nombre del producto'});
   $('a.list-group-item').click(function(){
     var modal = $('#add-to-cart-modal');
     modal.modal('show');    
@@ -147,8 +152,6 @@ $(function(){
             }else{
               label.find('.product-current-stock').html(newq);
             }
-
-
           }
         }
       }else{
