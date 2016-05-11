@@ -308,7 +308,8 @@ class AdminApiController extends AdminBaseController
       format(corporation_products.price * corporation_order_corporation_product.quantity,2) as PRICE,
       address.domicilio as ADDRESS,
       '' as 'ID DE PEOPLE',
-      corporation_orders.id as '# PEDIDO'
+      corporation_orders.id as '# PEDIDO',
+      corporation_products. id_people_corporation as 'ID_PEOPLE'
       "))
       ->join('corporation_products', 'corporation_products.id', '=', 'corporation_order_corporation_product.corp_product_id')
       ->join('corporation_orders', 'corporation_orders.id' , '=', 'corporation_order_corporation_product.corp_order_id')

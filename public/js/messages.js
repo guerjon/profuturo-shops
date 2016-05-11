@@ -168,9 +168,11 @@
       table.append('</tbody>');
 
     });
+
     var modal =  $('#message-modal').modal();
 
     $(document).on('click','.fast-actions',function(){
+      
       $('#message-modal').modal('toggle');
       $('#select_users_modal').modal();
       var ccostos = $(this).attr('data-ccosto');

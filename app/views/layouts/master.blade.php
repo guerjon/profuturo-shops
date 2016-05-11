@@ -172,7 +172,9 @@
 
 			$(function(){
 				$.slidebars();
+				//Seleccionamos el select y lo clonamos donde buscaremos a nuestros usuarios por gerencia
 				window.magic_select = $('#search-ccostos').clone();
+
 
 				$('.notification-link').click(function(event){
 					$.post('/admin/api/notification-marker',{id:$(this).attr('data-notification-id')},function(data){
@@ -195,7 +197,7 @@
 					messages_update($(this).attr('data-type'));
 					changeTab($(this).attr('data-type'));
 				});
-				
+				//
 				$(document).on('click', '.pagina_mensage', function(){
 			        event.preventDefault();
 			        var page = $(this).attr('data-page');
@@ -267,8 +269,9 @@
 						$(this).prop('disabled',true);
 						$(this).next().prop('disabled',false);
 						$(this).next().next().prop('disabled',false);
+						
 						if($(this).is('#new_message_button')){
-							$('#select_users_modal').modal();		
+							$('#select_users_modal').modal();
 						}
 						
 					}
