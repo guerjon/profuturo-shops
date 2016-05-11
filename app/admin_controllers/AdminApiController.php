@@ -307,7 +307,6 @@ class AdminApiController extends AdminBaseController
       corporation_categories.name as CATEGORY,
       format(corporation_products.price * corporation_order_corporation_product.quantity,2) as PRICE,
       address.domicilio as ADDRESS,
-      '' as 'ID DE PEOPLE',
       corporation_orders.id as '# PEDIDO',
       corporation_products. id_people_corporation as 'ID_PEOPLE'
       "))
