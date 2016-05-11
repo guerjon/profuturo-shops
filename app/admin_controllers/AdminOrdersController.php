@@ -6,46 +6,45 @@ class AdminOrdersController extends BaseController
   public function index()
   {
     if(Input::get('export') == 'xls'){
-    $query = DB::table('users')->select('*','orders.id as order_id','orders.created_at as order_created_at')
-              ->join('orders','orders.user_id','=','users.id')
-              ->leftJoin('address','address.id','=','users.address_id')
-              ->orderBy('orders.created_at','desc');
-    
-    $q = clone $query;
-    $headers = ['NOMBRE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS','DIRECCIÓN'];
-    $result = [$headers];
-    Log::debug($query->get());
+      $query = DB::table('users')->select('*','orders.id as order_id','orders.created_at as order_created_at')
+                ->join('orders','orders.user_id','=','users.id')
+                ->leftJoin('address','address.id','=','users.address_id')
+                ->orderBy('orders.created_at','desc');
+      
+      $q = clone $query;
+      $headers = ['NOMBRE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS','DIRECCIÓN'];
+      $result = [$headers];
+      
 
-    foreach ($query->get() as $item) {
-    $itemArray = [];
-    $itemArray['NOMBRE_CC']    = $item->gerencia;
-    $itemArray['CCOSTOS']     = $item->ccosto;
-    $itemArray['NO_PEDIDO']   = $item->order_id;
-    $itemArray['COMENTARIOS'] = $item->comments;
-    $itemArray['CREADO']      = $item->order_created_at;
+      foreach ($query->get() as $item) {
+        $itemArray = [];
+        $itemArray['NOMBRE_CC']   = $item->gerencia;
+        $itemArray['CCOSTOS']     = $item->ccosto;
+        $itemArray['NO_PEDIDO']   = $item->order_id;
+        $itemArray['COMENTARIOS'] = $item->comments;
+        $itemArray['CREADO']      = $item->order_created_at;
 
-    if($item->status == 0){
-        $itemArray['ESTATUS'] = 'PENDIENTE';
-    }elseif($item->status == 1){
-      $itemArray['ESTATUS'] = 'Recibido ';
-    }elseif($item->status==2){
-       $itemArray['ESTATUS'] = 'Recibido Incompleto';
-    }elseif($item->status==2){
-      $itemArray['ESTATUS'] = 'Recibido incompleto';
-    }
-     
-    $itemArray['DIRECCION'] = $item->domicilio; 
-    $result[] = $itemArray;
-    }
-
-    if($result){
-      Excel::create('Reporte_productos',function($excel) use($result){
-         $excel->sheet('Hoja_1', function($sheet) use($result) {
-           $sheet->fromArray($result);
-        });
-      })->download('xlsx');
-    }
-
+        if($item->status == 0){
+            $itemArray['ESTATUS'] = 'PENDIENTE';
+        }elseif($item->status == 1){
+          $itemArray['ESTATUS'] = 'Recibido ';
+        }elseif($item->status==2){
+           $itemArray['ESTATUS'] = 'Recibido Incompleto';
+        }elseif($item->status==2){
+          $itemArray['ESTATUS'] = 'Recibido incompleto';
+        }
+       
+        $itemArray['DIRECCION'] = $item->domicilio; 
+        $result[] = $itemArray;
+      }
+      Log::debug($result);
+      if($result){
+        Excel::create('Reporte_productos',function($excel) use($result){
+           $excel->sheet('Hoja_1', function($sheet) use($result) {
+             $sheet->fromArray($result);
+          });
+        })->download('xlsx');
+      }
     }
         
     $gerencias = User::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');

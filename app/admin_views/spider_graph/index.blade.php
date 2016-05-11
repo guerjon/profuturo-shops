@@ -1,7 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
-	<h1>Estadísticas de Encuestas</h1>
+	<div class="row">
+		<div class="col col-xs-3"><h1>Estadísticas de Encuestas</h1></div>
+		<div class="col col-xs-6"></div>
+		
+	</div>
+	
+
 	<hr>
 
 	
@@ -12,10 +18,10 @@
 		<div class="row">	
 			<div class="col col-md-3">
 				<div class="form-group">
-					{{Form::label('gerencia','GERENCIA',['class' => 'label-control'])}}
+					{{Form::label('gerencia','Consultor',['class' => 'label-control'])}}
 					{{Form::select(
 						'gerencia',
-						[null => 'Todos los usuarios'] + User::where('role','user_requests')->lists('gerencia','id'),
+						[null => 'Todos los consultores'] + User::where('role','manager')->lists('gerencia','id'),
 						null,
 						['class' => 'form-control select-2 filter','id' =>'gerencia'])
 					}}
@@ -32,21 +38,23 @@
 					}}		
 	      		</div>
 			</div>
-			<div class="col col-md-3">			
-				<div class="form-group">
-					<div class="form-group">
-						{{Form::label('regional','Encuestas por regional',['class' => 'label-control'])}}
-						{{Form::select('regional',[null => 'Todas las regiones'] + Region::lists('name','id'),null,['class' => 'form-control select-2 filter','id' =>'regional'])}}
-					</div>
-				</div>
-			</div>
-
 			<div class="col col-md-3">
 				<div class="form-group">
 					{{Form::label('encuesta','# ENCUESTA',['class' => 'label-control'])}}
 					{{Form::select('encuesta',[null => 'Todas las encuestas'] + SatisfactionSurvey::orderBy('id')->lists('id','id'),null,['class' => ' form-control select-2 filter','id' => 'encuesta'])}}
 				</div>
 			</div>
+			<div class="col col-xs-3 text-right" >
+				<br>
+				{{Form::open(['method' => 'get'])}}
+				<input type="text" class="hidden" value="xls" name="xls">
+					<button class="btn btn-primary" type="submit">
+						<span class="glyphicon glyphicon-download-alt"></span>
+						Descargar reporte
+					</button>
+				{{Form::close()}}				
+			</div>
+
 		</div>
 
 		
@@ -74,7 +82,7 @@
     			</div>					
 			</div>
 
-			<div class="col col-xs-6 text-center">
+			<div class="col col-xs-6 text-center" id="div-chart-container">
 				<canvas id="chart-container"></canvas>		
 			</div>
 
@@ -128,6 +136,7 @@
 			});
 
 			function actualiza(){
+				
 				$.get('/admin/api/survey',{
 					consultor: $('#consultor').val(),
 					solicitud: $('#solicitud').val(),
@@ -193,7 +202,8 @@
 									        }],
 									fill : true			    
 								};
-								$('#chart-container').empty();
+								$('#div-chart-container').empty();
+								$('#div-chart-container').append('<canvas id="chart-container"></canvas>')	
 								var myRadarChart = new Chart($('#chart-container'), {
 								    type: 'bar',
 								    data: data,

@@ -119,10 +119,8 @@ class AdminApiController extends AdminBaseController
         ]);
     }else{
 
-            $datetime = \Carbon\Carbon::now()->format('YmdHi');
-            $data = str_putcsv($headers)."\n";
-
-
+        $datetime = \Carbon\Carbon::now()->format('YmdHi');
+        $data = str_putcsv($headers)."\n";
         $result = [$headers];
         foreach($query->get() as $item){
           $itemArray = [];
@@ -131,6 +129,7 @@ class AdminApiController extends AdminBaseController
         }
           $result[] = $itemArray;
         }
+        Log::debug($result);
         if($result){
          
           Excel::create('reporte_papeleria', function($excel) use($result){
@@ -1911,9 +1910,7 @@ class AdminApiController extends AdminBaseController
 
   public function getSurvey()
   {
-    Log::debug(Input::all());
     
-
     $surveys = DB::table('satisfaction_surveys')->select(
         DB::raw('avg(question_one) as uno,
                   avg(question_two) as dos,
@@ -1923,21 +1920,11 @@ class AdminApiController extends AdminBaseController
                   ))
             ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
             ->join('users','users.id','=','general_requests.manager_id');
-
+ 
     $comments = DB::table('satisfaction_surveys')->select(DB::raw('explain_1,explain_2,explain_3,explain_4,satisfaction_surveys.general_request_id'))
                   ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
                   ->join('users','users.id','=','general_requests.manager_id');
 
-    if(Input::has('since')){
-      $surveys->where('general_requests.created_at','>',Input::get('since'));
-      $comments->where('general_requests.created_at','>',Input::get('since'));
-
-    }
-
-    if(Input::has('until')){
-      $surveys->where('general_requests.created_at','<',Input::get('until'));
-      $comments->where('general_requests.created_at','<',Input::get('until'));
-    }
 
     if(Input::has('gerencia')){
       $surveys->where('users.id','=',Input::get('gerencia'));
@@ -1954,10 +1941,6 @@ class AdminApiController extends AdminBaseController
       $comments->where('satisfaction_surveys.id','=',Input::get('encuesta'));
     }
 
-    if(Input::has('regional')){
-      $surveys->where('users.region_id','=',Input::get('regional'));
-      $comments->where('users.region_id','=',Input::get('regional'));
-    }
 
       return Response::json([
         'status' => 200,
