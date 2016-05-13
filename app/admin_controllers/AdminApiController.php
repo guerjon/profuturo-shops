@@ -784,7 +784,56 @@ class AdminApiController extends AdminBaseController
 
   public function getFurnituresOrdersReport()
   {
-    ini_set('max_execution_time','300');
+    if(Input::get('report_type') == 1){
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
+      furniture_orders.created_at as FECHA_PEDIDO,
+      '9999999999999990000000000' AS EIP_CTL_ID,
+      1 as LOADER_REQ,
+      'BPO' as SYSTEM_SOURCE,
+      'PAF01' as LOADER_BU,
+      @rownum:=@rownum+1 as GROUP_SEQ_NUM,
+      'KA003035' as REQUESTOR_ID,
+      DATE_FORMAT( NOW(), '%d/%m/%Y') as DUE_DT,
+      furnitures.sku as INV_ITEM_ID,
+      furnitures.name as DESCR254_MIXED,
+      furnitures.measure_unit as UNIT_OF_MEASURE,
+      furniture_furniture_order.quantity as QTY_REQ,
+      0 as PRICE_REQ,
+      'MXN' as CURRENCY_CD,
+      '' as VENDOR_ID,
+      users.ccosto as LOCATION,
+      '' as CATEGORY_ID,
+      users.ccosto as SHIPTO_ID,
+      '' as REQ_ID,
+      5207030800 as ACCOUNT,
+      5405002201 as ALTACCT,
+      users.ccosto as DEPTID,
+      'RCV' as PRODUCT,
+      '' as CC1,
+      '' as PROJECT_ID,
+      '' as ANALYSIS_TYPE,
+      'PAF01' as BUSINESS_UNIT_GL,
+      users.linea_negocio as LINEA_NEGOCIO,
+      users.ccosto as CCOSTO,
+      @rownum as LINE_NBR,
+      'Y' as CALC_PRICE_FLG,
+      '' as CAP_NUM,
+      '' as SHIP_TO_CUST_ID,
+      'KA003035' as INTROD,
+      furniture_categories.name as CATEGORY
+      
+      "))
+      ->join('furnitures', 'furnitures.id', '=', 'furniture_furniture_order.furniture_id')
+      ->join('furniture_orders', 'furniture_orders.id' , '=', 'furniture_furniture_order.furniture_order_id')
+      ->leftJoin('users', 'users.id', '=', 'furniture_orders.user_id')
+      ->leftJoin('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+      ->orderBy('furniture_orders.id')
+      ->whereNull('furniture_orders.deleted_at')
+      ->where('furniture_orders.created_at','>=',Input::get('since'))
+      ->where('furniture_orders.updated_at','<=',Input::get('until'));
+
+    }elseif(Input::get('report_type') == 2){
+      ini_set('max_execution_time','300');
       $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
       '' as UN,
       furniture_orders.id as 'Nº PEDIDO',
@@ -807,7 +856,7 @@ class AdminApiController extends AdminBaseController
       '' as Dpto,
       users.gerencia as 'Gerencia',
       '' as 'Proyecto',
-      '' as 'Fecha de inicio de Produccón',
+      '' as 'Fecha de inicio de Producción',
       '' as 'Tiempo de fabricación o entrega',
       '' as 'Fecha de salida de planta',
       '' as 'Dirección de entrega',
@@ -827,6 +876,46 @@ class AdminApiController extends AdminBaseController
       ->whereNull('furniture_orders.deleted_at')
       ->where('furniture_orders.created_at','>=',Input::get('since'))
       ->where('furniture_orders.updated_at','<=',Input::get('until'));
+    }elseif(Input::get('report_type') == 3){
+      $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
+      '' as UN,
+      furniture_orders.id as 'Nº PEDIDO',
+      'Introd Por' as 'Introd Por',
+      furniture_orders.created_at as 'F Pedido',
+      furniture_orders.created_at as 'F Solic',
+      furniture_orders.id as 'ID Solic',
+      'solic' as 'SOLIC',
+      'furniture_orders.status' as 'Estado',
+      '' as 'Linea',
+      '' as 'Art',
+      '' as 'Nombre Proveedor',
+      furnitures.specific_description as 'Más Info',
+      furnitures.unitary as 'Precio',
+      furniture_furniture_order.quantity as 'Cant Ped',
+      '' as 'Impte Mercancía',
+      users.ccosto as 'Cuenta',
+      furnitures.name as 'Producto',
+      '' as Dpto,
+      users.gerencia as 'Gerencia',
+      '' as 'Proyecto',
+      '' as 'Fecha de envio de OC',
+      '' as 'Fecha de entrega',
+      '' as 'Persona que recibe',
+      '' as 'Estatus de compra',
+      '' as 'Tipo de compra',
+      '' as 'Comprobante',
+      '' as 'Fecha de pago',
+      '' as 'Estatus de la factura'
+      "))
+      ->join('furnitures', 'furnitures.id', '=', 'furniture_furniture_order.furniture_id')
+      ->join('furniture_orders', 'furniture_orders.id' , '=', 'furniture_furniture_order.furniture_order_id')
+      ->leftJoin('users', 'users.id', '=', 'furniture_orders.user_id')
+      ->leftJoin('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+      ->orderBy('furniture_orders.id')
+      ->whereNull('furniture_orders.deleted_at')
+      ->where('furniture_orders.created_at','>=',Input::get('since'))
+      ->where('furniture_orders.updated_at','<=',Input::get('until'));
+    }
 
     if(Input::has('gerencia')){
       $query->where('users.id','=',Input::get('gerencia'));

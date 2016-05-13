@@ -33,23 +33,41 @@
     {{Form::select('category_id',array_merge(array(NULL =>'Seleccione una Categoria'),FurnitureCategory::lists('name','id')),NUll,['class' => 'form-control'])}}
   </div>
  
-    <div class="col-xs-4">
+    <div class="col-xs-2">
       {{Form::label('since','DESDE')}}
       {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
       <br>
       {{Form::label('until','HASTA')}}
       {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->addDay(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
     </div>
-  <div class="col-xs-4">
+  <div class="col-xs-2">
     {{Form::label('linea_negocio','LINEA DE NEGOCIO:')}}
     {{Form::select('linea_negocio',[NULL => 'Seleccione una linea de negocio']+$business_line,NUll,['class' => 'form-control'])}}
     <br>
     {{Form::label('divisional_id','DIVISIONAL')}}
     {{Form::select('divisional_id',[null => "Seleccione una divisional"] + $divisionals,null,['class' => 'form-control','placeholder' => 'Ingrese un ccosto','id' => 'ccosto'])}}
-
   </div>
 
   <div class="col-xs-2">
+
+    {{Form::label('report_type','Tipo de reporte')}}
+    {{Form::select(
+                    'report_type',[
+                                    '1' => 'Reporte people',
+                                    '2' => 'Reporte mejorado',
+                                    '3' => 'Reporte sistemas'
+                                  ],
+                    NUll,
+                    [
+                      'class' => 'form-control'
+                    ]
+                  )
+    }}
+
+  </div>
+  <div class="col-xs-2"></div>
+  <div class="col-xs-2">
+    <br>
      <button class="btn btn-primary btn-submit"  >
         <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
       </button>
