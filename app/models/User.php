@@ -272,6 +272,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
+					'/pedidos-mueble' => 'Mis pedidos'
 				];
 
 			case 'user_mac':
