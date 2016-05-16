@@ -17,11 +17,19 @@ class CorporationOrdersController extends \BaseController {
                 'body' => "El usuario " + Auth::user()->ccosto + "ha solicitado un cambio de domicilio",
                 'type' => 'pedidos'
               ];
+    $today = \Carbon\Carbon::today();
+    $access = DateCorporation::where('since','<=',$today)->where('until','>=',$today)->count();
+
+    \Log::debug($access);
+    if($access <= 0)
+      return Redirect::to('carrito-corporativo')->withWarning('Actualmente no se tiene permitido el envio productos, intente mas tarde.');
+
 
     if(Auth::user()->cart_corporation->count() == 0)
     {
       return Redirect::to('/')->withWarning('No puede enviarse un pedido con un carrito vacío');
     }
+
 
     //Direcciones y notificaciones
     if(!$address){
