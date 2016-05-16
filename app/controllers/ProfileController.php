@@ -71,7 +71,7 @@ class ProfileController extends \BaseController {
 		$user->fill(Input::all());	
 
 		    if($user->save()){
-      return Redirect::intended('/');
+      return Redirect::intended('/')->withSuccess('Se han actualizado correctamente los datos.');
     }else{
       return Redirect::back()->withErrors($user->getErrors());
     }

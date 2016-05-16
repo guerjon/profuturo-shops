@@ -117,11 +117,16 @@
 						</li>
 					</ul>
 				</li>
-			
+				<li>
+					<a href="{{action('AdminDatesCorporationController@index')}}">
+						Fechas corporativo
+					</a>
+				</li>
 		@endif
 			@if($name != "Categorías" and $name != "Pedidos" and $name != "Productos" )
 				<li role="presentation">{{link_to($action, $name)}}</li>
 			@endif
+
 		@else
 			<li role="presentation">{{link_to($action, $name)}}</li>
 		@endif

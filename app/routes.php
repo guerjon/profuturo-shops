@@ -71,6 +71,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('grafica-arana','AdminSpiderGraphController@getIndex');
 		Route::resource('productos-mac','AdminMacProductsController');
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
+		Route::resource('date-corporation','AdminDatesCorporationController');
+		
 	});
 
 	Route::resource('message','MessageController',['only' => ['store']]);

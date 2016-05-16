@@ -56,13 +56,19 @@
 				{{Form::label('extension','Extensión',['class'=>'control-label','required' => 'true'])}}
 				{{Form::text('extension',null,['class' => 'form-control'])}}			
 			</div>
-		@if(Auth::user()->role == "user_requests")
+		@if(Auth::user()->role == "user_requests" || Auth::user()->role == 'user_corporation')
 	          <div class="form-group">
 	            {{Form::label('password', 'Contraseña', ['class' => 'control-label'])}}
 	            <div>
 	              {{Form::password('password', ['class' => 'form-control'])}}
 	            </div>
 	          </div>
+	          @if(Auth::user()->role == 'user_corporation')
+				<div class="form-group">
+					{{Form::label('region_id','Region',['class' => 'label-control'])}}
+					{{Form::select('region_id',Region::lists('name','id'),Auth::user()->region_id,['class' =>'form-control'])}}
+				</div>
+	          @endif
 	        @endif
 			<center>
 				<div class="form-group">
@@ -75,3 +81,5 @@
 	</div>
 
 @stop
+
+
