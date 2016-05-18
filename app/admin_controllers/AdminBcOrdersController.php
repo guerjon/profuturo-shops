@@ -1,4 +1,4 @@
-AdminBcOrdersController.php<?
+<?
 
 class AdminBcOrdersController extends AdminBaseController{
 
