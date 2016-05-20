@@ -62,43 +62,45 @@
 
         <tbody>
           @foreach($products as $product)
-          <tr>
+          @unless($product->id == 10000)
+              <tr>
 
-            <td>
-              {{$product->name}}
-            </td>
-            <td>
-              {{$product->description}}
-            </td>
+                <td>
+                  {{$product->name}}
+                </td>
+                <td>
+                  {{$product->description}}
+                </td>
 
-            <td>
-              {{HTML::image($product->image->url('mini'))}}
-            </td>
+                <td>
+                  {{HTML::image($product->image->url('mini'))}}
+                </td>
 
-            <td>
-              <a href="{{action('AdminCorporationProductsController@edit', $product->id)}}" class="btn btn-warning btn-xs">
-               <span class="glyphicon glyphicon-pencil"></span> Editar
-              </a>
-            {{Form::open([
-                'action' => ['AdminCorporationProductsController@destroy',$product->id],
-                'method' => 'DELETE',
-                'style' => 'display:inline'
-                ])}}
-            @if($product->trashed())
-              <button type="submit" class="btn btn-success btn-xs">
-                <span class="glyphicon glyphicon-ok"></span> Habilitar
-              </button>
-            @else
-              <button type="submit" class="btn btn-danger btn-xs">
-                <span class="glyphicon glyphicon-remove"></span> Inhabilitar
-              </button>
-            @endif 
-            {{Form::close()}}   
-            
-            </td>
-            
-             
-            </tr>
+                <td>
+                  <a href="{{action('AdminCorporationProductsController@edit', $product->id)}}" class="btn btn-warning btn-xs">
+                   <span class="glyphicon glyphicon-pencil"></span> Editar
+                  </a>
+                {{Form::open([
+                    'action' => ['AdminCorporationProductsController@destroy',$product->id],
+                    'method' => 'DELETE',
+                    'style' => 'display:inline'
+                    ])}}
+                @if($product->trashed())
+                  <button type="submit" class="btn btn-success btn-xs">
+                    <span class="glyphicon glyphicon-ok"></span> Habilitar
+                  </button>
+                @else
+                  <button type="submit" class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove"></span> Inhabilitar
+                  </button>
+                @endif 
+                {{Form::close()}}   
+                
+                </td>
+                
+                 
+              </tr>
+            @endunless
           @endforeach
         </tbody>
       </table>

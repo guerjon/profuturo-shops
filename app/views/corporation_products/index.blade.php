@@ -49,6 +49,7 @@
 
   <div class="list-group">
     @foreach($products as $product)
+    @unless($product->id == 10000)
     <a class="list-group-item" href="#" data-product-id="{{$product->id}}" data-image-src="{{$product->image->url('medium')}}">
 
       <div class="pull-right">
@@ -75,6 +76,7 @@
         </div>
       </div>
     </a>
+    @endunless
     @endforeach
   </div>
 @endif
