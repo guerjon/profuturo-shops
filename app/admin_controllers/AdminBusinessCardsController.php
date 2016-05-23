@@ -53,18 +53,18 @@ class AdminBusinessCardsController extends BaseController{
 
           if(!$card){
             $card = BusinessCard::create([
-              'no_emp' => $row->numero_empleado,
-              'nombre' => $row->nombre_empleado,
-              'ccosto' => $row->ccosto,
-              'nombre_ccosto' => $row->nombre_ccosto,
-              'nombre_puesto' => $row->nombre_puesto,
+              'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
+              'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
+              'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
+              'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
+              'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
               'fecha_ingreso' => $row->fecha_ingreso,
-              'web' => $row->web,
-              'gerencia' => $row->gerencia,
-              'direccion' => $row->direccion,
-              'telefono' => $row->telefono,
-              'celular' => $row->celular,
-              'email' => $row->email,
+              'web' => $row->web ? $row->web : 'N/A',
+              'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
+              'direccion' => $row->direccion ? $row->direccion : 'N/A',
+              'telefono' => $row->telefono ? $row->telefono : 'N/A',
+              'celular' => $row->celular ? $row->celular : 'N/A',
+              'email' => $row->email ? $row->email : 'N/A',
             ]);
             if($card){
               $created++;

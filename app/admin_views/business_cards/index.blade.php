@@ -95,7 +95,7 @@
               {{$card->gerencia}}
             </td>
             <td>
-              {{\Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y')}}
+              {{ $card->fecha_ingreso ? \Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y') : 'N/A'}}
             </td>
             <td>
               {{Form::open([
