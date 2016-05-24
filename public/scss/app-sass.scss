@@ -1,8 +1,25 @@
 $amarillo-pro: #fdb813;
 $azul-pro: #00437a;
 
-/* @group */
-/**/
+/* @group general */
+
+#sb-site {
+	padding-top: 50px;
+}
+.navbar-nav > li > a {
+	padding-top: 7px;
+	height: 50px;
+}
+
+/* @endgroup */
+
+/* @group utils */
+
+.margin-top-150 {
+	margin-top: 150px;
+}
+
+/* @endgroup */
 
 /* @group header */
 
@@ -52,6 +69,31 @@ $azul-pro: #00437a;
 			color: $azul-pro !important;
 		}
 	}
+	.sidemenu-toggle {
+		background-color: transparent !important;
+		border: none !important;
+		color: $azul-pro !important;
+		border-radius: 0px;
+
+		&:hover {
+			color: $amarillo-pro !important;
+		}
+	}
+}
+
+/* @endgroup */
+
+/* @group login */
+
+.bg-login {
+    background: transparent url("../img/bg-login.png") center left no-repeat;
+    background-size: contain;
+    margin: 0;
+    padding: 0;
+
+    #sb-site {
+    	background-color: transparent;
+    }
 }
 
 /* @endgroup */

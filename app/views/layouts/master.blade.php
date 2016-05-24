@@ -26,7 +26,7 @@
 	<![endif]-->
 	
 </head>
-<body>
+<body class="@if(isset($bodyClass)) {{$bodyClass}} @endif">
 	<div class="sb-slidebar sb-left">
 		@include('layouts.sidemenu')
 	</div>
@@ -45,7 +45,7 @@
 					<div class="navbar-brand-wrap">
 						@if(Auth::check())
 						<a class="navbar-brand" href="#">
-							<div class="sb-toggle-left btn btn-default btn-lg">
+							<div class="sb-toggle-left btn btn-default btn-lg sidemenu-toggle">
 								<span class="glyphicon glyphicon-align-justify"></span>
 							</div>
 						</a>

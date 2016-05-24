@@ -1,4 +1,14 @@
-/* @group header */.main-navbar {
+/* @group general */#sb-site {
+  padding-top: 50px;
+}
+.navbar-nav > li > a {
+  padding-top: 7px;
+  height: 50px;
+}
+/* @endgroup *//* @group utils */.margin-top-150 {
+  margin-top: 150px;
+}
+/* @endgroup *//* @group header */.main-navbar {
   background: #fff;
   border: none;
   margin-bottom: 0;
@@ -40,5 +50,23 @@
 }
 .main-navbar .navbar-session a {
   color: #00437a !important;
+}
+.main-navbar .sidemenu-toggle {
+  background-color: transparent !important;
+  border: none !important;
+  color: #00437a !important;
+  border-radius: 0px;
+}
+.main-navbar .sidemenu-toggle:hover {
+  color: #fdb813 !important;
+}
+/* @endgroup *//* @group login */.bg-login {
+  background: transparent url("../img/bg-login.png") center left no-repeat;
+  background-size: contain;
+  margin: 0;
+  padding: 0;
+}
+.bg-login #sb-site {
+  background-color: transparent;
 }
 /* @endgroup */
