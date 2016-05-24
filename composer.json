@@ -4,6 +4,9 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"type": "project",
+	"require-dev": {
+	    "panique/laravel-sass": "dev-master"
+	},
 	"require": {
 		"laravel/framework": "4.2.*",
 		"watson/validating": "0.10.*",

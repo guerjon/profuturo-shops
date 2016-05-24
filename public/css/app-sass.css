@@ -1,0 +1,44 @@
+/* @group header */.main-navbar {
+  background: #fff;
+  border: none;
+  margin-bottom: 0;
+}
+.main-navbar .navbar-header {
+  width: 100%;
+  position: relative;
+}
+.main-navbar .navbar-brand-wrap {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  position: absolute;
+}
+.main-navbar .navbar-brand {
+  color: #00437a;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.main-navbar .navbar-brand:hover {
+  color: #00437a;
+}
+.main-navbar .navbar-brand + .navbar-brand {
+  margin-left: 0;
+}
+.main-navbar .text-center {
+  width: 100%;
+  height: 50px;
+}
+.main-navbar .text-center img {
+  max-height: 100%;
+  padding: 10px 0;
+}
+.main-navbar .navbar-session {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+.main-navbar .navbar-session a {
+  color: #00437a !important;
+}
+/* @endgroup */
