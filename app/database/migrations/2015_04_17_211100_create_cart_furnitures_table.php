@@ -21,7 +21,6 @@ class CreateCartFurnituresTable extends Migration {
 			$table->string('ccostos');
 			$table->string('company');
 			$table->integer('id_active');
-			$table->integer('color');
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->foreign('furniture_id')->references('id')->on('furnitures')->onDelete('cascade');
 		});

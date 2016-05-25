@@ -24,9 +24,7 @@ class AddColumnsToBlankCards extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('blank_cards_bc_order',function($table){
-			$table->dropTable('email');
-		});
+
 	}
 
 }

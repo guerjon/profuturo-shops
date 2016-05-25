@@ -34,9 +34,7 @@ class CreateBlankCardsBcOrderTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('blank_cards_bc_order', function($table){
-			$table->dropForeign('blank_cards_bc_order_bc_order_id_foreign');
-		});
+		
 		Schema::drop('blank_cards_bc_order');
 	}
 

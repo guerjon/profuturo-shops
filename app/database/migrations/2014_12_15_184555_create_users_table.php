@@ -30,7 +30,6 @@ class CreateUsersTable extends Migration {
 			$table->foreign('divisional_id')->references('id')->on('divisionals')->onDelete('cascade');
 			$table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
 			$table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
-			
 			$table->rememberToken();
 		  	$table->timestamps();
 		});			
