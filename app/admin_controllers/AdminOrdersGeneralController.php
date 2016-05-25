@@ -1,4 +1,4 @@
-<?
+<?php
 
 class AdminOrdersGeneralController extends AdminBaseController{  
 
@@ -8,3 +8,4 @@ class AdminOrdersGeneralController extends AdminBaseController{
   }
   
 }
+?>

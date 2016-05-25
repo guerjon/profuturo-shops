@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('content')
+@section('style')
 
 	<style>
 		@import url(//fonts.googleapis.com/css?family=Lato:700);
@@ -8,11 +8,12 @@
 		.welcome {
 			width: 50em;
 			height: 40em;
-			position: absolute;
+			/* position: absolute;
 			left: 50%;
 			top: 50%;
 			margin-left: -25em;
-			margin-top: -19.3em;
+			margin-top: -19.3em; */
+			margin: auto;
 		}
 
 		a, a:visited {
@@ -27,6 +28,11 @@
 			width: 100%;
 		}
 	</style>
+
+@endsection
+
+@section('content')
+
 	<div class="welcome">
 		<img id="img-inside" src="/img/inside.png">
 		<img id="img-inside" src="/img/text-home.png">

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class AdminReportsController extends AdminBaseController{
 
@@ -209,3 +209,4 @@ class AdminReportsController extends AdminBaseController{
   }
 
 }
+?>

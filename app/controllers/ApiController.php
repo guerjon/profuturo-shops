@@ -1,4 +1,4 @@
-<?
+<?php
 
 class ApiController extends BaseController
 {
@@ -738,6 +738,4 @@ class ApiController extends BaseController
     return Redirect::back()->withSuccess('Se agregaron los productos correctamente.');
   }
 }
-
-
-
+?>

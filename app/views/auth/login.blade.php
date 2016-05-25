@@ -8,7 +8,6 @@
 	vertical-align:middle;
   }*/
 </style>
-
 <div class="conrainer-fluid">
 	<div class="row">
 		<div class="col-md-4 col-sm-offset-7">

@@ -1,4 +1,4 @@
-<?
+<?php
 
 use \Carbon\Carbon;
 
@@ -104,3 +104,4 @@ class CalendarEventsController extends BaseController{
     return $monthResult;
   }
 }
+?>

@@ -1,4 +1,4 @@
-<?
+<?php
 
 class AdminGeneralRequestsAssignController extends AdminBaseController{
 
@@ -75,3 +75,4 @@ class AdminGeneralRequestsAssignController extends AdminBaseController{
   }
 
 }
+?>

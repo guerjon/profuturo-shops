@@ -24,6 +24,7 @@
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 	<![endif]-->
+	@yield('style')
 	
 </head>
 <body class="@if(isset($bodyClass)) {{$bodyClass}} @endif">
@@ -149,8 +150,9 @@
 				</div>
 				@endif
 			@endforeach
+	
 			@yield('content')
-			
+	
 		</div>
 	</div>
 
@@ -178,6 +180,7 @@
 
 
 		$(function(){
+			console.log('vivos');
 			$.slidebars();
 			//Seleccionamos el select y lo clonamos donde buscaremos a nuestros usuarios por gerencia
 			window.magic_select = $('#search-ccostos').clone();

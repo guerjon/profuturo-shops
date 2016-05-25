@@ -1,4 +1,4 @@
-<?
+<?php
 
 use Codesleeve\Stapler\ORM\StaplerableInterface;
 use Codesleeve\Stapler\ORM\EloquentTrait;
@@ -39,3 +39,4 @@ class Category extends Eloquent implements StaplerableInterface
 
 
 }
+?>

@@ -1,4 +1,4 @@
-<? 
+<?php
 
 class Divisional extends Eloquent{
 
@@ -12,3 +12,4 @@ protected $guarded = ['updated_at','created_at'];
 	}
 
 }
+?>

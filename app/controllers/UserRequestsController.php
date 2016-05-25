@@ -1,4 +1,4 @@
-<?
+<?php
 
 class UserRequestsController extends BaseController
 {
@@ -17,3 +17,4 @@ class UserRequestsController extends BaseController
   }
 
 }
+?>

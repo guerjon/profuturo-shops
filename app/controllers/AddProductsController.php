@@ -1,4 +1,4 @@
-<?
+<?php
 
 class AddProductsController extends BaseController
 {
@@ -31,3 +31,4 @@ class AddProductsController extends BaseController
 
 
 }
+?>
