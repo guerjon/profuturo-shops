@@ -34,7 +34,8 @@ class AdminReportsController extends AdminBaseController{
   }
 
   public function getProductOrdersReport()
-  { $categories = Category::lists('name','id');
+  { 
+    $categories = Category::lists('name','id');
     return View::make('admin::reports.product_orders')->withCategories($categories);
   }
 
