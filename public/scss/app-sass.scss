@@ -65,6 +65,11 @@ body {
 .navbar-nav > li > a {
 	padding-top: 7px;
 	height: 50px;
+	line-height: 36px;
+}
+.sub-menu {
+	list-style-type: none;
+	padding-left: 40px;
 }
 
 /* @endgroup */
@@ -73,6 +78,9 @@ body {
 
 .margin-top-150 {
 	margin-top: 150px;
+}
+.mt-30 {
+	margin-top: 30px;
 }
 
 /* @endgroup */
@@ -123,7 +131,11 @@ body {
 		top: 0;
 		right: 0;
 		bottom: 0;
-		position: absolute;
+		position: absolute; 
+		
+		> li > a {
+			color: $azul-pro;
+		}
 	}
 	.sidemenu-toggle {
 		background-color: transparent !important;
@@ -135,9 +147,6 @@ body {
 			color: $amarillo-pro !important;
 		}
 	}
-}
-.navbar-default .navbar-nav > li > a {
-	color: $azul-pro;
 }
 .message-parent-image {
 	background: $azul-pro;
@@ -183,6 +192,9 @@ body {
     #sb-site {
     	background-color: transparent;
     }
+    .login-li {
+    	display: none;
+    }
 }
 .panel-login {
 	border-left-color: $amarillo-pro;
@@ -195,6 +207,16 @@ body {
 	}
 	.panel-body {
 		color: #a2a2a2 !important;
+	}
+}
+
+/* @endgroup */
+
+/* @group calendar */
+
+.panel-calendar {
+	.panel-body {
+		padding: 3px 30px;
 	}
 }
 

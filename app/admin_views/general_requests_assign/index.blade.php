@@ -81,7 +81,7 @@
             <p class="text-muted"><small>Asignado a: {{$request->manager->gerencia}}</small></p>
           </td>
           @else
-          <td>
+          <td class="text-center">
             <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default assign-btn" data-request-id="{{$request->id}}">Asignar</button>
           </td>
           @endif
