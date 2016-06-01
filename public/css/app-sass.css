@@ -35,9 +35,17 @@ body * {
 .navbar-nav > li > a {
   padding-top: 7px;
   height: 50px;
+  line-height: 36px;
+}
+.sub-menu {
+  list-style-type: none;
+  padding-left: 40px;
 }
 /* @endgroup *//* @group utils */.margin-top-150 {
   margin-top: 150px;
+}
+.mt-30 {
+  margin-top: 30px;
 }
 /* @endgroup *//* @group header */.main-navbar {
   background: #fff;
@@ -82,6 +90,9 @@ body * {
   bottom: 0;
   position: absolute;
 }
+.main-navbar .navbar-session > li > a {
+  color: #1e366c;
+}
 .main-navbar .sidemenu-toggle {
   background-color: transparent !important;
   border: none !important;
@@ -90,9 +101,6 @@ body * {
 }
 .main-navbar .sidemenu-toggle:hover {
   color: #f7a700 !important;
-}
-.navbar-default .navbar-nav > li > a {
-  color: #1e366c;
 }
 .message-parent-image {
   background: #1e366c;
@@ -121,6 +129,9 @@ body * {
 .bg-login #sb-site {
   background-color: transparent;
 }
+.bg-login .login-li {
+  display: none;
+}
 .panel-login {
   border-left-color: #f7a700;
 }
@@ -132,5 +143,8 @@ body * {
 }
 .panel-login .panel-body {
   color: #a2a2a2 !important;
+}
+/* @endgroup *//* @group calendar */.panel-calendar .panel-body {
+  padding: 3px 30px;
 }
 /* @endgroup */

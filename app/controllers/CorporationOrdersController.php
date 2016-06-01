@@ -31,55 +31,55 @@ class CorporationOrdersController extends \BaseController {
     }
 
 
-    //Direcciones y notificaciones
-    if(!$address){
-      if(Input::has('posible_cambio')){
-        if(Auth::user()->address_id != 0 || Auth::user()->address == null)
-          $address = new Address(['posible_cambio' => Input::get('posible_cambio')]);
-        else{
-          $address = Address::find(Auth::user()->address_id);
-          $address->update(['posible_cambio' => Input::get('posible_cambio')]);
-        }
+    // //Direcciones y notificaciones
+    // if(!$address){
+    //   if(Input::has('posible_cambio')){
+    //     if(Auth::user()->address_id != 0 || Auth::user()->address == null)
+    //       $address = new Address(['posible_cambio' => Input::get('posible_cambio')]);
+    //     else{
+    //       $address = Address::find(Auth::user()->address_id);
+    //       $address->update(['posible_cambio' => Input::get('posible_cambio')]);
+    //     }
           
-        if($address->save()){
-          //Al guardar el posible cambio lo asignamos al usuario
-          $user = Auth::user();
-          $user->address_id = $address->id;
-          //Vamos a crear los mensajes para la notificacion
+    //     if($address->save()){
+    //       //Al guardar el posible cambio lo asignamos al usuario
+    //       $user = Auth::user();
+    //       $user->address_id = $address->id;
+    //       //Vamos a crear los mensajes para la notificacion
 
           
-            if($user->save()){
-              Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
-            }
+    //         if($user->save()){
+    //           Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
+    //         }
           
-        }else{
-            Log::debug($address->getErrors());
-        }
-      }else{
-        return Redirect::back()->withErrors("El pedido no puede ser enviado sin dirección.");
-      }
-    }else{
+    //     }else{
+    //         Log::debug($address->getErrors());
+    //     }
+    //   }else{
+    //     return Redirect::back()->withErrors("El pedido no puede ser enviado sin dirección.");
+    //   }
+    // }else{
 
-      if(Auth::user()->address->domicilio == ""){
-        return Redirect::back()->with(['errors' => ["El centro de costos ya tiene una dirección pero aun no ha sido aprobada por el administrador, se necesita su aprovación para continuar."]]);
-      }
+    //   if(Auth::user()->address->domicilio == ""){
+    //     return Redirect::back()->with(['errors' => ["El centro de costos ya tiene una dirección pero aun no ha sido aprobada por el administrador, se necesita su aprovación para continuar."]]);
+    //   }
 
-      if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
-        $address = Auth::user()->address;
-        $address->posible_cambio = Input::get('posible_cambio');
-        if($address->save()){
-          //Al guardar el posible cambio lo asignamos al usuario
-          $user->address_id = $address->id;
-          //Vamos a crear los mensajes para la notificacion
-        }else{
-            Log::debug($address->getErrors());
-        }        
-      }
+    //   if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){
+    //     $address = Auth::user()->address;
+    //     $address->posible_cambio = Input::get('posible_cambio');
+    //     if($address->save()){
+    //       //Al guardar el posible cambio lo asignamos al usuario
+    //       $user->address_id = $address->id;
+    //       //Vamos a crear los mensajes para la notificacion
+    //     }else{
+    //         Log::debug($address->getErrors());
+    //     }        
+    //   }
 
-      if($user->save()){
-        Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
-      }
-    }
+    //   if($user->save()){
+    //     Log::debug("Se agrego una nueva notificación al usuario y se creo o modifico ");
+    //   }
+    // }
     //orden
 
     $firstDay = \Carbon\Carbon::parse('first day of this month')->format('Y-m-d');
