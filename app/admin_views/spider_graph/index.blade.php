@@ -27,17 +27,7 @@
 					}}
 				</div>
 			</div>
-			<div class="col col-md-3">
-				<div class="form-group">
-		    		{{Form::label('solicitud','# SOLICITUD',['class' => 'label-control'])}}
-					{{Form::select(
-						'solicitud',
-						[null => 'Todas las solicitudes'] + $surveys,
-						null,
-						['class' => ' form-control select-2 filter','id' => 'solicitud'])
-					}}		
-	      		</div>
-			</div>
+
 			<div class="col col-md-3">
 				<div class="form-group">
 					{{Form::label('encuesta','# ENCUESTA',['class' => 'label-control'])}}
@@ -138,12 +128,8 @@
 			function actualiza(){
 				
 				$.get('/admin/api/survey',{
-					consultor: $('#consultor').val(),
-					solicitud: $('#solicitud').val(),
 					gerencia: $('#gerencia').val(),
 					encuesta: $('#encuesta').val(),
-					regional: $('#regional').val(),
-
 					},function(datos){
 
 						if(datos.status = 200){
