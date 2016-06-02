@@ -541,7 +541,8 @@ class AdminApiController extends AdminBaseController
       '' AS WEB,
       users.ccosto AS CENTRO_COSTO,
       '' AS DIRECCION,
-      blank_cards_bc_order.direccion_alternativa AS DIRECCION_ALTERNATIVA")
+      blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA_TARJETAS,
+      blank_cards_bc_order.email as EMAIL_TARJETAS")
       ->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
       ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
       ->whereNull('bc_orders.deleted_at')
