@@ -2000,7 +2000,7 @@ class AdminApiController extends AdminBaseController
 
   public function getSurvey()
   {
-    
+    $encuestas = [];
     $surveys = DB::table('satisfaction_surveys')->select(
         DB::raw('avg(question_one) as uno,
                   avg(question_two) as dos,
@@ -2019,11 +2019,12 @@ class AdminApiController extends AdminBaseController
     if(Input::has('gerencia')){
       $surveys->where('users.id','=',Input::get('gerencia'));
       $comments->where('users.id','=',Input::get('gerencia'));
-    }
-
-    if(Input::has('solicitud')){
-      $surveys->where('general_requests.id','=',Input::get('solicitud'));
-      $comments->where('general_requests.id','=',Input::get('solicitud'));
+      $encuestas = DB::table('satisfaction_surveys')->select(
+                  DB::raw('satisfaction_surveys.id'))
+                    ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
+                    ->join('users','users.id','=','general_requests.manager_id')
+                    ->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
+      
     }
 
     if(Input::has('encuesta')){
@@ -2031,11 +2032,12 @@ class AdminApiController extends AdminBaseController
       $comments->where('satisfaction_surveys.id','=',Input::get('encuesta'));
     }
 
-
+   
       return Response::json([
         'status' => 200,
         'surveys' => $surveys->get(),
-        'comments' => $comments->get()
+        'comments' => $comments->get(),
+        'encuestas' => $encuestas
       ]);
   }
 

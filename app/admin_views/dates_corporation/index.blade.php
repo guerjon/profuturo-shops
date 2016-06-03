@@ -45,6 +45,14 @@
 						<td>
 							{{$date_corporation->until}}
 						</td>
+						<td>	
+							{{Form::open(array('action' =>['AdminDatesCorporationController@destroy',$date_corporation->id],
+						   'method' => 'delete'))}}
+
+							    <button type="submit" class="btn btn-danger btn-xs date-delete">
+							     <span class="glyphicon glyphicon-remove"></span> Eliminar
+							    </button>
+						</td>
 					</tr>
 				@endforeach
 			</tbody>

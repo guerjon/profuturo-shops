@@ -193,6 +193,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->hasMany('GeneralRequest');
 	}
 
+	public function surveys()
+	{
+		 return $this->hasManyThrough( 'SatisfactionSurvey','GeneralRequest');
+	}
+
 	function generalRequestsByManager()
 	{
   		return $this->hasMany('GeneralRequest', 'manager_id');
