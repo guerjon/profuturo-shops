@@ -660,7 +660,7 @@ class ApiController extends BaseController
     $active_tab_message = Input::get('active_tab_message');
     
         $mark_messages = Message::where('receiver_id',Auth::user()->id)
-                                    ->orderBy('messages.created_at','desc')
+                                    ->orderBy('messages.id','desc')
                                     ->get();
         
         foreach ($mark_messages as $messages){
@@ -672,7 +672,7 @@ class ApiController extends BaseController
       $messages = DB::table('messages')
         ->join('users','users.id','=','receiver_id')
         ->where('sender_id',Auth::user()->id)
-        ->orderBy('messages.created_at','desc')
+        ->orderBy('messages.id','asc')
         ->paginate(5)
         ->toJson();
 
@@ -680,7 +680,7 @@ class ApiController extends BaseController
       $messages = DB::table('messages')
         ->join('users','users.id','=','sender_id')
         ->where('receiver_id',Auth::user()->id)
-        ->orderBy('messages.created_at')
+        ->orderBy('messages.id','asc')
         ->paginate(5)
         ->toJson();
     }
