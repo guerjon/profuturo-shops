@@ -38,6 +38,14 @@ class MessageController extends \BaseController {
 					return Redirect::back()->withErrors("Algo salio mal");
 					
 				break;
+			default:
+				if($this->sendUserMessage(Input::get('users'),$body))
+					return Redirect::back()->withSuccess('El mensaje fue enviado con exito');
+				else
+					return Redirect::back()->withErrors("Algo salio mal");
+
+				break;
+
 		}
 	}
 

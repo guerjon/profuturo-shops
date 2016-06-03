@@ -193,7 +193,8 @@
     });
 
     $(document).on('click','#post-message-modal-button',function(){
-      $('#post-message-modal-form').submit();
+        $('#post-message-modal-form').submit();
+       
     });
   }
 

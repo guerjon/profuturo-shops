@@ -83,9 +83,11 @@
 				</div> 
 
 				<div class="modal-footer">
-					<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por usuario</button>
-					<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
-					<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
+					@if(Auth::user()->role == 'admin')
+						<button data-type="user" style="float:left" class="btn btn-default message-type" disabled>Mensaje por usuario</button>
+						<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
+						<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
+					@endif		
 					<button id="post-message-modal-button" type="button" class="btn btn-default">Enviar</button>
 				</div>
 			</div>
