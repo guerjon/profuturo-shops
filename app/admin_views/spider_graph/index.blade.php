@@ -27,21 +27,11 @@
 					}}
 				</div>
 			</div>
+
 			<div class="col col-md-3">
 				<div class="form-group">
-		    		{{Form::label('solicitud','# SOLICITUD',['class' => 'label-control'])}}
-					{{Form::select(
-						'solicitud',
-						[null => 'Todas las solicitudes'] + $surveys,
-						null,
-						['class' => ' form-control select-2 filter','id' => 'solicitud'])
-					}}		
-	      		</div>
-			</div>
-			<div class="col col-md-3">
-				<div class="form-group">
-					{{Form::label('encuesta','# ENCUESTA',['class' => 'label-control'])}}
-					{{Form::select('encuesta',[null => 'Todas las encuestas'] + SatisfactionSurvey::orderBy('id')->lists('id','id'),null,['class' => ' form-control select-2 filter','id' => 'encuesta'])}}
+					{{Form::label('encuesta','NUMERO ENCUESTA',['class' => 'label-control'])}}
+					{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
 				</div>
 			</div>
 			<div class="col col-xs-3 text-right" >
@@ -131,22 +121,29 @@
 			
 			actualiza();
 
-			$('.filter').change(function(){
+			$('#gerencia').change(function(){
+				$('#encuesta').empty().attr('disabled',true);
+				actualiza();			
+			});	
+
+			$('#encuesta').change(function(){
 				actualiza();
 			});
 
 			function actualiza(){
 				
 				$.get('/admin/api/survey',{
-					consultor: $('#consultor').val(),
-					solicitud: $('#solicitud').val(),
 					gerencia: $('#gerencia').val(),
 					encuesta: $('#encuesta').val(),
-					regional: $('#regional').val(),
-
 					},function(datos){
-
+						console.log(datos);
 						if(datos.status = 200){
+							
+							if(datos.encuestas.length > 0 ){
+								$('#encuesta').attr('disabled',false);
+								$('#encuesta').select2({theme: "bootstrap",data: datos.encuestas});
+							}
+
 							$('#total_solicitudes').html(datos.surveys[0].total);
 							
 							var promedio_total = parseFloat(datos.surveys[0].uno) + parseFloat(datos.surveys[0].dos) + parseFloat(datos.surveys[0].tres) + parseFloat(datos.surveys[0].cuatro);
@@ -207,6 +204,17 @@
 								var myRadarChart = new Chart($('#chart-container'), {
 								    type: 'bar',
 								    data: data,
+								    options: {
+								        scales: {
+								            yAxes: [{
+								                ticks: {
+								                    max: 10,
+								                    min: 0,
+								                    stepSize: 2
+								                }
+								            }]
+								        }
+							    	}
 								});
 								
 							}else{

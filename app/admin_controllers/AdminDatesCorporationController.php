@@ -19,4 +19,18 @@ class AdminDatesCorporationController extends AdminBaseController
 				->withErrors(['errors' => ['Surgio un error a la hora de guardar la fecha intente mas tarde.']]);
 	}
 
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		 $divisional = DB::table('dates_corporation')->whereId($id)->delete();
+
+      return Redirect::to(action('AdminDatesCorporationController@index'))->withSuccess('Se ha eliminado la fecha.');	
+    
+	}
+
 }
