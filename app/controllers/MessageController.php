@@ -4,16 +4,16 @@ class MessageController extends \BaseController {
 
 	public function store()
 	{
-
 		$users = Input::get('users');
 		Log::debug(Input::all());
 		$body = Input::get('mensaje');
 		
 		$type = Input::get('message_type');
 		
+
 		switch ($type) {
 			case 'user':
-				
+					
 				if($this->sendUserMessage(Input::get('users'),$body))
 					return Redirect::back()->withSuccess('El mensaje fue enviado con exito');
 				else
@@ -23,7 +23,7 @@ class MessageController extends \BaseController {
 
 			case 'divisional':
 
-				if($this->sendDivisionalMessage(Input::get('divisionals'),$body))
+				if($this->sendDivisionalMessage(Input::get('divisional'),$body))
 					return Redirect::back()->withSuccess('El mensaje fue enviado con exito');
 				else
 					return Redirect::back()->withErrors("Algo salio mal");
@@ -38,8 +38,6 @@ class MessageController extends \BaseController {
 					return Redirect::back()->withErrors("Algo salio mal");
 					
 				break;
-
-
 		}
 	}
 
@@ -70,13 +68,14 @@ class MessageController extends \BaseController {
 	private function sendDivisionalMessage($divisionals,$body)
 	{
 
-		foreach ($divisionals as $divisional) {
+		foreach ($divisionals as $divisional_id) {
 
-			$divisional = Divisional::find($region_id);
+			$divisional = Divisional::find($divisional_id);
 			
-			if(!$region)
+			if(!$divisional)
+				return false;
 				
-			$users = DB::table('users')->where('region_id',$region->id)->get();
+			$users = DB::table('users')->where('divisional_id',$divisional->id)->get();
 
 			foreach ($users as $user) {
 				

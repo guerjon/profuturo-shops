@@ -672,7 +672,7 @@ class ApiController extends BaseController
       $messages = DB::table('messages')
         ->join('users','users.id','=','receiver_id')
         ->where('sender_id',Auth::user()->id)
-        ->orderBy('messages.created_at')
+        ->orderBy('messages.created_at','desc')
         ->paginate(5)
         ->toJson();
 
