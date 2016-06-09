@@ -519,7 +519,12 @@ class AdminApiController extends AdminBaseController
       business_cards.web AS WEB,
       business_cards.ccosto AS CENTRO_COSTO,
       business_cards.direccion AS DIRECCION,
-      business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA")
+      business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
+      CASE bc_orders.status
+      WHEN  '0' THEN  'PENDIENTE'
+      WHEN  1 THEN  'RECIBIDO'
+      WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+      END AS ESTATUS ")
       ->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
       ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
       ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
