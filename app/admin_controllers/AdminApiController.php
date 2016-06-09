@@ -548,7 +548,12 @@ class AdminApiController extends AdminBaseController
       users.ccosto AS CENTRO_COSTO,
       '' AS DIRECCION,
       blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA_TARJETAS,
-      blank_cards_bc_order.email as EMAIL_TARJETAS")
+      blank_cards_bc_order.email as EMAIL_TARJETAS,
+      CASE bc_orders.status
+      WHEN  '0' THEN  'PENDIENTE'
+      WHEN  1 THEN  'RECIBIDO'
+      WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+      END AS ESTATUS")
       ->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
       ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
       ->whereNull('bc_orders.deleted_at')
@@ -571,7 +576,12 @@ class AdminApiController extends AdminBaseController
       users.ccosto AS CENTRO_COSTO,
       bc_orders_extras.talento_direccion AS DIRECCION,
       '' AS DIRECCION_ALTERNATIVA,
-      'Atracción de talento' AS PUESTO_ATRACCION_GERENTE")
+      'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
+      CASE bc_orders.status
+      WHEN  '0' THEN  'PENDIENTE'
+      WHEN  1 THEN  'RECIBIDO'
+      WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+      END AS ESTATUS")
       ->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
       ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
       ->whereNull('bc_orders.deleted_at')
@@ -596,7 +606,12 @@ class AdminApiController extends AdminBaseController
       users.ccosto AS CENTRO_COSTO,
       bc_orders_extras.gerente_direccion AS DIRECCION,
       '' AS DIRECCION_ALTERNATIVA,
-      'Gerente comercial' AS PUESTO_ATRACCION_GERENTE")
+      'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
+      CASE bc_orders.status
+      WHEN  '0' THEN  'PENDIENTE'
+      WHEN  1 THEN  'RECIBIDO'
+      WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+      END AS ESTATUS")
       ->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
       ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
       ->whereNull('bc_orders.deleted_at')
