@@ -109,7 +109,7 @@
 
   <div class="text-center">
 
-    {{$products->links()}}
+    {{$products->appends(['active_tab' => $active_tab])->links()}}
 
   </div>
 @endif
