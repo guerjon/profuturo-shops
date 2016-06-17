@@ -54,6 +54,11 @@ class AdminFurnituresOrdersController extends BaseController
       $orders->where('users.ccosto','like','%'.Input::get('ccosto').'%');
     if(Input::has('gerencia'))
       $orders->where('ccosto', Input::get('gerencia'));
+    if(Input::has('since'))
+        $orders->where('furniture_orders.created_at','>=',Input::get('since'));
+    if(Input::has('to'))
+      $orders->where('furniture_orders.created_at','<=',Input::get('to'));
+
         
     return View::make('admin::furnitures_orders.index')->withOrders($orders->get())->withGerencias($gerencias);
   }

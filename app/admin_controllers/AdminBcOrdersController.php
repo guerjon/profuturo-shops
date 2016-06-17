@@ -47,6 +47,11 @@ class AdminBcOrdersController extends AdminBaseController{
       $orders->where('users.id',Input::get('ccosto'));
     if(Input::has('gerencia'))
       $orders->where('users.id', Input::get('gerencia'));
+    if(Input::has('since'))
+        $orders->where('bc_orders.created_at','>=',Input::get('since'));
+    if(Input::has('to'))
+      $orders->where('bc_orders.created_at','<=',Input::get('to'));
+
 
     return View::make('admin::bc_orders.index')->withBcOrders($orders->whereNull('bc_orders.deleted_at')->get());
   }

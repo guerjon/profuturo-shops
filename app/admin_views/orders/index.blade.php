@@ -16,32 +16,46 @@
 	No se han realizado pedidos todavía.
 </div>
 @else
-<a href="{{action('AdminOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
-	<span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-</a>
 
-{{Form::open([
-	'method' => 'GET',
-	'class' => 'form-inline'
-	])}}
+	{{Form::open([
+		'method' => 'GET',
+		])}}
+		
+		<div class="row text-center">
+			<div class="col col-xs-2">
+				{{Form::label('ccosto','CCOSTOS')}}
+				{{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'CCOSTOS'])}}
+			</div>
 
-	<div class="form-group">
-		{{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'CCOSTOS'])}}
-	</div>
+			<div class="col col-xs-2">
+				{{Form::label('gerencia','GERENCIA')}}
+				{{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
+			</div>
+			<div class="col col-xs-2">
+				{{Form::label('divisional_id','DIVISIONAL')}}			
+				{{Form::select('divisional_id', [NULL => 'Todas las divisionales'] + Divisional::orderBy('id')->lists('name','id'), Input::get('divisional_id'), ['class' => 'form-control'])}}
+			</div>
+		
+			<div class="col col-xs-2">
+			    {{Form::label('until','DESDE')}}
+			    {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+			</div>
+			<div class="col col-xs-2">
+				{{Form::label('to','HASTA')}}
+				{{Form::text('to',\Carbon\Carbon::now('America/Mexico_City')->addDay(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'to' ])}}
+			</div>
 
-	<div class="form-group">
-		{{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
-	</div>
+			<div class="col col-xs-2">
+				<br>	
+				<button type="submit" class="btn btn-primary">
+					<span class="glyphicon glyphicon-filter"></span> Filtrar
+				</button>			
+				<a href="{{action('AdminOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+					<span class="glyphicon glyphicon-download-alt"></span> EXCEL
+				</a>
+			</div>
 
-	<div class="form-group">
-		{{Form::select('divisional_id', [NULL => 'Todas las divisionales'] + Divisional::orderBy('id')->lists('name','id'), Input::get('gerencia'), ['class' => 'form-control'])}}
-	</div>
-
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary">
-			<span class="glyphicon glyphicon-filter"></span> Filtrar
-		</button>
-	</div>
+		</div>
 
 	{{Form::close()}}
 	
