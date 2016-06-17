@@ -64,13 +64,10 @@ class AdminSpiderGraphController extends \BaseController {
 				   $excel->sheet('Hoja_1', function($sheet) use($result) {
 					 $sheet->fromArray($result);
 				  });
-				})->export('csv');
+				})->download('csv');
 			  }
 
-			  return View::make('admin::spider_graph.index')
-				->withSurveys(
-					$surveys->lists('id')
-				);  
+			  
 		}else{
 			return View::make('admin::spider_graph.index')
 				->withSurveys(
