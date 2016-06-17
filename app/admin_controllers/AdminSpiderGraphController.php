@@ -24,22 +24,23 @@ class AdminSpiderGraphController extends \BaseController {
 		  $surveys->where('general_requests.id','=',Input::get('encuesta'));
 
 		if (Input::has('xls')) {
-	  
-			  	$headers = 
-			  		[
-				  		'NUMERO DE SOLICITUD GENERAL',
-				  		'ACTITUD DEL CONSULTOR',
-				  		'SEGUIMIENTO DEL CONSULTOR',
-				  		'TIEMPOS RESPUESTA CONSULTOR',
-				  		'CALIDAD DEL PRODUCTO',
-				  		'POR QUE ACTITUD DEL CONSULTOR',
-				  		'POR QUE SEGUIMIENTO DEL CONSULTOR',
-				  		'POR QUE TIEMPOS RESPUESTA CONSULTOR',
-				  		'POR QUE CALIDAD DE PRODUCTO',
-				  		'COMENTARIOS'
-			  		];
+	  		$excel = App::make('excel');
 
-			  $result = [$headers];
+			  // 	$headers = 
+			  // 		[
+				 //  		'NUMERO DE SOLICITUD GENERAL',
+				 //  		'ACTITUD DEL CONSULTOR',
+				 //  		'SEGUIMIENTO DEL CONSULTOR',
+				 //  		'TIEMPOS RESPUESTA CONSULTOR',
+				 //  		'CALIDAD DEL PRODUCTO',
+				 //  		'POR QUE ACTITUD DEL CONSULTOR',
+				 //  		'POR QUE SEGUIMIENTO DEL CONSULTOR',
+				 //  		'POR QUE TIEMPOS RESPUESTA CONSULTOR',
+				 //  		'POR QUE CALIDAD DE PRODUCTO',
+				 //  		'COMENTARIOS'
+			  // 		];
+
+			  // $result = [$headers];
 
 			  foreach ($surveys->get() as $item) {
 				
@@ -57,13 +58,13 @@ class AdminSpiderGraphController extends \BaseController {
 				
 				$result[] = $itemArray;
 			  }
-			  Log::debug($result);
+			  
 			  if($result){
 				Excel::create('Reporte_encuesta',function($excel) use($result){
 				   $excel->sheet('Hoja_1', function($sheet) use($result) {
 					 $sheet->fromArray($result);
 				  });
-				})->download('csv');
+				})->export('csv');
 			  }
 
 			  return View::make('admin::spider_graph.index')
