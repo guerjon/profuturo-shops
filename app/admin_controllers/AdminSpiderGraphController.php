@@ -60,17 +60,14 @@ class AdminSpiderGraphController extends \BaseController {
 			  }
 			  
 			  if($result){
-				Excel::create('Reporte_encuesta',function($excel) use($result){
+				return Excel::create('Reporte_encuesta',function($excel) use($result){
 				   $excel->sheet('Hoja_1', function($sheet) use($result) {
 					 $sheet->fromArray($result);
 				  });
 				})->export('csv');
 			  }
 
-			  return View::make('admin::spider_graph.index')
-				->withSurveys(
-					$surveys->lists('id')
-				);  
+			  
 		}else{
 			return View::make('admin::spider_graph.index')
 				->withSurveys(
