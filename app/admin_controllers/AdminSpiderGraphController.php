@@ -60,11 +60,11 @@ class AdminSpiderGraphController extends \BaseController {
 			  }
 			  
 			  if($result){
-				return Excel::create('Reporte_encuesta',function($excel) use($result){
+				Excel::create('Reporte_encuesta',function($excel) use($result){
 				   $excel->sheet('Hoja_1', function($sheet) use($result) {
 					 $sheet->fromArray($result);
 				  });
-				})->export('csv');
+				})->download('csv');
 			  }
 
 			  
