@@ -59,7 +59,10 @@ class AdminOrdersController extends BaseController
 
     if(Input::has('divisional_id'))
         $orders->where('users.divisional_id', Input::get('divisional_id'));
-
+    if(Input::has('since'))
+        $orders->where('orders.created_at','>=',Input::get('since'));
+    if(Input::has('to'))
+      $orders->where('orders.created_at','<=',Input::get('to'));
     
     return View::make('admin::orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias);
   }
