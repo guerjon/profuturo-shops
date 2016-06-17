@@ -65,6 +65,11 @@ class AdminSpiderGraphController extends \BaseController {
 				  });
 				})->download('csv');
 			  }
+
+			  return View::make('admin::spider_graph.index')
+				->withSurveys(
+					$surveys->lists('id')
+				);  
 		}else{
 			return View::make('admin::spider_graph.index')
 				->withSurveys(
