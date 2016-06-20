@@ -144,6 +144,7 @@
 		
 		<center>
 			<h1>{{$estado}}</h1>
+			<h1>Consultor que realizo el cambio: {{$manager}}</h1>
 			<a href="http://store.profuturocompras.com.mx/{{$direccion}}" class="boton">Contestar</a>		
 		</center>	
  	</body>
