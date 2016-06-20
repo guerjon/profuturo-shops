@@ -129,7 +129,7 @@ class GeneralRequestsController extends BaseController{
     $request->save();
 
   return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
-  } 
+  }   
 
 
 

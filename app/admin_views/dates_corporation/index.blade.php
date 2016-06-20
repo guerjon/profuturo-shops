@@ -32,6 +32,9 @@
 				<th>
 					Hasta
 				</th>
+				<th>
+					
+				</th>
 			</thead>
 			<tbody>
 				@foreach($dates_corporation as $date_corporation)
@@ -79,6 +82,12 @@
 				<br>
 				{{Form::label('until','Hasta')}}
 				{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->addMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+
+				<div class="form-group">
+		        	{{Form::label('comments','Comentarios')}}
+		        	{{Form::textArea('comments',null,['class' => 'form-control'])}}
+		        	<b style="color:red">Estos comentarios seran enviados por email a los usuarios de corporativo.</b>
+	        	</div>
 	        </div>
 
         {{Form::close()}}
@@ -103,11 +112,6 @@
 		$('#btn-add-date').click(function(){
 			$('#form-add-date').submit();
 		});
-
-		$('.date-edit').click(function(){
-
-		});
-
 	});
 </script>
 
