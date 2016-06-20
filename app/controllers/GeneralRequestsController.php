@@ -67,7 +67,7 @@ class GeneralRequestsController extends BaseController{
     
     $user = Auth::user();
     
-    $email = "info@profuturocompras.com.mx";
+    $email = "KARINA.ASCENCIONHERNANDEZ@profuturo.com.mx";
     
     Mail::send('admin::email_templates.general_request_notice',['user' => $user,'general_request' => $general],function($message) use ($email){
       $message->to($email)->subject("Solicitud general hecha.");
@@ -105,8 +105,9 @@ class GeneralRequestsController extends BaseController{
       });
     
       $email = "karina.ascencionhernandez@profuturo.com.mx";
-    
+   
       Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
+
         $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
       });
 
