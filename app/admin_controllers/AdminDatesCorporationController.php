@@ -17,8 +17,8 @@ class AdminDatesCorporationController extends AdminBaseController
 
 		foreach ($users as $user) {
 			Mail::send('admin::email_templates.date_corporation_message',['user' => $user,'comments' => $comments],function($message) use ($user){
-      			//$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
-				$message->to('jona_54_.com@hotmail.com')->subject("Aviso,productos, insumos estrategicos.");
+      			$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
+				//$message->to('jona_54_.com@hotmail.com')->subject("Aviso,productos, insumos estrategicos.");
     		});	
 		}
 
