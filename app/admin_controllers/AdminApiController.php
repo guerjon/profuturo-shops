@@ -2022,6 +2022,7 @@ class AdminApiController extends AdminBaseController
   public function getSurvey()
   {
     $encuestas = [];
+    $solicitudes = [];
     $surveys = DB::table('satisfaction_surveys')->select(
         DB::raw('avg(question_one) as uno,
                   avg(question_two) as dos,
@@ -2045,6 +2046,11 @@ class AdminApiController extends AdminBaseController
                     ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
                     ->join('users','users.id','=','general_requests.manager_id')
                     ->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
+      $solicitudes = DB::table('satisfaction_surveys')->select(
+                  DB::raw('general_requests.id'))
+                    ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
+                    ->join('users','users.id','=','general_requests.manager_id')
+                    ->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
       
     }
 
@@ -2058,7 +2064,8 @@ class AdminApiController extends AdminBaseController
         'status' => 200,
         'surveys' => $surveys->get(),
         'comments' => $comments->get(),
-        'encuestas' => $encuestas
+        'encuestas' => $encuestas,
+        'solicitudes' => $solicitudes,
       ]);
   }
 

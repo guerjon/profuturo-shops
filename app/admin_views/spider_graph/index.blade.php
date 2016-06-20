@@ -123,7 +123,7 @@
 
 			$('#gerencia').change(function(){
 				$('#encuesta').empty().attr('disabled',true);
-				actualiza();			
+				actualiza();
 			});	
 
 			$('#encuesta').change(function(){
@@ -136,12 +136,24 @@
 					gerencia: $('#gerencia').val(),
 					encuesta: $('#encuesta').val(),
 					},function(datos){
-						console.log(datos);
+						var encuestas = [];
+						console.log(datos.solicitudes);
+						
+
 						if(datos.status = 200){
 							
 							if(datos.encuestas.length > 0 ){
 								$('#encuesta').attr('disabled',false);
-								$('#encuesta').select2({theme: "bootstrap",data: datos.encuestas});
+								// $('#encuesta').select2({
+								// 	theme: "bootstrap",
+								// 	data: encuestas
+								// });
+								$('#encuesta').empty();
+								for (var i = datos.encuestas.length - 1; i >= 0; i--) {
+									
+									$('#encuesta').append('<option value="'+datos.encuestas[i]+'">'+
+										"Encuesta "+datos.encuestas[i] + ", "+ "Solicitud general " + " "+ datos.solicitudes[i]+'</option>')
+								};								
 							}
 
 							$('#total_solicitudes').html(datos.surveys[0].total);
