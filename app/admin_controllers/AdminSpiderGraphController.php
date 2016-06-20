@@ -63,7 +63,7 @@ class AdminSpiderGraphController extends \BaseController {
 				   $excel->sheet('Hoja_1', function($sheet) use($result) {
 					 $sheet->fromArray($result);
 				  });
-				})->download('csv');
+				})->download('xls');
 			  }
 
 			  
