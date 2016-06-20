@@ -21,7 +21,11 @@
   <li role="presentation" class="{{$active_tab == 'not_assigned' ? 'active' : ''}}">
     <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'not_assigned'])}}">No asignadas</a> 
   </li> 
+  <li role="presentation" class="{{$active_tab == 'deleted' ? 'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'deleted'])}}">Canceladas</a>
+  </li>
 </ul>
+
 
 
 <br>
@@ -42,6 +46,13 @@
   <div class="col-xs-2">
     {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5,Input::get('year',\Carbon\Carbon::now('America/Mexico_City')->year),\Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
   </div>
+  @if($active_tab == 'assigned')
+    <div class="col col-xs-2">
+      <a href="{{action('AdminGeneralRequestsController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+          <span class="glyphicon glyphicon-download-alt"></span> EXCEL
+        </a>  
+    </div>
+  @endif
     <button type="submit" class="btn btn-primary">
      <span class="glyphicon glyphicon-filter"></span> Filtrar
     </button>

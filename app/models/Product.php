@@ -17,6 +17,7 @@ class Product extends Eloquent implements StaplerableInterface
     'name' => 'required',
     // 'price' => ['required', 'regex:/^(\d)+(\.\d+)?$/'],
   ];
+  
 
   public static function boot()
   {
@@ -44,4 +45,8 @@ class Product extends Eloquent implements StaplerableInterface
     return $this->belongsTo('Category');
   }
 
+  public function generalRequests()
+  {
+    return $this->belongsToMany('GeneralRequest');
+  }
 }
