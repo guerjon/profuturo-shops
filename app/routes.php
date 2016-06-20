@@ -59,7 +59,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('general-categories','AdminCategoriesGeneralController');
 		Route::resource('orders-mac','AdminMacOrdersController');
 		Route::resource('orders-corporation','AdminCorporationOrdersController');
-
+		Route::get('dashboard-overview','AdminApiDashboardController@overview');
 		
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 		Route::resource('divisionales','AdminDivisionalController');
@@ -72,6 +72,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('productos-mac','AdminMacProductsController');
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
 		Route::resource('date-corporation','AdminDatesCorporationController');
+		Route::get('dashboard-stationery','AdminDashboardController@stationery');
 		
 	});
 
