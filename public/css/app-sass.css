@@ -22,6 +22,37 @@
 body * {
   font-family: 'Avenir-Book';
 }
+.panel {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  -ms-border-radius: 0px !important;
+  border-radius: 0px !important;
+  background-clip: padding-box;
+  overflow: hidden;
+  background-color: #fff;
+  transition: box-shadow 0.25s;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.panel .panel-heading {
+  -webkit-border-radius: 0px !important;
+  -moz-border-radius: 0px !important;
+  -ms-border-radius: 0px !important;
+  border-radius: 0px !important;
+  background-clip: padding-box;
+}
+.panel .table {
+  max-width: 101%;
+  width: 101%;
+}
+.panel .panel-big-text {
+  color: #1e366c;
+  font-size: 20px;
+}
+.panel .dashboard-fa {
+  font-size: 30px;
+  color: #1e366c;
+  line-height: 45px;
+}
 .btn, .nav-pills > li > a, .nav-tabs > li > a {
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;

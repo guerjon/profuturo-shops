@@ -54,6 +54,30 @@ body {
 		font-family: 'Avenir-Book';
 	}
 }
+.panel {
+    @include border-radius(0px);
+    overflow: hidden;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+
+    .panel-heading {
+        @include border-radius(0px);
+    }
+    .table {
+        max-width: 101%;
+        width: 101%;
+    }
+    .panel-big-text {
+        color: $azul-pro;
+        font-size: 20px;
+    }
+    .dashboard-fa {
+        font-size: 30px;
+        color: $azul-pro;
+        line-height: 45px;
+    }
+}
 .btn ,
 .nav-pills > li > a ,
 .nav-tabs > li > a {
