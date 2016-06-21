@@ -20,7 +20,6 @@ class GeneralRequestsController extends BaseController{
                           ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
                           ->where('user_id',Auth::user()->id)
                           ->count();                
-                    Log::debug('--------------------------------------------');
                     
     Log::debug("numero de solicitudes hechas".$access);
     Log::debug("numero de encuestas contestadas".$surveys_answered);
@@ -95,7 +94,7 @@ class GeneralRequestsController extends BaseController{
     $email = $request->employee_email;
     $name = $request->employee_name;
     $estado = $request->status_str;
-    $manager = $request_id->manager->nombre;
+    $manager = $request->manager->nombre;
 
     if($status == 10){
       $direccion = "encuesta-satisfaccion/questions/".$request->id;
