@@ -249,7 +249,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminReportsController@getIndex') => 'Reportes',
 					action('AdminDivisionalController@index') => 'Divisionales',
 					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas',
-					action('AdminDashboardController@stationery') => 'Dashboard Papeleria'
+					//action('AdminDashboardController@stationery') => 'Dashboard Papeleria'
 				];
 			case 'manager':
 				return [
