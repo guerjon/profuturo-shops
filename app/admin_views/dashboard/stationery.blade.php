@@ -1,7 +1,15 @@
 @extends('layouts.master')
 	
 @section('content')
-	<div class="container-fluid">
+
+    <ol class="breadcrumb">
+        <a href="{{URL::previous()}}" class="back-btn">
+            <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+        </a>
+        &nbsp;&nbsp;&nbsp;
+        <li><a href="/">Inicio</a></li>
+        <li class="active">Dashboard Papeleria</li>
+    </ol>
 
     {{ Form::open([
         'id' => 'filters-form',
@@ -31,7 +39,9 @@
                 <!-- </div> -->
             </div>
         </div>  
+
     {{ Form::close() }}
+
     <div class="row">
         <div class="col-md-2">
             <div class="panel panel-default">
@@ -221,24 +231,24 @@
             </div>
         </div>
     </div>
-</div>
 
-@section('style')
-    {{ HTML::style('css/jquery-ui/blitzer/jquery-ui.min.css') }}
-    {{ HTML::style('css/jquery-ui/blitzer/theme.css') }}
-@endsection
+    @section('style')
+        {{ HTML::style('css/jquery-ui/blitzer/jquery-ui.min.css') }}
+        {{ HTML::style('css/jquery-ui/blitzer/theme.css') }}
+    @endsection
 
 
-@section('script')
-@parent
-	<script src="/js/laroute.js"></script>
-    {{ HTML::script('js/jquery/ui/minified/core.min.js') }}
-    {{ HTML::script('js/jquery/ui/minified/widget.min.js') }}
-    {{ HTML::script('js/jquery/ui/minified/datepicker.min.js') }}
-    {{ HTML::script('js/jquery/ui/minified/i18n/datepicker-es.min.js') }}
-    {{ HTML::script('js/Chartjs/Chart.js') }}
-    {{ HTML::script('js/numeral/numeral.min.js') }}
-    {{ HTML::script('js/moment/moment-with-locales.min.js') }}
-    {{ HTML::script('js/admin/dashboard.js') }}
-@endsection
+    @section('script')
+    @parent
+    	<script src="/js/laroute.js"></script>
+        {{ HTML::script('js/jquery/ui/minified/core.min.js') }}
+        {{ HTML::script('js/jquery/ui/minified/widget.min.js') }}
+        {{ HTML::script('js/jquery/ui/minified/datepicker.min.js') }}
+        {{ HTML::script('js/jquery/ui/minified/i18n/datepicker-es.min.js') }}
+        {{ HTML::script('js/Chartjs/Chart.js') }}
+        {{ HTML::script('js/numeral/numeral.min.js') }}
+        {{ HTML::script('js/moment/moment-with-locales.min.js') }}
+        {{ HTML::script('js/admin/dashboard.js') }}
+    @endsection
+
 @endsection

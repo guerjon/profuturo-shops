@@ -18,6 +18,7 @@
 	
 	<link href="/css/select2.css" rel="stylesheet">
 	<link href="/css/select2-bootstrap.css"  rel="stylesheet">
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/app-sass.css">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
