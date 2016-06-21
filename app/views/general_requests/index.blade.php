@@ -63,26 +63,25 @@
         <div class="row">
           <div class="col col-xs-3">
             <button data-toggle="modal" data-target="#request-modal" class="btn btn-sm btn-default detail-btn" data-request-id="{{$request->id}}">Detalles</button>    
-          </div>
-          <div class="col col-xs-3">
             <button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">Eliminar</button>    
           </div>
-          <div class="col col-xs-6">
-          <?
-          $access_survey = false;
-          $surveys = DB::table('general_requests')
-                ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
-                ->where('satisfaction_surveys.general_request_id',$request->id)->count();
 
-          if($request->status == 10 and $surveys == 0)
-            $access_survey = true;
-        ?>
-          @if($access_survey)
-            {{Form::open(['method' => 'get','action' => 'SatisfactionSurveyController@getSurvey'])}}
-              <input type="text" class="hide" value="{{$request->id}}" name="general_request_id">
-              <button type="submit" class="btn btn-sm btn-info btn-survey" data-request-id="{{$request->id}}">Contestar encuesta</button>
-            {{Form::close()}}
-          @endif    
+          <div class="col col-xs-9">
+            <?
+            $access_survey = false;
+            $surveys = DB::table('general_requests')
+                  ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+                  ->where('satisfaction_surveys.general_request_id',$request->id)->count();
+
+            if($request->status == 10 and $surveys == 0)
+              $access_survey = true;
+            ?>
+            @if($access_survey)
+              {{Form::open(['method' => 'get','action' => 'SatisfactionSurveyController@getSurvey'])}}
+                <input type="text" class="hide" value="{{$request->id}}" name="general_request_id">
+                <button type="submit" class="btn btn-sm btn-info btn-survey" data-request-id="{{$request->id}}">Contestar encuesta</button>
+              {{Form::close()}}
+            @endif    
           </div>
         </div>
       </td>

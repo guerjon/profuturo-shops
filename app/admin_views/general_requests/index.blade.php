@@ -121,7 +121,7 @@
          </div> 
         </td>
         <td>
-          {{$request->created_at->format('d-m-Y')}}
+          {{$request->created_at}}
         </td>
         <td>
           {{$request->project_date->format('d-m-Y')}}
