@@ -1,6 +1,11 @@
 $(function(){
+
     var categoryChart,annualChart;
     var computedMonths, computedYears, computedCategories;
+    
+    /*
+    *
+    */
     function handlePaginationData(items, pages, table, paginationContainer) {
         if(pages.trim().length == 0) {
             paginationContainer.hide();
@@ -23,10 +28,12 @@ $(function(){
             tbody.append(tr);
         }
     }
+
+
     var loadOverview = function(){
         var action = laroute.action('AdminApiDashboardController@overview');
-        console.log(action);
-        $.get('dashboard/getOverview', $('#filters-form').serialize(), function(data){
+        
+        $.get(action, $('#filters-form').serialize(), function(data){
             $('#people').text(numeral(data.people).format('0,0'));
             $('#orders').text(numeral(data.orders).format('0,0'));
             $('#campaigns').text(numeral(data.campaigns).format('0,0'));

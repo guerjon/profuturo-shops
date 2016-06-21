@@ -30,26 +30,9 @@
                     </button>
                 <!-- </div> -->
             </div>
-        </div>
-        
-        
+        </div>  
     {{ Form::close() }}
     <div class="row">
-        <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-12">
-                            <span class="fa fa-info dashboard-fa"></span>
-                        </div>
-                        <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Campañas</h3>
-                            <span id="campaigns" class="panel-big-text"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="col-md-2">
             <div class="panel panel-default">
                 <div class="panel-body text-center">
