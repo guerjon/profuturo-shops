@@ -23,12 +23,13 @@
   'target' => '_blank'
   ])}}
 <div class="row">
-  <div class="col-xs-4">
-    {{Form::selectMonth('month', \Carbon\Carbon::now('America/Mexico_City')->month, ['class' => 'form-control'])}}
-  </div>
-  <div class="col-xs-2">
-    {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5, \Carbon\Carbon::now('America/Mexico_City')->year, \Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
-  </div>
+    <div class="col-xs-3">
+      {{Form::label('since','DESDE')}}
+      {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker change','id' => 'since' ])}}
+      <br>
+      {{Form::label('until','HASTA')}}
+      {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker change','id' => 'until' ])}}
+    </div>
 
   {{Form::hidden('page',null,['id' => 'number_page'])}}
 

@@ -66,7 +66,7 @@
                             <span class="fa fa-check dashboard-fa"></span>
                         </div>
                         <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Personas con pedido</h3>
+                            <h3 class="panel-title">Gerencias con pedido</h3>
                             <span id="people" class="panel-big-text"></span>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                             <span class="fa fa-users dashboard-fa"></span>
                         </div>
                         <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Promedio por persona</h3>
+                            <h3 class="panel-title">Promedio por gerencia</h3>
                             <span id="avg" class="panel-big-text"></span>
                         </div>
                     </div>

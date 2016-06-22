@@ -1890,14 +1890,20 @@ class AdminApiController extends AdminBaseController
 
       $query = DB::table('users')
       ->select('users.id','users.ccosto','gerencia','linea_negocio','role',
-        DB::raw('sum(order_product.quantity) as quantity'))
+        DB::raw('orders.user_id,count(*) as quantity'))
       ->join('orders','users.id','=','orders.user_id')
       ->join('order_product','orders.id','= ','order_product.order_id')
-      ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month') )
-      ->where(DB::raw('YEAR(orders.created_at)'), Input::get('year') )
-      ->groupBy('users.id')
+      ->where('orders.created_at','>=',Input::get('since'))
+      ->where('orders.created_at','<=',Input::get('until'))
+      ->groupBy('orders.user_id')
       ->orderBy('quantity', 'DESC');
 
+      $query_2 = DB::table('orders')
+        ->select('user_id',DB::raw('count(*) as c'))
+        ->groupBy('user_id')
+        ->first()
+        ->c;
+        Log::debug($query_2);
 
       $q = clone $query;
       $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];

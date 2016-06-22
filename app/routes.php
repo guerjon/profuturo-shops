@@ -59,8 +59,17 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('general-categories','AdminCategoriesGeneralController');
 		Route::resource('orders-mac','AdminMacOrdersController');
 		Route::resource('orders-corporation','AdminCorporationOrdersController');
-		Route::get('dashboard-overview','AdminApiDashboardController@overview');
 		
+		//Dashboard
+		Route::get('dashboard-overview','AdminApiDashboardController@overview');
+		Route::get('dashboard-products','AdminApiDashboardController@products');
+		Route::get('dashboard-category','AdminApiDashboardController@categories');
+		Route::get('dashboard-orders-by-period','AdminApiDashboardController@ordersByPeriod');
+		Route::get('dashboard-orders-by-category','AdminApiDashboardController@ordersByCategory');
+		Route::get('dashboard-annual','AdminApiDashboardController@annual');
+
+		
+
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
 		Route::resource('divisionales','AdminDivisionalController');
 		Route::resource('subcategorias-muebles','AdminFurnitureSubcategoriesController');
@@ -73,6 +82,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
 		Route::resource('date-corporation','AdminDatesCorporationController');
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
+
 		
 	});
 

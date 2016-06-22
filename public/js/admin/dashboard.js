@@ -7,7 +7,7 @@ $(function(){
     *
     */
     function handlePaginationData(items, pages, table, paginationContainer) {
-        if(pages.trim().length == 0) {
+        if(pages.length == 0) {
             paginationContainer.hide();
         }else {
             paginationContainer.show();
@@ -21,7 +21,7 @@ $(function(){
             tr.append(
                 $('<td>').text(numeral(item.id).format('00000'))
             ).append(
-                $('<td>').text(item.user.first_name + ' ' + item.user.last_name)
+                $('<td>').text(item.user.gerencia)
             ).append(
                 $('<td>').text(numeral(item.budget ? item.budget.amount*(-1) : 0).format('0,0.00'))
             );
@@ -34,9 +34,9 @@ $(function(){
         var action = laroute.action('AdminApiDashboardController@overview');
         
         $.get(action, $('#filters-form').serialize(), function(data){
+            
             $('#people').text(numeral(data.people).format('0,0'));
             $('#orders').text(numeral(data.orders).format('0,0'));
-            $('#campaigns').text(numeral(data.campaigns).format('0,0'));
             $('#total').text(numeral(data.total).format('0,0'));
             data.avg = data.total / data.people;
             data.avg_order = data.total / data.orders;
@@ -44,6 +44,7 @@ $(function(){
             $('#avg-order').text(numeral(data.avg_order).format('0,0.00'));
         })
     }
+
 
     var tableTopCategories = function(categories) {
         var $tbody = $('#top-categories tbody');
@@ -61,28 +62,29 @@ $(function(){
     }
 
     var tableTopProducts = function(category_id) {
-        $.get(laroute.action('Admin\Api\DashboardController@products', {
+        $.get(laroute.action('AdminApiDashboardController@products', {
             category : category_id
         }), $('#filters-form').serialize(), function(products){
+            
             var $tbody = $('#top-products tbody');
             $tbody.empty();
             for(var i=0; i< products.length && i< 5; i++) {
                 var product = products[i];
                 var $tr = $('<tr>');
                 $tr.append(
-                    $('<th>').append($('<abbr>').text(product.description).attr('title', product.description)).addClass('ellipsis')
+                    $('<th>').append($('<abbr>').text(product.name).attr('title', product.name)).addClass('ellipsis')
                 ).append(
                     $('<td>').text(numeral(product.q).format('0,0'))
                 );
                 $tbody.append($tr);
             }
-        });
-           
+        });      
     }
+
     var drawCategoryChart = function() {
         $('#orders-by-cat-table').parents('.panel').parent().addClass('hide');
         $('#top-categories').parents('.panel').parent().removeClass('hide');
-        $.get(laroute.action('Admin\Api\DashboardController@categories'), $('#filters-form').serialize(), function(categories){
+        $.get(laroute.action('AdminApiDashboardController@categories'), $('#filters-form').serialize(), function(categories){
             computedCategories = categories;
             tableTopCategories(categories);
             tableTopProducts('');
@@ -129,7 +131,7 @@ $(function(){
     var tableOrdersByPeriod = function(month, year) {
         var date = moment([year, month-1, 1]).format('MMMM YYYY');
         $('#period-title').text(date);
-        $.get(laroute.action('Admin\Api\DashboardController@ordersByPeriod', {
+        $.get(laroute.action('AdminApiDashboardController@ordersByPeriod', {
             month : month, 
             year : year
         }), $('#filters-form').serialize(), function(data){
@@ -144,7 +146,7 @@ $(function(){
         $('#orders-by-cat-table').parents('.panel').parent().removeClass('hide');
         $('#top-categories').parents('.panel').parent().addClass('hide');
         $('#orders-by-cat-title').text(category.name);
-        $.get(laroute.action('Admin\Api\DashboardController@ordersByCategory', {
+        $.get(laroute.action('AdminApiDashboardController@ordersByCategory', {
             category : category.id,
         }), $('#filters-form').serialize(), function(data){
             var pages = data.pages;
@@ -156,7 +158,7 @@ $(function(){
     
 
     var drawAnnualChart = function() {
-        $.get(laroute.action('Admin\Api\DashboardController@annual'), $('#filters-form').serialize(), function(months) {
+        $.get(laroute.action('AdminApiDashboardController@annual'), $('#filters-form').serialize(), function(months) {
             var labels = [];
             var data = [];
             var last = {};
@@ -258,6 +260,7 @@ $(function(){
     });
 
     $('#categories-overview').click(function(event) {
+
         if(categoryChart) {
             var items = categoryChart.getElementsAtEvent(event);
             if(items.length == 0) return;
