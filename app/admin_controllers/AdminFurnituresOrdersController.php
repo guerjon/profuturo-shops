@@ -33,7 +33,7 @@ class AdminFurnituresOrdersController extends BaseController
     }
 
     if($result){
-      Excel::create('Reporte_productos',function($excel) use($result){
+      Excel::create('Reporte_Ordenes_Mobiliario',function($excel) use($result){
          $excel->sheet('Hoja_1', function($sheet) use($result) {
           Log::info($result);
            $sheet->fromArray($result);
