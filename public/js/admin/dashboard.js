@@ -151,9 +151,10 @@ $(function(){
         $.get(laroute.action('AdminApiDashboardController@ordersByCategory', {
             category : category.id,
         }), $('#filters-form').serialize(), function(data){
-            console.log(data);
+
             var pages = data.pages;
             var orders = data.pagination.data;
+            
             handlePaginationData(orders, pages, $('#orders-by-cat-table'), $('#orders-by-cat-pagination'));
         });
     }

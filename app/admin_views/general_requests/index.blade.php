@@ -122,13 +122,14 @@
          </div> 
         </td>
         <td>
-          {{$request->created_at}}
+          {{$request->created_at}} 
         </td>
         <td>
-          {{$request->project_date}}
+
+          {{ \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$request->project_date)->format('Y-m-d')}}
         </td>
         <td>
-        {{$request->deliver_date}}
+          {{ \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$request->deliver_date)->format('Y-m-d')}}
         </td>
       
         <td>
