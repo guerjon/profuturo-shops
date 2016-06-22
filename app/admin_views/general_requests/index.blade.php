@@ -102,18 +102,19 @@
       @foreach($requests as $request)
       <tr>
         <td>
-        {{link_to_action('AdminGeneralRequestsController@show',$request->id,['id' =>$request->id]),null}}   
+          
+        {{link_to_action('AdminGeneralRequestsController@show',$request->solicitud,['id' =>$request->solicitud]),null}}   
 
         </td>
         <td>
-          {{$request->project_title}}
+          {{$request->titulo}}
         </td>
         <td>
-        {{$request->status_str}}
+        {{$request->status}}
          
         </td>
         <td>
-          {{ $request->unit_price * $request->quantity}}
+          {{ $request->presupuesto}}
         </td>
         <td>
          <div data-number="5" data-score="{{$request->rating}}" class="stars">
@@ -124,10 +125,10 @@
           {{$request->created_at}}
         </td>
         <td>
-          {{$request->project_date->format('d-m-Y')}}
+          {{$request->project_date}}
         </td>
         <td>
-        {{$request->deliver_date->format('d-m-Y')}}
+        {{$request->deliver_date}}
         </td>
       
         <td>
