@@ -23,7 +23,7 @@ $(function(){
             ).append(
                 $('<td>').text(item.user.gerencia)
             ).append(
-                $('<td>').text(numeral(item.budget ? item.budget.amount*(-1) : 0).format('0,0.00'))
+                $('<td>').text(numeral(item.c).format('0,0.00'))
             );
             tbody.append(tr);
         }
@@ -154,7 +154,7 @@ $(function(){
 
             var pages = data.pages;
             var orders = data.pagination.data;
-            
+
             handlePaginationData(orders, pages, $('#orders-by-cat-table'), $('#orders-by-cat-pagination'));
         });
     }
