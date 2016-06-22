@@ -138,6 +138,7 @@ $(function(){
             year : year
         }), $('#filters-form').serialize(), function(data){
             var pages = data.pages;
+            console.log(data);
             var orders = data.pagination.data;
             handlePaginationData(orders, pages, $('#period-table'), $('#period-table-pagination'));
         });
@@ -152,8 +153,10 @@ $(function(){
             category : category.id,
         }), $('#filters-form').serialize(), function(data){
 
-            var pages = data.pages;
             var orders = data.pagination.data;
+            
+            var pages = data.pages;
+            console.log(pages);
 
             handlePaginationData(orders, pages, $('#orders-by-cat-table'), $('#orders-by-cat-pagination'));
         });

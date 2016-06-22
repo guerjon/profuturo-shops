@@ -134,17 +134,17 @@
       
         <td>
           <button data-toggle="modal" data-target="#request-modal" class="btn  btn-primary detail-btn" 
-                  data-request-id="{{$request->id}}">Detalles</button>
+                  data-request-id="{{$request->solicitud}}">Detalles</button>
         </td>
         <td>
           @if(!$request->trashed())
-                {{Form::open(['action' => ['AdminGeneralRequestsController@destroy',$request->id],'method' => 'DELETE'])}}
+                {{Form::open(['action' => ['AdminGeneralRequestsController@destroy',$request->solicitud],'method' => 'DELETE'])}}
                   <button  type="submit" class="btn  btn-primary btn-danger btn-cancel">
                     <span class="glyphicon glyphicon-remove"></span> Cancelar
                   </button>
                 {{Form::close()}}
           @else
-            {{Form::open(['action' => ['AdminGeneralRequestsController@update',$request->id],'method' => 'PUT'])}}
+            {{Form::open(['action' => ['AdminGeneralRequestsController@update',$request->solicitud],'method' => 'PUT'])}}
               <button type="submit" class="btn btn-success" >
                 <span class="glyphicon glyphicon-ok"></span> Habilitar
               </button>

@@ -96,8 +96,10 @@ class AdminApiDashboardController extends AdminBaseController
             ->where('categories.id', '=', $category);
 
         $pagination = $query->simplePaginate(5);
+
+
         $pages = $pagination->appends(Input::all())->links();
-        
+        \Log::debug(get_class($pages));
         return Response::json([
             'pagination' => $pagination->toArray(),
             'pages' => $pages
