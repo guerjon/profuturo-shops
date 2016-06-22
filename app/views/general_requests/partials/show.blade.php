@@ -23,8 +23,8 @@
 
         <hr>
 
-         Fecha del evento: <strong id="request-project_date_formatted"></strong><br>
-         Fecha de entrega: <strong id="request-deliver_date_formatted"></strong><br>
+         Fecha del evento: <strong id="request-project_date"></strong><br>
+         Fecha de entrega: <strong id="request-deliver_date"></strong><br>
          Comentarios: <strong id="request-comments"></strong>
         <br><br>
 

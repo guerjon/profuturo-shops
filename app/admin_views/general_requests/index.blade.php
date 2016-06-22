@@ -175,11 +175,19 @@
 <script>
 $(function(){
   $('.detail-btn').click(function(){
+
     $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
       if(data.status == 200){
+        
         var info = data.request;
         for(key in info){
-          $('#request-' + key).text(info[key]);         
+          console.log(key);            
+          if(key == 'project_date')
+            $('#request-' + key).text(info[key].slice(0,-9));
+          else if(key == 'deliver_date')
+            $('#request-' + key).text(info[key].slice(0,-9));
+          else
+            $('#request-' + key).text(info[key]);         
         }
         $('input[name="request_id"]').val(info.id); 
 
