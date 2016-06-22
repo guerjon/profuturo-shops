@@ -68,7 +68,7 @@ class AdminApiDashboardController extends AdminBaseController
     }
 
     public function ordersByPeriod() {
-        $query = $this->appendDateFilter(Order::with('user'))->where('orders.status', '<>', 'cart');
+        $query = $this->appendDateFilter(Order::with('user','products'))->where('orders.status', '<>', 'cart');
         $month = Input::get('month',\Carbon\Carbon::today()->month);
         $year = Input::get('year', \Carbon\Carbon::today()->year);
         $carbon = \Carbon\Carbon::createFromDate($year, $month, 1);
@@ -84,9 +84,9 @@ class AdminApiDashboardController extends AdminBaseController
     }
 
     public function ordersByCategory() {
-        $query = $this->appendDateFilter(Order::with('user'), 'orders.created_at')->where('orders.status', '<>', 'cart');
+        $query = $this->appendDateFilter(Order::with('user','products'), 'orders.created_at')->where('orders.status', '<>', 'cart');
         $category = Input::get('category');
-        $query->select('orders.*')->from('order_product')
+        $query->select(DB::raw('orders.*'))->from('order_product')
             ->join('products', 'order_product.product_id', '=', 'products.id')
             ->join('orders', 'order_product.order_id', '=', 'orders.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')

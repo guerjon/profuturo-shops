@@ -49,8 +49,10 @@ $(function(){
     var tableTopCategories = function(categories) {
         var $tbody = $('#top-categories tbody');
         $tbody.empty();
+
         for(var i=0; i< categories.length && i< 5; i++) {
             var category = categories[i];
+
             var $tr = $('<tr>');
             $tr.append(
                 $('<th>').text(category.name)
@@ -149,6 +151,7 @@ $(function(){
         $.get(laroute.action('AdminApiDashboardController@ordersByCategory', {
             category : category.id,
         }), $('#filters-form').serialize(), function(data){
+            console.log(data);
             var pages = data.pages;
             var orders = data.pagination.data;
             handlePaginationData(orders, pages, $('#orders-by-cat-table'), $('#orders-by-cat-pagination'));
