@@ -19,17 +19,18 @@ class OrderFurnituresController extends BaseController
     Log::debug(Input::all());
     $order = new FurnitureOrder(Input::except('color'));
     $order->user_id = Auth::id();
+      
+  
+
 
     if($order->save()){
-      if(Auth::user()->email != null){
-          $user = Auth::user();
-          $products = $order->furnitures;
-          $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
-
-          Mail::send('admin::email_templates.orders_furniture',$email_info,function($message) use($user){
-            $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
-          });   
-      }   
+      
+        // $products = DB::table('furniture_furniture_order')
+        //           ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
+        //           ->select(DB::raw('furniture_furniture_order.*,furnitures.*'))
+        //           ->where('furniture_furniture_order.furniture_order_id',$order->id)->get();
+        //           dd($products);
+  
       foreach(Auth::user()->cart_furnitures as $furniture)
       {
         $order->furnitures()->attach($furniture->id, ['quantity' => $furniture->pivot->quantity,
@@ -41,6 +42,20 @@ class OrderFurnituresController extends BaseController
                                                     ]);
         Auth::user()->cartFurnitures()->detach($furniture->id);
       }
+      if(Auth::user()->email != null){
+          $user = Auth::user();
+          $products = $order->furnitures;
+          $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
+
+          Mail::send('admin::email_templates.orders_furniture',$email_info,function($message) use($user){
+            $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
+          });   
+      } 
+
+      foreach($order->furnitures as $furniture) {
+        \Log::debug($furniture);  
+      }
+
     }
     return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');
   }
