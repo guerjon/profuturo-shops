@@ -6,12 +6,12 @@
 			<h1>Número de orden: {{$order->id}}</h1> 
 			<br>
 			<h2>Productos</h2>	
-			@foreach($order->furnitures as $product) 
+			@foreach($products as $product) 
      		<br>
-     		Producto: {{$product->name}}
+     			Producto: {{$product->name}}
      		<br>
-     		Cantidad:{{$product->pivot->quantity}}
-				<br>
+     			Cantidad:{{$product->pivot->quantity}}
+			<br>
 				
 			@endforeach
 		</center>
