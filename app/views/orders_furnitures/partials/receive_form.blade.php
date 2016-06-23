@@ -1,6 +1,5 @@
 {{Form::open([
   'action' => ['OrderFurnituresController@postReceive', $order->id],
-
   ])}}
 
 <table class="table table-striped">

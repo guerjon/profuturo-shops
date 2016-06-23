@@ -102,12 +102,26 @@
 
   <input type="text" class="hidden" name="color" value ="{{$furniture->pivot->color}}">
   
-<div class="form-group">
-  {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
+<div class="row">
+  <div class="col col-xs-6">
+    <div class="form-group">
+      {{Form::label('comments','Comentarios')}}
+      {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
+    </div>
+  </div>
+  <div class="col col-xs-6">
+    <div class="form-group">
+      {{Form::label('ccosto','CCOSTO')}}
+      {{Form::select('ccosto',User::lists('ccosto','ccosto'),null,['class' => 'form-control','id' => 'ccosto'])}}
+    </div>    
+  </div>  
 </div>
-<div class="form-group text-right">
-  <button type="submit" class="btn btn-warning">Enviar pedido</a>
-</div>
+
+    <div class="form-group text-right">
+      <button type="submit" class="btn btn-warning">Enviar pedido</a>
+    </div>    
+
+
 {{Form::close()}}
 @endif
 @endif
@@ -117,6 +131,7 @@
 @section('script')
 <script charset="utf-8">
   $(function(){
+    $('#ccosto').select2({theme:'bootstrap'});
     $('.table .btn-danger').click(function(){
       $.post('/api/remove-from-cart-furniture', {
         furniture_id : $(this).attr('data-furniture-id'),

@@ -842,8 +842,8 @@ class AdminApiController extends AdminBaseController
       '' as CAP_NUM,
       '' as SHIP_TO_CUST_ID,
       'KA003035' as INTROD,
-      furniture_categories.name as CATEGORY
-      
+      furniture_categories.name as CATEGORY,
+      furniture_orders.ccosto as ID_PEOPLE
       "))
       ->join('furnitures', 'furnitures.id', '=', 'furniture_furniture_order.furniture_id')
       ->join('furniture_orders', 'furniture_orders.id' , '=', 'furniture_furniture_order.furniture_order_id')
