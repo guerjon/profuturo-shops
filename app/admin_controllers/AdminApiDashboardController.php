@@ -3,6 +3,20 @@
 class AdminApiDashboardController extends AdminBaseController
 {
 	
+    public function appendDateFilter($builder, $date_field = 'created_at') {
+        
+        $default_from = \Carbon\Carbon::create(2015, 12, 1, 0, 0, 0);
+        $from = Input::get('from', $default_from->max(\Carbon\Carbon::today()->startOfMonth()->subYear()));
+        $to = Input::get('to', \Carbon\Carbon::today()->endOfMonth());
+        \Log::debug('---------------desde');
+        \Log::debug($from);
+        \Log::debug('---------------desde');
+        \Log::debug('---------------hasta');
+        \Log::debug($to);
+        \Log::debug('---------------hasta');
+        return $builder->where($date_field, '>=', $from)->where($date_field, '<=', $to);
+    }
+
     public function overview() {
         $request = Input::get();
         $orders = $this->appendDateFilter(Order::query())->select(DB::raw('count(*) as c'))->first()->c;
@@ -20,13 +34,7 @@ class AdminApiDashboardController extends AdminBaseController
         ]);
     }
 
-	public function appendDateFilter($builder, $date_field = 'created_at') {
-        
-        $default_from = \Carbon\Carbon::create(2015, 12, 1, 0, 0, 0);
-        $from = Input::get('from', $default_from->max(\Carbon\Carbon::today()->startOfMonth()->subYear()));
-        $to = Input::get('to', \Carbon\Carbon::today()->endOfMonth());
-        return $builder->where($date_field, '>=', $from)->where($date_field, '<=', $to);
-    }
+
 
      public function products() {
 

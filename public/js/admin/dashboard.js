@@ -216,15 +216,17 @@ $(function(){
     $('#from').datepicker({
         maxDate : new Date(),
         onSelect: function( selectedDate ) {
-            $( "#to" ).datepicker( "option", "minDate", selectedDate );
-        }
+            $( "#to" ).datepicker("option", "minDate", selectedDate );
+        },
+        dateFormat:  'yy-mm-dd'
     });
 
     $('#to').datepicker({
         minDate : $('#from').val(),
         onSelect: function( selectedDate ) {
             $( "#from" ).datepicker( "option", "maxDate", selectedDate );
-        }
+        },
+        dateFormat:  'yy-mm-dd'
     });
 
     $(document).on('click', '#period-table-pagination a', function(event){

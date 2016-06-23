@@ -243,8 +243,7 @@
     	<script src="/js/laroute.js"></script>
         {{ HTML::script('js/jquery/ui/minified/core.min.js') }}
         {{ HTML::script('js/jquery/ui/minified/widget.min.js') }}
-        {{ HTML::script('js/jquery/ui/minified/datepicker.min.js') }}
-        {{ HTML::script('js/jquery/ui/minified/i18n/datepicker-es.min.js') }}
+
         {{ HTML::script('js/Chartjs/Chart.js') }}
         {{ HTML::script('js/numeral/numeral.min.js') }}
         {{ HTML::script('js/moment/moment-with-locales.min.js') }}
