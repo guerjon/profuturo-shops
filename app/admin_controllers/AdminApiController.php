@@ -1073,29 +1073,40 @@ class AdminApiController extends AdminBaseController
     $query = DB::table('products')
     ->leftJoin('order_product','products.id','=','product_id')
     ->leftJoin('orders','orders.id','=','order_id')
-    ->select('products.id','name as NOMBRE','model as MEDIDA','description as CATEGORIA',DB::raw('SUM(quantity) as SOLICITADOS'))
+    ->select( 
+              'products.id',
+              'name as NOMBRE',
+              'model as MEDIDA',
+              'description as CATEGORIA',
+              DB::raw('SUM(quantity) as SOLICITADOS')
+    )
     ->where('quantity', '>', 0)
-    ->where('category_id','=',Input::get('category_id'))
     ->whereNull('orders.deleted_at')
     ->groupBy('order_product.product_id');
-
+    
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
 
-    if(Input::has('from'))
-      $query->where('orders.created_at','<=',Input::get('from'));
+    if(Input::has('category_id')){
+      $query->where('category_id','=',Input::get('category_id'));
+    }
+
+
+    if(Input::has('since'))
+      $query->where('orders.created_at','>=',Input::get('since'));
 
     if(Input::has('until'))
-      $query->where('orders.created_at','>=',Input::get('until'));
+      $query->where('orders.created_at','<=',Input::get('until'));
 
 
     $query->orderBy('SOLICITADOS','DESC');
+    
 
     if(Request::ajax()){
       $items = $query->get();
       return Response::json([
         'status' => 200,
-        'orders' => $items,
+        'orders_full' => $query->paginate(10)->toJson(),
         'headers' => $headers
         ]);
     }else{

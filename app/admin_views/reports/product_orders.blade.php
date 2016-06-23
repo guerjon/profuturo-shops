@@ -68,30 +68,27 @@
 <script src="/js/manual_pagination.js"></script>
 <script>
 
-
-
 function update(){
-
   $('.table tbody').empty();
   $('.table tbody').append(
     $('<tr>').attr('class', 'info').append(
       $('<td>').attr('colspan', $('.table thead tr:first-child th').length).html('<strong>Cargando...</strong>')
     )
   );
-
-  $.get('/admin/api/active-users-report', $('#filter-form').serialize(), function(data){
+  $.get('/admin/api/product-orders-report', $('#filter-form').serialize(), function(data){
     $('.table tbody').empty();
     
     if(data.status == 200){
       
-      var orders_full = jQuery.parseJSON( data.orders );
+      var orders_full = jQuery.parseJSON( data.orders_full );
       var orders = orders_full.data;
-      var headers = ['ID', 'CENTRO_DE_COSTOS', 'GERENCIA','LINEA_NEGOCIO','Cantidad'];
+      
+      var headers =  ['ID', 'NOMBRE', 'MEDIDA','CATEGORÍA','SOLICITADOS'];
       var pagination = ('#pagination');
-      console.log(orders_full.data);
+      
       $('#number_page').val(orders_full.current_page);
       $('.table thead tr').empty();
-      
+        
       if(orders.length == 0){
         $('.table tbody').append(
           $('<tr>').attr('class', 'warning').append(
@@ -108,7 +105,8 @@ function update(){
       for(var i=0; i<headers.length; i++){
         $('.table thead tr').append($('<th>').html(headers[i]));
       }
-      headers = ['id','ccosto','gerencia','linea_negocio','quantity'];
+
+      headers = ['id','NOMBRE','MEDIDA','CATEGORIA','SOLICITADOS','completos','incompletos','pendientes'];
 
       for(var i=0; i<orders.length; i++){
         var tr = $('<tr>');
@@ -150,19 +148,17 @@ function update(){
   });
 }
 $(function(){
+    $(document).on('click', '.pagina', function(){
+      event.preventDefault();
+      var page = $(this).attr('data-page');
+      $('#number_page').val(page);
+      $('#pagination').empty();
+      update();
+    });
   update();
   $('#filter-form input').change(function(){
     update();
   });
-
-  $(document).on('click', '.pagina', function(){
-    event.preventDefault();
-    var page = $(this).attr('data-page');
-    $('#number_page').val(page);
-    $('#pagination').empty();
-    update();
-  });
-
 });
 </script>
 @stop
