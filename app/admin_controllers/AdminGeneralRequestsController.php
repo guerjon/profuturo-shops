@@ -88,7 +88,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
                                                       when 11 then "La encuesta ha sido contestada"
                                                       when 12 then "Encuesta cancelada"
                                                       END as Estatus'),
-                                              'users.nombre as Consultor'
+                                              'users.nombre as Usuario_proyectos'
                                               )->get());
           });
         })->download('xlsx');
