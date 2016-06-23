@@ -9,37 +9,26 @@ class AdminSpiderGraphController extends \BaseController {
 	 */
 	public function getIndex()
 	{   
-		$surveys = DB::table('satisfaction_surveys')->select('*')
-				->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
-				->join('users','users.id','=','general_requests.manager_id');
+		$surveys = SatisfactionSurvey::query();
 
 		if(Input::has('gerencia'))
-		  $surveys->where('users.id','=',Input::get('gerencia'));
+			$surveys->whereHas('users',function($q){
+				$q->where('users.id','=',Input::get('gerencia'));
+			}); 
 
 		if(Input::has('solicitud'))
-		  $surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));
+		  	$surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));
 
-		if(Input::has('encuesta'))
-		  $surveys->where('general_requests.id','=',Input::get('encuesta'));
+		if(Input::has('encuesta')){
+		  	$surveys->whereHas('generalRequest',function($q){
+		  		$q->where('general_requests.id','=',Input::get('encuesta'));
+		  	});
+		}
+
 
 		if (Input::has('xls')) {
 	  		$excel = App::make('excel');
 
-			  // 	$headers = 
-			  // 		[
-				 //  		'NUMERO DE SOLICITUD GENERAL',
-				 //  		'ACTITUD DEL CONSULTOR',
-				 //  		'SEGUIMIENTO DEL CONSULTOR',
-				 //  		'TIEMPOS RESPUESTA CONSULTOR',
-				 //  		'CALIDAD DEL PRODUCTO',
-				 //  		'POR QUE ACTITUD DEL CONSULTOR',
-				 //  		'POR QUE SEGUIMIENTO DEL CONSULTOR',
-				 //  		'POR QUE TIEMPOS RESPUESTA CONSULTOR',
-				 //  		'POR QUE CALIDAD DE PRODUCTO',
-				 //  		'COMENTARIOS'
-			  // 		];
-
-			  // $result = [$headers];
 
 			  foreach ($surveys->get() as $item) {
 				
@@ -54,7 +43,10 @@ class AdminSpiderGraphController extends \BaseController {
 				$itemArray['POR QUE TIEMPOS RESPUESTA CONSULTOR'] = $item->explain_3;
 				$itemArray['POR QUE CALIDAD DE PRODUCTO'] = $item->explain_4;
 				$itemArray['COMENTARIOS'] = $item->comments;
-				$itemArray['CONSULTOR'] = $item->manager_id ? User::find($item->manager_id)->first()->nombre : 'SIN CONSULTOR';
+
+				$itemArray['CONSULTOR'] =  $item->general_request['manager_id'] ? User::find($item->general_request['manager_id'])->first()->nombre : 'SIN CONSULTOR';
+				
+				$itemArray['USUARIO_PROYECTOS'] = $item->general_request['user_id'] ? User::find($item->general_request['user_id'])->first()->nombre : 'USUARIO PROYECTOS';
 				
 				$result[] = $itemArray;
 			  }
@@ -71,7 +63,7 @@ class AdminSpiderGraphController extends \BaseController {
 		}else{
 			return View::make('admin::spider_graph.index')
 				->withSurveys(
-					$surveys->lists('id')
+					$surveys->lists('general_requests.id')
 				);  
 		}
 	}

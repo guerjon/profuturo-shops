@@ -16,7 +16,7 @@ class GeneralRequest extends Eloquent
   protected $hidden = ['status_str'];
 
   public function user(){
-    return $this->belongsTo('User');
+    return $this->belongsTo('User','user_id');
   }
 
   public function manager(){
