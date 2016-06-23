@@ -25,7 +25,7 @@
 <div class="row">
     <div class="col-xs-3 ">DESDE:
         {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
-      </div>
+    </div>
     <div class="col-xs-3 ">HASTA:
         {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
     </div>

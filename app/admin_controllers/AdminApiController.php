@@ -1015,12 +1015,21 @@ class AdminApiController extends AdminBaseController
 
   public function getUserOrdersReport()
   {
-
     ini_set('max_execution_time','300');
-    $query = User::where('role','user_paper')->whereHas('orders', function($q){
-      $q->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
-        ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'));
-    }, '=', 0)->orderBy('ccosto');
+   
+    $query = User::where('role','user_paper')->doesntHave('orders')->orderBy('ccosto');
+      
+      if(Input::has('since')){
+        $query->whereDoesntHave('orders',function($q){
+          $q->where('orders.created_at','>=',Input::get('since')); 
+        });
+      }
+
+      if(Input::has('until')){
+        $query->whereDoesntHave('orders',function($q){
+          $q->where('orders.created_at','>=',Input::get('until')); 
+        });
+      }
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars($q->first())) : [];
@@ -1065,8 +1074,6 @@ class AdminApiController extends AdminBaseController
     ->leftJoin('order_product','products.id','=','product_id')
     ->leftJoin('orders','orders.id','=','order_id')
     ->select('products.id','name as NOMBRE','model as MEDIDA','description as CATEGORIA',DB::raw('SUM(quantity) as SOLICITADOS'))
-    ->where(DB::raw('MONTH(orders.created_at)'), Input::get('month'))
-    ->where(DB::raw('YEAR(orders.updated_at)'), Input::get('year'))
     ->where('quantity', '>', 0)
     ->where('category_id','=',Input::get('category_id'))
     ->whereNull('orders.deleted_at')
@@ -1074,6 +1081,13 @@ class AdminApiController extends AdminBaseController
 
     $q = clone $query;
     $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
+
+    if(Input::has('from'))
+      $query->where('orders.created_at','<=',Input::get('from'));
+
+    if(Input::has('until'))
+      $query->where('orders.created_at','>=',Input::get('until'));
+
 
     $query->orderBy('SOLICITADOS','DESC');
 
@@ -2099,6 +2113,8 @@ class AdminApiController extends AdminBaseController
         ]);
       }
   }
+
+
 
 
 }

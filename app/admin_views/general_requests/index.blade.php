@@ -58,11 +58,14 @@
         </a>  
     </div>
   @endif
+    <div class="col col-xs-2">
     <input type="text" class="hidden" value="{{$active_tab}}" name="active_tab">  
-    <br>
+    
     <button type="submit" class="btn btn-primary">
      <span class="glyphicon glyphicon-filter"></span> Filtrar
     </button>
+      
+    </div>
   
 </div>
 <hr>
@@ -118,11 +121,11 @@
           {{$request->titulo}}
         </td>
         <td>
-        {{$request->status}}
+        {{$request->estatus}}
          
         </td>
         <td>
-          {{ $request->presupuesto}}
+          {{$request->presupuesto}}
         </td>
         <td>
          <div data-number="5" data-score="{{$request->rating}}" class="stars">

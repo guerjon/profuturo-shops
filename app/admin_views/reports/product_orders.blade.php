@@ -9,35 +9,36 @@
     &nbsp;&nbsp;&nbsp;
   <li><a href="/">Inicio</a></li>
   <li><a href="/admin/reports/index">Reportes</a></li>
-  <li class="active">Mayores pedidos</li>
+  <li class="active">Productos mas solicitados</li>
 </ol>
 
 <div class="page-header">
-  <h3>Usuarios con mayores pedidos</h3>
+  <h3>Productos mas solicitados</h3>
 </div>
 
 {{Form::open([
   'id' => 'filter-form',
   'method' => 'GET',
-  'action' => 'AdminApiController@getActiveUsersReport',
+  'action' => 'AdminApiController@getProductOrdersReport',
   'target' => '_blank'
   ])}}
-<div class="row">
+
+  {{Form::hidden('page',null,['id' => 'number_page'])}}
+  <div class="row">
     <div class="col-xs-3">
       {{Form::label('since','DESDE')}}
       {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker change','id' => 'since' ])}}
-      <br>
+    </div>
+    <div class="col-xs-3">
       {{Form::label('until','HASTA')}}
       {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker change','id' => 'until' ])}}
     </div>
-
-  {{Form::hidden('page',null,['id' => 'number_page'])}}
-
-  <button class="btn btn-primary btn-submit">
-    <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-  </button>
-
-
+  <div class="col col-xs-3">
+    <br>
+    <button class="btn btn-primary btn-submit">
+      <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+    </button>    
+  </div>
 </div>
 {{Form::close()}}
 
@@ -87,7 +88,7 @@ function update(){
       var orders = orders_full.data;
       var headers = ['ID', 'CENTRO_DE_COSTOS', 'GERENCIA','LINEA_NEGOCIO','Cantidad'];
       var pagination = ('#pagination');
-
+      console.log(orders_full.data);
       $('#number_page').val(orders_full.current_page);
       $('.table thead tr').empty();
       
@@ -150,7 +151,7 @@ function update(){
 }
 $(function(){
   update();
-  $('#filter-form select').change(function(){
+  $('#filter-form input').change(function(){
     update();
   });
 

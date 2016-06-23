@@ -66,7 +66,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
       
 
  
-          $sheet->fromModel($request->select('general_requests.id as #Solicitud',
+          $sheet->fromModel($request->join('users','users.id','=','general_requests.user_id')->select('general_requests.id as #Solicitud',
                                               'general_requests.project_title as Titulo',
                                               DB::raw('general_request_products.unit_price * general_request_products.quantity as Presupuesto'),
                                               'general_requests.rating as Criticidad',
