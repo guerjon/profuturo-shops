@@ -24,6 +24,7 @@
                         {{Form::open([
                             'action' => ['SatisfactionSurveyController@postQuestions',$general_request->id],
                             'role' => 'form',
+                            'id' => 'satisfaciton_form'
                         ])}}
 
                             <table class="table table-striped" style="color:black">
@@ -55,7 +56,8 @@
                                   </td>     
                                   <td>
                                     <label for="explain_1" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_1',null,['class' => 'form-control','size' => '20x3','required'])}}
+                                    
+                                    <textarea class="form-control" title="Se requieren 50 caracteres minimo" required="required" name="explain_1" cols="20" rows="3"></textarea>
                                   </td>
                                 </tr>
                                 <tr>
@@ -84,7 +86,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_2" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_2',null,['class' => 'form-control','size' => '20x3','required'])}}
+                                   <textarea class="form-control" required="required" name="explain_2" cols="20" rows="3"></textarea>
                                   </td> 
 
                                 </tr>
@@ -118,7 +120,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_3" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_3',null,['class' => 'form-control','size' => '20x3','required'])}}
+                                  <textarea class="form-control" required="required" name="explain_3" cols="20" rows="3"></textarea>
                                   </td>
                           </tr>
                                 <tr>
@@ -148,7 +150,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_4" class="radio-inline">¿Por qué?</label> 
-                                    {{Form::textarea('explain_4',null,['class' => 'form-control','size' => '20x3','required'])}}
+                                  <textarea class="form-control" required="required" name="explain_4" cols="20" rows="3"></textarea>
                                   </td>
                                 </tr>
                               </tbody>
@@ -156,7 +158,7 @@
                             </table>
 
                           <center>
-                            <button type="submit" class="btn btn-primary btn-lg">
+                            <button type="button" class="btn btn-primary btn-lg">
                               Enviar
                             </button>
                           </center>
@@ -170,8 +172,29 @@
     </div>
 @endif
 @stop
+
 @section('script')
-<link href="{{ asset('css/survey.css') }}" rel="stylesheet"/>
+  <script>
+    $(function(){
+      $('.btn-lg').click(function(event){
+        event.preventDefault();
+        var total = 0;
+        $('textarea').each(function(){
+          if($(this).val().length > 0)
+          {
+            console.log($(this).val());
+            total += $(this).val().length
+          }
+        });
+        console.log(total)
+        if(total >= 250)
+          $('#satisfaciton_form').submit();
+        else
+          alert('Se necesitan minimio 50 caracteres en cada campo ¿Por qué?');
+      });
+    });
+  </script>
+  <link href="{{ asset('css/survey.css') }}" rel="stylesheet"/>
 @endsection
 
 

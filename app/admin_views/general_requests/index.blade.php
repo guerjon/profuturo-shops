@@ -21,8 +21,11 @@
   <li role="presentation" class="{{$active_tab == 'not_assigned' ? 'active' : ''}}">
     <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'not_assigned'])}}">No asignadas</a> 
   </li> 
-  <li role="presentation" class="{{$active_tab == 'deleted' ? 'active' : ''}}">
-    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'deleted'])}}">Canceladas</a>
+  <li role="presentation" class="{{$active_tab == 'deleted_assigned' ? 'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'deleted_assigned'])}}">Canceladas asignadas</a>
+  </li>
+  <li role="presentation" class="{{$active_tab == 'deleted_unassigned' ? 'active' : ''}}">
+    <a href="{{action('AdminGeneralRequestsController@index',['active_tab' =>'deleted_unassigned'])}}">Canceladas no asignadas</a>
   </li>
 </ul>
 
@@ -37,15 +40,17 @@
 <div class="row">
   
   <div class="col-xs-2">
+      USUARIO DE PROYECTOS
     {{Form::select('user_id',[null=>'Todos']+$users,Input::get('user_id'),['class' => 'form-control'])}}
   </div>
  
-  <div class="col-xs-4">
-    {{Form::selectMonth('month',Input::get('month',\Carbon\Carbon::now('America/Mexico_City')->month),['class' => 'form-control'])}}
-  </div>
-  <div class="col-xs-2">
-    {{Form::selectRange('year', \Carbon\Carbon::now('America/Mexico_City')->year - 5,Input::get('year',\Carbon\Carbon::now('America/Mexico_City')->year),\Carbon\Carbon::now('America/Mexico_City')->year, ['class' => 'form-control'])}}
-  </div>
+    <div class="col-xs-3 ">DESDE:
+        {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+      </div>
+    <div class="col-xs-3 ">HASTA:
+        {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+    </div>
+
   @if($active_tab == 'assigned')
     <div class="col col-xs-2">
       <a href="{{action('AdminGeneralRequestsController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
@@ -53,11 +58,14 @@
         </a>  
     </div>
   @endif
+    <input type="text" class="hidden" value="{{$active_tab}}" name="active_tab">  
+    <br>
     <button type="submit" class="btn btn-primary">
      <span class="glyphicon glyphicon-filter"></span> Filtrar
     </button>
   
 </div>
+<hr>
 {{Form::close()}}
 @endif
 @if($requests->count() > 0)

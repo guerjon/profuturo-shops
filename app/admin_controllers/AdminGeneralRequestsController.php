@@ -1,8 +1,9 @@
 <?
-
+use \Carbon\Carbon;
 class AdminGeneralRequestsController extends AdminBaseController{
 
   public function index(){
+    $active_tab = Input::get('active_tab', 'assigned');
   	$request = GeneralRequest::select('general_requests.id as solicitud',
                                               'general_requests.project_title as titulo',
                                               DB::raw('general_request_products.unit_price * general_request_products.quantity as presupuesto'),
@@ -28,28 +29,31 @@ class AdminGeneralRequestsController extends AdminBaseController{
                                               )->withTrashed()
                 ->join('general_request_products','general_requests.id','=','general_request_products.id');
     
-    $active_tab = Input::get('active_tab', 'assigned');
-  
+    
+    
     if($active_tab == 'assigned'){
         $request->whereNotNull('manager_id');
     }elseif($active_tab == 'not_assigned'){
-      $request->whereNull('manager_id');
-    }elseif($active_tab == 'deleted'){
-      $request->onlyTrashed();
+      \Log::debug($request->get());
+      $request->where('manager_id',null);
+    }elseif($active_tab == 'deleted_assigned'){
+      $request->whereNotNull('manager_id')->onlyTrashed();
+    }elseif($active_tab == 'deleted_unassigned'){
+      $request->whereNull('manager_id')->onlyTrashed();
     }
 
 
   	if(Input::has('user_id')){
-  		
        $request->where('user_id',Input::get('user_id'));
   	}
-  	if(Input::has('month')){
-  		$request->where(DB::raw('MONTH(general_requests.created_at)'), Input::get('month'));	
-  	}
 
-  	if (Input::has('year')) {
-  		$request->where(DB::raw('YEAR(general_requests.updated_at)'), Input::get('year'));
-  	}
+    if(Input::has('since')){
+      $request->where('general_requests.created_at','>=',Input::get('since'));
+    }
+
+    if(Input::has('until')){
+      $request->where('general_requests.created_at','<=',DateTime::createFromFormat('Y-m-d',Input::get('until')));
+    }
 
     $assigneds = ['ASIGNADO','NO ASIGNADO'];
 
@@ -83,7 +87,8 @@ class AdminGeneralRequestsController extends AdminBaseController{
                                                       when 10 then "Fue un placer atenderte, me apoyarías con la siguiente encuesta de satisfacción"
                                                       when 11 then "La encuesta ha sido contestada"
                                                       when 12 then "Encuesta cancelada"
-                                                      END as Estatus')
+                                                      END as Estatus'),
+                                              'users.nombre as Consultor'
                                               )->get());
           });
         })->download('xlsx');
