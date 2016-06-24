@@ -28,7 +28,7 @@ class AdminSpiderGraphController extends \BaseController {
 
 		if (Input::has('xls')) {
 	  		$excel = App::make('excel');
-
+	  		$surveys->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id');
 
 			  foreach ($surveys->get() as $item) {
 				
@@ -43,9 +43,16 @@ class AdminSpiderGraphController extends \BaseController {
 				$itemArray['POR QUE TIEMPOS RESPUESTA CONSULTOR'] = $item->explain_3;
 				$itemArray['POR QUE CALIDAD DE PRODUCTO'] = $item->explain_4;
 				$itemArray['COMENTARIOS'] = $item->comments;
-					
-		        $itemArray['CONSULTOR'] =  $item->manager ? $item->manager->nombre : 'SIN CONSULTOR';
-		        $itemArray['USUARIO_PROYECTOS'] = $item->user ? $item->user->nombre : 'USUARIO PROYECTOS';				
+				
+				Log::debug('--------------------manager');
+				// Log::debug($item['manager_id']);
+				// Log::debug($item['user_id']);
+				// Log::debug($item['manager_id'] != null ? User::find($item['manager_id'])->first()->nombre : 'SIN CONSULTOR');
+				// Log::debug($item['user_id'] != null ? User::find($item['user_id'])->first()->nombre: 'USUARIO PROYECTOS');
+				Log::debug('--------------------user');
+
+		        $itemArray['CONSULTOR'] =  $item['manager_id'] != null ? User::find($item['manager_id'])->nombre : 'SIN CONSULTOR';
+		        $itemArray['USUARIO_PROYECTOS'] = $item['user_id'] != null ?  User::find($item['user_id'])->nombre  : 'SIN USUARIO PROYECTOS';				
 				$result[] = $itemArray;
 			  }
 			  
