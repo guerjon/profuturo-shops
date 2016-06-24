@@ -21,8 +21,6 @@ class GeneralRequestsController extends BaseController{
                           ->where('user_id',Auth::user()->id)
                           ->count();                
                     
-    Log::debug("numero de solicitudes hechas".$access);
-    Log::debug("numero de encuestas contestadas".$surveys_answered);
 
     $access = $access  == $surveys_answered ? true : false;
                          

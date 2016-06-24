@@ -101,6 +101,11 @@
         <th>
           Fecha de entrega
         </th>
+        @if($active_tab == 'assigned')
+          <th>
+            
+          </th>
+        @endif
         <th>
 
         </th>

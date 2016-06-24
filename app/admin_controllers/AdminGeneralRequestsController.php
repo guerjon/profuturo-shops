@@ -73,9 +73,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
         $itemArray = [];
         $itemArray['NUMERO DE SOLICITUD GENERAL']   = $item->id;
         $itemArray['TITULO DE PROYECTO']   = $item->project_title;
-
         $itemArray['CONSULTOR'] =  $item->manager ? $item->manager->nombre : 'SIN CONSULTOR';
-        
         $itemArray['USUARIO_PROYECTOS'] = $item->user ? $item->user->nombre : 'USUARIO PROYECTOS';
         
         $result[] = $itemArray;
