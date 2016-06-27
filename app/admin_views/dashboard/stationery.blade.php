@@ -16,27 +16,33 @@
         'class' => 'form-horizontal'
     ]) }}
         <div class="form-group">
-            <label class="control-label col-md-1">
-                Desde
-            </label>
-            <div class="col-md-3">
-                {{ Form::text('from', \Carbon\Carbon::now()->startOfMonth()->subYear()->format('Y-m-d'), ['id' => 'from', 'class' => 'form-control']) }}
-                
+            <div class="col-md-1">
+                F. inicio
+                {{ Form::text('from', \Carbon\Carbon::now()->startOfMonth()->subYear()->format('Y-m-d'), ['id' => 'from', 'class' => 'form-control']) }}                
             </div>
-            <label class="control-label col-md-1">
-                Hasta
-            </label>
-            <div class="col-md-3">
-
+            <div class="col-md-1">
+                Fecha final
                 {{ Form::text('to', \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d'), ['id' => 'to', 'class' => 'form-control']) }}
                 
             </div>
+            <div class="col-md-2">
+                Divisional
+                {{Form::select('divisional_id[]',Divisional::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
+            </div>
+            <div class="col-md-2">
+                Regional
+                {{Form::select('region_id[]',Region::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}  
+            </div>
+            <div class="col-md-2">
+                Gerencia
+                {{Form::select('management_id[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
+            </div>
+            
             <div class="col-md-4">
-                <!-- <div class="text-center"> -->
-                    <button type="submit" class="btn btn-default">
-                        <span class="fa fa-search"></span> Filtrar
-                    </button>
-                <!-- </div> -->
+                <br>
+                <button type="submit" class="btn btn-default">
+                    <span class="fa fa-search"></span> Filtrar
+                </button>
             </div>
         </div>  
 
@@ -66,7 +72,7 @@
                             <span class="fa fa-check dashboard-fa"></span>
                         </div>
                         <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Gerencias con pedido</h3>
+                            <h3 class="panel-title">Gerencias sin pedido</h3>
                             <span id="people" class="panel-big-text"></span>
                         </div>
                     </div>
@@ -155,14 +161,17 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Top 5 Categorías
+                        Top 10 productos
                     </h3>
                 </div>
-                <table id="top-categories" class="table table-striped">
+                <table id="top-products" class="table table-striped">
                     <thead>
                         <tr>
                             <th>
                                 Categoría
+                            </th>
+                            <th>
+                                Producto
                             </th>
                             <th>
                                 Productos solicitados
@@ -177,7 +186,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Top 5 Productos
+                        Top 10 productos menos pedidos
                     </h3>
                 </div>
                 <table id="top-products" class="table table-striped">
@@ -235,12 +244,15 @@
     @section('style')
         {{ HTML::style('css/jquery-ui/blitzer/jquery-ui.min.css') }}
         {{ HTML::style('css/jquery-ui/blitzer/theme.css') }}
+        {{ HTML::style('css/select2.css')}}
+        {{ HTML::style('css/select2-bootstrap.css')}}
     @endsection
 
 
     @section('script')
     @parent
     	<script src="/js/laroute.js"></script>
+        {{ HTML::script('js/select2.full.js')}}
         {{ HTML::script('js/jquery/ui/minified/core.min.js') }}
         {{ HTML::script('js/jquery/ui/minified/widget.min.js') }}
 

@@ -7,13 +7,15 @@ class AdminDivisionalController extends BaseController{
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($active_tab = null)
 	{
 		
-		$divisionals_date = DB::table('divisionals_users')->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
-			->where('divisionals_users.divisional_id',Input::get('active_tab', '2'));
-		
-		$active_tab = Session::get('active_tab', Input::get('active_tab', '2'));
+		if(!$active_tab)
+			$active_tab = Input::get('active_tab');
+
+		$divisionals_date = DB::table('divisionals_users')
+								->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
+								->where('divisionals_users.divisional_id',$active_tab);
 		
 		return View::make('admin::divisionales.index')
 			->withDivisionals(Divisional::orderBy('id')->get())
@@ -22,18 +24,6 @@ class AdminDivisionalController extends BaseController{
 			->withActiveTab($active_tab);
 	}
 
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -41,48 +31,17 @@ class AdminDivisionalController extends BaseController{
 	 */
 	public function store()
 	{
-		
+		$active_tab = Input::get('active_tab',1);
+		DB::table('divisionals_users')
+			->insert([
+						'from' => Input::get('from'),
+						'until' => Input::get('until'),
+						'divisional_id' => $active_tab,
+						'user_id' => 1
+					]);
 
-		DB::table('divisionals_users')->insert(['from' => Input::get('from'),'until' => Input::get('until'),'divisional_id' => Input::get('divisional_id'),
-			'user_id' => 1]);
-
-	 	return Redirect::to(action('AdminDivisionalController@index'))->withInfo('Se ha agregado la fecha a la divisional.');	
-	}
-
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
+	 	return Redirect::action('AdminDivisionalController@index',['active_tab' => $active_tab])
+	 			->withSuccess('Se ha agregado la fecha a la divisional.');	
 	}
 
 
@@ -94,9 +53,13 @@ class AdminDivisionalController extends BaseController{
 	 */
 	public function destroy($id)
 	{
-		 $divisional = DB::table('divisionals_users')->whereId($id)->delete();
+		$divisional = DB::table('divisionals_users')
+						->whereId($id)
+						->delete();
 
-      return Redirect::to(action('AdminDivisionalController@index'))->withSuccess('Se ha eliminado la fecha de la divisional.');	
+		$active_tab = Input::get('active_tab');
+      	return Redirect::action('AdminDivisionalController@index',['active_tab' => $active_tab])
+      			->withSuccess('Se ha eliminado la fecha de la divisional.');	
     
 	}
 

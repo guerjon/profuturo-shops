@@ -9,12 +9,7 @@
       </div>
       <div class="modal-body">
         {{Form::open(['action' => 'AdminDivisionalController@store','id' => 'form-add-date'])}}  
-          
-          <div class="form-group">
-            {{Form::label('divisional_id','Divisional')}}
-            {{Form::select('divisional_id',$divisionals_to_select,null,['class' => 'form-control'])}}  
-          </div>
-          
+
         <div class="form-gropu">
           {{Form::label('from','Desde')}}
           {{Form::text('from',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'from' ])}}
@@ -22,7 +17,7 @@
           {{Form::label('until','Hasta')}}
           {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
         </div>
-
+          {{Form::hidden('active_tab',$active_tab)}}
         {{Form::close()}}
 
       </div>

@@ -156,7 +156,7 @@ class OrdersController extends BaseController
       $complete *= $product['status'];
       $pivot->status = $product['status'];
       $pivot->comments = $product['comments'];
-      $pivot->save();
+      $pivot->save(); 
     }
 
     if($complete){

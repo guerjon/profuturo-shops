@@ -46,41 +46,70 @@ $(function(){
     }
 
 
-    var tableTopCategories = function(categories) {
-        var $tbody = $('#top-categories tbody');
-        $tbody.empty();
+    // var tableTopCategories = function(categories) {
+    //     var $tbody = $('#top-categories tbody');
+    //     $tbody.empty();
 
-        for(var i=0; i< categories.length && i< 5; i++) {
-            var category = categories[i];
+    //     for(var i=0; i< categories.length && i< 5; i++) {
+    //         var category = categories[i];
 
-            var $tr = $('<tr>');
-            $tr.append(
-                $('<th>').text(category.name)
-            ).append(
-                $('<td>').text(numeral(category.q).format('0,0'))
-            );
-            $tbody.append($tr);
-        }
-    }
+    //         var $tr = $('<tr>');
+    //         $tr.append(
+    //             $('<th>').text(category.name)
+    //         ).append(
+    //             $('<td>').text(numeral(category.q).format('0,0'))
+    //         );
+    //         $tbody.append($tr);
+    //     }
+    // }
 
-    var tableTopProducts = function(category_id) {
-        $.get(laroute.action('AdminApiDashboardController@products', {
-            category : category_id
-        }), $('#filters-form').serialize(), function(products){
+    //Top 10 articulos menos pedidos
+    // var tableTopProducts = function(category_id) {
+    //     $.get(laroute.action('AdminApiDashboardController@products', {
+    //         category : category_id
+    //     }), $('#filters-form').serialize(), function(products){
             
-            var $tbody = $('#top-products tbody');
-            $tbody.empty();
-            for(var i=0; i< products.length && i< 5; i++) {
-                var product = products[i];
-                var $tr = $('<tr>');
-                $tr.append(
-                    $('<th>').append($('<abbr>').text(product.name).attr('title', product.name)).addClass('ellipsis')
-                ).append(
-                    $('<td>').text(numeral(product.q).format('0,0'))
-                );
-                $tbody.append($tr);
-            }
-        });      
+    //         var $tbody = $('#top-products tbody');
+    //         $tbody.empty();
+    //         for(var i=0; i< products.length && i< 5; i++) {
+    //             var product = products[i];
+    //             var $tr = $('<tr>');
+    //             $tr.append(
+    //                 $('<th>').append($('<abbr>').text(product.name).attr('title', product.name)).addClass('ellipsis')
+    //             ).append(
+    //                 $('<td>').text(numeral(product.q).format('0,0'))
+    //             );
+    //             $tbody.append($tr);
+    //         }
+    //     });      
+    // }
+
+
+    
+
+    var tableTopProducts = function(category_id){
+        $.get(laroute.action('AdminApiDashboardController@topProducts',{
+            category : category_id
+        }), $('#filters-form').serialize(),function(products){
+                console.log(products);
+                var $tbody = $('#top-products tbody');
+                $tbody.empty();
+
+                for(var i=0; i< products.length && i< 5; i++) {
+                    var product = products[i];
+
+                    var $tr = $('<tr>');
+                    $tr.append(
+                        $('<td>').text(product.category)
+                    ).append(
+                        $('<th>').text(product.name)
+                        
+                    ).append(
+                        $('<td>').text(numeral(product.q).format('0,0'))
+                    );
+                    $tbody.append($tr);
+                }            
+        });
     }
 
     var drawCategoryChart = function() {
@@ -88,7 +117,6 @@ $(function(){
         $('#top-categories').parents('.panel').parent().removeClass('hide');
         $.get(laroute.action('AdminApiDashboardController@categories'), $('#filters-form').serialize(), function(categories){
             computedCategories = categories;
-            tableTopCategories(categories);
             tableTopProducts('');
             var labels = [];
             var data = [];
@@ -284,5 +312,7 @@ $(function(){
     loadOverview();
     drawCategoryChart();
     drawAnnualChart();
+
+    $('.select2').select2({theme:'bootstrap'});
 
 });

@@ -1,6 +1,5 @@
 {{Form::open([
   'action' => ['OrdersController@postReceive', $order->id],
-
   ])}}
 
 <table class="table table-striped">
@@ -71,8 +70,15 @@
 
 </div>
 <div class="form-group text-right">
-  {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
   
+  @if($order->products->count())
+    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning'])}}
+  @else
+    <p style="color:red">
+      No se puede actualizar la orden si no tiene productos
+    </p>
+    {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-warning','disabled'])}}
+  @endif
 </div>
 
 {{Form::close()}}

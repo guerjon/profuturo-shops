@@ -50,7 +50,8 @@ class HomeController extends BaseController {
 				->join('orders','orders.user_id','=','users.id')
 				->where('users.id',Auth::user()->id)
 				->where('orders.created_at','>=',DB::raw('divisionals_users.from'))
-				->where('orders.created_at','<=',DB::raw('DATE_ADD(divisionals_users.until,INTERVAL 1 DAY)'));
+				->where('orders.created_at','<=',DB::raw('DATE_ADD(divisionals_users.until,INTERVAL 1 DAY)'))
+				->whereNull('orders.deleted_at');
 		
 		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
 		

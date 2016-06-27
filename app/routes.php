@@ -67,6 +67,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('dashboard-orders-by-period','AdminApiDashboardController@ordersByPeriod');
 		Route::get('dashboard-orders-by-category','AdminApiDashboardController@ordersByCategory');
 		Route::get('dashboard-annual','AdminApiDashboardController@annual');
+		Route::get('dashboard-top-products','AdminApiDashboardController@topProducts');
 
 		
 
