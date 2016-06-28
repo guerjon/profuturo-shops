@@ -37,13 +37,15 @@
                 Gerencia
                 {{Form::select('gerencia[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia','gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
             </div>
-            <div class="col-md-1">
-                Año
-                {{Form::select('year',['2014','2015','2016'],null,['class' => 'form-control'])}}
-            </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 Tipo Papeleria
-                {{Form::select('paper-type',['Papelería','Muebles','MAC','Corporativo'],null,['class' => 'form-control'])}}
+                {{Form::select('paper-type',[
+                    'orders' => 'Papelería',
+                    'furniture_orders' => 'Muebles',
+                    'mac_orders' => 'MAC',
+                    'corporation_orders' => 'Corporativo']
+                    ,null,['class' => 'form-control','id' => 'paper-type'])
+                }}
             </div>
             <div class="col-md-2">
                 <br>

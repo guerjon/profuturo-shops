@@ -9,9 +9,8 @@
         &nbsp;&nbsp;&nbsp;
         <li><a href="/">Inicio</a></li>
         <li><a href="{{action('AdminDashboardController@stationery')}}"> Dashboard Papeleria</a></li>
-        <li class="active">Dashboard Por mes</li>
+        <li class="active">Dashboard Mes {{\Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$from)->month }}</li>
     </ol>
-
 
     <div class="row">
         <div class="col-md-2">
@@ -321,10 +320,14 @@
                             @endforeach
     					</tbody>
     				</table>
-    		
     		</div>
     	</div>
     </div>
+    
+    {{Form::open(['id' => 'filters-form'])}}
+        <input type="hidden" class="hidden" value="{{$from}}" name="from">
+        <input type="hidden" class="hidden" value="{{$to}}" name="to">
+    {{Form::close()}}
 
 @endsection
 

@@ -7,7 +7,7 @@ $(function(){
         var action = laroute.action('AdminApiDashboardController@overview');
         
         $.get(action, $('#filters-form').serialize(), function(data){
-            console.log(data);
+            
             $('#people').text(numeral(data.people).format('0,0'));
             $('#people-orders').text(numeral(data.people_orders).format('0,0'));
             $('#orders').text(numeral(data.orders).format('0,0'));
@@ -131,7 +131,7 @@ $(function(){
             tableSmallestAmount('');
             var labels = [];
             var data = [];
-            
+            console.log(categories);
             for(var i=0; i<categories.length; i++) {
                 var category = categories[i];
                 labels.push(category.name);
@@ -287,7 +287,6 @@ $(function(){
                     }]
                 }
             });
-            console.log('aaaa');
             tableOrdersByPeriod(last.month, last.year);
         });
     }
