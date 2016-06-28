@@ -12,10 +12,7 @@ class AdminApiDashboardController extends AdminBaseController
         $from = Input::get('from', $default_from->max(\Carbon\Carbon::today()->startOfMonth()->subYear()));
         $to = Input::get('to', \Carbon\Carbon::today()->endOfMonth());
 
-        //en vez de 3 consultas hacemos 3 separaciones
-        if(Input::has('divisional_id') || Input::has('region_id') || Input::has('gerencia'))
-            $bulduer->join('users','user.id','=','orders.user_id');
-
+        
         if(Input::has('divisional_id')){
             $builder->whereIn('divisional_id',Input::get('divisional_id'));
         }
@@ -36,7 +33,7 @@ class AdminApiDashboardController extends AdminBaseController
     */
     public function overview() {
         $request = Input::get();
-        $orders = $this->appendDateFilter(Order::query())->select(DB::raw('count(*) as c'))->first()->c;
+        $orders = $this->appendDateFilter(Order::query(),'orders.created_at')->select(DB::raw('count(*) as c'))->first()->c;
         //people gerencias  pedido
         $gerencias_c = $this
                         ->appendDateFilter(Order::query())
@@ -47,7 +44,7 @@ class AdminApiDashboardController extends AdminBaseController
                         ->first()
                         ->c;
         //total de gerencias
-        $gerencias_s = DB::table('users')
+        $gerencias_s =  DB::table('users')
                             ->where('role','user_paper')
                             ->select(DB::raw('count(DISTINCT(id)) as c'))
                             ->first()
@@ -63,15 +60,15 @@ class AdminApiDashboardController extends AdminBaseController
         return Response::json([
             'orders'    => $orders,
             'people'    => $gerencias,
+            'people_orders' => $gerencias_c,
             'total'     => $total
         ]);
     }
 
 
-
      public function products() {
 
-        $query = Product::select('products.*', DB::raw('SUM(order_product.quantity) AS q'))
+        $query = Product::select('products.*', DB::raw('SUM(order_product.quantity) AS q'),'categories.name as category')
             ->from('order_product')
             ->join('products', 'order_product.product_id', '=', 'products.id')
             ->join('orders', 'order_product.order_id', '=', 'orders.id')
@@ -115,12 +112,9 @@ class AdminApiDashboardController extends AdminBaseController
         $year = Input::get('year', \Carbon\Carbon::today()->year);
         $carbon = \Carbon\Carbon::createFromDate($year, $month, 1);
         $query->where('created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('created_at', '<=', $carbon->endOfMonth());
-        $pagination = $query->simplePaginate(10);
-        $pages = $pagination->appends(Input::all())->links();
-
+        
         return Response::json([
-            'pagination' => $pagination->toArray(),
-            'pages' => $pages
+            'query' => $query->get(),
         ]);
 
     }
@@ -136,15 +130,9 @@ class AdminApiDashboardController extends AdminBaseController
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->groupBy('order_product.order_id')
             ->where('categories.id', '=', $category);
-
-        $pagination = $query->simplePaginate(5);
-
-
-        $pages = $pagination->appends(Input::all())->links();
-        \Log::debug(get_class($pages));
+        
         return Response::json([
-            'pagination' => $pagination->toArray(),
-            'pages' => $pages
+            'query' => $query()->get(),
         ]);
     }
     /*
@@ -163,8 +151,92 @@ class AdminApiDashboardController extends AdminBaseController
         if(Input::has('category')) {
             $query->where('categories.id', Input::get('category'));
         }
-        $query->limit(15);
+        $query->limit(10);
         return Response::json($query->get());   
     }
+
+    public function topReverseProducts()
+    {
+        $query = Product::select('products.*', DB::raw('SUM(order_product.quantity) AS q'),'categories.name as category' )
+            ->from('order_product')
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->join('orders', 'order_product.order_id', '=', 'orders.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->orderBy('q')
+            ->groupBy('products.id');
+        $this->appendDateFilter($query, 'orders.created_at');
+        if(Input::has('category')) {
+            $query->where('categories.id', Input::get('category'));
+        }
+        $query->limit(10);
+        return Response::json($query->get());          
+    }
+
+    public function biggestAmount()
+    {
+        
+        $query = Product::select('users.*','products.*',
+                                 DB::raw('SUM(products.price * order_product.quantity) AS q'),
+                                 'regions.name as region_name' 
+                                 )
+            ->from('order_product')
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->join('orders', 'order_product.order_id', '=', 'orders.id')
+            ->join('users','orders.user_id','=','users.id')
+            ->join('regions','users.region_id','=','regions.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->orderBy('q','desc')
+            ->groupBy('orders.id');
+
+        $this->appendDateFilter($query, 'orders.created_at');
+
+        if(Input::has('category')) {
+            $query->where('categories.id', Input::get('category'));
+        }
+
+        $query->limit(10);
+        return Response::json($query->get());             
+    }
+
+    public function smallestAmount()
+    {
+        $query = Product::select('users.*','products.*',
+                                 DB::raw('SUM(products.price * order_product.quantity) AS q'),
+                                 'regions.name as region_name' 
+                                 )
+            ->from('order_product')
+            ->join('products', 'order_product.product_id', '=', 'products.id')
+            ->join('orders', 'order_product.order_id', '=', 'orders.id')
+            ->join('users','orders.user_id','=','users.id')
+            ->join('regions','users.region_id','=','regions.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->orderBy('q')
+            ->groupBy('orders.id');
+
+        $this->appendDateFilter($query, 'orders.created_at');
+
+        if(Input::has('category')) {
+            $query->where('categories.id', Input::get('category'));
+        }
+
+        $query->limit(10);
+        return Response::json($query->get());            
+    }
+
+    public function annualMonth() {
+        $query = $this->appendDateFilter(Order::where('orders.status', '<>', 'cart'),'orders.created_at')
+                    ->join('order_product','orders.id','=','order_product.order_id')
+                    ->join('products', 'order_product.product_id', '=', 'products.id')
+                    ->select(
+                        DB::raw('SUM(products.price * order_product.quantity) as c'),
+                        DB::raw('MONTH(orders.created_at) as month'),
+                        DB::raw('YEAR(orders.created_at) as year')
+                    )
+
+            ->orderBy('year')->orderBy('month')
+            ->groupBy('year')->groupBy('month');
+        return Response::json($query->get());
+    }
+
 
 }

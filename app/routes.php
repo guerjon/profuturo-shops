@@ -66,9 +66,14 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('dashboard-category','AdminApiDashboardController@categories');
 		Route::get('dashboard-orders-by-period','AdminApiDashboardController@ordersByPeriod');
 		Route::get('dashboard-orders-by-category','AdminApiDashboardController@ordersByCategory');
+		
 		Route::get('dashboard-annual','AdminApiDashboardController@annual');
-		Route::get('dashboard-top-products','AdminApiDashboardController@topProducts');
+		Route::get('dashboard-annual-mount','AdminApiDashboardController@annualMonth');
 
+		Route::get('dashboard-top-products','AdminApiDashboardController@topProducts');
+		Route::get('dashboard-top-reverse','AdminApiDashboardController@topReverseProducts');
+		Route::get('dashboard-biggest-amount','AdminApiDashboardController@biggestAmount');
+		Route::get('dashboard-smallest-amount','AdminApiDashboardController@smallestAmount');
 		
 
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
@@ -83,6 +88,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
 		Route::resource('date-corporation','AdminDatesCorporationController');
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
+		Route::get('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
+		Route::get('dashboard-overview-month-amount/{index}/{month}/{year}','AdminDashboardController@overviewByMonthAmount');
 
 		
 	});

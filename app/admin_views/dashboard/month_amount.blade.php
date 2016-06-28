@@ -8,53 +8,9 @@
         </a>
         &nbsp;&nbsp;&nbsp;
         <li><a href="/">Inicio</a></li>
-        <li class="active">Dashboard Papeleria</li>
+        <li><a href="{{action('AdminDashboardController@stationery')}}"> Dashboard Papeleria</a></li>
+        <li class="active">Dashboard Por mes</li>
     </ol>
-
-    {{ Form::open([
-        'id' => 'filters-form',
-        'class' => 'form-horizontal'
-    ]) }}
-        <div class="form-group">
-            <div class="col-md-1">
-                Fecha inicio
-                {{ Form::text('from', \Carbon\Carbon::now()->startOfMonth()->subYear()->format('Y-m-d'), ['id' => 'from', 'class' => 'form-control']) }}                
-            </div>
-            <div class="col-md-1">
-                Fecha final
-                {{ Form::text('to', \Carbon\Carbon::now()->endOfMonth()->format('Y-m-d'), ['id' => 'to', 'class' => 'form-control']) }}
-                
-            </div>
-            <div class="col-md-2">
-                Divisional
-                {{Form::select('divisional_id[]',Divisional::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
-            </div>
-            <div class="col-md-2">
-                Regional
-                {{Form::select('region_id[]',Region::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}  
-            </div>
-            <div class="col-md-2">
-                Gerencia
-                {{Form::select('management_id[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
-            </div>
-            <div class="col-md-1">
-                Año
-                {{Form::select('year',['2014','2015','2016'],null,['class' => 'form-control'])}}
-            </div>
-            <div class="col-md-1">
-                Tipo Papeleria
-                {{Form::select('paper-type',['Papelería','Muebles','MAC','Corporativo'],null,['class' => 'form-control'])}}
-            </div>
-            <div class="col-md-2">
-                <br>
-                <button type="submit" class="btn btn-default">
-                    <span class="fa fa-search"></span> Filtrar
-                </button>
-            </div>
-        </div>  
-
-    {{ Form::close() }}
-
     <div class="row">
         <div class="col-md-2">
             <div class="panel panel-default">
@@ -147,42 +103,13 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        # de pedidos por categoría
-                    </h3>
-                </div>
-                <canvas id="categories-overview"></canvas>
-            </div>
-        </div>
-        
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Número de pedidos por periodo
-                    </h3>
-                </div>
-                <canvas id="annual-overview"></canvas>    
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                       Monto gastado por periodo
-                    </h3>
-                </div>
-                <canvas id="annual-month-overview"></canvas>    
-            </div>
-        </div>
-    </div>
-    <div class="row">
+    <h1>
+        Monto gastado por mes
+    </h1>
+    <hr>
+    <div class="row">    
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Productos mas solicitados
@@ -207,7 +134,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Productos menos solicitados
@@ -223,7 +150,7 @@
                                 Producto
                             </th>
                             <th>
-                                # solicitados
+                                Productos solicitados
                             </th>
                         </tr>
                     </thead>
@@ -232,19 +159,27 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Pedidos con mayor monto gastado
+                        Gerencias con mayor monto gastado
                     </h3>
                 </div>
-                <table id="biggest-amount" class="table table-striped">
+                <table id="top-reverse-products" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>CC</th>
-                            <th>Gerencía</th>
-                            <th>Región</th>
-                            <th>Monto</th>
+                            <th>
+                               CC
+                            </th>
+                            <th>
+                                Gerencia
+                            </th>
+                            <th>
+                                Region
+                            </th>
+                            <th>
+                            	Monto
+                            </th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -252,19 +187,27 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Pedidos con menor monto gastado
+                        Gerencias con menor monto gastado
                     </h3>
                 </div>
-                <table id="smallest-amount" class="table table-striped">
+                <table id="top-reverse-products" class="table table-striped">
                     <thead>
                         <tr>
-                            <th>CC</th>
-                            <th>Gerencía</th>
-                            <th>Región</th>
-                            <th>Monto</th>
+                            <th>
+                               CC
+                            </th>
+                            <th>
+                                Gerencia
+                            </th>
+                            <th>
+                                Region
+                            </th>
+                            <th>
+                            	Monto
+                            </th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -272,7 +215,43 @@
             </div>
         </div>
     </div>
+    <div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-primary">
+    			<div class="panel-heading">
+
+    				<h3 class="panel-title">
+    					Todos los pedidos
+    				</h3>
+
+    			</div>
+    				<table id="all-orders" class="table table-striped">
+    					<thead>
+    						<tr>
+    							<th>
+    								CC
+    							</th>
+    							<th>
+    								Gerencia
+    							</th>
+								<th>
+									Total productos
+								</th>
+								<th>
+									Monto
+								</th>
+    						</tr>
+    					</thead>
+    					<tbody>
+    						
+    					</tbody>
+    				</table>
+    		</div>
+    	</div>
+    </div>
+
 @endsection
+
 
     @section('style')
         {{ HTML::style('css/jquery-ui/blitzer/jquery-ui.min.css') }}
@@ -283,7 +262,7 @@
 
 
     @section('script')
-        @parent
+    @parent
     	<script src="/js/laroute.js"></script>
         {{ HTML::script('js/select2.full.js')}}
         {{ HTML::script('js/jquery/ui/minified/core.min.js') }}
@@ -293,4 +272,5 @@
         {{ HTML::script('js/numeral/numeral.min.js') }}
         {{ HTML::script('js/moment/moment-with-locales.min.js') }}
         {{ HTML::script('js/admin/dashboard.js') }}
+        {{ HTML::script('js/admin/month.js') }}
     @endsection
