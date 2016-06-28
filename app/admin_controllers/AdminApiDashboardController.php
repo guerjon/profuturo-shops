@@ -6,12 +6,13 @@ class AdminApiDashboardController extends AdminBaseController
     * Hace los filtros sobre $buldier, y da por default las fechas de from y to en caso de que no
     *Se haya ingresado ninguna 
     */
-    public function appendDateFilter($builder, $date_field = 'created_at') {
+    public function appendDateFilter($builder, $date_field = 'orders.created_at') {
         
         $default_from = \Carbon\Carbon::create(2015, 12, 1, 0, 0, 0);
         $from = Input::get('from', $default_from->max(\Carbon\Carbon::today()->startOfMonth()->subYear()));
         $to = Input::get('to', \Carbon\Carbon::today()->endOfMonth());
 
+        $builder->join('users','users.id','=','orders.user_id');
         
         if(Input::has('divisional_id')){
             $builder->whereIn('divisional_id',Input::get('divisional_id'));
@@ -21,7 +22,7 @@ class AdminApiDashboardController extends AdminBaseController
             $builder->whereIn('region_id',Input::get('region_id'));
 
         if(Input::has('gerencia'))
-            $builder->whereIn('region_id',Input::get('region_id'));
+            $builder->whereIn('gerencia',Input::get('gerencia'));
 
         return $builder->where($date_field, '>=', $from)->where($date_field, '<=', $to);
     }
@@ -93,6 +94,7 @@ class AdminApiDashboardController extends AdminBaseController
             ->where('orders.status', '<>', 'cart')
             ->orderBy('q', 'desc')
             ->groupBy('categories.id');
+            \Log::debug($query->get());
         $this->appendDateFilter($query, 'orders.created_at');
         return Response::json($query->get());
     }
@@ -100,7 +102,7 @@ class AdminApiDashboardController extends AdminBaseController
 
     public function annual() {
         $query = $this->appendDateFilter(Order::where('orders.status', '<>', 'cart'));
-        $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(created_at) as month'), DB::raw('YEAR(created_at) as year'))
+        $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(orders.created_at) as month'), DB::raw('YEAR(orders.created_at) as year'))
             ->orderBy('year')->orderBy('month')
             ->groupBy('year')->groupBy('month');
         return Response::json($query->get());
@@ -111,7 +113,7 @@ class AdminApiDashboardController extends AdminBaseController
         $month = Input::get('month',\Carbon\Carbon::today()->month);
         $year = Input::get('year', \Carbon\Carbon::today()->year);
         $carbon = \Carbon\Carbon::createFromDate($year, $month, 1);
-        $query->where('created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('created_at', '<=', $carbon->endOfMonth());
+        $query->where('orders.created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('orders.created_at', '<=', $carbon->endOfMonth());
         
         return Response::json([
             'query' => $query->get(),
@@ -181,14 +183,16 @@ class AdminApiDashboardController extends AdminBaseController
                                  )
             ->from('order_product')
             ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('users','orders.user_id','=','users.id')
-            ->join('regions','users.region_id','=','regions.id')
+            ->join('orders', 'order_product.order_id', '=', 'orders.id');
+            
+            $this->appendDateFilter($query, 'orders.created_at');
+            
+            $query->join('regions','users.region_id','=','regions.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->orderBy('q','desc')
             ->groupBy('orders.id');
 
-        $this->appendDateFilter($query, 'orders.created_at');
+        
 
         if(Input::has('category')) {
             $query->where('categories.id', Input::get('category'));
@@ -206,14 +210,16 @@ class AdminApiDashboardController extends AdminBaseController
                                  )
             ->from('order_product')
             ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('users','orders.user_id','=','users.id')
-            ->join('regions','users.region_id','=','regions.id')
+            ->join('orders', 'order_product.order_id', '=', 'orders.id');
+
+            $this->appendDateFilter($query, 'orders.created_at');
+            
+            $query->join('regions','users.region_id','=','regions.id')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->orderBy('q')
             ->groupBy('orders.id');
 
-        $this->appendDateFilter($query, 'orders.created_at');
+        
 
         if(Input::has('category')) {
             $query->where('categories.id', Input::get('category'));

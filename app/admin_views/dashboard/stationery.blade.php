@@ -35,7 +35,7 @@
             </div>
             <div class="col-md-2">
                 Gerencia
-                {{Form::select('management_id[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
+                {{Form::select('gerencia[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia','gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
             </div>
             <div class="col-md-1">
                 Año

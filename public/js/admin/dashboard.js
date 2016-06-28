@@ -7,7 +7,7 @@ $(function(){
         var action = laroute.action('AdminApiDashboardController@overview');
         
         $.get(action, $('#filters-form').serialize(), function(data){
-            
+            console.log(data);
             $('#people').text(numeral(data.people).format('0,0'));
             $('#people-orders').text(numeral(data.people_orders).format('0,0'));
             $('#orders').text(numeral(data.orders).format('0,0'));
@@ -75,8 +75,8 @@ $(function(){
         }), $('#filters-form').serialize(),function(orders){
                 var $tbody = $('#biggest-amount tbody');
                 $tbody.empty();
-
-                for (var i = 0 ; i <10; i++) {
+                var length = orders.length <= 9 ? orders.length : 9;
+                for (var i = 0 ; i <length; i++) {
                     var order = orders[i];
                     var $tr = $('<tr>');
 
@@ -101,8 +101,8 @@ $(function(){
                         
                 var $tbody = $('#smallest-amount tbody');
                 $tbody.empty();
-
-                for (var i = 0 ; i <10; i++) {
+                var length = orders.length <= 9 ? orders.length : 9;
+                for (var i = 0 ; i <length; i++) {
                     var order = orders[i];
                     var $tr = $('<tr>');
 
@@ -131,6 +131,7 @@ $(function(){
             tableSmallestAmount('');
             var labels = [];
             var data = [];
+            
             for(var i=0; i<categories.length; i++) {
                 var category = categories[i];
                 labels.push(category.name);
@@ -140,6 +141,7 @@ $(function(){
             if(categoryChart) {
                 categoryChart.destroy();
             }
+
             var ctx = $('#categories-overview').get(0).getContext('2d');
             categoryChart = new Chart(ctx, {
                 type : 'doughnut',
@@ -285,6 +287,7 @@ $(function(){
                     }]
                 }
             });
+            console.log('aaaa');
             tableOrdersByPeriod(last.month, last.year);
         });
     }
@@ -326,6 +329,7 @@ $(function(){
         loadOverview();
         drawCategoryChart();
         drawAnnualChart();
+        drawAnnualMonthChart();
         return false;
     });
 

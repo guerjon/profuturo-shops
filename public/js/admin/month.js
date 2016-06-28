@@ -4,7 +4,7 @@ $(function(){
         var action = laroute.action('AdminApiDashboardController@overview');
         
         $.get(action, $('#filters-form').serialize(), function(data){
-            
+            console.log(data);
             $('#people').text(numeral(data.people).format('0,0'));
             $('#people-orders').text(numeral(data.people_orders).format('0,0'));
             $('#orders').text(numeral(data.orders).format('0,0'));

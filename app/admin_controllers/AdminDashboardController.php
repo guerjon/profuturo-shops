@@ -69,13 +69,26 @@ class AdminDashboardController  extends AdminBaseController {
             ->limit(10)
             ->get();
 
-        
+        $all_orders = Order::select('*',
+            DB::raw('SUM(products.price * order_product.quantity) AS m'),
+            DB::raw('count(DISTINCT(user_id)) as q'))
+                ->join('order_product', 'order_product.order_id', '=', 'orders.id')
+                ->join('products', 'order_product.product_id', '=', 'products.id')
+                ->join('users','orders.user_id','=','users.id')
+                ->join('regions','users.region_id','=','regions.id')
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->where('orders.created_at','>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))
+                ->where('orders.created_at', '<=', $carbon->endOfMonth())
+                ->orderBy('ccosto')
+                ->groupBy('orders.id')
+                ->get();
 
         return View::make('admin::dashboard/month')
         	->withTopProducts($top_products)
         	->withTopReverseProducts($top_reverse_products)
         	->withBiggestAmounts($biggest_amounts)
-        	->withSmallestAmounts($smallest_amounts);
+        	->withSmallestAmounts($smallest_amounts)
+            ->withAllOrders($all_orders);
 
     }
 

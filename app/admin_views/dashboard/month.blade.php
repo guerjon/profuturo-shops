@@ -295,7 +295,7 @@
     								Gerencia
     							</th>
 								<th>
-									Total productos
+									Divisional
 								</th>
 								<th>
 									Monto
@@ -303,7 +303,22 @@
     						</tr>
     					</thead>
     					<tbody>
-    						
+    						@foreach($all_orders as $order)
+                                <tr>
+                                    <td>
+                                        {{$order->ccosto}}
+                                    </td>
+                                    <td>
+                                        {{$order->gerencia}}
+                                    </td>
+                                    <td>
+                                        {{Divisional::find($order->divisional_id)->name }}
+                                    </td>
+                                    <td>
+                                        {{$order->m}}
+                                    </td>
+                                </tr>
+                            @endforeach
     					</tbody>
     				</table>
     		
