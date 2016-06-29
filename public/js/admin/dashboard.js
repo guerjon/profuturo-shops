@@ -27,7 +27,7 @@ $(function(){
                 
                 var $tbody = $('#top-products tbody');
                 $tbody.empty();
-
+                var length = products.length >= 9 ? 9 : products.length;
                 for(var i=0; i< products.length && i< 10; i++) {
                     var product = products[i];
 
@@ -52,8 +52,8 @@ $(function(){
                         
                 var $tbody = $('#top-reverse-products tbody');
                 $tbody.empty();
-
-                for (var i = 0 ; i <10; i++) {
+                var length = products.length >= 9 ? 9 : products.length;
+                for (var i = 0 ; i <length; i++) {
                     var product = products[i];
                     var $tr = $('<tr>');
 
@@ -125,6 +125,7 @@ $(function(){
         $('#top-categories').parents('.panel').parent().removeClass('hide');
         $.get(laroute.action('AdminApiDashboardController@categories'), $('#filters-form').serialize(), function(categories){
             computedCategories = categories;
+            console.log(categories);
             tableTopProducts('');
             tableTopReverseProducts('');
             tableBiggestAmount('');
@@ -183,7 +184,6 @@ $(function(){
     }
 
     var tableOrdersByCategory = function(category) {
-    
         tableTopProducts(category.id);
         tableTopReverseProducts(category.id);
         tableBiggestAmount(category.id);
@@ -329,6 +329,10 @@ $(function(){
         drawCategoryChart();
         drawAnnualChart();
         drawAnnualMonthChart();
+        tableTopProducts('');
+        tableTopReverseProducts('');
+        tableBiggestAmount('');
+        tableSmallestAmount('');
         return false;
     });
 

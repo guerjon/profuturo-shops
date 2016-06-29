@@ -189,8 +189,7 @@ class AdminApiDashboardController extends AdminBaseController
 
     public function categories() {
         $paper_type = Input::get('paper-type','orders');
-        Log::debug('--------------------');
-        Log::debug($paper_type);
+
         
         switch ($paper_type) {
             case 'orders':
@@ -204,31 +203,31 @@ class AdminApiDashboardController extends AdminBaseController
                 $this->appendDateFilter($query, 'orders.created_at','orders.user_id');            
                 break;
             case 'furniture_orders':
-                $query = FurnitureCategory::select('furniture_categories.*', DB::raw('SUM(furniture_furniture_order.quantity) AS q'))
-                    ->from('furniture_furniture_order')
-                    ->join('furnitures', 'furniture_furniture_order.product_id', '=', 'furnitures.id')
-                    ->join('furniture_orders', 'furniture_furniture_order.order_id', '=', 'furnitures.id')
-                    ->join('furniture_categories', 'furnitures.category_id', '=', 'furniture_categories.id')
-                    ->orderBy('q', 'desc')
-                    ->groupBy('furniture_categories.id');
+                $query = FurnitureOrder::select('furniture_categories.*', DB::raw('SUM(furniture_furniture_order.quantity) AS q'))
+                            ->join('furniture_furniture_order','furniture_furniture_order.furniture_order_id','=','furniture_orders.id')
+                            ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
+                            ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+                            ->orderBy('q', 'desc')
+                            ->groupBy('furniture_categories.id');        
                 $this->appendDateFilter($query, 'furniture_orders.created_at','furniture_orders.user_id');            
+
                 break;
             case 'mac_orders':
                 $query = MacCategory::select('mac_categories.*', DB::raw('SUM(mac_order_mac_product.quantity) AS q'))
                     ->from('mac_order_mac_product')
-                    ->join('mac_products','mac_order_mac_product.product_id', '=', 'mac_products.id')
-                    ->join('mac_orders', 'mac_order_mac_product.order_id', '=', 'mac_orders.id')
+                    ->join('mac_products','mac_order_mac_product.mac_product_id', '=', 'mac_products.id')
+                    ->join('mac_orders', 'mac_order_mac_product.mac_order_id', '=', 'mac_orders.id')
                     ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id')
                     ->orderBy('q', 'desc')
                     ->groupBy('mac_categories.id');
                 $this->appendDateFilter($query, 'mac_orders.created_at','mac_orders.user_id');      
                 break;
             case 'corporation_orders':
-                $query = CorporationCategory::select('corporation_categories.*', DB::raw('SUM(corp_order_corp_product.quantity) AS q'))
-                    ->from('corp_order_corp_product')
-                    ->join('corporation_products', 'corp_order_corp_product.product_id', '=', 'corporation_products.id')
-                    ->join('corporation_orders', 'corp_order_corp_product.order_id', '=', 'corporation_orders.id')
-                    ->join('corporation_categories', 'corporation_products.category_id', '=', 'corporation_categories.id')
+                $query = CorporationCategory::select('corporation_categories.*', DB::raw('SUM(corporation_order_corporation_product.quantity) AS q'))
+                    ->from('corporation_order_corporation_product')
+                    ->join('corporation_products', 'corporation_order_corporation_product.corp_product_id', '=', 'corporation_products.id')
+                    ->join('corporation_orders', 'corporation_order_corporation_product.corp_order_id', '=', 'corporation_orders.id')
+                    ->join('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id')
                     ->orderBy('q', 'desc')
                     ->groupBy('corporation_categories.id');
                 $this->appendDateFilter($query, 'corporation_orders.created_at','corporation_orders.user_id');
@@ -242,146 +241,267 @@ class AdminApiDashboardController extends AdminBaseController
 
 
     public function annual() {
-        $query = $this->appendDateFilter(Order::where('orders.status', '<>', 'cart'),'orders.created_at','orders.user_id');
-        $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(orders.created_at) as month'), DB::raw('YEAR(orders.created_at) as year'))
-            ->orderBy('year')->orderBy('month')
-            ->groupBy('year')->groupBy('month');
+        $paper_type = Input::get('paper-type','orders');
+
+        switch ($paper_type){
+            case 'orders':
+                $query = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id');
+                $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(orders.created_at) as month'), DB::raw('YEAR(orders.created_at) as year'))
+                    ->orderBy('year')->orderBy('month')
+                    ->groupBy('year')->groupBy('month');
+                
+                break;
+            case 'furniture_orders':
+                $query = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id');
+                $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(furniture_orders.created_at) as month'), DB::raw('YEAR(furniture_orders.created_at) as year'))
+                    ->orderBy('year')->orderBy('month')
+                    ->groupBy('year')->groupBy('month');
+
+                break;
+            case 'mac_orders':
+                $query = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id');
+                $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(mac_orders.created_at) as month'),DB::raw('YEAR(mac_orders.created_at) as year'))
+                    ->orderBy('year')->orderBy('month')
+                    ->groupBy('year')->groupBy('month');
+                break;
+            case 'corporation_orders':
+                $query = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id');
+                $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(corporation_orders.created_at) as month'), DB::raw('YEAR(corporation_orders.created_at) as year'))
+                    ->orderBy('year')->orderBy('month')
+                    ->groupBy('year')->groupBy('month');
+                break;
+            default:
+                break;
+        }
+
+
         return Response::json($query->get());
     }
 
+
+    public function annualMonth() {
+        $paper_type = Input::get('paper-type','orders');
+
+            switch ($paper_type) {
+                case 'orders':
+                    $query = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')
+                        ->join('order_product','orders.id','=','order_product.order_id')
+                        ->join('products', 'order_product.product_id', '=', 'products.id')
+                        ->select(  
+                            DB::raw('SUM(products.price * order_product.quantity) as c'),
+                            DB::raw('MONTH(orders.created_at) as month'),
+                            DB::raw('YEAR(orders.created_at) as year'))
+                        ->orderBy('year')->orderBy('month')
+                        ->groupBy('year')->groupBy('month');
+                    break;
+                case 'furniture_orders':
+
+                    $query = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')
+                        ->join('furniture_furniture_order','furniture_orders.id','=','furniture_furniture_order.furniture_order_id')
+                        ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
+                        ->select(  
+                            DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as c'),
+                            DB::raw('MONTH(furniture_orders.created_at) as month'),
+                            DB::raw('YEAR(furniture_orders.created_at) as year'))
+                        ->orderBy('year')->orderBy('month')
+                        ->groupBy('year')->groupBy('month');
+                    break;
+                case 'mac_orders':
+                    $query = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')
+                        ->join('mac_order_mac_product','mac_orders.id','=','mac_order_mac_product.mac_order_id')
+                        ->join('mac_products', 'mac_order_mac_product.mac_product_id', '=', 'mac_products.id')
+                        ->select(  
+                            DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) as c'),
+                            DB::raw('MONTH(mac_orders.created_at) as month'),
+                            DB::raw('YEAR(mac_orders.created_at) as year'))
+                        ->orderBy('year')->orderBy('month')
+                        ->groupBy('year')->groupBy('month');                    
+                    break;
+                case 'corporation_orders':
+                    $query = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')
+                        ->join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corp_order_id')
+                        ->join('corporation_products', 'corporation_order_corporation_product.corp_product_id', '=', 'corporation_products.id')
+                        ->select(  
+                            DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as c'),
+                            DB::raw('MONTH(corporation_orders.created_at) as month'),
+                            DB::raw('YEAR(corporation_orders.created_at) as year'))
+                        ->orderBy('year')->orderBy('month')
+                        ->groupBy('year')->groupBy('month');                    
+                    break;
+                default:
+                    break;
+            }
+
+        return Response::json($query->get());
+    }
+
+
     public function ordersByPeriod() {
-        $query = $this->appendDateFilter(Order::with('user'),'orders.created_at','orders.user_id')->where('orders.status', '<>', 'cart');
+        $paper_type = Input::get('paper-type','orders');
         $month = Input::get('month',\Carbon\Carbon::today()->month);
         $year = Input::get('year', \Carbon\Carbon::today()->year);
         $carbon = \Carbon\Carbon::createFromDate($year, $month, 1);
-        $query->where('orders.created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('orders.created_at', '<=', $carbon->endOfMonth());
-        
+
+            switch ($paper_type) {
+                case 'orders':
+                $query = $this->appendDateFilter(Order::with('user'),'orders.created_at','orders.user_id');
+                $query->where('orders.created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('orders.created_at', '<=', $carbon->endOfMonth());
+                    break;
+                case 'furniture_orders':
+                $query = $this->appendDateFilter(FurnitureOrder::with('user'),'furniture_orders.created_at','furniture_orders.user_id');
+                $query->where('furniture_orders.created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('furniture_orders.created_at', '<=', $carbon->endOfMonth());
+                    break;
+                case 'mac_orders':
+                $query = $this->appendDateFilter(MacOrder::with('user'),'mac_orders.created_at','mac_orders.user_id');
+                $query->where('mac_orders.created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('mac_orders.created_at', '<=', $carbon->endOfMonth());
+                    break;
+                case 'corporation_orders':
+                $query = $this->appendDateFilter(CorporationOrder::with('user'),'corporation_orders.created_at','corporation_orders.user_id');
+                $query->where('corporation_orders.created_at', '>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))->where('corporation_orders.created_at', '<=', $carbon->endOfMonth());
+                    break;
+                default:
+                    # code...
+                    break;
+            }        
         return Response::json([
             'query' => $query->get(),
         ]);
 
     }
 
-    public function ordersByCategory() {
-        $query = $this->appendDateFilter(Order::with('user'), 'orders.created_at','orders.user_id')->where('orders.status', '<>', 'cart');
-        $category = Input::get('category');
+    private function getTops()
+    {
+        $paper_type = Input::get('paper-type','orders');
 
-        $query->select(DB::raw('orders.*,SUM(products.price * order_product.quantity) as c'))
-            ->from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->groupBy('order_product.order_id')
-            ->where('categories.id', '=', $category);
-        
-        return Response::json([
-            'query' => $query()->get(),
-        ]);
+        switch ($paper_type) {
+            case 'orders':
+            $query = Product::select('products.*', DB::raw('SUM(order_product.quantity) AS q'),'categories.name as category' )
+                ->from('order_product')
+                ->join('products', 'order_product.product_id', '=', 'products.id')
+                ->join('orders', 'order_product.order_id', '=', 'orders.id')
+                ->join('categories', 'products.category_id', '=', 'categories.id')
+                ->groupBy('products.id');
+                break;
+            case 'furniture_orders':
+            $query = Furniture::select('furnitures.*', DB::raw('SUM(furniture_furniture_order.quantity) AS q'),'furniture_categories.name as category' )
+                ->from('furniture_furniture_order')
+                ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
+                ->join('furniture_orders', 'furniture_furniture_order.furniture_order_id', '=', 'furniture_orders.id')
+                ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+                ->groupBy('furnitures.id');
+
+                break;
+            case 'mac_orders':
+                $query = MacProduct::select('mac_products.*', DB::raw('SUM(mac_order_mac_product.quantity) AS q'),'mac_categories.name as category' )
+                    ->from('mac_order_mac_product')
+                    ->join('mac_products', 'mac_order_mac_product.mac_product_id', '=', 'mac_products.id')
+                    ->join('mac_orders', 'mac_order_mac_product.mac_order_id', '=', 'mac_orders.id')
+                    ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id')
+                    ->groupBy('mac_products.id');
+                break;
+            case 'corporation_orders':
+                $query = CorporationProduct::select('corporation_products.*', DB::raw('SUM(corporation_order_corporation_product.quantity) AS q'),'corporation_categories.name as category' )
+                    ->from('corporation_order_corporation_product')
+                    ->join('corporation_products', 'corporation_order_corporation_product.corp_product_id', '=', 'corporation_products.id')
+                    ->join('corporation_orders', 'corporation_order_corporation_product.corp_order_id', '=', 'corporation_orders.id')
+                    ->join('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id')
+                    ->groupBy('corporation_products.id');
+                break;
+            default:
+                # code...
+                break;
+        }
+                
+        $this->appendDateFilter($query,$paper_type.'.created_at',$paper_type.'.user_id');
+
+        if(Input::has('category')) {
+            $query->where($paper_type.'.id', Input::get('category'));
+        }
+        return $query;
     }
     /*
     *Regresa los productos mas solicitados
     */
     public function topProducts()
     {
-       $query = Product::select('products.*', DB::raw('SUM(order_product.quantity) AS q'),'categories.name as category' )
-            ->from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->orderBy('q', 'desc')
-            ->groupBy('products.id');
-        $this->appendDateFilter($query, 'orders.created_at','orders.user_id');
-        if(Input::has('category')) {
-            $query->where('categories.id', Input::get('category'));
-        }
-        $query->limit(10);
+        $query = $this->getTops();
+        $query->orderBy('q', 'desc')->limit(10);
         return Response::json($query->get());   
     }
 
     public function topReverseProducts()
     {
-        $query = Product::select('products.*', DB::raw('SUM(order_product.quantity) AS q'),'categories.name as category' )
-            ->from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->orderBy('q')
-            ->groupBy('products.id');
-        $this->appendDateFilter($query, 'orders.created_at','orders.user_id');
-        if(Input::has('category')) {
-            $query->where('categories.id', Input::get('category'));
-        }
+        $query = $this->getTops();
+        $query->orderBy('q', 'desc')->limit(10);
         $query->limit(10);
         return Response::json($query->get());          
     }
 
-    public function biggestAmount()
+    private function getAmounts()
     {
-        
-        $query = Product::select('users.*','products.*',
-                                 DB::raw('SUM(products.price * order_product.quantity) AS q'),
-                                 'regions.name as region_name' 
-                                 )
-            ->from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id');
-            
-            $this->appendDateFilter($query, 'orders.created_at','orders.user_id');
-            
-            $query->join('regions','users.region_id','=','regions.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->orderBy('q','desc')
-            ->groupBy('orders.id');
+        $paper_type = Input::get('paper-type','orders');
 
-        
+        switch ($paper_type) {
+            case 'orders':
+                $query = Product::select('users.*','products.*',
+                            DB::raw('SUM(products.price * order_product.quantity) AS q'),'regions.name as region_name')
+                        ->from('order_product')
+                ->join('products', 'order_product.product_id', '=', 'products.id')
+                ->join('orders', 'order_product.order_id', '=', 'orders.id')
+                ->join('categories', 'products.category_id', '=', 'categories.id');
 
-        if(Input::has('category')) {
-            $query->where('categories.id', Input::get('category'));
+                break;
+            case 'furniture_orders':
+                $query = Furniture::select('users.*','furnitures.*',
+                            DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) AS q'),'regions.name as region_name')
+                        ->from('furniture_furniture_order')
+                ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
+                ->join('furniture_orders', 'furniture_furniture_order.furniture_order_id', '=', 'furniture_orders.id')
+                ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id');
+                break;
+            case 'mac_orders':
+                $query = MacProduct::select('users.*','mac_products.*',
+                            DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) AS q'),'regions.name as region_name')
+                        ->from('mac_order_mac_product')
+                ->join('mac_products', 'mac_order_mac_product.mac_product_id', '=', 'mac_products.id')
+                ->join('mac_orders', 'mac_order_mac_product.mac_order_id', '=', 'mac_orders.id')
+                ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id');
+                break;
+            case 'corporation_orders':
+                $query = CorporationProduct::select('users.*','corporation_products.*',
+                            DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) AS q'),'regions.name as region_name')
+                        ->from('corporation_order_corporation_product')
+                ->join('corporation_products', 'corporation_order_corporation_product.corp_product_id', '=', 'corporation_products.id')
+                ->join('corporation_orders', 'corporation_order_corporation_product.corp_order_id', '=', 'corporation_orders.id')
+                ->join('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id');
+                break;
+            default:
+                break;
         }
 
-        $query->limit(10);
+        $query = $this->appendDateFilter($query,$paper_type.'.created_at',$paper_type.'.user_id');    
+        $query->join('regions','users.region_id','=','regions.id')->groupBy($paper_type.'.id');
+
+        if(Input::has('category')) {
+            $query->where($paper_type.'.id', Input::get('category'));
+        }
+        return $query;
+    }
+
+    public function biggestAmount()
+    {
+        $query = $this->getAmounts();
+        $query->orderBy('q','desc')->limit(10);
         return Response::json($query->get());             
     }
 
     public function smallestAmount()
     {
-        $query = Product::select('users.*','products.*',
-                                 DB::raw('SUM(products.price * order_product.quantity) AS q'),
-                                 'regions.name as region_name' 
-                                 )
-            ->from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id');
+        $query = $this->getAmounts();
+        $query->orderBy('q')->limit(10);
 
-            $this->appendDateFilter($query, 'orders.created_at','orders.user_id');
-            
-            $query->join('regions','users.region_id','=','regions.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->orderBy('q')
-            ->groupBy('orders.id');
-
-        
-
-        if(Input::has('category')) {
-            $query->where('categories.id', Input::get('category'));
-        }
-
-        $query->limit(10);
         return Response::json($query->get());            
     }
 
-    public function annualMonth() {
-        $query = $this->appendDateFilter(Order::where('orders.status', '<>', 'cart'),'orders.created_at','orders.user_id')
-                    ->join('order_product','orders.id','=','order_product.order_id')
-                    ->join('products', 'order_product.product_id', '=', 'products.id')
-                    ->select(
-                        DB::raw('SUM(products.price * order_product.quantity) as c'),
-                        DB::raw('MONTH(orders.created_at) as month'),
-                        DB::raw('YEAR(orders.created_at) as year')
-                    )
 
-            ->orderBy('year')->orderBy('month')
-            ->groupBy('year')->groupBy('month');
-        return Response::json($query->get());
-    }
 }
