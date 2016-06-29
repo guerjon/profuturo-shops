@@ -311,7 +311,7 @@
                                         {{$order->gerencia}}
                                     </td>
                                     <td>
-                                        {{Divisional::find($order->divisional_id)->name }}
+                                        {{ $order->divisional_id ? Divisional::find($order->divisional_id)->name :'N/A'}}
                                     </td>
                                     <td>
                                         {{$order->m}}

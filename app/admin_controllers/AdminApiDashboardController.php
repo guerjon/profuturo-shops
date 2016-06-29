@@ -192,6 +192,7 @@ class AdminApiDashboardController extends AdminBaseController
 
     public function categories() {
         $paper_type = Input::get('paper-type','orders');
+    
         switch ($paper_type) {
             case 'orders':
                 $query = Category::select('categories.*', DB::raw('SUM(order_product.quantity) AS q'))

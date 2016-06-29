@@ -22,7 +22,7 @@ class AdminDashboardController  extends AdminBaseController {
 
     private function furnitureOrders()
     {
-        $query = FurnitureOrder::join('furniture_furniture_order','furniture_furniture_order.order_id','=','furniture_order.id')
+        $query = FurnitureOrder::join('furniture_furniture_order','furniture_furniture_order.furniture_order_id','=','furniture_orders.id')
                     ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
                     ->join('users','users.id','=','furniture_orders.user_id')
                     ->join('furniture_categories','furniture_categories.id','=','furnitures.furniture_category_id');
@@ -40,8 +40,8 @@ class AdminDashboardController  extends AdminBaseController {
 
     private function corporationOrders()
     {
-        $query = CorporationOrder::join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corporation_order_id')
-            ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corporation_product_id')
+        $query = CorporationOrder::join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corp_order_id')
+            ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corp_product_id')
             ->join('users','users.id','=','corporation_orders.user_id')
             ->join('corporation_categories','corporation_categories.id','=','corporation_products.corporation_category_id');
         return $query;
@@ -57,7 +57,7 @@ class AdminDashboardController  extends AdminBaseController {
             'users.*',
             $products.'.*',
             DB::raw('SUM('.$products.'.'.$price.' * '.$order_product.'.quantity) AS q'),
-            'regions.name as region_name')->get();
+            'regions.name as region_name');
         $smallest_amounts = $query['smallest_amounts']->select('users.*',$products.'.*',
                                  DB::raw('SUM('.$products.'.'.$price.' * '.$order_product.'.quantity) AS q'),
                                  'regions.name as region_name' 
@@ -128,23 +128,23 @@ class AdminDashboardController  extends AdminBaseController {
                 break;
             case 'mac_orders':
                 $products = $this->macOrders()
-                    ->groupBy('order_product.product_id')
+                    ->groupBy('mac_order_mac_product.mac_product_id')
                     ->limit(10);
 
                 $amounts = $this->macOrders()
                     ->join('regions','users.region_id','=','regions.id')
-                    ->groupBy('orders.id')
+                    ->groupBy('mac_orders.id')
                     ->limit(10);
                 
                 break;
             case 'corporation_orders':
                 $products = $this->corporationOrders()
-                    ->groupBy('order_product.product_id')
+                    ->groupBy('corporation_order_corporation_product.corp_product_id')
                     ->limit(10);
 
                 $amounts = $this->corporationOrders()
                     ->join('regions','users.region_id','=','regions.id')
-                    ->groupBy('orders.id')
+                    ->groupBy('corporation_orders.id')
                     ->limit(10);
             
                 break;
@@ -159,7 +159,7 @@ class AdminDashboardController  extends AdminBaseController {
                 'top_reverse_products' => $this->filters($products->orderBy('q'),$month,$year),
                 'biggest_amounts' => $this->filters($biggest_amounts->orderBy('q','desc'),$month,$year),
                 'smallest_amounts' => $this->filters($smallest_amounts->orderBy('q'),$month,$year),
-                'all_orders' => $this->filters($amounts->orderBy('ccosto'),$month,$year)];    
+                'all_orders' => $this->filters($amounts->orderBy('users.ccosto'),$month,$year)];    
 
         switch ($paper_type) {
             case 'orders':
