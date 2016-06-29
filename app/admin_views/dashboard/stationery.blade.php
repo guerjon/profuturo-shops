@@ -275,7 +275,6 @@
         </div>
     </div>
     {{Form::open(['id' => 'annual'])}}
-
     {{Form::close()}}
 
 @endsection
