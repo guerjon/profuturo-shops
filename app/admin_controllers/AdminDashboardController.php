@@ -3,67 +3,89 @@
 use \Carbon\Carbon as Carbon;
 
 class AdminDashboardController  extends AdminBaseController {
+
 	
 	public function stationery()
 	{
 		return View::make('admin::dashboard/stationery');
 	}
 
+    private function orders()
+    {
+        $query = Order::join('order_product','orders.id','=','order_product.order_id')
+                    ->join('products','products.id','=','order_product.product_id')
+                    ->join('users','users.id','=','orders.user_id')
+                    ->join('categories','categories.id','=','products.category_id');
+
+        return $query;
+    }
+
+    private function furnitureOrders()
+    {
+        $query = FurnitureOrder::join('furniture_furniture_order','furniture_furniture_order.order_id','=','furniture_order.id')
+                    ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
+                    ->join('users','users.id','=','furniture_orders.user_id')
+                    ->join('furniture_categories','furniture_categories.id','=','furnitures.furniture_category_id');
+        return $query;
+    }
+
+    private function macOrders()
+    {
+        $query = MacOrder::join('mac_order_mac_product','mac_orders.id','=','mac_order_mac_product.mac_order_id')
+                    ->join('mac_products','mac_products.id','=','mac_order_mac_product.mac_product_id')
+                    ->join('users','users.id','=','mac_orders.user_id')
+                    ->join('mac_categories','mac_categories.id','=','mac_products.mac_category_id');
+        return $query;
+    }
+
+    private function corporationOrders()
+    {
+        $query = CorporationOrder::join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corporation_order_id')
+            ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corporation_product_id')
+            ->join('users','users.id','=','corporation_orders.user_id')
+            ->join('corporation_categories','corporation_categories.id','=','corporation_products.corporation_category_id');
+        return $query;
+    }
+
+    public function select($query,$products,$order_product)
+    {
+        $price = Input::get('paper-type') == 'furniture_orders' ? 'unitary' : 'price';
+
+        $top_products = $query['top_products']->select($products.'.*', DB::raw('SUM('.$order_product.'.quantity) AS q'));
+        $top_reverse_products = $query['top_reverse_products']->select($products.'.*', DB::raw('SUM('.$order_product.'.quantity) AS q'));
+        $biggest_amounts = $query['biggest_amounts']->select(
+            'users.*',
+            $products.'.*',
+            DB::raw('SUM('.$products.'.'.$price.' * '.$order_product.'.quantity) AS q'),
+            'regions.name as region_name')->get();
+        $smallest_amounts = $query['smallest_amounts']->select('users.*',$products.'.*',
+                                 DB::raw('SUM('.$products.'.'.$price.' * '.$order_product.'.quantity) AS q'),
+                                 'regions.name as region_name' 
+                                 );
+
+        $all_orders = $query['all_orders']->select('*',
+            DB::raw('SUM('.$products.'.'.$price.' * '.$order_product.'.quantity) AS m'),
+            DB::raw('count(DISTINCT(user_id)) as q'));
+    
+        return ['top_products' => $top_products,
+                'top_reverse_products' => $top_reverse_products,
+                'biggest_amounts' => $biggest_amounts,
+                'smallest_amounts' => $smallest_amounts,
+                'all_orders' => $all_orders];
+    }
+
     public function overviewByMonth($index,$month,$year)
     {
         $carbon = Carbon::createFromDate($year, $month, 1); 
-        $paper_type = Input::get('paper-type','orders');
-
-        switch ($paper_type) {
-            case 'orders':
-                # code...
-                break;
-
-            case 'furniture_orders':
-                # code...
-                break;
-
-            case 'mac_orders':
-                # code...
-                break;
-
-            case 'corporation_orders':
-                # code...
-                break;
-            
-            default:
-                break;
-        }
-
-
         
         $query = $this->query($month,$year);
-        $top_products = $query['top_products']->select('products.*', DB::raw('SUM(order_product.quantity) AS q'))->get();
-        $top_reverse_products = $query['top_reverse_products']->select('products.*', DB::raw('SUM(order_product.quantity) AS q'))->get();
-        $biggest_amounts = $query['biggest_amounts']->select(
-            'users.*',
-            'products.*',
-            DB::raw('SUM(products.price * order_product.quantity) AS q'),
-            'regions.name as region_name')->get();
-        $smallest_amounts = $query['smallest_amounts']->select('users.*','products.*',
-                                 DB::raw('SUM(products.price * order_product.quantity) AS q'),
-                                 'regions.name as region_name' 
-                                 )->get();
-        $all_orders = $query['all_orders']->select('*',
-            DB::raw('SUM(products.price * order_product.quantity) AS m'),
-            DB::raw('count(DISTINCT(user_id)) as q'))->get();
- 
- 
-
-
-
 
         return View::make('admin::dashboard/month')
-        	->withTopProducts($top_products)
-        	->withTopReverseProducts($top_reverse_products)
-        	->withBiggestAmounts($biggest_amounts)
-        	->withSmallestAmounts($smallest_amounts)
-            ->withAllOrders($all_orders)
+        	->withTopProducts($query['top_products']->get())
+        	->withTopReverseProducts($query['top_reverse_products']->get())
+        	->withBiggestAmounts($query['biggest_amounts']->get())
+        	->withSmallestAmounts($query['smallest_amounts']->get())
+            ->withAllOrders($query['all_orders']->get())
             ->withFrom($carbon->startOfMonth()->format('Y-m-d H:i:s'))
             ->withTo($carbon->endOfMonth());
 
@@ -77,49 +99,90 @@ class AdminDashboardController  extends AdminBaseController {
 
 
     private function query($month,$year)
-    {
-        $carbon = Carbon::createFromDate($year, $month, 1);
-
-        $products = Product::from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('orders.created_at','>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))
-            ->where('orders.created_at', '<=', $carbon->endOfMonth())
-            ->groupBy('order_product.product_id')
-            ->limit(10);
+    {   
+        $paper_type = Input::get('paper-type','orders');
         
+        switch ($paper_type) {
+            case 'orders':
+                
+                $products = $this->orders()
+                    ->groupBy('order_product.product_id')
+                    ->limit(10);
 
-        $amounts = Product::from('order_product')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('orders', 'order_product.order_id', '=', 'orders.id')
-            ->join('users','orders.user_id','=','users.id')
-            ->join('regions','users.region_id','=','regions.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('orders.created_at','>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))
-            ->where('orders.created_at', '<=', $carbon->endOfMonth())
-            ->groupBy('orders.id')
-            ->limit(10);
-        
-        $all_orders = Order::join('order_product', 'order_product.order_id', '=', 'orders.id')
-            ->join('products', 'order_product.product_id', '=', 'products.id')
-            ->join('users','orders.user_id','=','users.id')
-            ->join('regions','users.region_id','=','regions.id')
-            ->join('categories', 'products.category_id', '=', 'categories.id')
-            ->where('orders.created_at','>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))
-            ->where('orders.created_at', '<=', $carbon->endOfMonth())
-            ->orderBy('ccosto')
-            ->groupBy('orders.id');
+                $amounts = $this->orders()
+                    ->join('regions','users.region_id','=','regions.id')
+                    ->groupBy('orders.id')
+                    ->limit(10);
 
-        return ['top_products' => $this->filters($products->orderBy('q', 'desc')),
-                'top_reverse_products' => $this->filters(clone $products->orderBy('q')),
-                'biggest_amounts' => $this->filters($amounts->orderBy('q','desc')),
-                'smallest_amounts' => $this->filters(clone $amounts->orderBy('q')),
-                'all_orders' => $this->filters($all_orders)];
+                break;
+            case 'furniture_orders':
+                $products = $this->furnitureOrders()
+                    ->groupBy('furniture_furniture_order.furniture_id')
+                    ->limit(10);
+
+                $amounts = $this->furnitureOrders()
+                    ->join('regions','users.region_id','=','regions.id')
+                    ->groupBy('furniture_orders.id')
+                    ->limit(10);
+             
+                break;
+            case 'mac_orders':
+                $products = $this->orders()
+                    ->groupBy('order_product.product_id')
+                    ->limit(10);
+
+                $amounts = $this->orders()
+                    ->join('regions','users.region_id','=','regions.id')
+                    ->groupBy('orders.id')
+                    ->limit(10);
+                
+                break;
+            case 'corporation_orders':
+                $products = $this->orders()
+                    ->groupBy('order_product.product_id')
+                    ->limit(10);
+
+                $amounts = $this->orders()
+                    ->join('regions','users.region_id','=','regions.id')
+                    ->groupBy('orders.id')
+                    ->limit(10);
+            
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        $query = ['top_products' => $this->filters($products->orderBy('q','desc'),$month,$year),
+                'top_reverse_products' => $this->filters($products->orderBy('q'),$month,$year),
+                'biggest_amounts' => $this->filters($amounts->orderBy('q','desc'),$month,$year),
+                'smallest_amounts' => $this->filters($amounts->orderBy('q'),$month,$year),
+                'all_orders' => $this->filters($amounts->orderBy('ccosto'),$month,$year)];    
+
+        switch ($paper_type) {
+            case 'orders':
+                $this->select($query,'products','order_product');
+                break;
+            case 'furniture_orders':
+                $this->select($query,'furnitures','furniture_furniture_order');
+                break;
+            case 'mac_orders':
+                $this->select($query,'mac_products','mac_order_mac_product');
+                break;
+            case 'corporation_orders':
+                $this->select($query,'corporation_products','corporation_order_corporation_product');
+                break;
+            default:
+                break;
+        }
+
+        return $query;
     }
 
-    public function filters($builder)
+    private function filters($builder,$month,$year)
     {   
+        $carbon = Carbon::createFromDate($year, $month, 1);
+        $paper_type = Input::get('paper-type','orders');
         
         if(Input::has('divisional_id')){
             $builder->whereIn('users.divisional_id',Input::get('divisional_id'));
@@ -133,7 +196,9 @@ class AdminDashboardController  extends AdminBaseController {
             $builder->whereIn('gerencia',Input::get('gerencia'));
         }
 
-        return $builder;
+        $builder->where($paper_type.'.created_at','>=', $carbon->startOfMonth()->format('Y-m-d H:i:s'))
+            ->where($paper_type.'.created_at', '<=', $carbon->endOfMonth());
 
+        return $builder;
     }
 }
