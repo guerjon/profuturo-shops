@@ -15,7 +15,7 @@
         'id' => 'filters-form',
         'class' => 'form-horizontal'
     ]) }}
-        <div class="form-group">
+        <div class="form-group" id="inputs-to-annual">
             <div class="col-md-1">
                 Fecha inicio
                 {{ Form::text('from', \Carbon\Carbon::now()->startOfMonth()->subYear()->format('Y-m-d'), ['id' => 'from', 'class' => 'form-control']) }}                
@@ -274,6 +274,10 @@
             </div>
         </div>
     </div>
+    {{Form::open(['id' => 'annual'])}}
+
+    {{Form::close()}}
+
 @endsection
 
     @section('style')

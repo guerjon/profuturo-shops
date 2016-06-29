@@ -21,7 +21,6 @@ $(function(){
     }
 
     var tableTopProducts = function(category_id){
-        console.log(category_id);
         $.get(laroute.action('AdminApiDashboardController@topProducts',{
             category : category_id
         }), $('#filters-form').serialize(),function(products){
@@ -174,6 +173,8 @@ $(function(){
     var tableOrdersByPeriod = function(month, year) {
         var date = moment([year, month-1, 1]).format('MMMM YYYY');
         $('#period-title').text(date);
+        console.log('mes ' + month);
+        console.log('ano ' + year);
         $.get(laroute.action('AdminApiDashboardController@ordersByPeriod', {
             month : month, 
             year : year
@@ -323,8 +324,9 @@ $(function(){
         });
     });
 
-    
+    //Filtro
     $('#filters-form').submit(function(event) {
+        
         loadOverview();
         drawCategoryChart();
         drawAnnualChart();
@@ -333,6 +335,7 @@ $(function(){
         tableTopReverseProducts('');
         tableBiggestAmount('');
         tableSmallestAmount('');
+
         return false;
     });
 
@@ -352,7 +355,10 @@ $(function(){
                             'AdminDashboardController@overviewByMonth',
                             {'index':index,'month':month,'year':year });
             
-            location.href = action;
+            $('#annual').attr('action',action);
+            $('#annual').append($('#inputs-to-annual'));
+            $('#annual').submit();
+
         }
     });
 
@@ -371,7 +377,9 @@ $(function(){
                             'AdminDashboardController@overviewByMonthAmount',
                             {'index':index,'month':month,'year':year });
         
-            location.href = action;
+            $('#annual').attr('action',action);
+            $('#annual').append($('#inputs-to-annual'));
+            $('#annual').submit();
         }
     });
 
@@ -383,7 +391,6 @@ $(function(){
             var item = items[0];
             var index = item._index;
             var category = computedCategories[index];
-
             tableOrdersByCategory(category);
         }
     });

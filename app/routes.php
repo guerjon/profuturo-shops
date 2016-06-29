@@ -88,8 +88,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
 		Route::resource('date-corporation','AdminDatesCorporationController');
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
-		Route::get('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
-		Route::get('dashboard-overview-month-amount/{index}/{month}/{year}','AdminDashboardController@overviewByMonthAmount');
+		Route::post('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
+		Route::post('dashboard-overview-month-amount/{index}/{month}/{year}','AdminDashboardController@overviewByMonthAmount');
 
 		
 	});

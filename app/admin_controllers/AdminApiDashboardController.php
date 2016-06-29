@@ -15,7 +15,7 @@ class AdminApiDashboardController extends AdminBaseController
         $builder->join('users','users.id','=',$table);
         
         if(Input::has('divisional_id')){
-            $builder->whereIn('divisional_id',Input::get('divisional_id'));
+            $builder->whereIn('users.divisional_id',Input::get('divisional_id'));
         }
 
         if(Input::has('region_id')){
@@ -54,6 +54,9 @@ class AdminApiDashboardController extends AdminBaseController
         $gerencias_c_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
         $gerencias_s_f =  DB::table('users')->where('role','user_furnitures')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
 
+        Log::debug('query');
+        Log::debug($orders_f);
+
         $total_f = DB::table('furniture_orders')->join('furniture_furniture_order','furniture_orders.id','=','furniture_furniture_order.furniture_order_id')
                         ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
                         ->select(DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as total'))
@@ -76,7 +79,7 @@ class AdminApiDashboardController extends AdminBaseController
             ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corp_product_id')
             ->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as total'))
             ->first()->total; 
-                        
+        
         switch ($paper_type) {
             case 'orders':
                 $orders = $orders_o;
@@ -189,8 +192,6 @@ class AdminApiDashboardController extends AdminBaseController
 
     public function categories() {
         $paper_type = Input::get('paper-type','orders');
-
-        
         switch ($paper_type) {
             case 'orders':
                 $query = Category::select('categories.*', DB::raw('SUM(order_product.quantity) AS q'))
@@ -340,6 +341,7 @@ class AdminApiDashboardController extends AdminBaseController
         $paper_type = Input::get('paper-type','orders');
         $month = Input::get('month',\Carbon\Carbon::today()->month);
         $year = Input::get('year', \Carbon\Carbon::today()->year);
+        
         $carbon = \Carbon\Carbon::createFromDate($year, $month, 1);
 
             switch ($paper_type) {
