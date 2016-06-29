@@ -70,10 +70,10 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('dashboard-annual','AdminApiDashboardController@annual');
 		Route::get('dashboard-annual-mount','AdminApiDashboardController@annualMonth');
 
-		Route::get('dashboard-top-products','AdminApiDashboardController@topProducts');
-		Route::get('dashboard-top-reverse','AdminApiDashboardController@topReverseProducts');
-		Route::get('dashboard-biggest-amount','AdminApiDashboardController@biggestAmount');
-		Route::get('dashboard-smallest-amount','AdminApiDashboardController@smallestAmount');
+		Route::get('dashboard-top-products/{category?}','AdminApiDashboardController@topProducts');
+		Route::get('dashboard-top-reverse/{category?}','AdminApiDashboardController@topReverseProducts');
+		Route::get('dashboard-biggest-amount/{category?}','AdminApiDashboardController@biggestAmount');
+		Route::get('dashboard-smallest-amount/{category?}','AdminApiDashboardController@smallestAmount');
 		
 
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');

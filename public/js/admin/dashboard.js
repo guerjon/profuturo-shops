@@ -21,6 +21,7 @@ $(function(){
     }
 
     var tableTopProducts = function(category_id){
+        console.log(category_id);
         $.get(laroute.action('AdminApiDashboardController@topProducts',{
             category : category_id
         }), $('#filters-form').serialize(),function(products){
@@ -125,14 +126,12 @@ $(function(){
         $('#top-categories').parents('.panel').parent().removeClass('hide');
         $.get(laroute.action('AdminApiDashboardController@categories'), $('#filters-form').serialize(), function(categories){
             computedCategories = categories;
-            console.log(categories);
             tableTopProducts('');
             tableTopReverseProducts('');
             tableBiggestAmount('');
             tableSmallestAmount('');
             var labels = [];
             var data = [];
-            console.log(categories);
             for(var i=0; i<categories.length; i++) {
                 var category = categories[i];
                 labels.push(category.name);
@@ -184,6 +183,7 @@ $(function(){
     }
 
     var tableOrdersByCategory = function(category) {
+
         tableTopProducts(category.id);
         tableTopReverseProducts(category.id);
         tableBiggestAmount(category.id);
@@ -375,6 +375,7 @@ $(function(){
         }
     });
 
+    //Click grafica de dona
     $('#categories-overview').click(function(event) {
         if(categoryChart) {
             var items = categoryChart.getElementsAtEvent(event);
@@ -382,6 +383,7 @@ $(function(){
             var item = items[0];
             var index = item._index;
             var category = computedCategories[index];
+
             tableOrdersByCategory(category);
         }
     });

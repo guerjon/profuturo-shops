@@ -369,7 +369,40 @@ class AdminApiDashboardController extends AdminBaseController
 
     }
 
-    private function getTops()
+        /*
+    *Regresa los productos mas solicitados
+    */
+    public function topProducts($category_id = null)
+    {
+        $query = $this->getTops($category_id);
+        $query->orderBy('q', 'desc')->limit(10);
+        return Response::json($query->get());   
+    }
+
+    public function topReverseProducts($category_id = null)
+    {
+        $query = $this->getTops($category_id);
+        $query->orderBy('q', 'desc')->limit(10);
+        $query->limit(10);
+        return Response::json($query->get());          
+    }
+
+    public function biggestAmount($category_id = null)
+    {
+        $query = $this->getAmounts($category_id);
+        $query->orderBy('q','desc')->limit(10);
+        return Response::json($query->get());             
+    }
+
+    public function smallestAmount($category_id = null)
+    {
+        $query = $this->getAmounts($category_id);
+        $query->orderBy('q')->limit(10);
+
+        return Response::json($query->get());            
+    }
+
+    private function getTops($category_id)
     {
         $paper_type = Input::get('paper-type','orders');
 
@@ -381,15 +414,20 @@ class AdminApiDashboardController extends AdminBaseController
                 ->join('orders', 'order_product.order_id', '=', 'orders.id')
                 ->join('categories', 'products.category_id', '=', 'categories.id')
                 ->groupBy('products.id');
+                if($category_id != null) {
+                    $query->where('products.category_id',$category_id);
+                }
                 break;
             case 'furniture_orders':
-            $query = Furniture::select('furnitures.*', DB::raw('SUM(furniture_furniture_order.quantity) AS q'),'furniture_categories.name as category' )
-                ->from('furniture_furniture_order')
-                ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
-                ->join('furniture_orders', 'furniture_furniture_order.furniture_order_id', '=', 'furniture_orders.id')
-                ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
-                ->groupBy('furnitures.id');
-
+                $query = Furniture::select('furnitures.*', DB::raw('SUM(furniture_furniture_order.quantity) AS q'),'furniture_categories.name as category' )
+                    ->from('furniture_furniture_order')
+                    ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
+                    ->join('furniture_orders', 'furniture_furniture_order.furniture_order_id', '=', 'furniture_orders.id')
+                    ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
+                    ->groupBy('furnitures.id');
+                    if($category_id != null) {
+                        $query->where('furnitures.category_id',$category_id);
+                    }
                 break;
             case 'mac_orders':
                 $query = MacProduct::select('mac_products.*', DB::raw('SUM(mac_order_mac_product.quantity) AS q'),'mac_categories.name as category' )
@@ -398,6 +436,9 @@ class AdminApiDashboardController extends AdminBaseController
                     ->join('mac_orders', 'mac_order_mac_product.mac_order_id', '=', 'mac_orders.id')
                     ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id')
                     ->groupBy('mac_products.id');
+                    if($category_id != null) {
+                        $query->where('mac_products.category_id',$category_id);
+                    }
                 break;
             case 'corporation_orders':
                 $query = CorporationProduct::select('corporation_products.*', DB::raw('SUM(corporation_order_corporation_product.quantity) AS q'),'corporation_categories.name as category' )
@@ -406,6 +447,9 @@ class AdminApiDashboardController extends AdminBaseController
                     ->join('corporation_orders', 'corporation_order_corporation_product.corp_order_id', '=', 'corporation_orders.id')
                     ->join('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id')
                     ->groupBy('corporation_products.id');
+                    if($category_id != null) {
+                        $query->where('mac_corporation.category_id',$category_id);
+                    }                    
                 break;
             default:
                 # code...
@@ -413,31 +457,13 @@ class AdminApiDashboardController extends AdminBaseController
         }
                 
         $this->appendDateFilter($query,$paper_type.'.created_at',$paper_type.'.user_id');
+        $category_type = $paper_type.'.id';
 
-        if(Input::has('category')) {
-            $query->where($paper_type.'.id', Input::get('category'));
-        }
         return $query;
     }
-    /*
-    *Regresa los productos mas solicitados
-    */
-    public function topProducts()
-    {
-        $query = $this->getTops();
-        $query->orderBy('q', 'desc')->limit(10);
-        return Response::json($query->get());   
-    }
 
-    public function topReverseProducts()
-    {
-        $query = $this->getTops();
-        $query->orderBy('q', 'desc')->limit(10);
-        $query->limit(10);
-        return Response::json($query->get());          
-    }
 
-    private function getAmounts()
+    private function getAmounts($category_id)
     {
         $paper_type = Input::get('paper-type','orders');
 
@@ -449,7 +475,9 @@ class AdminApiDashboardController extends AdminBaseController
                 ->join('products', 'order_product.product_id', '=', 'products.id')
                 ->join('orders', 'order_product.order_id', '=', 'orders.id')
                 ->join('categories', 'products.category_id', '=', 'categories.id');
-
+                if($category_id != null) {
+                    $query->where('products.category_id',$category_id);
+                }
                 break;
             case 'furniture_orders':
                 $query = Furniture::select('users.*','furnitures.*',
@@ -458,6 +486,9 @@ class AdminApiDashboardController extends AdminBaseController
                 ->join('furnitures', 'furniture_furniture_order.furniture_id', '=', 'furnitures.id')
                 ->join('furniture_orders', 'furniture_furniture_order.furniture_order_id', '=', 'furniture_orders.id')
                 ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id');
+                if($category_id != null) {
+                    $query->where('furnitures.furniture_category_id',$category_id);
+                }
                 break;
             case 'mac_orders':
                 $query = MacProduct::select('users.*','mac_products.*',
@@ -466,6 +497,9 @@ class AdminApiDashboardController extends AdminBaseController
                 ->join('mac_products', 'mac_order_mac_product.mac_product_id', '=', 'mac_products.id')
                 ->join('mac_orders', 'mac_order_mac_product.mac_order_id', '=', 'mac_orders.id')
                 ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id');
+                if($category_id != null) {
+                    $query->where('mac_products.product_category_id',$category_id);
+                }
                 break;
             case 'corporation_orders':
                 $query = CorporationProduct::select('users.*','corporation_products.*',
@@ -474,6 +508,9 @@ class AdminApiDashboardController extends AdminBaseController
                 ->join('corporation_products', 'corporation_order_corporation_product.corp_product_id', '=', 'corporation_products.id')
                 ->join('corporation_orders', 'corporation_order_corporation_product.corp_order_id', '=', 'corporation_orders.id')
                 ->join('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id');
+                if($category_id != null) {
+                    $query->where('corporation_products.corporation_category_id',$category_id);
+                }
                 break;
             default:
                 break;
@@ -481,27 +518,12 @@ class AdminApiDashboardController extends AdminBaseController
 
         $query = $this->appendDateFilter($query,$paper_type.'.created_at',$paper_type.'.user_id');    
         $query->join('regions','users.region_id','=','regions.id')->groupBy($paper_type.'.id');
+        
 
-        if(Input::has('category')) {
-            $query->where($paper_type.'.id', Input::get('category'));
-        }
         return $query;
     }
 
-    public function biggestAmount()
-    {
-        $query = $this->getAmounts();
-        $query->orderBy('q','desc')->limit(10);
-        return Response::json($query->get());             
-    }
 
-    public function smallestAmount()
-    {
-        $query = $this->getAmounts();
-        $query->orderBy('q')->limit(10);
-
-        return Response::json($query->get());            
-    }
 
 
 }
