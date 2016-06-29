@@ -148,7 +148,7 @@ class AdminApiDashboardController extends AdminBaseController
                     ->from('furniture_orders')
                     ->join('furnitures', 'furniture_orders.furniture_id', '=', 'furnitures.id')
                     ->join('furniture_orders', 'furniture_furniture_order.furniture_order_id', '=', 'furniture_orders.id')
-                    ->join('furniture_categories', 'furnitures.category_id', '=', 'furniture_categories.id')
+                    ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
                     ->orderBy('q', 'desc')
                     ->groupBy('furnitures.id');
                 $this->appendDateFilter($query, 'furniture_orders.created_at','furniture_orders.user_id');                
@@ -426,7 +426,7 @@ class AdminApiDashboardController extends AdminBaseController
                     ->join('furniture_categories', 'furnitures.furniture_category_id', '=', 'furniture_categories.id')
                     ->groupBy('furnitures.id');
                     if($category_id != null) {
-                        $query->where('furnitures.category_id',$category_id);
+                        $query->where('furnitures.furniture_category_id',$category_id);
                     }
                 break;
             case 'mac_orders':
@@ -437,7 +437,7 @@ class AdminApiDashboardController extends AdminBaseController
                     ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id')
                     ->groupBy('mac_products.id');
                     if($category_id != null) {
-                        $query->where('mac_products.category_id',$category_id);
+                        $query->where('mac_products.mac_category_id',$category_id);
                     }
                 break;
             case 'corporation_orders':
@@ -448,7 +448,7 @@ class AdminApiDashboardController extends AdminBaseController
                     ->join('corporation_categories', 'corporation_products.corporation_category_id', '=', 'corporation_categories.id')
                     ->groupBy('corporation_products.id');
                     if($category_id != null) {
-                        $query->where('mac_corporation.category_id',$category_id);
+                        $query->where('corporation_products.corporation_category_id',$category_id);
                     }                    
                 break;
             default:
@@ -498,7 +498,7 @@ class AdminApiDashboardController extends AdminBaseController
                 ->join('mac_orders', 'mac_order_mac_product.mac_order_id', '=', 'mac_orders.id')
                 ->join('mac_categories', 'mac_products.mac_category_id', '=', 'mac_categories.id');
                 if($category_id != null) {
-                    $query->where('mac_products.product_category_id',$category_id);
+                    $query->where('mac_products.mac_category_id',$category_id);
                 }
                 break;
             case 'corporation_orders':
