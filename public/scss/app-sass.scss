@@ -222,6 +222,7 @@ body {
 }
 .panel-login {
 	border-left-color: $amarillo-pro;
+	box-shadow: none;
 
 	.panel-heading {
 		border-bottom-color: $amarillo-pro;
@@ -245,3 +246,21 @@ body {
 }
 
 /* @endgroup */
+
+.dashboard-first-row-panel-wrap {
+
+	.panel {
+		min-height: 94px;
+	}
+}
+.table-wrap {
+	overflow: auto;
+
+	.panel-body {
+		overflow: auto;
+		padding: 0;
+	}
+	table td:last-child {
+		text-align: center;
+	}
+}

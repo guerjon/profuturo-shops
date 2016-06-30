@@ -12,7 +12,7 @@
         <li class="active">Dashboard Mes  {{Lang::get('months.'.\Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$from)->month)}}</li>
     </ol>
 
-    <div class="row">
+    <div class="row dashboard-first-row-panel-wrap">
         <div class="col-md-2">
             <div class="panel panel-default">
                 <div class="panel-body text-center">
@@ -106,177 +106,185 @@
     </div>
     <div class="row">    
         <div class="col-md-3 ">
-            <div class="panel panel-primary" style="height:301px;">
+            <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Productos mas solicitados
                     </h3>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                Categoría
-                            </th>
-                            <th>
-                                Producto
-                            </th>
-                            <th>
-                                Productos solicitados
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	@foreach($top_products as $top_product)
-							<tr>
-								<td>
-									{{$top_product->category ? $top_product->category->name : 'N/A'}}
-								</td>
-								<td>
-									{{$top_product->name}}
-								</td>
-								<td>
-									{{$top_product->q}}
-								</td>
-							</tr>
-                    	@endforeach
-                    </tbody>
-                </table>
+                <div class="panel-body">                
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Categoría
+                                </th>
+                                <th>
+                                    Producto
+                                </th>
+                                <th>
+                                    Productos solicitados
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	@foreach($top_products as $top_product)
+    							<tr>
+    								<td>
+    									{{$top_product->category ? $top_product->category->name : 'N/A'}}
+    								</td>
+    								<td>
+    									{{$top_product->name}}
+    								</td>
+    								<td>
+    									{{$top_product->q}}
+    								</td>
+    							</tr>
+                        	@endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:301px;">
+            <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Productos menos solicitados
                     </h3>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                Categoría
-                            </th>
-                            <th>
-                                Producto
-                            </th>
-                            <th>
-                                Productos solicitados
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	@foreach($top_reverse_products as $top_reverse_product)
-							<tr>
-								<td>
-									{{$top_product->category ? $top_product->category->name : 'N/A'}}
-								</td>
-								<td>
-									{{$top_product->name}}
-								</td>
-								<td>
-									{{$top_product->q}}
-								</td>
-							</tr>
-                    	@endforeach                    	
-                    </tbody>
-                </table>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Categoría
+                                </th>
+                                <th>
+                                    Producto
+                                </th>
+                                <th>
+                                    Productos solicitados
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	@foreach($top_reverse_products as $top_reverse_product)
+    							<tr>
+    								<td>
+    									{{$top_product->category ? $top_product->category->name : 'N/A'}}
+    								</td>
+    								<td>
+    									{{$top_product->name}}
+    								</td>
+    								<td>
+    									{{$top_product->q}}
+    								</td>
+    							</tr>
+                        	@endforeach                    	
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:301px;">
+            <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Gerencias con mayor monto gastado
                     </h3>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                               CC
-                            </th>
-                            <th>
-                                Gerencia
-                            </th>
-                            <th>
-                                Region
-                            </th>
-                            <th>
-                            	Monto
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	@foreach($biggest_amounts as $biggest_amount)
-							<tr>
-								<td>
-									{{$biggest_amount->ccosto }}
-								</td>
-								<td>
-									{{$biggest_amount->gerencia}}
-								</td>
-								<td>
-									{{$biggest_amount->region_name}}
-								</td>
-								<td>
-									{{$biggest_amount->q}}
-								</td>
-							</tr>
-                    	@endforeach                     	
-                    </tbody>
-                </table>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                   CC
+                                </th>
+                                <th>
+                                    Gerencia
+                                </th>
+                                <th>
+                                    Region
+                                </th>
+                                <th>
+                                	Monto
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	@foreach($biggest_amounts as $biggest_amount)
+    							<tr>
+    								<td>
+    									{{$biggest_amount->ccosto }}
+    								</td>
+    								<td>
+    									{{$biggest_amount->gerencia}}
+    								</td>
+    								<td>
+    									{{$biggest_amount->region_name}}
+    								</td>
+    								<td>
+    									{{$biggest_amount->q}}
+    								</td>
+    							</tr>
+                        	@endforeach                     	
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:301px;">
+            <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Gerencias con menor monto gastado
                     </h3>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                               CC
-                            </th>
-                            <th>
-                                Gerencia
-                            </th>
-                            <th>
-                                Region
-                            </th>
-                            <th>
-                            	Monto
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    	@foreach($smallest_amounts as $smallest_amount)
-							<tr>
-								<td>
-									{{$smallest_amount->ccosto }}
-								</td>
-								<td>
-									{{$smallest_amount->gerencia}}
-								</td>
-								<td>
-									{{$smallest_amount->region_name}}
-								</td>
-								<td>
-									{{$smallest_amount->q}}
-								</td>
-							</tr>
-                    	@endforeach                      	
-                    </tbody>
-                </table>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                   CC
+                                </th>
+                                <th>
+                                    Gerencia
+                                </th>
+                                <th>
+                                    Region
+                                </th>
+                                <th>
+                                	Monto
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        	@foreach($smallest_amounts as $smallest_amount)
+    							<tr>
+    								<td>
+    									{{$smallest_amount->ccosto }}
+    								</td>
+    								<td>
+    									{{$smallest_amount->gerencia}}
+    								</td>
+    								<td>
+    									{{$smallest_amount->region_name}}
+    								</td>
+    								<td>
+    									{{$smallest_amount->q}}
+    								</td>
+    							</tr>
+                        	@endforeach                      	
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
     	<div class="col-md-12">
-    		<div class="panel panel-primary">
+    		<div class="panel panel-primary table-wrap">
     			<div class="panel-heading">
 
     				<h3 class="panel-title">
@@ -284,7 +292,8 @@
     				</h3>
 
     			</div>
-    				<table id="all-orders" class="table table-striped">
+				<div class="panel-body">
+                    <table id="all-orders" class="table table-striped">
     					<thead>
     						<tr>
     							<th>
@@ -320,6 +329,7 @@
                             @endforeach
     					</tbody>
     				</table>
+                </div>
     		</div>
     	</div>
     </div>
