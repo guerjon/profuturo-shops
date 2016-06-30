@@ -250,7 +250,6 @@ class AdminApiDashboardController extends AdminBaseController
                 $query->select(DB::raw('count(*) as c'), DB::raw('MONTH(orders.created_at) as month'), DB::raw('YEAR(orders.created_at) as year'))
                     ->orderBy('year')->orderBy('month')
                     ->groupBy('year')->groupBy('month');
-                
                 break;
             case 'furniture_orders':
                 $query = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id');
@@ -524,5 +523,84 @@ class AdminApiDashboardController extends AdminBaseController
         return $query;
     }
 
+
+    private function furnitureOrders()
+    {
+        $query = FurnitureOrder::join('furniture_furniture_order','furniture_furniture_order.furniture_order_id','=','furniture_orders.id')
+                    ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
+                    ->join('users','users.id','=','furniture_orders.user_id')
+                    ->join('furniture_categories','furniture_categories.id','=','furnitures.furniture_category_id');
+        return $query;
+    }
+
+    private function macOrders()
+    {
+        $query = MacOrder::join('mac_order_mac_product','mac_orders.id','=','mac_order_mac_product.mac_order_id')
+                    ->join('mac_products','mac_products.id','=','mac_order_mac_product.mac_product_id')
+                    ->join('users','users.id','=','mac_orders.user_id')
+                    ->join('mac_categories','mac_categories.id','=','mac_products.mac_category_id');
+        return $query;
+    }
+
+    private function corporationOrders()
+    {
+        $query = CorporationOrder::join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corp_order_id')
+            ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corp_product_id')
+            ->join('users','users.id','=','corporation_orders.user_id')
+            ->join('corporation_categories','corporation_categories.id','=','corporation_products.corporation_category_id');
+        return $query;
+    }
+
+    private function orders()
+    {
+        $query = Product::leftJoin('order_product','products.id','=','order_product.product_id')
+                    ->leftJoin('orders','orders.id','=','order_product.order_id')
+                    ->leftJoin('categories','categories.id','=','products.category_id');
+        return $query;
+    }
+
+    public function getMonths($from_month,$from_year,$to_month,$to_year)
+    {   
+        $months = Lang::get('months');
+
+        //si from_year es menor 
+        if($from_year < $to_year){
+
+
+            //si from_year es igual
+        }elseif($from_year == $to_year){
+
+        }
+        
+    }
+
+    public function productsByMonth()
+    {
+        $from_month = Input::get('from_month');
+        $from_year = Input::get('from_year');
+        $to_month = Input::get('to_month');
+        $to_year = Input::get('to_year');
+        
+        $months = getMonths($from_month,$from_year,$to_month+1,$to_year+1);
+
+        $products = $this->orders()
+            ->select(DB::raw('products.id'),
+                    DB::raw('SUM(order_product.quantity) as c'),
+                    DB::raw('MONTH(orders.created_at) as month')
+            )->groupBy('products.id');
+
+        $this->appendDateFilter($products,'orders.created_at','orders.user_id');
+
+        $furnitures = $this->furnitureOrders()->get();
+        $mac_products = $this->macOrders()->get();
+        $corporation_orders = $this->corporationOrders()->get();
+
+        return Response::json([
+                'products' => $products->get(),
+                'furnitures' => $furnitures,
+                'mac_products' => $mac_products,
+                'corporation_products' => $corporation_orders
+            ]);
+    }
 
 }

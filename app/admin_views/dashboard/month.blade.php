@@ -9,7 +9,7 @@
         &nbsp;&nbsp;&nbsp;
         <li><a href="/">Inicio</a></li>
         <li><a href="{{action('AdminDashboardController@stationery')}}"> Dashboard Papeleria</a></li>
-        <li class="active">Dashboard Mes {{\Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$from)->month }}</li>
+        <li class="active">Dashboard Mes  {{Lang::get('months.'.\Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$from)->month)}}</li>
     </ol>
 
     <div class="row">

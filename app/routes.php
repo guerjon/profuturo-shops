@@ -74,6 +74,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('dashboard-top-reverse/{category?}','AdminApiDashboardController@topReverseProducts');
 		Route::get('dashboard-biggest-amount/{category?}','AdminApiDashboardController@biggestAmount');
 		Route::get('dashboard-smallest-amount/{category?}','AdminApiDashboardController@smallestAmount');
+		Route::get('dashboard-products-month','AdminApiDashboardController@productsByMonth');
 		
 
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
