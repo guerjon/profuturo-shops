@@ -45,39 +45,38 @@ class AdminApiDashboardController extends AdminBaseController
         $gerencias_c_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
         $gerencias_s_o =  DB::table('users')->where('role','user_paper')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
 
-        $total_o = DB::table('orders')->join('order_product','orders.id','=','order_product.order_id')
+        $total_o = $this->appendDateFilter(DB::table('orders')->join('order_product','orders.id','=','order_product.order_id')
             ->join('products','products.id','=','order_product.product_id')
-            ->select(DB::raw('SUM(products.price * order_product.quantity) as total'))
+            ->select(DB::raw('SUM(products.price * order_product.quantity) as total')),'orders.created_at','orders.user_id') 
             ->first()->total; 
 
         $orders_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
         $gerencias_c_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
         $gerencias_s_f =  DB::table('users')->where('role','user_furnitures')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
 
-        Log::debug('query');
-        Log::debug($orders_f);
-
-        $total_f = DB::table('furniture_orders')->join('furniture_furniture_order','furniture_orders.id','=','furniture_furniture_order.furniture_order_id')
+        $total_f = $this->appendDateFilter(DB::table('furniture_orders')->join('furniture_furniture_order','furniture_orders.id','=','furniture_furniture_order.furniture_order_id')
                         ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
-                        ->select(DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as total'))
+                        ->select(DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as total')),'furniture_orders.created_at','furniture_orders.user_id') 
                         ->first()
                         ->total; 
+
         $orders_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
         $gerencias_c_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
         $gerencias_s_m =  DB::table('users')->where('role','user_mac')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
 
-        $total_m = DB::table('mac_orders')->join('mac_order_mac_product','mac_orders.id','=','mac_order_mac_product.mac_order_id')
+        $total_m = $this->appendDateFilter(DB::table('mac_orders')->join('mac_order_mac_product','mac_orders.id','=','mac_order_mac_product.mac_order_id')
             ->join('mac_products','mac_products.id','=','mac_order_mac_product.mac_product_id')
-            ->select(DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) as total'))
-            ->first()->total; 
+            ->select(DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) as total')),'mac_orders.created_at','mac_orders.user_id')
+            ->first()->total; ;
+            
 
         $orders_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
         $gerencias_c_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
         $gerencias_s_c =  DB::table('users')->where('role','user_corporation')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
 
-        $total_c = DB::table('corporation_orders')->join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corp_order_id')
+        $total_c = $this->appendDateFilter(DB::table('corporation_orders')->join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corp_order_id')
             ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corp_product_id')
-            ->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as total'))
+            ->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as total')),'corporation_orders.created_at','corporation_orders.user_id')
             ->first()->total; 
         
         switch ($paper_type) {
@@ -522,11 +521,8 @@ class AdminApiDashboardController extends AdminBaseController
         $query = $this->appendDateFilter($query,$paper_type.'.created_at',$paper_type.'.user_id');    
         $query->join('regions','users.region_id','=','regions.id')->groupBy($paper_type.'.id');
         
-
         return $query;
     }
-
-
 
 
 }
