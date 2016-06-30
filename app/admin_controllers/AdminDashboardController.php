@@ -203,4 +203,31 @@ class AdminDashboardController  extends AdminBaseController {
 
         return $builder;
     }
+
+    public function productsByMonth()
+    {
+        // $query->select(DB::raw('count(*) as c'), 
+        //             DB::raw('MONTH(orders.created_at) as month'),
+        //             DB::raw('YEAR(orders.created_at) as year'))
+        // ->orderBy('year')->orderBy('month')
+        // ->groupBy('year')->groupBy('month');
+
+        $products = $this->orders()->select(
+            DB::raw('order_product.quantity as c'),
+            DB::raw('MONTH(orders.created_at) as month'),
+            DB::raw('YEAR(orders.created_at) as year'))
+        ->orderBy('year')->groupBy('month')
+        ->groupBy('year')->groupBy('month')
+        ->get();
+
+        $furnitures = $this->furnitureOrders()->get();
+        $mac_products = $this->macOrders()->get();
+        $corporation_orders = $this->corporationOrders()->get();
+
+        return View::make('admin::dashboard/products_by_month')
+            ->withProducts($products)
+            ->withFurnitures($furnitures)
+            ->withMacProducts($mac_products)
+            ->withCorporationOrders($corporation_orders);
+    }
 }

@@ -90,7 +90,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
 		Route::post('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
 		Route::post('dashboard-overview-month-amount/{index}/{month}/{year}','AdminDashboardController@overviewByMonthAmount');
-
+		Route::post('dashboard-products-by-month','AdminDashboardController@productsByMonth');
 		
 	});
 

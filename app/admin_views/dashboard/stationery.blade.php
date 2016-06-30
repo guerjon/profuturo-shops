@@ -47,10 +47,16 @@
                     ,null,['class' => 'form-control','id' => 'paper-type'])
                 }}
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <br>
                 <button type="submit" class="btn btn-default">
                     <span class="fa fa-search"></span> Filtrar
+                </button>
+            </div>
+            <div class="col-md-1">
+                <br>
+                <button class="btn btn-default" id="products_by_month">
+                     <span class="fa fa-search"></span> Productos
                 </button>
             </div>
         </div>  

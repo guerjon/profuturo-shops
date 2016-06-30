@@ -376,10 +376,10 @@ $(function(){
             var action = laroute.action(
                             'AdminDashboardController@overviewByMonthAmount',
                             {'index':index,'month':month,'year':year });
-        
             $('#annual').attr('action',action);
             $('#annual').append($('#inputs-to-annual'));
             $('#annual').submit();
+        
         }
     });
 
@@ -395,7 +395,13 @@ $(function(){
         }
     });
 
-
+    $('#products_by_month').click(function(){
+        var action = laroute.action('AdminDashboardController@productsByMonth');
+        $('#annual').attr('action',action);
+        $('#annual').append($('#inputs-to-annual'));
+        $('#annual').submit();
+        
+    });
 
     loadOverview();
     drawCategoryChart();

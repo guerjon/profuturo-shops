@@ -385,7 +385,7 @@ class AdminApiDashboardController extends AdminBaseController
     public function topReverseProducts($category_id = null)
     {
         $query = $this->getTops($category_id);
-        $query->orderBy('q', 'desc')->limit(10);
+        $query->orderBy('q')->limit(10);
         $query->limit(10);
         return Response::json($query->get());          
     }
