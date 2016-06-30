@@ -63,7 +63,7 @@
 
     {{ Form::close() }}
 
-    <div class="row">
+    <div class="row dashboard-first-row-panel-wrap">
         <div class="col-md-2">
             <div class="panel panel-default">
                 <div class="panel-body text-center">
@@ -190,93 +190,101 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Productos mas solicitados
                     </h3>
                 </div>
-                <table id="top-products" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                Categoría
-                            </th>
-                            <th>
-                                Producto
-                            </th>
-                            <th>
-                                Productos solicitados
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="panel-body">  
+                    <table id="top-products" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Categoría
+                                </th>
+                                <th>
+                                    Producto
+                                </th>
+                                <th>
+                                    Productos solicitados
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Productos menos solicitados
                     </h3>
                 </div>
-                <table id="top-reverse-products" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>
-                                Categoría
-                            </th>
-                            <th>
-                                Producto
-                            </th>
-                            <th>
-                                # solicitados
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="panel-body"> 
+                    <table id="top-reverse-products" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Categoría
+                                </th>
+                                <th>
+                                    Producto
+                                </th>
+                                <th>
+                                    # solicitados
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Pedidos con mayor monto gastado
                     </h3>
                 </div>
-                <table id="biggest-amount" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>CC</th>
-                            <th>Gerencía</th>
-                            <th>Región</th>
-                            <th>Monto</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="panel-body">
+                    <table id="biggest-amount" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>CC</th>
+                                <th>Gerencía</th>
+                                <th>Región</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
-            <div class="panel panel-primary" style="height:700px;">
+            <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         Pedidos con menor monto gastado
                     </h3>
                 </div>
-                <table id="smallest-amount" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>CC</th>
-                            <th>Gerencía</th>
-                            <th>Región</th>
-                            <th>Monto</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="panel-body">   
+                    <table id="smallest-amount" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>CC</th>
+                                <th>Gerencía</th>
+                                <th>Región</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
