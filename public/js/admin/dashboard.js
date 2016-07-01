@@ -410,44 +410,28 @@ $(function(){
     drawAnnualMonthChart();
 
     $('#orders-button').click(function(event){
-        var action = laroute.action('AdminApiDashboardController@overview');
-        
-        $.get(action, $('#filters-form').serialize(), function(data){
-            var orders = data.orders_modal;
-            for (var i = orders.length - 1; i >= 0; i--) {
-                
-                $('#orders_modal_body').find('tbody').append('<tr><td>'+ orders[i].ccosto+ '</td><td>'+orders[i].gerencia+' <tr>');
-            };
-            $('#orders_modal').modal();
-        })  
+        var action = laroute.action('AdminDashboardController@showOrders');
+
+        $('#annual').attr('action',action);
+        $('#annual').append($('#inputs-to-annual'));
+        $('#annual').submit();
     });
 
     $('#managment_orders_button').click(function(event){
-        var action = laroute.action('AdminApiDashboardController@overview');
-        
-        $.get(action, $('#filters-form').serialize(), function(data){
-            console.log(data.people_orders_modal);
-            var orders = data.people_orders_modal;
+        var action = laroute.action('AdminDashboardController@showManagements');
 
-            for (var i = orders.length - 1; i >= 0; i--) {
-                $('#orders_modal_body').append('<p> CCOSTOS: '+ orders[i].ccosto+ '</p>');
-            };
-            $('#orders_modal').modal();
-        })  
+        $('#annual').attr('action',action);
+        $('#annual').append($('#inputs-to-annual'));
+        $('#annual').submit();
+        
     });
 
     $('#managment_without_orders_button').click(function(event){
-        var action = laroute.action('AdminApiDashboardController@overview');
-        
-        $.get(action, $('#filters-form').serialize(), function(data){
-            var management_wo_orders = data.people_modal;
-            console.log(orders);
-            for (var i = orders.length - 1; i >= 0; i--) {
-                console.log(orders[i]);
-                $('#orders_modal tbody').append('<p> CCOSTOS: '+ management_wo_orders[i].ccosto+ '</p>');
-            };
-            $('#orders_modal').modal();
-        })  
+        var action = laroute.action('AdminDashboardController@showManagementsWithout');
+        console.log(action);
+        $('#annual').attr('action',action);
+        $('#annual').append($('#inputs-to-annual'));
+        $('#annual').submit();
     });
 
 

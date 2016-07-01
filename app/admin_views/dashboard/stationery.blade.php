@@ -276,7 +276,6 @@
     {{Form::open(['id' => 'annual'])}}
     {{Form::close()}}
 
-    @include('admin::dashboard/modals/orders')
     @include('admin::dashboard/modals/managment_orders')
     @include('admin::dashboard/modals/managment_without_orders')
 
