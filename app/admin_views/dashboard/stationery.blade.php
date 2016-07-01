@@ -65,7 +65,7 @@
 
     <div class="row dashboard-first-row-panel-wrap">
         <div class="col-md-2">
-            <a href="#" data-toggle="modal" data-target="#orders_modal">
+            <a href="#" id="orders-button">
                 <div class="panel panel-default">
                     <div class="panel-body text-center">
                         <div class="row">
@@ -82,7 +82,7 @@
             </a>
         </div>
         <div class="col-md-2">
-            <a href="#" data-toggle="modal" data-target="#managment_orders_modal">
+            <a href="#"  id="managment_orders_button">
                 <div class="panel panel-default">
                     <div class="panel-body text-center">
                         <div class="row">
@@ -99,7 +99,7 @@
             </a>            
         </div>
         <div class="col-md-2">
-            <a href="#" data-toggle="modal" data-target="#managment_without_orders_modal">
+            <a href="#" id="managment_without_orders_button">
                 <div class="panel panel-default">
                     <div class="panel-body text-center">
                         <div class="row">
