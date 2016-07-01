@@ -6,8 +6,6 @@
 		<div class="col col-xs-6"></div>
 		
 	</div>
-	
-
 	<hr>
 
 	
@@ -16,7 +14,7 @@
 		</center>
 		{{Form::open(['method' => 'get'])}}
 			<div class="row">	
-				<div class="col col-md-3">
+				<div class="col col-md-2">
 					<div class="form-group">
 						{{Form::label('gerencia','Consultor',['class' => 'label-control'])}}
 						{{Form::select(
@@ -28,12 +26,18 @@
 					</div>
 				</div>
 
-				<div class="col col-md-3">
+				<div class="col col-md-2">
 					<div class="form-group">
 						{{Form::label('encuesta','NUMERO ENCUESTA',['class' => 'label-control'])}}
 						{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
 					</div>
 				</div>
+			    <div class="col-xs-2 ">DESDE:
+    				{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+				</div>
+			    <div class="col-xs-2 ">HASTA:
+			        {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+			    </div>
 				<div class="col col-xs-3 text-right" >
 					<br>
 					
@@ -132,11 +136,17 @@
 				actualiza();
 			});
 
+			$('.datepicker').change(function(argument) {
+				actualiza();
+			});
+
 			function actualiza(){
 				
 				$.get('/admin/api/survey',{
 					gerencia: $('#gerencia').val(),
 					encuesta: $('#encuesta').val(),
+					since: $('#since').val(),
+					until: $('#until').val()
 					},function(datos){
 						var encuestas = [];
 						console.log(datos.solicitudes);
