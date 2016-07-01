@@ -11,58 +11,50 @@ class AdminSpiderGraphController extends \BaseController {
 	{   
 		$surveys = SatisfactionSurvey::query();
 
-		if(Input::has('gerencia'))
-			$surveys->whereHas('users',function($q){
-				$q->where('users.id','=',Input::get('gerencia'));
-			}); 
-
-		if(Input::has('solicitud'))
-		  	$surveys->where('satisfaction_surveys.id','=',Input::get('solicitud'));
-
-		if(Input::has('encuesta')){
-		  	$surveys->whereHas('generalRequest',function($q){
-		  		$q->where('general_requests.id','=',Input::get('encuesta'));
-		  	});
-		}
 
 
 		if (Input::has('xls')) {
 	  		$excel = App::make('excel');
 	  		$surveys->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id');
 
-			  foreach ($surveys->get() as $item) {
-				
-				$itemArray = [];
-				$itemArray['NUMERO DE SOLICITUD GENERAL']   = $item->general_request_id;
-				$itemArray['ACTITUD DEL CONSULTOR']   = $this->calculateResult($item->question_one,1);
-				$itemArray['SEGUIMIENTO DEL CONSULTOR'] = $this->calculateResult($item->question_two,2);
-				$itemArray['TIEMPOS RESPUESTA CONSULTOR'] = $this->calculateResult($item->question_three,3);
-				$itemArray['CALIDAD DEL PRODUCTO'] = $this->calculateResult($item->question_four,4);
-				$itemArray['POR QUE ACTITUD DEL CONSULTOR'] =  $item->explain_1;
-				$itemArray['POR QUE SEGUIMIENTO DEL CONSULTOR'] =  $item->explain_2;
-				$itemArray['POR QUE TIEMPOS RESPUESTA CONSULTOR'] = $item->explain_3;
-				$itemArray['POR QUE CALIDAD DE PRODUCTO'] = $item->explain_4;
-				$itemArray['COMENTARIOS'] = $item->comments;
-				
-				Log::debug('--------------------manager');
-				// Log::debug($item['manager_id']);
-				// Log::debug($item['user_id']);
-				// Log::debug($item['manager_id'] != null ? User::find($item['manager_id'])->first()->nombre : 'SIN CONSULTOR');
-				// Log::debug($item['user_id'] != null ? User::find($item['user_id'])->first()->nombre: 'USUARIO PROYECTOS');
-				Log::debug('--------------------user');
 
-		        $itemArray['CONSULTOR'] =  $item['manager_id'] != null ? User::find($item['manager_id'])->nombre : 'SIN CONSULTOR';
-		        $itemArray['USUARIO_PROYECTOS'] = $item['user_id'] != null ?  User::find($item['user_id'])->nombre  : 'SIN USUARIO PROYECTOS';				
-				$result[] = $itemArray;
-			  }
-			  
-			  if($result){
-				Excel::create('Reporte_encuesta',function($excel) use($result){
-				   $excel->sheet('Hoja_1', function($sheet) use($result) {
-					 $sheet->fromArray($result);
-				  });
-				})->download('xls');
-			  }
+	  		if(Input::has('gerencia'))
+				$surveys->where('general_requests.manager_id',Input::get('gerencia'));
+
+			if(Input::has('encuesta'))
+			  	$surveys->where('satisfaction_surveys.id',Input::get('encuesta'));
+
+			
+			if($surveys->get()->count() > 0){
+				foreach ($surveys->get() as $item) {
+
+					$itemArray = [];
+					$itemArray['NUMERO DE SOLICITUD GENERAL']   = $item->general_request_id;
+					$itemArray['ACTITUD DEL CONSULTOR']   = $this->calculateResult($item->question_one,1);
+					$itemArray['SEGUIMIENTO DEL CONSULTOR'] = $this->calculateResult($item->question_two,2);
+					$itemArray['TIEMPOS RESPUESTA CONSULTOR'] = $this->calculateResult($item->question_three,3);
+					$itemArray['CALIDAD DEL PRODUCTO'] = $this->calculateResult($item->question_four,4);
+					$itemArray['POR QUE ACTITUD DEL CONSULTOR'] =  $item->explain_1;
+					$itemArray['POR QUE SEGUIMIENTO DEL CONSULTOR'] =  $item->explain_2;
+					$itemArray['POR QUE TIEMPOS RESPUESTA CONSULTOR'] = $item->explain_3;
+					$itemArray['POR QUE CALIDAD DE PRODUCTO'] = $item->explain_4;
+					$itemArray['COMENTARIOS'] = $item->comments;
+
+					$itemArray['CONSULTOR'] =  $item['manager_id'] != null ? User::find($item['manager_id'])->nombre : 'SIN CONSULTOR';
+					$itemArray['USUARIO_PROYECTOS'] = $item['user_id'] != null ?  User::find($item['user_id'])->nombre  : 'SIN USUARIO PROYECTOS';				
+
+					$result[] = $itemArray;
+				}
+
+				if($result){
+					Excel::create('Reporte_encuesta',function($excel) use($result){
+					   $excel->sheet('Hoja_1', function($sheet) use($result) {
+						 $sheet->fromArray($result);
+					  });
+					})->download('xls');
+				}
+
+			}
 
 			  
 		}else{

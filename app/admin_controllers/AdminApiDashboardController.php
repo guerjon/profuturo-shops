@@ -559,28 +559,8 @@ class AdminApiDashboardController extends AdminBaseController
         return $query;
     }
 
-    public function getMonths($from_month,$from_year,$to_month,$to_year)
-    {   
-        $months = Lang::get('months');
-
-        //si from_year es menor 
-        if($from_year < $to_year){
-
-
-            //si from_year es igual
-        }elseif($from_year == $to_year){
-
-        }
-        
-    }
-
     public function productsByMonth()
-    {
-        $from_month = Input::get('from_month');
-        $from_year = Input::get('from_year');
-        $to_month = Input::get('to_month');
-        $to_year = Input::get('to_year');
-        
+    {        
         $months = getMonths($from_month,$from_year,$to_month+1,$to_year+1);
 
         $products = $this->orders()

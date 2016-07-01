@@ -14,39 +14,41 @@
 		<center>
 			<img src="/images/loading.gif" alt="Cargando..." id="loading" width="400" height="400">
 		</center>
+		{{Form::open(['method' => 'get'])}}
+			<div class="row">	
+				<div class="col col-md-3">
+					<div class="form-group">
+						{{Form::label('gerencia','Consultor',['class' => 'label-control'])}}
+						{{Form::select(
+							'gerencia',
+							[null => 'Todos los consultores'] + User::where('role','manager')->lists('gerencia','id'),
+							null,
+							['class' => 'form-control select-2 filter','id' =>'gerencia'])
+						}}
+					</div>
+				</div>
 
-		<div class="row">	
-			<div class="col col-md-3">
-				<div class="form-group">
-					{{Form::label('gerencia','Consultor',['class' => 'label-control'])}}
-					{{Form::select(
-						'gerencia',
-						[null => 'Todos los consultores'] + User::where('role','manager')->lists('gerencia','id'),
-						null,
-						['class' => 'form-control select-2 filter','id' =>'gerencia'])
-					}}
+				<div class="col col-md-3">
+					<div class="form-group">
+						{{Form::label('encuesta','NUMERO ENCUESTA',['class' => 'label-control'])}}
+						{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
+					</div>
+				</div>
+				<div class="col col-xs-3 text-right" >
+					<br>
+					
+					<input type="text" class="hidden" value="xls" name="xls">
+						<button class="btn btn-primary" type="submit">
+							<span class="glyphicon glyphicon-download-alt"></span>
+							Descargar reporte
+						</button>
+						<a href="grafica-arana" class="btn btn-primary">
+							<i class="fa fa-eraser" aria-hidden="true"></i>
+							Borrar Filtros
+						</a>
 				</div>
 			</div>
-
-			<div class="col col-md-3">
-				<div class="form-group">
-					{{Form::label('encuesta','NUMERO ENCUESTA',['class' => 'label-control'])}}
-					{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
-				</div>
-			</div>
-			<div class="col col-xs-3 text-right" >
-				<br>
-				{{Form::open(['method' => 'get'])}}
-				<input type="text" class="hidden" value="xls" name="xls">
-					<button class="btn btn-primary" type="submit">
-						<span class="glyphicon glyphicon-download-alt"></span>
-						Descargar reporte
-					</button>
-				{{Form::close()}}				
-			</div>
-
-		</div>
-
+		{{Form::close()}}				
 		
 		<hr>
 		<div class="row">
