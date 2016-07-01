@@ -31,11 +31,11 @@
             </div>
             <div class="col-md-2">
                 Regional
-                {{Form::select('region_id[]',Region::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'region_id','id' => 'region_id_filter'])}}  
+                {{Form::select('region_id[]',[],null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'region_id','id' => 'region_id_filter','disabled'])}}  
             </div>
             <div class="col-md-2">
                 Gerencia
-                {{Form::select('gerencia[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia','gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'gerencia','id' => 'gerencia_id_filter'])}}
+                {{Form::select('gerencia[]',[],null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'gerencia','id' => 'gerencia_id_filter','disabled'])}}
             </div>
             <div class="col-md-2">
                 Tipo Papeleria

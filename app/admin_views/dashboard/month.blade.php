@@ -131,7 +131,7 @@
                         	@foreach($top_products as $top_product)
     							<tr>
     								<td>
-    									{{$top_product->category ? $top_product->category->name : 'N/A'}}
+    									{{$top_product->description}}
     								</td>
     								<td>
     									{{$top_product->name}}
@@ -169,10 +169,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                        	@foreach($top_reverse_products as $top_reverse_product)
+                        	@foreach($top_reverse_products as $top_product)
     							<tr>
     								<td>
-    									{{$top_product->category ? $top_product->category->name : 'N/A'}}
+    									{{$top_product->description}}
     								</td>
     								<td>
     									{{$top_product->name}}

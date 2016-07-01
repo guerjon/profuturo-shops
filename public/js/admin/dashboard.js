@@ -460,11 +460,34 @@ $(function(){
         
         if(type == 'divisional_id'){
             var divisional_id = evt.params.data.id;
+            var action = laroute.action('AdminApiDashboardController@regions',{divisional_id:divisional_id});
             
-        }else if( type == 'regional_id'){
+            $.get(action,function(data){
+                var regions = data.regions;
+                    console.log(regions[0].name);
+                    $('#region_id_filter').attr('disabled',false);
 
+                    for (var i = regions.length - 1; i >= 0; i--) {
+                        $('#region_id_filter').append('<option value="'+regions[i].id+'">'+
+                            regions[i].name +'</option>');
+                    };
+            });
+
+        }else if( type == 'region_id'){
+            var region_id = evt.params.data.id;
+            var action = laroute.action('AdminApiDashboardController@managements',{region_id:region_id});
+            console.log(action);
+            $.get(action,function(data){
+                console.log(data);
+                var managements = data.managements;
+                    $('#gerencia_id_filter').attr('disabled',false);
+                    for (var i = managements.length - 1; i >= 0; i--) {
+                        $('#gerencia_id_filter').append('<option value="'+managements[i].gerencia+'">'+
+                            managements[i].gerencia +'</option>');
+                    };
+
+            });
         }
-
         
     });
 

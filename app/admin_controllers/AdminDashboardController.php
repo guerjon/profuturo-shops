@@ -154,9 +154,10 @@ class AdminDashboardController  extends AdminBaseController {
 
         $biggest_amounts = clone $amounts;
         $smallest_amounts = clone $amounts;
+        $top_reverse_products = clone $products;
 
         $query = ['top_products' => $this->filters($products->orderBy('q','desc'),$month,$year),
-                'top_reverse_products' => $this->filters($products->orderBy('q'),$month,$year),
+                'top_reverse_products' => $this->filters($top_reverse_products->orderBy('q'),$month,$year),
                 'biggest_amounts' => $this->filters($biggest_amounts->orderBy('q','desc'),$month,$year),
                 'smallest_amounts' => $this->filters($smallest_amounts->orderBy('q'),$month,$year),
                 'all_orders' => $this->filters($amounts->orderBy('users.ccosto'),$month,$year)];    

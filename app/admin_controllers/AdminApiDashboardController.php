@@ -623,4 +623,26 @@ class AdminApiDashboardController extends AdminBaseController
             ]);
     }
 
+    public function regions($divisional_id)
+    {
+        
+        $regions_id = User::where('divisional_id',$divisional_id)->groupBy('region_id')->select('region_id')->get();
+        $regions = [];
+        foreach ($regions_id as $region) {
+            array_push($regions,Region::find($region->region_id));
+        }
+
+        return Response::json([
+            'regions' => $regions
+        ]);
+    }
+
+    public function managements($region_id)
+    {
+        $managements = User::where('region_id',$region_id)->select('gerencia')->get();
+        return Response::json([
+            'managements' => $managements
+        ]);
+    }
+
 }
