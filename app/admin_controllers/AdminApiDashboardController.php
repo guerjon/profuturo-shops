@@ -40,72 +40,107 @@ class AdminApiDashboardController extends AdminBaseController
         $gerencias_c = 0;
         $gerencias_s = 0;
         
+        $orders_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(*) as c'));
+        $gerencias_c_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
+        $gerencias_s_o =  DB::table('users')->where('role','user_paper')->select(DB::raw('count(DISTINCT(id)) as c'));
 
-        $orders_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
-        $gerencias_c_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
-        $gerencias_s_o =  DB::table('users')->where('role','user_paper')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
 
+        $orders_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(*) as c'));
+        $gerencias_c_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
+        $gerencias_s_f =  DB::table('users')->where('role','user_furnitures')->select(DB::raw('count(DISTINCT(id)) as c'));
+    
+        
+        $orders_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(*) as c'));
+        $gerencias_c_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
+        $gerencias_s_m =  DB::table('users')->where('role','user_mac')->select(DB::raw('count(DISTINCT(id)) as c'));
+    
+        $orders_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(*) as c'));
+        $gerencias_c_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
+        $gerencias_s_c =  DB::table('users')->where('role','user_corporation')->select(DB::raw('count(DISTINCT(id)) as c'));
+
+        //Totales
         $total_o = $this->appendDateFilter(DB::table('orders')->join('order_product','orders.id','=','order_product.order_id')
             ->join('products','products.id','=','order_product.product_id')
-            ->select(DB::raw('SUM(products.price * order_product.quantity) as total')),'orders.created_at','orders.user_id') 
-            ->first()->total; 
-
-        $orders_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
-        $gerencias_c_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
-        $gerencias_s_f =  DB::table('users')->where('role','user_furnitures')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
+            ->select(DB::raw('SUM(products.price * order_product.quantity) as total')),'orders.created_at','orders.user_id'); 
 
         $total_f = $this->appendDateFilter(DB::table('furniture_orders')->join('furniture_furniture_order','furniture_orders.id','=','furniture_furniture_order.furniture_order_id')
                         ->join('furnitures','furnitures.id','=','furniture_furniture_order.furniture_id')
-                        ->select(DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as total')),'furniture_orders.created_at','furniture_orders.user_id') 
-                        ->first()
-                        ->total; 
-
-        $orders_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
-        $gerencias_c_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
-        $gerencias_s_m =  DB::table('users')->where('role','user_mac')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
+                        ->select(DB::raw('SUM(furnitures.unitary * furniture_furniture_order.quantity) as total')),'furniture_orders.created_at','furniture_orders.user_id'); 
 
         $total_m = $this->appendDateFilter(DB::table('mac_orders')->join('mac_order_mac_product','mac_orders.id','=','mac_order_mac_product.mac_order_id')
             ->join('mac_products','mac_products.id','=','mac_order_mac_product.mac_product_id')
-            ->select(DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) as total')),'mac_orders.created_at','mac_orders.user_id')
-            ->first()->total; ;
-            
-
-        $orders_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(*) as c'))->first()->c;
-        $gerencias_c_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'))->first()->c;
-        $gerencias_s_c =  DB::table('users')->where('role','user_corporation')->select(DB::raw('count(DISTINCT(id)) as c'))->first()->c;
+            ->select(DB::raw('SUM(mac_products.price * mac_order_mac_product.quantity) as total')),'mac_orders.created_at','mac_orders.user_id'); 
 
         $total_c = $this->appendDateFilter(DB::table('corporation_orders')->join('corporation_order_corporation_product','corporation_orders.id','=','corporation_order_corporation_product.corp_order_id')
             ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corp_product_id')
-            ->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as total')),'corporation_orders.created_at','corporation_orders.user_id')
-            ->first()->total; 
+            ->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as total')),'corporation_orders.created_at','corporation_orders.user_id'); 
         
+        $orders_o_modal = clone $orders_o;
+        $gerencias_c_o_modal = clone $gerencias_c_o;
+        $gerencias_s_o_modal = clone $gerencias_s_o;
+
+        $orders_f_modal = clone $orders_f;
+        $gerencias_c_f_modal = clone $gerencias_c_f;
+        $gerencias_s_f_modal =  clone $gerencias_s_f;
+
+        $orders_m_modal = clone $orders_m ;
+        $gerencias_c_m_modal = clone $gerencias_c_m ;
+        $gerencias_s_m_modal = clone $gerencias_s_m ;
+    
+        $orders_c_modal = clone $orders_c ;
+        $gerencias_c_c_modal = clone $gerencias_c_c ;
+        $gerencias_s_c_modal = clone $gerencias_s_c;
+
+
         switch ($paper_type) {
             case 'orders':
-                $orders = $orders_o;
-                $gerencias_s = $gerencias_s_o;
-                $gerencias_c = $gerencias_c_o;
-                $total = $total_o;
+                $orders = $orders_o->first()->c;
+                $gerencias_s = $gerencias_s_o->first()->c;
+                $gerencias_c = $gerencias_c_o->first()->c;
+
+                $orders_modal = $orders_o_modal->select('*');
+                $gerencias_s_modal = $gerencias_s_o_modal->select('*');
+                $gerencias_c_modal = $gerencias_c_o_modal->select('*');
+
+                $total = $total_o->first()->total;
+
                 break;
 
             case 'furniture_orders':
-                $orders = $orders_f;
-                $gerencias_s = $gerencias_s_f;
-                $gerencias_c = $gerencias_c_f;
-                $total = $total_f;
+                $orders = $orders_f->first()->c;
+                $gerencias_s = $gerencias_s_f->first()->c;
+                $gerencias_c = $gerencias_c_f->first()->c;
+
+                $orders_modal = $orders_f_modal->select('*');
+                $gerencias_s_modal = $gerencias_s_f_modal->select('*');
+                $gerencias_c_modal = $gerencias_c_f_modal->select('*');
+
+                $total = $total_f->first()->total;
                 break;
 
             case 'mac_orders':
-                $orders = $orders_m;
-                $gerencias_s = $gerencias_s_m;
-                $gerencias_c = $gerencias_c_m;
-                $total = $total_m;
+                $orders = $orders_m->first()->c;
+                $gerencias_s = $gerencias_s_m->first()->c;
+                $gerencias_c = $gerencias_c_m->first()->c;
+
+                $orders_modal = $orders_m_modal->select('*');
+                $gerencias_s_modal = $gerencias_s_m_modal->select('*');
+                $gerencias_c_modal = $gerencias_c_m_modal->select('*');
+
+
+                $total = $total_m->first()->total;
                 break;
 
             case 'corporation_orders':
-                $orders = $orders_c;
-                $gerencias_s = $gerencias_s_c;
-                $gerencias_c = $gerencias_c_c;
-                $total = $total_c;                
+                $orders = $orders_c->first()->c;
+                $gerencias_s = $gerencias_s_c->first()->c;
+                $gerencias_c = $gerencias_c_c->first()->c;
+
+                $orders_modal = $orders_c_modal->select('*');
+                $gerencias_s_modal = $gerencias_s_c_modal->select('*');
+                $gerencias_c_modal = $gerencias_c_c_modal->select('*');
+
+                $total = $total_c->first()->total;                
                 break;
             
             default:
@@ -117,13 +152,19 @@ class AdminApiDashboardController extends AdminBaseController
         
         //total de gerencias
         
-        
+        //orders  = pedidos
+        //people_orders =  gerencias con pedidos
+        //people = gerencia sin pedidos
         $gerencias = $gerencias_s - $gerencias_c;
+        
         return Response::json([
             'orders'    => $orders,
             'people'    => $gerencias,
             'people_orders' => $gerencias_c,
-            'total'     => $total
+            'total'     => $total,
+            'orders_modal' => $orders_modal->get(),
+            'people_modal' => $gerencias_s_modal->get(),
+            'people_orders_modal' => $gerencias_c_modal->get()
         ]);
     }
 
