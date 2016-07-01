@@ -43,7 +43,7 @@ class AdminSpiderGraphController extends \BaseController {
 					$itemArray['CONSULTOR'] =  $item['manager_id'] != null ? User::find($item['manager_id'])->nombre : 'SIN CONSULTOR';
 					$itemArray['USUARIO_PROYECTOS'] = $item['user_id'] != null ?  User::find($item['user_id'])->nombre  : 'SIN USUARIO PROYECTOS';				
 
-					$result[] = $itemArray;
+					$result[] += $itemArray;
 				}
 
 				if($result){
