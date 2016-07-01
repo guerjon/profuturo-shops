@@ -8,6 +8,18 @@
         <h4 class="modal-title">Pedidos</h4>
       </div>
       <div class="modal-body" id="orders_modal_body">
+          <table>
+            <thead>
+              <th>
+                CCOSTOS
+              </th>
+              <th>
+                GERENCIA
+              </th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
