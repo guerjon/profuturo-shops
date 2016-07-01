@@ -10,7 +10,7 @@ class AdminSpiderGraphController extends \BaseController {
 	public function getIndex()
 	{   
 		$surveys = SatisfactionSurvey::query();
-
+		$result = [];
 
 
 		if (Input::has('xls')) {
@@ -21,8 +21,8 @@ class AdminSpiderGraphController extends \BaseController {
 	  		if(Input::has('gerencia'))
 				$surveys->where('general_requests.manager_id',Input::get('gerencia'));
 
-			if(Input::has('encuesta'))
-			  	$surveys->where('satisfaction_surveys.id',Input::get('encuesta'));
+			// if(Input::has('encuesta'))
+			//   	$surveys->where('satisfaction_surveys.id',Input::get('encuesta'));
 
 			
 			if($surveys->get()->count() > 0){
@@ -43,7 +43,7 @@ class AdminSpiderGraphController extends \BaseController {
 					$itemArray['CONSULTOR'] =  $item['manager_id'] != null ? User::find($item['manager_id'])->nombre : 'SIN CONSULTOR';
 					$itemArray['USUARIO_PROYECTOS'] = $item['user_id'] != null ?  User::find($item['user_id'])->nombre  : 'SIN USUARIO PROYECTOS';				
 
-					$result[] += $itemArray;
+					array_push($result,$itemArray);
 				}
 
 				if($result){
