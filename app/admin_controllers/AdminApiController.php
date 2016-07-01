@@ -2085,11 +2085,14 @@ class AdminApiController extends AdminBaseController
       
     }
 
+
     if(Input::has('encuesta')){
       $surveys->where('satisfaction_surveys.id','=',Input::get('encuesta'));
       $comments->where('satisfaction_surveys.id','=',Input::get('encuesta'));
     }
 
+    $surveys->where('satisfaction_surveys.created_at','>=',Input::get('since'))
+      ->where('satisfaction_surveys.created_at','<=',\Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->addDay()->format('Y-m-d'));
    
       return Response::json([
         'status' => 200,
