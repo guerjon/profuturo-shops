@@ -96,6 +96,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::post('dashboard-products-by-month','AdminDashboardController@productsByMonth');
 		Route::post('dashboard-show-orders','AdminDashboardController@showOrders');
 		Route::post('dashboard-show-managements','AdminDashboardController@showManagements');
+		Route::post('dashboard-show-managements-without','AdminDashboardController@showManagementsWithout');
+		
 		
 	});
 

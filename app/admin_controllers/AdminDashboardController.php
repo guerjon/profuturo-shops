@@ -317,4 +317,74 @@ class AdminDashboardController  extends AdminBaseController {
             ->withOrders($orders->paginate(10));
     }
 
+
+    // $query = User::where('role','user_paper')->doesntHave('orders')->orderBy('ccosto');
+      
+    //   if(Input::has('since')){
+    //     $query->whereDoesntHave('orders',function($q){
+    //       $q->where('orders.created_at','>=',Input::get('since')); 
+    //     });
+    //   }
+
+    //   if(Input::has('until')){
+    //     $query->whereDoesntHave('orders',function($q){
+    //       $q->where('orders.created_at','>=',Input::get('until')); 
+    //     });
+    //   }
+
+    // $q = clone $query;
+
+    public function showManagementsWithout()
+    {
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('to'))->addDay()->format('Y-m-d');
+        $paper_type = Input::get('paper-type','orders');
+
+        switch ($paper_type) {
+            case 'orders':
+                $helper = ['orders.id','order_product','price','products','orders','orders.created_at'];
+                break;
+            case 'furniture_orders':
+                $helper = ['furniture_orders.id','furniture_furniture_order','unitary','furnitures','furnitureOrders','furniture_orders.created_at'];
+                break;
+            case 'mac_orders':
+                $helper = ['mac_orders.id','mac_order_mac_product','price','mac_products','macOrders','mac_orders.created_at'];
+                break;
+
+            case 'corporation_orders':
+                $helper = ['corporation_orders.id','corporation_order_corporation_product','price','corporation_products','corporationOrders','corporation_orders.created_at'];
+                break;
+            
+            default:
+                break;
+        }
+        $query = User::doesntHave($helper[4])->orderBy('ccosto')->select('users.*');
+
+        if(Input::has('divisional_id')){
+            $orders->whereIn('users.divisional_id',Input::get('divisional_id'));
+        }
+
+        if(Input::has('region_id')){
+            $orders->whereIn('region_id',Input::get('region_id'));
+        }
+
+        if(Input::has('gerencia')){
+            $orders->whereIn('gerencia',Input::get('gerencia'));
+        }
+        
+        
+      
+        $query->whereDoesntHave($helper[4],function($q) use($helper){
+          $q->where($helper[5],'>=',Input::get('from')); 
+        });
+      
+        $query->whereDoesntHave($helper[4],function($q) use($helper,$to){
+          $q->where($helper[5],'<=',$to); 
+        });
+          
+
+        return View::make('admin::dashboard/show_managements_without')
+            ->withUsers($query->paginate(10));
+
+    }
+
 }
