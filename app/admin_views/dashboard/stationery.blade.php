@@ -27,15 +27,15 @@
             </div>
             <div class="col-md-2">
                 Divisional
-                {{Form::select('divisional_id[]',Divisional::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
+                {{Form::select('divisional_id[]',Divisional::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'divisional_id','id' => 'divisional_id_filter'])}}
             </div>
             <div class="col-md-2">
                 Regional
-                {{Form::select('region_id[]',Region::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}  
+                {{Form::select('region_id[]',Region::lists('name','id'),null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'region_id','id' => 'region_id_filter'])}}  
             </div>
             <div class="col-md-2">
                 Gerencia
-                {{Form::select('gerencia[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia','gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple'])}}
+                {{Form::select('gerencia[]',User::where('role','user_paper')->groupBy('gerencia')->lists('gerencia','gerencia'),null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'gerencia','id' => 'gerencia_id_filter'])}}
             </div>
             <div class="col-md-2">
                 Tipo Papeleria

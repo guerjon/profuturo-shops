@@ -108,7 +108,7 @@
     </h1>
     <hr>
     <div class="row">    
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -135,7 +135,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -162,7 +162,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -183,36 +183,6 @@
                                     Region
                                 </th>
                                <!--  <th>
-                                    Monto
-                                </th> -->
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="panel panel-primary table-wrap" style="height:301px;">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Gerencias con menor monto gastado
-                    </h3>
-                </div>
-                <div class="panel-body"> 
-                    <table id="top-reverse-products" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                   CC
-                                </th>
-                                <th>
-                                    Gerencia
-                                </th>
-                                <th>
-                                    Region
-                                </th>
-                                <!-- <th>
                                     Monto
                                 </th> -->
                             </tr>

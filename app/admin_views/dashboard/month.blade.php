@@ -105,7 +105,7 @@
         </div>
     </div>
     <div class="row">    
-        <div class="col-md-3 ">
+        <div class="col-md-4 ">
             <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -146,7 +146,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -187,7 +187,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:301px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -229,53 +229,6 @@
     								</td>
     							</tr>
                         	@endforeach                     	
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="panel panel-primary table-wrap" style="height:301px;">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Gerencias con menor monto gastado
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                   CC
-                                </th>
-                                <th>
-                                    Gerencia
-                                </th>
-                                <th>
-                                    Region
-                                </th>
-                                <th>
-                                	Monto
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        	@foreach($smallest_amounts as $smallest_amount)
-    							<tr>
-    								<td>
-    									{{$smallest_amount->ccosto }}
-    								</td>
-    								<td>
-    									{{$smallest_amount->gerencia}}
-    								</td>
-    								<td>
-    									{{$smallest_amount->region_name}}
-    								</td>
-    								<td>
-    									{{$smallest_amount->q}}
-    								</td>
-    							</tr>
-                        	@endforeach                      	
                         </tbody>
                     </table>
                 </div>
