@@ -65,49 +65,55 @@
 
     <div class="row dashboard-first-row-panel-wrap">
         <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-12">
-                            <span class="fa fa-truck dashboard-fa"></span>
-                        </div>
-                        <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Pedidos</h3>
-                            <span id="orders" class="panel-big-text"></span>
+            <a href="#" data-toggle="modal" data-target="#orders_modal">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-12">
+                                <span class="fa fa-truck dashboard-fa"></span>
+                            </div>
+                            <div class="col-md-9 col-xs-12">
+                                <h3 class="panel-title">Pedidos</h3>
+                                <span id="orders" class="panel-big-text"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>                
+            </a>
         </div>
         <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-12">
-                            <span class="fa fa-check dashboard-fa"></span>
-                        </div>
-                        <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Gerencias con pedido</h3>
-                            <span id="people-orders" class="panel-big-text"></span>
+            <a href="#" data-toggle="modal" data-target="#managment_orders_modal">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-12">
+                                <span class="fa fa-check dashboard-fa"></span>
+                            </div>
+                            <div class="col-md-9 col-xs-12">
+                                <h3 class="panel-title">Gerencias con pedido</h3>
+                                <span id="people-orders" class="panel-big-text"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </a>            
         </div>
         <div class="col-md-2">
-            <div class="panel panel-default">
-                <div class="panel-body text-center">
-                    <div class="row">
-                        <div class="col-md-3 col-xs-12">
-                            <span class="fa fa-close dashboard-fa"></span>
-                        </div>
-                        <div class="col-md-9 col-xs-12">
-                            <h3 class="panel-title">Gerencias sin pedido</h3>
-                            <span id="people" class="panel-big-text"></span>
+            <a href="#" data-toggle="modal" data-target="#managment_without_orders_modal">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-12">
+                                <span class="fa fa-close dashboard-fa"></span>
+                            </div>
+                            <div class="col-md-9 col-xs-12">
+                                <h3 class="panel-title">Gerencias sin pedido</h3>
+                                <span id="people" class="panel-big-text"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-md-2">
             <div class="panel panel-default">
@@ -270,6 +276,14 @@
     {{Form::open(['id' => 'annual'])}}
     {{Form::close()}}
 
+    @include('admin::dashboard/modals/orders')
+    @include('admin::dashboard/modals/managment_orders')
+    @include('admin::dashboard/modals/managment_without_orders')
+
+@endsection
+
+@section('modals')
+    
 @endsection
 
     @section('style')
