@@ -408,6 +408,49 @@ $(function(){
     drawAnnualChart();
     drawAnnualMonthChart();
 
+    $('#orders-button').click(function(event){
+        var action = laroute.action('AdminApiDashboardController@overview');
+        
+        $.get(action, $('#filters-form').serialize(), function(data){
+            var orders = data.orders_modal;
+            for (var i = orders.length - 1; i >= 0; i--) {
+                console.log(orders[i]);
+                $('#orders_modal_body').append('<p> CCOSTOS: '+ orders[i].ccosto+ '</p>');
+            };
+            $('#orders_modal').modal();
+        })  
+    });
+
+    $('#managment_orders_button').click(function(event){
+        var action = laroute.action('AdminApiDashboardController@overview');
+        
+        $.get(action, $('#filters-form').serialize(), function(data){
+            console.log(data);
+            var management_orders = data.people_orders;
+            console.log(orders);
+            for (var i = orders.length - 1; i >= 0; i--) {
+                console.log(orders[i]);
+                $('#orders_modal_body').append('<p> CCOSTOS: '+ management_orders[i].ccosto+ '</p>');
+            };
+            $('#orders_modal').modal();
+        })  
+    });
+
+    $('#managment_without_orders_button').click(function(event){
+        var action = laroute.action('AdminApiDashboardController@overview');
+        
+        $.get(action, $('#filters-form').serialize(), function(data){
+            var management_wo_orders = data.people_modal;
+            console.log(orders);
+            for (var i = orders.length - 1; i >= 0; i--) {
+                console.log(orders[i]);
+                $('#orders_modal tbody').append('<p> CCOSTOS: '+ management_wo_orders[i].ccosto+ '</p>');
+            };
+            $('#orders_modal').modal();
+        })  
+    });
+
+
 
     $('.select2').select2({theme:'bootstrap','placeholder':'Todas'});
 
