@@ -24,7 +24,9 @@ class AdminSpiderGraphController extends \BaseController {
 			// if(Input::has('encuesta'))
 			//   	$surveys->where('satisfaction_surveys.id',Input::get('encuesta'));
 
-			
+			$surveys->where('satisfaction_surveys.created_at','>=',Input::get('since'))
+      			->where('satisfaction_surveys.created_at','<=',\Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->addDay()->format('Y-m-d'));
+
 			if($surveys->get()->count() > 0){
 				foreach ($surveys->get() as $item) {
 
