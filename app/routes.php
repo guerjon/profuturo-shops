@@ -75,6 +75,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('dashboard-biggest-amount/{category?}','AdminApiDashboardController@biggestAmount');
 		Route::get('dashboard-smallest-amount/{category?}','AdminApiDashboardController@smallestAmount');
 		Route::get('dashboard-products-month','AdminApiDashboardController@productsByMonth');
+		Route::get('dashboard-get-regions/{divisional_id}','AdminApiDashboardController@regions');
+		Route::get('dashboard-get-managements/{region_id}','AdminApiDashboardController@managements');
 		
 
 		Route::controller('general-requests-assign', 'AdminGeneralRequestsAssignController');
