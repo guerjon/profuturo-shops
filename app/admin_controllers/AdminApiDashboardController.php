@@ -156,15 +156,15 @@ class AdminApiDashboardController extends AdminBaseController
         //people_orders =  gerencias con pedidos
         //people = gerencia sin pedidos
         $gerencias = $gerencias_s - $gerencias_c;
-        
+
         return Response::json([
-            'orders'    => $orders,
-            'people'    => $gerencias,
+            'orders' => $orders,
+            'people' => $gerencias,
             'people_orders' => $gerencias_c,
-            'total'     => $total,
+            'total' => $total,
             'orders_modal' => $orders_modal->get(),
             'people_modal' => $gerencias_s_modal->get(),
-            'people_orders_modal' => $gerencias_c_modal->get()
+            'people_orders_modal' => $gerencias_c_modal->groupBy('users.id')->get()
         ]);
     }
 
@@ -314,7 +314,6 @@ class AdminApiDashboardController extends AdminBaseController
             default:
                 break;
         }
-
 
         return Response::json($query->get());
     }

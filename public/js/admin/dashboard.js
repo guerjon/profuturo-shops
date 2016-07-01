@@ -12,7 +12,8 @@ $(function(){
             $('#people-orders').text(numeral(data.people_orders).format('0,0'));
             $('#orders').text(numeral(data.orders).format('0,0'));
             $('#total').text(numeral(data.total).format('0,0'));
-            data.avg = data.total / data.people;
+            console.log(data);
+            data.avg = data.total / data.people_orders;
             data.avg_order = data.total / data.orders;
             $('#avg').text(numeral(data.avg).format('0,0.00'));
             $('#avg-order').text(numeral(data.avg_order).format('0,0.00'));
@@ -414,8 +415,8 @@ $(function(){
         $.get(action, $('#filters-form').serialize(), function(data){
             var orders = data.orders_modal;
             for (var i = orders.length - 1; i >= 0; i--) {
-                console.log(orders[i]);
-                $('#orders_modal_body').append('<p> CCOSTOS: '+ orders[i].ccosto+ '</p>');
+                
+                $('#orders_modal_body').find('tbody').append('<tr><td>'+ orders[i].ccosto+ '</td><td>'+orders[i].gerencia+' <tr>');
             };
             $('#orders_modal').modal();
         })  
@@ -425,12 +426,11 @@ $(function(){
         var action = laroute.action('AdminApiDashboardController@overview');
         
         $.get(action, $('#filters-form').serialize(), function(data){
-            console.log(data);
-            var management_orders = data.people_orders;
-            console.log(orders);
+            console.log(data.people_orders_modal);
+            var orders = data.people_orders_modal;
+
             for (var i = orders.length - 1; i >= 0; i--) {
-                console.log(orders[i]);
-                $('#orders_modal_body').append('<p> CCOSTOS: '+ management_orders[i].ccosto+ '</p>');
+                $('#orders_modal_body').append('<p> CCOSTOS: '+ orders[i].ccosto+ '</p>');
             };
             $('#orders_modal').modal();
         })  
