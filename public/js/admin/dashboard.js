@@ -452,6 +452,21 @@ $(function(){
 
 
 
+
     $('.select2').select2({theme:'bootstrap','placeholder':'Todas'});
+
+    $('.select2').on('select2:select',function(evt){
+        var type = $(this).attr('type');
+        
+        if(type == 'divisional_id'){
+            var divisional_id = evt.params.data.id;
+            
+        }else if( type == 'regional_id'){
+
+        }
+
+        
+    });
+
 
 });
