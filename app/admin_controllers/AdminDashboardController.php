@@ -210,4 +210,111 @@ class AdminDashboardController  extends AdminBaseController {
       return View::make('admin::dashboard/products_by_month');
     }
 
+    public function showManagements()
+    {
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('to'))->addDay()->format('Y-m-d');
+        $paper_type = Input::get('paper-type','orders');
+
+        switch ($paper_type) {
+            case 'orders':
+                $helper = ['users.id','order_product','price','products'];
+                $orders = $this->orders();
+                break;
+            case 'furniture_orders':
+                $helper = ['users.id','furniture_furniture_order','unitary','furnitures'];
+                $orders = $this->furnitureOrders();
+                break;
+            case 'mac_orders':
+                $helper = ['users.id','mac_order_mac_product','price','mac_products'];
+                $orders = $this->macOrders();
+                break;
+
+            case 'corporation_orders':
+                $helper = ['users.id','corporation_order_corporation_product','price','corporation_products'];
+                $orders = $this->corporationOrders();
+                break;
+            
+            default:
+                break;
+        }
+
+
+        if(Input::has('divisional_id')){
+            $orders->whereIn('users.divisional_id',Input::get('divisional_id'));
+        }
+
+        if(Input::has('region_id')){
+            $orders->whereIn('region_id',Input::get('region_id'));
+        }
+
+        if(Input::has('gerencia')){
+            $orders->whereIn('gerencia',Input::get('gerencia'));
+        }
+
+        $orders->where($paper_type.'.created_at','>=',Input::get('from'))
+                ->where($paper_type.'.created_at','<=',$to);
+
+
+        $orders->orderBy($helper[0])->groupBy($helper[0])->select('users.*');
+
+        return View::make('admin::dashboard/management_orders')
+            ->withUsers($orders->paginate(10));
+        
+    }
+
+    public function showOrders()
+    {
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('to'))->addDay()->format('Y-m-d');
+        $paper_type = Input::get('paper-type','orders');
+
+        switch ($paper_type) {
+            case 'orders':
+                $helper = ['orders.id','order_product','price','products'];
+                $orders = $this->orders();
+                break;
+            case 'furniture_orders':
+                $helper = ['furniture_orders.id','furniture_furniture_order','unitary','furnitures'];
+                $orders = $this->furnitureOrders();
+                break;
+            case 'mac_orders':
+                $helper = ['mac_orders.id','mac_order_mac_product','price','mac_products'];
+                $orders = $this->macOrders();
+                break;
+
+            case 'corporation_orders':
+                $helper = ['corporation_orders.id','corporation_order_corporation_product','price','corporation_products'];
+                $orders = $this->corporationOrders();
+                break;
+            
+            default:
+                break;
+        }
+
+
+        if(Input::has('divisional_id')){
+            $orders->whereIn('users.divisional_id',Input::get('divisional_id'));
+        }
+
+        if(Input::has('region_id')){
+            $orders->whereIn('region_id',Input::get('region_id'));
+        }
+
+        if(Input::has('gerencia')){
+            $orders->whereIn('gerencia',Input::get('gerencia'));
+        }
+
+        $orders->where($paper_type.'.created_at','>=',Input::get('from'))
+                ->where($paper_type.'.created_at','<=',$to);
+
+
+        $orders->orderBy($helper[0])->groupBy($helper[0])
+            ->select('users.ccosto','gerencia',$helper[0],
+                        DB::raw('SUM('.$helper[1].'.quantity) as quantity'),
+                        DB::raw($helper[1].'.quantity * '.$helper[3].'.'.$helper[2].' as total')
+            );
+
+        return View::make('admin::dashboard/show_orders')
+            ->withOrders($orders->paginate(10));
+    }
+
 }
