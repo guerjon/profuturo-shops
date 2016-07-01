@@ -189,7 +189,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -216,7 +216,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -243,7 +243,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-primary table-wrap" style="height:700px;">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -265,28 +265,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
-            <div class="panel panel-primary table-wrap" style="height:700px;">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Pedidos con menor monto gastado
-                    </h3>
-                </div>
-                <div class="panel-body">   
-                    <table id="smallest-amount" class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>CC</th>
-                                <th>Gerencía</th>
-                                <th>Región</th>
-                                <th>Monto</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+
     </div>
     {{Form::open(['id' => 'annual'])}}
     {{Form::close()}}
