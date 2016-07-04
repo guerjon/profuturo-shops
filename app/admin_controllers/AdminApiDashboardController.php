@@ -148,18 +148,11 @@ class AdminApiDashboardController extends AdminBaseController
         }
 
         
-        //people gerencias pedido
-        
-        //total de gerencias
-        
-        //orders  = pedidos
-        //people_orders =  gerencias con pedidos
-        //people = gerencia sin pedidos
-        $gerencias = $gerencias_s - $gerencias_c;
+        $managements_without = $this->managementsWithout();
 
         return Response::json([
             'orders' => $orders,
-            'people' => $gerencias,
+            'people' => $managements_without,
             'people_orders' => $gerencias_c,
             'total' => $total,
             'orders_modal' => $orders_modal->get(),
@@ -167,6 +160,7 @@ class AdminApiDashboardController extends AdminBaseController
             'people_orders_modal' => $gerencias_c_modal->groupBy('users.id')->get()
         ]);
     }
+
 
 
     public function products() {
@@ -643,6 +637,70 @@ class AdminApiDashboardController extends AdminBaseController
         return Response::json([
             'managements' => $managements
         ]);
+    }
+
+    private function managementsWithout()
+    {
+        if(Input::has('from')){
+            Session::put('input',Input::all());
+            $input = Session::get('input');
+        }else{
+            $input = Session::get('input');
+        }
+
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',$input['to'])->addDay()->format('Y-m-d');
+        $paper_type = Input::get('paper-type','orders');
+
+        switch ($paper_type) {
+            case 'orders':
+                $helper = ['orders.id','order_product','price','products','orders','orders.created_at'];
+                break;
+            case 'furniture_orders':
+                $helper = ['furniture_orders.id','furniture_furniture_order','unitary','furnitures','furnitureOrders','furniture_orders.created_at'];
+                break;
+            case 'mac_orders':
+                $helper = ['mac_orders.id','mac_order_mac_product','price','mac_products','macOrders','mac_orders.created_at'];
+                break;
+
+            case 'corporation_orders':
+                $helper = ['corporation_orders.id','corporation_order_corporation_product','price','corporation_products','corporationOrders','corporation_orders.created_at'];
+                break;
+            
+            default:
+                break;
+        }
+        $query = User::doesntHave($helper[4])->orderBy('ccosto')->select('users.*');
+
+        $query = $this->filtersToShow($input,$query);
+      
+        $query->whereDoesntHave($helper[4],function($q) use($helper,$input){
+          $q->where($helper[5],'>=',$input['to']); 
+        });
+      
+        $query->whereDoesntHave($helper[4],function($q) use($helper,$to,$input){
+          $q->where($helper[5],'<=',$input['from']); 
+        });
+          
+
+        return $query->get()->count();
+
+    }
+
+    private function filtersToShow($input,$orders){
+        
+        if(array_key_exists('divisional_id',$input)){
+            $orders->whereIn('users.divisional_id',$input['divisional_id']);
+        }
+
+        if(array_key_exists('region_id', $input)){
+            $orders->whereIn('region_id',$input['region_id']);
+        }
+
+        if(array_key_exists('gerencia', $input)){
+            $orders->whereIn('gerencia',$input['gerencia']);
+        }
+
+        return $orders;
     }
 
 }
