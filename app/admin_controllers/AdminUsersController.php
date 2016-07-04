@@ -134,6 +134,21 @@ class AdminUsersController extends AdminBaseController
           }
         }
 
+        $users_training = User::withTrashed()->where('role', 'user_training');
+        if(Input::has('user_training'))
+        {
+          $input = Input::get('user_training', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+                $users_training->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+            if($gerencia = @$input['gerencia']){
+                $users_training->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+          }
+        }
 
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
@@ -144,7 +159,9 @@ class AdminUsersController extends AdminBaseController
       ->withUsersLoader($users_loader->paginate(10))
       ->withUsersMac($users_mac->paginate(10))
       ->withUsersCorporation($users_corporation->paginate(10))
+      ->withUsersTraining($users_training->paginate(10))
       ->withActiveTab($active_tab);
+
   }
 
   public function create()
@@ -198,11 +215,13 @@ class AdminUsersController extends AdminBaseController
         break;
       case 'user_corporation':
         $user->role = 'user_corporation';
+      case 'user_training':
+        $user->role = 'user_training';
+        break;
+
         default:        
           break;
     }
-
-      
 
     if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
