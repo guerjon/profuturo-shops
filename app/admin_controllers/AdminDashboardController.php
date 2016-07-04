@@ -184,6 +184,7 @@ class AdminDashboardController  extends AdminBaseController {
 
     private function filters($builder,$month,$year)
     {   
+
         $carbon = Carbon::createFromDate($year, $month, 1);
         $paper_type = Input::get('paper-type','orders');
         
@@ -212,8 +213,15 @@ class AdminDashboardController  extends AdminBaseController {
 
     public function showManagements()
     {
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('to'))->addDay()->format('Y-m-d');
-        $paper_type = Input::get('paper-type','orders');
+        if(Input::has('from')){
+            Session::put('input',Input::all());
+            $input = Session::get('input');
+        }else{
+            $input = Session::get('input');
+        }
+            
+        $paper_type = $input['paper-type'];
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',$input['to'])->addDay()->format('Y-m-d');
 
         switch ($paper_type) {
             case 'orders':
@@ -238,20 +246,9 @@ class AdminDashboardController  extends AdminBaseController {
                 break;
         }
 
+        $orders = $this->filtersToShow($input,$orders);
 
-        if(Input::has('divisional_id')){
-            $orders->whereIn('users.divisional_id',Input::get('divisional_id'));
-        }
-
-        if(Input::has('region_id')){
-            $orders->whereIn('region_id',Input::get('region_id'));
-        }
-
-        if(Input::has('gerencia')){
-            $orders->whereIn('gerencia',Input::get('gerencia'));
-        }
-
-        $orders->where($paper_type.'.created_at','>=',Input::get('from'))
+        $orders->where($paper_type.'.created_at','>=',$input['from'])
                 ->where($paper_type.'.created_at','<=',$to);
 
 
@@ -264,8 +261,16 @@ class AdminDashboardController  extends AdminBaseController {
 
     public function showOrders()
     {
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('to'))->addDay()->format('Y-m-d');
-        $paper_type = Input::get('paper-type','orders');
+        //Solo from por que queremos saber si es la primera vez que entra o es por paginación
+        if(Input::has('from')){
+            Session::put('input',Input::all());
+            $input = Session::get('input');
+        }else{
+            $input = Session::get('input');
+        }
+            
+        $paper_type = $input['paper-type'];
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',$input['to'])->addDay()->format('Y-m-d');
 
         switch ($paper_type) {
             case 'orders':
@@ -290,22 +295,10 @@ class AdminDashboardController  extends AdminBaseController {
                 break;
         }
 
+        $orders = $this->filtersToShow($input,$orders);
 
-        if(Input::has('divisional_id')){
-            $orders->whereIn('users.divisional_id',Input::get('divisional_id'));
-        }
-
-        if(Input::has('region_id')){
-            $orders->whereIn('region_id',Input::get('region_id'));
-        }
-
-        if(Input::has('gerencia')){
-            $orders->whereIn('gerencia',Input::get('gerencia'));
-        }
-
-        $orders->where($paper_type.'.created_at','>=',Input::get('from'))
+        $orders->where($paper_type.'.created_at','>=',$input['from'])
                 ->where($paper_type.'.created_at','<=',$to);
-
 
         $orders->orderBy($helper[0])->groupBy($helper[0])
             ->select('users.ccosto','gerencia',$helper[0],
@@ -317,26 +310,16 @@ class AdminDashboardController  extends AdminBaseController {
             ->withOrders($orders->paginate(10));
     }
 
-
-    // $query = User::where('role','user_paper')->doesntHave('orders')->orderBy('ccosto');
-      
-    //   if(Input::has('since')){
-    //     $query->whereDoesntHave('orders',function($q){
-    //       $q->where('orders.created_at','>=',Input::get('since')); 
-    //     });
-    //   }
-
-    //   if(Input::has('until')){
-    //     $query->whereDoesntHave('orders',function($q){
-    //       $q->where('orders.created_at','>=',Input::get('until')); 
-    //     });
-    //   }
-
-    // $q = clone $query;
-
     public function showManagementsWithout()
     {
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('to'))->addDay()->format('Y-m-d');
+        if(Input::has('from')){
+            Session::put('input',Input::all());
+            $input = Session::get('input');
+        }else{
+            $input = Session::get('input');
+        }
+
+        $to = \Carbon\Carbon::createFromFormat('Y-m-d',$input['to'])->addDay()->format('Y-m-d');
         $paper_type = Input::get('paper-type','orders');
 
         switch ($paper_type) {
@@ -359,32 +342,37 @@ class AdminDashboardController  extends AdminBaseController {
         }
         $query = User::doesntHave($helper[4])->orderBy('ccosto')->select('users.*');
 
-        if(Input::has('divisional_id')){
-            $orders->whereIn('users.divisional_id',Input::get('divisional_id'));
-        }
-
-        if(Input::has('region_id')){
-            $orders->whereIn('region_id',Input::get('region_id'));
-        }
-
-        if(Input::has('gerencia')){
-            $orders->whereIn('gerencia',Input::get('gerencia'));
-        }
-        
-        
+        $query = $this->filtersToShow($input,$query);
       
-        $query->whereDoesntHave($helper[4],function($q) use($helper){
-          $q->where($helper[5],'>=',Input::get('from')); 
+        $query->whereDoesntHave($helper[4],function($q) use($helper,$input){
+          $q->where($helper[5],'>=',$input['to']); 
         });
       
-        $query->whereDoesntHave($helper[4],function($q) use($helper,$to){
-          $q->where($helper[5],'<=',$to); 
+        $query->whereDoesntHave($helper[4],function($q) use($helper,$to,$input){
+          $q->where($helper[5],'<=',$input['from']); 
         });
           
 
         return View::make('admin::dashboard/show_managements_without')
             ->withUsers($query->paginate(10));
 
+    }
+
+    private function filtersToShow($input,$orders){
+        
+        if(array_key_exists('divisional_id',$input)){
+            $orders->whereIn('users.divisional_id',$input['divisional_id']);
+        }
+
+        if(array_key_exists('region_id', $input)){
+            $orders->whereIn('region_id',$input['region_id']);
+        }
+
+        if(array_key_exists('gerencia', $input)){
+            $orders->whereIn('gerencia',$input['gerencia']);
+        }
+
+        return $orders;
     }
 
 }

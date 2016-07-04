@@ -94,10 +94,9 @@ Route::group(['before' => 'auth'], function(){
 		Route::post('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
 		Route::post('dashboard-overview-month-amount/{index}/{month}/{year}','AdminDashboardController@overviewByMonthAmount');
 		Route::post('dashboard-products-by-month','AdminDashboardController@productsByMonth');
-		Route::post('dashboard-show-orders','AdminDashboardController@showOrders');
-		Route::post('dashboard-show-managements','AdminDashboardController@showManagements');
-		Route::post('dashboard-show-managements-without','AdminDashboardController@showManagementsWithout');
-		
+		Route::any('dashboard-show-orders','AdminDashboardController@showOrders');
+		Route::any('dashboard-show-managements','AdminDashboardController@showManagements');
+		Route::any('dashboard-show-managements-without','AdminDashboardController@showManagementsWithout');
 		
 	});
 

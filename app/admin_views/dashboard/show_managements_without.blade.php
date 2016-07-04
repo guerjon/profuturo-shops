@@ -9,7 +9,7 @@
         &nbsp;&nbsp;&nbsp;
         <li><a href="/">Inicio</a></li>
         <li><a href="{{action('AdminDashboardController@stationery')}}"> Dashboard Papeleria</a></li>
-        <li class="active">Gerencias con pedido</li>
+        <li class="active">Gerencias sin pedido</li>
     </ol>
 
     <div class="row">
