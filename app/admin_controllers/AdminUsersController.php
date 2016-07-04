@@ -181,8 +181,6 @@ class AdminUsersController extends AdminBaseController
 
   public function store()
   {
-    
-
     $user = new User(Input::except('password_confirmation'));
     $active_tab = Input::get('active_tab');
     $user->region_id = Input::get('region_id');
@@ -215,6 +213,7 @@ class AdminUsersController extends AdminBaseController
         break;
       case 'user_corporation':
         $user->role = 'user_corporation';
+        break;
       case 'user_training':
         $user->role = 'user_training';
         break;
@@ -226,7 +225,6 @@ class AdminUsersController extends AdminBaseController
     if(Input::get('num_empleado') == null){
       $user->num_empleado = null;
     }
-    
     if($user->save()){
       return Redirect::to(action('AdminUsersController@index'))->withSuccess('Se ha guardado el usuario correctamente. Ya puede iniciar sesión');
       

@@ -35,6 +35,11 @@
 							Categorías Corporativo
 						</a>
 					</li>
+					<li>
+						<a href="{{action('AdminTrainingCategoriesController@index')}}">	
+							Categorías Capacitaciones
+						</a>						
+					</li>
 				</ul>
 			</li>
 			@elseif($name == "Productos")
@@ -70,8 +75,12 @@
 						</li>
 						<li class="">
 							<a href="{{action('AdminCorporationProductsController@index')}}">
-								
 								Productos Corporativo
+							</a>
+						</li>
+						<li>
+							<a href="{{action('AdminTrainingProductsController@index')}}">
+								Products Capacitaciones
 							</a>
 						</li>
 					</ul>
@@ -109,12 +118,19 @@
 								Pedidos MAC
 							</a>
 						</li>
-						<li class="">
+						<li>
 							<a href="{{action('AdminCorporationOrdersController@index')}}">
 								
 								Pedidos Corporativo
 							</a>
 						</li>
+						<li>
+							<a href="{{action('AdminTrainingOrdersController@index')}}">
+								
+								Pedidos Capacitaciones
+							</a>
+						</li>
+
 					</ul>
 				</li>
 				<li>
