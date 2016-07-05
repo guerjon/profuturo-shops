@@ -26,6 +26,28 @@
 		</div>
 		<div class="row">
 			@if($requests->count() > 0)
+				<table class="table table-striped">
+					<thead>
+						<th>
+							Orden
+						</th>
+						<th>
+							Comentarios
+						</th>
+					</thead>
+					<tbody>
+						@foreach($requests as $request)
+							<tr>
+								<td>
+									{{$request->id}}
+								</td>
+								<td>
+									{{$request->comments}}
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+				</table>
 			@else
 				<div class="alert alert-info">
 					Sin solicitudes.

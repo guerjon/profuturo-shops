@@ -8,7 +8,7 @@ class FurnitureRequestsController extends BaseController
 	
 	public function index()
 	{
-		$requests = Auth::user()->furnitureOrders()->get();
+		$requests = Auth::user()->furnitureOrders()->where('furniture_orders.request',1)->get();
 
 		return View::make('furnitures/requests')
 			->withRequests($requests);
