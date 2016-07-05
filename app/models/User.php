@@ -178,6 +178,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->hasMany('FurnitureOrder');
 	}
 
+	public function furnitureRequestsOrders()
+	{
+		return $this->belongsToMany('FurnitureOrder');
+	}
+	
 	public function macOrders()
 	{
 		return $this->hasMany('MacOrder');
@@ -293,7 +298,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
-					'/pedidos-mueble' => 'Mis pedidos'
+					'/pedidos-mueble' => 'Mis pedidos',
+					action('FurnitureRequestsController@index') => 'Solicitudes sistema'
 				];
 
 			case 'user_mac':

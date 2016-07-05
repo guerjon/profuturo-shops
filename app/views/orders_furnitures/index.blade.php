@@ -8,7 +8,7 @@
   @if(Auth::user()->cart_products->count() > 0)
   Haga click <a href="/carrito-muebles" class="alert-link">aquí</a> para revisar su carrito y enviar su orden.
   @else
-  Haga click <a href="/muebles" class="alert-link">aquí</a> para agregar productos a su carrito.
+  Haga click <a href="/mobiliario" class="alert-link">aquí</a> para agregar productos a su carrito.
   @endif
 </div>
 
