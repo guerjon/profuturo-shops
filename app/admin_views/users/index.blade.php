@@ -76,6 +76,12 @@
           Corporativo
         </a>
       </li>    
+      <li role="presentation" class="{{$active_tab == 'user_training' ? 'active' : ''}}">
+        <a href="?active_tab=user_training&page=1" aria-controls="user_training" class="tabs">
+          Capacitaciones
+        </a>
+      </li>    
+
     </ul>
   </div>
 
@@ -103,6 +109,9 @@
     </div> 
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_corporation' ? 'active' : ''}}" id="users_corporation">
       @include('admin::users.partials.users_corporation')
+    </div> 
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'user_training' ? 'active' : ''}}" id="users_training">
+      @include('admin::users.partials.users_training')
     </div> 
   </div>
   

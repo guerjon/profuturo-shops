@@ -94,6 +94,12 @@
 										<span class="glyphicon glyphicon-shopping-cart"></span>
 									</a>
 								</li>
+							@elseif(Auth::user()->role = 'user_training')
+								<li>
+									<a href="/carrito-capacitaciones" style="font-size:32px">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+									</a>
+								</li>
 							@endif
 
 							<li class="dropdown">

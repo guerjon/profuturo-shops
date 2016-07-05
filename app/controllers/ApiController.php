@@ -123,6 +123,40 @@ class ApiController extends BaseController
       'new_q' => $q,
       ]);
   }
+  public function postAddToCartTraining()
+  {
+     $q = Input::get('quantity');
+        if($q <= 0){
+          return Response::json([
+            'status' => 500,
+            'error_msg' => 'La cantidad debe ser un entero positivo mayor igual a 1'
+            ]);
+        }
+
+        $product = TrainingProduct::find(Input::get('product_id'));
+
+        if(!$product){
+          return Response::json([
+            'status' => 500,
+            'error_msg' => 'No se encontró el producto'
+            ]);
+        }
+
+        if(Auth::user()->cart_training->contains($product->id)){
+          $q += Auth::user()->cartTraining()->where('id', $product->id)->first()->pivot->quantity;
+          Auth::user()->cartTraining()->detach($product->id);
+        }
+
+        Auth::user()->cartTraining()->attach($product->id, ['quantity' => $q]);
+
+
+      return Response::json([
+      'status' => 200,
+      'msg' => "Se han añadido $q piezas al carrito",
+      'product_id' => $product->id,
+      'new_q' => $q,
+      ]);
+  }
 
   public function postAddToCartMac()
   {

@@ -44,6 +44,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categories', 'AdminCategoriesController');
 		Route::resource('mac-categories','AdminMacCategoriesController');
 		Route::resource('corporation-categories','AdminCorporationCategoriesController');
+		Route::resource('training-categories','AdminTrainingCategoriesController');
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy','store']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
@@ -59,6 +60,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::controller('general-categories','AdminCategoriesGeneralController');
 		Route::resource('orders-mac','AdminMacOrdersController');
 		Route::resource('orders-corporation','AdminCorporationOrdersController');
+		Route::resource('orders-capacitaciones','AdminTrainingOrdersController');
 		
 		//Dashboard
 		Route::get('dashboard-overview','AdminApiDashboardController@overview');
@@ -89,6 +91,9 @@ Route::group(['before' => 'auth'], function(){
 		Route::get('grafica-arana','AdminSpiderGraphController@getIndex');
 		Route::resource('productos-mac','AdminMacProductsController');
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
+		Route::resource('productos-capacitaciones','AdminTrainingProductsController');
+		Route::resource('importador-capacitaciones','AdminTrainingProductsImporterController');
+		
 		Route::resource('date-corporation','AdminDatesCorporationController');
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
 		Route::post('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
@@ -130,6 +135,11 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('corporation-productos/{category}', 'CorporationProductsController@index');
 	Route::resource('pedidos-corporativo','CorporationOrdersController');
 	Route::post('pedidos-corporation/{order_id}', 'CorporationOrdersController@postReceive');
+
+	Route::get('training-products', 'TrainingProductsController@index');
+	Route::get('training-products/{category}', 'TrainingProductsController@index');
+	Route::resource('pedidos-capacitaciones','TrainingOrdersController');
+	Route::post('pedidos-capacitaciones/{order_id}', 'TrainingOrdersController@postReceive');
 
 
 	Route::get('mobiliario', 'FurnituresController@index');
