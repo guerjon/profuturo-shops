@@ -8,7 +8,7 @@ class FurnitureRequestsController extends BaseController
 	
 	public function index()
 	{
-		$requests = Auth::user()->furnitureOrders()->where('request','1')->get();
+		$requests = Auth::user()->furnitureOrders()->where('furniture_orders.request',1)->get();
 
 		return View::make('furnitures/requests')
 			->withRequests($requests);
@@ -42,7 +42,7 @@ class FurnitureRequestsController extends BaseController
 			}			
 		}
 		  
-		return Redirect::action('FurnitureRequestsController@index')->withSuccess('Se añadio su solicitud general');
+		return Redirect::action('FurnitureRequestsController@index')->withSuccess('Se añadio su solicitud.');
 
 	}
 }
