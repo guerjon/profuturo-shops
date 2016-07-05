@@ -42,10 +42,7 @@ class FurnitureRequestsController extends BaseController
 			}			
 		}
 		  
-			
-			
-		
-
+		return Redirect::action('FurnitureRequestsController@index')->withSuccess('Se añadio su solicitud general');
 
 	}
 }
