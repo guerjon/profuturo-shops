@@ -146,6 +146,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->belongsToMany('CorporationProduct', 'cart_corporation_products')->withPivot('quantity','description');
 	}
 
+	public function cartTraining()
+	{
+		return $this->belongsToMany('TrainingProduct', 'cart_training_products')->withPivot('quantity','description');
+	}
+
 	public function orders()
 	{
 		return $this->hasMany('Order');
@@ -181,6 +186,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 	public function corporationOrders()
 	{
 		return $this->hasMany('CorporationOrder');
+	}
+
+	public function trainingOrders()
+	{
+		return $this->hasMany('TrainingOrder');
 	}
 	
 	public function bcOrders()
@@ -296,6 +306,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('CorporationProductsController@index') => 'Productos',
 					action('CorporationOrdersController@index') => 'Mis Pedidos',
 				];	
+			case 'user_training':
+				return [
+					action('TrainingProductsController@index') => 'Productos',
+					action('TrainingOrdersController@index') => 'Mis Pedidos',
+
+				];
 		}
 	}
 }

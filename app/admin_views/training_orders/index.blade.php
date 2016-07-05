@@ -8,23 +8,24 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li class="active">Pedidos Corporation</li>
+    <li class="active">Pedidos capacitaciones</li>
   </ol>
 
   @if($orders->count() == 0)
     <div class="alert alert-info">
-      No se han realizado pedidos todavía.
+      No se encontraron pedidos aún. 
     </div>
   @else
 
     {{Form::open([
     'method' => 'GET',
+    'id' => 'form-training-filter'
     ])}}
     
       <div class="row text-center">
         <div class="col col-xs-2">
           {{Form::label('ccosto','CCOSTOS')}}
-          {{Form::select('ccosto', [NULL => 'Todos los CCOSTOS'] + User::where('role','user_paper')->lists('ccosto','id'), Input::get('ccosto'), 
+          {{Form::select('ccosto', [NULL => 'Todos los CCOSTOS'] + User::where('role','!=','admin')->lists('ccosto','ccosto'), Input::get('ccosto'), 
           ['id' =>'select-ccostos-bc-orders','class' => 'form-control'])}}
         </div>
         <div class="col col-xs-2">
@@ -45,9 +46,9 @@
           <button type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-filter"></span> Filtrar
           </button>     
-          <a href="{{action('AdminCorporationOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+          <button class="btn btn-primary btn-submit" style="float:right">
             <span class="glyphicon glyphicon-download-alt"></span> Excel
-          </a>
+          </button>
         </div>
       </div>
 
@@ -97,16 +98,16 @@
                 {{$order->user->gerencia}}
               </td>
               <td>
-                {{$order->user->ccosto}}
+                {{$order->training_ccosto}}
               </td>
               <td>
-                {{link_to_action('AdminCorporationOrdersController@show', $order->order_id, [$order->order_id])}}
+                {{link_to_action('AdminTrainingOrdersController@show', $order->order_id, [$order->order_id])}}
               </td>
               <td>
                 {{$order->comments}}
               </td>
               <td>
-                {{$order->corporation_created_at}}
+                {{$order->training_created_at}}
               </td>
               <td>
                 @if($order->status == 0)
@@ -137,7 +138,7 @@
                 @endif
               </td>
               <td>
-                {{Form::open(array('action' =>['AdminCorporationOrdersController@destroy',$order->order_id],
+                {{Form::open(array('action' =>['AdminTrainingOrdersController@destroy',$order->order_id],
                 'method' => 'delete'))}}
                   <button type="submit" class="btn btn-danger btn-xs">
                     <span class="glyphicon glyphicon-remove"></span> Eliminar
@@ -166,20 +167,24 @@
 
           $('#domicilio').text($(this).attr('data-domicilio'));
           $('#posible_cambio').text($(this).attr('data-posible-cambio'));
-          var action = 'corporation-address/'+ $(this).attr('data-id');
+          var action = 'training-address/'+ $(this).attr('data-id');
           $('#change-address-form').attr('action',action);          
           modal.show();
       });
 
 
       $('.approve').click(function(){
-        console.log($(this).attr('data-value'));
         if($(this).attr('data-value') == 1)
           $('#valor_aprobado').val(1);
         else
           $('#valor_aprobado').val(0);
 
         $('#change-address-form').submit();
+      });
+
+      $('.btn-submit').click(function(){
+        $('#form-training-filter').append("<input name='export' value='xls' class='hide'>");
+        $('#form-training-filter').submit();
       });
     });
   </script>

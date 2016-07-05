@@ -92,6 +92,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('productos-mac','AdminMacProductsController');
 		Route::resource('productos-coporacion','AdminCorporationProductsController');
 		Route::resource('productos-capacitaciones','AdminTrainingProductsController');
+		Route::resource('importador-capacitaciones','AdminTrainingProductsImporterController');
 		
 		Route::resource('date-corporation','AdminDatesCorporationController');
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
@@ -133,8 +134,12 @@ Route::group(['before' => 'auth'], function(){
 	Route::get('corporation-productos', 'CorporationProductsController@index');
 	Route::get('corporation-productos/{category}', 'CorporationProductsController@index');
 	Route::resource('pedidos-corporativo','CorporationOrdersController');
-
 	Route::post('pedidos-corporation/{order_id}', 'CorporationOrdersController@postReceive');
+
+	Route::get('training-products', 'TrainingProductsController@index');
+	Route::get('training-products/{category}', 'TrainingProductsController@index');
+	Route::resource('pedidos-capacitaciones','TrainingOrdersController');
+	Route::post('pedidos-capacitaciones/{order_id}', 'TrainingOrdersController@postReceive');
 
 
 	Route::get('mobiliario', 'FurnituresController@index');

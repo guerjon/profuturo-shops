@@ -7,7 +7,7 @@
       </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li class="active">Productos</li>
+    <li class="active">Productos corporativo</li>
   </ol>
 
 

@@ -8,14 +8,14 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="/admin/categories">Categorías</a></li>
+    <li><a href="/admin/training-categories">Categorías</a></li>
     <li class="active">Nueva Categoría</li>
   </ol>
 
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
     {{Form::model($category, [
-      'action' => $category->exists ? ['AdminCorporationCategoriesController@update', $category->id] : 'AdminCorporationCategoriesController@store',
+      'action' => $category->exists ? ['AdminTrainingCategoriesController@update', $category->id] : 'AdminTrainingCategoriesController@store',
       'method' => $category->exists ? 'PUT' : 'POST',
       'files' => true
       ])}}

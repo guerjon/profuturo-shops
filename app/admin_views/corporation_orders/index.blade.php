@@ -8,7 +8,7 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li class="active">Pedidos Corporation</li>
+    <li class="active">Pedidos corporativo</li>
   </ol>
 
   @if($orders->count() == 0)

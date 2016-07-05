@@ -8,12 +8,11 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="/admin/general-categories/index">Categorías</a></li>
-    <li class="active">Categorías Corporativo</li>
+    <li class="active">Categorías Capacitaciones</li>
   </ol>
 
 <div class="text-right">
-  <a href="{{action('AdminCorporationCategoriesController@create')}}" class="btn btn-primary">
+  <a href="{{action('AdminTrainingCategoriesController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Agregar categoría
   </a>
   
@@ -55,7 +54,7 @@
               
             </td>
             <td>
-              <a href="{{action('AdminCorporationCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
+              <a href="{{action('AdminTrainingCategoriesController@edit', $category->id)}}" class="btn btn-warning btn-xs">
                <span class="glyphicon glyphicon-pencil"></span> Editar
               </a>
             </td>

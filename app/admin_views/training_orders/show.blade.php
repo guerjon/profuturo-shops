@@ -8,7 +8,7 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="admin/orders-corporation">Pedidos Corporativos</a></li>
+    <li><a href="admin/orders-training">Pedidos Capacitaciones</a></li>
     <li class="active">Detalles</li>
   </ol>
 

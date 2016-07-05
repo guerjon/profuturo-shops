@@ -1,19 +1,19 @@
 <?php
 
-class CorporationProductsController extends \BaseController {
+class TrainingProductsController extends \BaseController {
 
 	public function index($category_id = NULL)
 	{
 
-	    $products = CorporationProduct::where('id','>=','1');
+	    $products = TrainingProduct::where('id','>=','1');
 	    
 	    if($category_id){
-	      $activeCategory = CorporationCategory::find($category_id);
+	      $activeCategory = TrainingCategory::find($category_id);
 	      if(!$activeCategory){
 	        return $this->index()->withErrors('No se encontró la categoría');
 	      }
 
-	      $products->where('corporation_category_id','=',$category_id);
+	      $products->where('training_category_id','=',$category_id);
 	    }
 
 
@@ -21,9 +21,9 @@ class CorporationProductsController extends \BaseController {
 	      $products->where('name', 'like', "%".Input::get('name')."%");
 	    }
 		    	
-	    return View::make('corporation_products.index')->with([
+	    return View::make('training_products.index')->with([
 	      'products' => $products->paginate(15),
-	      'categories' => CorporationCategory::all(),
+	      'categories' => TrainingCategory::all(),
 	      'activeCategory' => @$activeCategory,
 	      ]);
 	}

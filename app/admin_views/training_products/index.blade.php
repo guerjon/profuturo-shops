@@ -7,18 +7,18 @@
       </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li class="active">Productos</li>
+    <li class="active">Productos capacitaciones</li>
   </ol>
 
 
 <div class="text-right">
-  <a href="{{action('AdminCorporationProductsController@create')}}" class="btn btn-primary">
+  <a href="{{action('AdminTrainingProductsController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-plus"></span> Agregar producto
   </a>
-  <a href="{{action('AdminCorporationProductsImporterController@create')}}" class="btn btn-primary">
+{{--   <a href="{{action('AdminTrainingProductsImporterController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-import"></span> Importar Excel
   </a>
-</div>
+ --}}</div>
 
   <div class="" style="margin: 20px inherit">
      <ul class="nav nav-tabs" role="tablist">
@@ -77,11 +77,11 @@
                 </td>
 
                 <td>
-                  <a href="{{action('AdminCorporationProductsController@edit', $product->id)}}" class="btn btn-warning btn-xs">
+                  <a href="{{action('AdminTrainingProductsController@edit', $product->id)}}" class="btn btn-warning btn-xs">
                    <span class="glyphicon glyphicon-pencil"></span> Editar
                   </a>
                 {{Form::open([
-                    'action' => ['AdminCorporationProductsController@destroy',$product->id],
+                    'action' => ['AdminTrainingProductsController@destroy',$product->id],
                     'method' => 'DELETE',
                     'style' => 'display:inline'
                     ])}}

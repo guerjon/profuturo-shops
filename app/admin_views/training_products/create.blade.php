@@ -8,7 +8,7 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="/admin/products">Categorías</a></li>
+    <li><a href="{{action('AdminTrainingProductsController@index')}}">Productos capacitaciones</a></li>
     <li class="active">Añadir Producto</li>
   </ol>
 
@@ -27,7 +27,7 @@
     </div>
     @endif
     {{Form::model($product, [
-      'action' => $product->exists ? ['AdminCorporationProductsController@update', $product->id] : 'AdminCorporationProductsController@store',
+      'action' => $product->exists ? ['AdminTrainingProductsController@update', $product->id] : 'AdminTrainingProductsController@store',
       'method' => $product->exists ? 'PUT' : 'POST',
       'files' => true
       ])}}
@@ -48,8 +48,8 @@
       </div>
 
       <div class="form-group">
-        {{Form::label('corporation_category_id', 'Categoría')}}
-        {{Form::select('corporation_category_id', ($product->category ? [] : [NULL => 'Sin especificar']) + CorporationCategory::lists('name', 'id'), NULL,
+        {{Form::label('training_category_id', 'Categoría')}}
+        {{Form::select('training_category_id', ($product->category ? [] : [NULL => 'Sin especificar']) + TrainingCategory::lists('name', 'id'), NULL,
           ['class' => 'form-control','id' => 'category_id'])}}
       </div>
 

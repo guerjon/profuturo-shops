@@ -80,4 +80,12 @@ class HomeController extends BaseController {
 		->withLastOrder(Auth::user()->CorporationOrders()->orderBy('created_at', 'desc')->first())
 		->withUser($user);	
 	}
+
+	public function getCarritoCapacitaciones()
+	{
+		$user = User::where('ccosto',Auth::user()->ccosto)->first();
+		return View::make('pages.cart_training')
+		->withLastOrder(Auth::user()->TrainingOrders()->orderBy('created_at', 'desc')->first())
+		->withUser($user);			
+	}
 }

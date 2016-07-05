@@ -80,7 +80,7 @@
 						</li>
 						<li>
 							<a href="{{action('AdminTrainingProductsController@index')}}">
-								Products Capacitaciones
+								Productos Capacitaciones
 							</a>
 						</li>
 					</ul>
