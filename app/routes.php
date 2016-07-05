@@ -111,6 +111,8 @@ Route::group(['before' => 'auth'], function(){
 	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::post('pedidos-mueble/{order_id}','OrderFurnituresController@postReceive');
 
+	Route::resource('furniture-requests','FurnitureRequestsController');
+
 	Route::resource('pedidos-tp', 'BcOrdersController');
 
 	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');

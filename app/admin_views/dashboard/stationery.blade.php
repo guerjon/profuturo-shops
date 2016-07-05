@@ -53,12 +53,12 @@
                     <span class="fa fa-search"></span> Filtrar
                 </button>
             </div>
-            <div class="col-md-1">
+{{--             <div class="col-md-1">
                 <br>
                 <button class="btn btn-default" id="products_by_month">
                      <span class="fa fa-search"></span> Productos
                 </button>
-            </div>
+            </div> --}}
         </div>  
 
     {{ Form::close() }}
