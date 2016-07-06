@@ -49,7 +49,7 @@
 								</td>
 								<td>
 									{{$request->product_request_selected == 0 ? 
-										'Enviado  <span style="color:#004a8d" class="fa fa-envelope-o"></span>' :
+										'En proceso  <span style="color:#004a8d" class="fa fa-envelope-o"></span>' :
 										'Aprobado <span style="color:green" class="fa fa-check"></span>'}}
 								</td>
 							</tr>
