@@ -6,9 +6,8 @@ class AdminApiDashboardController extends AdminBaseController
     * Hace los filtros sobre $buldier, y da por default las fechas de from y to en caso de que no
     *Se haya ingresado ninguna 
     */
-    public function appendDateFilter($builder, $date_field,$table) 
-    {
-        Log::debug(Input::all());
+    public function appendDateFilter($builder, $date_field,$table) {
+        
         $default_from = \Carbon\Carbon::create(2015, 12, 1, 0, 0, 0);
         $from = Input::get('from', $default_from->max(\Carbon\Carbon::today()->startOfMonth()->subYear()));
         $to = Input::get('to', \Carbon\Carbon::today()->endOfMonth());
@@ -43,6 +42,7 @@ class AdminApiDashboardController extends AdminBaseController
                 
         $orders_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(*) as c'));
         $gerencias_c_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
+
 
         $orders_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(*) as c'));
         $gerencias_c_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
@@ -602,8 +602,7 @@ class AdminApiDashboardController extends AdminBaseController
         }else{
             $input = Session::get('input');
         }
-        Log::debug($input);
-
+     
         $to = Input::get('to');
         $paper_type = Input::get('paper-type','orders');
 
@@ -625,7 +624,7 @@ class AdminApiDashboardController extends AdminBaseController
             default:
                 break;
         }
-        $query = User::doesntHave($helper[4])->orderBy('ccosto')->select('users.*');
+        $query = User::select('users.*');
 
         $query = $this->filtersToShow($input,$query);
       
@@ -636,9 +635,8 @@ class AdminApiDashboardController extends AdminBaseController
         $query->whereDoesntHave($helper[4],function($q) use($helper,$to,$input){
           $q->where($helper[5],'<=',$input['from']); 
         });
+          
 
-        //$this->appendDateFilter($query,$helper[5],$helper[4].'.user_id');
-        
         return $query->where('users.role',$helper[6]);
 
     }
