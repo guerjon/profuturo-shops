@@ -60,11 +60,6 @@
 										Producto Seleccionado
 										<span style="color:green" class="fa fa-check"></span>
 									@endif
-								@else
-									<button class="btn btn-info btn-select"  data-furniture-id="{{$furniture->pivot->request_product_id}}">
-										<span class="fa fa-check"></span>
-										Seleccionar
-									</button>
 								@endif
 							</td>					
 						</tr>
