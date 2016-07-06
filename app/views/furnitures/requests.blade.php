@@ -32,17 +32,25 @@
 							Orden
 						</th>
 						<th>
-							Comentarios
+							Enviada
+						</th>
+						<th>
+							Estatus
 						</th>
 					</thead>
 					<tbody>
 						@foreach($requests as $request)
 							<tr>
 								<td>
-									{{$request->id}}
+									<a href="{{action('FurnitureRequestsController@show',$request->id)}}">{{$request->id}}</a> 
 								</td>
 								<td>
-									{{$request->comments}}
+									{{$request->created_at}}
+								</td>
+								<td>
+									{{$request->status == 0 ? 
+										'Enviado  <span style="color:#004a8d" class="fa fa-envelope-o"></span>' :
+										'Aprobado <span style="color:green" class="fa fa-check"></span>'}}
 								</td>
 							</tr>
 						@endforeach
