@@ -76,6 +76,14 @@ class AdminDashboardController  extends AdminBaseController {
 
     public function overviewByMonth($index,$month,$year)
     {
+
+        if(Input::has('from')){
+            Session::put('input',Input::all());
+            $input = Session::get('input');
+        }else{
+            $input = Session::get('input');
+        }
+
         $carbon = Carbon::createFromDate($year, $month, 1); 
         
         $query = $this->query($month,$year);
@@ -92,6 +100,14 @@ class AdminDashboardController  extends AdminBaseController {
 
     public function overviewByMonthAmount($index,$month,$year)
     {
+
+        if(Input::has('from')){
+            Session::put('input',Input::all());
+            $input = Session::get('input');
+        }else{
+            $input = Session::get('input');
+        }
+
     	$carbon = Carbon::createFromDate($year, $month, 1);
         return View::make('admin::dashboard/month_amount');
     }
@@ -267,7 +283,7 @@ class AdminDashboardController  extends AdminBaseController {
         }else{
             $input = Session::get('input');
         }
-            
+
         $paper_type = $input['paper-type'];
         $to = \Carbon\Carbon::createFromFormat('Y-m-d',$input['to'])->addDay()->format('Y-m-d');
 
