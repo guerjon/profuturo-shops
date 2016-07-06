@@ -24,7 +24,6 @@
       {{Form::text('name', Input::get('name'), ['class' => 'form-control'])}}
     </div>
 
-
     <div class="col-xs-1 text-right">
       {{Form::submit('Buscar', ['class' => 'btn btn-default'])}}
     </div>
@@ -42,36 +41,40 @@
 
   <div class="list-group">
     @foreach($furnitures as $furniture)
-    <a class="list-group-item" href="#" data-furniture-id="{{$furniture->id}}" data-image-src="{{$furniture->image->url('medium')}}"
-     data-category-id="{{$furniture->furniture_category_id}}">
+      @if($furniture->id == '10000')
+      @else
 
-      <div class="pull-right">
-        @if(Auth::user()->has_limit)
-        <h5 class="furniture-info">Max. <span class="furniture-max-stock">{{$furniture->max_stock}}</span></h5>
-        @else
-        <h5 class="furniture-info">Unidad de medida: {{$furniture->measure_unit}}</h5>
-        @endif
-        @if(Auth::user()->cart_furnitures->contains($furniture->id))
-        <span class="label label-info">
-          Actualmente <span class="furniture-current-stock">{{Auth::user()->cartfurnitures()->where('id', $furniture->id)->first()->pivot->quantity}}</span> en mi carrito
-        </span>
-        @endif
+        <a class="list-group-item" href="#" data-furniture-id="{{$furniture->id}}" data-image-src="{{$furniture->image->url('medium')}}"
+         data-category-id="{{$furniture->furniture_category_id}}">
 
-      </div>
+          <div class="pull-right">
+            @if(Auth::user()->has_limit)
+            <h5 class="furniture-info">Max. <span class="furniture-max-stock">{{$furniture->max_stock}}</span></h5>
+            @else
+            <h5 class="furniture-info">Unidad de medida: {{$furniture->measure_unit}}</h5>
+            @endif
+            @if(Auth::user()->cart_furnitures->contains($furniture->id))
+            <span class="label label-info">
+              Actualmente <span class="furniture-current-stock">{{Auth::user()->cartfurnitures()->where('id', $furniture->id)->first()->pivot->quantity}}</span> en mi carrito
+            </span>
+            @endif
 
-      <div class="media">
-        <div class="media-left">
-          {{HTML::image($furniture->image->url('thumb'), $furniture->name, ['class' => 'img-rounded'])}}
-        </div>
+          </div>
 
-        <div class="media-body">
-          <h4 class="media-heading">{{$furniture->name}}</h4>
-          <p class="furniture-description">
-            {{$furniture->description}}
-          </p>
-        </div>
-      </div>
-    </a>
+          <div class="media">
+            <div class="media-left">
+              {{HTML::image($furniture->image->url('thumb'), $furniture->name, ['class' => 'img-rounded'])}}
+            </div>
+
+            <div class="media-body">
+              <h4 class="media-heading">{{$furniture->name}}</h4>
+              <p class="furniture-description">
+                {{$furniture->description}}
+              </p>
+            </div>
+          </div>
+        </a>
+      @endif
     @endforeach
   </div>
 @endif

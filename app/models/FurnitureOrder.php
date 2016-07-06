@@ -13,8 +13,21 @@ class FurnitureOrder extends Eloquent
   public function furnitures()
   {
     return $this->belongsToMany('Furniture')
-              ->withPivot('quantity', 'status', 'comments','company','assets','ccostos','color','id_active')
-              ->withTrashed();
+              ->withPivot(
+                  'quantity',
+                  'status',
+                  'comments',
+                  'company',
+                  'assets',
+                  'ccostos',
+                  'color',
+                  'id_active',
+                  'request_price',
+                  'request_description',
+                  'request_quantiy_product',
+                  'request_comments',
+                  'request_product_id'
+              )->withTrashed();
   }
 
 

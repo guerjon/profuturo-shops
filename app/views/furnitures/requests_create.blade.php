@@ -36,13 +36,13 @@
 					<div class="form-group">
 						<div class="row">
 							<div class="col col-xs-6">
-								{{Form::label('request_comments','Comentarios')}}
-								{{Form::textArea('comments[]',null,['class' => 'form-control'])}}
+								{{Form::label('request_quantiy_product','Cantidad')}}
+								{{Form::number('request_quantiy_product[]',null,['class' => 'form-control'])}}
 							</div>
 							<div class="col col-xs-6">
 								
-								{{Form::label('request_quantity','Cantidad')}}
-								{{Form::number('request_quantity[]',null,['class' => 'form-control'])}}
+								{{Form::label('request_comments','Comentarios')}}
+								{{Form::text('request_comments[]',null,['class' => 'form-control'])}}
 							
 							</div>
 						</div>

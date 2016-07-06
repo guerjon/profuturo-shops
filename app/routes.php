@@ -38,6 +38,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('users', 'AdminUsersController');
 		Route::resource('products', 'AdminProductsController');
 		Route::resource('mobiliario','AdminFurnituresController');
+		Route::resource('solicitudes-mobilario','AdminFurnitureRequestsController');
 		Route::resource('importar-mobiliario','AdminFurnitureImporterController');
 		Route::resource('importar-productos-mac','AdminMacProductsImporterController');
 		Route::resource('importar-productos-corporativo','AdminCorporationProductsImporterController');

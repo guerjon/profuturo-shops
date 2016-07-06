@@ -126,11 +126,14 @@
 						</li>
 						<li>
 							<a href="{{action('AdminTrainingOrdersController@index')}}">
-								
 								Pedidos Capacitaciones
 							</a>
 						</li>
-
+						<li>
+							<a href="{{action('AdminFurnitureRequestsController@index')}}">
+								Pedidos Solicitudes sistema
+							</a>											
+						</li>
 					</ul>
 				</li>
 				<li>
