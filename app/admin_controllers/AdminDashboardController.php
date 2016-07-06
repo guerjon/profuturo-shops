@@ -88,7 +88,6 @@ class AdminDashboardController  extends AdminBaseController {
             ->withAllOrders($query['all_orders']->get())
             ->withFrom($carbon->startOfMonth()->format('Y-m-d H:i:s'))
             ->withTo($carbon->endOfMonth());
-
     }
 
     public function overviewByMonthAmount($index,$month,$year)
@@ -255,7 +254,7 @@ class AdminDashboardController  extends AdminBaseController {
         $orders->orderBy($helper[0])->groupBy($helper[0])->select('users.*');
 
         return View::make('admin::dashboard/management_orders')
-            ->withUsers($orders->paginate(10));
+            ->withUsers($orders->paginate(20));
         
     }
 
@@ -307,7 +306,7 @@ class AdminDashboardController  extends AdminBaseController {
             );
 
         return View::make('admin::dashboard/show_orders')
-            ->withOrders($orders->paginate(10));
+            ->withOrders($orders->paginate(20));
     }
 
     public function showManagementsWithout()
@@ -354,7 +353,7 @@ class AdminDashboardController  extends AdminBaseController {
           
 
         return View::make('admin::dashboard/show_managements_without')
-            ->withUsers($query->paginate(10));
+            ->withUsers($query->paginate(20));
 
     }
 

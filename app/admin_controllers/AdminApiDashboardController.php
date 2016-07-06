@@ -653,17 +653,17 @@ class AdminApiDashboardController extends AdminBaseController
 
         switch ($paper_type) {
             case 'orders':
-                $helper = ['orders.id','order_product','price','products','orders','orders.created_at'];
+                $helper = ['orders.id','order_product','price','products','orders','orders.created_at','user_paper'];
                 break;
             case 'furniture_orders':
-                $helper = ['furniture_orders.id','furniture_furniture_order','unitary','furnitures','furnitureOrders','furniture_orders.created_at'];
+                $helper = ['furniture_orders.id','furniture_furniture_order','unitary','furnitures','furnitureOrders','furniture_orders.created_at','user_furnitures'];
                 break;
             case 'mac_orders':
-                $helper = ['mac_orders.id','mac_order_mac_product','price','mac_products','macOrders','mac_orders.created_at'];
+                $helper = ['mac_orders.id','mac_order_mac_product','price','mac_products','macOrders','mac_orders.created_at','user_mac'];
                 break;
 
             case 'corporation_orders':
-                $helper = ['corporation_orders.id','corporation_order_corporation_product','price','corporation_products','corporationOrders','corporation_orders.created_at'];
+                $helper = ['corporation_orders.id','corporation_order_corporation_product','price','corporation_products','corporationOrders','corporation_orders.created_at','user_corporation'];
                 break;
             
             default:
@@ -682,7 +682,7 @@ class AdminApiDashboardController extends AdminBaseController
         });
           
 
-        return $query->get()->count();
+        return $query->where('users.role',$helper[6])->get()->count();
 
     }
 
