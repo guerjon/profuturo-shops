@@ -36,6 +36,7 @@ class AdminApiDashboardController extends AdminBaseController
     */
     public function overview() {
         $request = Input::get();
+
         $paper_type = Input::get('paper-type','orders');
         $gerencias_c = 0;
         $gerencias_s = 0;
@@ -647,8 +648,9 @@ class AdminApiDashboardController extends AdminBaseController
         }else{
             $input = Session::get('input');
         }
+        Log::debug($input);
 
-        $to = \Carbon\Carbon::createFromFormat('Y-m-d',$input['to'])->addDay()->format('Y-m-d');
+        $to = Input::get('to');
         $paper_type = Input::get('paper-type','orders');
 
         switch ($paper_type) {
