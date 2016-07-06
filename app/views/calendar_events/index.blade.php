@@ -12,7 +12,27 @@
       </ul>
 
       <ul class="navbar-nav nav">
-        <li><a>{{$month['monthName']}}</a></li>
+        <?
+          $string = explode(' ',$month['monthName']);
+          $mes = $string[0];
+          $anio = $string[1];
+          $array = array(
+            'January' => 'Enero',
+            'February' => 'Febrero',
+            'March' => 'Marzo',
+            'April' => 'Abril',
+            'May' => 'Mayo',
+            'June' => 'Junio',
+            'July' => 'Julio',
+            'August' => 'Agosto',
+            'September' => 'Septiembre',
+            'October' => 'Octubre',
+            'November' => 'Noviembre',
+            'December' => 'Diciembre'
+          );
+        ?>
+
+        <li><a>{{  $array[$mes] . " " . $anio}}</a></li>
       </ul>
 
       <ul class="navbar-nav nav navbar-right">

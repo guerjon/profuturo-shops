@@ -32,6 +32,7 @@
       </div>
 
       <div class="form-group text-center">
+        <a class="btn btn-danger btn-lg" href="{{action('AdminMacCategoriesController@index')}}">Cancelar</a>
         {{Form::submit('Guardar', ['class' => 'btn btn-primary btn-lg'])}}
       </div>
 
