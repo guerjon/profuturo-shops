@@ -2,14 +2,14 @@
   'method' => 'GET',
   'class' => 'form-horizontal'
   ]) }}
-  {{ Form::hidden('active_tab', 'user_furniture') }}
+  {{ Form::hidden('active_tab', 'user_furnitures') }}
   <div class="form-group">
     <div class="col-xs-2">
-      {{Form::text('user_furniture[employee_number]', (Input::get('user_furniture')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
+      {{Form::text('user_furnitures[employee_number]', (Input::get('user_furnitures')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
     </div>
    
       <div class="col-xs-2">
-        {{Form::text('user_furniture[gerencia]', (Input::get('user_furniture')['gerencia']), ['placeholder' => 'Gerencia','class' => 'form-control'])}}
+        {{Form::text('user_furnitures[gerencia]', (Input::get('user_furnitures')['gerencia']), ['placeholder' => 'Gerencia','class' => 'form-control'])}}
       </div>
 
     <div class="col-xs-1">
@@ -19,8 +19,6 @@
     </div>
   </div>
 {{ Form::close() }}
-
-
 
 
 @if($users_furnitures->count() > 0)

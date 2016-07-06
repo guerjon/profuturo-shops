@@ -84,12 +84,15 @@ class AdminFurnituresController extends AdminBaseController
 
    public function destroy($furniture_id){
     $furniture = Furniture::withTrashed()->find($furniture_id);
+    $active_tab = Input::get('active_tab');
     if($furniture->trashed()){
       $furniture->restore();
-      return Redirect::to(action('AdminFurnituresController@index'))->withSuccess('Se ha habilitado el producto');
+      return Redirect::to(action('AdminFurnituresController@index'))->withSuccess('Se ha habilitado el producto')
+      ->withActiveTab($active_tab);
     }else{
       $furniture->delete();
-      return Redirect::to(action('AdminFurnituresController@index'))->withInfo('Se ha inabilitado el producto');
+      return Redirect::to(action('AdminFurnituresController@index'))->withInfo('Se ha inabilitado el producto')
+      ->withActiveTab($active_tab);
     }
   }
 

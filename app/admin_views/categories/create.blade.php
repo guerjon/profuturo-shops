@@ -31,10 +31,6 @@
         {{Form::file('image')}}
       </div>
       
-      
-        
-      
-
       <div class="form-group text-center">
         <a class="btn btn-danger btn-lg" href="{{action('AdminCategoriesController@index')}}">Cancelar</a>
         {{Form::submit('Guardar', ['class' => 'btn btn-primary btn-lg'])}}
