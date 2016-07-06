@@ -25,11 +25,11 @@
 						<div class="row">
 							<div class="col col-xs-6">
 								{{Form::label('request_description','Nombre')}}
-								{{Form::text('request_description[]',null,['class' => 'form-control'])}}
+								{{Form::text('request_description[]',null,['class' => 'form-control','required'])}}
 							</div>
 							<div class="col col-xs-6">
 								{{Form::label('request_price','Precio')}}
-								{{Form::number('request_price[]',null,['class' => 'form-control'])}}	
+								{{Form::number('request_price[]',null,['class' => 'form-control','required'])}}	
 							</div>
 						</div>
 					</div>
@@ -37,12 +37,12 @@
 						<div class="row">
 							<div class="col col-xs-6">
 								{{Form::label('request_quantiy_product','Cantidad')}}
-								{{Form::number('request_quantiy_product[]',null,['class' => 'form-control'])}}
+								{{Form::number('request_quantiy_product[]',null,['class' => 'form-control','required'])}}
 							</div>
 							<div class="col col-xs-6">
 								
 								{{Form::label('request_comments','Comentarios')}}
-								{{Form::text('request_comments[]',null,['class' => 'form-control'])}}
+								{{Form::text('request_comments[]',null,['class' => 'form-control','required'])}}
 							
 							</div>
 						</div>

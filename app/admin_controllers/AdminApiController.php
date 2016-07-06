@@ -902,18 +902,18 @@ class AdminApiController extends AdminBaseController
       $query = DB::table(DB::raw("(SELECT @rownum:=0) r, furniture_furniture_order"))->select(DB::raw("
       '' as UN,
       furniture_orders.id as 'Nº PEDIDO',
-      'Introd Por' as 'Introd Por',
+      users.gerencia as 'Introd Por',
       furniture_orders.created_at as 'F Pedido',
       furniture_orders.created_at as 'F Solic',
       furniture_orders.id as 'ID Solic',
-      'solic' as 'SOLIC',
-      'furniture_orders.status' as 'Estado',
+      'CR1234' as 'SOLIC',
+      'Recibido' as 'Estado',
       '' as 'Linea',
       '' as 'Art',
       '' as 'Nombre Proveedor',
       furnitures.specific_description as 'Más Info',
-      furnitures.unitary as 'Precio',
-      furniture_furniture_order.quantity as 'Cant Ped',
+      furniture_furniture_order.request_price as 'Precio',
+      furniture_furniture_order.request_quantiy_product  as 'Cant Ped',
       '' as 'Impte Mercancía',
       users.ccosto as 'Cuenta',
       furnitures.name as 'Producto',
@@ -936,7 +936,9 @@ class AdminApiController extends AdminBaseController
       ->orderBy('furniture_orders.id')
       ->whereNull('furniture_orders.deleted_at')
       ->where('furniture_orders.created_at','>=',Input::get('since'))
-      ->where('furniture_orders.updated_at','<=',Input::get('until'));
+      ->where('furniture_orders.updated_at','<=',Input::get('until'))
+      ->where('furniture_orders.request',1)
+      ->groupBy('furniture_orders.id');
     }
 
     if(Input::has('gerencia')){
