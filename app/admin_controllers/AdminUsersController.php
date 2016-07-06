@@ -71,17 +71,19 @@ class AdminUsersController extends AdminBaseController
         $users_furnitures = User::withTrashed()->where('role', 'user_furnitures');
         if(Input::has('user_furnitures'))
         {
+          
           $input = Input::get('user_furnitures', []);
+
           if(!is_array($input)){
             Log::warning("I did not receive an array");
           }else{
+
             if($emp_number = @$input['employee_number']){
-                $users_furnitures->where('ccosto', 'LIKE', "%{$emp_number}%");
+                $users_furnitures->where('users.ccosto', 'LIKE', "%{$emp_number}%");
             }
             if($gerencia = @$input['gerencia']){
                 $users_furnitures->where('gerencia', 'LIKE', "%{$gerencia}%");
             }
-
           }
         }
 
@@ -149,7 +151,6 @@ class AdminUsersController extends AdminBaseController
             }
           }
         }
-
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
       ->withManagers($managers->paginate(10))

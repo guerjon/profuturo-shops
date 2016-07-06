@@ -8,14 +8,14 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="admin/furnitures-orders">Pedidos Mobiliario</a></li>
+    <li><a href="{{action('AdminFurnituresOrdersController@index')}}">Pedidos Mobiliario</a></li>
     <li class="active">Detalles</li>
   </ol>
 
 <h3>Detalles del pedido {{$order->id}}<br><small>{{$order->comments}}</small></h3>
 
 <h5>Pedido de: {{$order->user->first_name}} {{$order->user->last_name}}</h5>
-<div class="container">
+<div class="container-fluid">
   <table class="table table-striped">
 
     <thead>

@@ -72,6 +72,7 @@
 	        @endif
 			<center>
 				<div class="form-group">
+				<a class="btn btn-danger" href="{{URL::previous()}}">Cancelar</a>
 				{{Form::submit('Guardar',['class' => 'btn btn-warning'])}}
 				</div>	
 			</center>
