@@ -1000,7 +1000,17 @@ class AdminApiController extends AdminBaseController
         if($result){
          $mes = Input::get('month');
          $año = Input::get('year');
-          Excel::create('reporte_papeleria'.$mes.'_'.$año , function($excel) use($result){
+         $type = Input::get('report_type');
+         $excel_name = "Reporte";
+         if($type == 1)
+            $excel_name = "Reporte_Peolple";
+          if($type == 2)
+            $excel_name = "Reporte_Mejorado";
+          if($type == 3)
+            $excel_name = "Reporte_Sistemas";
+
+
+          Excel::create($excel_name.'_'.\Carbon\Carbon::now()->format('Y-m-d'), function($excel) use($result){
            $excel->sheet('hoja 1',function($sheet)use($result){
              $sheet->fromArray($result);
               });
