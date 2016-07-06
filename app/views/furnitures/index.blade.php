@@ -24,7 +24,6 @@
       {{Form::text('name', Input::get('name'), ['class' => 'form-control'])}}
     </div>
 
-
     <div class="col-xs-1 text-right">
       {{Form::submit('Buscar', ['class' => 'btn btn-default'])}}
     </div>

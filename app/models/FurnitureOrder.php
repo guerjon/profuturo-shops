@@ -25,7 +25,8 @@ class FurnitureOrder extends Eloquent
                   'request_price',
                   'request_description',
                   'request_quantiy_product',
-                  'request_comments'
+                  'request_comments',
+                  'request_product_id'
               )->withTrashed();
   }
 
