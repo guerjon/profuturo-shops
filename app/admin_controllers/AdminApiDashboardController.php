@@ -6,8 +6,9 @@ class AdminApiDashboardController extends AdminBaseController
     * Hace los filtros sobre $buldier, y da por default las fechas de from y to en caso de que no
     *Se haya ingresado ninguna 
     */
-    public function appendDateFilter($builder, $date_field,$table) {
-        
+    public function appendDateFilter($builder, $date_field,$table) 
+    {
+        Log::debug(Input::all());
         $default_from = \Carbon\Carbon::create(2015, 12, 1, 0, 0, 0);
         $from = Input::get('from', $default_from->max(\Carbon\Carbon::today()->startOfMonth()->subYear()));
         $to = Input::get('to', \Carbon\Carbon::today()->endOfMonth());
@@ -39,25 +40,19 @@ class AdminApiDashboardController extends AdminBaseController
 
         $paper_type = Input::get('paper-type','orders');
         $gerencias_c = 0;
-        $gerencias_s = 0;
-        
+                
         $orders_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(*) as c'));
         $gerencias_c_o = $this->appendDateFilter(Order::query(),'orders.created_at','orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
-        $gerencias_s_o =  DB::table('users')->where('role','user_paper')->select(DB::raw('count(DISTINCT(id)) as c'));
-
 
         $orders_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(*) as c'));
         $gerencias_c_f = $this->appendDateFilter(FurnitureOrder::query(),'furniture_orders.created_at','furniture_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
-        $gerencias_s_f =  DB::table('users')->where('role','user_furnitures')->select(DB::raw('count(DISTINCT(id)) as c'));
-    
         
         $orders_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(*) as c'));
         $gerencias_c_m = $this->appendDateFilter(MacOrder::query(),'mac_orders.created_at','mac_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
-        $gerencias_s_m =  DB::table('users')->where('role','user_mac')->select(DB::raw('count(DISTINCT(id)) as c'));
     
         $orders_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(*) as c'));
         $gerencias_c_c = $this->appendDateFilter(CorporationOrder::query(),'corporation_orders.created_at','corporation_orders.user_id')->select(DB::raw('count(DISTINCT(user_id)) as c'));
-        $gerencias_s_c =  DB::table('users')->where('role','user_corporation')->select(DB::raw('count(DISTINCT(id)) as c'));
+
 
         //Totales
         $total_o = $this->appendDateFilter(DB::table('orders')->join('order_product','orders.id','=','order_product.order_id')
@@ -76,32 +71,10 @@ class AdminApiDashboardController extends AdminBaseController
             ->join('corporation_products','corporation_products.id','=','corporation_order_corporation_product.corp_product_id')
             ->select(DB::raw('SUM(corporation_products.price * corporation_order_corporation_product.quantity) as total')),'corporation_orders.created_at','corporation_orders.user_id'); 
         
-        $orders_o_modal = clone $orders_o;
-        $gerencias_c_o_modal = clone $gerencias_c_o;
-        $gerencias_s_o_modal = clone $gerencias_s_o;
-
-        $orders_f_modal = clone $orders_f;
-        $gerencias_c_f_modal = clone $gerencias_c_f;
-        $gerencias_s_f_modal =  clone $gerencias_s_f;
-
-        $orders_m_modal = clone $orders_m ;
-        $gerencias_c_m_modal = clone $gerencias_c_m ;
-        $gerencias_s_m_modal = clone $gerencias_s_m ;
-    
-        $orders_c_modal = clone $orders_c ;
-        $gerencias_c_c_modal = clone $gerencias_c_c ;
-        $gerencias_s_c_modal = clone $gerencias_s_c;
-
-
         switch ($paper_type) {
             case 'orders':
                 $orders = $orders_o->first()->c;
-                $gerencias_s = $gerencias_s_o->first()->c;
                 $gerencias_c = $gerencias_c_o->first()->c;
-
-                $orders_modal = $orders_o_modal->select('*');
-                $gerencias_s_modal = $gerencias_s_o_modal->select('*');
-                $gerencias_c_modal = $gerencias_c_o_modal->select('*');
 
                 $total = $total_o->first()->total;
 
@@ -109,37 +82,21 @@ class AdminApiDashboardController extends AdminBaseController
 
             case 'furniture_orders':
                 $orders = $orders_f->first()->c;
-                $gerencias_s = $gerencias_s_f->first()->c;
                 $gerencias_c = $gerencias_c_f->first()->c;
-
-                $orders_modal = $orders_f_modal->select('*');
-                $gerencias_s_modal = $gerencias_s_f_modal->select('*');
-                $gerencias_c_modal = $gerencias_c_f_modal->select('*');
 
                 $total = $total_f->first()->total;
                 break;
 
             case 'mac_orders':
                 $orders = $orders_m->first()->c;
-                $gerencias_s = $gerencias_s_m->first()->c;
                 $gerencias_c = $gerencias_c_m->first()->c;
-
-                $orders_modal = $orders_m_modal->select('*');
-                $gerencias_s_modal = $gerencias_s_m_modal->select('*');
-                $gerencias_c_modal = $gerencias_c_m_modal->select('*');
-
 
                 $total = $total_m->first()->total;
                 break;
 
             case 'corporation_orders':
                 $orders = $orders_c->first()->c;
-                $gerencias_s = $gerencias_s_c->first()->c;
                 $gerencias_c = $gerencias_c_c->first()->c;
-
-                $orders_modal = $orders_c_modal->select('*');
-                $gerencias_s_modal = $gerencias_s_c_modal->select('*');
-                $gerencias_c_modal = $gerencias_c_c_modal->select('*');
 
                 $total = $total_c->first()->total;                
                 break;
@@ -148,17 +105,14 @@ class AdminApiDashboardController extends AdminBaseController
                 break;
         }
 
-        
         $managements_without = $this->managementsWithout();
 
         return Response::json([
             'orders' => $orders,
-            'people' => $managements_without,
+            'people' => $managements_without->get()->count(),
             'people_orders' => $gerencias_c,
             'total' => $total,
-            'orders_modal' => $orders_modal->get(),
-            'people_modal' => $gerencias_s_modal->get(),
-            'people_orders_modal' => $gerencias_c_modal->groupBy('users.id')->get()
+
         ]);
     }
 
@@ -682,9 +636,10 @@ class AdminApiDashboardController extends AdminBaseController
         $query->whereDoesntHave($helper[4],function($q) use($helper,$to,$input){
           $q->where($helper[5],'<=',$input['from']); 
         });
-          
 
-        return $query->where('users.role',$helper[6])->get()->count();
+        //$this->appendDateFilter($query,$helper[5],$helper[4].'.user_id');
+        
+        return $query->where('users.role',$helper[6]);
 
     }
 
