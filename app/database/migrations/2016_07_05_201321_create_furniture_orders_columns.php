@@ -34,11 +34,11 @@ class CreateFurnitureOrdersColumns extends Migration {
 	public function down()
 	{
 		Schema::table('furniture_orders',function($table){
-			$table->dropColumn(['request']);
+			$table->dropColumn(['request','product_request_selected']);
 		});
 
 		Schema::table('furniture_furniture_order',function($table){
-			$table->dropColumn(['request_description','request_quantiy_product','request_price','request_comments']);
+			$table->dropColumn(['request_description','request_quantiy_product','request_price','request_comments','request_product_id']);
 		});
 	}
 
