@@ -41,7 +41,8 @@ class AdminSpiderGraphController extends \BaseController {
 					$itemArray['POR QUE TIEMPOS RESPUESTA CONSULTOR'] = $item->explain_3;
 					$itemArray['POR QUE CALIDAD DE PRODUCTO'] = $item->explain_4;
 					$itemArray['COMENTARIOS'] = $item->comments;
-
+					$itemArray['TITULO PROYECTO'] = $item->project_title;
+					$itemArray['FECHA SOLICITUD'] = $item->project_date;
 					$itemArray['CONSULTOR'] =  $item['manager_id'] != null ? User::find($item['manager_id'])->nombre : 'SIN CONSULTOR';
 					$itemArray['USUARIO_PROYECTOS'] = $item['user_id'] != null ?  User::find($item['user_id'])->nombre  : 'SIN USUARIO PROYECTOS';				
 
