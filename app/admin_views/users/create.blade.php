@@ -227,7 +227,8 @@
           </div>
     @endif
       
-      <center>         
+      <center>  
+        <a class="btn btn-danger btn-lg" href="{{action('AdminUsersController@index')}}">Cancelar</a>       
         {{Form::submit('Guardar', ['class' => 'btn btn-lg btn-primary'])}}
       </center> 
       
