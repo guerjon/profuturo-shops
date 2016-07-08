@@ -13,6 +13,7 @@ class FurnitureRequestsController extends BaseController
 			->where('furniture_orders.request',1)
 			->join('furniture_furniture_order','furniture_orders.id','=','furniture_furniture_order.furniture_order_id')
 			->groupBy('furniture_orders.id')
+			->select('furniture_orders.id','furniture_orders.created_at','furniture_orders.status')
 			->get();
 
 		return View::make('furnitures/requests')
@@ -45,10 +46,29 @@ class FurnitureRequestsController extends BaseController
 					'request_comments' => $request_comments[$i]
 				]);					
 			}			
+		}else{
+			return Redirect::action('FurnitureRequestsController@index')
+			->withErrores('Se ha producido un error a la hora de guardar la solicitud.');
 		}
 		  
 		return Redirect::action('FurnitureRequestsController@index')->withSuccess('Se añadio su solicitud.');
 
+	}
+
+	public function update($request_id)
+	{
+		$request_product_id = Input::get('request_product_id');
+		$request = FurnitureOrder::find($request_id);
+		
+		if(!$request)
+			return Redirect::back()->withErrors('No se encontro la solicitud');
+
+		if($request->update(['product_request_selected' =>$request_product_id,'status' => 2])){
+			return Redirect::action('FurnitureRequestsController@index')
+				->withSuccess('La solicitud se ha procesado se notificara al administrador.');
+		}else{
+			return Redirect::back()->withErrors('Se ha producido un error mientras se actualizaba intente mas tarde.');
+		}		
 	}
 
 	public function show($request_id)

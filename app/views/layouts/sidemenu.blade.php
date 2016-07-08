@@ -131,7 +131,7 @@
 						</li>
 						<li>
 							<a href="{{action('AdminFurnitureRequestsController@index')}}">
-								Pedidos Solicitudes sistema
+								Solicitudes sistema
 							</a>											
 						</li>
 					</ul>
