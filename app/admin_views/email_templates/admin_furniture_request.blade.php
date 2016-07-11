@@ -166,7 +166,7 @@
 							{{$furniture->pivot->request_price}}
 						</td>
 						<td>
-							{{$furniture->pivot->request_quantity_product}}
+							{{$furniture->pivot->request_quantiy_product}}
 						</td>
 						<td>
 							{{$furniture->pivot->request_comments}}
