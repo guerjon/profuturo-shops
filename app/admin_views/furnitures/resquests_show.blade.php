@@ -241,26 +241,25 @@
 
 
 			$('#delete-product').click(function(){
-				
-				--number_products;
-				
+
 				if(is_edit == 0){
 					var inputs = $('.furniture-input').last();
 				}
 				else{
 					var inputs = $('.products-added-edit').last();
 				}
-
-				inputs.remove();	
-				
-				if(number_products == 1){
+			
+				if(number_products == 3){
+					inputs.remove();	
+					$('#add-product').removeClass('hidden');
+					number_products--;
+				}else if(number_products == 2){
+					inputs.remove();
+					$('#add-product').removeClass('hidden');
+					number_products--;	
 					$(this).addClass('hidden');
 				}
-				else{
-					$('#add-product').removeClass('hidden');
-				}
-				console.log(number_products);
-				console.log(is_edit);
+				
 			});
 
 			$('#edit-products-btn').click(function(){
