@@ -38,7 +38,7 @@ class FurnitureRequestsController extends BaseController
 			$request_quantiy_product = Input::get('request_quantiy_product');
 			$request_comments = Input::get('request_comments');
 			$email_user = $user->email;
-			$email_admin = User::find(1)->email;
+			$email_admin = "claudia.romero@profuturo.com.mx";
 
 
 			for ($i=0; $i < sizeof($request_description); $i++) { 
