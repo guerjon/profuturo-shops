@@ -197,21 +197,45 @@
 			* Permite añadir hasta 3 productos cotizados
 			*/
 			$('#add-product').click(function(){
-				var inputs = $('.furniture-input').first().clone();	
-				if(number_products == 1){
+				
+				if(is_edit){
+					var inputs = $('.furniture-input').first().clone();	
 					
-					inputs.find('input,textArea').val('');	
-					$('#products').append(inputs);
-					$('#delete-product').removeClass('hidden');
+					if(number_products == 1){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products-added-edit').append(inputs);
+						$('#delete-product').removeClass('hidden');
+						
+					}else if(number_products == 2){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products-added-edit').append(inputs);
+						$(this).addClass('hidden');
+						$('#delete-product').removeClass('hidden');
+					}
+					number_products++;					
+
+				}else{
+					var inputs = $('.furniture-input').first().clone();	
 					
-				}else if(number_products == 2){
-					
-					inputs.find('input,textArea').val('');	
-					$('#products').append(inputs);
-					$(this).addClass('hidden');
-					$('#delete-product').removeClass('hidden');
+					if(number_products == 1){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products').append(inputs);
+						$('#delete-product').removeClass('hidden');
+						
+					}else if(number_products == 2){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products').append(inputs);
+						$(this).addClass('hidden');
+						$('#delete-product').removeClass('hidden');
+					}
+					number_products++;					
 				}
-				number_products++;
+				console.log(number_products);
+				console.log(is_edit);
 			});
 
 
@@ -219,7 +243,7 @@
 			$('#delete-product').click(function(){
 				
 				--number_products;
-				console.log(number_products);
+				
 				if(is_edit == 0){
 					var inputs = $('.furniture-input').last();
 				}
@@ -235,13 +259,14 @@
 				else{
 					$('#add-product').removeClass('hidden');
 				}
-
-				
+				console.log(number_products);
+				console.log(is_edit);
 			});
 
 			$('#edit-products-btn').click(function(){
 				is_edit = 1;
-
+				number_products = number_products -1;
+				
 				$('#products-added-edit').removeClass('hidden');
 				$('#products-added').addClass('hidden');
 				
