@@ -87,8 +87,7 @@ class FurnitureRequestsController extends BaseController
 			return Redirect::back()->withErrors('No se encontro la solicitud');
 
 		if($request->update(['product_request_selected' =>$request_product_id,'status' => 2])){
-			
-			Mail::send('admin::email_templates.admin_furniture_request_selected',
+			Mail::send('admin::email_templates.selected_products_by_admin',
 				[
 					'user' => $user,
 					'furniture_order' => $request,

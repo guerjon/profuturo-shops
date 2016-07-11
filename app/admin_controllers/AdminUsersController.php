@@ -151,6 +151,23 @@ class AdminUsersController extends AdminBaseController
             }
           }
         }
+
+        $user_system = User::withTrashed()->where('role', 'user_system');
+        if(Input::has('user_system'))
+        {
+          $input = Input::get('user_system', []);
+          if(!is_array($input)){
+            Log::warning("I did not receive an array");
+          }else{
+            if($emp_number = @$input['employee_number']){
+                $users_training->where('ccosto', 'LIKE', "%{$emp_number}%");
+            }
+            if($gerencia = @$input['gerencia']){
+                $users_training->where('gerencia', 'LIKE', "%{$gerencia}%");
+            }
+          }
+        }
+
     return View::make('admin::users.index')
       ->withAdmins($admins->paginate(10))
       ->withManagers($managers->paginate(10))
@@ -161,6 +178,7 @@ class AdminUsersController extends AdminBaseController
       ->withUsersMac($users_mac->paginate(10))
       ->withUsersCorporation($users_corporation->paginate(10))
       ->withUsersTraining($users_training->paginate(10))
+      ->withUsersSystem($user_system->paginate(10))
       ->withActiveTab($active_tab);
 
   }
@@ -218,7 +236,9 @@ class AdminUsersController extends AdminBaseController
       case 'user_training':
         $user->role = 'user_training';
         break;
-
+      case 'user_system':
+        $user->role = 'user_system';
+        break;
         default:        
           break;
     }
