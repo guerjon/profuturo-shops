@@ -193,51 +193,68 @@
 			var times_clone = 0;
 			var is_edit = 0;
 
+			/**
+			* permite añadir hasta 3 productos cotizados
+			*/
 			$('#add-product').click(function(){
-				if(times_clone < 2){
+				console.log(times_clone +' times to clone' );
+				console.log(is_edit + ' is edit');
+
+				if(times_clone == 0){
+					var inputs = $('.furniture-input').first().clone();	
+					inputs.find('input,textArea').val('');	
+					$('#products').append(inputs);
 					
-					if(is_edit == 0){
-						var inputs = $('.furniture-input').first().clone();	
-						inputs.find('input,textArea').val('');	
-						$('#products').append(inputs);
-					}
-					else{
-						var inputs = $('.products-added-edit').first().clone();
-						inputs.find('input,textArea').val('');	
-						$('#products-added-edit').append(inputs);
-					}
+				}else if(times_clone == 1){
 					
-					$('#delete-product').removeClass('hidden');
-				}
-				if(times_clone == 1) {
-					$(this).addClass('hidden');
+					var inputs = $('.products-added-edit').first().clone();
+					inputs.find('input,textArea').val('');	
+					$('#products-added-edit').append(inputs);
+
+
+				}else if(times_clone == 2){
+
+					var inputs = $('.furniture-input').first().clone();	
+					inputs.find('input,textArea').val('');	
+					$('#products-added-edit').append(inputs);
+					$(this).addClass('hidden');					
+
 				}
 				times_clone++;
 			});
 
 			$('#delete-product').click(function(){
+				console.log(times_clone +' times to clone' );
+				console.log(is_edit + ' is edit');
 				if(is_edit == 0){
 					var inputs = $('.furniture-input').last();
 				}
 				else{
 					var inputs = $('.products-added-edit').last();
 				}
-				inputs.remove();	
 
-				times_clone--;
+				inputs.remove();	
+				
 				if(times_clone == 0){
 					$(this).addClass('hidden');
 				}
 				else{
 					$('#add-product').removeClass('hidden');
 				}
+
+				times_clone--;
 			});
 
 			$('#edit-products-btn').click(function(){
 				times_clone = $(this).attr('data-number-products') - 1;
 				is_edit = 1;
+
+				console.log(times_clone +' times to clone' );
+				console.log(is_edit + ' is edit');
+				
 				$('#products-added-edit').removeClass('hidden');
 				$('#products-added').addClass('hidden');
+				
 				$(this).addClass('hidden');
 				
 				if(times_clone == 3){
