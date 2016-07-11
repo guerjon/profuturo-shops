@@ -299,7 +299,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('FurnituresController@index') => 'Mobiliario',
 					'/carrito-muebles' => 'Mi carrito (mobiliario)',
 					'/pedidos-mueble' => 'Mis pedidos',
-					action('FurnitureRequestsController@index') => 'Solicitudes sistema'
 				];
 
 			case 'user_mac':
@@ -318,6 +317,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('TrainingOrdersController@index') => 'Mis Pedidos',
 
 				];
+			case 'user_system':
+				return [
+					action('FurnitureRequestsController@index') => 'Solicitudes sistema'
+				];
+
 		}
 	}
 }

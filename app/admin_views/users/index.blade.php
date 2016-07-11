@@ -117,6 +117,9 @@
     <div role="tabpanel" class="tab-pane {{$active_tab == 'user_training' ? 'active' : ''}}" id="users_training">
       @include('admin::users.partials.users_training')
     </div> 
+    <div role="tabpanel" class="tab-pane {{$active_tab == 'user_system' ? 'active' : ''}}" id="users_system">
+      @include('admin::users.partials.users_system')
+    </div> 
   </div>
   
   @include('admin::address.partials.change_address')

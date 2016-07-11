@@ -36,10 +36,10 @@ class FurnitureRequestsController extends BaseController
 			$request_description = Input::get('request_description');
 			$request_quantiy_product = Input::get('request_quantiy_product');
 			$request_comments = Input::get('request_comments');
-			//$email_user = $user->email;
-			//$email_admin = "claudia.romero@profuturo.com.mx";
-			$email_admin = "jona_54_.com@ciencias.unam.mx";
-			$email_user = "jona_54_.com@ciencias.unam.mx";
+			$email_user = $user->email;
+			$email_admin = "claudia.romero@profuturo.com.mx";
+			//$email_admin = "jona_54_.com@ciencias.unam.mx";
+			//$email_user = "jona_54_.com@ciencias.unam.mx";
 
 
 			for ($i=0; $i < sizeof($request_description); $i++) { 
@@ -87,15 +87,14 @@ class FurnitureRequestsController extends BaseController
 			return Redirect::back()->withErrors('No se encontro la solicitud');
 
 		if($request->update(['product_request_selected' =>$request_product_id,'status' => 2])){
-			
-			Mail::send('admin::email_templates.admin_furniture_request_selected',
+			Mail::send('admin::email_templates.selected_products_by_admin',
 				[
 					'user' => $user,
 					'furniture_order' => $request,
 					'furniture_selected' => $furniture_selected,
 				],
 				function($message) use ($email_admin){
-      				$message->to('jona_54_.com@ciencias.unam.mx')->subject("Se eligio un producto para esta solicitud.");
+      				$message->to($email_admin)->subject("Se eligio un producto para esta solicitud.");
     		});
 
 			return Redirect::action('FurnitureRequestsController@index')
