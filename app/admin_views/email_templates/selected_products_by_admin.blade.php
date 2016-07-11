@@ -142,10 +142,9 @@
  <html>
 	<body>
 		<center>
-			<h1>Solicitud de sistemas número {{$furniture_order->id}} <br>
-				solicitada hecha por {{$user->gerencia}}</h1>
+			<h1>Solicitud de sistemas número {{$furniture_order->id}}</h1>
 			<hr>
-			<h4>Productos solicitados: </h4> 
+			<h4>Productos cotizados por el administrador: </h4> 
 			<hr>
 		</center>
 		<br>		
@@ -157,24 +156,24 @@
 				<th>Comentarios</th>
 			</thead>
 			<tbody>
-				@foreach($furnitures as $furniture)
+				@for($i=1;$i < sizeof($furnitures);$i++)
 					<tr>
 						<td>
-							{{$furniture->pivot->request_description}}
+							{{$furnitures[$i]->pivot->request_description}}
 						</td>
 						<td>
-							{{$furniture->pivot->request_price}}
+							{{$furnitures[$i]->pivot->request_price}}
 						</td>
 						<td>
-							{{$furniture->pivot->request_quantiy_product}}
+							{{$furnitures[$i]->pivot->request_quantiy_product}}
 						</td>
 						<td>
-							{{$furniture->pivot->request_comments}}
+							{{$furnitures[$i]->pivot->request_comments}}
 						</td>
 					</tr>
-				@endforeach
+				@endfor
 			</tbody>
 		</table>
-		Para cotizar productos para esta solicitud de click <a href="http://store.profuturocompras.com.mx/admin/solicitudes-mobilario/{{$furniture_order->id}}">aquí</a>.
+		Para seleccionar un producto para esta solicitud de click <a href="http://store.profuturocompras.com.mx/furniture-requests/{{$furniture_order->id}}">aquí</a>.
  	</body>
  </html>

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration {
 			$table->string('linea_negocio');
 			$table->string('password');
 			$table->boolean('has_limit')->default(true);
-			$table->enum('role', ['admin','manager','user_requests', 'user_paper','user_furnitures','user_mac','user_loader','user_corporation','user_training'])->default('user_paper');
+			$table->enum('role', ['admin','manager','user_requests', 'user_paper','user_furnitures','user_mac','user_loader','user_corporation','user_training','user_system'])->default('user_paper');
 			
 			$table->integer('divisional_id')->unsigned()->nullable();
 			$table->integer('region_id')->unsigned()->nullable();
