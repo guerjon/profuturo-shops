@@ -95,8 +95,6 @@
 			                <div id="general-requests-id"></div>
 			                <ul class="features" id="comments" style=" overflow: scroll;height: 300px;color:black;font-size:15px">
 
-			                    
-	
 			                </ul>
 			            </div>
 			        </div>

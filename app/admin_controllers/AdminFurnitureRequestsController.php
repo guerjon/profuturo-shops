@@ -22,19 +22,45 @@ class AdminFurnitureRequestsController extends AdminBaseController
 		return View::make('admin::furnitures/resquests_show')->withRequest($request);
 	}	
 
-	//Furniture id corresponde a la columna request_product_id de la tabla furniture_furniture_order
-	//y sera asignada a furniture_orders.product_request_selected como producto asignado
-	public function update($furniture_id)
-	{	
-		$request = FurnitureOrder::find(Input::get('request_id'));
-		
-		if(!$request)
-			return Redirect::back()->withErrors('No se encontro la orden');
+  /*
+  *Este metodo actualiza la tabla furniture_furniture_id no es como tal un metodo de actualizacion
+  * de furnitures_order
+  */
+  public function update($request_id)
+  {
+  	
+  	$furniture_order = FurnitureOrder::find($request_id);
+  	$is_edit = Input::get('is_edit');
 
-		if($request->update(['status' => '1','product_request_selected' => $furniture_id]))
-			return Redirect::action('AdminFurnitureRequestsController@index')
-				->withSuccess('Se ha actualizado la solicitud con exito');
-		else
-			return Redirect::back()->withErrors($request->getErrors());
-	}
+  	if(!$furniture_order)
+		        return Redirect::back()->withErrors('No se encontro la orden');
+	    
+  	if($is_edit)
+  		DB::table('furniture_furniture_order')->whereIn('request_product_id',Input::get('request_product_id'))->delete();
+  	
+    $furniture_order->status = 1;
+    if($furniture_order->save())
+    {
+      $request_price = Input::get('request_price');
+      $request_description = Input::get('request_description');
+      $request_quantiy_product = Input::get('request_quantiy_product');
+      $request_comments = Input::get('request_comments');
+
+      for ($i=0; $i < sizeof($request_description); $i++) { 
+        $furniture_order->furnitures()->attach(10000,[
+          'request_price' => $request_price[$i],
+          'request_description' => $request_description[$i],
+          'request_quantiy_product' => $request_quantiy_product[$i],
+          'request_comments' => $request_comments[$i]
+        ]);         
+      }     
+
+    }else{
+      return Redirect::action('AdminFurnitureRequestsController@index')
+      ->withErrores('Se ha producido un error a la hora de guardar la solicitud.');
+    }	
+  	  
+    return Redirect::action('AdminFurnitureRequestsController@index')->withSuccess('Se actualizado la solicitud.');
+
+  }
 }

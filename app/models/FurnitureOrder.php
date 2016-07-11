@@ -9,6 +9,7 @@ class FurnitureOrder extends Eloquent
 
   protected $guarded = [''];
 
+  protected $appends = ['readable_status'];
 
   public function furnitures()
   {
@@ -40,6 +41,22 @@ class FurnitureOrder extends Eloquent
   public function orderComplain()
   {
     return $this->hasOne('FurnitureOrderComplain');
+  }
+
+  public function getReadableStatusAttribute()
+  {
+      switch ($this->status) {
+        case '0':
+            return "EN PROCESO";
+        case '1':
+          return "PRODUCTO COTIZADO";
+        case '2':
+          return "PRODUCTO SELECCIONADO";
+        case '3':
+          return 'ORDEN CONFIRMADA';
+        default:
+          return "DESCONOCIDO";
+      }
   }
 
 }

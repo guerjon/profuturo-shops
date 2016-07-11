@@ -109,9 +109,6 @@ $(function(){
         }
     });
 
-
-
-
   $('a.list-group-item').click(function(){
     var modal = $('#add-to-cart-modal');
 
@@ -164,32 +161,33 @@ $(function(){
   $('#add-to-cart-modal .submit-btn').click(function(){
     var formData = $('#add-to-cart-modal form').serialize();
     $.post('/api/add-to-cart-furnitures', formData, function(data){
-      if(data.status == 200){
-        $('#add-to-cart-modal').modal('hide');
-        alert(data.msg);
-        var newq = data.new_q;
-        if(newq > 0){
-          var item = $('a[data-furniture-id="'+ data.furniture_id +'"]');
-          if(item.length > 0){
-            var label = item.find('.label');
-            if(label.length == 0){
-              label = $('<span>').attr('class', 'label label-info');
-              span = $('<span>').attr('class', 'furniture-current-stock').html(newq);
-              label.append('Actualmente ');
-              label.append(span);
-              label.append(' en mi carrito');
-              item.find('.pull-right').append(label);
-            }else{
-              label.find('.furniture-current-stock').html(newq);
+        if(data.status == 200){
+          $('#add-to-cart-modal').modal('hide');
+          alert(data.msg);
+          var newq = data.new_q;
+          if(newq > 0){
+            var item = $('a[data-furniture-id="'+ data.furniture_id +'"]');
+            if(item.length > 0){
+              var label = item.find('.label');
+              if(label.length == 0){
+                label = $('<span>').attr('class', 'label label-info');
+                span = $('<span>').attr('class', 'furniture-current-stock').html(newq);
+                label.append('Actualmente ');
+                label.append(span);
+                label.append(' en mi carrito');
+                item.find('.pull-right').append(label);
+              }else{
+                label.find('.furniture-current-stock').html(newq);
+              }
             }
           }
+        }else{
+          alert(data.error_msg);
         }
-      }else{
-        alert(data.error_msg);
-      }
     });
   });
-  });
+
+});
 
 
 

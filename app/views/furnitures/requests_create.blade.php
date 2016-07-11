@@ -46,20 +46,15 @@
 							
 							</div>
 						</div>
-
 					</div>
 				</div>
 			{{Form::close()}}			
-					<div class="text-center">
-						<button class="btn btn-info" id="add-product">
-							<span class="fa fa-plus"></span>
-							Añadir otro producto
-						</button>
-						<button class="btn btn-success" id="furniture-requests-button">
-							<span class="fa fa-save"></span>
-							Guardar
-						</button>															
-					</div>
+			<div class="text-center">
+				<button class="btn btn-success" id="furniture-requests-button">
+					<span class="fa fa-save"></span>
+					Guardar
+				</button>															
+			</div>
 			
 		</div>
 	</div>
@@ -68,19 +63,6 @@
 @section('script')
 	<script>
 		$(function(){
-			var times_clone = 0
-			$('#add-product').click(function(){
-				if(times_clone < 3){
-					var inputs = $('.furniture-input').first().clone();
-					inputs.find('input,textArea').val('');
-					$('#furniture-requests-products').append(inputs);
-					times_clone++;
-				}else{
-					$('#furniture-requests-products').append('<div class="alert alert-danger">'+
-						'El número de productos maximo para una solicitud es 4</div>');
-				}
-			});
-
 			$('#furniture-requests-button').click(function(){
 				$('#furniture-requests-products').submit();
 			});

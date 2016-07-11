@@ -35,7 +35,7 @@
 							Enviada
 						</th>
 						<th>
-							Estatus
+							Estatus de la orden
 						</th>
 					</thead>
 					<tbody>
@@ -48,9 +48,7 @@
 									{{$request->created_at}}
 								</td>
 								<td>
-									{{$request->product_request_selected == 0 ? 
-										'En proceso  <span style="color:#004a8d" class="fa fa-envelope-o"></span>' :
-										'Aprobado <span style="color:green" class="fa fa-check"></span>'}}
+									{{$request->readable_status}}
 								</td>
 							</tr>
 						@endforeach

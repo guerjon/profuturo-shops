@@ -253,5 +253,9 @@
     border-top-color: #FFFFFF;
 }
 
+.products-added:hover{
+  background-color: #5cb85c;
+}
+
 
 

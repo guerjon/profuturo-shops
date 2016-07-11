@@ -73,6 +73,8 @@ class AdminFurnituresOrdersController extends BaseController
     return View::make('admin::furnitures_orders.show')->withOrder($order);
   }
 
+
+
    public function destroy($order_id)
   {
     $order = FurnitureOrder::find($order_id);
