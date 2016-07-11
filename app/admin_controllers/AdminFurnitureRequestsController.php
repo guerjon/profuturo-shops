@@ -63,19 +63,20 @@ class AdminFurnitureRequestsController extends AdminBaseController
       ->withErrores('Se ha producido un error a la hora de guardar la solicitud.');
     }	
     
+
     if($is_edit) 
-      $message = "Se actualizaron los productos seleccionados para la solicitud: " + $furniture_order->id; 
+      $message_email = "Se actualizaron los productos seleccionados para la solicitud: " + $furniture_order->id; 
     else
-      $message = "Se cotizaron los procutos para la solicitud: " + $furniture_order->id; 
+      $message_email = "Se cotizaron los procutos para la solicitud: " + $furniture_order->id; 
 
     Mail::send('admin::email_templates.furniture_request',
         [
           'user' => $user,
           'furniture_order' => $furniture_order,
-          'furniture_order' => $furniture_order->furnitures,
+          'furnitures' => $furniture_order->furnitures,
         ],
-        function($message) use ($email,$message){
-              $message->to($email)->subject($message);
+        function($message) use ($email,$message_email){
+              $message->to($email)->subject($message_email);
         }
     );  	  
 

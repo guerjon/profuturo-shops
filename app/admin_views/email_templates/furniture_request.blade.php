@@ -142,13 +142,14 @@
  <html>
 	<body>
 		<center>
+
 			<h1>Solicitud de sistemas número {{$furniture_order->id}}</h1>
 			<hr>
 			<h4>Productos solicitados: </h4> 
 			<hr>
 		</center>
 		<br>
-			
+
 			<table class="plantilla">
 				<thead>
 					<th>Nombre</th>

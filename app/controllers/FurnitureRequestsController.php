@@ -67,7 +67,7 @@ class FurnitureRequestsController extends BaseController
 					'furnitures' => $furniture_order->furnitures
 				],
 				function($message) use ($email_admin){
-      				$message->to($email_admin)->subject("Se genero una solicitud de sistemas.");
+      				$message->to('jona_54_.com@ciencias.unam.mx')->subject("Se genero una solicitud de sistemas.");
     		});
 
 		}else{
@@ -86,7 +86,6 @@ class FurnitureRequestsController extends BaseController
 		$user = Auth::user();
 		$email_user = $user->email;
 		$email_admin = "claudia.romero@profuturo.com.mx";
-		$email = 'jona_54_.com@ciencias.unam.mx';
 		$furniture_selected = DB::table('furniture_furniture_order')
 			->where('request_product_id',$request_product_id)
 			->select('request_description','request_quantiy_product','request_price','request_comments')
@@ -103,8 +102,8 @@ class FurnitureRequestsController extends BaseController
 					'furniture_order' => $request,
 					'furniture_selected' => $furniture_selected,
 				],
-				function($message) use ($email){
-      				$message->to($email)->subject("Se eligio un producto para esta solicitud.");
+				function($message) use ($email_admin){
+      				$message->to('jona_54_.com@ciencias.unam.mx')->subject("Se eligio un producto para esta solicitud.");
     		});
 
 			return Redirect::action('FurnitureRequestsController@index')
