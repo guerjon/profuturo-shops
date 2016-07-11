@@ -76,7 +76,7 @@ class FurnitureRequestsController extends BaseController
 			->withErrores('Se ha producido un error a la hora de guardar la solicitud.');
 		}
 		  
-		return Redirect::action('FurnitureRequestsController@index')->withSuccess('Se añadio su solicitud.');
+		return Redirect::action('FurnitureRequestsController@index')->withSuccess('Se añadio su solicitud, se notificara por correo al administrador.');
 
 	}
 
@@ -84,42 +84,32 @@ class FurnitureRequestsController extends BaseController
 	{
 		$request_product_id = Input::get('request_product_id');
 		$request = FurnitureOrder::find($request_id);
+		$user = Auth::user();
 		$email_user = $user->email;
-		$email_admin = User::find(1)->email;
+		$email_admin = "claudia.romero@profuturo.com.mx";
 		$email = 'jona_54_.com@ciencias.unam.mx';
-
-
+		$furniture_selected = DB::table('furniture_furniture_order')
+			->where('request_product_id',$request_product_id)
+			->select('request_description','request_quantiy_product','request_price','request_comments')
+			->get();
+		
 		if(!$request)
 			return Redirect::back()->withErrors('No se encontro la solicitud');
 
 		if($request->update(['product_request_selected' =>$request_product_id,'status' => 2])){
 			
-
-			Mail::send('admin::email_templates.furniture_request',
+			Mail::send('admin::email_templates.admin_furniture_request_selected',
 				[
 					'user' => $user,
 					'furniture_order' => $request,
-					'furnitures' => $request->furnitures,
-					'message' => $message
-
+					'furniture_selected' => $furniture_selected,
 				],
 				function($message) use ($email){
-      				$message->to($email)->subject("Se actualizo el estado de su solicitud.");
-    		});
-
-			Mail::send('admin::email_templates.admin_furniture_request',
-				[
-					'user' => $user,
-					'furniture_order' => $request,
-					'furnitures' => $request->furnitures,
-					'message' => $message
-				],
-				function($message) use ($email){
-      				$message->to($email)->subject("Se actualizo la solicitud.");
+      				$message->to($email)->subject("Se eligio un producto para esta solicitud.");
     		});
 
 			return Redirect::action('FurnitureRequestsController@index')
-				->withSuccess('La solicitud se ha procesado se notificara al administrador.');
+				->withSuccess('La solicitud se ha procesado se notificara por correo al administrador.');
 		}else{
 			return Redirect::back()->withErrors('Se ha producido un error mientras se actualizaba intente mas tarde.');
 		}		
