@@ -32,8 +32,8 @@ class AdminFurnitureRequestsController extends AdminBaseController
   	$furniture_order = FurnitureOrder::find($request_id);
   	$is_edit = Input::get('is_edit');
     $user = $furniture_order->user;
-    //$email = $furniture_order->user->email;
-    $email = 'jona_54_.com@ciencias.unam.mx';
+    $email = $furniture_order->user->email;
+    //$email = 'jona_54_.com@ciencias.unam.mx';
 
   	if(!$furniture_order)
 		        return Redirect::back()->withErrors('No se encontro la orden');
