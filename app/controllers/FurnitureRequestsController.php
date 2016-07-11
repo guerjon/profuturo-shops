@@ -50,15 +50,14 @@ class FurnitureRequestsController extends BaseController
 				]);					
 			}		
 			
-			$email = 'jona_54_.com@ciencias.unam.mx';
 			Mail::send('admin::email_templates.furniture_request',
 				[
 					'user' => $user,
 					'furniture_order' => $furniture_order,
 					'furnitures' => $furniture_order->furnitures
 				],
-				function($message) use ($email){
-      				$message->to($email)->subject("Sobre su solicitud de sistemas.");
+				function($message) use ($email_user){
+      				$message->to($email_user)->subject("Sobre su solicitud de sistemas.");
     		});
 
 			Mail::send('admin::email_templates.admin_furniture_request',
@@ -67,8 +66,8 @@ class FurnitureRequestsController extends BaseController
 					'furniture_order' => $furniture_order,
 					'furnitures' => $furniture_order->furnitures
 				],
-				function($message) use ($email){
-      				$message->to($email)->subject("Se genero una solicitud de sistemas.");
+				function($message) use ($email_admin){
+      				$message->to($email_admin)->subject("Se genero una solicitud de sistemas.");
     		});
 
 		}else{
