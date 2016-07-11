@@ -31,6 +31,7 @@ class AdminFurnitureRequestsController extends AdminBaseController
   	
   	$furniture_order = FurnitureOrder::find($request_id);
   	$is_edit = Input::get('is_edit');
+    $user = $furniture_order->user->email;
 
   	if(!$furniture_order)
 		        return Redirect::back()->withErrors('No se encontro la orden');
@@ -60,7 +61,23 @@ class AdminFurnitureRequestsController extends AdminBaseController
       return Redirect::action('AdminFurnitureRequestsController@index')
       ->withErrores('Se ha producido un error a la hora de guardar la solicitud.');
     }	
-  	  
+    
+    if($is_edit) 
+      $message = "Se actualizaron los productos seleccionados para la solicitud: " + $furniture_order->id; 
+    else
+      $message = "Se cotizaron los procutos para la solicitud: " + $furniture_order->id; 
+
+    Mail::send('admin::email_templates.furniture_request',
+        [
+          'user' => $user,
+          'furniture_order' => $furniture_order,
+          'furniture_order' => $furniture_order->furnitures,
+        ],
+        function($message) use ($email,$message){
+              $message->to($email)->subject($message);
+        }
+    );  	  
+
     return Redirect::action('AdminFurnitureRequestsController@index')->withSuccess('Se actualizado la solicitud.');
 
   }
