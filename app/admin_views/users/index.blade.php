@@ -81,7 +81,11 @@
           Capacitaciones
         </a>
       </li>    
-
+      <li role="presentation" class="{{$active_tab == 'user_system' ? 'active' : ''}}">
+        <a href="?active_tab=user_system&page=1" aria-controls="user_system" class="tabs">
+          Sistema
+        </a>
+      </li>
     </ul>
   </div>
 

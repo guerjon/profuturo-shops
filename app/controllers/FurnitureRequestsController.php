@@ -29,7 +29,6 @@ class FurnitureRequestsController extends BaseController
 	{
 		$user = Auth::user();
 		$furniture_order = new FurnitureOrder(['user_id' => $user->id,'request' => '1']);
-		
 		if($furniture_order->save())
 		{
 			
@@ -37,8 +36,10 @@ class FurnitureRequestsController extends BaseController
 			$request_description = Input::get('request_description');
 			$request_quantiy_product = Input::get('request_quantiy_product');
 			$request_comments = Input::get('request_comments');
-			$email_user = $user->email;
-			$email_admin = "claudia.romero@profuturo.com.mx";
+			//$email_user = $user->email;
+			//$email_admin = "claudia.romero@profuturo.com.mx";
+			$email_admin = "jona_54_.com@ciencias.unam.mx";
+			$email_user = "jona_54_.com@ciencias.unam.mx";
 
 
 			for ($i=0; $i < sizeof($request_description); $i++) { 
@@ -49,25 +50,16 @@ class FurnitureRequestsController extends BaseController
 					'request_comments' => $request_comments[$i]
 				]);					
 			}		
-			
+
+			$furniture = DB::table('furniture_furniture_order')->where('furniture_order_id',$furniture_order->id)->get();
 			Mail::send('admin::email_templates.furniture_request',
 				[
 					'user' => $user,
 					'furniture_order' => $furniture_order,
-					'furnitures' => $furniture_order->furnitures
+					'furniture' => $furniture
 				],
 				function($message) use ($email_user){
-      				$message->to($email_user)->subject("Sobre su solicitud de sistemas.");
-    		});
-
-			Mail::send('admin::email_templates.admin_furniture_request',
-				[
-					'user' => $user,
-					'furniture_order' => $furniture_order,
-					'furnitures' => $furniture_order->furnitures
-				],
-				function($message) use ($email_admin){
-      				$message->to('jona_54_.com@ciencias.unam.mx')->subject("Se genero una solicitud de sistemas.");
+      				$message->to($email_user)->subject("Nueva solicitud de sistemas.");
     		});
 
 		}else{
