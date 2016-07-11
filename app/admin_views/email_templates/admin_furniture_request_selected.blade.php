@@ -159,6 +159,6 @@
 
 			</div>
 		</div>
-		Para cotizar productos para esta solicitud de click <a href="http://store.profuturocompras.com.mx/admin/solicitudes-mobilario/{{$furniture_order->id}}">aquí</a>.
+		Para ver el producto seleccionado dar click <a href="http://store.profuturocompras.com.mx/admin/solicitudes-mobilario/{{$furniture_order->id}}">aquí</a>.
  	</body>
  </html>
