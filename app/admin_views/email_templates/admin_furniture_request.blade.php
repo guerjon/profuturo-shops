@@ -149,7 +149,7 @@
 			<hr>
 		</center>
 		<br>		
-		<table class="table table-striped">
+		<table class="plantilla">
 			<thead>
 				<th>Nombre</th>
 				<th>Precio</th>

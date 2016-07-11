@@ -34,7 +34,8 @@ class AdminFurnitureRequestsController extends AdminBaseController
 
   	if(!$furniture_order)
 		        return Redirect::back()->withErrors('No se encontro la orden');
-	    
+	  
+    //Eliminamos todos los productos anteriores y agregamos los nuevos actualizados a la orden.  
   	if($is_edit)
   		DB::table('furniture_furniture_order')->whereIn('request_product_id',Input::get('request_product_id'))->delete();
   	
