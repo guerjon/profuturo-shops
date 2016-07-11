@@ -190,42 +190,60 @@
 	<style href="/css/table_style.css"></style>
 	<script>
 		$(function(){
-			var times_clone = 0;
+			var number_products = $('#edit-products-btn').attr('data-number-products'); //valor max 2 
 			var is_edit = 0;
-
+			
 			/**
-			* permite añadir hasta 3 productos cotizados
+			* Permite añadir hasta 3 productos cotizados
 			*/
 			$('#add-product').click(function(){
-				console.log(times_clone +' times to clone' );
-				console.log(is_edit + ' is edit');
-
-				if(times_clone == 0){
+				
+				if(is_edit){
 					var inputs = $('.furniture-input').first().clone();	
-					inputs.find('input,textArea').val('');	
-					$('#products').append(inputs);
 					
-				}else if(times_clone == 1){
-					
-					var inputs = $('.products-added-edit').first().clone();
-					inputs.find('input,textArea').val('');	
-					$('#products-added-edit').append(inputs);
+					if(number_products == 1){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products-added-edit').append(inputs);
+						$('#delete-product').removeClass('hidden');
+						
+					}else if(number_products == 2){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products-added-edit').append(inputs);
+						$(this).addClass('hidden');
+						$('#delete-product').removeClass('hidden');
+					}
+					number_products++;					
 
-
-				}else if(times_clone == 2){
-
+				}else{
 					var inputs = $('.furniture-input').first().clone();	
-					inputs.find('input,textArea').val('');	
-					$('#products-added-edit').append(inputs);
-					$(this).addClass('hidden');					
-
+					
+					if(number_products == 1){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products').append(inputs);
+						$('#delete-product').removeClass('hidden');
+						
+					}else if(number_products == 2){
+						
+						inputs.find('input,textArea').val('');	
+						$('#products').append(inputs);
+						$(this).addClass('hidden');
+						$('#delete-product').removeClass('hidden');
+					}
+					number_products++;					
 				}
-				times_clone++;
+				console.log(number_products);
+				console.log(is_edit);
 			});
 
+
+
 			$('#delete-product').click(function(){
-				console.log(times_clone +' times to clone' );
-				console.log(is_edit + ' is edit');
+				
+				--number_products;
+				
 				if(is_edit == 0){
 					var inputs = $('.furniture-input').last();
 				}
@@ -235,32 +253,29 @@
 
 				inputs.remove();	
 				
-				if(times_clone == 0){
+				if(number_products == 1){
 					$(this).addClass('hidden');
 				}
 				else{
 					$('#add-product').removeClass('hidden');
 				}
-
-				times_clone--;
+				console.log(number_products);
+				console.log(is_edit);
 			});
 
 			$('#edit-products-btn').click(function(){
-				times_clone = $(this).attr('data-number-products') - 1;
 				is_edit = 1;
-
-				console.log(times_clone +' times to clone' );
-				console.log(is_edit + ' is edit');
+				number_products = number_products -1;
 				
 				$('#products-added-edit').removeClass('hidden');
 				$('#products-added').addClass('hidden');
 				
 				$(this).addClass('hidden');
 				
-				if(times_clone == 3){
+				if(number_products == 3){
 					$('#add-product').addClass('hidden')	
-					times_clone--;
 				}
+
 				$('#delete-product').removeClass('hidden')
 				$('#buttons-to-edit').removeClass('hidden');
 				$('#cancel').removeClass('hidden');
