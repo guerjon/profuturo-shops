@@ -87,8 +87,8 @@
 </table>
 
 <hr>
-
-  @if($last_order !== NULL and $last_order->created_at->month == \Carbon\Carbon::now()->month and Auth::user()->has_limit)
+  {{-- $last_order !== NULL and $last_order->created_at->month == \Carbon\Carbon::now()->month and Auth::user()->has_limit --}}
+  @if(false)
     <div class="alert alert-warning">
       Usted ya realizó un pedido de mobiliario este mes.
     </div>
