@@ -37,6 +37,7 @@
           <th>Línea de negocio</th>
           <th>Extensión</th>
           <th>Domicilio</th>
+          <th>Número de empleado</th>
           <th></th>
       
         </tr>
@@ -57,6 +58,9 @@
                   Ver cambio domicilio
                 </button>
               @endif
+            </td>
+            <td>
+              {{$user_furniture->num_empleado}}
             </td>
             <td>
               @include('admin::users.partials.actions', ['user' => $user_furniture])

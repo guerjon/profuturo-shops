@@ -20,9 +20,6 @@ class OrderFurnituresController extends BaseController
     $order = new FurnitureOrder(Input::except('color'));
     $order->user_id = Auth::id();
       
-  
-
-
     if($order->save()){
       
         // $products = DB::table('furniture_furniture_order')

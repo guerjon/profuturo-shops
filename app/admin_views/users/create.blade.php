@@ -121,7 +121,7 @@
           </div>
         </div>
         
-        @if($active_tab == 'user_loader')
+        @if($active_tab == 'user_loader' || $active_tab == 'user_system')
             <div class="form-group">
                 {{Form::label('num_empleado', 'Número de empleado', ['class' => 'control-label '])}}
                 {{Form::number('num_empleado', NULL, ['class' => 'form-control'])}}
