@@ -171,7 +171,7 @@
 								Correo usuario
 							</td>
 							<td>
-								Jonatha_54.com@hotmail.com
+								
 							</td>
 						</tr>
 					</tbody>

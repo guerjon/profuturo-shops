@@ -14,7 +14,6 @@ class SatisfactionSurveyController extends BaseController{
 			}else{
 				return View::make('satisfaction_survey.index')->withErrors('La solicitud general fue eliminada o desabilitada.');	
 			}
-			
 		}else{
 			$general_request = GeneralRequest::find($id);
 			if($general_request){

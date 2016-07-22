@@ -95,26 +95,51 @@ class GeneralRequestsController extends BaseController{
     $manager = $request->manager->nombre;
 
     if($status == 10){
-      $direccion = "encuesta-satisfaccion/questions/".$request->id;
-    
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => $direccion,'request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado){
-        $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
-      });
-    
-      $email = "karina.ascencionhernandez@profuturo.com.mx";
-   
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
 
-        $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
-      });
-
-
-      $email = $request->manager->email;
+      if($this->sentSurvey()){
+        $direccion = "encuesta-satisfaccion/questions/".$request->id;
       
+        Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => $direccion,'request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado){
+          $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
+        });
+      
+        $email = "karina.ascencionhernandez@profuturo.com.mx";
+     
+        Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
 
-      Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
-        $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
-      });
+          $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
+        });
+
+
+        $email = $request->manager->email;
+        
+
+        Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
+          $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
+        });        
+      }else{
+          
+          $direccion = "";
+          $mensaje = "Tu solicitud ha sido completada satisfactoriamente.";
+
+          Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => $direccion,'request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado){
+            $message->to($email,$name)->subject("Tu solicitud ha sido completada satisfactoriamente.");
+          });
+        
+          $email = "karina.ascencionhernandez@profuturo.com.mx";
+       
+          Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
+
+            $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
+          });
+
+
+          $email = $request->manager->email;
+          
+          Mail::send('admin::email_templates.general_request',['estado' => $estado,'direccion' => '','request' => $request,'manager' => $manager],function($message) use ($email,$name,$estado,$request){
+            $message->to($email,$name)->subject("La solicitud ".$request->id." ha sido completada satisfactoriamente. ");
+          });        
+      }
 
     }else{
       
@@ -126,7 +151,7 @@ class GeneralRequestsController extends BaseController{
 
     $request->save();
 
-  return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
+    return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
   }   
 
 
@@ -145,6 +170,15 @@ class GeneralRequestsController extends BaseController{
     }else{
         return Redirect::back()->withErrors('No se encontro la orden');
     }
+  }
+
+  private function sentSurvey()
+  {
+      $percentage = 40;
+      if(rand(1,100) <= $percentage)
+        return true;
+
+      return false;  
   }
 
 }
