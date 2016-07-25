@@ -40,6 +40,7 @@ class OrderFurnituresController extends BaseController
                                                     ]);
         Auth::user()->cartFurnitures()->detach($furniture->id);
       }
+      
       if(Auth::user()->email != null){
           $user = Auth::user();
           $products = $order->furnitures;

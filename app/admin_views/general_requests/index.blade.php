@@ -176,7 +176,7 @@
 
 @include('general_requests.partials.show')
   <div class="text-center">
-    {{$requests->links()}}
+    {{$requests->appends(['active_tab' => $active_tab])->links()}}
   </div>
 @else
 <br>
