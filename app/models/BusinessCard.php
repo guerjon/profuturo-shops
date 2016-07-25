@@ -13,7 +13,8 @@ class BusinessCard extends Eloquent
   ];
   protected $guarded = [];
 
-
+  protected $dates = ['deleted_at'];
+  
   public function setFechaIngresoAttribute($value)
   {
     if(is_string($value)){
