@@ -4,7 +4,11 @@ class AdminBusinessCardsController extends BaseController{
 
   public function index()
   {
+
+    //BusinessCard::withTrashed()->whereNotNull('deleted_at')->forceDelete();
+
     //dd(Input::get('active_tab'));
+
     $active_tab = Input::get('active_tab','trashed');
 
     $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
