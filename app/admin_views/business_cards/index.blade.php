@@ -17,6 +17,25 @@
   </a>
 </div>
 <br>
+    <div class="" style="margin: 20px inherit">
+     <ul class="nav nav-tabs" role="tablist">
+      
+        <li role="presentation" class="{{$active_tab == 'untrashed' ? 'active' : ''}}">
+          <a href="?active_tab=untrashed&page=1" class="tabs">
+            Activos
+          </a>
+        </li>
+      
+        <li role="presentation" class="{{$active_tab == 'trashed' ? 'active' : ''}}">
+          <a href="?active_tab=trashed&page=1" class="tabs">
+            Inactivos
+          </a>
+        </li>
+
+    </ul>
+  </div>
+<br>
+
 @if($cards->count() == 0)
 
   <div class="alert alert-warning">
@@ -28,7 +47,8 @@
     'method' => 'GET',
     'class' => 'form-inline'
     ])}}
-
+    <input type="hidden" value="{{$active_tab}}" name="active_tab">
+  
     <div class="form-group">
       {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'Numero de empleado'])}}
     </div>
@@ -42,7 +62,7 @@
     </div>
 
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">
+      <button type="submit" class="btn btn-primary" >
         <span class="glyphicon glyphicon-filter"></span> Filtrar
       </button>
     </div>

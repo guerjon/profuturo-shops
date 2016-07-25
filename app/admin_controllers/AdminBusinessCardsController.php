@@ -4,9 +4,13 @@ class AdminBusinessCardsController extends BaseController{
 
   public function index()
   {
+    //dd(Input::get('active_tab'));
+    $active_tab = Input::get('active_tab','trashed');
+
     $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
     $cards = BusinessCard::withTrashed()->orderBy('gerencia')->orderBy('no_emp');
 
+    
     if(Input::has('no_emp')){
       $cards->where('no_emp','like','%'.Input::get('no_emp').'%');
     }
@@ -18,8 +22,17 @@ class AdminBusinessCardsController extends BaseController{
     if(Input::has('ccosto')){
       $cards->where('ccosto','like','%'.Input::get('ccosto').'%');
     }
+    if($active_tab == 'trashed')
+      $cards->onlyTrashed();
+    else{
+      $cards->whereNull('deleted_at');
+    }
 
-    return View::make('admin::business_cards.index')->withCards($cards->paginate(50))->withGerencias($gerencias);
+
+    return View::make('admin::business_cards.index')
+      ->withCards($cards->paginate(50))
+      ->withGerencias($gerencias)
+      ->withActiveTab($active_tab);
   }
 
   public function create()
