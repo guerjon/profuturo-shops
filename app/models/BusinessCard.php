@@ -17,7 +17,12 @@ class BusinessCard extends Eloquent
   public function setFechaIngresoAttribute($value)
   {
     if(is_string($value)){
-      $this->attributes['fecha_ingreso'] = \Carbon\Carbon::createFromFormat('d/m/Y', $value);
+      try {
+        $this->attributes['fecha_ingreso'] = \Carbon\Carbon::createFromFormat('d/m/Y', $value);  
+      } catch (Exception $e) {
+        $this->attributes['fecha_ingreso'] = $value;  
+      }
+      
     }else{
       $this->attributes['fecha_ingreso'] = $value;
     }
