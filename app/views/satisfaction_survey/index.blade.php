@@ -57,7 +57,7 @@
                                   <td>
                                     <label for="explain_1" class="radio-inline">¿Por qué?</label> 
                                     
-                                    <textarea class="form-control" title="Se requieren 50 caracteres minimo" required="required" name="explain_1" cols="20" rows="3"></textarea>
+                                    <textarea class="form-control" name="explain_1" cols="20" rows="3"></textarea>
                                   </td>
                                 </tr>
                                 <tr>
@@ -86,7 +86,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_2" class="radio-inline">¿Por qué?</label> 
-                                   <textarea class="form-control" required="required" name="explain_2" cols="20" rows="3"></textarea>
+                                   <textarea class="form-control" name="explain_2" cols="20" rows="3"></textarea>
                                   </td> 
 
                                 </tr>
@@ -120,7 +120,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_3" class="radio-inline">¿Por qué?</label> 
-                                  <textarea class="form-control" required="required" name="explain_3" cols="20" rows="3"></textarea>
+                                  <textarea class="form-control" name="explain_3" cols="20" rows="3"></textarea>
                                   </td>
                           </tr>
                                 <tr>
@@ -150,7 +150,7 @@
                                   </td>
                                   <td>
                                     <label for="explain_4" class="radio-inline">¿Por qué?</label> 
-                                  <textarea class="form-control" required="required" name="explain_4" cols="20" rows="3"></textarea>
+                                  <textarea class="form-control" name="explain_4" cols="20" rows="3"></textarea>
                                   </td>
                                 </tr>
                               </tbody>
@@ -178,19 +178,7 @@
     $(function(){
       $('.btn-lg').click(function(event){
         event.preventDefault();
-        var total = 0;
-        $('textarea').each(function(){
-          if($(this).val().length > 0)
-          {
-            console.log($(this).val());
-            total += $(this).val().length
-          }
-        });
-        console.log(total)
-        if(total >= 250)
           $('#satisfaciton_form').submit();
-        else
-          alert('Se necesitan minimio 50 caracteres en cada campo ¿Por qué?');
       });
     });
   </script>

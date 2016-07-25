@@ -182,7 +182,7 @@
 							for (var i = datos.comments.length - 1; i >= 0; i--) {
 								
 									$('#comments').append(
-										"<h3><a href='general-requests/"+datos.comments[i].general_request_id+"'>Solitud general:"+ datos.comments[i].general_request_id+"</a></h3>");
+										"<h3><a href='general-requests/"+datos.comments[i].general_request_id+"'>Solicitud general:"+ datos.comments[i].general_request_id+"</a></h3>");
 									$('#comments').append('<ul>');
 									$('#comments').append('<li>'+datos.comments[i].explain_1+'</li>')
 									$('#comments').append('<li>'+datos.comments[i].explain_2+'</li>')

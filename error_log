@@ -152,3 +152,6 @@
 [21-Aug-2015 21:14:05 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20100525/libFdfTk.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20100525/libFdfTk.so: wrong ELF class: ELFCLASS32 in Unknown on line 0
 [14-Mar-2016 23:31:30 UTC] PHP Fatal error:  Class 'CreateMessagesTable' not found in /home/profcom/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php on line 301
 [06-May-2016 15:29:40 UTC] PHP Fatal error:  Class 'CreateColorColumnFurniture' not found in /home/profcom/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php on line 301
+[06-Jul-2016 18:52:10 UTC] PHP Fatal error:  Class 'CreateFurnitureOrdersColumns' not found in /home/profcom/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php on line 301
+[06-Jul-2016 18:54:25 UTC] PHP Fatal error:  Class 'CreateFurnitureOrdersColumns' not found in /home/profcom/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php on line 301
+[06-Jul-2016 18:54:51 UTC] PHP Fatal error:  Class 'CreateFurnitureOrdersColumns' not found in /home/profcom/profuturo-compras-web/vendor/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php on line 301
