@@ -48,6 +48,7 @@ class AdminBusinessCardsController extends BaseController{
       $reader->each(function($sheet)use(&$created, &$updated){
         $sheet->each(function($row)use(&$created, &$updated){
           $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->first();
+
           if(!$card){
             
             $card = BusinessCard::create([
@@ -67,13 +68,17 @@ class AdminBusinessCardsController extends BaseController{
             if($card){
               $created++;
             }
-            Log::info($row->no_emp);
+            
           }else{
             
+            if($card->trashed())
+              $card->restore();
+
             $card->fill([
+              'no_emp' => $row->numero_empleado,
               'nombre' => $row->nombre_empleado,
               'ccosto' => $row->ccosto,
-              'nombre_ccosto' => $row->ccosto,
+              'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
               'nombre_puesto' => $row->nombre_puesto,
               'fecha_ingreso' => $row->fecha_ingreso,
               'web' => $row->web,
@@ -83,8 +88,6 @@ class AdminBusinessCardsController extends BaseController{
               'celular' => $row->celular,
               'email' => $row->email,
             ]);
-
-            $card->restore();
 
             if($card->save()){
               $updated++;
