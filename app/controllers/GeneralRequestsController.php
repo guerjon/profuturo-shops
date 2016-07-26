@@ -31,27 +31,26 @@ class GeneralRequestsController extends BaseController{
           count(general_request_products.id) as total_products,
           sum(general_request_products.unit_price) as total
           
-        '))->where('user_id',Auth::id())->orderBy('rating')->groupBy('general_requests.id')->get();
+        '))->where('user_id',Auth::id())->orderBy('rating')->groupBy('general_requests.id');
 
-    // if($active_tab == 'assigned'){
-    //     $request->whereNotNull('manager_id');
-    //     $request_excel->whereNotNull('manager_id');
-    // }elseif($active_tab == 'not_assigned'){
-      
-    //   $request->where('manager_id',null);
-    //   $request_excel->where('manager_id',null);
+      if($active_tab == 'assigned'){
+          $requests->whereNotNull('manager_id');
+      }elseif($active_tab == 'not_assigned'){
+        
+        $requests->where('manager_id',null);
 
-    // }elseif($active_tab == 'deleted_assigned'){
-    //   $request->whereNotNull('manager_id')->onlyTrashed();
-    //   $request_excel->whereNotNull('manager_id')->onlyTrashed();
+      }elseif($active_tab == 'deleted_assigned'){
+        $requests->whereNotNull('manager_id')->onlyTrashed();
 
-    // }elseif($active_tab == 'deleted_unassigned'){
-    //   $request->whereNull('manager_id')->onlyTrashed();
-    //   $request_excel->whereNull('manager_id')->onlyTrashed();
-    // }
+      }elseif($active_tab == 'deleted_unassigned'){
+        $requests->whereNull('manager_id')->onlyTrashed();
+      }elseif($active_tab == 'finished'){
+        $requests->where('status',10);
+      }
 
 
-    return View::make('general_requests.index')->withRequests($requests)
+
+    return View::make('general_requests.index')->withRequests($requests->get())
                                                ->withActiveCategory($active_category)
                                                ->withActiveTab($active_tab)
                                                ->withAccess($access);

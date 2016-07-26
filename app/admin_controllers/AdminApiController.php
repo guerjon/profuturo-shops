@@ -507,122 +507,118 @@ class AdminApiController extends AdminBaseController
   {
 	
 	ini_set('max_execution_time', '300');
-   
-
-	$query = DB::table('bc_order_business_card')->selectRaw("
-	  bc_orders.created_at as FECHA_PEDIDO,
-	  bc_orders.id AS NUM_PEDIDO,
-	  100 AS CANTIDAD,
-	  users.gerencia AS GERENCIA,
-	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-	  business_cards.nombre AS NOMBRE,
-	  business_cards.nombre_puesto AS NOMBRE_PUESTO,
-	  business_cards.email AS EMAIL,
-	  business_cards.telefono AS TELEFONO,
-	  business_cards.celular AS CELULAR,
-	  business_cards.web AS WEB,
-	  business_cards.ccosto AS CENTRO_COSTO,
-	  business_cards.direccion AS DIRECCION,
-	  business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
-	  CASE bc_orders.status
-	  WHEN  '0' THEN  'PENDIENTE'
-	  WHEN  1 THEN  'RECIBIDO'
-	  WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-	  END AS ESTATUS ")
-	  ->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
-	  ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
-	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-	  ->whereNull('bc_orders.deleted_at')
-	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until')) 
+   	
+	$query = DB::table('bc_orders')
+		->selectRaw("
+		bc_orders.created_at as FECHA_PEDIDO,
+		bc_orders.id AS NUM_PEDIDO,
+		100 AS CANTIDAD,
+		users.gerencia AS GERENCIA,
+		DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+		business_cards.nombre AS NOMBRE,
+		business_cards.nombre_puesto AS NOMBRE_PUESTO,
+		business_cards.email AS EMAIL,
+		business_cards.telefono AS TELEFONO,
+		business_cards.celular AS CELULAR,
+		business_cards.web AS WEB,
+		business_cards.ccosto AS CENTRO_COSTO,
+		business_cards.direccion AS DIRECCION,
+		business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
+		CASE bc_orders.status
+		WHEN  '0' THEN  'PENDIENTE'
+		WHEN  1 THEN  'RECIBIDO'
+		WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+		END AS ESTATUS ")
+		->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
+		//->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
+		->join('users', 'users.id', '=', 'bc_orders.user_id')
+		->where('bc_orders.created_at','>=',Input::get('since'))
+		->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until')) 
 	);
 
 	$query2 = DB::table('blank_cards_bc_order')->selectRaw("
-	  bc_orders.created_at as FECHA_PEDIDO,
-	  bc_orders.id as NUM_PEDIDO,
-	  blank_cards_bc_order.quantity as CANTIDAD,
-	  users.gerencia as GERENCIA,
-	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-	  'Tarjetas blancas' AS NOMBRE,
-	  blank_cards_bc_order.nombre_puesto AS NOMBRE_PUESTO,
-	  blank_cards_bc_order.email AS EMAIL,
-	  blank_cards_bc_order.telefono_tarjetas AS TELEFONO,
-	  '' AS CELULAR,
-	  '' AS WEB,
-	  users.ccosto AS CENTRO_COSTO,
-	  '' AS DIRECCION,
-	  blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA_TARJETAS,
-	  blank_cards_bc_order.email as EMAIL_TARJETAS,
-	  CASE bc_orders.status
-	  WHEN  '0' THEN  'PENDIENTE'
-	  WHEN  1 THEN  'RECIBIDO'
-	  WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-	  END AS ESTATUS")
-	  ->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
-	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-	  ->whereNull('bc_orders.deleted_at')
-	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
+		bc_orders.created_at as FECHA_PEDIDO,
+		bc_orders.id as NUM_PEDIDO,
+		blank_cards_bc_order.quantity as CANTIDAD,
+		users.gerencia as GERENCIA,
+		DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+		'Tarjetas blancas' AS NOMBRE,
+		blank_cards_bc_order.nombre_puesto AS NOMBRE_PUESTO,
+		blank_cards_bc_order.email AS EMAIL,
+		blank_cards_bc_order.telefono_tarjetas AS TELEFONO,
+		'' AS CELULAR,
+		'' AS WEB,
+		users.ccosto AS CENTRO_COSTO,
+		'' AS DIRECCION,
+		blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA_TARJETAS,
+		blank_cards_bc_order.email as EMAIL_TARJETAS,
+		CASE bc_orders.status
+		WHEN  '0' THEN  'PENDIENTE'
+		WHEN  1 THEN  'RECIBIDO'
+		WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+		END AS ESTATUS")
+		->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id')
+		->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+		->where('bc_orders.created_at','>=',Input::get('since'))
+		->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
 	);
 
 	$query3 = DB::table('bc_orders_extras')->selectRaw("
-	  bc_orders.created_at as FECHA_PEDIDO,
-	  bc_orders.id as NUM_PEDIDO,
-	  100 as CANTIDAD,
-	  users.gerencia as GERENCIA,
-	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-	  bc_orders_extras.talento_nombre AS NOMBRE,
-	  '' AS NOMBRE_PUESTO,
-	  talento_email AS EMAIL,
-	  talento_tel AS TELEFONO,
-	  talento_cel AS CELULAR,
-	  '' AS WEB,
-	  users.ccosto AS CENTRO_COSTO,
-	  bc_orders_extras.talento_direccion AS DIRECCION,
-	  '' AS DIRECCION_ALTERNATIVA,
-	  'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
-	  CASE bc_orders.status
-	  WHEN  '0' THEN  'PENDIENTE'
-	  WHEN  1 THEN  'RECIBIDO'
-	  WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-	  END AS ESTATUS")
-	  ->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
-	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-	  ->whereNull('bc_orders.deleted_at')
-	  ->where('bc_orders_extras.talento_nombre', '!=', "''")
-	  ->whereNotNull('bc_orders_extras.talento_nombre')
-	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
+		bc_orders.created_at as FECHA_PEDIDO,
+		bc_orders.id as NUM_PEDIDO,
+		100 as CANTIDAD,
+		users.gerencia as GERENCIA,
+		DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+		bc_orders_extras.talento_nombre AS NOMBRE,
+		'' AS NOMBRE_PUESTO,
+		talento_email AS EMAIL,
+		talento_tel AS TELEFONO,
+		talento_cel AS CELULAR,
+		'' AS WEB,
+		users.ccosto AS CENTRO_COSTO,
+		bc_orders_extras.talento_direccion AS DIRECCION,
+		'' AS DIRECCION_ALTERNATIVA,
+		'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
+		CASE bc_orders.status
+		WHEN  '0' THEN  'PENDIENTE'
+		WHEN  1 THEN  'RECIBIDO'
+		WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+		END AS ESTATUS")
+		->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
+		->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+		->where('bc_orders_extras.talento_nombre', '!=', "''")
+		->whereNotNull('bc_orders_extras.talento_nombre')
+		->where('bc_orders.created_at','>=',Input::get('since'))
+		->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
 	);
 
 	$query4 = DB::table('bc_orders_extras')->selectRaw("
-	  bc_orders.created_at as FECHA_PEDIDO,
-	  bc_orders.id as NUM_PEDIDO,
-	  100 as CANTIDAD,
-	  users.gerencia as GERENCIA,
-	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-	  bc_orders_extras.gerente_nombre AS NOMBRE,
-	  '' AS NOMBRE_PUESTO,
-	  gerente_email AS EMAIL,
-	  gerente_tel AS TELEFONO,
-	  gerente_cel AS CELULAR,
-	  '' AS WEB,
-	  users.ccosto AS CENTRO_COSTO,
-	  bc_orders_extras.gerente_direccion AS DIRECCION,
-	  '' AS DIRECCION_ALTERNATIVA,
-	  'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
-	  CASE bc_orders.status
-	  WHEN  '0' THEN  'PENDIENTE'
-	  WHEN  1 THEN  'RECIBIDO'
-	  WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-	  END AS ESTATUS")
-	  ->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
-	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-	  ->whereNull('bc_orders.deleted_at')
-	  ->where('bc_orders_extras.gerente_nombre', '!=', "''")
-	  ->whereNotNull('bc_orders_extras.gerente_nombre')
-	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
+		bc_orders.created_at as FECHA_PEDIDO,
+		bc_orders.id as NUM_PEDIDO,
+		100 as CANTIDAD,
+		users.gerencia as GERENCIA,
+		DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+		bc_orders_extras.gerente_nombre AS NOMBRE,
+		'' AS NOMBRE_PUESTO,
+		gerente_email AS EMAIL,
+		gerente_tel AS TELEFONO,
+		gerente_cel AS CELULAR,
+		'' AS WEB,
+		users.ccosto AS CENTRO_COSTO,
+		bc_orders_extras.gerente_direccion AS DIRECCION,
+		'' AS DIRECCION_ALTERNATIVA,
+		'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
+		CASE bc_orders.status
+		WHEN  '0' THEN  'PENDIENTE'
+		WHEN  1 THEN  'RECIBIDO'
+		WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+		END AS ESTATUS")
+		->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id')
+		->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+		->where('bc_orders_extras.gerente_nombre', '!=', "''")
+		->whereNotNull('bc_orders_extras.gerente_nombre')
+		->where('bc_orders.created_at','>=',Input::get('since'))
+		->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
 	);
 
 	switch(Input::get('type')){
@@ -656,7 +652,6 @@ class AdminApiController extends AdminBaseController
 
 	$orders_by_region = $this->ordersByRegion($query);
   
-
 	$orders_status = $this->bcOrdersStatus($query);
 	$orders_by_divisional = $this->ordersByDivisional($query);
 

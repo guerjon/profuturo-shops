@@ -16,7 +16,7 @@
 						Nueva solicitud
 					</a>
 				  @else
-					<p>Se necesita contestar las encuesta de satisfacción para continuar.</p>
+					<p>Para añadir una nueva encuesta necesita no tener ninguna encuesta sin contestar en la sección de concluidas.</p>
 				  @endif
 				@endif
 			</div>
@@ -51,6 +51,11 @@
 			  <li role="presentation" class="{{$active_tab == 'deleted_unassigned' ? 'active' : ''}}">
 			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'deleted_unassigned'])}}">Canceladas no asignadas</a>
 			  </li>
+			  <li role="presentation" class="{{$active_tab == 'finished' ? 'active' : ''}}">
+			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'finished'])}}">Concluidas</a>
+			  </li>
+
+
 			</ul>
 		</div>
 		<div class="row">
@@ -103,12 +108,12 @@
 					  			<td>
 								<div class="row">
 									<div class="col col-xs-6">
-										
-										<button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">
-											<i class="fa fa-trash"></i>
-											Eliminar
-										</button>    	
-										
+										@unless( $request->status == 10)
+											<button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">
+												<i class="fa fa-trash"></i>
+												 Eliminar
+											</button>    	
+										@endif
 									</div>
 								  	<div class="col col-xs-6">
 										<?
