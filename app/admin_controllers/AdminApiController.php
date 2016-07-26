@@ -532,7 +532,7 @@ class AdminApiController extends AdminBaseController
 	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
 	  ->whereNull('bc_orders.deleted_at')
 	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until')) 
+	  ->where('bc_orders.created_at','<=',$this->sumDay(Input::get('until')) 
 	);
 
 	$query2 = DB::table('blank_cards_bc_order')->selectRaw("
@@ -560,7 +560,7 @@ class AdminApiController extends AdminBaseController
 	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
 	  ->whereNull('bc_orders.deleted_at')
 	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
+	  ->where('bc_orders.created_at','<=',$this->sumDay(Input::get('until'))
 	);
 
 	$query3 = DB::table('bc_orders_extras')->selectRaw("
@@ -590,7 +590,7 @@ class AdminApiController extends AdminBaseController
 	  ->where('bc_orders_extras.talento_nombre', '!=', "''")
 	  ->whereNotNull('bc_orders_extras.talento_nombre')
 	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
+	  ->where('bc_orders.created_at','<=',$this->sumDay(Input::get('until'))
 	);
 
 	$query4 = DB::table('bc_orders_extras')->selectRaw("
@@ -620,7 +620,7 @@ class AdminApiController extends AdminBaseController
 	  ->where('bc_orders_extras.gerente_nombre', '!=', "''")
 	  ->whereNotNull('bc_orders_extras.gerente_nombre')
 	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.updated_at','<=',$this->sumDay(Input::get('until'))
+	  ->where('bc_orders.created_at','<=',$this->sumDay(Input::get('until'))
 	);
 
 	switch(Input::get('type')){
@@ -634,6 +634,7 @@ class AdminApiController extends AdminBaseController
 		$query = $query4;
 		break;
 	}
+
 
 	if(Input::has('divisional_id')){
 	  $query->where('users.divisional_id',Input::get('divisional_id'));
@@ -671,7 +672,7 @@ class AdminApiController extends AdminBaseController
 	  if(Request::ajax()){
 		
 		$orders_full = clone $query;
-
+		Log::debug($query->get());
 		return Response::json([
 		  'status' => 200,
 		  'orders' => $query->get(),
