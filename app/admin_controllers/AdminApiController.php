@@ -624,11 +624,8 @@ class AdminApiController extends AdminBaseController
 	);
 
 	switch(Input::get('type')){
-	  case 1:
-		break;
 	  case 2:
 		$query = $query2;
-
 		break;
 	  case 3:
 		$query = $query3;
@@ -650,7 +647,7 @@ class AdminApiController extends AdminBaseController
 	  $query->where('users.region_id',Input::get('region_id'));
 	}
 
-	$query->join('regions','regions.id','=','users.region_id');
+	$query->join('regions','regions.id','=','users.region_id')->orderBy('bc_orders.created_at');
 
 	$orders_by_region = $this->ordersByRegion($query);
   
