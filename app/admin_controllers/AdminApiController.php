@@ -129,7 +129,7 @@ class AdminApiController extends AdminBaseController
 		}
 		  $result[] = $itemArray;
 		}
-		Log::debug($result);
+		
 		if($result){
 		 
 		  Excel::create('reporte_papeleria', function($excel) use($result){
@@ -650,8 +650,11 @@ class AdminApiController extends AdminBaseController
 
 	$query->join('regions','regions.id','=','users.region_id')->orderBy('bc_orders.created_at');
 
+	Log::debug('---------------------------------');
+	\Log::debug($query->toSql());
+	Log::debug('---------------------------------');
 	$orders_by_region = $this->ordersByRegion($query);
-  
+  	
 
 	$orders_status = $this->bcOrdersStatus($query);
 	$orders_by_divisional = $this->ordersByDivisional($query);
@@ -672,7 +675,7 @@ class AdminApiController extends AdminBaseController
 	  if(Request::ajax()){
 		
 		$orders_full = clone $query;
-		Log::debug($query->get());
+		
 		return Response::json([
 		  'status' => 200,
 		  'orders' => $query->get(),
@@ -2012,7 +2015,7 @@ class AdminApiController extends AdminBaseController
 		->groupBy('user_id')
 		->first()
 		->c;
-		Log::debug($query_2);
+		
 
 	  $q = clone $query;
 	  $headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
