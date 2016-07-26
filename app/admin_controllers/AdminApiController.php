@@ -499,7 +499,7 @@ class AdminApiController extends AdminBaseController
 	return $orders_by_category;
   }
 
- 	private function sumDay($date){
+ 	public function sumDay($date){
  		return \Carbon\Carbon::createFromFormat('Y-m-d',$date)->addDay()->format('Y-m-d');
  	} 
 
