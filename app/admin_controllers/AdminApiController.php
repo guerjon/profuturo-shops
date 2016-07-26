@@ -505,9 +505,7 @@ class AdminApiController extends AdminBaseController
 
  public function getBcOrdersReport()
   {
-	
 	ini_set('max_execution_time', '300');
-   
 
 	$query = DB::table('bc_order_business_card')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,

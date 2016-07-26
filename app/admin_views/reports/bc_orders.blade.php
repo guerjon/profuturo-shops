@@ -35,7 +35,6 @@
   <div class="col-xs-3">
     {{Form::label('type','TIPO DE TARJETAS')}}
     {{Form::select('type', [
-     null => 'Seleccione un tipo de tarjeta',
      '1' => 'Tarjetas de presentación',
      '2' => 'Tarjetas blancas',
      '3' => 'Atracción de talento',
