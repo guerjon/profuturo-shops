@@ -630,19 +630,19 @@ class ApiController extends BaseController
 
   public function getUser()
   {    
-    // $ccosto = Input::get('ccostos');
-    // $user = User::with('region')->where('ccosto',$ccosto)->first();
+    $ccosto = Input::get('ccostos');
+    $user = User::with('region')->where('ccosto',$ccosto)->first();
     
-    // if($user){
-    //   return Response::json([
-    //     'status' => 200,
-    //     'user' => $user
-    //   ]);
-    // }else{
-    //   return Response::json([
-    //     'status' => 404
-    //   ]);
-    // }
+    if($user){
+      return Response::json([
+        'status' => 200,
+        'user' => $user
+      ]);
+    }else{
+      return Response::json([
+        'status' => 404
+      ]);
+    }
   }
 
     public function getUserDirecction()
@@ -728,24 +728,24 @@ class ApiController extends BaseController
 
  public function getCountMessages()
  {
-    if(Auth::check()){
+    // if(Auth::check()){
 
-      $number_messages = DB::table('messages')
-        ->join('users','users.id','=','sender_id')
-        ->where('receiver_id',Auth::user()->id)
-        ->where('read_at',null)
-        ->count();
+    //   $number_messages = DB::table('messages')
+    //     ->join('users','users.id','=','sender_id')
+    //     ->where('receiver_id',Auth::user()->id)
+    //     ->where('read_at',null)
+    //     ->count();
 
-      $status =  ($number_messages > 0) ? 200 : 404;
-      return Response::json([
-        'number_messages' => $number_messages,
-        'status' => $status
-      ]);  
-    }else{
-      return Response::json([
-        'status' => 404
-      ]);  
-    }
+    //   $status =  ($number_messages > 0) ? 200 : 404;
+    //   return Response::json([
+    //     'number_messages' => $number_messages,
+    //     'status' => $status
+    //   ]);  
+    // }else{
+    //   return Response::json([
+    //     'status' => 404
+    //   ]);  
+    // }
     
  }
   /**
