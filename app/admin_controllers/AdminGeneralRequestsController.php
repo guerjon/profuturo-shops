@@ -48,7 +48,6 @@ class AdminGeneralRequestsController extends AdminBaseController{
       $request_excel->whereNull('manager_id')->onlyTrashed();
     }
 
-
   	if(Input::has('user_id')){
        $request->where('user_id',Input::get('user_id'));
        $request_excel->where('user_id',Input::get('user_id'));

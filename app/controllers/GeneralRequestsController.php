@@ -7,7 +7,6 @@ class GeneralRequestsController extends BaseController{
 
     $active_tab = Input::get('active_tab', 'assigned');
   
-
     $assigneds = ['ASIGNADO','NO ASIGNADO'];
     $active_category = ['ASIGNADO','NO ASIGNADO'];
 
@@ -23,8 +22,35 @@ class GeneralRequestsController extends BaseController{
                     
 
     $access = $access  == $surveys_answered ? true : false;
-                         
-    $requests = Auth::user()->generalRequests()->orderBy('rating')->get();
+
+    $requests = GeneralRequest::
+      join('general_request_products','general_request_products.general_request_id','=','general_requests.id')
+      ->select(DB::raw(
+        '
+          general_requests.*,
+          count(general_request_products.id) as total_products,
+          sum(general_request_products.unit_price) as total
+          
+        '))->where('user_id',Auth::id())->orderBy('rating')->groupBy('general_requests.id')->get();
+
+    // if($active_tab == 'assigned'){
+    //     $request->whereNotNull('manager_id');
+    //     $request_excel->whereNotNull('manager_id');
+    // }elseif($active_tab == 'not_assigned'){
+      
+    //   $request->where('manager_id',null);
+    //   $request_excel->where('manager_id',null);
+
+    // }elseif($active_tab == 'deleted_assigned'){
+    //   $request->whereNotNull('manager_id')->onlyTrashed();
+    //   $request_excel->whereNotNull('manager_id')->onlyTrashed();
+
+    // }elseif($active_tab == 'deleted_unassigned'){
+    //   $request->whereNull('manager_id')->onlyTrashed();
+    //   $request_excel->whereNull('manager_id')->onlyTrashed();
+    // }
+
+
     return View::make('general_requests.index')->withRequests($requests)
                                                ->withActiveCategory($active_category)
                                                ->withActiveTab($active_tab)
