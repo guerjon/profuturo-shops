@@ -259,62 +259,61 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		switch($this->role){
 			case 'admin':
 				return [
-					action('AdminUsersController@index') => 'Usuarios',
-					action('AdminCategoriesGeneralController@getIndex') => 'Categorías',
-					action('AdminProductsGeneralController@getIndex') => 'Productos',
-					action('AdminOrdersGeneralController@getIndex') => 'Pedidos',
-					action('AdminCalendarEventsController@index') => 'Agenda',
-					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales',
-					action('AdminGeneralRequestsController@index') => 'Solicitudes generales',
-					action('AdminReportsController@getIndex') => 'Reportes',
-					action('AdminDivisionalController@index',['active_tab' => '1']) => 'Divisionales',
-					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas',
-					action('AdminDashboardController@stationery') => 'Dashboard Papeleria'
+					action('AdminUsersController@index') => 'Usuarios|fa-users',
+					action('AdminCategoriesGeneralController@getIndex') => 'Categorías|fa-th-large',
+					action('AdminProductsGeneralController@getIndex') => 'Productos|fa-pencil',
+					action('AdminOrdersGeneralController@getIndex') => 'Pedidos|fa-shopping-bag',
+					action('AdminCalendarEventsController@index') => 'Agenda|fa-calendar',
+					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales|fa-plus',
+					action('AdminGeneralRequestsController@index') => 'Solicitudes generales|fa-circle-thin',
+					action('AdminReportsController@getIndex') => 'Reportes|fa-book',
+					action('AdminDivisionalController@index') => 'Fechas|fa-calendar-o',
+					action('AdminSpiderGraphController@getIndex') => 'Estadisticas de encuestas|fa-bar-chart',
+					action('AdminDashboardController@stationery') => 'Dashboard Papeleria|fa-pie-chart'
 				];
 			case 'manager':
 				return [
-					action('UserRequestsController@getIndex') => 'Solicitudes generales',
-					action('CalendarEventsController@getIndex') => 'Agenda',
-					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes',
+					action('UserRequestsController@getIndex') => 'Solicitudes generales|fa-circle-thin',
+					action('CalendarEventsController@getIndex') => 'Agenda|fa-calendar',
+					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes|fa-hourglass-start',
 					
 				];
 			case 'user_paper':
 				return [
-					action('ProductsController@index') => 'Productos',
-					action('BusinessCardsController@index') => 'Tarjetas de presentación',
-					action('OrdersController@index') => 'Mis pedidos (papelería)',
-					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)',
+					action('ProductsController@index') => 'Productos|fa-pencil',
+					action('BusinessCardsController@index') => 'Tarjetas de presentación|fa-credit-card-alt',
+					action('OrdersController@index') => 'Mis pedidos (papelería)|fa-shopping-bag',
+					action('BcOrdersController@index') => 'Mis pedidos (tarjetas)|fa-shopping-bag',
 				];
 			case 'user_requests':
 				return [
-					action('GeneralRequestsController@index') => 'Solicitudes generales',
+					action('GeneralRequestsController@index') => 'Solicitudes generales|fa-circle-thin',
 				];
 			case 'user_loader':
 				return [
-					action('AddressController@index') => 'Direcciones',
-					action('LoadsController@index') => 'Cargas',
+					action('AddressController@index') => 'Direcciones|fa-map-marker',
+					action('LoadsController@index') => 'Cargas|fa-upload',
 				];	
 			case 'user_furnitures':
 				return [
-					action('FurnituresController@index') => 'Mobiliario',
-					'/carrito-muebles' => 'Mi carrito (mobiliario)',
-					'/pedidos-mueble' => 'Mis pedidos',
+					action('FurnituresController@index') => 'Mobiliario|fa-pencil',
+					'/pedidos-mueble' => 'Mis pedidos|fa-shopping-bag',
 				];
 
 			case 'user_mac':
 				return [
-					action('MacProductsController@index') => 'Productos',
-					action('MacOrdersController@index') => 'Mis pedidos',
+					action('MacProductsController@index') => 'Productos|fa-pencil',
+					action('MacOrdersController@index') => 'Mis pedidos|fa-shopping-bag',
 				];
 			case 'user_corporation':
 				return [
-					action('CorporationProductsController@index') => 'Productos',
-					action('CorporationOrdersController@index') => 'Mis Pedidos',
+					action('CorporationProductsController@index') => 'Productos|fa-pencil',
+					action('CorporationOrdersController@index') => 'Mis Pedidos|fa-shopping-bag',
 				];	
 			case 'user_training':
 				return [
-					action('TrainingProductsController@index') => 'Productos',
-					action('TrainingOrdersController@index') => 'Mis Pedidos',
+					action('TrainingProductsController@index') => 'Productos|fa-pencil',
+					action('TrainingOrdersController@index') => 'Mis Pedidos|fa-shopping-bag',
 
 				];
 			case 'user_system':

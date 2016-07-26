@@ -1855,37 +1855,37 @@ class AdminApiController extends AdminBaseController
     })->download('xls');
   }
 
-  public function getGeneralRequestsExcel()
-  {
-    $requests =  GeneralRequest::all();
+    public function getGeneralRequestsExcel()
+    {
+        $requests =  GeneralRequest::all();
    
-   foreach ($requests as $request) {
-    $average = $request->satisfaction_survey ? $request->satisfaction_survey->average : 0;
+        foreach ($requests as $request) {
+            $average = $request->satisfaction_survey ? $request->satisfaction_survey->average : 0;
     
-    $general_request_products = GeneralRequestProduct::where('general_request_id','=',$request->id)->first();
+            $general_request_products = GeneralRequestProduct::where('general_request_id','=',$request->id)->first();
 
-        $result[] = [
-          '# SOLUCIÓN' => $request->id,
-          'TITULO PROYECTO' => $request->project_title,
-          'NOMBRE' => $request->employee_name,
-          'NUMERO' => $request->employee_number,
-          'ESTATUS' => $request->status_str,
-          'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
-          'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
-          'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
-          'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
-          'COMENTARIOS' => $request->comments,
-          'PROMEDIO'  =>  $average,
-        ];
+            $result[] = [
+                '# SOLUCIÓN' => $request->id,
+                'TITULO PROYECTO' => $request->project_title,
+                'NOMBRE' => $request->employee_name,
+                'NUMERO' => $request->employee_number,
+                'ESTATUS' => $request->status_str,
+                'PRESUPUESTO' => $general_request_products->quantity * $general_request_products->unit_price,
+                'FECHA DE SOLICITUD' => $request->project_date->format('d-m-Y'),
+                'FECHA DE INICIO' => $request->project_date->format('d-m-Y'),
+                'FECHA DE ENTREGA' => $request->deliver_date->format('d-m-Y'),
+                'COMENTARIOS' => $request->comments,
+                'PROMEDIO'  =>  $average,
+            ];
+        }
+
+        $datetime = \Carbon\Carbon::now()->format('YmdHi');
+        Excel::create('Reporte_solicitudes_generales_'.$datetime, function($excel) use($result){
+          $excel->sheet('Solicitudes',function($sheet)use($result){
+            $sheet->fromArray($result);
+          });
+        })->download('xls');
     }
-
-    $datetime = \Carbon\Carbon::now()->format('YmdHi');
-    Excel::create('Reporte_solicitudes_generales_'.$datetime, function($excel) use($result){
-      $excel->sheet('Solicitudes',function($sheet)use($result){
-        $sheet->fromArray($result);
-      });
-    })->download('xls');
-  }
 
 
   public function getGeneralRequestReport()

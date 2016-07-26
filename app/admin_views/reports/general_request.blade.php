@@ -26,8 +26,6 @@
           </button>
         </h3>
       </div>
-
-      <div class="row"></div>
     {{Form::close()}}
 
     <div class="container-fluid">
