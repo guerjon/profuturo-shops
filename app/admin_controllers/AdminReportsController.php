@@ -28,7 +28,7 @@ class AdminReportsController extends AdminBaseController{
     $management = User::where('role','!=','admin')->lists('gerencia');
     $regions = Region::lists('name','id'); 
     $divisionals = Divisional::lists('name','id');
-      $active_tab = Input::get('active_tab','tarjetas_presentacion');
+    $active_tab = Input::get('active_tab','tarjetas_presentacion');
     $since = Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'));
     $until = Input::get('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'));
 
@@ -39,7 +39,7 @@ class AdminReportsController extends AdminBaseController{
           bc_orders.id AS NUM_PEDIDO,
           100 AS CANTIDAD,
           users.gerencia AS GERENCIA,
-          DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+          
           business_cards.nombre AS NOMBRE,
           business_cards.nombre_puesto AS NOMBRE_PUESTO,
           business_cards.email AS EMAIL,
@@ -49,11 +49,7 @@ class AdminReportsController extends AdminBaseController{
           business_cards.ccosto AS CENTRO_COSTO,
           business_cards.direccion AS DIRECCION,
           business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
-          CASE bc_orders.status
-          WHEN  '0' THEN  'PENDIENTE'
-          WHEN  1 THEN  'RECIBIDO'
-          WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-          END AS ESTATUS "
+          "
         )->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
         ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id');
 
@@ -159,6 +155,8 @@ class AdminReportsController extends AdminBaseController{
     }
 
 
+    \Log::debug($query->get());
+    
     if(Input::has('excel')){
 
         $headers = [   
@@ -176,6 +174,7 @@ class AdminReportsController extends AdminBaseController{
                     "DIRECCIÓN_ALTERNATIVA",
                     "ESTATUS"
                 ];
+
       if($active_tab == 'atraccion_talento' || $active_tab == 'gerente_comercial')
         $headers[] = "PUESTO_ATRACCION_GERENTE";
 
