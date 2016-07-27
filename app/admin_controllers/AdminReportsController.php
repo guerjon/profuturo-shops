@@ -41,7 +41,7 @@ class AdminReportsController extends AdminBaseController{
       }
        
       $since->startOfDay();
-      $until->endOfDay();
+      $until->endOfDay()->format('Y-m-d');
 
       switch ($active_tab) {
       case 'tarjetas_presentacion':
@@ -244,7 +244,6 @@ class AdminReportsController extends AdminBaseController{
           ->withActiveTab($active_tab)
           ->withBcOrders($query->paginate(20))
           ->withInput(Input::flash());
-        
         } 
     } 
 

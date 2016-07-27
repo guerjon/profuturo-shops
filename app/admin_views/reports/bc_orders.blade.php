@@ -199,8 +199,9 @@
               </tbody>
             </table>
         </div>
+        
          <center>
-            {{$bc_orders->appends(['active_tab' => $active_tab])->links()}}
+            {{$bc_orders->appends(Input::except('page'))->links()}}
         </center>
     @endif
 </div>
