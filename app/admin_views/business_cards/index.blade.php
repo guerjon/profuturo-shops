@@ -92,6 +92,9 @@
               Fecha de ingreso
             </th>
             <th>
+              Inmueble
+            </th>
+            <th>
 
             </th>
           </tr>
@@ -116,6 +119,9 @@
             </td>
             <td>
               {{ $card->fecha_ingreso ? \Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y') : 'N/A'}}
+            </td>
+            <td>
+              {{$card->inmueble}}
             </td>
             <td>
               {{Form::open([
