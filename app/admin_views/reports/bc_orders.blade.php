@@ -46,14 +46,19 @@
     <br>
   </div>
   <div class="col-xs-2 text-right">
-  <br>
-      <button class="btn btn-primary" type="submit">
-          <i class="glyphicon glyphicon-search"></i>
-          Filtrar
-      </button>
-      <button class="btn btn-primary btn-submit" id="download-btn-excel" type="button">
-          <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-      </button>
+    <div class="row">
+      <div class="col-xs-6">
+        <button class="btn btn-primary" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+            Filtrar
+        </button>      
+      </div>
+      <div class="col-xs-6">      
+        <button class="btn btn-primary btn-submit" id="download-btn-excel" type="button">
+            <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+        </button>
+      </div>
+    </div>  
   </div>
 
 </div>

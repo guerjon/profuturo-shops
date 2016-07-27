@@ -15,8 +15,9 @@
 				<li class="" >
 					<a href="#"  class="submenu-dispatch accordion-toggle"
 					  data-toggle="collapse" data-parent="#menu-content" data-target="#tipo-categoria">
-					    Categorías 
 					    <i class="fa fa-th-large" aria-hidden="true"></i>
+					    Categorías 
+					    
 					</a>
 					<ul id="tipo-categoria" class="sub-menu collapse" >
 						<li class="">
@@ -51,8 +52,9 @@
 				<li class=" {{ substr(Route::currentRouteName(), 0, 5)=='tabla'?'active':''}}">
 						<a href="#"  class="submenu-dispatch accordion-toggle"
 						  data-toggle="collapse" data-parent="#menu-content" data-target="#tipo-producto">
-						    Productos
 						    <i class="fa fa-pencil" aria-hidden="true"></i>
+						    Productos
+						    
 						</a>
 					<ul id="tipo-producto" class="sub-menu collapse" >
 						<li class="">
@@ -95,8 +97,9 @@
 				<li class="">
 					<a href="#"  class="submenu-dispatch accordion-toggle"
 					  data-toggle="collapse" data-parent="#menu-content" data-target="#tipo-pedido">
-					    Pedidos
 					    <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+					    Pedidos
+					    
 					</a>
 					<ul id="tipo-pedido" class="sub-menu collapse" >
 						
@@ -147,8 +150,9 @@
 				<li>
 					<a href="#"  class="submenu-dispatch accordion-toggle"
 					  data-toggle="collapse" data-parent="#menu-content" data-target="#tipo-fecha">
-					    Fechas
 					    <i class="fa fa-calendar-o" aria-hidden="true"></i>
+					    Fechas
+					    
 					</a>
 					<ul id="tipo-fecha" class="sub-menu collapse">
 						<li>
@@ -166,8 +170,10 @@
 		@endif
 			@if(!in_array($name,['Categorías','Pedidos','Productos','Fechas']))
 				<li role="presentation">
-					<a href="{{$action}}">{{$name}}
+					<a href="{{$action}}">
 						<i class="fa {{$icon}}"></i>
+						{{$name}}
+						
 					</a>
 				</li>
 			@endif
