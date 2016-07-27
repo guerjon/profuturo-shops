@@ -140,101 +140,101 @@ class AdminReportsController extends AdminBaseController{
       break;
     }
 
-    $query = $query->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
-      ->whereNull('bc_orders.deleted_at')
-      ->where('bc_orders.created_at','>=',$since)
-      ->where('bc_orders.created_at','<=',$this->sumDay($until))
-      ->orderBy('bc_orders.created_at');
+      $query = $query->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
+        ->whereNull('bc_orders.deleted_at')
+        ->where('bc_orders.created_at','>=',$since)
+        ->where('bc_orders.created_at','<=',$this->sumDay($until))
+        ->orderBy('bc_orders.created_at');
 
-    if(Input::has('divisional_id')){
-      $query->where('users.divisional_id',Input::get('divisional_id'));
-    }
+      if(Input::has('divisional_id')){
+        $query->where('users.divisional_id',Input::get('divisional_id'));
+      }
 
-    if (Input::has('num_pedido')){
-      $query->where('bc_orders.id','like','%'.Input::get('num_pedido').'%');
-    }
+      if (Input::has('num_pedido')){
+        $query->where('bc_orders.id','like','%'.Input::get('num_pedido').'%');
+      }
 
-    if(Input::has('region_id')){
-      $query->where('users.region_id',Input::get('region_id'));
-    }
-   
+      if(Input::has('region_id')){
+        $query->where('users.region_id',Input::get('region_id'));
+      }
+     
 
-    if(Input::has('excel')){
+      if(Input::has('excel')){
 
-        $headers = [   
-                    "FECHA_PEDIDO",
-                    "NUM_PEDIDO",
-                    "CANTIDAD",
-                    "GERENCIA",
-                    "FECHA",
-                    "NOMBRE_PUESTO",
-                    "EMAIL",
-                    "TELEFONO",
-                    "CELULAR",
-                    "WEB",
-                    "DIRECCIÓN",
-                    "DIRECCIÓN_ALTERNATIVA",
-                    "ESTATUS"
-                ];
-      if($active_tab == 'atraccion_talento' || $active_tab == 'gerente_comercial')
-        $headers[] = "PUESTO_ATRACCION_GERENTE";
+          $headers = [   
+                      "FECHA_PEDIDO",
+                      "NUM_PEDIDO",
+                      "CANTIDAD",
+                      "GERENCIA",
+                      "FECHA",
+                      "NOMBRE_PUESTO",
+                      "EMAIL",
+                      "TELEFONO",
+                      "CELULAR",
+                      "WEB",
+                      "DIRECCIÓN",
+                      "DIRECCIÓN_ALTERNATIVA",
+                      "ESTATUS"
+                  ];
+        if($active_tab == 'atraccion_talento' || $active_tab == 'gerente_comercial')
+          $headers[] = "PUESTO_ATRACCION_GERENTE";
 
-      $datetime = \Carbon\Carbon::now()->format('d-m-Y');
+        $datetime = \Carbon\Carbon::now()->format('d-m-Y');
 
-      Excel::create('Reporte_pedidos_tarjetas_'.$datetime, function($excel) use($query,$headers,$active_tab){
-        $excel->sheet('Solicitudes',function($sheet)use($query,$headers,$active_tab){
+        Excel::create('Reporte_pedidos_tarjetas_'.$datetime, function($excel) use($query,$headers,$active_tab){
+          $excel->sheet('Solicitudes',function($sheet)use($query,$headers,$active_tab){
 
-        $sheet->appendRow($headers);
-        foreach ($query->get() as $bc_order) {
+          $sheet->appendRow($headers);
+          foreach ($query->get() as $bc_order) {
 
-          if($active_tab == 'atraccion_talento' || $active_tab == "gerente_comercial"){
-            $sheet->appendRow([
-                          $bc_order->FECHA_PEDIDO,
-                          $bc_order->NUM_PEDIDO,
-                          $bc_order->CANTIDAD,
-                          $bc_order->GERENCIA,
-                          $bc_order->FECHA,
-                          $bc_order->NOMBRE_PUESTO,
-                          $bc_order->EMAIL,
-                          $bc_order->TELEFONO,
-                          $bc_order->CELULAR,
-                          $bc_order->WEB,
-                          $bc_order->DIRECCION,
-                          $bc_order->DIRECCION_ALTERNATIVA,
-                          $bc_order->ESTATUS,
-                          $bc_order->PUESTO_ATRACCION_GERENTE
-            ]); 
-          }else{
-            $sheet->appendRow([
-                          $bc_order->FECHA_PEDIDO,
-                          $bc_order->NUM_PEDIDO,
-                          $bc_order->CANTIDAD,
-                          $bc_order->GERENCIA,
-                          $bc_order->FECHA,
-                          $bc_order->NOMBRE_PUESTO,
-                          $bc_order->EMAIL,
-                          $bc_order->TELEFONO,
-                          $bc_order->CELULAR,
-                          $bc_order->WEB,
-                          $bc_order->DIRECCION,
-                          $bc_order->DIRECCION_ALTERNATIVA,
-                          $bc_order->ESTATUS
-            ]);
-          }   
-        }
-        });
-      })->download('xlsx');
-    }else{
+            if($active_tab == 'atraccion_talento' || $active_tab == "gerente_comercial"){
+              $sheet->appendRow([
+                            $bc_order->FECHA_PEDIDO,
+                            $bc_order->NUM_PEDIDO,
+                            $bc_order->CANTIDAD,
+                            $bc_order->GERENCIA,
+                            $bc_order->FECHA,
+                            $bc_order->NOMBRE_PUESTO,
+                            $bc_order->EMAIL,
+                            $bc_order->TELEFONO,
+                            $bc_order->CELULAR,
+                            $bc_order->WEB,
+                            $bc_order->DIRECCION,
+                            $bc_order->DIRECCION_ALTERNATIVA,
+                            $bc_order->ESTATUS,
+                            $bc_order->PUESTO_ATRACCION_GERENTE
+              ]); 
+            }else{
+              $sheet->appendRow([
+                            $bc_order->FECHA_PEDIDO,
+                            $bc_order->NUM_PEDIDO,
+                            $bc_order->CANTIDAD,
+                            $bc_order->GERENCIA,
+                            $bc_order->FECHA,
+                            $bc_order->NOMBRE_PUESTO,
+                            $bc_order->EMAIL,
+                            $bc_order->TELEFONO,
+                            $bc_order->CELULAR,
+                            $bc_order->WEB,
+                            $bc_order->DIRECCION,
+                            $bc_order->DIRECCION_ALTERNATIVA,
+                            $bc_order->ESTATUS
+              ]);
+            }   
+          }
+          });
+        })->download('xlsx');
+      }else{
 
-      return View::make('admin::reports.bc_orders')
-        ->withManagement($management)
-        ->withRegions($regions)
-        ->withDivisionals($divisionals)
-        ->withActiveTab($active_tab)
-        ->withBcOrders($query->paginate(20))
-        ->withInput(Input::flash());
-      
-      } 
+        return View::make('admin::reports.bc_orders')
+          ->withManagement($management)
+          ->withRegions($regions)
+          ->withDivisionals($divisionals)
+          ->withActiveTab($active_tab)
+          ->withBcOrders($query->paginate(20))
+          ->withInput(Input::flash());
+        
+        } 
     } 
 
   public function getUserOrdersReport()
