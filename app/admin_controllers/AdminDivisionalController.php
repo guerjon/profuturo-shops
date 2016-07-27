@@ -37,7 +37,9 @@ class AdminDivisionalController extends BaseController{
 						'from' => Input::get('from'),
 						'until' => Input::get('until'),
 						'divisional_id' => $active_tab,
-						'user_id' => 1
+						'user_id' => 1,
+						'created_at' => \Carbon\Carbon::now(),
+						'updated_at'=> \Carbon\Carbon::now()
 					]);
 
 	 	return Redirect::action('AdminDivisionalController@index',['active_tab' => $active_tab])

@@ -33,6 +33,9 @@ class HomeController extends BaseController {
 			$credentials = ['ccosto' => Auth::user()->ccosto,'password' => 'password']; 	
 	    return View::make('hello')->withSuccess('Se ha guardado su información exitosamente')->withCredentials($credentials);
 	}
+	private function sumDay($date){
+    	return \Carbon\Carbon::createFromFormat('Y-m-d',$date)->addDay()->format('Y-m-d');
+  	} 
 
 	public function getCarrito()
 	{
@@ -45,14 +48,23 @@ class HomeController extends BaseController {
 			->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
 			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
 	
+		$divisional = DB::table('divisionals_users')
+			->where('divisionals_users.divisional_id',Auth::user()->divisional_id)
+			->orderBy('created_at','desc')
+			->first();
+
+		
+
 		$last_order = DB::table('users')
 				->join('divisionals_users','divisionals_users.divisional_id','=','users.divisional_id')
 				->join('orders','orders.user_id','=','users.id')
 				->where('users.id',Auth::user()->id)
-				->where('orders.created_at','>=',DB::raw('divisionals_users.from'))
-				->where('orders.created_at','<=',DB::raw('DATE_ADD(divisionals_users.until,INTERVAL 1 DAY)'))
+				->where('orders.created_at','>=',$divisional->from)
+				->where('orders.created_at','<=',$this->sumDay($divisional->until))
 				->whereNull('orders.deleted_at');
-		
+
+
+	
 		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
 		
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
