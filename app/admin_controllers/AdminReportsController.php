@@ -29,8 +29,8 @@ class AdminReportsController extends AdminBaseController{
       $regions = Region::lists('name','id'); 
       $divisionals = Divisional::lists('name','id');
       $active_tab = Input::get('active_tab','tarjetas_presentacion');
-      $since = Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'));
-      $until = Input::get('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'));
+      $since = Input::get('since',\Carbon\Carbon::today('America/Mexico_City')->subMonths(1));
+      $until = Input::get('until',\Carbon\Carbon::today('America/Mexico_City'));
 
       switch ($active_tab) {
       case 'tarjetas_presentacion':
