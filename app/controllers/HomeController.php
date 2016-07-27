@@ -53,16 +53,17 @@ class HomeController extends BaseController {
 			->orderBy('created_at','desc')
 			->first();
 
-		
-
-		$last_order = DB::table('users')
-				->join('divisionals_users','divisionals_users.divisional_id','=','users.divisional_id')
-				->join('orders','orders.user_id','=','users.id')
-				->where('users.id',Auth::user()->id)
-				->where('orders.created_at','>=',$divisional->from)
-				->where('orders.created_at','<=',$this->sumDay($divisional->until))
-				->whereNull('orders.deleted_at');
-
+		if($divisional){
+			$last_order = DB::table('users')
+					->join('divisionals_users','divisionals_users.divisional_id','=','users.divisional_id')
+					->join('orders','orders.user_id','=','users.id')
+					->where('users.id',Auth::user()->id)
+					->where('orders.created_at','>=',$divisional->from)
+					->where('orders.created_at','<=',$this->sumDay($divisional->until))
+					->whereNull('orders.deleted_at');	
+		}else{
+			$last_order = 1;			
+		}
 
 	
 		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
