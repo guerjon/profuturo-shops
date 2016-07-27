@@ -506,6 +506,9 @@ class AdminApiController extends AdminBaseController
  public function getBcOrdersReport()
   {
 
+  	$since = Input::get('since');
+  	$until = $this->sumDay(Input::get('until'));
+
 	$query = DB::table('bc_order_business_card')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
 	  bc_orders.id AS NUM_PEDIDO,
@@ -530,9 +533,9 @@ class AdminApiController extends AdminBaseController
 	  ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id')
 	  ->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
 	  ->whereNull('bc_orders.deleted_at')
-	  ->where('bc_orders.created_at','>=',Input::get('since'))
-	  ->where('bc_orders.created_at','<=',$this->sumDay(Input::get('until')) 
-	);
+	  ->where('bc_orders.created_at','>=',$since)
+	  ->where('bc_orders.created_at','<=',$until);
+	
 
 	$query2 = DB::table('blank_cards_bc_order')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
