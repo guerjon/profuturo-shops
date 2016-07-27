@@ -157,7 +157,7 @@ class AdminReportsController extends AdminBaseController{
     if(Input::has('region_id')){
       $query->where('users.region_id',Input::get('region_id'));
     }
-    dd($query->get());
+    //dd($query->get());
     Log::debug($query->get());
 
 
