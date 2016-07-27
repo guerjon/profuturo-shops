@@ -41,7 +41,7 @@ class AdminReportsController extends AdminBaseController{
       }
        
       $since->startOfDay();
-      $until->startOfDay();
+      $until->endOfDay();
 
       switch ($active_tab) {
       case 'tarjetas_presentacion':
