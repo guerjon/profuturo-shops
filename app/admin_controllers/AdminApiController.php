@@ -653,8 +653,10 @@ class AdminApiController extends AdminBaseController
 	$query->join('regions','regions.id','=','users.region_id')->orderBy('bc_orders.created_at');
 
 	Log::debug('---------------------------------');
-	\Log::debug($query->toSql());
+	Log::debug($query->toSql());
+	Log::debug($query->get());
 	Log::debug('---------------------------------');
+
 	$orders_by_region = $this->ordersByRegion($query);
   	
 
