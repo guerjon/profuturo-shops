@@ -32,6 +32,17 @@ class AdminReportsController extends AdminBaseController{
       $since = Input::get('since',\Carbon\Carbon::today('America/Mexico_City')->subMonths(1));
       $until = Input::get('until',\Carbon\Carbon::today('America/Mexico_City'));
 
+      if(is_string($since)) {
+          $since = \Carbon\Carbon::createFromFormat('Y-m-d', $since);
+      }
+
+      if(is_string($until)) {
+          $until = \Carbon\Carbon::createFromFormat('Y-m-d', $until);
+      }
+       
+      $since->startOfDay();
+      $until->startOfDay();
+
       switch ($active_tab) {
       case 'tarjetas_presentacion':
         $query = DB::table('bc_order_business_card')->selectRaw("
@@ -143,7 +154,7 @@ class AdminReportsController extends AdminBaseController{
       $query = $query->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
         ->whereNull('bc_orders.deleted_at')
         ->where('bc_orders.created_at','>=',$since)
-        ->where('bc_orders.created_at','<=',$this->sumDay($until))
+        ->where('bc_orders.created_at','<=',$until)
         ->orderBy('bc_orders.created_at');
 
       if(Input::has('divisional_id')){
