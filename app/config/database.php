@@ -56,12 +56,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'appssori_store',
+			'database'  => 'appssori_compras',
 			'username'  => 'appssori_store',
 			'password'  => 'appssori_store@1',
-			// 'username'  => 'root',
-			// 'password'  => 'root',
-			
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
