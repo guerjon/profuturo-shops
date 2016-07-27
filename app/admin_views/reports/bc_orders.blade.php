@@ -157,7 +157,7 @@
                                 {{$bc_order->GERENCIA}}
                             </td>
                             <td>
-                                
+                                {{$bc_order->FECHA}}
                             </td>
                             <td>
                                 {{$bc_order->NOMBRE_PUESTO}}
@@ -186,7 +186,7 @@
                                 </td>
                             @endif
                             <td>
-                                
+                                {{$bc_order->ESTATUS}}
                             </td>
 
                         </tr>

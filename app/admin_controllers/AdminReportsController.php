@@ -39,6 +39,7 @@ class AdminReportsController extends AdminBaseController{
           bc_orders.id AS NUM_PEDIDO,
           100 AS CANTIDAD,
           users.gerencia AS GERENCIA,
+          
           business_cards.nombre AS NOMBRE,
           business_cards.nombre_puesto AS NOMBRE_PUESTO,
           business_cards.email AS EMAIL,
@@ -47,7 +48,7 @@ class AdminReportsController extends AdminBaseController{
           business_cards.web AS WEB,
           business_cards.ccosto AS CENTRO_COSTO,
           business_cards.direccion AS DIRECCION,
-          business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA
+          business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
           "
         )->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
         ->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id');
@@ -155,7 +156,6 @@ class AdminReportsController extends AdminBaseController{
 
 
     \Log::debug($query->get());
-
     if(Input::has('excel')){
 
         $headers = [   
@@ -163,6 +163,7 @@ class AdminReportsController extends AdminBaseController{
                     "NUM_PEDIDO",
                     "CANTIDAD",
                     "GERENCIA",
+                    "FECHA",
                     "NOMBRE_PUESTO",
                     "EMAIL",
                     "TELEFONO",
@@ -170,6 +171,7 @@ class AdminReportsController extends AdminBaseController{
                     "WEB",
                     "DIRECCIÓN",
                     "DIRECCIÓN_ALTERNATIVA",
+                    "ESTATUS"
                 ];
 
       if($active_tab == 'atraccion_talento' || $active_tab == 'gerente_comercial')
@@ -189,6 +191,7 @@ class AdminReportsController extends AdminBaseController{
                           $bc_order->NUM_PEDIDO,
                           $bc_order->CANTIDAD,
                           $bc_order->GERENCIA,
+                          $bc_order->FECHA,
                           $bc_order->NOMBRE_PUESTO,
                           $bc_order->EMAIL,
                           $bc_order->TELEFONO,
@@ -196,6 +199,7 @@ class AdminReportsController extends AdminBaseController{
                           $bc_order->WEB,
                           $bc_order->DIRECCION,
                           $bc_order->DIRECCION_ALTERNATIVA,
+                          $bc_order->ESTATUS,
                           $bc_order->PUESTO_ATRACCION_GERENTE
             ]); 
           }else{
@@ -204,6 +208,7 @@ class AdminReportsController extends AdminBaseController{
                           $bc_order->NUM_PEDIDO,
                           $bc_order->CANTIDAD,
                           $bc_order->GERENCIA,
+                          $bc_order->FECHA,
                           $bc_order->NOMBRE_PUESTO,
                           $bc_order->EMAIL,
                           $bc_order->TELEFONO,
@@ -211,7 +216,7 @@ class AdminReportsController extends AdminBaseController{
                           $bc_order->WEB,
                           $bc_order->DIRECCION,
                           $bc_order->DIRECCION_ALTERNATIVA,
-                          
+                          $bc_order->ESTATUS
             ]);
           }   
         }
