@@ -128,6 +128,6 @@ if (Config::get('database.log', false))
 		$query = str_replace(array('%', '?'), array('%%', '%s'), $query);
 		$query = vsprintf($query, $bindings);
 
-		Log::info($query, $data);
+		
 	});
 }

@@ -506,7 +506,6 @@ class AdminApiController extends AdminBaseController
  public function getBcOrdersReport()
   {
 
-
 	$query = DB::table('bc_order_business_card')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
 	  bc_orders.id AS NUM_PEDIDO,
@@ -670,10 +669,6 @@ class AdminApiController extends AdminBaseController
 	$headers = $item ?  array_keys(get_object_vars( $item )) : [];
 
 
-	if(Input::has("ver-reporte")){
-		
-	}else{
-
 	  if(Request::ajax()){
 		
 		$orders_full = clone $query;
@@ -718,7 +713,7 @@ class AdminApiController extends AdminBaseController
 		);
 		return Response::make($data, 200, $headers);
 	  } 
-	}
+	
   }
 
 
