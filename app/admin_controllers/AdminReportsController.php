@@ -158,7 +158,7 @@ class AdminReportsController extends AdminBaseController{
       $query->where('users.region_id',Input::get('region_id'));
     }
 
-
+    Log::debug($query->get());
     if(Input::has('excel')){
 
         $headers = [   
