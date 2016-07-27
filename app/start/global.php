@@ -105,7 +105,7 @@ if(!function_exists('str_putcsv'))
 	}
 }
 
-if (Config::get('database.log', false))
+if (true)
 {
 	Event::listen('illuminate.query', function($query, $bindings, $time, $name)
 	{
