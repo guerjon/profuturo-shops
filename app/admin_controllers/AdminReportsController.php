@@ -6,18 +6,18 @@ class AdminReportsController extends AdminBaseController{
 
   public function getIndex()
   {
-  $categories = Category::lists('name','id');
-  
-  return View::make('admin::reports.index')->withCategories($categories);
+    $categories = Category::lists('name','id');
+    
+    return View::make('admin::reports.index')->withCategories($categories);
   }
   
   public function getOrdersReport()
   {
-  $categories = Category::lists('name','id');
-  $management = User::where('role','!=','admin')->lists('gerencia','id');
-  $business_line = User::distinct()->where('role','!=','admin')->lists('linea_negocio','linea_negocio');
-  
-  return View::make('admin::reports.orders')->withCategories($categories)->withGerencia($management)->withBusinessLine($business_line);
+    $categories = Category::lists('name','id');
+    $management = User::where('role','!=','admin')->lists('gerencia','id');
+    $business_line = User::distinct()->where('role','!=','admin')->lists('linea_negocio','linea_negocio');
+    
+    return View::make('admin::reports.orders')->withCategories($categories)->withGerencia($management)->withBusinessLine($business_line);
   }
   private function sumDay($date){
     return \Carbon\Carbon::createFromFormat('Y-m-d',$date)->addDay()->format('Y-m-d');
@@ -25,12 +25,12 @@ class AdminReportsController extends AdminBaseController{
 
     public function getBcOrdersReport()
     {
-    $management = User::where('role','!=','admin')->lists('gerencia');
-    $regions = Region::lists('name','id'); 
-    $divisionals = Divisional::lists('name','id');
-    $active_tab = Input::get('active_tab','tarjetas_presentacion');
-    $since = Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'));
-    $until = Input::get('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'));
+      $management = User::where('role','!=','admin')->lists('gerencia');
+      $regions = Region::lists('name','id'); 
+      $divisionals = Divisional::lists('name','id');
+      $active_tab = Input::get('active_tab','tarjetas_presentacion');
+      $since = Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'));
+      $until = Input::get('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'));
 
       switch ($active_tab) {
       case 'tarjetas_presentacion':
@@ -50,7 +50,7 @@ class AdminReportsController extends AdminBaseController{
           business_cards.direccion AS DIRECCION,
           business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
           CASE bc_orders.status
-          WHEN  '0' THEN  'PENDIENTE'
+          WHEN  0 THEN  'PENDIENTE'
           WHEN  1 THEN  'RECIBIDO'
           WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
           END AS ESTATUS "
@@ -76,7 +76,7 @@ class AdminReportsController extends AdminBaseController{
           blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA,
           blank_cards_bc_order.email as EMAIL_TARJETAS,
           CASE bc_orders.status
-          WHEN  '0' THEN  'PENDIENTE'
+          WHEN  0 THEN  'PENDIENTE'
           WHEN  1 THEN  'RECIBIDO'
           WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
           END AS ESTATUS")
@@ -101,7 +101,7 @@ class AdminReportsController extends AdminBaseController{
           '' AS DIRECCION_ALTERNATIVA,
           'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
           CASE bc_orders.status
-          WHEN  '0' THEN  'PENDIENTE'
+          WHEN  0 THEN  'PENDIENTE'
           WHEN  1 THEN  'RECIBIDO'
           WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
           END AS ESTATUS")
@@ -127,7 +127,7 @@ class AdminReportsController extends AdminBaseController{
           '' AS DIRECCION_ALTERNATIVA,
           'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
           CASE bc_orders.status
-          WHEN  '0' THEN  'PENDIENTE'
+          WHEN  0 THEN  'PENDIENTE'
           WHEN  1 THEN  'RECIBIDO'
           WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
           END AS ESTATUS")
