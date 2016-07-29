@@ -318,7 +318,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				];
 			case 'user_system':
 				return [
-					action('FurnitureRequestsController@index') => 'Solicitudes sistema'
+					action('FurnitureRequestsController@index') => 'Solicitudes sistema|fa-circle-thin'
 				];
 
 		}
