@@ -36,32 +36,24 @@
 		<hr>	
 		<div class="row">
 			<ul class="nav nav-tabs">
-			  <li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
-			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
-			  </li>
-			  <li role="presentation" class="{{$active_tab == 'assigned' ?  'active' : ''}}">
-			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'assigned'])}}">Asignadas</a> 
-			  </li>
-			  <li role="presentation" class="{{$active_tab == 'not_assigned' ? 'active' : ''}}">
-			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'not_assigned'])}}">No asignadas</a> 
-			  </li> 
-			  <li role="presentation" class="{{$active_tab == 'deleted_assigned' ? 'active' : ''}}">
-			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'deleted_assigned'])}}">Canceladas asignadas</a>
-			  </li>
-			  <li role="presentation" class="{{$active_tab == 'deleted_unassigned' ? 'active' : ''}}">
-			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'deleted_unassigned'])}}">Canceladas no asignadas</a>
-			  </li>
-			  <li role="presentation" class="{{$active_tab == 'finished' ? 'active' : ''}}">
-			    <a href="{{action('GeneralRequestsController@index',['active_tab' =>'finished'])}}">Concluidas</a>
-			  </li>
-
-
+				<li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
+					<a href="{{action('UserRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
+				</li>
+				<li role="presentation" class="{{$active_tab == 'in_process' ?  'active' : ''}}">
+					<a href="{{action('UserRequestsController@index',['active_tab' =>'in_process'])}}">En proceso</a> 
+				</li>
+				<li role="presentation" class="{{$active_tab == 'concluded' ? 'active' : ''}}">
+					<a href="{{action('UserRequestsController@index',['active_tab' =>'concluded'])}}">Concluidas</a> 
+				</li> 
+				<li role="presentation" class="{{$active_tab == 'canceled' ? 'active' : ''}}">
+					<a href="{{action('UserRequestsController@index',['active_tab' =>'canceled'])}}">Canceladas</a> 
+				</li>
 			</ul>
 		</div>
 		<div class="row">
 			@if($requests->count() == 0)
 				<div class="alert alert-info">
-				  Usted no ha hecho ninguna solicitud
+				  No se encontraron solicitudes.
 				</div>
 			@else
 				<table class="table table-striped">
@@ -108,30 +100,32 @@
 					  			<td>
 								<div class="row">
 									<div class="col col-xs-6">
-										@unless( $request->status == 10)
+										@if(!$request->trashed() && $request->status < 10)
 											<button data-toggle="modal" data-target="#delete-modal" class="btn btn-sm btn-danger btn-delete" data-request-id="{{$request->id}}">
 												<i class="fa fa-trash"></i>
 												 Eliminar
 											</button>    	
 										@endif
 									</div>
-								  	<div class="col col-xs-6">
-										<?
-										$access_survey = false;
-										$surveys = DB::table('general_requests')
-										  ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
-										  ->where('satisfaction_surveys.general_request_id',$request->id)->count();
+								  	@if(Auth::user()->role == 'user_requests')
+										  	<div class="col col-xs-6">
+												<?
+												$access_survey = false;
+												$surveys = DB::table('general_requests')
+												  ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+												  ->where('satisfaction_surveys.general_request_id',$request->id)->count();
 
-											if($request->status == 10 and $surveys == 0)
-											$access_survey = true;
-											?>
-											@if($access_survey)
-												{{Form::open(['method' => 'get','action' => 'SatisfactionSurveyController@getSurvey'])}}
-													<input type="text" class="hide" value="{{$request->id}}" name="general_request_id">
-													<button type="submit" class="btn btn-sm btn-info btn-survey" data-request-id="{{$request->id}}">Contestar encuesta</button>
-												{{Form::close()}}
-											@endif    
-								  	</div>
+													if($request->status == 10 and $surveys == 0)
+													$access_survey = true;
+													?>
+													@if($access_survey)
+														{{Form::open(['method' => 'get','action' => 'SatisfactionSurveyController@getSurvey'])}}
+															<input type="text" class="hide" value="{{$request->id}}" name="general_request_id">
+															<button type="submit" class="btn btn-sm btn-info btn-survey" data-request-id="{{$request->id}}">Contestar encuesta</button>
+														{{Form::close()}}
+													@endif    
+										  	</div>
+								  	@endif
 								</div>
 					  			</td>
 					  			</tr>

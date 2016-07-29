@@ -228,6 +228,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->hasMany('GeneralRequest', 'manager_id');
 	}
 
+	
+
 	public function getCartTotalAttribute()
 	{
 		$total = 0;
@@ -273,7 +275,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				];
 			case 'manager':
 				return [
-					action('UserRequestsController@getIndex') => 'Solicitudes generales|fa-circle-thin',
+					action('UserRequestsController@index') => 'Solicitudes generales|fa-circle-thin',
 					action('CalendarEventsController@getIndex') => 'Agenda|fa-calendar',
 					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes|fa-hourglass-start',
 					

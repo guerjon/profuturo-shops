@@ -36,7 +36,6 @@ class GeneralRequestsController extends BaseController{
       if($active_tab == 'assigned'){
           $requests->whereNotNull('manager_id');
       }elseif($active_tab == 'not_assigned'){
-        
         $requests->where('manager_id',null);
 
       }elseif($active_tab == 'deleted_assigned'){

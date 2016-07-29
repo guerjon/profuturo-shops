@@ -156,7 +156,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::controller('agregar-producto-mac','AddMacProductsController');
 	Route::controller('agregar-producto-corporation','AddCorporationProductsController');
 
-	Route::controller('solicitudes-asignadas', 'UserRequestsController');
+	Route::resource('solicitudes-asignadas', 'UserRequestsController');
 	Route::controller('agenda', 'CalendarEventsController');
 	Route::controller('solicitudes-urgentes', 'UrgentRequestsController');
 	Route::controller('encuesta-satisfacción','SatisfactionSurveyController');

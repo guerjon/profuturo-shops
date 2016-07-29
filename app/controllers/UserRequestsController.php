@@ -3,18 +3,28 @@
 class UserRequestsController extends BaseController
 {
 
-  public function getIndex()
-  {
-    $active_tab = Input::get('active_tab', 'assigned');
-    $assigneds = ['ASIGNADO','NO ASIGNADO'];
-    $active_category = ['ASIGNADO','NO ASIGNADO'];
+    public function index()
+    {
+        $active_tab = Input::get('active_tab', 'all');
+        $requests = GeneralRequest::where('manager_id',Auth::id())
+            ->orderBy('created_at','desc');
 
+            //dd(Auth::id());
+        if($active_tab == 'in_process'){
+            $requests->where('status','>',0)->where('status','<',10);
 
-    return View::make('general_requests.index')->withRequests(Auth::user()->assignedRequests()->orderBy('created_at','desc')->get())
-    												  ->withAssigneds($assigneds)
-    												  ->withActiveCategory($active_category)
-    												  ->withActiveTab($active_tab);
-  }
+        }elseif($active_tab == 'concluded'){
+            Log::debug($requests->get());
+          $requests->where('status',10);
+
+        }elseif($active_tab == 'canceled'){
+          $requests->onlyTrashed();
+        }
+
+        return View::make('general_requests.index')
+            ->withRequests($requests->get())
+            ->withActiveTab($active_tab);
+    }
 
 }
 ?>
