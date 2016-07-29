@@ -12,7 +12,7 @@
 
         <div class="form-gropu">
           {{Form::label('from','Desde')}}
-          {{Form::text('from',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'from' ])}}
+          {{Form::text('from',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'from' ])}}
         
           {{Form::label('until','Hasta')}}
           {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}

@@ -12,8 +12,14 @@
   <div class="alert alert-warning">
     No hay tarjetas de presentación disponibles
   </div>
+@elseif(!$access)
+  <br>
+  <div class="col-xs-8 col-xs-offset-2">
+    <div class="alert alert-info text-center">
+        Su divisional no puede hacer pedidos por el momento o ya hizo la orden del mes.  
+    </div>
+  </div>
 @else
-
 
 <div class="container">
   {{Form::open([
@@ -105,7 +111,9 @@
     </table>
 
       <div class="text-right escondido">
-      {{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-warning'])}}
+      
+        {{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-warning'])}}
+      
     </div>
     {{Form::close()}}
 

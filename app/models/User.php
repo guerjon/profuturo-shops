@@ -228,7 +228,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $this->hasMany('GeneralRequest', 'manager_id');
 	}
 
-	
 
 	public function getCartTotalAttribute()
 	{
