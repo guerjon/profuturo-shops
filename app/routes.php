@@ -163,6 +163,4 @@ Route::group(['before' => 'auth'], function(){
 	Route::controller('/', 'HomeController');
 
 
-
-
 });

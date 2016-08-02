@@ -43,13 +43,26 @@ class MacOrdersController extends \BaseController {
 
     $order = new MacOrder(Input::except('domicilio_original','posible_cambio'));
     $order->user_id = Auth::id();
+
     if($order->save()){
       foreach(Auth::user()->cart_mac as $product)
       {
         $order->products()->attach($product->id, ['quantity' => $product->pivot->quantity]);
         Auth::user()->cartMac()->detach($product->id);
       }
+
+      if(Auth::user()->email != null){
+        $user = Auth::user();
+        $products = $order->products();
+        $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
+
+        Mail::send('email_templates.orders',$email_info,function($message) use($user){
+          $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
+        });   
+      }
+
     }
+
 
   
     return Redirect::to('/')->withSuccess('Se ha enviado su pedido satisfactoriamente');

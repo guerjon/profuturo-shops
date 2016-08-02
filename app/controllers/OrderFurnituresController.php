@@ -43,10 +43,10 @@ class OrderFurnituresController extends BaseController
       
       if(Auth::user()->email != null){
           $user = Auth::user();
-          $products = $order->furnitures;
+          $products = $order->furnitures();
           $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
 
-          Mail::send('admin::email_templates.orders_furniture',$email_info,function($message) use($user){
+          Mail::send('email_templates.furniture_orders',$email_info,function($message) use($user){
             $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
           });   
       } 

@@ -101,4 +101,10 @@ class HomeController extends BaseController {
 		->withLastOrder(Auth::user()->TrainingOrders()->orderBy('created_at', 'desc')->first())
 		->withUser($user);			
 	}
+
+	public function getEmailTemplate()
+	{	
+		return View::make('email_templates/furnitere_orders');
+	}
+
 }

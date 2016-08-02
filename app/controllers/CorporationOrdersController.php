@@ -100,6 +100,16 @@ class CorporationOrdersController extends \BaseController {
         $order->products()->attach($product->id, ['quantity' => $product->pivot->quantity,'description' =>$product->pivot->description]);
         Auth::user()->cartCorporation()->detach($product->id);
       }
+
+      if(Auth::user()->email != null){
+        $user = Auth::user();
+        $products = $order->products();
+        $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
+
+        Mail::send('email_templates.orders',$email_info,function($message) use($user){
+          $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
+        });   
+      }
     }
    
     return Redirect::action('CorporationOrdersController@index')->withSuccess('Se ha enviado su pedido satisfactoriamente');

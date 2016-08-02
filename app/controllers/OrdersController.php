@@ -89,7 +89,7 @@ class OrdersController extends BaseController
         $products = $order->products();
         $email_info = ['user' => Auth::user(),'order' => $order,'products' => $products];
 
-        Mail::send('admin::email_templates.furnitures',$email_info,function($message) use($user){
+        Mail::send('email_templates.orders',$email_info,function($message) use($user){
           $message->to(Auth::user()->email,$user->gerencia)->subject('Sobre su pedido');
         });   
     }
