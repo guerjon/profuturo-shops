@@ -60,7 +60,7 @@
 			<thead bgcolor="#1e366c" width="200">
 				<th>
 					<font color="white">
-						Detalles de envio y entrega	
+						Detalles de envío y entrega	
 					</font>
 				</th>
 				<th></th>
@@ -68,7 +68,7 @@
 			<tbody>
 				<tr width="200">
 					<td>
-						CCOSTOS
+						CC
 					</td>
 					<td width="250">
 						<strong> 	{{$user->ccosto}}  </strong> 
@@ -76,7 +76,7 @@
 				</tr>
 				<tr width="200">
 					<td>
-						ORDEN COMPLETA	
+						Orden completa
 					</td>
 					<td width="250">
 						SI
@@ -84,7 +84,7 @@
 				</tr >
 				<tr width="250">
 					<td>
-						DIRECCIÓN
+						Dirección
 					</td>
 					<td>
 						 	{{$user->address ? $user->address->domicilio : 'Sin domicilio registrado.'}} 
@@ -107,7 +107,9 @@
 			@foreach($order->furnitures as $product)
 				<tr width="450">
 					<td>
-						{{$product->pivot->quantity}}
+						<center>
+							{{$product->pivot->quantity}}	
+						</center>
 					</td>
 					<td>
 						{{$product->name}}

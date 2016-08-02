@@ -68,7 +68,7 @@
 			<tbody>
 				<tr width="200">
 					<td>
-						CCOSTOS
+						CC
 					</td>
 					<td width="250">
 						<strong> 	{{$user->ccosto}}  </strong> 
@@ -76,7 +76,7 @@
 				</tr>
 				<tr width="200">
 					<td>
-						ORDEN COMPLETA	
+						Orden completa
 					</td>
 					<td width="250">
 						SI
@@ -84,7 +84,7 @@
 				</tr >
 				<tr width="250">
 					<td>
-						DIRECCIÓN
+						Dirección
 					</td>
 					<td>
 						{{$user->address ? $user->address->domicilio : 'Sin domicilio registrado.'}} 
@@ -100,8 +100,7 @@
 				
 				<th width="50"><font color="white"> Cantidad </font></th>	
 				<th width="200"><font color="white"> Descripción </font></th>
-				<th width="100"><font color="white">Sku</font> </th>
-				<th width="100"><font color="white">ID peolple </font></th>
+				<th width="200"><font color="white">ID people </font></th>
 			</thead>
 			<tbody>
 			@foreach($order->products as $product)
@@ -111,9 +110,6 @@
 						</td>
 						<td>
 							{{$product->name}}
-						</td>
-						<td>
-							{{$product->sku}}
 						</td>
 						<td>
 							{{$product->id_people}}
