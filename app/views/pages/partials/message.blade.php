@@ -66,7 +66,7 @@
 				<div class="modal-body">
 					{{Form::open(['action' => 'MessageController@store','method' => 'post','id' => 'post-message-modal-form'])}}
 						<div class="form-group">
-							@if(Auth::user()->role == 1)
+							@if(Auth::user()->ccosto == 1)
 								<div id="users-select">
 
 								</div>
