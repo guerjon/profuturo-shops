@@ -106,10 +106,12 @@ class GeneralRequestsController extends BaseController{
 
 
   public function update($inutilizado){
+
     $status = Input::get('status');
     $id = Input::get('request_id');
-    $request = GeneralRequest::find($id);
     
+    $request = GeneralRequest::find($id);
+
     $request->status = $status;
     $location = public_path() . '/img/inside.png';
     $email_info = ['user' => Auth::user(),'location' => $location,];
@@ -171,11 +173,13 @@ class GeneralRequestsController extends BaseController{
         $message->to($email,$name)->subject("TU SOLICITUD HA CAMBIADO DE ESTATUS ");
       });
     }
-    
+      
+    if(Input::has('num_orden_people'))
+      $request->update(['num_orden_people' => Input::get('num_orden_people')]); 
 
     $request->save();
 
-    return Redirect::to(action('UserRequestsController@getIndex'))->withSuccess("Se ha actualizado el estado de la solicitud");
+    return Redirect::to(action('UserRequestsController@index'))->withSuccess("Se ha actualizado el estado de la solicitud");
   }   
 
 

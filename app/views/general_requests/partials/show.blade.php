@@ -48,24 +48,27 @@
           </tbody>
         </table>
         <div>
-       
-          {{Form::open(array('id'=>'update-form','action' => array('GeneralRequestsController@update',0),'method' => 'put')) }}
+          {{Form::open(array('id'=>'update-form','method' => 'put')) }}
             {{Form::hidden('request_id')}}
-          @if(Auth::user()->is_admin)
-          <br>
-          Estatus: <strong id="request-status_str"></strong>
-          @else
-          Estatus: <select name="status" id="status" class='form-control'></select>
-          @endif   
-          <br>                                                                      
-        
+            @if(Auth::user()->is_admin)
+            <br>
+            Estatus: <strong id="request-status_str"></strong>
+            @else
+            Estatus: <select name="status" id="status" class='form-control'></select>
+            @endif   
+            <br>                                                                      
+              
+              <div class="hide" id="people-container">
+                {{Form::label('num_orden_people','Número de orden People')}}
+                {{Form::text('num_orden_people',null,['class' => 'form-control'])}}  
+              </div>
           {{ Form::close()}}
         </div>
       </div>
       @if(Auth::user()->is_manager)
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-default" id="guardar">Guardar</button>
+        <button type="button" class="btn btn-default" id="guardar" data-request-id="" >Guardar</button>
       </div>
       @endif
     </div>

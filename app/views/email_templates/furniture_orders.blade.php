@@ -3,13 +3,16 @@
 	</head>
 	<body>
 		
-		<img src="{{$message->embed(public_path('/img/logo-header-profuturo.png'))}}"> 
+		<a href="http://store.profuturocompras.com.mx/login">
+			<img src="{{$message->embed(public_path('/img/logo-header-profuturo.png'))}}">
+		</a>
+
 		<hr>
 		<table>
 			<tbody>
 				<tr>
 					<td width="450">
-						Estimado <strong>  {{$user->nombre}}  </strong> 
+						Estimad@: <strong>  {{$user->nombre}}  </strong> 
 					</td>
 					<td>
 						Confirmación de orden
@@ -45,7 +48,9 @@
 										Número de orden
 									</td>
 									<td>
-									 <font color="red">{{$order->id}}</font>   
+										<center>
+											<font color="red">{{$order->id}}</font>   		
+										</center>
 									</td>
 								</tr>
 							</tbody>
@@ -59,11 +64,12 @@
 		<table border="1">
 			<thead bgcolor="#1e366c" width="200">
 				<th>
+				</th>
+				<th>
 					<font color="white">
 						Detalles de envío y entrega	
 					</font>
 				</th>
-				<th></th>
 			</thead>
 			<tbody>
 				<tr width="200">
