@@ -88,7 +88,7 @@
 						<button data-type="divisional" style="float:left" class="btn btn-default message-type">Mensaje por divisional</button>
 						<button data-type="region" style="float:left" class="btn btn-default message-type">Mensaje por región</button>
 					@endif		
-					<button id="post-message-modal-button" type="button" class="btn btn-default">Enviar</button>
+					<button id="post-message-modal-button" type="submit" class="btn btn-default">Enviar</button>
 				</div>
 			</div>
 		</div>
