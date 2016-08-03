@@ -191,6 +191,7 @@
 
 
 	$('.detail-btn').click(function(){
+
 	  $.get('/api/request-info/' + $(this).attr('data-request-id'), function(data){
 		if(data.status == 200){
 		  var info = data.request;
@@ -234,7 +235,9 @@
 		   
 		   
 		  }
+		  
 	  });
+		$('#guardar').attr('data-request-id',$(this).attr('data-request-id'));
 	});
 
 	  $('#create-request-modal').advancedStepper();
@@ -269,11 +272,24 @@
 	  $('#general_request_id').val($(this).attr('data-request-id'));
 	});
 
-	$('#guardar').click(function(){
-	  $('#update-form').submit();
+	$('#guardar').click(function(event){
+		event.preventDefault();
+		var action = laroute.action('GeneralRequestsController@update',{solicitudes_generales: $(this).attr('data-request-id')});
+		console.log(action);
+		$('#update-form').attr('action',action);
+	  	$('#update-form').submit();
+	});
+
+	
+	$(document).on('change','#status',function(){
+		if( $(this).val() == 10 )
+			$('#people-container').removeClass('hide')
+		else
+			$('#people-container').addClass('hide')
 	});
 
   });
+	
 
 
 

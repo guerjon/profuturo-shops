@@ -2,14 +2,16 @@
 	<head>
 	</head>
 	<body>
+		<a href="http://store.profuturocompras.com.mx/login">
+			<img src="{{$message->embed(public_path('/img/logo-header-profuturo.png'))}}">
+		</a>				
 		
-		<img src="{{$message->embed(public_path('/img/logo-header-profuturo.png'))}}"> 
 		<hr>
 		<table>
 			<tbody>
 				<tr>
 					<td width="450">
-						Estimado <strong>  {{$user->nombre}}  </strong> 
+						Estimad@: <strong>  {{$user->nombre}}  </strong> 
 					</td>
 					<td>
 						Confirmación de orden
@@ -45,7 +47,9 @@
 										Número de orden
 									</td>
 									<td>
-									 <font color="red">{{$order->id}}</font>   
+										<center>
+											<font color="red">{{$order->id}}</font>   		
+										</center>
 									</td>
 								</tr>
 							</tbody>
@@ -57,36 +61,37 @@
 		</table>
 		<br><br>
 		<table border="1">
-			<thead bgcolor="#1e366c" width="200">
+			<thead bgcolor="#1e366c" width="100">
+				<th>
+				</th>
 				<th>
 					<font color="white">
 						Detalles de envio y entrega	
-					</font>
+					</font>					
 				</th>
-				<th></th>
 			</thead>
 			<tbody>
-				<tr width="200">
-					<td>
+				<tr>
+					<td width="100">
 						CC
 					</td>
 					<td width="250">
 						<strong> 	{{$user->ccosto}}  </strong> 
 					</td>
 				</tr>
-				<tr width="200">
-					<td>
+				<tr>
+					<td width="100">
 						Orden completa
 					</td>
 					<td width="250">
 						SI
 					</td>
 				</tr >
-				<tr width="250">
-					<td>
+				<tr>
+					<td width="100">
 						Dirección
 					</td>
-					<td>
+					<td width="250">
 						{{$user->address ? $user->address->domicilio : 'Sin domicilio registrado.'}} 
 					</td>
 				</tr>
@@ -106,23 +111,22 @@
 			@foreach($order->products as $product)
 					<tr width="450">
 						<td>
-							{{$product->pivot->quantity}}
+							<center>
+								{{$product->pivot->quantity}}	
+							</center>
 						</td>
 						<td>
 							{{$product->name}}
 						</td>
 						<td>
-							{{$product->id_people}}
+							<center>
+								{{$product->id_people}}	
+							</center>
 						</td>
 					</tr>
 				@endforeach		
 			</tbody>
 		</table>
-		<center>
-			<mark>
-				<a href="http://store.profuturocompras.com.mx/login">Insumos estratégicos</a>		
-			</mark>				
-		</center>
 		<hr>
 
 	</body>
