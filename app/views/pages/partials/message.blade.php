@@ -106,21 +106,21 @@
 			'users[]',
 			User::where('role','!=','admin')->lists('gerencia','id'),
 			null,
-			['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%'])
+			['id' => 'search-ccostos','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
 		}}
 
 		{{Form::select(
 			'divisional[]',
 			Divisional::lists('name','id'),
 			null,
-			['id' => 'search-divisional','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%'])
+			['id' => 'search-divisional','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
 		}}
 
 		{{Form::select(
 			'regions[]',
 			Region::lists('name','id'),
 			null,
-			['id' => 'search-region','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%'])
+			['id' => 'search-region','class' => 'form-control js-example-basic-multiple ','multiple' => 'multiple','style' => 'width:100%','required'])
 		}}
 		<input type="text" class="hide" name="message_type" id="hidden-message-type">
 	</div>
