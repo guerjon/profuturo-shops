@@ -194,7 +194,6 @@
 
     $(document).on('click','#post-message-modal-button',function(){
         $('#post-message-modal-form').submit();
-       
     });
   }
 
