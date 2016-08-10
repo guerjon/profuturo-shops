@@ -5,7 +5,8 @@ class GeneralRequestsController extends BaseController{
   public function index()
   {
 
-    $active_tab = Input::get('active_tab', 'assigned');
+    $active_tab = Input::get('active_tab', 'all');
+    $access = Input::get('access',false);
   
     $assigneds = ['ASIGNADO','NO ASIGNADO'];
     $active_category = ['ASIGNADO','NO ASIGNADO'];
@@ -33,22 +34,31 @@ class GeneralRequestsController extends BaseController{
           
         '))->where('user_id',Auth::id())->orderBy('rating')->groupBy('general_requests.id');
 
-      if($active_tab == 'assigned'){
-          $requests->whereNotNull('manager_id');
-      }elseif($active_tab == 'not_assigned'){
-        $requests->where('manager_id',null);
+      // if($active_tab == 'assigned'){
+      //     $requests->whereNotNull('manager_id');
+      // }elseif($active_tab == 'not_assigned'){
+      //   $requests->where('manager_id',null);
 
-      }elseif($active_tab == 'deleted_assigned'){
-        $requests->whereNotNull('manager_id')->onlyTrashed();
+      // }elseif($active_tab == 'deleted_assigned'){
+      //   $requests->whereNotNull('manager_id')->onlyTrashed();
 
-      }elseif($active_tab == 'deleted_unassigned'){
-        $requests->whereNull('manager_id')->onlyTrashed();
-      }elseif($active_tab == 'finished'){
-        $requests->where('status',10);
-      }
+      // }elseif($active_tab == 'deleted_unassigned'){
+      //   $requests->whereNull('manager_id')->onlyTrashed();
+      // }elseif($active_tab == 'finished'){
+      //   $requests->where('status',10);
+      // }
 
+        if($active_tab == 'in_process'){
+            $requests->where('status','>',0)->where('status','<',10);
 
+        }elseif($active_tab == 'concluded'){
+            Log::debug($requests->get());
+          $requests->where('status',10);
 
+        }elseif($active_tab == 'canceled'){
+          $requests->onlyTrashed();
+        }
+        
     return View::make('general_requests.index')->withRequests($requests->get())
                                                ->withActiveCategory($active_category)
                                                ->withActiveTab($active_tab)
