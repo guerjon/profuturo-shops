@@ -265,7 +265,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminProductsGeneralController@getIndex') => 'Productos|fa-pencil',
 					action('AdminOrdersGeneralController@getIndex') => 'Pedidos|fa-shopping-bag',
 					action('AdminCalendarEventsController@index') => 'Agenda|fa-calendar',
-					action('AdminGeneralRequestsAssignController@getIndex') => 'Asignación de solicitudes generales|fa-plus',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales|fa-circle-thin',
 					action('AdminReportsController@getIndex') => 'Reportes|fa-book',
 					action('AdminDivisionalController@index') => 'Fechas|fa-calendar-o',

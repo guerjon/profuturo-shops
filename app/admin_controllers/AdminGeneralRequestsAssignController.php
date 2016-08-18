@@ -3,7 +3,10 @@
 class AdminGeneralRequestsAssignController extends AdminBaseController{
 
   public function getIndex(){
-    return View::make('admin::general_requests_assign.index')->withRequests(GeneralRequest::withTrashed()->where('status','!=','11')->orderBy('created_at','desc')->orderBy(DB::raw('manager_id IS NULL'),'desc')->get())->withManagers(User::where('role', 'manager')
+      return View::make('admin::general_requests_assign.index')
+        ->withRequests(GeneralRequest::withTrashed()->where('status','!=','11')
+        ->orderBy('created_at','desc')->orderBy(DB::raw('manager_id IS NULL'),'desc')->get())
+        ->withManagers(User::where('role', 'manager')
       ->orderBy('gerencia'));
   }
 
@@ -36,7 +39,6 @@ class AdminGeneralRequestsAssignController extends AdminBaseController{
         $message->to($email)->subject("Solicitud general asignada por Administrador.");
       });
   */
-      Log::debug("se mando el correo");
 
       return Redirect::back()->withSuccess('Se ha asignado la solicitud');
 
