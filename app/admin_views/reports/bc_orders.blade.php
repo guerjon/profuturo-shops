@@ -98,7 +98,10 @@
         <div class="table-responsive">
             <table class="table table-responsive">
               <thead>
-                <tr>
+                <tr>  
+                    <th>
+                      NOMBRE
+                    </th>
                     <th>
                         FECHA_PEDIDO
                     </th>
@@ -153,6 +156,9 @@
               <tbody>
                     @foreach($bc_orders as $bc_order)
                         <tr>
+                            <td>
+                              {{$bc_order->NOMBRE}}
+                            </td>
                             <td>
                                 {{$bc_order->FECHA_PEDIDO}}
                             </td>

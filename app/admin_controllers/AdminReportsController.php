@@ -177,6 +177,7 @@ class AdminReportsController extends AdminBaseController{
       if(Input::has('excel')){
 
           $headers = [   
+                      "NOMBRE",
                       "FECHA_PEDIDO",
                       "NUM_PEDIDO",
                       "CANTIDAD",
@@ -205,6 +206,7 @@ class AdminReportsController extends AdminBaseController{
 
             if($active_tab == 'atraccion_talento' || $active_tab == "gerente_comercial"){
               $sheet->appendRow([
+                            
                             $bc_order->FECHA_PEDIDO,
                             $bc_order->NUM_PEDIDO,
                             $bc_order->CANTIDAD,
@@ -216,13 +218,13 @@ class AdminReportsController extends AdminBaseController{
                             $bc_order->CELULAR,
                             $bc_order->WEB,
                             $bc_order->DIRECCION,
-                            $bc_order->INMUEBLE,
                             $bc_order->DIRECCION_ALTERNATIVA,
                             $bc_order->ESTATUS,
                             $bc_order->PUESTO_ATRACCION_GERENTE
               ]); 
             }else{
               $sheet->appendRow([
+                            $bc_order->NOMBRE,
                             $bc_order->FECHA_PEDIDO,
                             $bc_order->NUM_PEDIDO,
                             $bc_order->CANTIDAD,
