@@ -59,6 +59,7 @@ class AdminReportsController extends AdminBaseController{
           business_cards.web AS WEB,
           business_cards.ccosto AS CENTRO_COSTO,
           business_cards.direccion AS DIRECCION,
+          bc_order_business_card.inmueble as INMUEBLE,
           business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
           CASE bc_orders.status
           WHEN  0 THEN  'PENDIENTE'
@@ -84,6 +85,7 @@ class AdminReportsController extends AdminBaseController{
           '' AS WEB,
           users.ccosto AS CENTRO_COSTO,
           '' AS DIRECCION,
+          '' as INMUEBLE,
           blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA,
           blank_cards_bc_order.email as EMAIL_TARJETAS,
           CASE bc_orders.status
@@ -109,6 +111,7 @@ class AdminReportsController extends AdminBaseController{
           '' AS WEB,
           users.ccosto AS CENTRO_COSTO,
           bc_orders_extras.talento_direccion AS DIRECCION,
+          '' as INMUEBLE,
           '' AS DIRECCION_ALTERNATIVA,
           'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
           CASE bc_orders.status
@@ -135,6 +138,7 @@ class AdminReportsController extends AdminBaseController{
           '' AS WEB,
           users.ccosto AS CENTRO_COSTO,
           bc_orders_extras.gerente_direccion AS DIRECCION,
+          '' as INMUEBLE,
           '' AS DIRECCION_ALTERNATIVA,
           'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
           CASE bc_orders.status
@@ -184,6 +188,7 @@ class AdminReportsController extends AdminBaseController{
                       "CELULAR",
                       "WEB",
                       "DIRECCIÓN",
+                      "INMUEBLE",
                       "DIRECCIÓN_ALTERNATIVA",
                       "ESTATUS"
                   ];
@@ -211,6 +216,7 @@ class AdminReportsController extends AdminBaseController{
                             $bc_order->CELULAR,
                             $bc_order->WEB,
                             $bc_order->DIRECCION,
+                            $bc_order->INMUEBLE,
                             $bc_order->DIRECCION_ALTERNATIVA,
                             $bc_order->ESTATUS,
                             $bc_order->PUESTO_ATRACCION_GERENTE
@@ -228,6 +234,7 @@ class AdminReportsController extends AdminBaseController{
                             $bc_order->CELULAR,
                             $bc_order->WEB,
                             $bc_order->DIRECCION,
+                            $bc_order->INMUEBLE,
                             $bc_order->DIRECCION_ALTERNATIVA,
                             $bc_order->ESTATUS
               ]);

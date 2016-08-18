@@ -26,6 +26,9 @@
         Cantidad
       </th>
       <th>
+        Inmueble
+      </th>
+      <th>
         Estatus
       </th>
       <th>
@@ -57,6 +60,9 @@
       </td>
       <td>
         {{$card->pivot->quantity}}
+      </td>
+      <td>
+        {{$card->pivot->inmueble}}
       </td>
       <td>
         @if($bc_order->status == 0)

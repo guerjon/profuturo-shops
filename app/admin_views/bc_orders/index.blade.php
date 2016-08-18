@@ -146,7 +146,7 @@
   <script>
     $(function(){
         $('#select-gerencia-bc-orders').select2();
-        $('#select-ccostos-bc-orders').select2();
+        $('#select-ccostos-bc-orders').select2({theme:'bootstrap'});
     });
   </script>
 @endsection

@@ -133,6 +133,10 @@
                         DIRECCIÓN
                     </th>
                     <th>
+                      INMUEBLE
+                    </th>
+
+                    <th>
                         DIRECCIÓN_ALTERNATIVA
                     </th>
                     @if($active_tab == 'atraccion_talento' || $active_tab == 'gerente_comercial')
@@ -181,6 +185,9 @@
                             </td>
                             <td>
                                 {{$bc_order->DIRECCION}}
+                            </td>
+                            <td>
+                              {{$bc_order->INMUEBLE}}
                             </td>
                             <td>
                                 {{$bc_order->DIRECCION_ALTERNATIVA}}

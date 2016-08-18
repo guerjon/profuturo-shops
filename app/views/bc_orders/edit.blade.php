@@ -7,7 +7,10 @@
   'method' => 'PUT',
   'id'     => 'form',
   ])}}
-
+  @foreach($talentos as $talento)
+    <input type="hidden" class="hidden" name="talentos[]" value="{{$talento}}">  
+  @endforeach
+  
   <table class="table table-striped">
     <thead>
       <tr>
@@ -60,8 +63,7 @@
       @endforeach
      @endif
       <tr>
-        @if($talent == 1)
-
+        @if($talent == "1")
         <td>
            {{Form::text("talento_nombre", NULL, ['class' => 'form-control','placeholder' => 'Atracción de talento'])}}
         </td>
@@ -84,7 +86,7 @@
         </td>
       </tr>
        @endif
-       @if($manager == 1)
+       @if($manager == "1")
       <tr>
         <td>
            {{Form::text("gerente_nombre", NULL, ['class' => 'form-control','placeholder' => 'Gerente comercial'])}}

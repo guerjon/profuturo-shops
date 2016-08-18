@@ -19,12 +19,15 @@ class BcOrdersController extends BaseController{
     }else{
       return Redirect::to(action('BcOrdersController@edit', [$bc_order->id]))->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden');
     }
+    
   }
 
   public function store()
   {
     
     $cards = Input::get('cards', []);
+    $inmuebles = Input::get('inmueble',[]);
+
     if((count($cards) > 0) || (count(Input::get('talent',[])) > 0) || (count(Input::get('manager',[])) > 0) ){
         $bc_order = BcOrder::create([
         'user_id' => Auth::id(),
@@ -62,15 +65,18 @@ class BcOrdersController extends BaseController{
                 $bc_order->delete();
                 return Redirect::to(URL::previous())->withInfo('No se pudo realizar su pedido porque solo puede pedir 100 tarjetas para gerente al mes');
               }
-              $bc_order->businessCards()->attach($card_id, ['quantity' => @$quantities[$card_id]*100]);
+              $bc_order->businessCards()->attach($card_id, ['quantity' => @$quantities[$card_id]*100,'inmueble' => @$inmuebles[$card_id]]);
             }
           }
           
              $talent = count(Input::get('talent',[]));
              $manager = count(Input::get('manager',[]));
+             $talentos['inmueble_talento'] =  Input::get('inmueble_talento');
+             $talentos['inmuebles_gerente'] = Input::get('inmueble_gerente');
+            
 
-         return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent]))
-      ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden'); 
+         return Redirect::to(action('BcOrdersController@edit', [$bc_order->id,"manager"=>$manager,'talent'=>$talent,'talentos' => $talentos]))
+          ->withInfo('Por favor, confirme los datos de las tarjetas para enviar la orden'); 
       }
       
     else{
@@ -83,7 +89,8 @@ class BcOrdersController extends BaseController{
 
     $manager = Input::get("manager");
     $talent = Input::get("talent");
-   
+    $talentos = Input::get("talentos");
+    
     $bc_order = BcOrder::find($bc_order_id);
 
     $remaining_cards = 200 - Auth::user()->bcOrders()
@@ -97,7 +104,8 @@ class BcOrdersController extends BaseController{
         ->withBcOrder($bc_order)
         ->withRemainingCards($remaining_cards)
         ->withManager($manager)
-        ->withTalent($talent);
+        ->withTalent($talent)
+        ->withTalentos($talentos);
   }
 
   public function update($bc_order_id)
@@ -107,6 +115,9 @@ class BcOrdersController extends BaseController{
     // $bc_order->restore();
     $bc_order->confirmed = true;
     $bc_order->comments = Input::get('comments');
+    $talentos = Input::get('talentos');
+
+    
     // $bc_order_phones = [];
     // $bc_order_new_phones = [];
     // foreach ($bc_order->business_cards as $card) {
@@ -133,6 +144,7 @@ class BcOrdersController extends BaseController{
     }
 
     $bc_order->save();
+    $talentos = Input::get('talentos',[]);
 
     if(Input::has('blank_cards') and Input::get('blank_cards') > 0){
       DB::table('blank_cards_bc_order')->insert([
@@ -146,29 +158,32 @@ class BcOrdersController extends BaseController{
     }
 
     if(Input::get('talento_nombre') or Input::get('gerente_nombre')){
+      
       $extras = new BcOrdersExtras;
-    if(Input::get('talento_nombre')){
-      $extras->fill(array(
-        "talento_nombre" => Input::get('talento_nombre'),
-        "talento_direccion" => Input::get('talento_direccion'),
-        "talento_direccion_alternativa" => Input::get('talento_direccion_alternativa'),
-        "talento_tel" => Input::get('talento_tel'),
-        "talento_cel" => Input::get('talento_cel'),
-        "talento_email" => Input::get('talento_email')
-        ));
-    }
-         if(Input::get('gerente_nombre')){
+      if(Input::get('talento_nombre')){
         $extras->fill(array(
-        "gerente_nombre" => Input::get('gerente_nombre'),
-        "gerente_direccion" => Input::get('gerente_direccion'),
-        "gerente_direccion_alternativa" => Input::get('gerente_direccion_alternativa'),
-        "gerente_tel" => Input::get('gerente_tel'),
-        "gerente_cel" => Input::get('gerente_cel'),
-        "gerente_email" => Input::get('gerente_email')
-        ));
-        
+          "talento_nombre" => Input::get('talento_nombre'),
+          "talento_direccion" => Input::get('talento_direccion'),
+          "talento_direccion_alternativa" => Input::get('talento_direccion_alternativa'),
+          "talento_tel" => Input::get('talento_tel'),
+          "talento_cel" => Input::get('talento_cel'),
+          "talento_email" => Input::get('talento_email'),
+          "inmueble_talento" => $talentos[0]
+          ));
+      }
+        if(Input::get('gerente_nombre')){
+          $extras->fill(array(
+          "gerente_nombre" => Input::get('gerente_nombre'),
+          "gerente_direccion" => Input::get('gerente_direccion'),
+          "gerente_direccion_alternativa" => Input::get('gerente_direccion_alternativa'),
+          "gerente_tel" => Input::get('gerente_tel'),
+          "gerente_cel" => Input::get('gerente_cel'),
+          "gerente_email" => Input::get('gerente_email'),
+          "inmueble_gerente" => $talentos[1]
+          ));
+          
         }
-        
+          
         $extras->bcOrder()->associate($bc_order);  
         $extras->save();  
     }
