@@ -14,6 +14,7 @@
 		</ol>    
 	</div>
 
+
 	<div class="row">
 		{{Form::open(
 			[
@@ -96,9 +97,9 @@
 	);
 	
 	var action = laroute.action('AdminApiController@getGeneralRequest');
-
+	console.log(action);
 	$.get(action, $('#filter-form').serialize(), function(data){
-	  
+		
 	  $('.table tbody').empty();
 	  if(data.status == 200){
 		var orders_full = jQuery.parseJSON( data.orders_full );

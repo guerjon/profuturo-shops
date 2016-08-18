@@ -63,7 +63,6 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-
 					<th>
 						Gerencia
 					</th>
@@ -147,7 +146,7 @@
 		</table>
 	</div>
 	<center>
-		{{$orders->links()}}
+		{{$orders->appends(Request::except('page'))->links()}}
 	</center>
 	@endif
 	@include('admin::address.partials.change_address')

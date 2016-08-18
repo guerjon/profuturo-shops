@@ -53,7 +53,7 @@
 
   @if($active_tab == 'assigned')
     <div class="col col-xs-2">
-      <a href="{{action('AdminGeneralRequestsController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+      <a href="{{action('AdminApiController@getGeneralRequest', ['excel'=>'excel'])}}" class="btn btn-primary btn-submit" style="float:right">
           <span class="glyphicon glyphicon-download-alt"></span> EXCEL
         </a>  
     </div>

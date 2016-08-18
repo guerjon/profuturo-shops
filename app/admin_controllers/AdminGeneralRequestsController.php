@@ -80,11 +80,13 @@ class AdminGeneralRequestsController extends AdminBaseController{
         
 
     if(Input::has('export')){
+
       Excel::create('Reporte_solicitudes_asignadas',function($excel) use($result){
           $excel->sheet('Hoja_1', function($sheet) use($result) {
                 $sheet->fromArray($result);
           });
         })->download('xls');
+    
     }
 
     return View::make('admin::general_requests.index')->withAssigneds($assigneds)->withActiveCategory($active_category)

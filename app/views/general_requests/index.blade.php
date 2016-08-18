@@ -22,9 +22,42 @@
 			</div>
 		</div>
 		<div class="row">
-			@if(isset($error))
+			@if($errors->count() > 0)
 			  	<div class="alert alert-danger">
-					{{$error}}
+
+			  		Este perfil no cuenta con alguno de los siguientes datos:
+			  		<ul>
+			  			@if(!Auth::user()->num_empleado)
+			  				<li>
+			  					Número de empleado
+			  				</li>
+						@endif
+
+						@if(!Auth::user()->extension)
+			  				<li>
+			  					Extensión de empleado
+			  				</li>
+			  			@endif
+
+			  			@if(!Auth::user()->gerencia)
+			  				<li>
+			  					Gerencia
+			  				</li>
+			  			@endif
+
+			  			@if(!Auth::user()->email)
+			  				<li>
+			  					Email
+			  				</li>
+			  			@endif
+
+			  			@if(!Auth::user()->celular)
+			  				<li>
+			  					Celular
+			  				</li>
+			  			@endif
+			  		</ul>
+			  		Para completar la solicitud se necesitan llenar todos los datos.
 			  	</div>
 			@endif
 			@if(isset($success))
@@ -73,6 +106,11 @@
 						<th>
 						  Fecha de solicitud
 						</th>
+						@if(Auth::user()->role == 'manager')
+							<th>
+								Número orden people
+							</th>
+						@endif
 						<th>
 						</th>
 					</thead>
@@ -81,9 +119,8 @@
 					  		<tr>
 								<td>
 									<a href="" class="detail-btn" data-toggle="modal" data-target="#request-modal" data-request-id="{{$request->id}}" >
-										{{$request->id}}	
+										{{$request->id}}
 									</a>
-								  	
 								</td>
 								<td>
 								  	{{$request->project_title}}
@@ -97,6 +134,11 @@
 								<td>
 								  	{{ $request->created_at}}
 								</td>
+								@if(Auth::user()->role == 'manager')
+									<th>
+										{{ $request->num_orden_people}}	
+									</th>
+								@endif
 					  			<td>
 								<div class="row">
 									<div class="col col-xs-6">
@@ -107,6 +149,7 @@
 											</button>    	
 										@endif
 									</div>
+
 								  	@if(Auth::user()->role == 'user_requests')
 										  	<div class="col col-xs-6">
 												<?

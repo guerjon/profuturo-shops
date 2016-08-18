@@ -1812,7 +1812,7 @@ class AdminApiController extends AdminBaseController
 	/*
 
 	*/
-	public function getGeneralRequest()
+	public function getGeneralRequest($excel = null)
 	{
 		$general_request = GeneralRequest::
 			join('general_request_products','general_request_products.general_request_id','=','general_requests.id')
@@ -1823,9 +1823,11 @@ class AdminApiController extends AdminBaseController
 					sum(general_request_products.unit_price) as total
 					
 				'))->groupBy('general_requests.id');
+	
 
-		if(Input::has('excel'))
+		if($excel == "excel" || Input::has('excel'))
 		{
+
 			$headers = 
 				[
 					'# de sol.',

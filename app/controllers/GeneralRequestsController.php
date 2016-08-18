@@ -67,6 +67,10 @@ class GeneralRequestsController extends BaseController{
 
   public function store()
   {
+ 
+    if(!(Auth::user()->num_empleado && Auth::user()->extension && Auth::user()->celular && Auth::user()->email && Auth::user()->gerencia) )
+      return Redirect::back()->withErrors("El usuario no tiene número de empleado");
+
     $request = new GeneralRequest(Input::except('budget','quantity','unit_price','name'));
     /*agregando el valor adicional a los campos*/
     $request->employee_name = Auth::user()->gerencia;
@@ -76,6 +80,7 @@ class GeneralRequestsController extends BaseController{
     $request->employee_ext = Auth::user()->extension;
 
     Auth::user()->generalRequests()->save($request);
+      
 
     $quantities = Input::get('quantity');
     $unit_prices= Input::get('unit_price');

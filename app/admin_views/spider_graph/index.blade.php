@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col col-xs-3"><h1>Estadísticas de Encuestas</h1></div>
+		<div class="col col-xs-6"><h1>Estadísticas de Encuestas</h1></div>
 		<div class="col col-xs-6"></div>
 		
 	</div>
@@ -32,10 +32,12 @@
 						{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
 					</div>
 				</div>
-			    <div class="col-xs-2 ">DESDE:
+			    <div class="col-xs-2 ">
+			    	{{Form::label('since','DESDE',['class' => 'label-control'])}}
     				{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
 				</div>
-			    <div class="col-xs-2 ">HASTA:
+			    <div class="col-xs-2 ">
+			    	{{Form::label('until','HASTA',['class' => 'label-control'])}}
 			        {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
 			    </div>
 				<div class="col col-xs-3 text-right" >
@@ -56,53 +58,48 @@
 		
 		<hr>
 		<div class="row">
-			<div class="col col-xs-3">
-				<div class="wrapper">
-			        <div class="pricing-table group"> 
-			            <div class="block professional fl">
-			                <h2 class="title">Promedio</h2>
-			                <div class="content">
-			                    <p class="price">
-			                        <span id="promedio_total"></span>
-			                    </p>
-			                </div>
-			                <ul class="features" style=" overflow: scroll;height: 300px;color:black;font-size:15px">
-								<li>Actitud del consultor: <span class="fontawesome-star" id="actitud_consultor"></span ></li>
-			                    <li>Seguimiento del consultor: <span class="fontawesome-star" id="seguimiento_consultor"></span></li>
-			                    <li>Tiempos respuesta consultor: <span class="fontawesome-star" id="tiempos_respuesta"></span></li>
-			                    <li>Calidad del producto: <span class="fontawesome-star" id="calidad_producto"></span></li>
-	
-			                </ul> 
-			            </div>
-			        </div>
-    			</div>					
-			</div>
-
-			<div class="col col-xs-6 text-center" id="div-chart-container">
+			<div class="col col-xs-6" id="div-chart-container">
 				<canvas id="chart-container"></canvas>		
-			</div>
-
-			<div class="col col-xs-3" >
-				<div class="wrapper">
-			        <div class="pricing-table group"> 
-			            <div class="block professional fl">
-			                <h2 class="title">Solicitudes promediadas</h2>
-			                <div class="content">
-			                    <p class="price">
-			                        <span id="total_solicitudes"></span>
-			                    </p>
-			                </div>
-			                <div id="general-requests-id"></div>
-			                <ul class="features" id="comments" style=" overflow: scroll;height: 300px;color:black;font-size:15px">
-
-			                </ul>
-			            </div>
-			        </div>
-    			</div>	
-			</div>
-
+			</div>			
+			<div class="col-xs-1"></div>
+			<div class="col-xs-5">
+				<div class="panel panel-default">
+  					<div class="panel-heading"><h3>Promedio total :<span id="promedio_total"></span></h3></div>
+  					<div class="panel-body">
+                        <ul style="color:black;font-size:15px">
+							<li class="well"> Actitud del consultor: <b><span id="actitud_consultor"></span ></b></li>
+		                    <li class="well">Seguimiento del consultor: <b><span id="seguimiento_consultor"></b></span></li>
+		                    <li class="well">Tiempos respuesta consultor: <b><span id="tiempos_respuesta"></b></span></li>
+		                    <li class="well">Calidad del producto: <b><span id="calidad_producto"></span></b></li>
+		                </ul> 	                      						
+  					</div>
+				</div>
+			</div>		
 		</div>
-	
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3> Número de solicitudes: <span id="total_solicitudes"></span> </h3>
+					</div>
+					<div class="panel-body">
+						<table class="table table-striped">
+							<thead>
+								<th>Número de solicitud</th>
+								<th>Implementación de estrategias y proactividad para identificar soluciones</th>
+								<th>Adecuación y control al proceso de Papelería</th>
+								<th>Cumplimiento del proceso de papelería 3</th>
+								<th>Evaluación mensual de proveedores</th>
+								<th>Encuesta de calidad de usuarios /actitud de servicio</th>								
+							</thead>
+							<tbody id="comments">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 @endsection
 
 
@@ -111,7 +108,6 @@
 	<style href="/css/table_style.css"></style>
 	<script type="text/javascript" src="/js/chart/dist/Chart.js"></script>
 	<script type="text/javascript" src="/js/jquery.number.min.js"></script>
-	  
 	<script>
 		$(function(){
 
@@ -146,18 +142,14 @@
 					since: $('#since').val(),
 					until: $('#until').val()
 					},function(datos){
-						var encuestas = [];
-						console.log(datos.solicitudes);
 						
-
+						var encuestas = [];
+						
 						if(datos.status = 200){
 							
 							if(datos.encuestas.length > 0 ){
 								$('#encuesta').attr('disabled',false);
-								// $('#encuesta').select2({
-								// 	theme: "bootstrap",
-								// 	data: encuestas
-								// });
+
 								$('#encuesta').empty();
 								for (var i = datos.encuestas.length - 1; i >= 0; i--) {
 									
@@ -178,18 +170,18 @@
 							$('#seguimiento_consultor').html($.number(datos.surveys[0].dos,'3'));
 							$('#tiempos_respuesta').html($.number(datos.surveys[0].tres,'3'));
 							$('#calidad_producto').html($.number(datos.surveys[0].cuatro,'3'));
+							
 							$('#comments').empty();
 							for (var i = datos.comments.length - 1; i >= 0; i--) {
 								
 									$('#comments').append(
-										"<h3><a href='general-requests/"+datos.comments[i].general_request_id+"'>Solicitud general:"+ datos.comments[i].general_request_id+"</a></h3>");
-									$('#comments').append('<ul>');
-									$('#comments').append('<li>'+datos.comments[i].explain_1+'</li>')
-									$('#comments').append('<li>'+datos.comments[i].explain_2+'</li>')
-									$('#comments').append('<li>'+datos.comments[i].explain_3+'</li>')
-									$('#comments').append('<li>'+datos.comments[i].explain_4+'</li>')
-									$('#comments').append('</ul>');
-								
+											"<tr><td><a href='general-requests/"+datos.comments[i].general_request_id+"'>"+ datos.comments[i].general_request_id+
+											"</a></td>"+
+											'<td>'+datos.comments[i].explain_1+'</td>'+
+									 	 	'<td>'+datos.comments[i].explain_2+'</td>'+
+											'<td>'+datos.comments[i].explain_3+'</td>'+
+											'<td>'+datos.comments[i].explain_4+'</td></tr>');
+									
 							};
 							
 							if(datos.surveys[0].uno != null){
@@ -247,6 +239,8 @@
 			}
 
 		});
+
+		
 	
 	</script>
 
