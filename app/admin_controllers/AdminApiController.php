@@ -2138,6 +2138,8 @@ class AdminApiController extends AdminBaseController
 
   public function getSurvey()
   {
+	Log::debug(Input::all());
+	
 	$encuestas = [];
 	$solicitudes = [];
 	$surveys = DB::table('satisfaction_surveys')->select(
@@ -2153,7 +2155,6 @@ class AdminApiController extends AdminBaseController
 	$comments = DB::table('satisfaction_surveys')->select(DB::raw('explain_1,explain_2,explain_3,explain_4,satisfaction_surveys.general_request_id'))
 				  ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
 				  ->join('users','users.id','=','general_requests.manager_id');
-
 
 	if(Input::has('gerencia')){
 	  $surveys->where('users.id','=',Input::get('gerencia'));
@@ -2179,7 +2180,9 @@ class AdminApiController extends AdminBaseController
 
 	$surveys->where('satisfaction_surveys.created_at','>=',Input::get('since'))
 	  ->where('satisfaction_surveys.created_at','<=',\Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->addDay()->format('Y-m-d'));
-   
+	$comments->where('satisfaction_surveys.created_at','>=',Input::get('since'))
+	  ->where('satisfaction_surveys.created_at','<=',\Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->addDay()->format('Y-m-d'));
+
 	  return Response::json([
 		'status' => 200,
 		'surveys' => $surveys->get(),
