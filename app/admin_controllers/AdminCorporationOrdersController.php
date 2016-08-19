@@ -55,8 +55,7 @@ class AdminCorporationOrdersController extends BaseController
         }
         });
       })->download('xlsx');
-
-
+      
     }
    
     return View::make('admin::corporation_orders.index')

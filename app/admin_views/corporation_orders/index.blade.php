@@ -183,8 +183,9 @@
         $('#change-address-form').submit();
       });
       $('#excel-btn').click(function(){
-          $('#form-corporation-orders').append('<input name="export" value="xls" class="hidden">');
+          $('#form-corporation-orders').append('<input name="export" value="xls" class="hidden" id="export">');
           $('#form-corporation-orders').submit();
+          $('#export').remove();
       });
     });
   </script>
