@@ -37,7 +37,7 @@
         </div>
         <div class="col col-xs-2">
           {{Form::label('to','HASTA')}}
-          {{Form::text('to',\Carbon\Carbon::now('America/Mexico_City')->addDay(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'to' ])}}
+          {{Form::text('to',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'to' ])}}
         </div>
 
         <div class="col col-xs-2">
@@ -150,7 +150,7 @@
       </table>
     </div>
     <center>
-      {{$orders->links()}}
+      {{$orders->appends(Input::except('page'))->links()}}
     </center>
   @endif
   @include('admin::address.partials.change_address')

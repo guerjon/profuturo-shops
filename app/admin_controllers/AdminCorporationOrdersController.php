@@ -61,14 +61,18 @@ class AdminCorporationOrdersController extends BaseController
 
     if(Input::has('divisional_id'))
         $orders->where('users.divisional_id', Input::get('divisional_id'));
-    if(Input::has('since'))
-        $orders->where('corporation_orders.created_at','>=',Input::get('since'));
-    if(Input::has('to'))
-      $orders->where('corporation_orders.created_at','<=',Input::get('to'));
+    
+    
+        $orders->where('corporation_orders.created_at','>=',Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d')));
+    
+      $orders->where('corporation_orders.created_at','<=',Input::get('to',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d')));
 
 
    
-    return View::make('admin::corporation_orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias);
+    return View::make('admin::corporation_orders.index')
+      ->withOrders($orders->paginate(10))
+      ->withGerencias($gerencias)
+      ->withInput(Input::flash());
   }
 
   public function show($order_id)
