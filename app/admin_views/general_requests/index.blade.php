@@ -36,9 +36,7 @@
 					<div class="col-xs-3 ">
 						FECHA DE INICIO HASTA:
 						{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
-					</div>
-
-					
+					</div>					
 					<div class="col col-xs-2">
 						<br>
 						<a href="{{action('AdminApiController@getGeneralRequest', ['excel'=>'excel'])}}" class="btn btn-primary btn-submit" style="float:right">

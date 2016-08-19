@@ -51,20 +51,16 @@ class AdminGeneralRequestsController extends AdminBaseController{
 		if(Input::has('user_id')){
 			$request->where('user_id',Input::get('user_id'));
 		}
-
-		if(Input::has('since')){
-			$request->where('general_requests.created_at','>=',Input::get('since'));
-		}
-
-		if(Input::has('until')){
-			$request->where('general_requests.created_at','<=',DateTime::createFromFormat('Y-m-d',Input::get('until')));
-		}
+		
+		$request->where('general_requests.project_date','>=',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')));	
+		$request->where('general_requests.project_date','<=',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')));
 
 		return View::make('admin::general_requests.index')
-			->withRequests($request->orderBy('general_requests.created_at','desc')->orderBy('rating','desc')->groupBy('general_requests.id')->paginate(10))
+			->withRequests($request->orderBy('general_requests.created_at','desc')->orderBy('rating','desc')->groupBy('solicitud')->paginate(10))
 			->withActiveTab($active_tab)
 			->withUsers(User::where('role', 'user_requests')->lists('gerencia','id'))
-			->withManagers(User::where('role', 'manager'));
+			->withManagers(User::where('role', 'manager'))
+			->withInput(Input::flash());
 	}
 
 

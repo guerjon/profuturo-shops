@@ -4,7 +4,6 @@
 	<div class="row">
 		<div class="col col-xs-6"><h1>Estadísticas de Encuestas</h1></div>
 		<div class="col col-xs-6"></div>
-		
 	</div>
 	<hr>
 		<center>
