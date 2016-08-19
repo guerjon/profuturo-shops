@@ -52,8 +52,8 @@ class AdminGeneralRequestsController extends AdminBaseController{
 			$request->where('user_id',Input::get('user_id'));
 		}
 		
-		$request->where('general_requests.project_date','>=',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')));	
-		$request->where('general_requests.project_date','<=',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')));
+		$request->where('general_requests.created_at','>=',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')));	
+		$request->where('general_requests.created_at','<=',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')));
 
 		return View::make('admin::general_requests.index')
 			->withRequests($request->orderBy('general_requests.created_at','desc')->orderBy('rating','desc')->groupBy('solicitud')->paginate(10))

@@ -30,11 +30,11 @@
 					</div>
 			 
 					<div class="col-xs-3 ">
-						FECHA DE INICIO DESDE:
+						FECHA DE SOLICITUD DESDE:
 						{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
 						</div>
 					<div class="col-xs-3 ">
-						FECHA DE INICIO HASTA:
+						FECHA DE SOLICITUD HASTA:
 						{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
 					</div>					
 					<div class="col col-xs-2">
