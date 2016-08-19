@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-	<h3>Añadir fecha para pedidos mac</h3>
+	<h3>Añadir fecha para pedidos MAC</h3>
 	<div class="row">
 		<div class="col col-xs-9"></div>
 		<div class="col col-xs-3 text-right" >
