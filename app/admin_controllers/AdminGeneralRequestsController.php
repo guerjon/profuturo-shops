@@ -10,7 +10,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
 					'general_requests.project_title as titulo',
 					DB::raw('general_request_products.unit_price * general_request_products.quantity as presupuesto'),
 					'general_requests.rating as rating',
-					'general_requests.created_at as created_at',
+					'general_requests.created_at as creada',
 					'general_requests.project_date as project_date',
 					'general_requests.deliver_date as deliver_date',
 					DB::raw('CASE general_requests.status
