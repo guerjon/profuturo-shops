@@ -1,19 +1,19 @@
 @extends('layouts.master')
 
   @section('content')
-	
-	<div class="row">
-		<ol class="breadcrumb">
-			<a href="{{URL::previous()}}" class="back-btn">
-				<span class="glyphicon glyphicon-arrow-left"></span> Regresar
-			</a>
-			&nbsp;&nbsp;&nbsp;
-		  	<li><a href="/">Inicio</a></li>
-		  	<li><a href="/admin/reports/index">Reportes</a></li>
-		  	<li class="active">Solicitudes generales</li>
-		</ol>    
-	</div>
+	<div class="container-fluid">
 
+		<div class="row">
+			<ol class="breadcrumb">
+				<a href="{{URL::previous()}}" class="back-btn">
+					<span class="glyphicon glyphicon-arrow-left"></span> Regresar
+				</a>
+				&nbsp;&nbsp;&nbsp;
+			  	<li><a href="/">Inicio</a></li>
+			  	<li><a href="/admin/reports/index">Reportes</a></li>
+			  	<li class="active">Solicitudes generales</li>
+			</ol>    
+		</div>
 
 	<div class="row">
 		{{Form::open(
@@ -24,16 +24,26 @@
 			  'target' => '_blank'
 		  	])
 		}}
-			<div class="col-xs-4"><h1>Reporte solicitudes generales</h1></div>
-			<div class="col-xs-6"></div>
-			<div class="col-xs-2">
-				{{Form::hidden('page',null,['id' => 'number_page'])}}
-			  	<button class="btn btn-primary btn-submit" type="button" id="download-btn">
-					<span class="glyphicon glyphicon-download-alt"></span> Descargar excel
-			  	</button>
-			</div>
+			
+		 	
+				<div class="col-xs-3">
+					FECHA DE SOLICITUD DESDE:
+					{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+					</div>
+				<div class="col-xs-3 ">
+					FECHA DE SOLICITUD HASTA:
+					{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+				</div>					
+				
+			{{Form::hidden('page',null,['id' => 'number_page'])}}
 
 		{{Form::close()}}
+				<div class="col col-xs-2">
+					<br>
+					<button class="btn btn-primary btn-submit" type="button" id="download-btn">
+						<span class="glyphicon glyphicon-download-alt"></span> Descargar excel
+				  	</button>
+				</div>
 
 	</div>
 	<hr>
@@ -50,7 +60,7 @@
 		  <ul class="pagination" id="pagination"></ul>
 		</center>		
 	</div>
-
+</div>
   @stop
 
 @section('script')
@@ -205,6 +215,9 @@
 		  update();
 		});
 
+	$('.datepicker').change(function(){
+		update();
+	});
 	  $('#download-btn').click(function(){
 		$('#filter-form').append('<input value="1" type="hidden" name="excel">')
 		$('#filter-form').submit();

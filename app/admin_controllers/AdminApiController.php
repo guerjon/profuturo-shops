@@ -1824,6 +1824,8 @@ class AdminApiController extends AdminBaseController
 					
 				'))->groupBy('general_requests.id');
 	
+		$general_request->where('general_requests.created_at','>=',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')));	
+		$general_request->where('general_requests.created_at','<=',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')));
 
 		if($excel == "excel" || Input::has('excel'))
 		{
