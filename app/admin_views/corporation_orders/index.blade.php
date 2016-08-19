@@ -19,6 +19,7 @@
 
     {{Form::open([
     'method' => 'GET',
+    'id' => 'form-corporation-orders'
     ])}}
     
       <div class="row text-center">
@@ -45,9 +46,9 @@
           <button type="submit" class="btn btn-primary">
             <span class="glyphicon glyphicon-filter"></span> Filtrar
           </button>     
-          <a href="{{action('AdminCorporationOrdersController@index', ['export'=>'xls'])}}" class="btn btn-primary btn-submit" style="float:right">
+          <button class="btn btn-primary btn-submit" style="float:right" id="excel-btn" type="button">
             <span class="glyphicon glyphicon-download-alt"></span> Excel
-          </a>
+          </button>
         </div>
       </div>
 
@@ -180,6 +181,10 @@
           $('#valor_aprobado').val(0);
 
         $('#change-address-form').submit();
+      });
+      $('#excel-btn').click(function(){
+          $('#form-corporation-orders').append('<input name="export" value="xls" class="hidden">');
+          $('#form-corporation-orders').submit();
       });
     });
   </script>
