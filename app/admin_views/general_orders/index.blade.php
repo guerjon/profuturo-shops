@@ -19,7 +19,7 @@
     <div class="col-sm-2 col-xs-offset-2">
       <a href="{{action('AdminOrdersController@index')}}"class="thumbnail">
         <img src="/img/img.png" style="width: 100%; height: auto;">
-          <h3 style="text-align:center">Pedidos papelería</h3>
+          <h3 style="text-align:center">Pedidos ventas</h3>
       </a>
     </div>
 

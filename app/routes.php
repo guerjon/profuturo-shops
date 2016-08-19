@@ -96,6 +96,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('importador-capacitaciones','AdminTrainingProductsImporterController');
 		
 		Route::resource('date-corporation','AdminDatesCorporationController');
+		Route::resource('date-mac','AdminDatesMacController');
 		Route::get('dashboard-stationery','AdminDashboardController@stationery');
 		Route::post('dashboard-overview-month/{index}/{month}/{year}','AdminDashboardController@overviewByMonth');
 		Route::post('dashboard-overview-month-amount/{index}/{month}/{year}','AdminDashboardController@overviewByMonthAmount');

@@ -8,7 +8,7 @@
         </a>
         &nbsp;&nbsp;&nbsp;
         <li><a href="/">Inicio</a></li>
-        <li><a href="{{action('AdminDashboardController@stationery')}}"> Dashboard Papeleria</a></li>
+        <li><a href="{{action('AdminDashboardController@stationery')}}"> Dashboard ventas</a></li>
         <li class="active">Gerencias sin pedido</li>
     </ol>
 

@@ -56,7 +56,7 @@
         @elseif($active_tab == 'user_system')
           <h3>Dar de alta a un nuevo usuario de Sistemas</h3>
         @else
-          <h3>Dar de alta a un Usuario de papelería</h3>
+          <h3>Dar de alta a un Usuario de ventas</h3>
         @endif
 
         {{ Form::hidden('role', $user->exists ? $user->role : @$active_tab) }}

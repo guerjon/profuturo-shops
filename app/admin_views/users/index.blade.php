@@ -48,7 +48,7 @@
       </li>
       <li role="presentation" class="{{$active_tab == 'user_paper' ? 'active' : ''}}">
         <a href="?active_tab=user_paper&page=1" aria-controls="user_paper" class="tabs">
-          Papelería
+          Ventas
         </a>
       </li>  
       <li role="presentation" class="{{$active_tab == 'user_requests' ? 'active' : ''}}">

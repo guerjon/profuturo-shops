@@ -9,7 +9,7 @@
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
     <li><a href="/admin/reports/index">Reportes</a></li>
-    <li class="active">Pedidos papelería</li>
+    <li class="active">Pedidos ventas</li>
   </ol>
 
   {{Form::open([
@@ -20,7 +20,7 @@
     ])}}
     {{Form::hidden('page',null,['id' => 'number_page'])}}
     <div class="page-header">
-      <h3>Reporte de pedidos papelería
+      <h3>Reporte de pedidos ventas
         <button class="btn btn-primary btn-submit" style="float:right">
           <span class="glyphicon glyphicon-download-alt"></span> Descargar excel
         </button>

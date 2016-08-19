@@ -8,7 +8,7 @@
     </a>
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
-    <li><a href="{{action('AdminOrdersController@index')}}">Pedidos Papelería</a></li>
+    <li><a href="{{action('AdminOrdersController@index')}}">Pedidos ventas</a></li>
     <li class="active">Detalles</li>
   </ol>
 

@@ -8,7 +8,7 @@
         </a>
         &nbsp;&nbsp;&nbsp;
         <li><a href="/">Inicio</a></li>
-        <li class="active">Dashboard Papeleria</li>
+        <li class="active">Dashboard ventas</li>
     </ol>
 
     {{ Form::open([
@@ -38,7 +38,7 @@
                 {{Form::select('gerencia[]',[],null,['class' => 'form-control select2','multiple' => 'multiple','type' => 'gerencia','id' => 'gerencia_id_filter','disabled'])}}
             </div>
             <div class="col-md-2">
-                Tipo Papeleria
+                Tipo ventas
                 {{Form::select('paper-type',[
                     'orders' => 'Papelería',
                     'furniture_orders' => 'Muebles',

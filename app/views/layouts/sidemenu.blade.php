@@ -165,6 +165,11 @@
 								Fechas corporativo
 							</a>
 						</li>
+						<li>
+							<a href="{{action('AdminDatesMacController@index')}}">
+								Fechas MAC
+							</a>
+						</li>
 					</ul>
 				</li>
 		@endif

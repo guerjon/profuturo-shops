@@ -9,7 +9,7 @@
       &nbsp;&nbsp;&nbsp;
     <li><a href="/">Inicio</a></li>
     <li><a href="/admin/general-categories/index">Categorías</a></li>
-    <li class="active">Categorías Papeleria</li>
+    <li class="active">Categorías papelería</li>
   </ol>
 
 <div class="text-right">
