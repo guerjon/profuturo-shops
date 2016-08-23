@@ -122,7 +122,7 @@
 			actualiza();
 
 			$('#gerencia').on('select2:select',function(e){
-				console.log(e);
+				console.log(e.val());
 			});
 
 			// $('#gerencia').change(function(){

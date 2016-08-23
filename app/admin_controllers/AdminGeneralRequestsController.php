@@ -103,7 +103,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
 			if($general_request->save()){
 				$user = User::find($general_request->user_id);
 				if($user->email){
-					$email = 'jona_54_.com@ciencias.unam.mx';
+					$email = $user->email;
 					Mail::send('admin::email_templates.aviso_consultor',['general_request' => $general_request],function($message) use ($email){
 					$message->to($email)->subject("Solicitud general asignada.");
 					});
