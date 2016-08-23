@@ -51,9 +51,19 @@ class AdminGeneralRequestsController extends AdminBaseController{
 		if(Input::has('user_id')){
 			$request->where('user_id',Input::get('user_id'));
 		}
-		
-		$request->where('general_requests.created_at','>=',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')));	
-		$request->where('general_requests.created_at','<=',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')));
+		if(Input::has('since'))
+			$since = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since'))->startOfDay();
+		else
+			$since = \Carbon\Carbon::now()->subMonths(1)->format('Y-m-d');
+
+		if(Input::has('until'))
+			$until = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->endOfDay();
+		else
+			$until = \Carbon\Carbon::now()->subMonths(1)->format('Y-m-d');
+				
+
+		$request->where('general_requests.created_at','>=',$since);	
+		$request->where('general_requests.created_at','<=',$until);
 
 		return View::make('admin::general_requests.index')
 			->withRequests($request->orderBy('general_requests.created_at','desc')->orderBy('rating','desc')->groupBy('solicitud')->paginate(10))

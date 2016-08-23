@@ -13,7 +13,7 @@
 				{{Form::open(['method' => 'get','id' => 'spider-form'])}}
 				<div class="col col-md-2">
 					<div class="form-group">
-						{{Form::label('gerencia','Consultor',['class' => 'label-control'])}}
+						{{Form::label('gerencia','CONSULTOR',['class' => 'label-control'])}}
 						{{Form::select(
 							'gerencia',
 							[null => 'Todos los consultores'] + User::where('role','manager')->lists('gerencia','id'),
@@ -25,7 +25,7 @@
 
 				<div class="col col-md-2">
 					<div class="form-group">
-						{{Form::label('encuesta','NUMERO ENCUESTA',['class' => 'label-control'])}}
+						{{Form::label('encuesta','SOLICITUD GENERAL',['class' => 'label-control'])}}
 						{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
 					</div>
 				</div>
@@ -121,10 +121,14 @@
 			
 			actualiza();
 
-			$('#gerencia').change(function(){
-				$('#encuesta').empty().attr('disabled',true);
-				actualiza();
-			});	
+			$('#gerencia').on('select2:select',function(e){
+				console.log(e);
+			});
+
+			// $('#gerencia').change(function(){
+			// 	$('#encuesta').empty().attr('disabled',true);
+			// 	actualiza();
+			// });	
 
 			$('#encuesta').change(function(){
 				actualiza();
@@ -149,10 +153,10 @@
 								for (var i = datos.encuestas.length - 1; i >= 0; i--) {
 									
 									$('#encuesta').append('<option value="'+datos.encuestas[i]+'">'+
-										"Encuesta "+datos.encuestas[i] + ", "+ "Solicitud general " + " "+ datos.solicitudes[i]+'</option>')
+										datos.solicitudes[i]+'</option>')
 								};								
 							}
-							console.log(datos);
+
 							$('#total_solicitudes').html(datos.comments.length);
 							
 							var promedio_total = parseFloat(datos.surveys[0].uno) + parseFloat(datos.surveys[0].dos) + parseFloat(datos.surveys[0].tres) + parseFloat(datos.surveys[0].cuatro);

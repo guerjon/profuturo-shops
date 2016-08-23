@@ -2159,19 +2159,19 @@ class AdminApiController extends AdminBaseController
 				  ->join('users','users.id','=','general_requests.manager_id');
 
 	if(Input::has('gerencia')){
-	  $surveys->where('users.id','=',Input::get('gerencia'));
-	  $comments->where('users.id','=',Input::get('gerencia'));
-	  $encuestas = DB::table('satisfaction_surveys')->select(
+		
+	  	$surveys->where('users.id','=',Input::get('gerencia'));
+	  	$comments->where('users.id','=',Input::get('gerencia'));
+	  	$encuestas = DB::table('satisfaction_surveys')->select(
 				  DB::raw('satisfaction_surveys.id'))
 					->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
 					->join('users','users.id','=','general_requests.manager_id')
 					->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
-	  $solicitudes = DB::table('satisfaction_surveys')->select(
+	  	$solicitudes = DB::table('satisfaction_surveys')->select(
 				  DB::raw('general_requests.id'))
 					->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
 					->join('users','users.id','=','general_requests.manager_id')
 					->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
-	  
 	}
 
 
