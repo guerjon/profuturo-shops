@@ -51,16 +51,9 @@ class AdminGeneralRequestsController extends AdminBaseController{
 		if(Input::has('user_id')){
 			$request->where('user_id',Input::get('user_id'));
 		}
-		if(Input::has('since'))
-			$since = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since'))->startOfDay();
-		else
-			$since = \Carbon\Carbon::now()->subMonths(1)->format('Y-m-d');
 
-		if(Input::has('until'))
-			$until = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->endOfDay();
-		else
-			$until = \Carbon\Carbon::now()->subMonths(1)->format('Y-m-d');
-				
+		$since =  \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')))->startOfDay()->format('Y-m-d');
+		$until = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')))->addDay()->format('Y-m-d');
 
 		$request->where('general_requests.created_at','>=',$since);	
 		$request->where('general_requests.created_at','<=',$until);
