@@ -77,7 +77,6 @@ class AdminBusinessCardsController extends BaseController{
               'telefono' => $row->telefono ? $row->telefono : 'N/A',
               'celular' => $row->celular ? $row->celular : 'N/A',
               'email' => $row->email ? $row->email : 'N/A',
-              'inmueble' => $row->inmueble ? $row->inmueble : 'N/A'
             ]);
             if($card){
               $created++;
@@ -101,7 +100,6 @@ class AdminBusinessCardsController extends BaseController{
               'telefono' => $row->telefono,
               'celular' => $row->celular,
               'email' => $row->email,
-              'inmueble' => $inmueble
             ]);
 
             if($card->save()){
