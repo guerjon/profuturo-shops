@@ -2138,61 +2138,96 @@ class AdminApiController extends AdminBaseController
   }
 
 
-  public function getSurvey()
-  {
-	Log::debug(Input::all());
-	
-	$encuestas = [];
-	$solicitudes = [];
-	$surveys = DB::table('satisfaction_surveys')->select(
-		DB::raw('avg(question_one) as uno,
-				  avg(question_two) as dos,
-				  avg(question_three) as tres,
-				  avg(question_four) as cuatro,
-				  count(general_requests.id) as total'
-				  ))
-			->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
-			->join('users','users.id','=','general_requests.manager_id');
- 
-	$comments = DB::table('satisfaction_surveys')->select(DB::raw('explain_1,explain_2,explain_3,explain_4,satisfaction_surveys.general_request_id'))
-				  ->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
-				  ->join('users','users.id','=','general_requests.manager_id');
+	public function getSurvey()
+	{
+		$since =  \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')))->startOfDay()->format('Y-m-d');
+		$until = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')))->addDay()->format('Y-m-d');
 
-	if(Input::has('gerencia')){
-		
-	  	$surveys->where('users.id','=',Input::get('gerencia'));
-	  	$comments->where('users.id','=',Input::get('gerencia'));
-	  	$encuestas = DB::table('satisfaction_surveys')->select(
-				  DB::raw('satisfaction_surveys.id'))
-					->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
-					->join('users','users.id','=','general_requests.manager_id')
-					->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
-	  	$solicitudes = DB::table('satisfaction_surveys')->select(
-				  DB::raw('general_requests.id'))
-					->join('general_requests','general_requests.id','=','satisfaction_surveys.general_request_id')  
-					->join('users','users.id','=','general_requests.manager_id')
-					->where('users.id',Input::get('gerencia'))->orderBy('satisfaction_surveys.id')->lists('id');
+		$solicitudes = GeneralRequest::join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+			->select('*','general_requests.id as general_request_id','general_requests.created_at as general_request_created_at')
+			->orderBy('general_requests.id')
+			->groupBy('general_requests.id');
+
+		if(Input::has('gerencia'))
+			$solicitudes->where('general_requests.manager_id','=',Input::get('gerencia'));
+
+		if(Input::has('encuesta') && Input::get('encuesta') != 'Todas las solicitudes')
+	  		$solicitudes->where('general_requests.id','=',Input::get('encuesta'));
+
+		$solicitudes->where('general_requests.created_at','>=',$since);	
+		$solicitudes->where('general_requests.created_at','<=',$until);
+		$solicitudes = $solicitudes->get();
+
+		foreach ($solicitudes as $solicitud) {
+			$questions = [
+				$solicitud->question_one,
+				$solicitud->question_two,
+				$solicitud->question_three,
+				$solicitud->question_four
+			];
+
+			$solicitud->promedio = array_sum($questions)/count($questions);
+		}
+
+		if(!Input::has('xls')){
+
+			return Response::json([
+			'status' => 200,
+			'solicitudes' => $solicitudes,
+			]);
+
+		}else{
+
+			$headers = 
+				[
+					"NÚMERO DE SOLICITUD GENERAL",
+					"ACTITUD DEL CONSULTOR",
+					"SEGUIMIENTO DEL CONSULTOR",
+					"TIEMPOS RESPUESTA CONSULTOR",
+					"CALIDAD DEL PRODUCTO",
+					"POR QUE ACTITUD DEL CONSULTOR",
+					"POR QUE SEGUIMIENTO DEL CONSULTOR",
+					"POR QUE TIEMPOS RESPUESTA CONSULTOR",
+					"POR QUE CALIDAD DE PRODUCTO",
+					"COMENTARIOS",
+					"TITULO PROYECTO",
+					"FECHA SOLICITUD",
+					"CONSULTOR",
+					"USUARIO_PROYECTOS"
+				];
+			$datetime = \Carbon\Carbon::now()->format('YmdHi');
+
+			Excel::create('Reporte_encuestas_'.$datetime, function($excel) use($solicitudes,$headers){
+			  $excel->sheet('Encuestas',function($sheet)use($solicitudes,$headers){
+				$sheet->appendRow($headers);
+				
+				foreach ($solicitudes as $solicitud) {
+					Log::debug($solicitud);
+					$sheet->appendRow([
+						$solicitud->general_request_id,
+						$this->calculateResult($solicitud->question_one,1),
+						$this->calculateResult($solicitud->question_two,2),
+						$this->calculateResult($solicitud->question_three,3),
+						$this->calculateResult($solicitud->question_four,4),
+						$solicitud->explain_1,
+						$solicitud->explain_2,
+						$solicitud->explain_3,
+						$solicitud->explain_4,
+						$solicitud->comments,
+						$solicitud->project_title,
+						$solicitud->general_request_created_at,
+						$solicitud->manager_id != null ? User::find($solicitud->manager_id)->nombre : 'SIN CONSULTOR',
+						$solicitud->user_id != null ?  User::find($solicitud->user_id)->nombre  : 'SIN USUARIO PROYECTOS',	
+					]);	
+
+				}
+				Log::debug("termina el for");
+			  });
+			})->download('xlsx');			
+			
+		}
+
 	}
-
-
-	if(Input::has('encuesta')){
-	  $surveys->where('satisfaction_surveys.id','=',Input::get('encuesta'));
-	  $comments->where('satisfaction_surveys.id','=',Input::get('encuesta'));
-	}
-
-	$surveys->where('satisfaction_surveys.created_at','>=',Input::get('since'))
-	  ->where('satisfaction_surveys.created_at','<=',\Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->addDay()->format('Y-m-d'));
-	$comments->where('satisfaction_surveys.created_at','>=',Input::get('since'))
-	  ->where('satisfaction_surveys.created_at','<=',\Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until'))->addDay()->format('Y-m-d'));
-
-	  return Response::json([
-		'status' => 200,
-		'surveys' => $surveys->get(),
-		'comments' => $comments->get(),
-		'encuestas' => $encuestas,
-		'solicitudes' => $solicitudes,
-	  ]);
-  }
 
   public function getCcostosAutocomplete()
   {
@@ -2220,7 +2255,85 @@ class AdminApiController extends AdminBaseController
   }
 
   
+  	public function getGeneralRequestsByManager()
+  	{
+  		Log::debug(Input::get('id'));
+  		$id = Input::get('id');
 
+  		$general_requests = GeneralRequest::where('manager_id',$id)
+  			->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+  			->groupBy('general_requests.id')
+  			->select('general_requests.id')->get();
+
+  		return Response::json([
+			'status' => 200,
+			'requests' => $general_requests
+		]);
+  	}
+
+	public function calculateResult($val,$question)
+	{
+		switch ($question) {
+			case 1:
+				switch ($val) {
+					case 2:
+						return 'Muy mala';
+					case 4:
+						return 'Mala';
+					case 8:
+						return 'Buena';
+					case 10:
+						return 'Excelente';
+					default:
+						break;
+				}
+				return '';
+			case 2:
+				switch ($val) {
+					case 2:
+						return 'Muy malo';
+					case 4:
+						return 'Malo';
+					case 8:
+						return 'Bueno';
+					case 10:
+						return 'Excelente';
+					default:
+						break;
+				}
+				return '';
+			case 3:
+				switch ($val) {
+					case 2:
+						return 'Muy malos';
+					case 4:
+						return 'Malos';
+					case 8:
+						return 'Buenos';
+					case 10:
+						return 'Excelentes';
+					default:
+						break;
+				}
+				return '';
+			case 4:
+				switch ($val) {
+					case 2:
+						return 'Totalmente en desacuerdo';
+					case 4:
+						return 'En desacuerdo';
+					case 8:
+						return 'De acuerdo';
+					case 10:
+						return 'Totalmente de acuerdo';
+					default:
+						break;
+				}
+				return '';
+			default:
+				return '';
+		}
+	}
 
 }
 ?>
