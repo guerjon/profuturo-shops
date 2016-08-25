@@ -102,6 +102,8 @@ class AdminApiController extends AdminBaseController
 	  $query->where('orders.created_at','>=',Input::get('since'));
 	if(Input::has('until'))
 	  $query->where('orders.created_at','<=',Input::get('until'));
+	if(Input::has('order_id'))
+		$query->where('orders.id','like','%'.Input::get('order_id').'%');
 
 	$q = clone $query;
 	$headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];

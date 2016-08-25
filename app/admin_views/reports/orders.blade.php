@@ -37,8 +37,10 @@
       <div class="col-xs-3 ">DESDE:
         {{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
       </div>
-
-      
+      <div class="col-xs-3">
+          Número de pedido
+          {{Form::text('order_id',null,['class' => 'form-control','id' => 'order_id'])}} 
+      </div>
     </div>
     <br>
     <div class="row">
@@ -162,6 +164,9 @@
         update();
       });
       $('.datepicker').change(function(){
+        update();
+      });
+      $('#order_id').keypress(function(){
         update();
       });
       $(document).on('click', '.pagina', function(){
