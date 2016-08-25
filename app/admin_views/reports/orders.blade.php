@@ -166,7 +166,7 @@
       $('.datepicker').change(function(){
         update();
       });
-      $('#order_id').keypress(function(){
+      $('#order_id').keydown(function(){
         update();
       });
       $(document).on('click', '.pagina', function(){
