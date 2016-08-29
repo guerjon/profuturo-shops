@@ -9,7 +9,6 @@ class UserRequestsController extends BaseController
         $requests = GeneralRequest::where('manager_id',Auth::id())
             ->orderBy('created_at','desc');
 
-            //dd(Auth::id());
         if($active_tab == 'in_process'){
             $requests->where('status','>',0)->where('status','<',10);
 
@@ -20,9 +19,10 @@ class UserRequestsController extends BaseController
         }elseif($active_tab == 'canceled'){
           $requests->onlyTrashed();
         }
+        
 
         return View::make('general_requests.index')
-            ->withRequests($requests->get())
+            ->withRequests($requests->paginate(25))
             ->withActiveTab($active_tab);
     }
 
