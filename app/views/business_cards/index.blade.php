@@ -52,7 +52,7 @@
 					@foreach($cards as $card)
 					<tr>
 						<td style="max-width: 60px;" class="text-center">
-							{{Form::checkbox("cards[]", $card->id, FALSE, ($forbid and @$forbidden[$card->id]) ? ['disabled' => true] : [])}}
+							{{Form::checkbox("cards[]", $card->id, FALSE, ($forbid and @$forbidden[$card->id]) ? ['disabled' => true,'data-card-id' => $card->id,'class' => 'checkbox-target'] : ['data-card-id' => $card->id,'class' => 'checkbox-target'])}}
 						</td>
 						<td>
 							{{$card->no_emp}}
@@ -74,7 +74,7 @@
 							@endif
 						</td>
 						<td>
-							{{Form::text("inmueble[$card->id]",null,['class' => 'form-control'])}}
+							{{Form::text("inmueble[$card->id]",null,['class' => 'form-control inmueble-input','data-card-id' => $card->id])}}
 						</td>
 					</tr>
 					@endforeach
@@ -123,8 +123,11 @@
 
 			</table>
 
-			<div class="text-right escondido">
-				{{Form::submit('Siguiente', ['class' => 'btn btn-lg btn-warning'])}}
+			<div class="text-right ">
+				<button class="btn btn-lg btn-primary hide" id="next-button">
+					Siguiente
+					<i class="fa fa-arrow-right"></i>
+				</button>
 			</div>
 		{{Form::close()}}
 </div>
@@ -138,32 +141,25 @@
 
 @section('script')
 <script>
+
 $(function(){
 
-	$("input[type=checkbox]").change(function(){
-			$('.escondido').show();
-	});
- 
-	$('form .btn').click(function(event){
-		event.preventDefault();
-		var n = $( "input:checked" ).length;
-		
-		if ($("#talent").is(":checked"))
-			n = n-1;
-		
-		if ($("#manager").is(":checked"))
-			n = n-1;
-		
-		if(n >= 1){
-			$(this).prop('disabled', true);
-			$(this).parents('form').submit();
-		}else{
-			alert('Se debe de seleccionar por lo menos un usuario.');
-		}
+	$('.checkbox-target').click(function(){
 
+		var id = $(this).attr('data-card-id');
+
+		var inmueble = $('.inmueble-input[data-card-id='+id+']');
+		$(this).is(':checked') ? inmueble.prop('required',true) : inmueble.prop('required',false);
+
+		var seleccionados =	$(".checkbox-target:checked");
+		console.log(seleccionados.length);
+		if(seleccionados.length > 0)
+			$('#next-button').removeClass('hide');
+		else
+			$('#next-button').addClass('hide');
 	});
 
-	$('')
+
 });
 </script>
 @stop
