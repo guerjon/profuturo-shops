@@ -137,6 +137,7 @@
 		function actualiza(){
 
 			$.get('/admin/api/survey',$('#spider-form').serialize(),function(datos){
+				console.log(datos);
 				var encuestas = [];
 				
 				if(datos.status = 200){
@@ -173,6 +174,7 @@
 							$('#tiempos_respuesta').html($.number(tres_promedio,'3'));
 							$('#calidad_producto').html($.number(cuatro_promedio,'3'));
 							$('#comments').empty();
+
 							for (var i = solicitudes.length - 1; i >= 0; i--) {
 								$('#comments').append(
 										"<tr><td><a href='general-requests/"+solicitudes[i].general_request_id+"'>"+ solicitudes[i].general_request_id+

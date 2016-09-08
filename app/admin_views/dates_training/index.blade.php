@@ -81,7 +81,7 @@
 				{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'from' ])}}
 				<br>
 				{{Form::label('until','Hasta')}}
-				{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->addMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+				{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
 	        </div>
 
         {{Form::close()}}

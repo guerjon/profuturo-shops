@@ -2156,10 +2156,13 @@ class AdminApiController extends AdminBaseController
 		if(Input::has('encuesta') && Input::get('encuesta') != 'Todas las solicitudes')
 	  		$solicitudes->where('general_requests.id','=',Input::get('encuesta'));
 
-		$solicitudes->where('general_requests.created_at','>=',$since);	
-		$solicitudes->where('general_requests.created_at','<=',$until);
+
+		$solicitudes->where('satisfaction_surveys.created_at','>=',$since);	
+		$solicitudes->where('satisfaction_surveys.created_at','<=',$until);
+
 		$solicitudes = $solicitudes->get();
 
+		\Log::debug($solicitudes);
 		foreach ($solicitudes as $solicitud) {
 			$questions = [
 				$solicitud->question_one,
@@ -2170,6 +2173,8 @@ class AdminApiController extends AdminBaseController
 
 			$solicitud->promedio = array_sum($questions)/count($questions);
 		}
+
+		
 
 		if(!Input::has('xls')){
 

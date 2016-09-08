@@ -88,6 +88,7 @@ class HomeController extends BaseController {
 
 	public function getCarritoCorporativo()
 	{
+
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		return View::make('pages.cart_corporation')
 		->withLastOrder(Auth::user()->CorporationOrders()->orderBy('created_at', 'desc')->first())
@@ -96,6 +97,12 @@ class HomeController extends BaseController {
 
 	public function getCarritoCapacitaciones()
 	{
+
+			// $dates = DB::table('divisionals_users')
+			// 	->where('divisional_id',$divisional_id)
+			// 	->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
+			// 	->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
+				
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		return View::make('pages.cart_training')
 		->withLastOrder(Auth::user()->TrainingOrders()->orderBy('created_at', 'desc')->first())
