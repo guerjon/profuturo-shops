@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-	<h3>Añadir fecha para pedidos corporativo</h3>
+	<h3>Añadir fecha para pedidos capacitadores</h3>
 	<div class="row">
 		<div class="col col-xs-9"></div>
 		<div class="col col-xs-3 text-right" >
@@ -14,7 +14,7 @@
 		</div>
 	<hr>
 	</div>
-	@if($dates_corporation->count() == 0)
+	@if($dates_training->count() == 0)
 		<div class="alert alert-info">
 			<center>
 				No se han agregado fechas aun.
@@ -37,7 +37,7 @@
 				</th>
 			</thead>
 			<tbody>
-				@foreach($dates_corporation as $date_corporation)
+				@foreach($dates_training as $date_corporation)
 					<tr>
 						<td>
 							{{$date_corporation->id}}
@@ -49,7 +49,7 @@
 							{{$date_corporation->until}}
 						</td>
 						<td>	
-							{{Form::open(array('action' =>['AdminDatesCorporationController@destroy',$date_corporation->id],
+							{{Form::open(array('action' =>['AdminDatesTrainingController@destroy',$date_corporation->id],
 						   'method' => 'delete'))}}
 
 							    <button type="submit" class="btn btn-danger btn-xs date-delete">
@@ -74,7 +74,7 @@
         <h4 class="modal-title">Añadir fecha</h4>
       </div>
       <div class="modal-body">
-		{{Form::open(['action' => 'AdminDatesCorporationController@store','id' => 'form-add-date'])}}  
+		{{Form::open(['action' => 'AdminDatesTrainingController@store','id' => 'form-add-date'])}}  
           
 	        <div class="form-gropu">
 				{{Form::label('since','Desde')}}
@@ -82,12 +82,6 @@
 				<br>
 				{{Form::label('until','Hasta')}}
 				{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->addMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
-
-				<div class="form-group">
-		        	{{Form::label('comments','Comentarios')}}
-		        	{{Form::textArea('comments',null,['class' => 'form-control'])}}
-		        	<b style="color:red">Estos comentarios seran enviados por email a los usuarios de corporativo.</b>
-	        	</div>
 	        </div>
 
         {{Form::close()}}

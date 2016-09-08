@@ -4,25 +4,25 @@ class AdminDatesTrainingController extends AdminBaseController
 {
 	public function index()
 	{
-		$dates_corporation = DateCorporation::get();
-		return View::make('admin::dates_corporation.index')->withDatesCorporation($dates_corporation);
+		$dates_training = DateTraining::get();
+		return View::make('admin::dates_training.index')->withDatesTraining($dates_training);
 	}
 	
 	public function store()
 	{
-		$date_corporation = new DateCorporation(Input::all());
+		$date_training = new DateTraining(Input::all());
 		//Usuarios de corporativo
-		$users = User::where('role','corporation')->get();
+		$users = User::where('role','training')->get();
 		$comments = Input::get('comments');
 
 		foreach ($users as $user) {
-			Mail::send('admin::email_templates.date_corporation_message',['user' => $user,'comments' => $comments],function($message) use ($user){
+			Mail::send('admin::email_templates.date_training_message',['user' => $user,'comments' => $comments],function($message) use ($user){
       			$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
 				//$message->to('jona_54_.com@hotmail.com')->subject("Aviso,productos, insumos estrategicos.");
     		});	
 		}
 
-		if($date_corporation->save())
+		if($date_training->save())
 
 			return Redirect::action('AdminDatesTrainingController@index')
 				->withSuccess('Se ha agregado la fecha exitosamente.');
@@ -38,7 +38,7 @@ class AdminDatesTrainingController extends AdminBaseController
 	 */
 	public function destroy($id)
 	{
-		 $divisional = DB::table('dates_corporation')->whereId($id)->delete();
+		 $divisional = DB::table('dates_training')->whereId($id)->delete();
 
       return Redirect::to(action('AdminDatesTrainingController@index'))->withSuccess('Se ha eliminado la fecha.');	
     
