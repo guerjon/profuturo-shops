@@ -78,7 +78,7 @@
       </li>    
       <li role="presentation" class="{{$active_tab == 'user_training' ? 'active' : ''}}">
         <a href="?active_tab=user_training&page=1" aria-controls="user_training" class="tabs">
-          Capacitaciones
+          Capacitadores
         </a>
       </li>    
       <li role="presentation" class="{{$active_tab == 'user_system' ? 'active' : ''}}">

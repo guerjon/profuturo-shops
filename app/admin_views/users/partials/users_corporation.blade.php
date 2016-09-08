@@ -34,8 +34,8 @@
           <th>Gerencia</th>
           <th>Región</th>
           <th>Extensión</th>
+          <th>Número de empleado</th>
           <th></th>
-      
         </tr>
       </thead>
 
@@ -45,10 +45,11 @@
              <td>{{$user_corporation->ccosto}}</td>
              <td>{{$user_corporation->gerencia}}</td>
              <td>{{$user_corporation->region ? $user_corporation->region->name : 'N/A'}}</td>
+             <td>{{$user_corporation->extension}}</td>
+             <td>{{$user_corporation->num_empleado}}</td>
             <td>
               @include('admin::users.partials.actions', ['user' => $user_corporation])
             </td>
-   
            </tr>
         @endforeach
       </tbody>

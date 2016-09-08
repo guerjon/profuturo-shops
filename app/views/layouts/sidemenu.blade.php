@@ -4,13 +4,14 @@
   @else
 	
 	  @foreach(Auth::user()->menu_actions as $action => $name_complete)
-	  	<? 
+	  	<?php 
 	  		$name_array = explode('|',$name_complete); 
 	  		$name = $name_array[0];
 	  		$icon = $name_array[1];
 	  	?>
 
 	  	@if(Auth::user()->role == "admin")
+
 		  	@if($name == "Categorías")	
 				<li class="" >
 					<a href="#"  class="submenu-dispatch accordion-toggle"
