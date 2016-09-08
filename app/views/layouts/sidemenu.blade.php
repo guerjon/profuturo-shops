@@ -171,6 +171,11 @@
 								Fechas MAC
 							</a>
 						</li>
+						<li>
+							<a href="{{action('AdminDatesTrainingController@index')}}">
+								Fechas Capacitadores
+							</a>
+						</li>
 					</ul>
 				</li>
 		@endif
