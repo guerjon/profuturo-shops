@@ -1843,7 +1843,8 @@ class AdminApiController extends AdminBaseController
 					'Expectativas',
 					'#Productos o servicios',
 					'Total Presupuesto',
-					'Estatus'
+					'Estatus',
+					'Línea de negocio'
 				];
 
 			$datetime = \Carbon\Carbon::now()->format('d-m-Y');
@@ -1880,7 +1881,8 @@ class AdminApiController extends AdminBaseController
 						$request->comments,
 						$request->total_products,
 						$request->total,
-						$this->getStatus($request->status) 
+						$this->getStatus($request->status) ,
+						$this->linea_negocio
 					]);	
 				}
 			  });

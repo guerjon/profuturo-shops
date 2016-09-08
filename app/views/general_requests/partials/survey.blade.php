@@ -93,6 +93,11 @@
               {{Form::label('project_date', 'Fecha del evento')}}
               {{Form::text('project_date', NULL, ['class' => 'form-control datepicker'])}}
             </div>
+            <div class="form-group">
+              {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label'])}}
+              {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],null,['class' => 'form-control'])}}
+            </div>
+
             <div class="form-group text-right">
               <button type="button" style="width:20%;" data-next-div="start-div" class="text-right btn btn-warning ">Atras</button>
               <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 

@@ -106,6 +106,9 @@
 						<th>
 						  Fecha de solicitud
 						</th>
+						<th>
+							Línea de negocio
+						</th>
 						@if(Auth::user()->role == 'manager')
 							<th>
 								Número orden people
@@ -134,6 +137,9 @@
 								</td>
 								<td>
 								  	{{ $request->created_at}}
+								</td>
+								<td>
+									{{$request->linea_negocio}}
 								</td>
 								@if(Auth::user()->role == 'manager')
 									<th>

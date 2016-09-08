@@ -13,6 +13,7 @@ class AdminGeneralRequestsController extends AdminBaseController{
 					'general_requests.created_at as creada',
 					'general_requests.project_date as project_date',
 					'general_requests.deliver_date as deliver_date',
+					'general_requests.linea_negocio as linea_negocio',
 					DB::raw('CASE general_requests.status
 									when 0 then "Acabo de recibir tu solicitud, en breve me comunicare contigo"
 									when 1 then "En estos momentos estoy localizando los proveedores que pueden contar con el artículo que necesitas"

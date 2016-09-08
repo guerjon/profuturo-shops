@@ -114,7 +114,7 @@
 	  if(data.status == 200){
 		var orders_full = jQuery.parseJSON( data.orders_full );
 		var orders = orders_full.data;
-		var headers = ['# de sol.','Tipo de proyecto','Usuarios finales','Fecha del evento','Fecha de solicitud','Fecha de entrega','Nombre del proyecto','Lista de distribución','Expectativas','#Productos o servicios','Total Presupuesto','Estatus'];
+		var headers = ['# de sol.','Tipo de proyecto','Usuarios finales','Fecha del evento','Fecha de solicitud','Fecha de entrega','Nombre del proyecto','Lista de distribución','Expectativas','#Productos o servicios','Total Presupuesto','Estatus','Linea de negocio'];
 		var pagination = ('#pagination');
 
 		$('#number_page').val(orders_full.current_page);
@@ -138,7 +138,8 @@
 		}
 
 		headers = ['id','kind','project_dest','project_date','created_at','deliver_date','project_title','distribution_list','comments','total_products','total',
-		'status'];
+		'status','linea_negocio'];
+
 
 		for(var i=0; i<orders.length; i++){
 		  var tr = $('<tr>');

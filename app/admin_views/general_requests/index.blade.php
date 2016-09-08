@@ -105,6 +105,9 @@
 								Fecha de entrega
 							</th>
 							<th>
+								Línea de negocio
+							</th>
+							<th>
 								Acciones
 							</th>
 							@if($active_tab == 'assigned' || $active_tab == 'all' || $active_tab == 'deleted_assigned')
@@ -145,6 +148,9 @@
 							<td>
 								{{$request->deliver_date->format('Y-m-d')}}
 							</td>
+							<td>
+								{{$request->linea_negocio}}
+							</td>							
 							<th>
 								<div class="dropdown">
 								  	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Acciones
