@@ -141,7 +141,7 @@ $(function(){
 		var $this = $(this);
 		$this.prop('disabled', true);
 		var formData = $('#add-to-cart-modal form').serialize();
-		$.post('/api/add-to-cart', formData, function(data){
+		$.post('/api/add-to-cart-training', formData, function(data){
 			if(data.status == 200){
 				$('#add-to-cart-modal').modal('hide');
 				alert(data.msg);

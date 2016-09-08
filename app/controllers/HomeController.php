@@ -106,7 +106,7 @@ class HomeController extends BaseController {
 
 		//checamos si hoy es un dia de pedido
 		$dates = DB::table('dates_training')
-			->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
+			->where('since','<=',\Carbon\Carbon::now()->format('Y-m-d'))
 			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
 
 		//Tomamos la ultima fecha anadida
@@ -118,7 +118,7 @@ class HomeController extends BaseController {
 			$last_order = DB::table('users')
 					->join('orders','orders.user_id','=','users.id')
 					->where('users.id',Auth::user()->id)
-					->where('orders.created_at','>=',$divisional->from)
+					->where('orders.created_at','>=',$divisional->since)
 					->where('orders.created_at','<=',$this->sumDay($divisional->until))
 					->whereNull('orders.deleted_at');	
 		}else{

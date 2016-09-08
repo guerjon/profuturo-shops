@@ -6,7 +6,7 @@ class TrainingProductsController extends \BaseController {
 	{
 
 	    $products = TrainingProduct::query();
-	    $category = Input::get('category_id');
+	    $category = Input::get('category_id','all');
 
 	    if($category != 'all')
 	    	$products->where('training_category_id',$category);
