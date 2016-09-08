@@ -102,10 +102,35 @@ class HomeController extends BaseController {
 			// 	->where('divisional_id',$divisional_id)
 			// 	->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
 			// 	->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
-				
+		$access = false;
+
+		//checamos si hoy es un dia de pedido
+		$dates = DB::table('dates_training')
+			->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
+			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
+
+		//Tomamos la ultima fecha anadida
+		$divisional = DB::table('dates_training')
+			->orderBy('created_at','desc')
+			->first();
+
+		if($divisional){
+			$last_order = DB::table('users')
+					->join('orders','orders.user_id','=','users.id')
+					->where('users.id',Auth::user()->id)
+					->where('orders.created_at','>=',$divisional->from)
+					->where('orders.created_at','<=',$this->sumDay($divisional->until))
+					->whereNull('orders.deleted_at');	
+		}else{
+			$last_order = 1;			
+		}
+
+		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
-		return View::make('pages.cart_training')
+		return View::make('pages/cart_training')
 		->withLastOrder(Auth::user()->TrainingOrders()->orderBy('created_at', 'desc')->first())
+		->withAccess($access)
 		->withUser($user);			
 	}
 

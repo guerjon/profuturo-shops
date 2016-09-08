@@ -312,7 +312,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				];	
 			case 'user_training':
 				return [
-					action('TrainingProductsController@index') => 'Productos|fa-pencil',
+					action('TrainingProductsController@index',['category_id'=>'all']) => 'Productos|fa-pencil',
 					action('TrainingOrdersController@index') => 'Mis Pedidos|fa-shopping-bag',
 
 				];

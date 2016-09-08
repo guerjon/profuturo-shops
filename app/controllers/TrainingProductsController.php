@@ -2,29 +2,22 @@
 
 class TrainingProductsController extends \BaseController {
 
-	public function index($category_id = NULL)
+	public function index()
 	{
 
-	    $products = TrainingProduct::where('id','>=','1');
+	    $products = TrainingProduct::query();
+	    $category = Input::get('category_id');
+
+	    if($category != 'all')
+	    	$products->where('training_category_id',$category);
 	    
-	    if($category_id){
-	      $activeCategory = TrainingCategory::find($category_id);
-	      if(!$activeCategory){
-	        return $this->index()->withErrors('No se encontró la categoría');
-	      }
-
-	      $products->where('training_category_id','=',$category_id);
-	    }
-
-
 	    if(Input::has('name')){
-	      $products->where('name', 'like', "%".Input::get('name')."%");
+	      $products->where('name','like',"%".Input::get('name')."%");
 	    }
-		    	
+
 	    return View::make('training_products.index')->with([
 	      'products' => $products->paginate(15),
-	      'categories' => TrainingCategory::all(),
-	      'activeCategory' => @$activeCategory,
+	      'activeCategory' => $category,
 	      ]);
 	}
 

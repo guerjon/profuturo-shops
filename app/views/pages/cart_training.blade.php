@@ -12,6 +12,8 @@
   </div>
   @endif
       <br>
+@if($access)
+
     @if(Auth::user()->cart_training->count() == 0)
       
       <div class="alert alert-warning">
@@ -118,7 +120,11 @@
           
      @endif
   @endif
-
+@else
+  <div class="alert alert-info">
+    Actualmente no se pueden realizar pedidos.
+  </div>
+@endif
 @include('pages.partials.confirm')  
 @include('pages.partials.external_productos')  
 
