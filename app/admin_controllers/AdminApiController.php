@@ -1882,7 +1882,7 @@ class AdminApiController extends AdminBaseController
 						$request->total_products,
 						$request->total,
 						$this->getStatus($request->status) ,
-						$this->linea_negocio
+						$request->linea_negocio
 					]);	
 				}
 			  });
