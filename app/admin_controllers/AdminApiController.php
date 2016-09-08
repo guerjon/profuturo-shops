@@ -342,6 +342,13 @@ class AdminApiController extends AdminBaseController
 	if(Input::has('order_id'))
 	  $query->where('corporation_orders.id',Input::get('order_id'));
 
+	$since =  \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')))->startOfDay()->format('Y-m-d');
+	$until = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')))->addDay()->format('Y-m-d');
+
+
+	$query->where('corporation_orders.created_at','>=',$since);	
+	$query->where('corporation_orders.created_at','<=',$until);
+
 	$q = clone $query;
 	$headers = $query->count() > 0 ?  array_keys(get_object_vars( $q->first())) : [];
 	if(Request::ajax()){
