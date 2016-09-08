@@ -98,10 +98,6 @@ class HomeController extends BaseController {
 	public function getCarritoCapacitaciones()
 	{
 
-			// $dates = DB::table('divisionals_users')
-			// 	->where('divisional_id',$divisional_id)
-			// 	->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
-			// 	->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
 		$access = false;
 
 		//checamos si hoy es un dia de pedido
@@ -109,6 +105,7 @@ class HomeController extends BaseController {
 			->where('since','<=',\Carbon\Carbon::now()->format('Y-m-d'))
 			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
 
+		
 		//Tomamos la ultima fecha anadida
 		$divisional = DB::table('dates_training')
 			->orderBy('created_at','desc')
@@ -116,14 +113,15 @@ class HomeController extends BaseController {
 
 		if($divisional){
 			$last_order = DB::table('users')
-					->join('orders','orders.user_id','=','users.id')
+					->join('training_orders','training_orders.user_id','=','users.id')
 					->where('users.id',Auth::user()->id)
-					->where('orders.created_at','>=',$divisional->since)
-					->where('orders.created_at','<=',$this->sumDay($divisional->until))
-					->whereNull('orders.deleted_at');	
+					->where('training_orders.created_at','>=',$divisional->since)
+					->where('training_orders.created_at','<=',$this->sumDay($divisional->until))
+					->whereNull('training_orders.deleted_at');	
 		}else{
 			$last_order = 1;			
 		}
+
 
 		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
 
