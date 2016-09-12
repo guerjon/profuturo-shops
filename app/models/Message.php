@@ -22,4 +22,5 @@ class Message extends Eloquent
   	DB::table('messages')->insert(['sender_id' => $sender_id,'receiver_id' => $receiver_id,'body' => $body]);
   }
 
+
 }

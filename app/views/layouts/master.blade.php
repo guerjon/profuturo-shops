@@ -63,9 +63,15 @@
 						@if(Auth::check())
 
 								<li>
-									<a href="#" class="message-type message-parent-image" data-type="recibidos" type="button" >
-										{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  	
-									</a>
+									@if(Auth::user()->role == 'admin')
+										<a href="{{action('AdminMessagesController@index')}}" class="message-type message-parent-image" data-type="recibidos" type="button" >
+											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  	
+										</a>
+									@else
+										<a href="{{action('MessagesController@index')}}" class="message-type message-parent-image" data-type="recibidos" type="button" >
+											{{HTML::image('/images/message.png',null,['id' => 'message','class' =>"message-image","style" => 'width:36px;height30px;'])}}  	
+										</a>
+									@endif
 								</li>
 							
 							@if(Auth::user()->role == 'user_paper')
@@ -113,7 +119,6 @@
 									<span class="caret"></span>
 
 								</a>
-
 
 								<ul class="dropdown-menu" role="menu">
 								@if(Auth::user()->is_admin)
@@ -164,7 +169,6 @@
 		</div>
 	</div>
 
-	@include('pages.partials.message')
 	<!--jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -182,10 +186,27 @@
 	<script type="text/javascript" src="/js/jquery.bootpag.js"></script>
 	<script type="text/javascript" src="/js/date-picker-configuration.js"></script>
 	<script src="/js/select2.full.js"></script>
-	<script src="/js/messages.js"></script>
 
 	<script charset="utf-8">
 
+	      		(function worker() {
+				  $.ajax({
+				    url: '/api/count-messages/', 
+				    success: function(data) {
+				    	if(data.number_messages > 0)
+				    		if(($('.message-parent-image').find('.numberCircle')).length == 0 )
+				    			$('.message-parent-image').append('<span class="numberCircle">'+data.number_messages+'</span>')
+				      	else{
+				      		if(data.number_messages < 1){
+				      			$('.numberCircle').remove();
+				      		}
+				      	}
+				    },
+				    complete: function() {
+				      setTimeout(worker, 5000);
+				    }
+				  });
+				})();
 
 			$(function(){
 				$.slidebars();
@@ -208,114 +229,97 @@
 				});
 
 
+				// $(document).on('click','.message-type',function(){
 
-				$(document).on('click','.message-type',function(){
-
-					messages_update($(this).attr('data-type'));
-					changeTab($(this).attr('data-type'));
-				});
+				// 	messages_update($(this).attr('data-type'));
+				// 	changeTab($(this).attr('data-type'));
+				// });
 				
-				$(document).on('click', '.pagina_mensage', function(){
-			        event.preventDefault();
-			        var page = $(this).attr('data-page');
-			        $('#number_page').val(page);
-			        $('#pagination_message').empty();
+				// $(document).on('click', '.pagina_mensage', function(){
+			 //        event.preventDefault();
+			 //        var page = $(this).attr('data-page');
+			 //        $('#number_page').val(page);
+			 //        $('#pagination_message').empty();
 
-			        if($('#enviados').parent().hasClass('active')){
-			        	messages_update('enviados');
-			        }else{
-			        	messages_update('recibidos');
-			        }
-      			});
+			 //        if($('#enviados').parent().hasClass('active')){
+			 //        	messages_update('enviados');
+			 //        }else{
+			 //        	messages_update('recibidos');
+			 //        }
+    //   			});
 
 				/**
 				*Función que realiza la petición al servidor para ver si hay mensajes nuevos
 				*/
-      			(function worker() {
-				  $.ajax({
-				    url: '/api/count-messages/', 
-				    success: function(data) {
-				    	if(data.number_messages > 0)
-				    		if(($('.message-parent-image').find('.numberCircle')).length == 0 )
-				    			$('.message-parent-image').append('<span class="numberCircle">'+data.number_messages+'</span>')
-				      	else{
-				      		if(data.number_messages < 1){
-				      			$('.numberCircle').remove();
-				      		}
-				      	}
-				    },
-				    complete: function() {
-				      setTimeout(worker, 5000);
-				    }
-				  });
-				})();
 
-				$('#message-by-divisional').click(function(){
-					$('#users-select').html(
-						'<select class="form-control">'+
-							'<option value="null">Seleccione la divisional</option>'+
-							'<option value="1">DIRECCION MERCADOTECNIA Y VALOR AL CLIENTE</option>'+
-							'<option value="2">DIRECCION DIVISIONAL SUR</option>'+
-							'<option value="3">DIRECCION DIVISIONAL NORTE</option>'+
-							'<option value="4">DIRECCION REGIONAL DE NEGOCIOS DE GOBIERNO Y PENSIONES</option>'+
-						'</select>');
+
+
+				// $('#message-by-divisional').click(function(){
+				// 	$('#users-select').html(
+				// 		'<select class="form-control">'+
+				// 			'<option value="null">Seleccione la divisional</option>'+
+				// 			'<option value="1">DIRECCION MERCADOTECNIA Y VALOR AL CLIENTE</option>'+
+				// 			'<option value="2">DIRECCION DIVISIONAL SUR</option>'+
+				// 			'<option value="3">DIRECCION DIVISIONAL NORTE</option>'+
+				// 			'<option value="4">DIRECCION REGIONAL DE NEGOCIOS DE GOBIERNO Y PENSIONES</option>'+
+				// 		'</select>');
 					
-					$('#message-options').empty();
+				// 	$('#message-options').empty();
 
-					$('#message-by-user').appendTo($('#message-options'));
-					$('#message-by-region').appendTo($('#message-options'));
+				// 	$('#message-by-user').appendTo($('#message-options'));
+				// 	$('#message-by-region').appendTo($('#message-options'));
 
-				});
+				// });
 
 
-				$('.message-type').click(function(){
+				// $('.message-type').click(function(){
 					
-					$('#users-select').empty();
-					type = $(this).attr('data-type');
-					var message_type = $('#hidden-message-type').clone();
-					message_type.val(type);
-					message_type.appendTo('#users-select');
+				// 	$('#users-select').empty();
+				// 	type = $(this).attr('data-type');
+				// 	var message_type = $('#hidden-message-type').clone();
+				// 	message_type.val(type);
+				// 	message_type.appendTo('#users-select');
 
-					if(type == 'user'){
+				// 	if(type == 'user'){
 						
-						var search_ccostos = $('#search-ccostos').clone();
+				// 		var search_ccostos = $('#search-ccostos').clone();
 						
-						search_ccostos.appendTo('#users-select');
-						search_ccostos.select2({placeholder: "Selecccione los usuarios."});
+				// 		search_ccostos.appendTo('#users-select');
+				// 		search_ccostos.select2({placeholder: "Selecccione los usuarios."});
 						
-						$(this).prop('disabled',true);
-						$(this).next().prop('disabled',false);
-						$(this).next().next().prop('disabled',false);
-						if($(this).is('#new_message_button')){
-							$('#select_users_modal').modal();		
-						}
+				// 		$(this).prop('disabled',true);
+				// 		$(this).next().prop('disabled',false);
+				// 		$(this).next().next().prop('disabled',false);
+				// 		if($(this).is('#new_message_button')){
+				// 			$('#select_users_modal').modal();		
+				// 		}
 						
-					}
+				// 	}
 
-					if(type == 'divisional'){
+				// 	if(type == 'divisional'){
 
-						var search_divisional = $('#search-divisional').clone();
-						search_divisional.appendTo('#users-select');
-						search_divisional.select2({placeholder: "Selecccione a las divisionales."});
+				// 		var search_divisional = $('#search-divisional').clone();
+				// 		search_divisional.appendTo('#users-select');
+				// 		search_divisional.select2({placeholder: "Selecccione a las divisionales."});
 						
-						$(this).prop('disabled',true);
-						$(this).next().prop('disabled',false);
-						$(this).prev().prop('disabled',false);
+				// 		$(this).prop('disabled',true);
+				// 		$(this).next().prop('disabled',false);
+				// 		$(this).prev().prop('disabled',false);
 
-					}
-					if(type == 'region'){
+				// 	}
+				// 	if(type == 'region'){
 
-						var search_region = $('#search-region').clone();
-						search_region.appendTo('#users-select');
-						search_region.select2({placeholder: "Selecccione a las regiones."});
+				// 		var search_region = $('#search-region').clone();
+				// 		search_region.appendTo('#users-select');
+				// 		search_region.select2({placeholder: "Selecccione a las regiones."});
 
-						$('#users-select');
-						$(this).prop('disabled',true);
-						$(this).next().prop('disabled',false);
-						$(this).prev().prop('disabled',false);
+				// 		$('#users-select');
+				// 		$(this).prop('disabled',true);
+				// 		$(this).next().prop('disabled',false);
+				// 		$(this).prev().prop('disabled',false);
 
-					}
-				});
+				// 	}
+				// });
 
 			});
 		</script>

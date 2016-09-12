@@ -105,10 +105,11 @@ Route::group(['before' => 'auth'], function(){
 		Route::any('dashboard-show-orders','AdminDashboardController@showOrders');
 		Route::any('dashboard-show-managements','AdminDashboardController@showManagements');
 		Route::any('dashboard-show-managements-without','AdminDashboardController@showManagementsWithout');
+		Route::resource('mensajes','AdminMessagesController');
 		
 	});
 
-	Route::resource('message','MessageController',['only' => ['store']]);
+	Route::resource('mensajes','MessagesController');
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::resource('perfil','ProfileController');
 	Route::resource('pedidos-mueble', 'OrderFurnituresController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
