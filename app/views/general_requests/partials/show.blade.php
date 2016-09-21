@@ -58,10 +58,16 @@
             @endif   
             <br>                                                                      
               
-              <div class="hide" id="people-container">
+              <div class="hide hidden-cols" id="">
                 {{Form::label('num_orden_people','Número de orden People')}}
                 {{Form::text('num_orden_people',null,['class' => 'form-control'])}}  
               </div>
+
+              <div class="hide hidden-cols" >
+                {{Form::label('linea_negocio', 'Línea de negocio', ['class' => 'control-label'])}}
+                {{Form::select('linea_negocio',['FONDOS' => 'FONDOS','AFORE' => 'AFORE','PENSIONES' => 'PENSIONES','PRESTAMOS' => 'PRESTAMOS'],null,['class' => 'form-control'])}}
+              </div>
+
           {{ Form::close()}}
         </div>
       </div>

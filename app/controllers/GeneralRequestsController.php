@@ -192,6 +192,11 @@ class GeneralRequestsController extends BaseController{
     if(Input::has('num_orden_people'))
       $request->update(['num_orden_people' => Input::get('num_orden_people')]); 
 
+
+    if(Input::has('linea_negocio'))
+      $request->update(['linea_negocio' => Input::get('linea_negocio')]); 
+
+
     $request->save();
 
     return Redirect::to(action('UserRequestsController@index'))->withSuccess("Se ha actualizado el estado de la solicitud");

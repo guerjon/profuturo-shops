@@ -333,9 +333,9 @@
 	
 	$(document).on('change','#status',function(){
 		if( $(this).val() == 10 )
-			$('#people-container').removeClass('hide')
+			$('.hidden-cols').removeClass('hide')
 		else
-			$('#people-container').addClass('hide')
+			$('.hidden-cols').addClass('hide')
 	});
 
   });
