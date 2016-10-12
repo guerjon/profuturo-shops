@@ -5,7 +5,7 @@ class AdminBusinessCardsController extends BaseController{
   public function index()
   {
 
-    $active_tab = Input::get('active_tab','trashed');
+    $active_tab = Input::get('active_tab','untrashed');
 
     $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
     $cards = BusinessCard::withTrashed()->orderBy('gerencia')->orderBy('no_emp');

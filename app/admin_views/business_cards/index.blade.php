@@ -95,6 +95,9 @@
               Inmueble
             </th>
             <th>
+              Telefono
+            </th>
+            <th>
 
             </th>
           </tr>
@@ -122,6 +125,9 @@
             </td>
             <td>
               {{$card->inmueble}}
+            </td>
+            <td>
+              {{$card->telefono}}
             </td>
             <td>
               {{Form::open([

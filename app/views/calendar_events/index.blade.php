@@ -75,8 +75,6 @@
       </div>
       <div class="panel-body">
 
-        
-
         <div class="list-group">
           @if($day['enabled'] and count($day['events']) > 0)
           @foreach($day['events'] as $event)

@@ -17,6 +17,12 @@
         Inmueble
       </th>
       <th>
+        Telefono
+      </th>
+      <th>
+        Celular
+      </th>
+      <th>
         Estatus
       </th>
       <th>
@@ -36,6 +42,12 @@
       </td>
       <td>
         {{$card->pivot->inmueble}}
+      </td>
+      <td>
+        {{$card->telefono}}
+      </td>
+      <td>
+        {{$card->celular}}
       </td>
       <td>
         {{Form::select("card[{$card->id}][status]",['Incompleto', 'Completo'], $card->pivot->status, ['class' => 'form-control'])}}
