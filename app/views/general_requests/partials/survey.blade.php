@@ -95,7 +95,7 @@
             </div>
 
             <div class="form-group text-right">
-              <button type="button" style="width:20%;" data-next-div="start-div" class="text-right btn btn-warning ">Atras</button>
+              
               <button type="button" style="width:20%;"  class="btn btn-warning text-rigth btn-next">Siguiente</button> 
             </div>
 
