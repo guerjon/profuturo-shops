@@ -118,6 +118,7 @@ Route::group(['before' => 'auth'], function(){
 	Route::resource('furniture-requests','FurnitureRequestsController');
 
 	Route::resource('pedidos-tp', 'BcOrdersController');
+	Route::post('fill-order','BcOrdersController@postFillOrder');
 
 	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');

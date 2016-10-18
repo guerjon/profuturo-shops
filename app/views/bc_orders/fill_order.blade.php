@@ -7,12 +7,12 @@
             <h1>Confirmación de orden</h1>
         </div>
         <hr>
-{{--         {{ Form::open([
-            'action' => ['BcOrdersController@update', $bc_order->id],
-            'method' => 'PUT',
+        {{ Form::open([
+            'action' => 'BcOrdersController@store',
+            'method' => 'post',
             'id'     => 'form',
         ])}}
- --}}            
+            
             @foreach($talentos as $talento)
                 <input type="hidden" class="hidden" name="talentos[]" value="{{$talento}}">  
             @endforeach
@@ -41,8 +41,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(count($bc_order->business_cards) > 0)
-                        @foreach($bc_order->business_cards as $card)
+                    @if(count($business_cards) > 0)
+                        @foreach($business_cards as $card)
                             <tr>
                                 <td>
                                     {{Form::text("card[{$card->id}][nombre]", $card->nombre, ['class' => 'form-control'])}}
@@ -64,7 +64,13 @@
                                 </td>
                             </tr>
                         @endforeach
+
                     @endif
+
+                    @foreach($quantities as $quantity)
+                        <input type="hidden" value="{{$quantity}}" name="quantities[]">
+                    @endforeach
+                    
                     @if($talent == "1")
 
                         <tr>    
@@ -158,13 +164,13 @@
                 Las tarjetas blancas no estan disponibles ya que se llego limite de 100. 
             @endif
             <center>
-                <button type="button" id="cancel-order-button" class="btn btn-danger">Cancelar</button>
+                <a id="cancel-order-button" class="btn btn-danger" href="{{action('BusinessCardsController@index')}}">Cancelar</a>
                 <button class="btn btn-default" id="save" type="button">
                   <span class="fa fa-save"></span>
                   Guardar
                 </button>
             </center>              
-        
+          {{Form::close()}}
     </div>
 
     

@@ -23,7 +23,7 @@
 
 <div class="container">
 	{{Form::open([
-		'action' => 'BcOrdersController@store'
+		'action' => 'BcOrdersController@postFillOrder'
 		])}}
 
 			<table class="table-striped table">
