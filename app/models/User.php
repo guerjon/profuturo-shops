@@ -309,6 +309,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 				return [
 					action('CorporationProductsController@index') => 'Productos|fa-pencil',
 					action('CorporationOrdersController@index') => 'Mis Pedidos|fa-shopping-bag',
+					action('CorporationBusinessCardsController@index') => 'Tarjetas de presentación|fa-credit-card-alt',
+					action('CorporationBcOrdersController@index') => 'Mis pedidos (tarjetas)|fa-shopping-bag',
 				];	
 			case 'user_training':
 				return [

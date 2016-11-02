@@ -47,7 +47,7 @@ class AdminCorporationCardsController extends AdminBaseController
 	    ini_set('auto_detect_line_endings', 1);
 
 	    if(Input::file('file') == NULL){
-	      return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
+	      return Redirect::to(action('AdminCorporationCardsController@create'))->withErrors(new MessageBag([
 	        'file' => 'El archivo es requerido',
 	      ]));
 	    }

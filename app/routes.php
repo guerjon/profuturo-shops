@@ -121,6 +121,12 @@ Route::group(['before' => 'auth'], function(){
 
 	Route::resource('pedidos-tp', 'BcOrdersController');
 	Route::post('fill-order','BcOrdersController@postFillOrder');
+	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
+
+	Route::resource('pedidos-tp-corporativo', 'CorporationBcOrdersController');
+	Route::post('fill-order-corporativo','CorporationBcOrdersController@postFillOrder');
+	Route::post('pedidos-tp-corporativo/{bc_order_id}', 'CorporationBcOrdersController@postReceive');
+
 
 	Route::post('pedidos/{order_id}', 'OrdersController@postReceive');
 	Route::resource('solicitudes-generales', 'GeneralRequestsController');
@@ -128,7 +134,6 @@ Route::group(['before' => 'auth'], function(){
 	Route::resource('cargas','LoadsController');
 	Route::resource('direcciones','AddressController');
 
-	Route::post('pedidos-tp/{bc_order_id}', 'BcOrdersController@postReceive');
 	
 
 	Route::get('productos/{category}/{subcategory}', 'ProductsController@index');
@@ -157,6 +162,8 @@ Route::group(['before' => 'auth'], function(){
 
 
 	Route::get('tarjetas-presentacion', 'BusinessCardsController@index');
+	Route::get('tarjetas-presentacion-corporativo', 'CorporationBusinessCardsController@index');
+
 	Route::controller('agregar-producto','AddProductsController');
 	Route::controller('agregar-mobiliario','AddFurnituresController');
 	Route::controller('agregar-producto-mac','AddMacProductsController');
