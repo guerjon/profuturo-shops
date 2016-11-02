@@ -87,6 +87,11 @@
 								Productos Corporativo
 							</a>
 						</li>
+						<li class="">
+							<a href="{{action('AdminCorporationCardsController@index')}}">
+								Tarjetas corporativo
+							</a>
+						</li>
 						<li>
 							<a href="{{action('AdminTrainingProductsController@index')}}">
 								Productos Capacitaciones

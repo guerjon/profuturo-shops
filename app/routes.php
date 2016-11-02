@@ -106,6 +106,8 @@ Route::group(['before' => 'auth'], function(){
 		Route::any('dashboard-show-managements','AdminDashboardController@showManagements');
 		Route::any('dashboard-show-managements-without','AdminDashboardController@showManagementsWithout');
 		Route::resource('mensajes','AdminMessagesController');
+		Route::resource('tarjetas-corporativo','AdminCorporationCardsController');
+		Route::get('importar-tarjetas','AdminCorporationCardsController@importCards');
 		
 	});
 

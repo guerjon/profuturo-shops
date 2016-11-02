@@ -54,13 +54,13 @@ class AdminBusinessCardsController extends BaseController{
     $created = 0;
     $updated = 0;
     
-    $business_cards =  BusinessCard::where('id','>','0')->delete();
+    $business_cards =  BusinessCard::where('id','>','0')->where('type','=','paper')->delete();
     
     $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
 
       $reader->each(function($sheet)use(&$created, &$updated){
         $sheet->each(function($row)use(&$created, &$updated){
-          $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->first();
+          $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
 
           if(!$card){
             

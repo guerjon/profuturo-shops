@@ -32,8 +32,8 @@
           </a>
         </li>
 
-    </ul>
-  </div>
+      </ul>
+    </div>
 <br>
 
 @if($cards->count() == 0)
@@ -145,7 +145,7 @@
                     <span class="glyphicon glyphicon-remove"></span> Inhabilitar
                   </button>
                 @endif
-
+      
               {{Form::close()}}
             </td>
           </tr>
