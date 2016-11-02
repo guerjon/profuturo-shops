@@ -141,6 +141,11 @@
 							</a>
 						</li>
 						<li>
+							<a href="{{action('AdminCorporationBcOrdersController@index')}}">
+								Pedido Tarjetas Corporativo
+							</a>
+						</li>
+						<li>
 							<a href="{{action('AdminTrainingOrdersController@index')}}">
 								Pedidos Capacitaciones
 							</a>

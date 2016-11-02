@@ -49,8 +49,11 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('categorias-mobiliario', 'AdminFurnitureCategoriesController');
 		Route::resource('orders', 'AdminOrdersController', ['only' => ['index', 'show','destroy','store']]);
 		Route::resource('bc-orders', 'AdminBcOrdersController', ['only' => ['index', 'show','destroy']]);
+		Route::resource('bc-orders-corporation', 'AdminCorporationBcOrdersController', ['only' => ['index', 'show','destroy']]);
+		
 		Route::resource('furnitures-orders', 'AdminFurnituresOrdersController', ['only' => ['index', 'show','destroy','update']]);
 		Route::resource('business-cards', 'AdminBusinessCardsController');
+
 		Route::resource('general-requests', 'AdminGeneralRequestsController');
 		Route::resource('agenda', 'AdminCalendarEventsController');
 		Route::resource('agenda-evento', 'AdminCalendarEventsController@show');
