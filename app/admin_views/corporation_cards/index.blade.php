@@ -4,25 +4,31 @@
 	<br>
 	<div class="row">
 		<div class="col-xs-6">
-		<h1>
-			Tarjetas de presentación corporativo
-		</h1>
-		<br>
+		<ol class="breadcrumb">
+			<a href="{{URL::previous()}}" class="back-btn">
+			  <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+			</a>
+			  &nbsp;&nbsp;&nbsp;
+			<li><a href="/">Inicio</a></li>
+			<li class="active">Tarjetas Corporativo</li>
+		</ol>
+		
+			<h1>Tarjetas corporativo</h1>
 		</div>
 		<div class="col-xs-4">
 		</div>
 		<div class="col-xs-2">
 			<a href="{{action("AdminCorporationCardsController@importCards")}}" class="btn btn-primary">
-				<span class="glyphicon glyphicon-download-alt"></span>
+				<i class="fa fa-upload" aria-hidden="true"></i>
 				Importar Excel
 			</a>
 		</div>	
 		<hr>
 	</div>
-	
+	<hr>
 	<div class="row">
 	<div class="col-xs-12">
-
+		<center>
 		{{Form::open([
 		'method' => 'GET',
 		'class' => 'form-inline'
@@ -30,7 +36,7 @@
 			<input type="hidden" value="{{$active_tab}}" name="active_tab">
 
 			<div class="form-group">
-			  {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'Numero de empleado'])}}
+			  {{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => '# de empleado'])}}
 			</div>
 			<div class="form-group">
 			  {{Form::number('ccosto', Input::get('ccosto'), ['class' => 'form-control', 'placeholder' => 'Centro de costos'])}}
@@ -46,7 +52,8 @@
 			    <span class="glyphicon glyphicon-filter"></span> Filtrar
 			  </button>
 			</div>
-		{{Form::close()}}		
+		{{Form::close()}}	
+		</center>	
 	</div>	
 		
 	</div>
