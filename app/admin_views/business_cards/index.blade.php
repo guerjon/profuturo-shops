@@ -15,7 +15,12 @@
   <a href="{{action('AdminBusinessCardsController@create')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-import"></span> Importar archivo Excel
   </a>
+  <a href="uploads" class="btn btn-primary">
+    <span class="glyphicon glyphicon-folder-open"></span>
+    Cargas
+  </a>
 </div>
+
 <br>
     <div class="" style="margin: 20px inherit">
      <ul class="nav nav-tabs" role="tablist">

@@ -111,7 +111,7 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('mensajes','AdminMessagesController');
 		Route::resource('tarjetas-corporativo','AdminCorporationCardsController');
 		Route::get('importar-tarjetas','AdminCorporationCardsController@importCards');
-		
+		Route::resource('uploads','AdminUploadsController',['only' => ['index']]);
 	});
 
 	Route::resource('mensajes','MessagesController');

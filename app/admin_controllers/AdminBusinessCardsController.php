@@ -1,9 +1,13 @@
 <?
 use Illuminate\Support\MessageBag;
+use Symfony\Component\HttpFoundation\File\File;
+
 class AdminBusinessCardsController extends BaseController{
 
   public function index()
   {
+
+
 
     $active_tab = Input::get('active_tab','untrashed');
 
@@ -51,9 +55,15 @@ class AdminBusinessCardsController extends BaseController{
     }
 
     $file = Input::file('file');
+
+
+    $upload->save();
     $created = 0;
     $updated = 0;
-    
+
+
+    //$copy_file = copy($file->getRealPath(),storage_path('excel/'.$file->getClientOriginalName()));
+
     $business_cards =  BusinessCard::where('id','>','0')->where('type','=','paper')->delete();
     
     $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
@@ -102,15 +112,33 @@ class AdminBusinessCardsController extends BaseController{
               'email' => $row->email,
             ]);
 
-            if($card->save()){
-              $updated++;
+            if ($card->isDirty()) {
+                $updated++;
+                $card->save();
             }
           }
         });
       });
     });
 
-    return Redirect::to(action('AdminBusinessCardsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
+
+    $path = storage_path('excel/'.$file->getClientOriginalName());
+    $name = $file->getClientOriginalName();
+
+    //$file = new \Symfony\Component\HttpFoundation\File\UploadedFile($path, $name, NULL, NULL, NULL, TRUE);
+    
+    $upload = new Upload(
+      [
+          'user_id' => Auth::user()->id,
+          'cards_created' => $created,
+          'cards_updated' => $updated,
+          'file' => $file
+      ]
+    );    
+    
+    return Redirect::to(action('AdminBusinessCardsController@index'))
+      ->withSuccess("Se agregaron $created registros. Se actualizaron $updated")
+      ->withUpload($upload);
   }
 
   public function destroy($card_id)

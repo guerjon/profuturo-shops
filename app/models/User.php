@@ -256,6 +256,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 		return $total;
 	}
 
+	public function uploads()
+	{
+		return $this->hasMany('Upload');
+	}
+
 	public function getMenuActionsAttribute(){
 		switch($this->role){
 			case 'admin':
