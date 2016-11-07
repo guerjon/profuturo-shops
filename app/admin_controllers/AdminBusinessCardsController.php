@@ -48,13 +48,13 @@ class AdminBusinessCardsController extends BaseController{
   { set_time_limit (300);
     ini_set('auto_detect_line_endings', 1);
 
-    if(Input::file('file') == NULL){
+    if(Input::file('avatar') == NULL){
       return Redirect::to(action('AdminBusinessCardsController@create'))->withErrors(new MessageBag([
-        'file' => 'El archivo es requerido',
+        'avatar' => 'El archivo es requerido',
       ]));
     }
 
-    $file = Input::file('file');
+    $file = Input::file('avatar');
 
     $created = 0;
     $updated = 0;
@@ -119,25 +119,25 @@ class AdminBusinessCardsController extends BaseController{
       });
     });
 
-
-    $path = storage_path('excel/'.$file->getClientOriginalName());
-    $name = $file->getClientOriginalName();
-
-    //$file = new \Symfony\Component\HttpFoundation\File\UploadedFile($path, $name, NULL, NULL, NULL, TRUE);
     
-    $upload = Upload::create(
-      [
-          'user_id' => Auth::user()->id,
-          'cards_created' => $created,
-          'cards_updated' => $updated,
-          'file' => $file
-      ]
-    );    
-    
+    $this->createUpload($created,$updated);
+
     return Redirect::to(action('AdminBusinessCardsController@index'))
       ->withSuccess("Se agregaron $created registros. Se actualizaron $updated")
       ->withUpload($upload);
   }
+
+  private function createUpload($created,$updated)
+  {
+
+    $upload = Upload::create(Input::all());    
+
+    if($upload)
+      return true;
+
+    return false;
+  }
+
 
   public function destroy($card_id)
   {

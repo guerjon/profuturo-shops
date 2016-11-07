@@ -36,8 +36,9 @@
         </legend>
         <div class="form-group">
           {{Form::label('file', 'Archivo Excel')}}
-          {{Form::file('file')}}
+          {{Form::file('avatar')}}
         </div>
+          <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
         <div class="form-group text-center">
           {{Form::submit('Enviar', ['class' => 'btn btn-warning'])}}
