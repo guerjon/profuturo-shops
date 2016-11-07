@@ -56,8 +56,6 @@ class AdminBusinessCardsController extends BaseController{
 
     $file = Input::file('file');
 
-
-    $upload->save();
     $created = 0;
     $updated = 0;
 
@@ -127,7 +125,7 @@ class AdminBusinessCardsController extends BaseController{
 
     //$file = new \Symfony\Component\HttpFoundation\File\UploadedFile($path, $name, NULL, NULL, NULL, TRUE);
     
-    $upload = new Upload(
+    $upload = Upload::create(
       [
           'user_id' => Auth::user()->id,
           'cards_created' => $created,
