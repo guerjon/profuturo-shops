@@ -16,17 +16,20 @@
 
 		<div class="row">
 			<br>
-		<div class="col-xs-8">
+		<div class="col-xs-9">
 			<h3>
 				CARGAS TARJETAS CORPORATIVO
 			</h3>
 		</div>
-		<div class="col-xs-2"></div>
-		<div class="col-xs-2">
+		<div class="col-xs-3">
 			<a class="btn btn-primary" href="{{action("AdminCorporationCardsController@importCards")}}">
 				<span class="glyphicon  glyphicon-plus"></span>
 				Añadir carga
 			</a>
+{{-- 			<a href="#" class="btn btn-primary">
+				<span class="glyphicon glyphicon-import"></span>
+				Descargar plantilla
+			</a>			 --}}
 		</div>
 					
 		</div>
