@@ -73,14 +73,14 @@ class AdminBusinessCardsController extends BaseController{
     $created = 0;
     $updated = 0;
 
-
-    //$copy_file = copy($file->getRealPath(),storage_path('excel/'.$file->getClientOriginalName()));
-
     $business_cards =  BusinessCard::where('id','>','0')->where('type','=','paper')->delete();
     
-    $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
 
+
+    $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
+        
       $reader->each(function($sheet)use(&$created, &$updated){
+
         $sheet->each(function($row)use(&$created, &$updated){
 
           if($row->numero_empleado != '' && $row->numero_empleado != null){
