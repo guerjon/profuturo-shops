@@ -16,13 +16,13 @@
 	<div class="container">
 		<div class="row">
 			<br>
-		<div class="col-xs-9">
+		<div class="col-xs-8">
 			<h3>
 				CARGAS TARJETAS DE PAPELERIA
 			</h3>
 		</div>
 		
-		<div class="col-xs-3">
+		<div class="col-xs-4">
 			<a class="btn btn-primary" href="business-cards/create">
 				<span class="glyphicon  glyphicon-plus"></span>
 				Añadir carga
@@ -66,8 +66,9 @@
 									{{$upload->user->nombre}}
 								</td>
 								<td>
+									<a href="{{action('AdminUploadsController@downloadOriginal', $upload->id)}}">
 									{{$upload->file_name}}
-			                        
+			                        </a>
 								<td>
 									{{$upload->created_at}}
 								</td>
@@ -76,10 +77,6 @@
 								</td>
 								<td>
 									{{$upload->cards_updated}}
-								</td>
-								<td>
-									<a href="{{action('AdminUploadsController@downloadOriginal', $upload->id)}}" class="list-group-item" id="download-original">
-			                            <span class="fa fa-download"></span> Descargar original				
 								</td>
 							</tr>
 						@endforeach
