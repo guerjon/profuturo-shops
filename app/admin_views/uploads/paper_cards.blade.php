@@ -2,6 +2,17 @@
 
 @section('content')
 
+  <ol class="breadcrumb">
+    <a href="{{URL::previous()}}" class="back-btn">
+      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+      &nbsp;&nbsp;&nbsp;
+    <li><a href="/">Inicio</a></li>
+    <li class="{{action('AdminBusinessCardsController@index')}}">Tarjetas de Presentación</li>
+    <li class="active">Cargas tarjetas papelería</li>
+  </ol>
+
+
 	<div class="container">
 		<div class="row">
 			<br>

@@ -2,7 +2,18 @@
 
 @section('content')
 
-	<div class="container">
+	<div class="container-fluid">
+
+		<ol class="breadcrumb">
+		    <a href="{{URL::previous()}}" class="back-btn">
+		      <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+		    </a>
+		      &nbsp;&nbsp;&nbsp;
+		    <li><a href="/">Inicio</a></li>
+		    <li><a href="{{action('AdminCorporationCardsController@index')}}">Tarjetas corporativo </a></li>
+		    <li class="active">Cargas tarjetas corporativo</li>
+  		</ol>
+
 		<div class="row">
 			<br>
 		<div class="col-xs-8">
@@ -63,8 +74,9 @@
 									{{$upload->cards_updated}}
 								</td>
 								<td>
+									
 									<a href="{{action('AdminUploadsController@downloadOriginal', $upload->id)}}" class="list-group-item" id="download-original">
-			                            <span class="fa fa-download"></span> Descargar original				
+			                            <span class="fa fa-download"></span> Descargar original
 								</td>
 							</tr>
 						@endforeach
