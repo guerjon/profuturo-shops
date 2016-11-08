@@ -27,10 +27,10 @@
 				<span class="glyphicon  glyphicon-plus"></span>
 				Añadir carga
 			</a>
-			{{-- <a href="#" class="btn btn-primary">
+			<a href="#" class="btn btn-primary">
 				<span class="glyphicon glyphicon-import"></span>
 				Descargar plantilla
-			</a> --}}
+			</a>
 		</div>
 					
 		</div>
