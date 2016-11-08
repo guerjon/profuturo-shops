@@ -53,6 +53,19 @@ class AdminCorporationCardsController extends AdminBaseController
 	    }
 
 	    $file = Input::file('file');
+	    $user = Auth::user();
+	    $path = storage_path('corporation_cards');
+	    $upload = new Upload();
+	    $upload->user_id = $user->id;
+	    $upload->file_name = $file->getClientOriginalName();
+	    $upload->file_size = $file->getClientSize();
+	    $upload->file_mime = $file->getMimeType();
+	    $upload->file_extension = $file->getClientOriginalExtension();
+	    $upload->kind = 'corporation_cards';
+	    $file = $file->move($path);
+	    
+	    $upload->file_path = $file->getRealPath();
+	    	    
 	    $created = 0;
 	    $updated = 0;
 	    
@@ -99,13 +112,20 @@ class AdminCorporationCardsController extends AdminBaseController
 	              	'type' => 'corporation'
 	            ]);
 
-	            if($card->save()){
-	              $updated++;
+	            if($card->isDirty()){
+	            	if($card->save()){
+	            		$updated++;		
+	            	}
 	            }
 	          }
 	        });
 	      });
     });
+
+	$upload->cards_created = $created;
+    $upload->cards_updated = $updated;
+    $upload->save();
+
 
     return Redirect::to(action('AdminCorporationCardsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
   }

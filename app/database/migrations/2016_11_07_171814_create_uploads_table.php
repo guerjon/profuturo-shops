@@ -15,10 +15,13 @@ class CreateUploadsTable extends Migration {
 		Schema::create('uploads',function($table){
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
-            $table->string('avatar_file_name')->nullable();
-            $table->integer('avatar_file_size')->nullable();
-            $table->string('avatar_content_type')->nullable();
-            $table->timestamp('avatar_updated_at')->nullable();
+            $table->string('file_path');
+            $table->string('file_name');
+            $table->string('file_size');
+            $table->string('file_mime')->nullable();
+            $table->string('file_extension')->nullable();
+            $table->string('kind');
+
 			$table->integer('cards_created');
 			$table->integer('cards_updated');
 		  	$table->timestamps();

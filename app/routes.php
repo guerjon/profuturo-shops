@@ -111,7 +111,11 @@ Route::group(['before' => 'auth'], function(){
 		Route::resource('mensajes','AdminMessagesController');
 		Route::resource('tarjetas-corporativo','AdminCorporationCardsController');
 		Route::get('importar-tarjetas','AdminCorporationCardsController@importCards');
-		Route::resource('uploads','AdminUploadsController',['only' => ['index']]);
+		Route::get('paper-uploads','AdminUploadsController@paperUploads');
+		Route::get('corporation-uploads','AdminUploadsController@corporationUploads');
+
+		Route::get('download-original/{upload_id}','AdminUploadsController@downloadOriginal');
+
 	});
 
 	Route::resource('mensajes','MessagesController');

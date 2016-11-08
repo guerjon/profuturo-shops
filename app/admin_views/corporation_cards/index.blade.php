@@ -18,9 +18,9 @@
 		<div class="col-xs-4">
 		</div>
 		<div class="col-xs-2">
-			<a href="{{action("AdminCorporationCardsController@importCards")}}" class="btn btn-primary">
+			<a href="{{action("AdminUploadsController@corporationUploads")}}" class="btn btn-primary">
 				<i class="fa fa-upload" aria-hidden="true"></i>
-				Importar Excel
+				Cargas
 			</a>
 		</div>	
 		<hr>

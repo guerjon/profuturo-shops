@@ -54,7 +54,21 @@ class AdminBusinessCardsController extends BaseController{
       ]));
     }
 
+    
     $file = Input::file('avatar');
+    $user = Auth::user();
+    $path = storage_path('paper_cards');
+    $upload = new Upload();
+    $upload->user_id = $user->id;
+    $upload->file_name = $file->getClientOriginalName();
+    $upload->file_size = $file->getClientSize();
+    $upload->file_mime = $file->getMimeType();
+    $upload->file_extension = $file->getClientOriginalExtension();
+    $upload->kind = 'paper_cards';
+    $file = $file->move($path);
+    
+    $upload->file_path = $file->getRealPath();
+    
 
     $created = 0;
     $updated = 0;
@@ -118,24 +132,14 @@ class AdminBusinessCardsController extends BaseController{
         });
       });
     });
-
     
-    $this->createUpload($created,$updated);
+    $upload->cards_created = $created;
+    $upload->cards_updated = $updated;
+    $upload->save();
 
     return Redirect::to(action('AdminBusinessCardsController@index'))
-      ->withSuccess("Se agregaron $created registros. Se actualizaron $updated")
-      ->withUpload($upload);
-  }
-
-  private function createUpload($created,$updated)
-  {
-
-    $upload = Upload::create(Input::all());    
-
-    if($upload)
-      return true;
-
-    return false;
+      ->withSuccess("Se agregaron $created registros. Se actualizaron $updated");
+      
   }
 
 
@@ -156,4 +160,5 @@ class AdminBusinessCardsController extends BaseController{
       }
     }
   }
+
 }

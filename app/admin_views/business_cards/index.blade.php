@@ -12,10 +12,7 @@
   </ol>
 
 <div class="text-right">
-  <a href="{{action('AdminBusinessCardsController@create')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-import"></span> Importar archivo Excel
-  </a>
-  <a href="uploads" class="btn btn-primary">
+  <a href="{{action('AdminUploadsController@paperUploads')}}" class="btn btn-primary">
     <span class="glyphicon glyphicon-folder-open"></span>
     Cargas
   </a>
