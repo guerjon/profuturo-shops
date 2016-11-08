@@ -19,7 +19,7 @@
 		</div>
 		<div class="col-xs-2">
 			<a href="{{action("AdminUploadsController@corporationUploads")}}" class="btn btn-primary">
-				<i class="fa fa-upload" aria-hidden="true"></i>
+				<i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
 				Cargas
 			</a>
 		</div>	

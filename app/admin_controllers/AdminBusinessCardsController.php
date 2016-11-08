@@ -82,53 +82,58 @@ class AdminBusinessCardsController extends BaseController{
 
       $reader->each(function($sheet)use(&$created, &$updated){
         $sheet->each(function($row)use(&$created, &$updated){
-          $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
 
-          if(!$card){
+          if($row->numero_empleado != '' && $row->numero_empleado != null){
             
-            $card = BusinessCard::create([
-              'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
-              'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
-              'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
-              'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
-              'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
-              'fecha_ingreso' => $row->fecha_ingreso,
-              'web' => $row->web ? $row->web : 'N/A',
-              'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
-              'direccion' => $row->direccion ? $row->direccion : 'N/A',
-              'telefono' => $row->telefono ? $row->telefono : 'N/A',
-              'celular' => $row->celular ? $row->celular : 'N/A',
-              'email' => $row->email ? $row->email : 'N/A',
-            ]);
-            if($card){
-              $created++;
-            }
+            $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
             
-          }else{
-            
-            if($card->trashed())
-              $card->restore();
+            if(!$card){
+              
+              $card = BusinessCard::create([
+                'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
+                'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
+                'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
+                'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
+                'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
+                'fecha_ingreso' => $row->fecha_ingreso,
+                'web' => $row->web ? $row->web : 'N/A',
+                'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
+                'direccion' => $row->direccion ? $row->direccion : 'N/A',
+                'telefono' => $row->telefono ? $row->telefono : 'N/A',
+                'celular' => $row->celular ? $row->celular : 'N/A',
+                'email' => $row->email ? $row->email : 'N/A',
+              ]);
+              if($card){
+                $created++;
+              }
+              
+            }else{
+              
+              if($card->trashed())
+                $card->restore();
 
-            $card->fill([
-              'no_emp' => $row->numero_empleado,
-              'nombre' => $row->nombre_empleado,
-              'ccosto' => $row->ccosto,
-              'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
-              'nombre_puesto' => $row->nombre_puesto,
-              'fecha_ingreso' => $row->fecha_ingreso,
-              'web' => $row->web,
-              'gerencia' => $row->gerencia,
-              'direccion' => $row->direccion,
-              'telefono' => $row->telefono,
-              'celular' => $row->celular,
-              'email' => $row->email,
-            ]);
+              $card->fill([
+                'no_emp' => $row->numero_empleado,
+                'nombre' => $row->nombre_empleado,
+                'ccosto' => $row->ccosto,
+                'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
+                'nombre_puesto' => $row->nombre_puesto,
+                'fecha_ingreso' => $row->fecha_ingreso,
+                'web' => $row->web,
+                'gerencia' => $row->gerencia,
+                'direccion' => $row->direccion,
+                'telefono' => $row->telefono,
+                'celular' => $row->celular,
+                'email' => $row->email,
+              ]);
 
-            if ($card->isDirty()) {
-                $updated++;
-                $card->save();
+              if ($card->isDirty()) {
+                  $updated++;
+                  $card->save();
+              }
             }
           }
+           
         });
       });
     });
