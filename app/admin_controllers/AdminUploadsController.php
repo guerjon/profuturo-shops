@@ -20,6 +20,11 @@ class AdminUploadsController extends AdminBaseController{
 		return Response::download($upload->file_path,$upload->file_name);
 	}
 
+	public function downloadPaperTemplate()
+	{
+		return Response::download(storage_path().'/plantilla_tarjetas_papeleria.xlsx');
+	}
+
 	public function downloadCorporationTemplate()
 	{
 		return Response::download(storage_path().'/plantilla_tarjetas_corporativo.xlsx');

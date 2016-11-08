@@ -116,6 +116,7 @@ Route::group(['before' => 'auth'], function(){
 
 		Route::get('download-original/{upload_id}','AdminUploadsController@downloadOriginal');
 		Route::get('download-corporation-template','AdminUploadsController@downloadCorporationTemplate');
+		Route::get('download-paper-template','AdminUploadsController@downloadPaperTemplate');
 
 	});
 
