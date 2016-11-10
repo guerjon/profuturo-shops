@@ -13,8 +13,7 @@
 
 <div class="text-right">
   <a href="{{action('AdminUploadsController@paperUploads')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-folder-open"></span>
-    Cargas
+    Cargas <span class="glyphicon glyphicon-folder-open"></span>
   </a>
 </div>
 

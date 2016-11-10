@@ -81,15 +81,16 @@ class AdminCorporationCardsController extends AdminBaseController
 	          if(!$card){
 	    		
 	            $card = BusinessCard::create([
+	              	'type' => 'corporation',
 	              	'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
 	              	'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
 	              	'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
 	              	'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
-	              	'linea_negocio' => $row->linea_negocio,
+	              	'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A',
 	              	'web' => $row->web ? $row->web : 'N/A',
 	              	'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
-	              	'direccion' => $row->direccion ? $row->direccion : 'N/A',	
-	              	'type' => 'corporation'
+	              	'direccion' => $row->direccion ? $row->direccion : 'N/A'
+	              	
 	            ]);
 	            if($card){
 	              $created++;
@@ -101,15 +102,15 @@ class AdminCorporationCardsController extends AdminBaseController
 	              $card->restore();
 
 	            $card->fill([
-	              	'no_emp' => $row->numero_empleado,
-	              	'nombre' => $row->nombre_empleado,
-	              	'ccosto' => $row->ccosto,
-	              	'nombre_puesto' => $row->nombre_puesto,
-	              	'web' => $row->web,
-	              	'gerencia' => $row->gerencia,
-	              	'direccion' => $row->direccion,
-	              	'linea_negocio' => $row->linea_negocio,
-	              	'type' => 'corporation'
+	              	'type' => 'corporation',
+	              	'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
+	              	'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
+	              	'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
+	              	'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
+	              	'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A',
+	              	'web' => $row->web ? $row->web : 'N/A',
+	              	'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
+	              	'direccion' => $row->direccion ? $row->direccion : 'N/A'
 	            ]);
 
 	            if($card->isDirty()){

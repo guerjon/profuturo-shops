@@ -23,9 +23,6 @@
         Nombre de empleado
       </th>
       <th>
-        Cantidad
-      </th>
-      <th>
         Inmueble
       </th>
       <th>
@@ -57,9 +54,6 @@
     <tr>
       <td>
         {{$card->nombre}}
-      </td>
-      <td>
-        {{$card->pivot->quantity}}
       </td>
       <td>
         {{$card->pivot->inmueble}}

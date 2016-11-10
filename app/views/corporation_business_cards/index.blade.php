@@ -41,9 +41,6 @@
 							Puesto
 						</th>
 						<th>
-							Cantidad
-						</th>
-						<th>
 							Inmueble
 						</th>
 					</tr>
@@ -64,16 +61,6 @@
 							{{ $card->nombre_puesto }}
 						</td>
 						<td>
-							@if(($last_order_date = @$forbidden[$card->id]) and $forbid)
-								<small>
-									No puede añadir esta tarjeta a su pedido puesto que ya hizo un pedido con fecha {{$last_order_date}}.
-
-								</small>
-							@else
-							 {{ Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
-							@endif
-						</td>
-						<td>
 							{{Form::text("inmueble[$card->id]",null,['class' => 'form-control inmueble-input','data-card-id' => $card->id])}}
 						</td>
 					</tr>
@@ -91,9 +78,6 @@
 						<td>
 						</td>
 						<td>
-							{{Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
-						</td>
-						<td>
 							{{Form::text('inmueble_talento',null,['class' => 'form-control'])}}
 						</td>
 				</tr>
@@ -109,9 +93,6 @@
 
 						</td>
 						<td>
-						</td>
-						<td>
-							{{Form::select("quantities[$card->id]", [1 => 100], NULL, ['class' => 'form-control'])}}
 						</td>
 						<td>
 							{{Form::text('inmueble_gerente',null,['class' => 'form-control'])}}

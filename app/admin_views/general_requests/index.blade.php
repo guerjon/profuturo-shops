@@ -143,7 +143,8 @@
 								{{substr($request->creada, 0,-8) }} 
 							</td>
 							<td>
-								{{ \Carbon\Carbon::createFromFormat('Y-m-d 00:00:00',$request->project_date)->format('Y-m-d')}}
+								{{$request->project_date}}
+								
 							</td>
 							<td>
 								{{$request->deliver_date->format('Y-m-d')}}
