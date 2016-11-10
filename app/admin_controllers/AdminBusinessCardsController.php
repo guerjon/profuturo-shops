@@ -128,8 +128,9 @@ class AdminBusinessCardsController extends BaseController{
               ]);
 
               if ($card->isDirty()) {
-                  $updated++;
-                  $card->save();
+                  if ($card->save()) {
+                    $updated++;  
+                  }
               }
             }
           }

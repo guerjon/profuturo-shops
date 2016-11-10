@@ -2,6 +2,19 @@
 
 @section('content')
 
+<div class="row">
+	<ol class="breadcrumb">
+	  	<a href="{{URL::previous()}}" class="back-btn">
+	    	<span class="glyphicon glyphicon-arrow-left"></span> Regresar
+	  	</a>
+	    	&nbsp;&nbsp;&nbsp;
+		<li><a href="/">Inicio</a></li>
+		<li><a href="/admin/corporation-uploads">Tarjetas de Corporativo</a></li>
+		<li><a href="corporation-uploads">Cargas tarjetas corporativo</a></li>
+		<li class="active">Importar Excel</li>
+	</ol>
+</div>
+
 	<div class="row text-center">
 		<h1>Importar tarjetas de corporativo</h1>
 		<div class="form" style="margin-top:5%">
