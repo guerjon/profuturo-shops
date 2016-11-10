@@ -48,7 +48,7 @@
                                     {{Form::text("card[{$card->id}][nombre]", $card->nombre, ['class' => 'form-control'])}}
                                 </td>
                                 <td>
-                                    {{$card->direccion_alternativa}}
+                                    {{$card->direccion}}
                                 </td>
                                 <td>
                                     {{Form::text("card[{$card->id}][direccion_alternativa]", $card->direccion_alternativa,['class' => 'form-control'])}}
@@ -86,10 +86,10 @@
                             </td>
                             <td>
                               {{Form::text("talento_tel", NULL, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
-                              'onkeypress'=>"$('#save').prop('disabled',false)"])}}
+                              'onkeypress'=>"$('#save').prop('disabled',false)",'data-name' => 'Atracción Talento'])}}
                             </td>
                             <td>
-                              {{Form::text("talento_cel", NULL, ['class' => 'form-control phone'])}}
+                              {{Form::text("talento_cel", NULL, ['class' => 'form-control'])}}
                             </td>
                             <td>
                               {{Form::email("talento_email", NULL, ['class' => 'form-control'])}}
@@ -111,10 +111,10 @@
                             </td>
                             <td>
                               {{Form::text("gerente_tel", NULL, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
-                              'onkeypress'=>"$('#save').prop('disabled',false)"])}}
+                              'onkeypress'=>"$('#save').prop('disabled',false)",'data-name' => 'Gerente Comercial'])}}
                             </td>
                             <td>
-                              {{Form::text("gerente_cel", NULL, ['class' => 'form-control phone'])}}
+                              {{Form::text("gerente_cel", NULL, ['class' => 'form-control'])}}
                             </td>
                             <td>
                               {{Form::email("gerente_email", NULL, ['class' => 'form-control'])}}
@@ -151,7 +151,7 @@
                             {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}
                           </div>
                           <div class="col-xs-2">
-                            {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Telefono'])}}
+                            {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Teléfono','data-name' => 'Telefono Tarjetas'])}}
                           </div>
                           <div class="col-xs-2">
                             {{Form::text('email',NULL, ['class' => 'form-control','placeholder' => 'Correo electronico'])}}
@@ -221,7 +221,7 @@
                 $('#warning-modal').find('#warning-data').empty();
 
                 $.each(phone_errors,function(k,name){
-                    $('#warning-modal').find('#warning-data').append('<p style="color:red">El telefono de la tarjeta de <strong>' + name + '</strong> es incorrecto. </p><br>');
+                    $('#warning-modal').find('#warning-data').append('<p style="color:red">El teléfono de la tarjeta de <strong>' + name + '</strong> es incorrecto. </p><br>');
                 });
 
                 $.each(same_errors,function(k,name){

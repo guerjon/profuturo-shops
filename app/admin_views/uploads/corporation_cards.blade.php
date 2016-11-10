@@ -28,7 +28,7 @@
 			</a>
 			<a href="{{action('AdminUploadsController@downloadCorporationTemplate')}}" class="btn btn-primary">
 				<span class="glyphicon glyphicon-import"></span>
-				Descargar plantilla
+				Descargar layout
 			</a>			
 		</div>
 					

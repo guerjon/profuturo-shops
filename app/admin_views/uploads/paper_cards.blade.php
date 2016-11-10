@@ -29,7 +29,7 @@
 			</a>
 			<a href="{{action('AdminUploadsController@downloadPaperTemplate')}}" class="btn btn-primary">
 				<span class="glyphicon glyphicon-import"></span>
-				Descargar plantilla
+				Descargar layout
 			</a>
 		</div>
 					

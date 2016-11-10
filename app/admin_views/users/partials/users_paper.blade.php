@@ -36,6 +36,7 @@
             <th>Gerencia</th>
             <th>Región</th>
             <th>Divisional</th>
+            <th>Número de empleado</th>
             <th>Línea de negocio</th>
             <th>Extensión</th>
             <th>Domicilio</th>
@@ -51,6 +52,7 @@
                <td>{{$user_paper->gerencia}}</td>
                <td>{{$user_paper->region ? $user_paper->region->name : 'N/A'}}</td>
                <td>{{$user_paper->divisional ? $user_paper->divisional->id : 'N/A' }}</td>
+               <td>{{$user_paper->num_empleado}}</td>
                <td>{{$user_paper->linea_negocio}}</td>  
                <td>{{$user_paper->extension}}</td>
                <td>{{$user_paper->address ? $user_paper->address->domicilio : 'N/A'}}
