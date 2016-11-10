@@ -143,9 +143,15 @@
 			</div>
 		</div>
 		<div class="row">
-			@include('admin::users.partials.table')
+			@if($users->count() > 0)
+				@include('admin::users.partials.table')
+			@else
+				<div class="alert alert-info">
+					No se encontraron resultados
+				</div>
+			@endif
 		</div>
-
+	
 		@include('admin::address.partials.change_address')
 		
 
