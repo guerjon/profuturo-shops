@@ -9,8 +9,12 @@
     &nbsp;&nbsp;&nbsp;
   <li><a href="/">Inicio</a></li>
   <li><a href="/admin/business-cards">Tarjetas de Presentación</a></li>
+  <li><a href="/admin/paper-uploads">Cargas tarjetas presentación</a></li>
   <li class="active">Importar Excel</li>
 </ol>
+
+
+
 
 @if($errors->count())
 @foreach($errors->all() as $error)
