@@ -6,180 +6,24 @@ class AdminUsersController extends AdminBaseController
 
 	public function index()
 	{
-		$active_tab = Session::get('active_tab', Input::get('active_tab', 'admin'));
+		$active_tab = Input::get('active_tab','admin');
 
-		$admins = User::withTrashed()->where('role', 'admin');
+		$users = User::withTrashed()->where('role',$active_tab);
 
-		if(Input::has('admin')){
-
-			$input = Input::get('admin', []);
-			if(!is_array($input)){
-				Log::warning("I did not receive an array");
-			}else{
-				if($emp_number = @$input['employee_number']){
-					$admins->where('ccosto', 'LIKE', "%{$emp_number}%");
-				}
-				if($gerencia  = @$input['gerencia']){
-					$admins->where('gerencia', 'LIKE', "%{$gerencia}%");
-				}
-			}
+		if (Input::has('ccosto')) {
+			$users->where('ccosto','like','%'.Input::get('ccosto').'%');
 		}
 
-		$managers = User::withTrashed()->where('role', 'manager');
-		if(Input::has('manager')){
-			 $input = Input::get('manager', []);
-			if(!is_array($input)){
-				Log::warning("I did not receive an array");
-			}else{
-				if($emp_number = @$input['employee_number']){
-					$managers->where('ccosto', 'LIKE', "%{$emp_number}%");
-				}
-				if($gerencia = @$input['gerencia']){
-					$managers->where('gerencia', 'LIKE', "%{$gerencia}%");
-				}
-
-			}         
+		if (Input::has('num_empleado')) {
+			$users->where('num_empleado','like','%'.Input::get('num_empleado').'%');
 		}
-				$user_requests = User::withTrashed()->where('role', 'user_requests');
-				if(Input::has('user_requests')){
-					 $input = Input::get('user_requests', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-							$user_requests->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-							$user_requests->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
 
-					}   
-				}
-				$users_paper = User::withTrashed()->where('role', 'user_paper');
-				if(Input::has('user_paper')){
-					 $input = Input::get('user_paper', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-							$users_paper->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-							$users_paper->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
-				$users_furnitures = User::withTrashed()->where('role', 'user_furnitures');
-				if(Input::has('user_furnitures'))
-				{
-					
-					$input = Input::get('user_furnitures', []);
-
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-
-						if($emp_number = @$input['employee_number']){
-								$users_furnitures->where('users.ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-								$users_furnitures->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
-
-				$users_loader = User::withTrashed()->where('role', 'user_loader');
-				if(Input::has('user_loader'))
-				{
-					$input = Input::get('user_loader', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-								$users_loader->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-								$users_loader->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
-
-
-				$users_mac = User::withTrashed()->where('role', 'user_mac');
-				if(Input::has('user_mac'))
-				{
-					$input = Input::get('user_mac', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-								$users_mac->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-								$users_mac->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
-
-				$users_corporation = User::withTrashed()->where('role', 'user_corporation');
-				if(Input::has('user_corporation'))
-				{
-					$input = Input::get('user_corporation', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-								$users_corporation->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-								$users_corporation->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
-
-				$users_training = User::withTrashed()->where('role', 'user_training');
-				if(Input::has('user_training'))
-				{
-					$input = Input::get('user_training', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-								$users_training->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-								$users_training->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
-
-				$user_system = User::withTrashed()->where('role', 'user_system');
-				if(Input::has('user_system'))
-				{
-					$input = Input::get('user_system', []);
-					if(!is_array($input)){
-						Log::warning("I did not receive an array");
-					}else{
-						if($emp_number = @$input['employee_number']){
-								$users_training->where('ccosto', 'LIKE', "%{$emp_number}%");
-						}
-						if($gerencia = @$input['gerencia']){
-								$users_training->where('gerencia', 'LIKE', "%{$gerencia}%");
-						}
-					}
-				}
+		if (Input::has('gerencia')) {
+			$users->where('gerencia','like','%'.Input::get('gerencia').'%');
+		}
 
 		return View::make('admin::users.index')
-			->withAdmins($admins->paginate(10))
-			->withManagers($managers->paginate(10))
-			->withUsersRequests($user_requests->paginate(10))
-			->withUsersPaper($users_paper->with('address')->paginate(10))
-			->withUsersFurnitures($users_furnitures->paginate(10))
-			->withUsersLoader($users_loader->paginate(10))
-			->withUsersMac($users_mac->paginate(10))
-			->withUsersCorporation($users_corporation->paginate(10))
-			->withUsersTraining($users_training->paginate(10))
-			->withUsersSystem($user_system->paginate(10))
+			->withUsers($users->paginate(20))
 			->withActiveTab($active_tab);
 
 	}
@@ -316,15 +160,17 @@ class AdminUsersController extends AdminBaseController
 	}
 
 
-	private	function getFilters($users,$emp_number = null){
+	private	function getFilters($users,$input){
 
 		if($emp_number = @$input['employee_number']){
-				$users_loader->where('ccosto', 'LIKE', "%{$emp_number}%");
+				$users->where('ccosto', 'LIKE', "%{$emp_number}%");
 		}
 		if($gerencia = @$input['gerencia']){
-				$users_loader->where('gerencia', 'LIKE', "%{$gerencia}%");
+				$users->where('gerencia', 'LIKE', "%{$gerencia}%");
 		}		
-		
+		if ($ccosto = @$input['ccosto']) {
+			$users->where('ccosto','LIKE',"%{$ccosto}%");
+		}
 	}
 
 }
