@@ -86,7 +86,7 @@
                             </td>
                             <td>
                               {{Form::text("talento_tel", NULL, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
-                              'onkeypress'=>"$('#save').prop('disabled',false)"])}}
+                              'onkeypress'=>"$('#save').prop('disabled',false)", 'data-name' => 'Atracción de talento'])}}
                             </td>
                             <td>
                               {{Form::text("talento_cel", NULL, ['class' => 'form-control phone'])}}
@@ -111,10 +111,10 @@
                             </td>
                             <td>
                               {{Form::text("gerente_tel", NULL, ['class' => 'form-control phone','onchange'=>"$('#save').prop('disabled',false)",
-                              'onkeypress'=>"$('#save').prop('disabled',false)"])}}
+                              'onkeypress'=>"$('#save').prop('disabled',false)",'data-name' => 'Gerente comercial'])}}
                             </td>
                             <td>
-                              {{Form::text("gerente_cel", NULL, ['class' => 'form-control phone'])}}
+                              {{Form::text("gerente_cel", NULL, ['class' => 'form-control'])}}
                             </td>
                             <td>
                               {{Form::email("gerente_email", NULL, ['class' => 'form-control'])}}

@@ -1,25 +1,4 @@
-{{ Form::open([
-  'method' => 'GET',
-  'class' => 'form-horizontal'
-  ]) }}
-  {{ Form::hidden('active_tab', 'user_training') }}
-  <div class="form-group">
-  
-    <div class="col-xs-2">
-      {{Form::text('user_training[employee_number]', (Input::get('user_training')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
-    </div>
-    <div class="col-xs-2">
-      {{Form::text('user_training[gerencia]', (Input::get('user_training')['gerencia']), ['placeholder' => 'Gerencia','class' => 'form-control'])}}
-    </div>
-
-    <div class="col-xs-1">
-      <button type="submit" class="btn btn-block btn-default">
-        <span class="glyphicon glyphicon-search"></span>
-      </button>
-    </div>
-  </div>
-{{ Form::close() }}
-
+@include('admin::users.partials.filters')
 
 @if($users_training->count() > 0)
 

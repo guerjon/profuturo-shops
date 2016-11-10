@@ -1,27 +1,5 @@
-{{ Form::open([
-  'method' => 'GET',
-  'class' => 'form-horizontal'
-  ]) }}
-  {{ Form::hidden('active_tab', 'manager') }}
-  <div class="form-group">
-    <div class="col-xs-2">
-      {{Form::text('manager[employee_number]', (Input::get('manager')['employee_number']), ['placeholder' => 'Número de Empleado','class' => 'form-control'])}}
-    </div>
-    <div class="col-xs-2">
-      {{Form::text('manager[gerencia]', (Input::get('manager')['gerencia']), ['placeholder' => 'Gerencia','class' => 'form-control'])}}
-    </div>
+@include('admin::users.partials.filters')
 
-{{--     <div class="col-xs-3">
-      {{ Form::select('manager[management_id]', $managements,
-        Input::get('manager')['management_id'], ['class' => 'form-control']) }}
-    </div> --}}
-    <div class="col-xs-1">
-      <button type="submit" class="btn btn-block btn-default">
-        <span class="glyphicon glyphicon-search"></span>
-      </button>
-    </div>
-  </div>
-{{ Form::close() }}
 @if($managers->count() > 0)
 
 <div class="container-fluid">

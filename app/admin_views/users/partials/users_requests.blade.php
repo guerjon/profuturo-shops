@@ -1,26 +1,4 @@
-{{ Form::open([
-  'method' => 'GET',
-  'class' => 'form-horizontal'
-  ]) }}
-  {{ Form::hidden('active_tab', 'user_requests') }}
-  
-  <div class="form-group">
-    <label for="user-request-employee-number" class="control-label"></label>
-    <div class="col-xs-2">
-      {{Form::text('user_requests[employee_number]', (Input::get('user_requests')['employee_number']), ['placeholder' => 'Número de Empleado', 'class' => 'form-control'])}}
-    </div>
-    
-    <div class="col-xs-2">
-      {{Form::text('user_requests[gerencia]', (Input::get('user_requests')['gerencia']), ['placeholder' => 'Gerencia', 'class' => 'form-control'])}}
-    </div>
-    <div class="col-xs-1">
-      <button type="submit" class="btn btn-block btn-default">
-        <span class="glyphicon glyphicon-search"></span>
-      </button>
-    </div>
-  </div>
-{{ Form::close() }}
-
+@include('admin::users.partials.filters')
 
 @if($users_requests->count() > 0)
 

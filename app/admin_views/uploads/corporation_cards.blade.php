@@ -53,10 +53,6 @@
 						<th>
 							Registros actualizados
 						</th>
-						<th>
-							
-						</th>
-
 					</thead>
 					<tbody>
 						@foreach($uploads as $upload)
@@ -65,8 +61,9 @@
 									{{$upload->user->nombre}}
 								</td>
 								<td>
-									{{$upload->file_name}}
-			                        
+									<a href="{{action('AdminUploadsController@downloadOriginal', $upload->id)}}" >
+										{{$upload->file_name}}	
+									</a>
 								<td>
 									{{$upload->created_at}}
 								</td>
@@ -75,11 +72,6 @@
 								</td>
 								<td>
 									{{$upload->cards_updated}}
-								</td>
-								<td>
-									
-									<a href="{{action('AdminUploadsController@downloadOriginal', $upload->id)}}" class="list-group-item" id="download-original">
-			                            <span class="fa fa-download"></span> Descargar original
 								</td>
 							</tr>
 						@endforeach
