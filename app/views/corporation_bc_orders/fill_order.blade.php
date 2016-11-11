@@ -89,7 +89,7 @@
                               'onkeypress'=>"$('#save').prop('disabled',false)", 'data-name' => 'Atracción de talento'])}}
                             </td>
                             <td>
-                              {{Form::text("talento_cel", NULL, ['class' => 'form-control phone'])}}
+                              {{Form::text("talento_cel", NULL, ['class' => 'form-control'])}}
                             </td>
                             <td>
                               {{Form::email("talento_email", NULL, ['class' => 'form-control'])}}
