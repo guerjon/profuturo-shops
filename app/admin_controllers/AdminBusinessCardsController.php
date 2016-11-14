@@ -46,6 +46,7 @@ class AdminBusinessCardsController extends BaseController{
           "web",
           "gerencia",
           "direccion",
+          "direccion_alternativa",
           "telefono",
           "celular",
           "email"
@@ -59,8 +60,8 @@ class AdminBusinessCardsController extends BaseController{
             $sheet->appendRow($headers);
             foreach ($cards as $card) {
               $sheet->appendRow([
-                $card->numero_empleado,
-                $card->nombre_empleado,
+                $card->no_emp,
+                $card->nombre,
                 $card->ccosto,
                 $card->nombre_ccosto,
                 $card->nombre_puesto,
@@ -68,6 +69,7 @@ class AdminBusinessCardsController extends BaseController{
                 $card->web,
                 $card->gerencia,
                 $card->direccion,
+                $card->direccion_alternativa,
                 $card->telefono,
                 $card->celular,
                 $card->email                
