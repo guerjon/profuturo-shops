@@ -27,7 +27,6 @@
       </a>            
     </div>
   </div>
-
 <br>
     <div class="" style="margin: 20px inherit">
      <ul class="nav nav-tabs" role="tablist">

@@ -135,7 +135,7 @@
                     @if($remaining_cards > 100)
                         <div class="row">
                           <div class="col-xs-2">
-                          {{Form::select('blank_cards', [0,100,200], NULL, ['class' => 'form-control'])}}
+                            <input type="hide" name="blank_cards" value="100" class="hide">
                           </div>
                          
                           <div class="col-xs-2">
