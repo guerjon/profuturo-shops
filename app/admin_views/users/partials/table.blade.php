@@ -49,5 +49,5 @@
 	</div>
 </div>
 <div class="text-center">
-	{{ $users->appends(['active_tab' => 'admin'])->links()}}
+	{{ $users->appends(['active_tab' => $active_tab])->links()}}
 </div>
