@@ -133,11 +133,8 @@
 
                     {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
                     @if($remaining_cards > 100)
+                        <input type="hide" name="blank_cards" value="100" class="hide">
                         <div class="row">
-                          <div class="col-xs-2">
-                            <input type="hide" name="blank_cards" value="100" class="hide">
-                          </div>
-                         
                           <div class="col-xs-2">
                           {{Form::select('nombre_puesto',array(
                                                               'Asesor en Retiro' => 'Asesor en Retiro',
