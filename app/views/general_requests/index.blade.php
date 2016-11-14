@@ -70,7 +70,7 @@
 		<div class="row">
 
 			<ul class="nav nav-tabs">
-				@if(Auth::user() == 'manager')
+				@if(Auth::user()->role == 'manager')
 					<li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
 						<a href="{{action('UserRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
 					</li>
