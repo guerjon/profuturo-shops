@@ -6,9 +6,6 @@ class AdminBusinessCardsController extends BaseController{
 
   public function index()
   {
-
-
-
     $active_tab = Input::get('active_tab','untrashed');
 
     $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
@@ -77,12 +74,14 @@ class AdminBusinessCardsController extends BaseController{
             }
           });
         })->download('xls');
+    }else{
+        return View::make('admin::business_cards.index')
+        ->withCards($cards->paginate(50))
+        ->withGerencias($gerencias)
+        ->withActiveTab($active_tab);  
     }
 
-    return View::make('admin::business_cards.index')
-      ->withCards($cards->paginate(50))
-      ->withGerencias($gerencias)
-      ->withActiveTab($active_tab);
+    
   }
 
   public function create()

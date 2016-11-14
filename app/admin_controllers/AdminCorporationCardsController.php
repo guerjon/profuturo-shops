@@ -30,6 +30,42 @@ class AdminCorporationCardsController extends AdminBaseController
 		  $cards->whereNull('deleted_at');
 		}
 
+	    if (Input::has('excel')) {
+	      $headers = 
+	        [
+				"numero_empleado",
+				"nombre_empleado",
+				"nombre_puesto",
+				"linea_negocio",
+				"web",
+				"ccosto",
+				"gerencia",
+				"direccion"
+	        ];
+	        
+	        $datetime = \Carbon\Carbon::now()->format('YmdHi');
+
+	        $cards = $cards->get();
+	        Excel::create('tarjetas_activas', function($excel) use($cards,$headers){
+	          $excel->sheet('tarjetas',function($sheet)use($cards,$headers){
+	            $sheet->appendRow($headers);
+	            foreach ($cards as $card) {
+	              $sheet->appendRow([
+	                $card->no_emp,
+	                $card->nombre,
+	                $card->nombre_puesto,
+	                $card->linea_negocio,
+	                $card->web,
+	                $card->ccosto,
+	                $card->gerencia,
+	                $card->direccion
+	              ]);
+	            }
+	          });
+	        })->download('xls');
+	    }
+
+
 		return View::make('admin::corporation_cards.index')
 			->withCards($cards->paginate(10))
 			->withActiveTab($active_tab)

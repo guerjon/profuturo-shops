@@ -12,12 +12,19 @@
 			<li><a href="/">Inicio</a></li>
 			<li class="active">Tarjetas Corporativo</li>
 		</ol>
-		
 			<h1>Tarjetas corporativo</h1>
 		</div>
 		<div class="col-xs-4">
 		</div>
-		<div class="col-xs-2">
+		<div class="col-xs-1">
+			{{Form::open(['method' => 'get','id' => 'cards-excel-form'])}}
+				<button class="btn btn-primary" type="button" id="cards-excel-button">
+					Descargar
+				    <span class="fa fa-download"></span>
+				</button>
+			{{Form::close()}}						
+		</div>
+		<div class="col-xs-1">
 			<a href="{{action("AdminUploadsController@corporationUploads")}}" class="btn btn-primary">
 				<i class="glyphicon glyphicon-folder-open" aria-hidden="true"></i>
 				Cargas
@@ -178,4 +185,17 @@
 		</div>
 	@endif
 
+@endsection
+
+@section('script')
+  <script>
+    $(function(){
+      $('#cards-excel-button').click(function(){
+          var form = $('#cards-excel-form');
+          form.append('<input name="excel" value="1" type="hidden" id="input-hidden">');
+          form.submit();
+      });
+
+    });
+  </script>
 @endsection

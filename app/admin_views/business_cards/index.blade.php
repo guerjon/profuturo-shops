@@ -16,7 +16,7 @@
     <div class="col-xs-1">
       {{Form::open(['method' => 'get','id' => 'cards-excel-form'])}}
         <button class="btn btn-primary" type="button" id="cards-excel-button">
-            Usuarios activos
+            Descargar
             <span class="fa fa-download"></span>
         </button>
       {{Form::close()}}
