@@ -68,19 +68,35 @@
 		</div>
 		<hr>	
 		<div class="row">
+
 			<ul class="nav nav-tabs">
-				<li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
-					<a href="{{action('UserRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
-				</li>
-				<li role="presentation" class="{{$active_tab == 'in_process' ?  'active' : ''}}">
-					<a href="{{action('UserRequestsController@index',['active_tab' =>'in_process'])}}">En proceso</a> 
-				</li>
-				<li role="presentation" class="{{$active_tab == 'concluded' ? 'active' : ''}}">
-					<a href="{{action('UserRequestsController@index',['active_tab' =>'concluded'])}}">Concluidas</a> 
-				</li> 
-				<li role="presentation" class="{{$active_tab == 'canceled' ? 'active' : ''}}">
-					<a href="{{action('UserRequestsController@index',['active_tab' =>'canceled'])}}">Canceladas</a> 
-				</li>
+				@if(Auth::user() == 'manager')
+					<li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
+						<a href="{{action('UserRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
+					</li>
+					<li role="presentation" class="{{$active_tab == 'in_process' ?  'active' : ''}}">
+						<a href="{{action('UserRequestsController@index',['active_tab' =>'in_process'])}}">En proceso</a> 
+					</li>
+					<li role="presentation" class="{{$active_tab == 'concluded' ? 'active' : ''}}">
+						<a href="{{action('UserRequestsController@index',['active_tab' =>'concluded'])}}">Concluidas</a> 
+					</li> 
+					<li role="presentation" class="{{$active_tab == 'canceled' ? 'active' : ''}}">
+						<a href="{{action('UserRequestsController@index',['active_tab' =>'canceled'])}}">Canceladas</a> 
+					</li>
+				@else
+					<li role="presentation" class="{{$active_tab == 'all' ?  'active' : ''}}">
+						<a href="{{action('GeneralRequestsController@index',['active_tab' =>'all'])}}">Todas</a> 
+					</li>
+					<li role="presentation" class="{{$active_tab == 'in_process' ?  'active' : ''}}">
+						<a href="{{action('GeneralRequestsController@index',['active_tab' =>'in_process'])}}">En proceso</a> 
+					</li>
+					<li role="presentation" class="{{$active_tab == 'concluded' ? 'active' : ''}}">
+						<a href="{{action('GeneralRequestsController@index',['active_tab' =>'concluded'])}}">Concluidas</a> 
+					</li> 
+					<li role="presentation" class="{{$active_tab == 'canceled' ? 'active' : ''}}">
+						<a href="{{action('GeneralRequestsController@index',['active_tab' =>'canceled'])}}">Canceladas</a> 
+					</li>
+				@endif
 			</ul>
 		</div>
 		<div class="row">
