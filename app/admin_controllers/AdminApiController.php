@@ -2235,7 +2235,6 @@ class AdminApiController extends AdminBaseController
 					]);	
 
 				}
-				Log::debug("termina el for");
 			  });
 			})->download('xlsx');			
 			

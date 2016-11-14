@@ -33,6 +33,50 @@ class AdminBusinessCardsController extends BaseController{
     }
 
 
+
+    if (Input::has('excel')) {
+      $headers = 
+        [
+          "numero_empleado",
+          "nombre_empleado",
+          "ccosto",
+          "nombre_ccosto",
+          "nombre_puesto",
+          "fecha_ingreso",
+          "web",
+          "gerencia",
+          "direccion",
+          "telefono",
+          "celular",
+          "email"
+        ];
+        
+        $datetime = \Carbon\Carbon::now()->format('YmdHi');
+
+        $cards = $cards->get();
+        Excel::create('tarjetas_activas', function($excel) use($cards,$headers){
+          $excel->sheet('tarjetas',function($sheet)use($cards,$headers){
+            $sheet->appendRow($headers);
+            foreach ($cards as $card) {
+              $sheet->appendRow([
+                $card->numero_empleado,
+                $card->nombre_empleado,
+                $card->ccosto,
+                $card->nombre_ccosto,
+                $card->nombre_puesto,
+                $card->fecha_ingreso,
+                $card->web,
+                $card->gerencia,
+                $card->direccion,
+                $card->telefono,
+                $card->celular,
+                $card->email                
+              ]);
+            }
+          });
+        })->download('xls');
+    }
+
     return View::make('admin::business_cards.index')
       ->withCards($cards->paginate(50))
       ->withGerencias($gerencias)

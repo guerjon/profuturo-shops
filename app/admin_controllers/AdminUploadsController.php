@@ -30,4 +30,6 @@ class AdminUploadsController extends AdminBaseController{
 		return Response::download(storage_path().'/plantilla_tarjetas_corporativo.xlsx');
 	}
 
+	
+
 }

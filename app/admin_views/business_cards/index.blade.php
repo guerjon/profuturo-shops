@@ -10,12 +10,23 @@
     <li><a href="/">Inicio</a></li>
     <li class="active">Tarjetas de Presentación</li>
   </ol>
-
-<div class="text-right">
-  <a href="{{action('AdminUploadsController@paperUploads')}}" class="btn btn-primary">
-    Cargas <span class="glyphicon glyphicon-folder-open"></span>
-  </a>
-</div>
+  
+  <div class="row">
+    <div class="col-xs-10"></div>  
+    <div class="col-xs-1">
+      {{Form::open(['method' => 'get','id' => 'cards-excel-form'])}}
+        <button class="btn btn-primary" type="button" id="cards-excel-button">
+            Usuarios activos
+            <span class="fa fa-download"></span>
+        </button>
+      {{Form::close()}}
+    </div>
+    <div class="col-xs-1">
+      <a href="{{action('AdminUploadsController@paperUploads')}}" class="btn btn-primary">
+        Cargas <span class="glyphicon glyphicon-folder-open"></span>
+      </a>            
+    </div>
+  </div>
 
 <br>
     <div class="" style="margin: 20px inherit">
@@ -164,3 +175,16 @@
 @endif
 
 @stop
+
+@section('script')
+  <script>
+    $(function(){
+      $('#cards-excel-button').click(function(){
+          var form = $('#cards-excel-form');
+          form.append('<input name="excel" value="1" type="hidden" id="input-hidden">');
+          form.submit();
+      });
+
+    });
+  </script>
+@endsection
