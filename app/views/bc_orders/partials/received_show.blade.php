@@ -86,9 +86,6 @@
 						<td>
 							Tarjetas blancas
 						</td>
-						<td>
-							{{$blank_card->quantity}}
-						</td>
 					</tr>
 				@endif
 				@if($bc_order->extra)

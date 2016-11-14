@@ -11,9 +11,6 @@
         Nombre de empleados
       </th>
       <th>
-        Cantidad
-      </th>
-      <th>
         Inmueble
       </th>
       <th>
@@ -36,9 +33,6 @@
     <tr>
       <td>
         {{$card->nombre}}
-      </td>
-      <td>
-        {{$card->pivot->quantity}}
       </td>
       <td>
         {{$card->pivot->inmueble}}
@@ -64,9 +58,6 @@
   <table class="table table-striped">
     <thead>
       <th>
-        Cantidad
-      </th>
-      <th>
         Nombre de puesto
       </th>
       <th>
@@ -88,11 +79,6 @@
 
     <tbody>    
       <tr>
-
-        <td>
-          {{$blank_card->quantity}}
-        </td>
-
         <td>
           {{$blank_card->nombre_puesto}}
         </td>
@@ -123,9 +109,6 @@
            {{$bc_order->extra->talento_nombre}}
         </td>
         <td>
-         {{$card->pivot->quantity}}
-        </td>
-        <td>
           {{Form::select("talento_estatus",['Incompleto', 'Completo'],$bc_order->extra->talento_estatus , ['class' => 'form-control'])}}
         </td>
         <br>
@@ -137,9 +120,6 @@
     <tr> 
         <td>
            {{$bc_order->extra->gerente_nombre}}
-        </td>
-        <td>
-          {{$card->pivot->quantity}}
         </td>
         <td>
           {{Form::select("gerente_estatus",['Incompleto', 'Completo'],$bc_order->extra->gerente_estatus, ['class' => 'form-control'])}}
