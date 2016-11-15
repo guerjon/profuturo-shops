@@ -13,9 +13,11 @@
             'id'     => 'form',
         ])}}
  --}}            
-            @foreach($talentos as $talento)
-                <input type="hidden" class="hidden" name="talentos[]" value="{{$talento}}">  
-            @endforeach
+            @if(sizeof($talentos) > 0)
+              @foreach($talentos as $talento)
+                  <input type="hidden" class="hidden" name="talentos[]" value="{{$talento}}">  
+              @endforeach
+              @endif
   
             <table class="table table-striped">
                 <thead>
