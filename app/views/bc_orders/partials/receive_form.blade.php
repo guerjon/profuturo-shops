@@ -6,43 +6,79 @@
 <table class="table table-striped">
 
   <thead>
-    <tr>
-      <th>
-        Nombre de empleados
-      </th>
-      <th>
-        Inmueble
-      </th>
-      <th>
-        Telefono
-      </th>
-      <th>
-        Celular
-      </th>
-      <th>
-        Estatus
-      </th>
-      <th>
-        Comentarios
-      </th>
-    </tr>
+        <tr>
+          <th>
+            Nombre de empleado
+          </th>
+          <th>
+            Número de empleado
+          </th>
+          <th>
+            CCosto
+          </th>
+          <th>
+            Puesto
+          </th>
+          <th>
+            Gerencia  
+          </th>
+          <th style="max-width:150px">
+            Dirección
+          </th>
+          <th style="max-width:150px">
+            Dirección alternativa
+          </th>
+          <th>
+            Telefono
+          </th>
+          <th>
+            Celular
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+            Web
+          </th>
+        </tr>
   </thead>
 
   <tbody>
     @foreach($bc_order->business_cards as $card)
     <tr>
-      <td>
-        {{$card->nombre}}
-      </td>
-      <td>
-        {{$card->pivot->inmueble}}
-      </td>
-      <td>
-        {{$card->telefono}}
-      </td>
-      <td>
-        {{$card->celular}}
-      </td>
+        <td>
+          {{$card->nombre}}
+        </td>
+        <td>
+          {{$card->no_emp}}
+        </td>
+        <td>
+          {{$card->ccosto}}
+        </td>
+        <td>
+          {{$card->nombre_puesto}}
+        </td>
+        <td>
+          {{$card->gerencia}}
+        </td>
+        <td style="max-width:150px">
+          {{$card->direccion}}
+        </td>
+        <td style="max-width:150px">
+          {{$card->direccion_alternativa}}
+        </td>
+        <td>
+          {{$card->telefono}}
+        </td>
+        <td>
+          {{$card->celular}}
+        </td>
+        <td>
+          {{$card->email}}
+        </td>
+        <td>
+          {{$card->web}}
+        </td>
       <td>
         {{Form::select("card[{$card->id}][status]",['Incompleto', 'Completo'], $card->pivot->status, ['class' => 'form-control'])}}
       </td>
