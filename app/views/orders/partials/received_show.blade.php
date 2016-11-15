@@ -1,5 +1,18 @@
 <table class="table table-striped">
 
+<div class="well">
+  <ul>
+    <li>
+      Pedido recibido el día {{$order->updated_at->format('d-m-Y')}}    
+    </li>
+    <li>
+      Dirección : {{$order->user ? ($order->user->address ? $order->user->address->domicilio : 'N/A') : 'N/A'}}
+    </li>
+    {{$order->receive_comments}}   
+  </ul>
+</div>
+
+
   <thead>
     <tr>
       <th>
@@ -27,8 +40,3 @@
 
 </table>
 
-<div class="well">
-  {{$order->receive_comments}}
-  <br>
-  Pedido recibido el día {{$order->updated_at->format('d-m-Y')}}
-</div>

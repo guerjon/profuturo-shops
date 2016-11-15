@@ -1,3 +1,11 @@
+<div class="well">
+  <ul>
+    <li>
+      Dirección : {{$order->user ? ($order->user->address ? $order->user->address->domicilio : 'N/A') : 'N/A'}}
+    </li>
+  </ul>
+</div>
+  
 {{Form::open([
   'action' => ['OrdersController@postReceive', $order->id],
   ])}}
@@ -62,8 +70,6 @@
 
 </div>
     
-
-
 <div class="form-group">
 
   {{Form::textarea('receive_comments', $order->receive_comments, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la entrega', 'rows' => 3])}}
