@@ -20,9 +20,8 @@ class CorporationOrdersController extends \BaseController {
     $today = \Carbon\Carbon::today();
     $access = DateCorporation::where('since','<=',$today)->where('until','>=',$today)->count();
 
-    \Log::debug($access);
-    if($access <= 0)
-      return Redirect::to('carrito-corporativo')->withWarning('Actualmente no se tiene permitido el envio productos, intente mas tarde.');
+    // if($access <= 0)
+    //   return Redirect::to('carrito-corporativo')->withWarning('Actualmente no se tiene permitido el envio productos, intente mas tarde.');
 
 
     if(Auth::user()->cart_corporation->count() == 0)

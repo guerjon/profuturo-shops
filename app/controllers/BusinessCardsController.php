@@ -19,6 +19,7 @@ class BusinessCardsController extends BaseController{
     ->lists('bc_orders.created_at', 'id');
 
     $access = false;
+
     $divisional_id = Auth::user()->divisional ? Auth::user()->divisional->id : 0;
 
     $dates = DB::table('divisionals_users')
@@ -45,7 +46,7 @@ class BusinessCardsController extends BaseController{
 
     
     $access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
-    
+    $access = true;
     
     $cards = Auth::user()->businessCards()->orderBy('no_emp');
   

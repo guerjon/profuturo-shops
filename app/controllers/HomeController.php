@@ -66,8 +66,9 @@ class HomeController extends BaseController {
 		}
 
 	
-		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
-		
+		//$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+		$access = true;
+
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		
 		return View::make('pages.cart')->withAccess($access)->withUser($user);
@@ -125,7 +126,8 @@ class HomeController extends BaseController {
 		}
 
 
-		$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+		//$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+		$access = true;
 
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		return View::make('pages/cart_training')

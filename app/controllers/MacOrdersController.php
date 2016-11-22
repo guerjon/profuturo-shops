@@ -22,8 +22,8 @@ class MacOrdersController extends \BaseController {
     $access = DateMac::where('since','<=',$today)->where('until','>=',$today)->count();
 
     
-    if($access <= 0)
-      return Redirect::to('carrito-mac')->withWarning('Actualmente no se tiene permitido el envio productos, intente mas tarde.');
+    // if($access <= 0)
+    //   return Redirect::to('carrito-mac')->withWarning('Actualmente no se tiene permitido el envio productos, intente mas tarde.');
 
 
     if(strcmp(Input::get('domicilio_original'),Input::get('posible_cambio')) != 0){

@@ -45,9 +45,10 @@ class CorporationBusinessCardsController extends BaseController{
     }
 
     
-    $access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+    //$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
     
     $access = true;
+      
     $cards = Auth::user()->businessCards()->orderBy('no_emp');
   
     return View::make('corporation_business_cards.index')
