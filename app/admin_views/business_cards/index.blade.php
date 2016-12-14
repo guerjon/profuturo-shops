@@ -109,6 +109,9 @@
               Telefono
             </th>
             <th>
+              Linea de negocio
+            </th>
+            <th>
 
             </th>
           </tr>
@@ -139,6 +142,9 @@
             </td>
             <td>
               {{$card->telefono}}
+            </td>
+            <td>
+              {{$card->linea_negocio}}
             </td>
             <td>
               {{Form::open([
