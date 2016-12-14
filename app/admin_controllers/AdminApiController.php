@@ -2164,12 +2164,11 @@ class AdminApiController extends AdminBaseController
 	  		$solicitudes->where('general_requests.id','=',Input::get('encuesta'));
 
 
-		$solicitudes->where('satisfaction_surveys.created_at','>=',$since);	
-		$solicitudes->where('satisfaction_surveys.created_at','<=',$until);
+		$solicitudes->where('general_requests.created_at','>=',$since);	
+		$solicitudes->where('general_requests.created_at','<=',$until);
 
 		$solicitudes = $solicitudes->get();
 
-		\Log::debug($solicitudes);
 		foreach ($solicitudes as $solicitud) {
 			$questions = [
 				$solicitud->question_one,
@@ -2216,7 +2215,6 @@ class AdminApiController extends AdminBaseController
 				$sheet->appendRow($headers);
 				
 				foreach ($solicitudes as $solicitud) {
-					Log::debug($solicitud);
 					$sheet->appendRow([
 						$solicitud->general_request_id,
 						$this->calculateResult($solicitud->question_one,1),
@@ -2239,7 +2237,6 @@ class AdminApiController extends AdminBaseController
 			})->download('xlsx');			
 			
 		}
-
 	}
 
   public function getCcostosAutocomplete()

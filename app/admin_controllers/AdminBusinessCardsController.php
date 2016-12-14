@@ -147,6 +147,7 @@ class AdminBusinessCardsController extends BaseController{
                 'telefono' => $row->telefono ? $row->telefono : 'N/A',
                 'celular' => $row->celular ? $row->celular : 'N/A',
                 'email' => $row->email ? $row->email : 'N/A',
+                'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
               ]);
               if($card){
                 $created++;
@@ -170,6 +171,7 @@ class AdminBusinessCardsController extends BaseController{
                 'telefono' => $row->telefono ? $row->telefono : 'N/A',
                 'celular' => $row->celular ? $row->celular : 'N/A',
                 'email' => $row->email ? $row->email : 'N/A',
+                'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
               ]);
 
               if ($card->isDirty()) {

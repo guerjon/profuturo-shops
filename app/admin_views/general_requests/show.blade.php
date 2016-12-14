@@ -68,7 +68,10 @@
                             Destino: <b>{{$general->project_dest}} </b>
                         </div>
                         <div class="col-xs-6 col-xs-offset-3 well">
-                            Fecha: <b>{{$general->project_date->format('d-m-Y')}}</b>
+                            Fecha de solicitud: <b>{{$general->created_at->format('d-m-Y')}}</b> 
+                        </div>
+                        <div class="col-xs-6 col-xs-offset-3 well">
+                            Fecha de proyecto: <b>{{$general->project_date->format('d-m-Y')}}</b>
                         </div>
                         <div class="col-xs-6 col-xs-offset-3 well">
                             Fecha de entrega:<b> {{$general->deliver_date->format('d-m-Y')}}</b>
