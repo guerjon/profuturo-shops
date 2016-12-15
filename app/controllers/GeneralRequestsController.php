@@ -23,7 +23,7 @@ class GeneralRequestsController extends BaseController{
                           ->where('user_id',Auth::user()->id)
                           ->count();                
 
-    $access = $surveys_answered  >= $access ? true : false;
+    $access = $surveys_answered  == $access ? true : false;
 
 
     $requests = GeneralRequest::

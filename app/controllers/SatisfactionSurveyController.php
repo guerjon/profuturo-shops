@@ -27,11 +27,17 @@ class SatisfactionSurveyController extends BaseController{
 
 	public function postQuestions($id)
 	{	
-		//Despues de contestar la encuesta la creamos
-		$survey = new SatisfactionSurvey(Input::all());
-		//le asignamos el general_request de donde viene
-		$survey->general_request_id = $id;
+		$survey = SatisfactionSurvey::where('general_request_id',$id)->first();
+		if($survey){
+			$survey->fill(Input::all());
 
+		}else{
+			$survey = new SatisfactionSurvey(Input::all());
+			$survey->general_request_id = $id;
+		}
+		//Despues de contestar la encuesta la creamos
+		
+		//le asignamos el general_request de donde viene
 		if($survey->save()){
 			return Redirect::action('GeneralRequestsController@index')->withSuccess('La encuesta se guardo correctamente, gracias.')->withSatisfactionSurvey($survey);
 		}else{
