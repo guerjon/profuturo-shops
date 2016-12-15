@@ -52,11 +52,11 @@ class AuthController extends BaseController
       if(Auth::attempt($credentials)){
         return Redirect::intended('/');
       }else{
-        return Redirect::to(action('AuthController@getAdminLogin'))->withErrors('El centro de costos o contraseña son invalidos', 'login');
+        return Redirect::to(action('AuthController@getAdminLogin'))->withErrors('El centro de costos o contraseña son invalidos');
       }
 
     }else{
-      return Redirect::to(action('AuthController@getAdminLogin'))->withErrors($validator->messages(), 'login');
+      return Redirect::to(action('AuthController@getAdminLogin'))->withErrors('El centro de costos o contraseña son invalidos');
     }
   }
 

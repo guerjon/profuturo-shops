@@ -16,13 +16,19 @@ class GeneralRequestsController extends BaseController{
                     ->where('general_requests.status',10)
                     ->count();
 
+    
     $surveys_answered = DB::table('general_requests')
                           ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
                           ->where('user_id',Auth::user()->id)
                           ->count();                
-                    
+    $surveys_answered = DB::table('general_requests')
+                          ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
+                          ->where('user_id',Auth::user()->id)->get();
 
-    $access = $access  == $surveys_answered ? true : false;
+
+    $access = $surveys_answered  >= $access ? true : false;
+
+
 
     $requests = GeneralRequest::
       join('general_request_products','general_request_products.general_request_id','=','general_requests.id')
@@ -33,20 +39,6 @@ class GeneralRequestsController extends BaseController{
           sum(general_request_products.unit_price) as total
           
         '))->where('user_id',Auth::id())->orderBy('rating')->groupBy('general_requests.id');
-
-      // if($active_tab == 'assigned'){
-      //     $requests->whereNotNull('manager_id');
-      // }elseif($active_tab == 'not_assigned'){
-      //   $requests->where('manager_id',null);
-
-      // }elseif($active_tab == 'deleted_assigned'){
-      //   $requests->whereNotNull('manager_id')->onlyTrashed();
-
-      // }elseif($active_tab == 'deleted_unassigned'){
-      //   $requests->whereNull('manager_id')->onlyTrashed();
-      // }elseif($active_tab == 'finished'){
-      //   $requests->where('status',10);
-      // }
 
         if($active_tab == 'in_process'){
             $requests->where('status','>',0)->where('status','<',10);
