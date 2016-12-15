@@ -23,7 +23,7 @@ class GeneralRequestsController extends BaseController{
                           ->count();                
     
 
-    $access = $surveys_answered  > $access ? true : false;
+    $access = $surveys_answered  >= $access ? true : false;
 
 
     $requests = GeneralRequest::
