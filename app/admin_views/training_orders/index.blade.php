@@ -92,7 +92,7 @@
                 {{$order->user->gerencia}}
               </td>
               <td>
-                @if($order->training_ccosto >= 800000 and $order->training_ccosto < 800011)
+                @if($order->training_ccosto >= 800000 and $order->training_ccosto <= 800011)
                   {{Lang::get('sedes.'.$order->training_ccosto) }}
                 @else
                   {{$order->training_ccosto}}
@@ -120,7 +120,7 @@
                 @endif
               </td>
               <td>                
-                @if($order->training_ccosto >= 800000 and $order->training_ccosto < 800011)
+                @if($order->training_ccosto >= 800000 and $order->training_ccosto <= 800011)
                   {{Lang::get('direcciones_sedes.'.$order->training_ccosto) }}
                 @else
                   {{"N/A"}}
