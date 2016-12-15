@@ -21,13 +21,9 @@ class GeneralRequestsController extends BaseController{
                           ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
                           ->where('user_id',Auth::user()->id)
                           ->count();                
-    $surveys_answered = DB::table('general_requests')
-                          ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
-                          ->where('user_id',Auth::user()->id)->get();
+    
 
-
-    $access = $surveys_answered  >= $access ? true : false;
-
+    $access = $surveys_answered  > $access ? true : false;
 
 
     $requests = GeneralRequest::
