@@ -11,11 +11,7 @@
     <li class="active">Pedidos capacitaciones</li>
   </ol>
 
-  @if($orders->count() == 0)
-    <div class="alert alert-info">
-      No se encontraron pedidos aún. 
-    </div>
-  @else
+ 
 
     {{Form::open([
     'method' => 'GET',
@@ -24,13 +20,9 @@
     
       <div class="row text-center">
         <div class="col col-xs-2">
-          {{Form::label('ccosto','CCOSTOS')}}
-          {{Form::select('ccosto', [NULL => 'Todos los CCOSTOS'] + User::where('role','!=','admin')->lists('ccosto','ccosto'), Input::get('ccosto'), 
+          {{Form::label('ccosto','SEDES')}}
+          {{Form::select('ccosto', [NULL => 'Todos las sedes'] + Lang::get('sedes'), Input::get('ccosto'), 
           ['id' =>'select-ccostos-bc-orders','class' => 'form-control'])}}
-        </div>
-        <div class="col col-xs-2">
-          {{Form::label('gerencia','GERENCIA')}}
-          {{Form::select('gerencia', [NULL => 'Todas las gerencias'] + $gerencias, Input::get('gerencia'), ['class' => 'form-control'])}}
         </div>
         <div class="col col-xs-2">
             {{Form::label('until','DESDE')}}
@@ -38,37 +30,40 @@
         </div>
         <div class="col col-xs-2">
           {{Form::label('to','HASTA')}}
-          {{Form::text('to',\Carbon\Carbon::now('America/Mexico_City')->addDay(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'to' ])}}
+          {{Form::text('to',\Carbon\Carbon::now('America/Mexico_City')->addMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'to' ])}}
         </div>
 
         <div class="col col-xs-2">
           <br>  
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" id="filtrar">
             <span class="glyphicon glyphicon-filter"></span> Filtrar
           </button>     
           <button class="btn btn-primary btn-submit" style="float:right">
-            <span class="glyphicon glyphicon-download-alt"></span> Excel
+            <span class="glyphicon glyphicon-download-alt" id="excel"></span> Excel
           </button>
         </div>
       </div>
 
     {{Form::close()}}
-    
+    <hr>
+  @if($orders->count() == 0)
+    <div class="alert alert-info">
+      No se encontraron pedidos aún. 
+    </div>
+  @else
     <div class="container-fluid">
       <table class="table table-striped">
         <thead>
           <tr>
-
-             <th>
-            Gerencia
+            <th>
+              Gerencia
             </th>
             <th>
-              Centro de costos
+              Sedes
             </th>
             <th>
               No. pedido
             </th>
-
             <th>
               Comentarios
             </th>
@@ -87,7 +82,6 @@
             <th>
              Acciones
             </th>
-            
           </tr>
         </thead>
 
@@ -98,7 +92,11 @@
                 {{$order->user->gerencia}}
               </td>
               <td>
-                {{$order->training_ccosto}}
+                @if($order->training_ccosto >= 800000)
+                  {{Lang::get('sedes.'.$order->training_ccosto) }}
+                @else
+                  {{$order->training_ccosto}}
+                @endif
               </td>
               <td>
                 {{link_to_action('AdminTrainingOrdersController@show', $order->order_id, [$order->order_id])}}
@@ -122,11 +120,10 @@
                 @endif
               </td>
               <td>                
-                 {{$order->user->address ? $order->user->address->domicilio : "N/A"}}
-                @if($order->user->address ? ($order->user->address->posible_cambio != null) : false )
-                  <button data-id="{{$order->user->address->id}}" data-domicilio="{{$order->user->address->domicilio}}" data-posible-cambio="{{$order->user->address->posible_cambio}}" class="btn btn-primary btn-xs cambio" id="cambio">
-                    Ver cambio domicilio
-                  </button>
+                @if($order->training_ccosto >= 800000)
+                  {{Lang::get('direcciones_sedes.'.$order->training_ccosto) }}
+                @else
+                  {{"N/A"}}
                 @endif
               </td>
               <td>
@@ -183,7 +180,12 @@
       });
 
       $('.btn-submit').click(function(){
-        $('#form-training-filter').append("<input name='export' value='xls' class='hide'>");
+        $('#form-training-filter').append("<input name='export' value='xls' class='hide' id='hidden-excel'>");
+        $('#form-training-filter').submit();
+      });
+      $('#filtrar').click(function(event){
+        event.preventDefault();
+        $('#hidden-excel').remove();
         $('#form-training-filter').submit();
       });
     });

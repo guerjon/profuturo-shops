@@ -102,18 +102,21 @@
 						<div class="row">
 							<div class="col col-xs-6">
 								<div class="form-group">
-									{{Form::label('ccosto','COMENTARIOS')}}
-									{{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
-								</div>
-							</div>
-							<div class="col col-xs-6">
-								<div class="form-group">
-									{{Form::label('ccosto','CCOSTO')}}
-									{{Form::select('ccosto',User::lists('ccosto','ccosto'),null,['class' => 'form-control','id' => 'ccosto'])}}
+									{{Form::label('ccosto','Sede')}}
+									
+									{{Form::select('ccosto', [null => 'Seleccione una sede'] + Lang::get('sedes'),null,['class' => 'form-control','id' => 'ccosto','required'])}}
 								</div>    
 							</div>               
+							<div class="col col-xs-6">
+								<div class="form-group">
+									{{Form::label('ccosto','COMENTARIOS SOBRE LA ORDEN')}}
+									{{Form::text('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden'])}}
+								</div>
+							</div>
+
 						</div>
-					<div class="form-group text-right">
+						<hr>
+					<div class="form-group text-center">
 						<button type="submit" class="btn btn-warning btn-confirm" >Enviar pedido</button>
 					</div>
 					{{Form::close()}}

@@ -5,6 +5,7 @@ class AdminTrainingOrdersController extends BaseController
 
   public function index()
   {
+
     if(Input::get('export') == 'xls'){
       $query = DB::table('users')->select('*','training_orders.ccosto as ccostos','users.gerencia as gerencia','training_orders.id as order_id','training_orders.created_at as order_created_at')
                 ->join('training_orders','training_orders.user_id','=','users.id')
@@ -15,16 +16,17 @@ class AdminTrainingOrdersController extends BaseController
       $query = $this->filters($query);
     
       $q = clone $query;
-      $headers = ['NOMBRE_CC','CCOSTOS','NO_PEDIDO','COMENTARIOS','CREADO','STATUS','DIRECCIÓN'];
+      $headers = ['NOMBRE_CC','SEDE','NO_PEDIDO','COMENTARIOS','CREADO','STATUS','DIRECCIÓN'];
       $result = [$headers];
 
       foreach ($query->get() as $item) {
       $itemArray = [];
       $itemArray['NOMBRE_CC']    = $item->gerencia;
-      $itemArray['CCOSTOS']     = $item->ccosto;
+      $itemArray['SEDE']     = Lang::trans('sedes.'.$item->ccosto); 
       $itemArray['NO_PEDIDO']   = $item->order_id;
       $itemArray['COMENTARIOS'] = $item->comments;
       $itemArray['CREADO']      = $item->order_created_at;
+
 
       if($item->status == 0){
           $itemArray['ESTATUS'] = 'PENDIENTE';
@@ -36,7 +38,7 @@ class AdminTrainingOrdersController extends BaseController
         $itemArray['ESTATUS'] = 'Recibido incompleto';
       }
 
-      $itemArray['DIRECCION'] = $item->domicilio;  
+      $itemArray['DIRECCION'] = Lang::trans('direcciones_sedes.'.$item->ccosto);  
       $result[] = $itemArray;
 
       }
@@ -59,7 +61,9 @@ class AdminTrainingOrdersController extends BaseController
 
       $orders = $this->filters($orders);
    
-    return View::make('admin::training_orders.index')->withOrders($orders->paginate(10))->withGerencias($gerencias);
+    return View::make('admin::training_orders.index')
+      ->withOrders($orders->paginate(10))
+      ->withGerencias($gerencias);
   }
 
   public function show($order_id)
@@ -84,7 +88,7 @@ class AdminTrainingOrdersController extends BaseController
   }
 
   private function filters($query){
-      
+    
       if(Input::has('ccosto'))
          $query->where('training_orders.ccosto','like','%'.Input::get('ccosto').'%');
 

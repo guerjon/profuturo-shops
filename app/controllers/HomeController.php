@@ -125,8 +125,6 @@ class HomeController extends BaseController {
 			$last_order = 1;			
 		}
 
-
-		//$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
 		$access = true;
 
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
