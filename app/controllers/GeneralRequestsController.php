@@ -14,6 +14,7 @@ class GeneralRequestsController extends BaseController{
     $access = DB::table('general_requests')
                     ->where('user_id',Auth::user()->id)
                     ->where('general_requests.status',10)
+                    ->where('deleted_at',null)
                     ->count();
 
     
@@ -21,7 +22,6 @@ class GeneralRequestsController extends BaseController{
                           ->join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
                           ->where('user_id',Auth::user()->id)
                           ->count();                
-    
 
     $access = $surveys_answered  >= $access ? true : false;
 
