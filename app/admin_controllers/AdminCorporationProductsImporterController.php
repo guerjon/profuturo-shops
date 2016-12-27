@@ -43,23 +43,6 @@ class AdminCorporationProductsImporterController  extends AdminBaseController {
             'max_stock' => $row->max_stock_mensual, 
             'measure_unit' => $row->unidad_de_medida 
             ]);
-          // $img = $row->descripcion_profuturo.'.png';
-          // $path = storage_path('imgs_furnitures')."/$img"; 
-          // if(file_exists($path) and copy($path, $img)){
-          //   // $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);
-          //   $file = new Symfony\Component\HttpFoundation\File\File($img);
-          // }else{
-          //   $img = "no_disponible.png";
-          //   $path = storage_path('imgs_furnitures')."/$img";
-          //   if(copy($path, $img)){
-          //     // $file = new Symfony\Component\HttpFoundation\File\UploadedFile($img, $img, 'image/png', filesize($img), NULL, TRUE);  
-          //     $file = new Symfony\Component\HttpFoundation\File\File($img);  
-          //   }else{
-          //     $file = null;
-          //   }
-            
-          // }
-          // $corporation_product->image = $file;
       
           if(!$corporation_product->exists and $corporation_product->save()){
               $created++;  

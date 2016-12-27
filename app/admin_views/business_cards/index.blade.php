@@ -135,7 +135,7 @@
               {{$card->gerencia}}
             </td>
             <td>
-              {{ $card->fecha_ingreso ? \Carbon\Carbon::createFromFormat('Y-m-d', $card->fecha_ingreso)->format('d/m/Y') : 'N/A'}}
+              {{ $card->fecha_ingreso }}
             </td>
             <td>
               {{$card->inmueble}}
