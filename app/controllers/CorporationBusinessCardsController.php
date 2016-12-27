@@ -49,7 +49,7 @@ class CorporationBusinessCardsController extends BaseController{
     
     $access = true;
       
-    $cards = Auth::user()->businessCards()->orderBy('no_emp');
+    $cards =  BusinessCard::where('type','corporation')->orderBy('no_emp');
   
     return View::make('corporation_business_cards.index')
       ->withCards($cards->get())
