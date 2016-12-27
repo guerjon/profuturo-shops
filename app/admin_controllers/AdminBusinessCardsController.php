@@ -130,7 +130,7 @@ class AdminBusinessCardsController extends BaseController{
         $sheet->each(function($row)use(&$created, &$updated){
 
           if($row->numero_empleado != '' && $row->numero_empleado != null){
-            
+            dd($row->fecha_ingreso);
             $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
             try {
               if(!$card){
@@ -187,7 +187,7 @@ class AdminBusinessCardsController extends BaseController{
           }
         });
       });
-    });
+    })->formatDates(false);
     
     $upload->cards_created = $created;
     $upload->cards_updated = $updated;
