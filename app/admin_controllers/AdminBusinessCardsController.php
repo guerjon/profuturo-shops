@@ -169,7 +169,7 @@ class AdminBusinessCardsController extends BaseController{
                   'web' => $row->web ? $row->web : 'N/A',
                   'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
                   'direccion' => $row->direccion ? $row->direccion : 'N/A',
-                  'telefono' => $row->telefono ? $row->telefono : 'N/A',
+                  'telefono' => $card->telefono == '5555 5555' ? $row->telefono : $card->telefono,
                   'celular' => $row->celular ? $row->celular : 'N/A',
                   'email' => $row->email ? $row->email : 'N/A',
                   'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
