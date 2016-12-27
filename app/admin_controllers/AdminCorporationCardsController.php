@@ -112,8 +112,6 @@ class AdminCorporationCardsController extends AdminBaseController
 	      $reader->each(function($sheet)use(&$created, &$updated){
 	        $sheet->each(function($row)use(&$created, &$updated){
 	          $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->first();
-	          Log::debug($row);
-
 	          if(!$card){
 	    		
 	            $card = BusinessCard::create([

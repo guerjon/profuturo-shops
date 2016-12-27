@@ -9,7 +9,7 @@ class AdminBusinessCardsController extends BaseController{
     $active_tab = Input::get('active_tab','untrashed');
 
     $gerencias = BusinessCard::withTrashed()->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'gerencia');
-    $cards = BusinessCard::withTrashed()->orderBy('gerencia')->orderBy('no_emp');
+    $cards = BusinessCard::withTrashed()->orderBy('gerencia')->orderBy('no_emp')->where('type','paper');
 
     
     if(Input::has('no_emp')){
@@ -23,6 +23,15 @@ class AdminBusinessCardsController extends BaseController{
     if(Input::has('ccosto')){
       $cards->where('ccosto','like','%'.Input::get('ccosto').'%');
     }
+
+    if(Input::has('nombre')){
+      $cards->where('nombre','like','%'.Input::get('nombre').'%');
+    }
+
+    if (Input::has('nombre_puesto')) {
+      $cards->where('nombre_puesto','like','%'.Input::get('nombre_puesto').'%');
+    }
+
     if($active_tab == 'trashed')
       $cards->onlyTrashed();
     else{
@@ -36,17 +45,19 @@ class AdminBusinessCardsController extends BaseController{
         [
           "numero_empleado",
           "nombre_empleado",
-          "ccosto",
-          "nombre_ccosto",
           "nombre_puesto",
-          "fecha_ingreso",
-          "web",
+          "ccosto",
           "gerencia",
-          "direccion",
-          "direccion_alternativa",
+          "fecha_ingreso",
           "telefono",
           "celular",
-          "email"
+          "linea_negocio",
+          "web",
+          "direccion",
+          "direccion_alternativa",
+          "email",
+          "creada",
+          "actualizada",
         ];
         
         $datetime = \Carbon\Carbon::now()->format('YmdHi');
@@ -59,17 +70,19 @@ class AdminBusinessCardsController extends BaseController{
               $sheet->appendRow([
                 $card->no_emp,
                 $card->nombre,
-                $card->ccosto,
-                $card->nombre_ccosto,
                 $card->nombre_puesto,
-                $card->fecha_ingreso,
-                $card->web,
+                $card->ccosto,
                 $card->gerencia,
-                $card->direccion,
-                $card->direccion_alternativa,
+                $card->fecha_ingreso,
                 $card->telefono,
                 $card->celular,
-                $card->email                
+                $card->linea_negocio,
+                $card->web,
+                $card->direccion,
+                $card->direccion_alternativa,
+                $card->email,                
+                $card->created_at,
+                $card->updated_at
               ]);
             }
           });
@@ -121,8 +134,6 @@ class AdminBusinessCardsController extends BaseController{
 
     $business_cards =  BusinessCard::where('id','>','0')->where('type','=','paper')->delete();
     
-
-
     $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated) {
         
       $reader->each(function($sheet)use(&$created, &$updated){
@@ -131,6 +142,7 @@ class AdminBusinessCardsController extends BaseController{
           //dd($row->fecha_ingreso);
           if($row->numero_empleado != '' && $row->numero_empleado != null){
             $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
+            //dd($row->nombre_puesto);
             try {
               if(!$card){
                 
