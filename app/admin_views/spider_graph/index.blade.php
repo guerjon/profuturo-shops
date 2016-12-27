@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col col-xs-6"><h1>Estadísticas de Encuestas</h1></div>
+		<div class="col col-xs-6" title="En esta sección solo aparecen las solicitudes con encuesta contestada."><h1>Estadísticas de Encuestas</h1></div>
 		<div class="col col-xs-6"></div>
 	</div>
 	<hr>
@@ -31,11 +31,11 @@
 				</div>
 			    <div class="col-xs-2 ">
 			    	{{Form::label('since','DESDE',['class' => 'label-control'])}}
-    				{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subYear(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+    				{{Form::text('since',Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(6)->format('Y-m-d')) , ['class' => 'form-control datepicker','id' => 'since' ])}}
 				</div>
 			    <div class="col-xs-2 ">
 			    	{{Form::label('until','HASTA',['class' => 'label-control'])}}
-			        {{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
+			        {{Form::text('until',Input::get('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d')), ['class' => 'form-control datepicker','id' => 'until' ])}}
 			    </div>
 
 				{{Form::close()}}	
@@ -84,13 +84,14 @@
 						<h3> Número de solicitudes: <span id="total_solicitudes"></span> </h3>
 					</div>
 					<div class="panel-body">
-						<table class="table table-striped">
+						<table class="table table-striped" style="border-collapse:collapse; table-layout:fixed; ">
 							<thead>
-								<th>Número de solicitud general</th>
-								<th>Actitud del consultor:</th>
-								<th>Seguimiento del consultor:</th>
-								<th>Tiempos respuesta consultor:</th>
-								<th>Calidad del producto:</th>
+								<th style="max-width: 50px">Número de solicitud general</th>
+								<th style="max-width: 100px">Actitud del consultor:</th>
+								<th style="max-width: 100px">Seguimiento del consultor:</th>
+								<th style="max-width: 100px">Tiempos respuesta consultor:</th>
+								<th style="max-width: 100px">Calidad del producto:</th>
+								<th style="max-width: 100px">Fecha de solicitud</th>
 							</thead>
 							<tbody id="comments">
 
@@ -177,12 +178,14 @@
 
 							for (var i = solicitudes.length - 1; i >= 0; i--) {
 								$('#comments').append(
-										"<tr><td><a href='general-requests/"+solicitudes[i].general_request_id+"'>"+ solicitudes[i].general_request_id+
+										"<tr><td style='width:50px; word-wrap:break-word;'><a href='general-requests/"+solicitudes[i].general_request_id+"'>"+ solicitudes[i].general_request_id+
 										"</a></td>"+
-										'<td>'+solicitudes[i].explain_1+'</td>'+
-								 	 	'<td>'+solicitudes[i].explain_2+'</td>'+
-										'<td>'+solicitudes[i].explain_3+'</td>'+
-										'<td>'+solicitudes[i].explain_4+'</td></tr>');
+										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_1+'</td>'+
+								 	 	'<td style=" width:100px; word-wrap:break-word;">'+solicitudes[i].explain_2+'</td>'+
+										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_3+'</td>'+
+										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_4+'</td>' +
+										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].general_request_created_at+'</td>' +
+										'</tr>');
 									
 							};							
 						var data = 

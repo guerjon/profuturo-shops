@@ -40,6 +40,9 @@
 				<table class="table table-striped">
 					<thead>
 						<th>
+							Número de carga
+						</th>
+						<th>
 							Usuario
 						</th>
 						<th>
@@ -62,6 +65,9 @@
 					<tbody>
 						@foreach($uploads as $upload)
 							<tr>
+								<td>
+									{{$upload->id}}
+								</td>
 								<td>
 									{{$upload->user->nombre}}
 								</td>

@@ -90,7 +90,8 @@ class AdminBusinessCardsController extends BaseController{
   }
 
   public function store()
-  { set_time_limit (300);
+  { 
+    set_time_limit (600);
     ini_set('auto_detect_line_endings', 1);
 
     if(Input::file('avatar') == NULL){

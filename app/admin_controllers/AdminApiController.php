@@ -2149,11 +2149,11 @@ class AdminApiController extends AdminBaseController
 
 	public function getSurvey()
 	{
-		$since =  \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since',\Carbon\Carbon::now()->subMonths(1)->format('Y-m-d')))->startOfDay()->format('Y-m-d');
+		$since =  \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('since',\Carbon\Carbon::now()->subMonths(6)->format('Y-m-d')))->startOfDay()->format('Y-m-d');
 		$until = \Carbon\Carbon::createFromFormat('Y-m-d',Input::get('until',\Carbon\Carbon::now()->format('Y-m-d')))->addDay()->format('Y-m-d');
 
 		$solicitudes = GeneralRequest::join('satisfaction_surveys','satisfaction_surveys.general_request_id','=','general_requests.id')
-			->select('*','general_requests.id as general_request_id','general_requests.created_at as general_request_created_at')
+			->select('satisfaction_surveys.*','general_requests.id as general_request_id','general_requests.created_at as general_request_created_at','general_requests.user_id','general_requests.manager_id')
 			->orderBy('general_requests.id')
 			->groupBy('general_requests.id');
 
@@ -2178,6 +2178,7 @@ class AdminApiController extends AdminBaseController
 			];
 
 			$solicitud->promedio = array_sum($questions)/count($questions);
+			$solicitud->general_request_created_at = substr($solicitud->general_request_created_at, 0,10);
 		}
 
 		
@@ -2213,8 +2214,8 @@ class AdminApiController extends AdminBaseController
 			Excel::create('Reporte_encuestas_'.$datetime, function($excel) use($solicitudes,$headers){
 			  $excel->sheet('Encuestas',function($sheet)use($solicitudes,$headers){
 				$sheet->appendRow($headers);
-				
 				foreach ($solicitudes as $solicitud) {
+				//dd($solicitud->general_request_created_at);
 					$sheet->appendRow([
 						$solicitud->general_request_id,
 						$this->calculateResult($solicitud->question_one,1),

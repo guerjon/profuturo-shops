@@ -4,7 +4,7 @@ class AdminUploadsController extends AdminBaseController{
 
 	public function paperUploads()
 	{
-		$uploads = Upload::where('kind','paper_cards');
+		$uploads = Upload::where('kind','paper_cards')->orderBy('id','desc');
 		return View::make('admin::uploads/paper_cards')->withUploads($uploads->paginate(10));
 	}
 
@@ -29,7 +29,5 @@ class AdminUploadsController extends AdminBaseController{
 	{
 		return Response::download(storage_path().'/plantilla_tarjetas_corporativo.xlsx');
 	}
-
-	
 
 }
