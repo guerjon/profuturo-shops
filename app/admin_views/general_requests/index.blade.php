@@ -54,9 +54,11 @@
 						<button type="submit" class="btn btn-primary" id="btn-filter">
 					 		<span class="glyphicon glyphicon-filter"></span> Filtrar
 						</button>	
+						@if($requests->count() > 0)
 						<button type="button" class="btn btn-default btn-submit" title="Descargar excel">
 							<span class="fa fa-download"></span> Descargar
-						</button>															
+						</button>
+						@endif															
 						<a href="{{action('AdminGeneralRequestsController@index',['active_tab' => $active_tab,"since" => $since,"until" => $until])}}" class="btn btn-default">
 							<span class="fa fa-eraser"></span>
 							Borrar filtros
