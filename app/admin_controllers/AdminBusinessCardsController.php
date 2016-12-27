@@ -128,9 +128,8 @@ class AdminBusinessCardsController extends BaseController{
       $reader->each(function($sheet)use(&$created, &$updated){
 
         $sheet->each(function($row)use(&$created, &$updated){
-
+          //dd($row->fecha_ingreso);
           if($row->numero_empleado != '' && $row->numero_empleado != null){
-            dd($row->fecha_ingreso);
             $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
             try {
               if(!$card){
@@ -141,7 +140,7 @@ class AdminBusinessCardsController extends BaseController{
                     'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
                     'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
                     'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
-                    'fecha_ingreso' => \Carbon\Carbon::createFromFormat('d-m-Y',$row->fecha_ingreso),
+                    'fecha_ingreso' => $row->fecha_ingreso,
                     'web' => $row->web ? $row->web : 'N/A',
                     'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
                     'direccion' => $row->direccion ? $row->direccion : 'N/A',
@@ -165,7 +164,7 @@ class AdminBusinessCardsController extends BaseController{
                   'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
                   'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
                   'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
-                  'fecha_ingreso' => \Carbon\Carbon::createFromFormat('d-m-Y',$row->fecha_ingreso),
+                  'fecha_ingreso' => $row->fecha_ingreso,
                   'web' => $row->web ? $row->web : 'N/A',
                   'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
                   'direccion' => $row->direccion ? $row->direccion : 'N/A',
@@ -187,7 +186,7 @@ class AdminBusinessCardsController extends BaseController{
           }
         });
       });
-    })->formatDates(false);
+    })->formatDates(true,'m-d-Y');
     
     $upload->cards_created = $created;
     $upload->cards_updated = $updated;
