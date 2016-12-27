@@ -23,34 +23,45 @@
 				'method' => 'GET',
 			])}}
 				<div class="row">
-			
 					<div class="col-xs-2">
-						USUARIO DE PROYECTOS
+						<label for="user_id" class="label-control">USUARIO DE PROYECTOS</label>
 						{{Form::select('user_id',[null=>'Todos']+$users,Input::get('user_id'),['class' => 'form-control'])}}
 					</div>
-			 
-					<div class="col-xs-3 ">
-						FECHA DE SOLICITUD DESDE:
-						{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'since' ])}}
+			 		<div class="col-xs-2">
+			 			
+			 			<label for="manager_id" class="label-control">ASESOR</label>
+		 				{{Form::select('manager_id',[null => 'Todos']+ User::where('role','manager')->orderBy('gerencia')->lists('gerencia','id'),Input::get('manager_id'),['class'=> 'form-control'])}}
+			 		</div>
+					<div class="col-xs-2">
+						<label for="id" class="label-control">Número de solicitud</label>
+						{{Form::number('id',Input::get('id'),['class'=>'form-control','placeholder' => 'Número de solicitud'])}}
+					</div>	
+					<div class="col-xs-2 ">
+						<label for="since" class="label-control">FECHA DE SOLICITUD DESDE:</label>
+						{{Form::text('since',$since, ['class' => 'form-control date','id' => 'since' ])}}
 						</div>
-					<div class="col-xs-3 ">
-						FECHA DE SOLICITUD HASTA:
-						{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
-					</div>					
-					<div class="col col-xs-2">
-						<br>
-						<a href="{{action('AdminApiController@getGeneralRequest', ['excel'=>'excel'])}}" class="btn btn-primary btn-submit" style="float:right">
-								<span class="glyphicon glyphicon-download-alt"></span> EXCEL
-							</a>  
+					<div class="col-xs-2">
+						<label for="until" class="label-control">FECHA DE SOLICITUD HASTA:</label>
+						{{Form::text('until',$until, ['class' => 'form-control date','id' => 'until' ])}}
+					</div>	
+					<div class="col-xs-2">
+						<label for="status" class="label-control">Estatus</label>
+						{{Form::select('status',[null => 'Todos'] + Lang::get('status'),Input::get('status'),['class'=>'form-control'])}}
 					</div>
-					
-					<div class="col col-xs-2">
-						<input type="text" class="hidden" value="{{$active_tab}}" name="active_tab">  
+				</div>
+				<div class="row text-center">
 						<br>
-						<button type="submit" class="btn btn-primary">
+						<button type="submit" class="btn btn-primary" id="btn-filter">
 					 		<span class="glyphicon glyphicon-filter"></span> Filtrar
-						</button>
-					</div>
+						</button>	
+						<button type="button" class="btn btn-default btn-submit" title="Descargar excel">
+							<span class="fa fa-download"></span> Descargar
+						</button>															
+						<a href="{{action('AdminGeneralRequestsController@index',['active_tab' => $active_tab,"since" => $since,"until" => $until])}}" class="btn btn-default">
+							<span class="fa fa-eraser"></span>
+							Borrar filtros
+						</a>								
+					
 				</div>
 				<hr>
 			{{Form::close()}}
@@ -84,6 +95,9 @@
 								# de sol.
 							</th>
 							<th>
+								Tipo de proyecto
+							</th>
+							<th>
 								Título proyecto
 							</th>
 							<th>
@@ -108,13 +122,18 @@
 								Línea de negocio
 							</th>
 							<th>
-								Acciones
+								Lista de distribución
 							</th>
 							@if($active_tab == 'assigned' || $active_tab == 'all' || $active_tab == 'deleted_assigned')
 								<th class="text-center">
 									Asesor
 								</th>
-							@endif	
+								<th>Usuario de proyectos</th>
+							@endif
+							<th>
+								Acciones
+							</th>
+								
 						</tr>
 					</thead>
 					<tbody>
@@ -122,17 +141,24 @@
 						<tr>
 							<td>
 								
-							{{link_to_action('AdminGeneralRequestsController@show',$request->solicitud,['id' =>$request->solicitud]),null}}   
+							{{link_to_action('AdminGeneralRequestsController@show',$request->id,['id' =>$request->id]),null}}   
 
 							</td>
 							<td>
-								{{$request->titulo}}
+								{{$request->kind == 0 ? "Producto" : "Servicio"}}
+							</td>
+							<td style="max-width: 200px">
+								{{$request->project_title}}
+							</td>
+							<td style="max-width: 200px">
+								{{Lang::get('status.'.$request->status) }}
 							</td>
 							<td>
-								{{$request->estatus}}
-							</td>
-							<td>
-								{{$request->presupuesto}}
+								@if($presupuesto = DB::table('general_request_products')->select(DB::raw('quantity * unit_price as presupuesto'))->where('general_request_id',$request->id)->groupBy('general_request_id')->first())
+										{{$presupuesto->presupuesto}}
+								@else
+									0
+								@endif
 							</td>
 							<td>
 							 <div data-number="5" data-score="{{$request->rating}}" class="stars">
@@ -140,18 +166,29 @@
 							 </div> 
 							</td>
 							<td>
-								{{substr($request->creada, 0,-8) }} 
-							</td>
-							<td>
-								{{$request->project_date}}
 								
+								{{$request->created_at ? $request->created_at->format('d-m-Y g:m A') : 'N/A'}} 
 							</td>
 							<td>
-								{{$request->deliver_date->format('Y-m-d')}}
+								{{$request->project_date ?  $request->project_date->format('d-m-Y g:m A') : 'N/A' }}
+							</td>
+							<td>
+								{{$request->deliver_date ? $request->deliver_date->format('d-m-Y g:m A') : 'N/A'}}
 							</td>
 							<td>
 								{{$request->linea_negocio}}
-							</td>							
+							</td>	
+							<td>
+								{{$request->distribution_list == 0 ? 'NO' : ($request->distribution_list == 1 ? 'SI' : 'PENDIENTE')}}
+							</td>
+							@if($active_tab == 'assigned' || $active_tab == 'all' || $active_tab == 'deleted_assigned')
+								<th>
+									{{$request->manager ? $request->manager->gerencia : 'Sin asesor'}}
+								</th>
+								<th>
+									{{$request->user ? $request->user->gerencia : 'Sin asesor'}}
+								</th>
+							@endif						
 							<th>
 								<div class="dropdown">
 								  	<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Acciones
@@ -191,11 +228,7 @@
 								  	</ul>
 								</div>
 							</th>
-							@if($active_tab == 'assigned' || $active_tab == 'all' || $active_tab == 'deleted_assigned')
-								<th>
-									{{User::find($request->manager_id) ? User::find($request->manager_id)->gerencia : 'Sin asesor'}}
-								</th>
-							@endif
+							
 						</tr>
 
 						@endforeach
@@ -317,6 +350,21 @@ $(function(){
 
 		$('#disable-modal form').attr('action',action);
 		$('#disable-modal').modal();
+	});
+
+	$('.date').datepicker({
+		dateFormat : 'dd-mm-yy'
+	});
+
+	$('.btn-submit').click(function(){
+		$('#filter-form').append('<input class="hidden" type="hide" name="excel" value="1" id="excel">');
+		$('#filter-form').submit();
+	});
+
+	$('#btn-filter').click(function(event){
+		event.preventDefault();
+		$('#excel').remove();
+		$('#filter-form').submit();
 	});
 
 

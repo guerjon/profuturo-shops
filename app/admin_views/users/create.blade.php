@@ -66,7 +66,7 @@
           <div>
             @if($user->exists)
               <p class="form-control-static">
-                {{$user->ccosto}}
+                {{Form::number('ccosto', $user->ccosto, ['class' => 'form-control'])}}
               </p>
             @else
               {{Form::number('ccosto', NULL, ['class' => 'form-control'])}}

@@ -89,7 +89,7 @@
                             Productos
                         </h3>
                     </div>
-                    <dib class="row">
+                    <div class="row">
                         @foreach(DB::table('general_request_products')->where('general_request_id',$general->id)->get() as $product)
                             <div class="col-xs-6 col-xs-offset-3 well">
                                 Nombre: <b> {{$product->name}}</b> <br>
@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         @endforeach
-                    </dib>
+                    </div>
                 </div>
             </div>
         </div>
