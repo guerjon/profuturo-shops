@@ -132,57 +132,59 @@ class AdminBusinessCardsController extends BaseController{
           if($row->numero_empleado != '' && $row->numero_empleado != null){
             
             $card = BusinessCard::withTrashed()->where('no_emp',$row->numero_empleado)->where('type','paper')->first();
-            
-            if(!$card){
+            try {
+              if(!$card){
+                
+                  $card = BusinessCard::create([
+                    'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
+                    'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
+                    'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
+                    'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
+                    'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
+                    'fecha_ingreso' => \Carbon\Carbon::createFromFormat('d/m/Y',$row->fecha_ingreso),
+                    'web' => $row->web ? $row->web : 'N/A',
+                    'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
+                    'direccion' => $row->direccion ? $row->direccion : 'N/A',
+                    'telefono' => $row->telefono ? $row->telefono : 'N/A',
+                    'celular' => $row->celular ? $row->celular : 'N/A',
+                    'email' => $row->email ? $row->email : 'N/A',
+                    'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
+                  ]);
+                  if($card){
+                    $created++;
+                  }  
               
-              $card = BusinessCard::create([
-                'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
-                'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
-                'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
-                'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
-                'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
-                'fecha_ingreso' => $row->fecha_ingreso,
-                'web' => $row->web ? $row->web : 'N/A',
-                'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
-                'direccion' => $row->direccion ? $row->direccion : 'N/A',
-                'telefono' => $row->telefono ? $row->telefono : 'N/A',
-                'celular' => $row->celular ? $row->celular : 'N/A',
-                'email' => $row->email ? $row->email : 'N/A',
-                'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
-              ]);
-              if($card){
-                $created++;
-              }
-              
-            }else{
-              
-              if($card->trashed())
-                $card->restore();
+              }else{
+                
+                if($card->trashed())
+                  $card->restore();
 
-              $card->fill([
-                'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
-                'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
-                'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
-                'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
-                'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
-                'fecha_ingreso' => $row->fecha_ingreso,
-                'web' => $row->web ? $row->web : 'N/A',
-                'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
-                'direccion' => $row->direccion ? $row->direccion : 'N/A',
-                'telefono' => $row->telefono ? $row->telefono : 'N/A',
-                'celular' => $row->celular ? $row->celular : 'N/A',
-                'email' => $row->email ? $row->email : 'N/A',
-                'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
-              ]);
+                $card->fill([
+                  'no_emp' => $row->numero_empleado ? $row->numero_empleado : 'N/A',
+                  'nombre' => $row->nombre_empleado ? $row->nombre_empleado : 'N/A',
+                  'ccosto' => $row->ccosto ? $row->ccosto : 'N/A',
+                  'nombre_ccosto' => $row->nombre_ccosto ? $row->nombre_ccosto : 'N/A',
+                  'nombre_puesto' => $row->nombre_puesto ? $row->nombre_puesto : 'N/A',
+                  'fecha_ingreso' => \Carbon\Carbon::createFromFormat('d/m/Y',$row->fecha_ingreso),
+                  'web' => $row->web ? $row->web : 'N/A',
+                  'gerencia' => $row->gerencia ? $row->gerencia : 'N/A',
+                  'direccion' => $row->direccion ? $row->direccion : 'N/A',
+                  'telefono' => $row->telefono ? $row->telefono : 'N/A',
+                  'celular' => $row->celular ? $row->celular : 'N/A',
+                  'email' => $row->email ? $row->email : 'N/A',
+                  'linea_negocio' => $row->linea_negocio ? $row->linea_negocio : 'N/A'
+                ]);
 
-              if ($card->isDirty()) {
-                  if ($card->save()) {
-                    $updated++;  
-                  }
+                if ($card->isDirty()) {
+                    if ($card->save()) {
+                      $updated++;  
+                    }
+                }
               }
-            }
+            } catch (InvalidArgumentException $e) {
+                Log::debug($e); 
+              }
           }
-
         });
       });
     });
