@@ -168,13 +168,13 @@
 							</td>
 							<td>
 								
-								{{$request->created_at ? $request->created_at->format('d-m-Y g:m A') : 'N/A'}} 
+								{{$request->created_at ? $request->created_at->format('d-m-Y') : 'N/A'}} 
 							</td>
 							<td>
-								{{$request->project_date ?  $request->project_date->format('d-m-Y g:m A') : 'N/A' }}
+								{{$request->project_date ?  $request->project_date->format('d-m-Y') : 'N/A' }}
 							</td>
 							<td>
-								{{$request->deliver_date ? $request->deliver_date->format('d-m-Y g:m A') : 'N/A'}}
+								{{$request->deliver_date ? $request->deliver_date->format('d-m-Y') : 'N/A'}}
 							</td>
 							<td>
 								{{$request->linea_negocio}}
