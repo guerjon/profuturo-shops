@@ -100,16 +100,16 @@ class AdminGeneralRequestsController extends AdminBaseController{
 						$total_products = 0;
 
 					if($request->kind == 0)
-						$kind = "Producto";
+						$kind = "PRODUCTO";
 					else
-						$kind = "Servicio";
+						$kind = "SERVICIO";
 
 					if($request->distribution_list == 0)
-						$distribution_list = 'No';
+						$distribution_list = 'NO';
 					elseif ($request->distribution_list == 1)
-						$distribution_list = 'Si';
+						$distribution_list = 'SI';
 					else
-						$distribution_list = 'Pendiente';
+						$distribution_list = 'PENDIENTE';
 
 
 					$sheet->appendRow([

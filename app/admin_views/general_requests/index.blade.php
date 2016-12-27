@@ -64,6 +64,7 @@
 					
 				</div>
 				<hr>
+				<input type="hidden" name="active_tab" value="{{$active_tab}}" class="hide">
 			{{Form::close()}}
 		@endif
 
