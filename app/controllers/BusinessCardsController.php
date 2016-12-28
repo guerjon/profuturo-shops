@@ -50,6 +50,18 @@ class BusinessCardsController extends BaseController{
     
     $cards = Auth::user()->businessCards()->orderBy('no_emp');
   
+    if(Input::has('no_emp')){
+      $cards->where('no_emp','like','%'.Input::get('no_emp').'%');
+    }
+
+    if(Input::has('nombre')){
+      $cards->where('nombre','like','%'.Input::get('nombre').'%');
+    }
+
+    if (Input::has('nombre_puesto')) {
+      $cards->where('nombre_puesto','like','%'.Input::get('nombre_puesto').'%');
+    }
+
     return View::make('business_cards.index')
       ->withCards($cards->get())
       ->withForbidden($tarjetasProhibidas)

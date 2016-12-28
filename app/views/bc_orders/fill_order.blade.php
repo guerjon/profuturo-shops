@@ -124,47 +124,60 @@
                 </tbody>
             </table>
 
-            <div class="form-group">
-                {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 3])}}
-            </div>
 
-            @if($remaining_cards)
-                <div class="form-group">
-
-                    {{ Form::label('blank_cards', '¿Desea añadir tarjetas blancas a su pedido? Recuerde que solo puede pedir 200 cada mes')}}
-                    @if($remaining_cards > 100)
-                        <input type="hide" name="blank_cards" value="100" class="hide">
-                        <div class="row">
-                          <div class="col-xs-2">
-                          {{Form::select('nombre_puesto',array(
-                                                              'Asesor en Retiro' => 'Asesor en Retiro',
-                                                              'Asesor Previsional' =>'Asesor Previsional',
-                                                              'Ejecutivo de Cuenta'=>'Ejecutivo de cuenta',
-                                                              ' Ejecutivo de aportaciones voluntarias' => 'Ejecutivo de aportaciones voluntarias',
-                                                              'Gerente de aportaciones voluntarias' => 'Gerente de aportaciones voluntarias'
-                                                              ), NULL, ['class' => 'form-control'])}}
-                          </div>
-                          <div class="col-xs-4">
-                            {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa'])}}
-                          </div>
-                          <div class="col-xs-2">
-                            {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Teléfono','data-name' => 'Telefono Tarjetas'])}}
-                          </div>
-                          <div class="col-xs-2">
-                            {{Form::text('email',NULL, ['class' => 'form-control','placeholder' => 'Correo electronico'])}}
-                          </div>
-                        </div>
-                    @endif
+            <div class="row">
+                <div class="col-xs-6">
+                {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 1])}}    
                 </div>
+                <div class="col-xs-6">
+                    @if($remaining_cards and $remaining_cards > 100)
+                    
+                        <div class="form-group hide" id="white-cards-div">
+                            
+                            <input type="hide" name="blank_cards" value="100" class="hide">
+                            <div class="row">
+                             
+                              <div class="col-xs-3">
+                              {{Form::select('nombre_puesto',array(
+                                                                  'Asesor en Retiro' => 'Asesor en Retiro',
+                                                                  'Asesor Previsional' =>'Asesor Previsional',
+                                                                  'Ejecutivo de Cuenta'=>'Ejecutivo de cuenta',
+                                                                  ' Ejecutivo de aportaciones voluntarias' => 'Ejecutivo de aportaciones voluntarias',
+                                                                  'Gerente de aportaciones voluntarias' => 'Gerente de aportaciones voluntarias'
+                                                                  ), NULL, ['class' => 'form-control'])}}
+                              </div>
+                              <div class="col-xs-3">
+                                {{Form::text('direccion_alternativa_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Dirección alternativa','id' => 'direccion_alternativa_tarjetas'])}}
+                              </div>
+                              <div class="col-xs-3">
+                                {{Form::text('telefono_tarjetas',NULL, ['class' => 'form-control','placeholder' => 'Telefono','id'=> 'telefono_tarjetas'])}}
+                              </div>
+                              <div class="col-xs-3">
+                                {{Form::text('email',NULL, ['class' => 'form-control','placeholder' => 'Correo electronico'])}}
+                              </div>
+                            </div>
+                            <br>
+                            <div class="row text-center">
+                                <button class="btn btn-danger" id="cancel-bc-btn" type="button">
+                                    Cancelar tarjetas blancas
+                                </button>
+                            </div>
+                        </div>
 
-            @else 
-                Las tarjetas blancas no estan disponibles ya que se llego limite de 100. 
-            @endif
+                    @else 
+                        Las tarjetas blancas no estan disponibles ya que se llego limite de 100. 
+                    @endif                    
+                </div>
+            </div>
+            <hr>
             <center>
                 <a id="cancel-order-button" class="btn btn-danger" href="{{action('BusinessCardsController@index')}}">Cancelar</a>
                 <button class="btn btn-default" id="save" type="button">
                   <span class="fa fa-save"></span>
                   Guardar
+                </button>
+                <button class="btn btn-primary" id="add-white-cards-btn" type="button">
+                    <span class="fa fa-plus"></span> Añadir tarjetas blancas
                 </button>
             </center>              
           {{Form::close()}}
@@ -197,6 +210,7 @@
         $('#save').click(function(){
             var phone_errors = [];
             var same_errors = [];
+            var blank_cards_errors = [];
 
             $('.phone').each(function(){
                 
@@ -212,8 +226,19 @@
                 }
 
             });
+            var white_cards_div = $('#white-cards-div');
 
-            if(phone_errors.length > 0 || same_errors.length > 0){
+            if(!white_cards_div.hasClass('hide')){
+                var direccion = $('#direccion_alternativa_tarjetas').val();
+                var telefono = $('#telefono_tarjetas').val();
+
+                if(direccion <= 0)
+                    blank_cards_errors.push("La dirección de tarjetas blancas es requerida.");
+                if(telefono <= 0)
+                    blank_cards_errors.push("El telefono de tarjetas blancas es requerido.");
+            }
+
+            if(phone_errors.length > 0 || same_errors.length > 0 || blank_cards_errors.length > 0){
 
                 $('#warning-modal').find('#warning-data').empty();
 
@@ -225,11 +250,30 @@
                     $('#warning-modal').find('#warning-data').append('<p style="color:red">El número 5555 5555 de la tarjeta de <strong>' + name + '</strong> no esta permitido. </p><br>');
                 });
                 
+                $.each(blank_cards_errors,function(k,name){
+                    $('#warning-modal').find('#warning-data').append('<p style="color:red"> <strong>' + name + '</strong> </p><br>');
+                });
+
                 $('#warning-modal').modal();
             }else{
+
+                if($('#white-cards-div').hasClass('hide'))
+                    $('#white-cards-div').remove();
+
                 $('#form').submit();
             }
         });
+
+        $('#add-white-cards-btn').click(function(){
+            $('#white-cards-div').removeClass('hide'); 
+            $(this).addClass('hide')
+        });
+
+        $('#cancel-bc-btn').click(function(){
+            $('#white-cards-div').addClass('hide');
+            $('#add-white-cards-btn').removeClass('hide');
+        });
+    
     });
   </script>
 
