@@ -89,7 +89,7 @@ class AdminBusinessCardsController extends BaseController{
         })->download('xls');
     }else{
         return View::make('admin::business_cards.index')
-        ->withCards($cards->paginate(50))
+        ->withCards($cards->paginate(20))
         ->withGerencias($gerencias)
         ->withActiveTab($active_tab);  
     }

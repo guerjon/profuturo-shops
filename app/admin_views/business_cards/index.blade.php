@@ -12,6 +12,7 @@
 	</ol>
   	<div class="container-fluid">
 
+  	<hr>
   	<div class="row">
 		{{Form::open([
 		  'method' => 'GET',
@@ -231,7 +232,8 @@
   </div>
 
   <div class="text-center">
-	{{ $cards->appends(Input::all())->links() }}
+    
+	{{ $cards->appends(Input::except('page'))->links() }}
   </div>
 
 

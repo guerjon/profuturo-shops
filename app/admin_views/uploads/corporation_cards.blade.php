@@ -2,7 +2,7 @@
 
 @section('content')
 
-	<div class="container-fluid">
+	<div class="container">
 
 		<ol class="breadcrumb">
 		    <a href="{{URL::previous()}}" class="back-btn">
@@ -16,12 +16,12 @@
 
 		<div class="row">
 			<br>
-		<div class="col-xs-9">
+		<div class="col-xs-6">
 			<h3>
 				CARGAS TARJETAS CORPORATIVO
 			</h3>
 		</div>
-		<div class="col-xs-3">
+		<div class="col-xs-6 text-right">
 			<a class="btn btn-primary" href="{{action("AdminCorporationCardsController@importCards")}}">
 				<span class="glyphicon  glyphicon-plus"></span>
 				Añadir carga

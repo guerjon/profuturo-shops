@@ -13,22 +13,32 @@ class AdminCorporationCardsController extends AdminBaseController
 			$cards->where('deleted_at','!=',"null");
 		}
 
-		if(Input::has('no_emp')){
-		  $cards->where('no_emp','like','%'.Input::get('no_emp').'%');
-		}
+	    if(Input::has('no_emp')){
+	      $cards->where('no_emp','like','%'.Input::get('no_emp').'%');
+	    }
 
-		if(Input::has('gerencia')){
-		  $cards->where('gerencia', Input::get('gerencia'));
-		}
+	    if(Input::has('gerencia')){
+	      $cards->where('gerencia', Input::get('gerencia'));
+	    }
 
-		if(Input::has('ccosto')){
-		  $cards->where('ccosto','like','%'.Input::get('ccosto').'%');
-		}
-		if($active_tab == 'trashed')
-		  $cards->onlyTrashed();
-		else{
-		  $cards->whereNull('deleted_at');
-		}
+	    if(Input::has('ccosto')){
+	      $cards->where('ccosto','like','%'.Input::get('ccosto').'%');
+	    }
+
+	    if(Input::has('nombre')){
+	      $cards->where('nombre','like','%'.Input::get('nombre').'%');
+	    }
+
+	    if (Input::has('nombre_puesto')) {
+	      $cards->where('nombre_puesto','like','%'.Input::get('nombre_puesto').'%');
+	    }
+
+	    if($active_tab == 'trashed')
+	      $cards->onlyTrashed();
+	    else{
+	      $cards->whereNull('deleted_at');
+	    }
+		
 
 	    if (Input::has('excel')) {
 	      $headers = 
@@ -67,7 +77,7 @@ class AdminCorporationCardsController extends AdminBaseController
 
 
 		return View::make('admin::corporation_cards.index')
-			->withCards($cards->paginate(10))
+			->withCards($cards->paginate(20))
 			->withActiveTab($active_tab)
      		->withGerencias($gerencias);
 	}
