@@ -22,6 +22,41 @@
 @else
 
 <div class="container">
+	<br>
+  	<div class="row">
+		{{Form::open([
+		  'method' => 'GET',
+		  'id' => 'cards-excel-form'
+		])}}
+			
+		  	<div class="row">
+				<div class="col-xs-3">
+					<label for="no_emp">NÚMERO DE EMPLEADO</label>
+				  	{{Form::number('no_emp', Input::get('no_emp'), ['class' => 'form-control', 'placeholder' => 'Número de empleado'])}}
+				</div>
+				<div class="col-xs-3">
+				  	<label for="nombre">NOMBRE</label>
+				  	{{Form::text('nombre',Input::get('nombre'),['class' => 'form-control','placeholder' => "Nombre"])}}
+				</div>
+				<div class="col-xs-3">
+					<label for="nombre_puesto">PUESTO</label>
+					{{Form::select('nombre_puesto', [NULL => 'Todas los puestos'] + BusinessCard::distinct()->lists('nombre_puesto','nombre_puesto'), Input::get('nombre_puesto'), ['class' => 'form-control'])}}
+				</div>
+				<div class="col-xs-3 text-right">
+					<br>
+					<button type="submit" class="btn btn-primary" id="cards-filter-button">
+						<span class="glyphicon glyphicon-filter"></span> Filtrar
+					</button>
+					
+					<a href="{{action('CorporationBusinessCardsController@index')}}" class="btn btn-default">
+						<span class="fa fa-eraser"></span> Borrar filtros 
+					</a> 
+				</div>
+		  	</div>
+		  	<br>
+		{{Form::close()}}
+  	</div>	
+  	<hr>
 	{{Form::open([
 		'action' => 'CorporationBcOrdersController@postFillOrder'
 		])}}
@@ -29,7 +64,9 @@
 			<table class="table-striped table">
 				<thead>
 					<tr>
-						<th></th>
+						<th>
+							
+						</th>
 						<th>
 							Número de empleado
 						</th>
