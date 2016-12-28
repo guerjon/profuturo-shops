@@ -19,10 +19,12 @@ class AdminDatesCorporationController extends AdminBaseController
 		$comments = Input::get('comments');
 
 		foreach ($users as $user) {
-			if($user->email){
-				Mail::send('admin::email_templates.date_corporation_message',['user' => $user,'comments' => $comments],function($message) use ($user){
-	      			$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
-	    		});	
+			if($user){
+				if($user->email){
+					Mail::send('admin::email_templates.date_corporation_message',['user' => $user,'comments' => $comments],function($message) use ($user){
+		      			$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
+		    		});	
+	    		}
     		}
 		}
 
