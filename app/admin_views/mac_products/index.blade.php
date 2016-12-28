@@ -12,12 +12,23 @@
 
 
 <div class="text-right">
-  <a href="{{action('AdminMacProductsController@create')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus"></span> Agregar producto
-  </a>
-  <a href="{{action('AdminMacProductsImporterController@create')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-import"></span> Importar Excel
-  </a>
+  {{Form::open(['method' => 'get'])}}
+
+    <a href="{{action('AdminMacProductsController@create')}}" class="btn btn-primary">
+      <span class="glyphicon glyphicon-plus"></span> Agregar producto
+    </a>
+    <a href="{{action('AdminMacProductsImporterController@create')}}" class="btn btn-primary">
+      <span class="glyphicon glyphicon-import"></span> Importar Excel
+    </a>
+
+    <button class="btn btn-primary" type="submit">
+      <span class="fa fa-download"></span> Descargar
+    </button>
+    
+    <input type="hide" name="excel" value="1" class="hide">
+
+  {{Form::close()}}
+
 </div>
 
   <div class="" style="margin: 20px inherit">

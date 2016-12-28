@@ -12,9 +12,16 @@
 
 
 <div class="text-right">
-  <a href="{{action('AdminProductsController@create')}}" class="btn btn-primary">
-    <span class="glyphicon glyphicon-plus"></span> Agregar producto
-  </a>
+  {{Form::open(['method' => 'get'])}}
+    <a href="{{action('AdminProductsController@create')}}" class="btn btn-primary">
+      <span class="glyphicon glyphicon-plus"></span> Agregar producto
+    </a>
+    <button class="btn btn-primary" type="submit">
+      <span class="fa fa-download"></span> Descargar
+    </button>
+    <input type="hide" name="excel" value="1" class="hide">
+  {{Form::close()}}
+
 </div>
 
   <div class="" style="margin: 20px inherit">

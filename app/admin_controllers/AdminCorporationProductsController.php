@@ -12,9 +12,50 @@ class AdminCorporationProductsController extends AdminBaseController{
       $products = CorporationProduct::withTrashed()->where('corporation_category_id',1);
     }
        
-    return View::make('admin::corporation_products.index')->withProducts($products->orderBy('corporation_category_id')->orderBy('name')->paginate(10))
-                                              ->withCategories(CorporationCategory::all())
-                                              ->withActiveTab($active_tab);                                          
+    if (Input::has('excel')) {
+      $headers = 
+        [
+          'NOMBRE',
+          'MODELO',
+          'DESCRIPCIÓN',
+          'MAXIMO',
+          'UNIDAD DE MEDIDA',
+          'ID PEOPLE','MBA_CODE',
+          'PRECIO',
+          'SKU',
+          'CATEGORIA'
+        ];
+        
+      $datetime = \Carbon\Carbon::now()->format('d-m-Y');
+      Excel::create('PRODUCTOS_PAPELERIA_CORPORATIVO_'.$datetime, function($excel) use($products,$headers){
+        $excel->sheet('productos',function($sheet)use($products,$headers){
+        $sheet->appendRow($headers);
+        $products = $products->get(); 
+
+        foreach ($products as $product) {
+          
+          $sheet->appendRow([
+            $product->name,
+            $product->model,
+            $product->description,
+            $product->max_stock,
+            $product->measure_unit,
+            $product->id_people,
+            $product->mba_code,
+            $product->price,
+            $product->sku,
+            Lang::get('paper_categories.'.$product->corporation_category_id) 
+          ]); 
+        }
+        });
+      })->download('xlsx');        
+    }else{
+      return View::make('admin::corporation_products.index')->withProducts($products->orderBy('corporation_category_id')->orderBy('name')->paginate(10))
+                                                ->withCategories(CorporationCategory::all())
+                                                ->withActiveTab($active_tab);      
+    }
+
+                                          
   }
 
   public function create()
