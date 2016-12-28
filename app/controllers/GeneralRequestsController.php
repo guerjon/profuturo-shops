@@ -76,7 +76,7 @@ class GeneralRequestsController extends BaseController{
     $products = sizeof($quantities) - 1;
 
     while($products != -1){
-      
+      //productos asociados a la solicitud general
       $general = new GeneralRequestProduct();
       
       $general->general_request_id = $request->id;

@@ -72,7 +72,7 @@
 				Clave CC
 			</th>
 			<th>
-			 Gerencia
+			 	Gerencia
 			</th>
 			<th>
 				No. pedido
@@ -95,6 +95,9 @@
 		<tr>
 			<td>
 				{{$order->ccosto}}
+			</td>
+			<td>
+			
 			</td>
 			<td>
 				{{$order->gerencia}}

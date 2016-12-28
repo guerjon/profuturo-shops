@@ -1,3 +1,7 @@
+
+
+
+	<html>
 <style>
 	.plantilla {
 	margin:0px;padding:0px;
@@ -138,9 +142,6 @@
 }
 
 </style>
-
-
-	<html>
 		 	<body>
 				<table class="plantilla">
 					<tbody>
@@ -163,7 +164,7 @@
 								Número de solicitud
 							</td>
 							<td>
-								{{$general_request->id}}
+								{{$general_request->general_request_id}}
 							</td>
 						</tr>
 						<tr>
