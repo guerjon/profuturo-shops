@@ -12,14 +12,18 @@ class AdminDatesCorporationController extends AdminBaseController
 	{
 		$date_corporation = new DateCorporation(Input::all());
 		//Usuarios de corporativo
-		$users = User::where('role','corporation')->get();
+		$users = User::where('role','user_corporation')->get();
+		//484 es un usuario de prueba
+		//$users = User::find('484');
+
 		$comments = Input::get('comments');
 
 		foreach ($users as $user) {
-			Mail::send('admin::email_templates.date_corporation_message',['user' => $user,'comments' => $comments],function($message) use ($user){
-      			$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
-				//$message->to('jona_54_.com@hotmail.com')->subject("Aviso,productos, insumos estrategicos.");
-    		});	
+			if($user->email){
+				Mail::send('admin::email_templates.date_corporation_message',['user' => $user,'comments' => $comments],function($message) use ($user){
+	      			$message->to($user->email)->subject("Aviso,productos, insumos estrategicos.");
+	    		});	
+    		}
 		}
 
 		if($date_corporation->save())
