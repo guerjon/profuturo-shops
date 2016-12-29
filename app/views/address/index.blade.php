@@ -119,10 +119,10 @@
               {{$address->posible_cambio}}
             </td>
             <td>
-              {{$address->divisional->name}}
+              {{$address->divisional ? $address->divisional->name : 'N/A'}}
             </td>
             <td>
-              {{$address->region->name}}
+              {{$address->region ? $address->region->name : 'N/A'}}
             </td>
             <td>
       				  <div class="btn-group">
