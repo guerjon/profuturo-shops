@@ -1,5 +1,7 @@
 <?php
 
+
+
 class AddressController extends \BaseController {
 
 	/**
@@ -9,17 +11,61 @@ class AddressController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = Address::orderBy('inmueble');
+		$addresses = Address::orderBy('inmueble');
+
+		if(Input::has('ccosto'))
+			$addresses->where('ccosto','LIKE','%'.Input::get('ccosto').'%');
+
+		if(Input::has('divisional_id'))
+			$addresses->where('divisional_id',Input::get('divisional_id'));
+
+		if(Input::has('gerencia'))
+			$addresses->where('gerencia',Input::get('gerencia'));
+
+		if(Input::has('region_id'))
+			$addresses->where('region_id',Input::get('region_id'));
 
 		if(Input::has('inmueble'))
-			$users->where('inmueble',Input::get('inmueble'));
+			$addresses->where('inmueble',Input::get('inmueble'));
 
-		if(Input::has('codigo_postal'))
-			$users->where('domicilio','LIKE','%'.Input::get('codigo_postal').'%');
-		if(Input::has('calle'))
-			$users->where('domicilio','LIKE','%'.Input::get('calle').'%');
+		if(Input::has('domicilio'))
+			$addresses->where('domicilio','LIKE','%'.Input::get('domicilio').'%');
 
-		return View::make('address.index')->withUsers($users->get());
+		
+		if(Input::has('excel')){
+			$headers = 
+			[
+			  'CCOSTOS',
+			  'GERENCIA',
+			  'INMUEBLE',
+			  'DOMICILIO',
+			  'DIVISIONAL',
+			  'REGION',
+			];
+
+			$datetime = \Carbon\Carbon::now()->format('d-m-Y');
+			
+			Excel::create('DIRECCIONES_'.$datetime, function($excel) use($addresses,$headers){
+				$excel->sheet('productos',function($sheet)use($addresses,$headers){
+					$sheet->appendRow($headers);
+						$addresses = $addresses->get(); 
+
+						foreach ($addresses as $address) {
+						  
+							$sheet->appendRow([
+								$address->ccostos,
+								$address->gerencia,
+								$address->inmueble,
+								$address->domicilio,
+								$address->divisional ? $address->divisional->name : 'N/A',
+								$address->region ? $address->region->name : 'N/A'
+							]); 
+						}
+					});
+			})->download('xlsx');
+		}
+
+		return View::make('address.index')->withAddresses($addresses->paginate(20));
 	}
 
 

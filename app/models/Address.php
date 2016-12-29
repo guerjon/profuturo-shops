@@ -1,6 +1,11 @@
 <?php
+
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 class Address extends Eloquent
 {
+
+	use SoftDeletingTrait;
 
 	protected $table = "address";
 	protected $guarded = ['created_at', 'updated_at'];
@@ -11,4 +16,15 @@ class Address extends Eloquent
 		return $this->hasMany('User');
 	}
 
+
+	public function divisional()
+	{
+		return $this->belongsTo('Divisional');
+	}
+
+	public function region()
+	{
+		return $this->belongsTo('Region');
+	}
 }
+

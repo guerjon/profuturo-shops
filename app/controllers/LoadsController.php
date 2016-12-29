@@ -28,47 +28,73 @@ class LoadsController extends \BaseController {
     $updated = 0;
     $users_updated = 0;
      
+
     $excel = Excel::load($file->getRealPath(), function($reader)use(&$created, &$updated,&$users_updated) {
 
       $reader->each(function($sheet)use(&$created, &$updated,&$users_updated){
-
+      	Address::where('id','>','0')->delete();
+    
         $sheet->each(function($row)use(&$created, &$updated,&$users_updated){
+			$address = Address::withTrashed()->where(['ccostos' => $row->ccostos])->first();
+			$divisional = Divisional::where('name',$row->divisional)->first();
+			$region = Region::where('name',$row->regional)->first();
 
-		$address = Address::where(['gerencia' => $row->gerencia])->first();
-		$user = User::where('ccosto',$row->ccostos)->first();
-		if($user){
+
 			if($address){
-				$user->address_id = $address->id;
-			    $address->update(['domicilio' => $row->domicilio,'inmueble' => $row->inmueble,'gerencia' => $row->gerencia]);
 
-			    if($address->isDirty()){
-				    $address->save();
-				  	$updated++;
-			    }
-			}else{
-				$address = new Address([
-				  'domicilio' => $row->domicilio,
-				  'inmueble' => $row->inmueble,
-				  'gerencia' => $row->gerencia,
-				]);
-				if($address->save()){
-					$user->address_id = $address->id;
-					if($user->save()){
-						$users_updated++;
+				if ($divisional and $region) {
+					$address->fill(
+						[
+							"inmueble" => $row->inmueble, 
+							"domicilio" => $row->domicilio,
+							"gerencia" => $row->gerencia,
+							"ccostos" => $row->ccostos,
+							"region_id" => $region->id,
+							"divisional_id" => $divisional->id,
+							"linea_negocio" => $row->linea_de_negocio
+						]
+					);
+					
+					if ($address->isDirty()) {
+						if ($address->save()) {
+							$updated++;
+						}else{
+							Log::debug($address->getErrors());
+						}
 					}
-					$created++;	
 				}
-			}   
-		}       	
-        else{
-        	Log::debug("No se encontro al usuario con el CCOSTOS" + $row->ccostos);
-        }
 
+			}else{
+				
+				if ($divisional and $region) {
+					$address = new Address();
+
+					$address->fill(
+						[
+							"inmueble" => $row->inmueble, 
+							"domicilio" => $row->domicilio,
+							"gerencia" => $row->gerencia,
+							"ccostos" => $row->ccostos,
+							"region_id" => $region->id,
+							"divisional_id" => $divisional->id,
+							"linea_negocio" => $row->linea_de_negocio
+						]
+					);
+
+					//dd($address->save());	
+
+					if ($address->save()) {
+						$created++;
+					}else{
+						Log::debug("adios");
+					}
+				}
+			}
         });
       });
     });
 
-    return Redirect::to(action('LoadsController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated direcciones y se actualizo la direccion de $users_updated usuarios");
+    return Redirect::to(action('AddressController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated direcciones y se actualizo la direccion de $users_updated usuarios");
   }
 
 
