@@ -39,7 +39,15 @@
         </div>
 
         <div class="form-group text-center">
-          {{Form::submit('Enviar', ['class' => 'btn btn-warning'])}}
+          <a href="{{action('LoadsController@downloadAddressesTemplate')}}" class="btn btn-primary">
+            <span class="glyphicon glyphicon-import"></span>
+            Descargar layout
+          </a>
+          <button class="btn btn-primary">
+            <span class="fa fa-save"></span> Guardar  
+          </button>
+       
+
         </div>
       </fieldset>
     {{Form::close()}}

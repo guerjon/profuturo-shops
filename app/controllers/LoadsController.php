@@ -9,7 +9,7 @@ class LoadsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return View::make('loads.index');
+		return View::make('loads/index');
 	}
 
 
@@ -97,5 +97,10 @@ class LoadsController extends \BaseController {
     return Redirect::to(action('AddressController@index'))->withSuccess("Se agregaron $created registros. Se actualizaron $updated direcciones y se actualizo la direccion de $users_updated usuarios");
   }
 
+
+	public function downloadAddressesTemplate()
+	{
+		return Response::download(storage_path().'/plantilla_direcciones.xlsx');
+	}
 
 }

@@ -120,6 +120,7 @@ Route::group(['before' => 'auth'], function(){
 
 	});
 
+	Route::get('download-addresses-template','LoadsController@downloadAddressesTemplate');
 	Route::resource('mensajes','MessagesController');
 	Route::resource('pedidos', 'OrdersController', ['only' => ['index', 'store', 'show', 'update','destroy']]);
 	Route::resource('perfil','ProfileController');

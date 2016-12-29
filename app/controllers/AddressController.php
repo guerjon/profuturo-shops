@@ -13,8 +13,8 @@ class AddressController extends \BaseController {
 	{
 		$addresses = Address::orderBy('inmueble');
 
-		if(Input::has('ccosto'))
-			$addresses->where('ccosto','LIKE','%'.Input::get('ccosto').'%');
+		if(Input::has('ccostos'))
+			$addresses->where('ccostos','LIKE','%'.Input::get('ccostos').'%');
 
 		if(Input::has('divisional_id'))
 			$addresses->where('divisional_id',Input::get('divisional_id'));
@@ -44,7 +44,7 @@ class AddressController extends \BaseController {
 			];
 
 			$datetime = \Carbon\Carbon::now()->format('d-m-Y');
-			
+
 			Excel::create('DIRECCIONES_'.$datetime, function($excel) use($addresses,$headers){
 				$excel->sheet('productos',function($sheet)use($addresses,$headers){
 					$sheet->appendRow($headers);
@@ -76,7 +76,7 @@ class AddressController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('address.create')->withAddress(new Address);
+		return View::make('address/create')->withAddress(new Address);
 	}
 
 
