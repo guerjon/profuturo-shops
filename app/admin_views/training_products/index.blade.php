@@ -21,6 +21,7 @@
       <span class="fa fa-download"></span> Descargar
     </button>
     <input type="hide" name="excel" value="1" class="hide">
+    <input type="hide" name="active_tab" value="{{$active_tab}}" class="hide">
   {{Form::close()}}
 
 </div>

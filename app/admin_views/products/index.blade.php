@@ -16,10 +16,13 @@
     <a href="{{action('AdminProductsController@create')}}" class="btn btn-primary">
       <span class="glyphicon glyphicon-plus"></span> Agregar producto
     </a>
+    
     <button class="btn btn-primary" type="submit">
       <span class="fa fa-download"></span> Descargar
     </button>
+    
     <input type="hide" name="excel" value="1" class="hide">
+    <input type="hide" name="active_tab" value="{{$active_tab}}" class="hide">
   {{Form::close()}}
 
 </div>

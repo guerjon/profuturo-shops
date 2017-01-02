@@ -28,6 +28,7 @@ class AdminProductsController extends AdminBaseController
         ];
         
       $datetime = \Carbon\Carbon::now()->format('d-m-Y');
+      
       Excel::create('PRODUCTOS_PAPELERIA_'.$datetime, function($excel) use($products,$headers){
         $excel->sheet('productos',function($sheet)use($products,$headers){
         $sheet->appendRow($headers);
