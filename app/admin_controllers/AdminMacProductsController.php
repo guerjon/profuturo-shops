@@ -23,7 +23,8 @@ class AdminMacProductsController extends AdminBaseController{
           'ID PEOPLE','MBA_CODE',
           'PRECIO',
           'SKU',
-          'CATEGORIA'
+          'CATEGORIA',
+          'FECHA DE CARGA'
         ];
         
       $datetime = \Carbon\Carbon::now()->format('d-m-Y');
@@ -44,7 +45,8 @@ class AdminMacProductsController extends AdminBaseController{
             $product->mba_code,
             $product->price,
             $product->sku,
-            Lang::get('paper_categories.'.$product->mac_category_id) 
+            Lang::get('paper_categories.'.$product->mac_category_id),
+            $product->created_at->format('d-m-Y') 
           ]); 
         }
         });
