@@ -172,25 +172,25 @@
 												{{$bc_order->NOMBRE_PUESTO}}
 										</td>
 										<td>
-												{{$bc_order->EMAIL}}
+												{{$bc_order->ORDER_EMAIL ? $bc_order->ORDER_EMAIL : $bc_order->EMAIL}}
 										</td>
 										<td>
-												{{$bc_order->TELEFONO}}
+												{{$bc_order->ORDER_TELEFONO ? $bc_order->ORDER_TELEFONO : $bc_order->TELEFONO}}
 										</td>
 										<td>
-												{{$bc_order->CELULAR}}
+												{{$bc_order->ORDER_CELULAR ? $bc_order->ORDER_CELULAR : $bc_order->CELULAR}}
 										</td>
 										<td>
 												{{$bc_order->WEB}}
 										</td>
 										<td>
-												{{$bc_order->DIRECCION}}
+												{{$bc_order->ORDER_DIRECCION ? $bc_order->ORDER_DIRECCION : $bc_order->DIRECCION}}
 										</td>
 										<td>
 											{{$bc_order->INMUEBLE}}
 										</td>
 										<td>
-												{{$bc_order->DIRECCION_ALTERNATIVA}}
+												{{$bc_order->ORDER_DIRECCION_ALTERNATIVA ? $bc_order->ORDER_DIRECCION_ALTERNATIVA : $bc_order->DIRECCION_ALTERNATIVA}}
 										</td>
 										@if($active_tab =='atraccion_talento' || $active_tab == 'gerente_comercial')
 												<td>

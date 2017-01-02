@@ -233,116 +233,121 @@ class AdminReportsController extends AdminBaseController{
 		$until->endOfDay()->format('Y-m-d');
 
 		switch ($active_tab) {
-		case 'tarjetas_presentacion':
-			$query = DB::table('bc_order_business_card')->selectRaw("
-				bc_orders.created_at as FECHA_PEDIDO,
-				bc_orders.id AS NUM_PEDIDO,
-				100 AS CANTIDAD,
-				users.gerencia AS GERENCIA,
-				DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-				business_cards.nombre AS NOMBRE,
-				business_cards.nombre_puesto AS NOMBRE_PUESTO,
-				business_cards.email AS EMAIL,
-				business_cards.telefono AS TELEFONO,
-				business_cards.celular AS CELULAR,
-				business_cards.web AS WEB,
-				business_cards.ccosto AS CENTRO_COSTO,
-				business_cards.direccion AS DIRECCION,
-				bc_order_business_card.inmueble as INMUEBLE,
-				business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
-				CASE bc_orders.status
-				WHEN  0 THEN  'PENDIENTE'
-				WHEN  1 THEN  'RECIBIDO'
-				WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-				END AS ESTATUS "
-			)->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
-			->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id');
+			case 'tarjetas_presentacion':
+				$query = DB::table('bc_order_business_card')->selectRaw("
+					bc_orders.created_at as FECHA_PEDIDO,
+					bc_orders.id AS NUM_PEDIDO,
+					users.gerencia AS GERENCIA,
+					DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+					business_cards.nombre AS NOMBRE,
+					business_cards.nombre_puesto AS NOMBRE_PUESTO,
+					business_cards.email AS EMAIL,
+					business_cards.telefono AS TELEFONO,
+					business_cards.celular AS CELULAR,
+					business_cards.web AS WEB,
+					business_cards.ccosto AS CENTRO_COSTO,
+					business_cards.direccion AS DIRECCION,
+					bc_order_business_card.inmueble as INMUEBLE,
+					business_cards.direccion_alternativa AS DIRECCION_ALTERNATIVA,
+					bc_order_business_card.email as ORDER_EMAIL,
+					bc_order_business_card.telefono as ORDER_TELEFONO,
+					bc_order_business_card.celular as ORDER_CELULAR,
+					bc_order_business_card.direccion as ORDER_DIRECCION,
+					bc_order_business_card.direccion_alternativa_tarjetas as ORDER_DIRECCION_ALTERNATIVA,
 
-		break;
-			case 'tarjetas_blancas':
-				$query = DB::table('blank_cards_bc_order')->selectRaw("
-				bc_orders.created_at as FECHA_PEDIDO,
-				bc_orders.id as NUM_PEDIDO,
-				blank_cards_bc_order.quantity as CANTIDAD,
-				users.gerencia as GERENCIA,
-				DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-				'Tarjetas blancas' AS NOMBRE,
-				blank_cards_bc_order.nombre_puesto AS NOMBRE_PUESTO,
-				blank_cards_bc_order.email AS EMAIL,
-				blank_cards_bc_order.telefono_tarjetas AS TELEFONO,
-				'' AS CELULAR,
-				'' AS WEB,
-				users.ccosto AS CENTRO_COSTO,
-				'' AS DIRECCION,
-				'' as INMUEBLE,
-				blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA,
-				blank_cards_bc_order.email as EMAIL_TARJETAS,
-				CASE bc_orders.status
-				WHEN  0 THEN  'PENDIENTE'
-				WHEN  1 THEN  'RECIBIDO'
-				WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-				END AS ESTATUS")
-				->whereNull('bc_orders.deleted_at')
-				->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id');
-		break;
-			case 'atraccion_talento':
-				$query = DB::table('bc_orders_extras')->selectRaw("
-				bc_orders.created_at as FECHA_PEDIDO,
-				bc_orders.id as NUM_PEDIDO,
-				100 as CANTIDAD,
-				users.gerencia as GERENCIA,
-				DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-				bc_orders_extras.talento_nombre AS NOMBRE,
-				'' AS NOMBRE_PUESTO,
-				talento_email AS EMAIL,
-				talento_tel AS TELEFONO,
-				talento_cel AS CELULAR,
-				'' AS WEB,
-				users.ccosto AS CENTRO_COSTO,
-				bc_orders_extras.talento_direccion AS DIRECCION,
-				'' as INMUEBLE,
-				'' AS DIRECCION_ALTERNATIVA,
-				'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
-				CASE bc_orders.status
-				WHEN  0 THEN  'PENDIENTE'
-				WHEN  1 THEN  'RECIBIDO'
-				WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-				END AS ESTATUS")
-				->where('bc_orders_extras.talento_nombre', '!=', "''")
-				->whereNotNull('bc_orders_extras.talento_nombre')
-				->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id');
-		break;
-		case 'gerente_comercial':
-				$query = DB::table('bc_orders_extras')->selectRaw("
-				bc_orders.created_at as FECHA_PEDIDO,
-				bc_orders.id as NUM_PEDIDO,
-				100 as CANTIDAD,
-				users.gerencia as GERENCIA,
-				DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
-				bc_orders_extras.gerente_nombre AS NOMBRE,
-				'' AS NOMBRE_PUESTO,
-				gerente_email AS EMAIL,
-				gerente_tel AS TELEFONO,
-				gerente_cel AS CELULAR,
-				'' AS WEB,
-				users.ccosto AS CENTRO_COSTO,
-				bc_orders_extras.gerente_direccion AS DIRECCION,
-				'' as INMUEBLE,
-				'' AS DIRECCION_ALTERNATIVA,
-				'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
-				CASE bc_orders.status
-				WHEN  0 THEN  'PENDIENTE'
-				WHEN  1 THEN  'RECIBIDO'
-				WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
-				END AS ESTATUS")
-				->where('bc_orders_extras.gerente_nombre', '!=', "''")
-				->whereNotNull('bc_orders_extras.gerente_nombre')
-				->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id');
-		break; 
-		default:
-				return Redirect::back()->withErrors('Algo salio mal, intente mas tarde.');
-		break;
-	}
+					CASE bc_orders.status
+					WHEN  0 THEN  'PENDIENTE'
+					WHEN  1 THEN  'RECIBIDO'
+					WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+					END AS ESTATUS "
+				)->join('business_cards', 'business_cards.id', '=', 'bc_order_business_card.business_card_id')
+				->join('bc_orders', 'bc_orders.id', '=', 'bc_order_business_card.bc_order_id');
+
+			break;
+				case 'tarjetas_blancas':
+					$query = DB::table('blank_cards_bc_order')->selectRaw("
+					bc_orders.created_at as FECHA_PEDIDO,
+					bc_orders.id AS NUM_PEDIDO,
+					blank_cards_bc_order.quantity as CANTIDAD,
+					users.gerencia as GERENCIA,
+					DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+					'Tarjetas blancas' AS NOMBRE,
+					blank_cards_bc_order.nombre_puesto AS NOMBRE_PUESTO,
+					blank_cards_bc_order.email AS EMAIL,
+					blank_cards_bc_order.telefono_tarjetas AS TELEFONO,
+					'' AS CELULAR,
+					'' AS WEB,
+					users.ccosto AS CENTRO_COSTO,
+					'' AS DIRECCION,
+					'' as INMUEBLE,
+					blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA,
+					blank_cards_bc_order.email as EMAIL_TARJETAS,
+					CASE bc_orders.status
+					WHEN  0 THEN  'PENDIENTE'
+					WHEN  1 THEN  'RECIBIDO'
+					WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+					END AS ESTATUS")
+					->whereNull('bc_orders.deleted_at')
+					->join('bc_orders', 'bc_orders.id', '=', 'blank_cards_bc_order.bc_order_id');
+			break;
+				case 'atraccion_talento':
+					$query = DB::table('bc_orders_extras')->selectRaw("
+					bc_orders.created_at as FECHA_PEDIDO,
+					bc_orders.id AS NUM_PEDIDO,
+					100 as CANTIDAD,
+					users.gerencia as GERENCIA,
+					DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+					bc_orders_extras.talento_nombre AS NOMBRE,
+					'' AS NOMBRE_PUESTO,
+					talento_email AS EMAIL,
+					talento_tel AS TELEFONO,
+					talento_cel AS CELULAR,
+					'' AS WEB,
+					users.ccosto AS CENTRO_COSTO,
+					bc_orders_extras.talento_direccion AS DIRECCION,
+					'' as INMUEBLE,
+					'' AS DIRECCION_ALTERNATIVA,
+					'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
+					CASE bc_orders.status
+					WHEN  0 THEN  'PENDIENTE'
+					WHEN  1 THEN  'RECIBIDO'
+					WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+					END AS ESTATUS")
+					->where('bc_orders_extras.talento_nombre', '!=', "''")
+					->whereNotNull('bc_orders_extras.talento_nombre')
+					->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id');
+			break;
+			case 'gerente_comercial':
+					$query = DB::table('bc_orders_extras')->selectRaw("
+					bc_orders.created_at as FECHA_PEDIDO,
+					bc_orders.id AS NUM_PEDIDO,
+					100 as CANTIDAD,
+					users.gerencia as GERENCIA,
+					DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
+					bc_orders_extras.gerente_nombre AS NOMBRE,
+					'' AS NOMBRE_PUESTO,
+					gerente_email AS EMAIL,
+					gerente_tel AS TELEFONO,
+					gerente_cel AS CELULAR,
+					'' AS WEB,
+					users.ccosto AS CENTRO_COSTO,
+					bc_orders_extras.gerente_direccion AS DIRECCION,
+					'' as INMUEBLE,
+					'' AS DIRECCION_ALTERNATIVA,
+					'Gerente comercial' AS PUESTO_ATRACCION_GERENTE,
+					CASE bc_orders.status
+					WHEN  0 THEN  'PENDIENTE'
+					WHEN  1 THEN  'RECIBIDO'
+					WHEN  2 THEN  'RECIBIDO_INCOMPLETO'
+					END AS ESTATUS")
+					->where('bc_orders_extras.gerente_nombre', '!=', "''")
+					->whereNotNull('bc_orders_extras.gerente_nombre')
+					->join('bc_orders', 'bc_orders.id', '=', 'bc_orders_extras.bc_order_id');
+			break; 
+			default:
+					return Redirect::back()->withErrors('Algo salio mal, intente mas tarde.');
+			break;
+		}
 
 			$query = $query->leftJoin('users', 'users.id', '=', 'bc_orders.user_id')
 				->whereNull('bc_orders.deleted_at')
@@ -398,16 +403,15 @@ class AdminReportsController extends AdminBaseController{
 														
 														$bc_order->FECHA_PEDIDO,
 														$bc_order->NUM_PEDIDO,
-														$bc_order->CANTIDAD,
 														$bc_order->GERENCIA,
 														$bc_order->FECHA,
 														$bc_order->NOMBRE_PUESTO,
-														$bc_order->EMAIL,
-														$bc_order->TELEFONO,
-														$bc_order->CELULAR,
+														$bc_order->ORDER_EMAIL ? $bc_order->ORDER_EMAIL : $bc_order->EMAIL,
+														$bc_order->ORDER_TELEFONO ? $bc_order->ORDER_TELEFONO : $bc_order->TELEFONO,
+														$bc_order->ORDER_CELULAR ? $bc_order->ORDER_CELULAR : $bc_order->CELULAR,
 														$bc_order->WEB,
-														$bc_order->DIRECCION,
-														$bc_order->DIRECCION_ALTERNATIVA,
+														$bc_order->ORDER_DIRECCION ? $bc_order->ORDER_DIRECCION : $bc_order->DIRECCION,
+														$bc_order->ORDER_DIRECCION_ALTERNATIVA ? $bc_order->ORDER_DIRECCION_ALTERNATIVA : $bc_order->DIRECCION_ALTERNATIVA,
 														$bc_order->ESTATUS,
 														$bc_order->PUESTO_ATRACCION_GERENTE
 							]); 
@@ -416,18 +420,17 @@ class AdminReportsController extends AdminBaseController{
 														$bc_order->NOMBRE,
 														$bc_order->FECHA_PEDIDO,
 														$bc_order->NUM_PEDIDO,
-														$bc_order->CANTIDAD,
 														$bc_order->GERENCIA,
 														$bc_order->FECHA,
 														$bc_order->NOMBRE_PUESTO,
-														$bc_order->EMAIL,
-														$bc_order->TELEFONO,
-														$bc_order->CELULAR,
+														$bc_order->ORDER_EMAIL ? $bc_order->ORDER_EMAIL : $bc_order->EMAIL,
+														$bc_order->ORDER_TELEFONO ? $bc_order->ORDER_TELEFONO : $bc_order->TELEFONO,
+														$bc_order->ORDER_CELULAR ? $bc_order->ORDER_CELULAR : $bc_order->CELULAR,
 														$bc_order->WEB,
-														$bc_order->DIRECCION,
-														$bc_order->INMUEBLE,
-														$bc_order->DIRECCION_ALTERNATIVA,
-														$bc_order->ESTATUS
+														$bc_order->ORDER_DIRECCION ? $bc_order->ORDER_DIRECCION : $bc_order->DIRECCION,
+														$bc_order->ORDER_DIRECCION_ALTERNATIVA ? $bc_order->ORDER_DIRECCION_ALTERNATIVA : $bc_order->DIRECCION_ALTERNATIVA,
+														$bc_order->ESTATUS,
+														$bc_order->INMUEBLE
 							]);
 						}   
 					}

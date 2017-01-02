@@ -48,7 +48,7 @@
                                     {{Form::text("card[{$card->id}][nombre]", $card->nombre, ['class' => 'form-control'])}}
                                 </td>
                                 <td>
-                                    {{$card->direccion}}
+                                    {{Form::text("card[{$card->id}][direccion]",$card->direccion,['class' => 'form-control'])}}
                                 </td>
                                 <td>
                                     {{Form::text("card[{$card->id}][direccion_alternativa]", $card->direccion_alternativa,['class' => 'form-control'])}}

@@ -12,7 +12,9 @@ class BcOrder extends Eloquent
 
   public function businessCards()
   {
-    return $this->belongsToMany('BusinessCard')->withPivot('quantity', 'status', 'comments','direccion_alternativa_tarjetas','inmueble')->withTrashed();
+    return $this->belongsToMany('BusinessCard')
+      ->withPivot('quantity', 'status', 'comments','direccion_alternativa_tarjetas','inmueble','telefono','direccion','email','celular')
+      ->withTrashed();
   }
 
   public function user()

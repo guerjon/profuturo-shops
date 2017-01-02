@@ -71,14 +71,14 @@
 			<th>
 				Clave CC
 			</th>
-			<th>
+			<th style="max-width: 150">
 			 	Gerencia
 			</th>
 			<th>
 				No. pedido
 			</th>
 
-			<th>
+			<th style="max-width: 200px">
 				Comentarios
 			</th>
 			<th>
@@ -86,6 +86,9 @@
 			</th>
 			<th>
 				Estatus
+			</th>
+			<th>
+				
 			</th>
 		</tr>
 	</thead>
@@ -96,16 +99,14 @@
 			<td>
 				{{$order->ccosto}}
 			</td>
-			<td>
-			
-			</td>
-			<td>
+
+			<td style="max-width: 100px">
 				{{$order->gerencia}}
 			</td>
 			<td>
 				{{link_to_action('AdminBcOrdersController@show', $order->order_id, [$order->order_id])}}
 			</td>
-			<td>
+			<td style="max-width: 200px">
 				{{$order->comments}}
 			</td>
 			<td>

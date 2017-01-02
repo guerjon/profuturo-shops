@@ -87,7 +87,7 @@ class BcOrdersController extends BaseController{
 
   	public function store()
   	{
-
+  		
   		$bc_order = BcOrder::create([
 			'user_id' => Auth::id(),
 			]);
@@ -101,17 +101,25 @@ class BcOrdersController extends BaseController{
 		$bc_order->comments = Input::get('comments');
 		$talentos = Input::get('talentos');
 
+		
+		$cards = Input::get('card', []);
+		
 
-		foreach(Input::get('card', []) as $id => $card){
+		foreach($cards as $id => $card){
 		  	$bc = BusinessCard::find($id);
-			if($bc){
-				$bc->fill($card);
-				$bc->save();
-			}
-			$bc_order->businessCards()->attach($bc->id, ['quantity' => @$quantities[$bc->id]*100 ,'inmueble' => @$inmuebles[$bc->id]]);
+			$bc_order->businessCards()->attach($bc->id, 
+				[
+					'quantity' => @$quantities[$bc->id]*100 ,
+					'inmueble' => @$inmuebles[$bc->id],
+					'telefono' => @$card['telefono'],
+					'direccion' => @$card['direccion'],
+					'celular' => @$card['celular'],
+					'email' => @$card['email'],
+				]
+			);
 		}
 
-
+		
 		$bc_order->save();
 		$talentos = Input::get('talentos',[]);
 
