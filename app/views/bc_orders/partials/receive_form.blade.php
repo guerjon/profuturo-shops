@@ -61,22 +61,22 @@
         <td>
           {{$card->gerencia}}
         </td>
-        <td style="max-width:150px">
-          {{$card->direccion}}
-        </td>
-        <td style="max-width:150px">
-          {{$card->direccion_alternativa}}
+        <td>
+          {{$card->pivot->direccion ? $card->pivot->direccion : $card->direccion}}
         </td>
         <td>
-          {{$card->telefono}}
+          {{$card->pivot->direccion_alternativa_tarjetas ? $card->pivot->direccion_alternativa_tarjetas : $card->direccion_alternativa }}
         </td>
         <td>
-          {{$card->celular}}
+          {{$card->pivot->telefono ? $card->pivot->telefono : $card->telefono}}
         </td>
         <td>
-          {{$card->email}}
+          {{$card->pivot->celular ? $card->pivot->celular : $card->celular}}
         </td>
         <td>
+          {{$card->pivot->email ? $card->pivot->email : $card->email}}
+        </td>
+      <td>
           {{$card->web}}
         </td>
       <td>

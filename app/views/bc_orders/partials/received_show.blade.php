@@ -62,19 +62,19 @@
 							{{$card->gerencia}}
 						</td>
 						<td>
-							{{$card->direccion}}
+							{{$card->pivot->direccion ? $card->pivot->direccion : $card->direccion}}
 						</td>
 						<td>
-							{{$card->direccion_alternativa}}
+							{{$card->pivot->direccion_alternativa_tarjetas ? $card->pivot->direccion_alternativa_tarjetas : $card->direccion_alternativa }}
 						</td>
 						<td>
-							{{$card->telefono}}
+							{{$card->pivot->telefono ? $card->pivot->telefono : $card->telefono}}
 						</td>
 						<td>
-							{{$card->celular}}
+							{{$card->pivot->celular ? $card->pivot->celular : $card->celular}}
 						</td>
 						<td>
-							{{$card->email}}
+							{{$card->pivot->email ? $card->pivot->email : $card->email}}
 						</td>
 						<td>
 							{{$card->web}}
