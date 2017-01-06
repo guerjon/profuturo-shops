@@ -2236,6 +2236,94 @@ class AdminApiController extends AdminBaseController
 		}
 	}
 
+
+	function png2jpg($originalFile, $outputFile, $quality) {
+	    $image = imagecreatefrompng($originalFile);
+	    imagejpeg($image, $outputFile, $quality);
+	    imagedestroy($image);
+	}
+
+	/*
+		Esta función recibe un canvas en base64 desde spider_graph/index.blade.php
+		Este canvas contiene una imagen de la grafíca que aparece en index.blade
+		La imagen se agrega a un archivo, y se guarda como graph.png en storage
+		despues la ponemos en un excel el cual sera almacenado y despues descargado en 
+		AdminSpiderGraphController con javascript, al terminar la llamada ajax a esta funcion
+		en el metodo done 
+	*/
+	public function postGraph()
+	{
+		$img = Input::get('imgBase64');
+		$img = str_replace('data:image/png;base64,', '', $img);
+		$img = str_replace(' ', '+', $img);
+		$fileData = base64_decode($img);
+
+		$fileName = storage_path()."/graph.png";
+		$params = array();
+		parse_str(Input::get("filtros"),$params) ;
+		$gerencia = "Todos los consultores";
+		$encuesta = "Todas las encuestas";
+
+		
+		if (isset($params['gerencia']) and $params['gerencia'] != null) {
+			$gerencia = User::find($params['gerencia'])->gerencia; 
+		}
+		
+		if (isset($params['encuesta']) and $params['encuesta'] != null) {
+			$encuesta = $params['encuesta'];	
+		}
+
+
+		file_put_contents($fileName,$fileData);
+
+		//$this->png2jpg($fileName,$fileName,100);
+
+		Excel::create("estadisticas_encuestas" , function($excel) use ($fileName,$gerencia,$encuesta,$params){
+
+			$excel->sheet('Gráfica', function($sheet) use ($fileName,$gerencia,$encuesta,$params){
+				$sheet->row(1,
+					[
+						"ACTITUD",
+						"SEGUIMIENTO",
+						"TIEMPO DE RESPUESTA",
+						"CALIDAD DEL PRODUCTO",
+						"PROMEDIO",
+						"CONSULTOR",
+						"ENCUESTA",
+						"DESDE",
+						"HASTA"
+					]);
+				$sheet->row(1,function($row){
+					$row->setBackground('#004a8d');
+					$row->setFontColor("#FFFFFF");
+					$row->setAlignment("center");
+					$row->setVAlignment("center");
+				});
+
+				$promedios = Input::get("promedios");
+				$promedio = array_sum($promedios) / count($promedios); 
+
+				$sheet->row(2,array_merge($promedios,[$promedio,$gerencia,$encuesta,$params['since'],$params['until']]));
+				$sheet->row(2,function($row){
+					$row->setAlignment("center");
+					$row->setVAlignment("center");
+				});
+			    
+			    $objDrawing = new PHPExcel_Worksheet_Drawing;
+			    $objDrawing->setPath($fileName); 
+			    $objDrawing->setCoordinates('A10');
+			    $objDrawing->setWorksheet($sheet);
+			});
+
+    	})->store('xls',storage_path());
+
+
+		return Response::json([
+			'status' => 200,
+		]);
+
+	}
+
   public function getCcostosAutocomplete()
   {
 	
@@ -2264,7 +2352,7 @@ class AdminApiController extends AdminBaseController
   
   	public function getGeneralRequestsByManager()
   	{
-  		Log::debug(Input::get('id'));
+  		
   		$id = Input::get('id');
 
   		$general_requests = GeneralRequest::where('manager_id',$id)

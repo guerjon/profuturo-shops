@@ -9,6 +9,12 @@ class AdminSpiderGraphController extends \BaseController {
 	 */
 	public function getIndex()
 	{   
+		if(Input::has("excel"))
+		{
+			return Response::download(storage_path()."/estadisticas_encuestas.xls");
+		}
+
 		return View::make('admin::spider_graph.index');
 	}
+
 }

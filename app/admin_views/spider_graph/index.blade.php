@@ -11,7 +11,7 @@
 		</center>
 			<div class="row">	
 				{{Form::open(['method' => 'GET','id' => 'spider-form','target' => '_blank','action' => 'AdminApiController@getSurvey'])}}
-				<div class="col col-md-2">
+				<div class="col col-md-3">
 					<div class="form-group">
 						{{Form::label('gerencia','CONSULTOR',['class' => 'label-control'])}}
 						{{Form::select(
@@ -23,24 +23,25 @@
 					</div>
 				</div>
 
-				<div class="col col-md-2">
+				<div class="col col-md-3">
 					<div class="form-group">
 						{{Form::label('encuesta','SOLICITUD GENERAL',['class' => 'label-control'])}}
 						{{Form::select('encuesta',[],null,['class' => ' form-control select-2 filter','id' => 'encuesta','DISABLED'])}}
 					</div>
 				</div>
-			    <div class="col-xs-2 ">
+			    <div class="col-xs-3 ">
 			    	{{Form::label('since','DESDE',['class' => 'label-control'])}}
     				{{Form::text('since',Input::get('since',\Carbon\Carbon::now('America/Mexico_City')->subMonths(6)->format('Y-m-d')) , ['class' => 'form-control datepicker','id' => 'since' ])}}
 				</div>
-			    <div class="col-xs-2 ">
+			    <div class="col-xs-3 ">
 			    	{{Form::label('until','HASTA',['class' => 'label-control'])}}
 			        {{Form::text('until',Input::get('until',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d')), ['class' => 'form-control datepicker','id' => 'until' ])}}
 			    </div>
 
 				{{Form::close()}}	
-
-				<div class="col col-xs-3 text-right" >
+			</div>
+			<div class="row">
+				<div class="col col-xs-12 text-center" >
 					<br>							
 					<button class="btn btn-primary" id="filtrar">
 						<span class="fa fa-filter"></span>
@@ -48,12 +49,16 @@
 					</button>
 					<button class="btn btn-default" type="button" id="btn-excel">
 						<span class="glyphicon glyphicon-download-alt"></span>
-						Descargar Reporte
+						Reporte
 					</button>
 					<a href="grafica-arana" class="btn btn-default">
 						<i class="fa fa-eraser" aria-hidden="true"></i>
 						Borrar Filtros
 					</a>
+					<button class = "btn btn-default hide" type="button" id = "download-chart" >
+						<span class="fa fa-bar-chart"></span>
+						Descargar gráfica
+					</button>
 				</div>
 			</div>
 		<hr>
@@ -101,6 +106,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="hide">
+			{{Form::open(
+				[
+					'method' => 'get',
+					'id' => 'graph-form'
+				]
+			)}}
+				<input type="hide" name="excel" value="1" class="hide">
+			{{Form::close()}}
+		</div>
 @endsection
 
 
@@ -110,6 +125,9 @@
 	<script type="text/javascript" src="/js/chart/dist/Chart.js"></script>
 	<script type="text/javascript" src="/js/jquery.number.min.js"></script>
 	<script>
+		var promedios;
+		var filtros;
+
 		function fillSurveySelect(id){
 			$.get('/admin/api/general-requests-by-manager',{id:id},function(data){
 				
@@ -135,110 +153,132 @@
 			});
 		}
 
-		function actualiza(){
-
-			$.get('/admin/api/survey',$('#spider-form').serialize(),function(datos){
-				console.log(datos);
-				var encuestas = [];
-				
-				if(datos.status = 200){
-					var solicitudes = datos.solicitudes;
-					var numero_solicitudes = solicitudes.length;
-
-					if(numero_solicitudes > 0){
-						$('#total_solicitudes').html(numero_solicitudes);
-						var promedio = 0;
-						var uno_promedio = 0;
-						var dos_promedio = 0;
-						var tres_promedio = 0;
-						var cuatro_promedio = 0;
-
-						for (var i = 0; i < solicitudes.length; i++) {
-							promedio = solicitudes[i].promedio + promedio;
-							uno_promedio = solicitudes[i].question_one + uno_promedio;
-							dos_promedio = solicitudes[i].question_two + dos_promedio;
-							tres_promedio = solicitudes[i].question_three + tres_promedio;
-							cuatro_promedio = solicitudes[i].question_four + cuatro_promedio;
-						};
-
-
-						promedio = promedio/numero_solicitudes;
-						uno_promedio = uno_promedio/numero_solicitudes;
-						dos_promedio = dos_promedio/numero_solicitudes;
-						tres_promedio = tres_promedio/numero_solicitudes;
-						cuatro_promedio = cuatro_promedio/numero_solicitudes;
-
-
-							$('#promedio_total').html($.number(promedio,'3'));
-							$('#actitud_consultor').html($.number(uno_promedio,'3'));
-							$('#seguimiento_consultor').html($.number(dos_promedio,'3'));
-							$('#tiempos_respuesta').html($.number(tres_promedio,'3'));
-							$('#calidad_producto').html($.number(cuatro_promedio,'3'));
-							$('#comments').empty();
-
-							for (var i = solicitudes.length - 1; i >= 0; i--) {
-								$('#comments').append(
-										"<tr><td style='width:50px; word-wrap:break-word;'><a href='general-requests/"+solicitudes[i].general_request_id+"'>"+ solicitudes[i].general_request_id+
-										"</a></td>"+
-										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_1+'</td>'+
-								 	 	'<td style=" width:100px; word-wrap:break-word;">'+solicitudes[i].explain_2+'</td>'+
-										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_3+'</td>'+
-										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_4+'</td>' +
-										'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].general_request_created_at+'</td>' +
-										'</tr>');
-									
-							};							
-						var data = 
-						{
-						    labels: [	
-						    			"Actitud del consultor",
-						    			"Seguimiento del consultor",
-						    			"Tiempos respuesta consultor",
-						    			"Calidad de producto",
-						    		],
-						    datasets: [{
-
-							            label: "Datos de encuesta",
-							            backgroundColor: "rgba(0,74,141,0.2)",
-							            borderColor: "rgba(179,181,198,1)",
-							            pointBackgroundColor: "rgba(179,181,198,1)",
-							            pointBorderColor: "#fff",
-							            pointHoverBackgroundColor: "#fff",
-							            pointHoverBorderColor: "rgba(179,181,198,1)",
-							            data: 
-							            	[
-							            		parseFloat(uno_promedio),
-							            		parseFloat(dos_promedio),
-							        			parseFloat(tres_promedio),
-							        			parseFloat(cuatro_promedio),
-							        		]
-							        }],
-							fill : true			    
-						};
-						$('#div-chart-container').empty();
-						$('#div-chart-container').append('<canvas id="chart-container"></canvas>')	
-						var myRadarChart = new Chart($('#chart-container'), {
-						    type: 'bar',
-						    data: data,
-						    options: {
-						        scales: {
-						            yAxes: [{
-						                ticks: {
-						                    max: 10,
-						                    min: 0,
-						                    stepSize: 2
-						                }
-						            }]
-						        }
-					    	}
-						});
-					}else{
-						alert("No se encontraron solicitudes para estos filtros");
-					}						
-				}
-			});		
+		function done(promedios){
+			$('#download-chart').removeClass('hide');
 		}
 
+
+		function actualiza()
+		{
+
+			$.ajax({
+					method : "GET",
+					url : '/admin/api/survey',
+					data : $('#spider-form').serialize()
+				}).done(function(datos){
+				
+					var encuestas = [];
+
+					if(datos.status = 200){
+						var solicitudes = datos.solicitudes;
+						var numero_solicitudes = solicitudes.length;
+
+						if(numero_solicitudes > 0){
+							$('#total_solicitudes').html(numero_solicitudes);
+							var promedio = 0;
+							var uno_promedio = 0;
+							var dos_promedio = 0;
+							var tres_promedio = 0;
+							var cuatro_promedio = 0;
+
+							for (var i = 0; i < solicitudes.length; i++) {
+								promedio = solicitudes[i].promedio + promedio;
+								uno_promedio = solicitudes[i].question_one + uno_promedio;
+								dos_promedio = solicitudes[i].question_two + dos_promedio;
+								tres_promedio = solicitudes[i].question_three + tres_promedio;
+								cuatro_promedio = solicitudes[i].question_four + cuatro_promedio;
+							};
+
+
+							promedio = promedio/numero_solicitudes;
+							uno_promedio = uno_promedio/numero_solicitudes;
+							dos_promedio = dos_promedio/numero_solicitudes;
+							tres_promedio = tres_promedio/numero_solicitudes;
+							cuatro_promedio = cuatro_promedio/numero_solicitudes;
+
+							var actitud_consultor = $.number(uno_promedio,'3');
+							var seguimiento_consultor = $.number(dos_promedio,'3');
+							var tiempos_respuesta = $.number(tres_promedio,'3');
+							var calidad_producto = $.number(cuatro_promedio,'3');
+
+							promedios = [actitud_consultor,seguimiento_consultor,tiempos_respuesta,calidad_producto];
+							filtros = $('#spider-form').serialize(); 
+
+							$('#promedio_total').html($.number(promedio,'3'));
+							$('#actitud_consultor').html(actitud_consultor);
+							$('#seguimiento_consultor').html(seguimiento_consultor);
+							$('#tiempos_respuesta').html(tiempos_respuesta);
+							$('#calidad_producto').html(calidad_producto);
+							$('#comments').empty();
+
+								for (var i = solicitudes.length - 1; i >= 0; i--) {
+									$('#comments').append(
+											"<tr><td style='width:50px; word-wrap:break-word;'><a href='general-requests/"+solicitudes[i].general_request_id+"'>"+ solicitudes[i].general_request_id+
+											"</a></td>"+
+											'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_1+'</td>'+
+									 	 	'<td style=" width:100px; word-wrap:break-word;">'+solicitudes[i].explain_2+'</td>'+
+											'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_3+'</td>'+
+											'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].explain_4+'</td>' +
+											'<td style="width:100px; word-wrap:break-word;">'+solicitudes[i].general_request_created_at+'</td>' +
+											'</tr>');
+										
+								};							
+							var data = 
+							{
+							    labels: [	
+							    			"Actitud del consultor",
+							    			"Seguimiento del consultor",
+							    			"Tiempos respuesta consultor",
+							    			"Calidad de producto",
+							    		],
+							    datasets: [{
+
+								            label: "Datos de encuesta",
+								            backgroundColor: "rgba(0,74,141,0.2)",
+								            borderColor: "rgba(179,181,198,1)",
+								            pointBackgroundColor: "rgba(179,181,198,1)",
+								            pointBorderColor: "#fff",
+								            pointHoverBackgroundColor: "#fff",
+								            pointHoverBorderColor: "rgba(179,181,198,1)",
+								            data: 
+								            	[
+								            		parseFloat(uno_promedio),
+								            		parseFloat(dos_promedio),
+								        			parseFloat(tres_promedio),
+								        			parseFloat(cuatro_promedio),
+								        		]
+								        }],
+								fill : true			    
+							};
+							$('#div-chart-container').empty();
+							$('#div-chart-container').append('<canvas id="chart-container"></canvas>')	
+							var myRadarChart = new Chart($('#chart-container'), {
+							    type: 'bar',
+							    data: data,
+							    onAnimationComplete : done(promedios),
+							    options: {
+							        scales: {
+							            yAxes: [{
+							                ticks: {
+							                    max: 10,
+							                    min: 0,
+							                    stepSize: 2
+							                }
+							            }]
+							        }
+							        
+						    	}
+							});
+
+
+						}else{
+							alert("No se encontraron solicitudes para estos filtros");
+						}						
+					}
+				});		
+		}
+
+		
 		$(function(){
 			 
 			$('#loading').prop('hidden',true);
@@ -269,6 +309,25 @@
 				$('#spider-form').submit();
 			});
 
+			$('#download-chart').click(function(){
+				var canvas  = document.getElementById('chart-container');
+				var dataURL = canvas.toDataURL();
+
+				console.log(filtros);
+
+				$.ajax({
+					method : "post",
+					url : "/admin/api/graph",
+					data: {
+						imgBase64 : dataURL,
+						promedios : promedios,
+						filtros : filtros
+					} 
+
+				}).done(function(graph){
+					$('#graph-form').submit();
+				});
+			});
 		});
 
 		
