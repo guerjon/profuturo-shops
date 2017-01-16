@@ -5,11 +5,17 @@ class AdminTrainingProductsController extends AdminBaseController{
  public function index()
   {
     $active_tab = Session::get('active_tab', Input::get('active_tab',1));
-    $categories = TrainingCategory::lists('name');
+    $categories = TrainingCategory::lists('name') ;
+    
     if (Input::has('active_tab')) {
-      $products = TrainingProduct::withTrashed()->where('training_category_id',Input::get('active_tab'));
+      if(Input::get('active_tab') == 0){
+        $products = TrainingProduct::withTrashed();
+      }
+      else{
+        $products = TrainingProduct::withTrashed()->where('training_category_id',Input::get('active_tab'));
+      }
     }else{
-      $products = TrainingProduct::withTrashed()->where('training_category_id',1);
+      $products = TrainingProduct::withTrashed();
     }
 
     if (Input::has('excel')) {

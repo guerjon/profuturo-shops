@@ -171,6 +171,7 @@
             </div>
             <hr>
             <center>
+            
                 <a id="cancel-order-button" class="btn btn-danger" href="{{action('BusinessCardsController@index')}}">Cancelar</a>
                 <button class="btn btn-default" id="save" type="button">
                   <span class="fa fa-save"></span>
@@ -178,6 +179,9 @@
                 </button>
                 <button class="btn btn-primary" id="add-white-cards-btn" type="button">
                     <span class="fa fa-plus"></span> Añadir tarjetas blancas
+                </button>
+                <button class="btn btn-primary" id="add-white-cards-btn" type="button">
+                    <i class="fa fa-flag" aria-hidden="true"></i> Datos en inglés
                 </button>
             </center>              
           {{Form::close()}}

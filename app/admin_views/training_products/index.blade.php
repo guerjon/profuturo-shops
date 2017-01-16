@@ -28,6 +28,11 @@
 
   <div class="" style="margin: 20px inherit">
      <ul class="nav nav-tabs" role="tablist">
+     <li role="presentation" class="{{$active_tab == 0 ? 'active' : ''}}">
+        <a href="?active_tab=0&page=1" aria-controls="TODAS" class="tabs">
+          TODAS
+        </a>
+     </li>
       @foreach($categories as $category)
         <li role="presentation" class="{{$active_tab == $category->id ? 'active' : ''}}">
           <a href="?active_tab={{$category->id}}&page=1" aria-controls="{{$category->name}}" class="tabs">
