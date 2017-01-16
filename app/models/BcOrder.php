@@ -13,7 +13,7 @@ class BcOrder extends Eloquent
   public function businessCards()
   {
     return $this->belongsToMany('BusinessCard')
-      ->withPivot('quantity', 'status', 'comments','direccion_alternativa_tarjetas','inmueble','telefono','direccion','email','celular')
+      ->withPivot('quantity', 'status', 'comments','direccion_alternativa_tarjetas','inmueble','telefono','direccion','email','celular','position')
       ->withTrashed();
   }
 

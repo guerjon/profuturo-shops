@@ -40,6 +40,9 @@
           <th>
             Web
           </th>
+          <th>
+            Puesto inglés
+          </th>
         </tr>
   </thead>
 
@@ -78,6 +81,9 @@
         </td>
       <td>
           {{$card->web}}
+        </td>
+        <td>
+          {{$card->pivot->position ? $card->pivot->position : $card->position}}
         </td>
       <td>
         {{Form::select("card[{$card->id}][status]",['Incompleto', 'Completo'], $card->pivot->status, ['class' => 'form-control'])}}

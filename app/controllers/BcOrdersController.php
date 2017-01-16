@@ -115,11 +115,11 @@ class BcOrdersController extends BaseController{
 					'direccion' => @$card['direccion'],
 					'celular' => @$card['celular'],
 					'email' => @$card['email'],
+					'position' => @$card['position']
 				]
 			);
 		}
 
-		
 		$bc_order->save();
 		$talentos = Input::get('talentos',[]);
 
@@ -130,7 +130,7 @@ class BcOrdersController extends BaseController{
 			'telefono_tarjetas' => Input::get('telefono_tarjetas'),
 			'nombre_puesto' => Input::get('nombre_puesto'),
 			'bc_order_id' => $bc_order->id,
-			'email' => Input::get('email'),
+			'email' => Input::get('email')
 			]);
 		}
 

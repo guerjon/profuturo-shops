@@ -46,6 +46,9 @@
       <th>
         Email
       </th>
+      <th>
+        Puesto inglés
+      </th>
     </tr>
   </thead>
 
@@ -85,7 +88,9 @@
       <td>
         {{$card->pivot->email ? $card->pivot->email : $card->email}}
       </td>
-      <td></td>
+      <td>
+        {{$card->pivot->position ? $card->pivot->position : $card->position}}
+      </td>
     </tr>
     @endforeach
     @if($blank_card)

@@ -38,6 +38,9 @@
                         <th>
                             Correo electrónico
                         </th>
+                        <th>
+                            Puesto inglés
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +64,9 @@
                                 </td>
                                 <td>
                                    {{Form::text("card[{$card->id}][email]", $card->email, ['class' => 'form-control email'])}}
+                                </td>
+                                <td>
+                                    {{Form::text("card[{$card->id}][position]", $card->position, ['class' => 'form-control'])}}
                                 </td>
                             </tr>
                         @endforeach
@@ -179,9 +185,6 @@
                 </button>
                 <button class="btn btn-primary" id="add-white-cards-btn" type="button">
                     <span class="fa fa-plus"></span> Añadir tarjetas blancas
-                </button>
-                <button class="btn btn-primary" id="add-white-cards-btn" type="button">
-                    <i class="fa fa-flag" aria-hidden="true"></i> Datos en inglés
                 </button>
             </center>              
           {{Form::close()}}
