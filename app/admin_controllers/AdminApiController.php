@@ -516,7 +516,6 @@ class AdminApiController extends AdminBaseController
 	$query = DB::table('bc_order_business_card')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
 	  bc_orders.id AS NUM_PEDIDO,
-	  100 AS CANTIDAD,
 	  users.gerencia AS GERENCIA,
 	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
 	  business_cards.nombre AS NOMBRE,
@@ -544,7 +543,6 @@ class AdminApiController extends AdminBaseController
 	$query2 = DB::table('blank_cards_bc_order')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
 	  bc_orders.id as NUM_PEDIDO,
-	  blank_cards_bc_order.quantity as CANTIDAD,
 	  users.gerencia as GERENCIA,
 	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
 	  'Tarjetas blancas' AS NOMBRE,
@@ -572,7 +570,6 @@ class AdminApiController extends AdminBaseController
 	$query3 = DB::table('bc_orders_extras')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
 	  bc_orders.id as NUM_PEDIDO,
-	  100 as CANTIDAD,
 	  users.gerencia as GERENCIA,
 	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
 	  bc_orders_extras.talento_nombre AS NOMBRE,
@@ -602,7 +599,6 @@ class AdminApiController extends AdminBaseController
 	$query4 = DB::table('bc_orders_extras')->selectRaw("
 	  bc_orders.created_at as FECHA_PEDIDO,
 	  bc_orders.id as NUM_PEDIDO,
-	  100 as CANTIDAD,
 	  users.gerencia as GERENCIA,
 	  DATE_FORMAT(bc_orders.updated_at, '%d/%m/%Y') AS FECHA,
 	  bc_orders_extras.gerente_nombre AS NOMBRE,

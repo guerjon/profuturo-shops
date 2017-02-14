@@ -374,7 +374,6 @@ class AdminReportsController extends AdminBaseController{
 											"NOMBRE",
 											"FECHA_PEDIDO",
 											"NUM_PEDIDO",
-											"CANTIDAD",
 											"GERENCIA",
 											"FECHA",
 											"NOMBRE_PUESTO",
