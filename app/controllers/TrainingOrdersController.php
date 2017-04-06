@@ -4,7 +4,7 @@ class TrainingOrdersController extends \BaseController {
 
 	public function index()
   {
-    return View::make('training_orders.index')->withOrders(Auth::user()->TrainingOrders()->orderBy('created_at', 'desc')->get());
+    return View::make('training_orders.index')->withOrders(Auth::user()->TrainingOrders()->with('sede')->orderBy('created_at', 'desc')->get());
   }
 
   public function store()

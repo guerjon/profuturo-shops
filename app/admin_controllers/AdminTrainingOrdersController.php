@@ -7,11 +7,11 @@ class AdminTrainingOrdersController extends BaseController
   {
 
     if(Input::get('export') == 'xls'){
-      $query = DB::table('users')->select('*','training_orders.ccosto as ccostos','users.gerencia as gerencia','training_orders.id as order_id','training_orders.created_at as order_created_at')
-                ->join('training_orders','training_orders.user_id','=','users.id')
-                ->leftJoin('address','address.id','=','users.address_id')
-                ->orderBy('training_orders.created_at','desc')
-                ->whereNull('training_orders.deleted_at');
+      $query = TrainingOrder::select(
+                  DB::raw('training_orders.*,training_orders.id as order_id,training_orders.created_at as training_created_at'))
+                  ->with('sede')
+                  ->orderBy('training_orders.created_at', 'desc')
+                  ->join('users','users.id','=','training_orders.user_id');
       
       $query = $this->filters($query);
     
@@ -22,7 +22,7 @@ class AdminTrainingOrdersController extends BaseController
       foreach ($query->get() as $item) {
       $itemArray = [];
       $itemArray['NOMBRE_CC']    = $item->gerencia;
-      $itemArray['SEDE']     = Lang::trans('sedes.'.$item->ccosto); 
+      $itemArray['SEDE']     = $item->sede ? $item->sede->name : ''; 
       $itemArray['NO_PEDIDO']   = $item->order_id;
       $itemArray['COMENTARIOS'] = $item->comments;
       $itemArray['CREADO']      = $item->order_created_at;
@@ -38,7 +38,7 @@ class AdminTrainingOrdersController extends BaseController
         $itemArray['ESTATUS'] = 'Recibido incompleto';
       }
 
-      $itemArray['DIRECCION'] = Lang::trans('direcciones_sedes.'.$item->ccosto);  
+      $itemArray['DIRECCION'] = $item->sede ? $item->sede->address : "N/A";  
       $result[] = $itemArray;
 
       }
@@ -55,7 +55,8 @@ class AdminTrainingOrdersController extends BaseController
           
       $gerencias = User::withTrashed()->where('role','user_training')->orderBy('gerencia')->groupBy('ccosto')->lists('gerencia', 'ccosto');
       $orders = TrainingOrder::select(
-                  DB::raw('*,training_orders.id as order_id,training_orders.created_at as training_created_at,training_orders.ccosto as training_ccosto'))
+                  DB::raw('training_orders.*,training_orders.id as order_id,training_orders.created_at as training_created_at'))
+                  ->with('sede')
                   ->orderBy('training_orders.created_at', 'desc')
                   ->join('users','users.id','=','training_orders.user_id');
 

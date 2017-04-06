@@ -1,0 +1,102 @@
+region,name,address
+NOROESTE,JUAREZ,"Av. Paseo Triunfo de la República #3340 Int 101 y 102, Col. Partido Romero, C.P. 32030 Cd. Juárez, Chihuahua"
+NOROESTE,DURANGO,"Av. 20 de Novienbre  # 2010-A  Col.Guillermina, C.P. 34270 Durango, Dgo. "
+NOROESTE,CHIHUAHUA,"Av. Las Américas No.  1601, Col. Panamericana, C.P. 31210, Chihuahua, Chih."
+NOROESTE,TORREON,"Blvd. Independencia #851 Oriente Col. Granjas San Isidro, C.P. 27100, Torreón, Coah."
+NOROESTE,CULIACAN,"Insurgentes Sur No. 847, Edificio San Carlos, 3er piso Col. Centro, C.P. 80129, Culiacán, Sin."
+BAJA CALIFORNIA,TIJUANA,"C. JOSE CLEMENTE OROZCO #2410 COL: ZONA RIO C.P 22010 , TIJUANA BAJACALIFORNIA (2 salas de capacitacion)"
+BAJA CALIFORNIA,HERMOSILLO,"Blvd. EUSEBIO KINO Y JUAN JOSE RIOS ESQ #402 COL: PITIC C.P83150 HERMOSILLO, SONORA"
+BAJA CALIFORNIA,NOGALES,"Blvd el greco #26 local 9 plaza comercial calitea Col: el Greco, NOGALES SONORA C.P84066"
+BAJA CALIFORNIA,LA PAZ,"Ave constituyentes  de 1975 #4120 sector inalapa,  C.P23098, LA PAZ BAJACALIFORNIA"
+BAJA CALIFORNIA,OBREGON,"Av. Miguel aleman sur #219, zona centro  C.P85000, CIUDAD OBREGON  SONORA"
+BAJA CALIFORNIA,MEXICALI,"Av. MADERO #861 entre pedro F Ramirez y Calle A Col: 2da seccion CP: 21100 MEXICALI BAJA CALIFORNIA"
+BAJA CALIFORNIA,ENSENADA,"ANDADOR PEDRO LOYOLA #206, LOCAL 1 COL: COSTA AZUL CP. 22980 dentro de comercial plaza tersa, ENSENADA BAJA CALIFORNIA"
+NORESTE,MONTERREY,"doctor coss 735, colonia centro monterrey, nuevo león"
+NORESTE,REYNOSA,"avenida de el vergel 700 Local F Fraccionamiento valle de el vergel CP88730 REYNOSA, TAMAULIPAS"
+NORESTE,TAMPICO,"avenida hidalgo 2808 local 5 colonia aguila tampico tamaulipas "
+NORESTE,SAN LUIS POTOSI,"perfecto mezquita 105 fraccionamiento   tangamanga san lus, SAN LUIS POTOSI"
+NORESTE,NUEVO LAREDO,"Paseo colon 3554 Col Jardin CP88260, NUEVO LAREDO TAMAULIPAS"
+NORESTE,SALTILLO,"avenida san angel 240 col rancho de peña, SALTILLO COAHUILA"
+NORESTE,CD VICTORIA,"Aldama y Mina 934 Plaza Solei Local 5 Zona centro, CIUDAD VICTORIA TAMAULIPAS"
+NORESTE,MONCLOVA,"blvd harold r pape # 910  plaza inn  local 9  cp 25730 col chapultepec, MONCLOVA COAHUILA"
+NORESTE,MATAMOROS,"5 e hidalgo sin numero local 6 zona centro matamoros tamaulipas "
+OCCIDENTE,GUADALAJARA,"AV CHAPULTEPEC #15 PISO F COLONIA LADRON DE GUEVARA, GUADALAJARA JALISCO 44600"
+OCCIDENTE,TEPIC,"AV INSURGENTES 127-A COLONIA CENTRO TEPIC NAYARIT. 63000"
+OCCIDENTE,COLIMA,"AV VICENTE GUERRERO #610 LOCAL 4, COLONIA CENTRO COLIMA 28000"
+OCCIDENTE,MAZATLAN,"AVENIDA INSURGENTES #1786 FRACCIONAMIENTO VILLAS DEL ESTERO CP 82156 MAZATLAN SINALOA"
+OCCIDENTE,VALLARTA,"BOULEVARD FRANCISCO MEDINA ASCENCIO #2485 LOCAL SUB B-3, PUERTO VALLARTA 48333"
+SURESTE,VERACRUZ,"Bvld Adolfo Ruiz Cortinez L7 y 8 #2202 Fracc. Costa de Oro Boca del Rio Veracruz Ver. CP 94294 Edificio Bussines Center Veracruz"
+SURESTE,CANCUN,"Av. Tulum No. 18, local 5 y 6 SM2, Mz 1. Col. Centro c.p. 77500 Cancún , Quintana Roo"
+SURESTE,MERIDA,"Paseo Montejo no. 443 -A x 29 y 33 Col. Centro Mérida, Yucatán"
+SURESTE,TUXTLA,"6ta. sur poniente no. 1248 1er. piso Col. la Lomita Tuxtla Gutierrez, Chiapas"
+SURESTE,PUEBLA,"Blvd. Esteban de Antuñano # 2702 4to. Piso Col. Ampliación Reforma Sur Cp. 72160 ZARAGOZA PUEBLA"
+SURESTE,VILLAHERMOSA,"Av. De los Ríos no. 232-A, 3er piso ,Col Tabasco 2000 cp 86035, Villahermosa Tabasco"
+SURESTE,CAMPECHE,"Av. Maria Lavalle Urbina 13 local 201 al 203 Sector Fundadores de Ah-Kim Pech, San Francisco, Campeche CP. 24010"
+SURESTE,COATZACOALCOS,"Gutierrez Zamora no. 325 piso 1, torre centro, Col. Centro c.p. 96400,Coatzacoalcos, Veracruz"
+SURESTE,OAXACA,"Heroico Colegio Militar # 321 B, Colonia Reforma CP. 68050, Oaxaca de Juarez, Oaxaca"
+CENTRO,LEON,"1 SALA  BLVD VASCO DE QUIROGA #101 PB COL LOS GAVILANES LEON GTO"
+CENTRO,QUERETARO,"2 SALAS BLVD BERNARDO QUINTANA 401 PISO 5 FRACC ALAMOS TERCERA SECCION , SANTIAGO DE QUERETARO QUERETARO"
+CENTRO,ZACATECAS,"Calz Heroes de de Chapultepec # 1402 A col Luis Donaldo Colosio 98046 GUADALUPE, ZACATECAS"
+CENTRO,CELAYA,"Calle IngArturo Nieto Piña # 201 Col Renacimiento/Plaza Magna Local 13 y 14 CELAYA GUANAJUATO rente a Banamex "
+CENTRO,AGUASCALIENTES,"Av convencion sur #1401 col Jardinez de los Puentes, AGUASCALIENTES AGUASCALIENTES"
+CENTRO,IRAPUATO,"PROLONGACION AV GUERRERO #2001 EDIF BIBLOS FRACC GAMEZ, IRAPUATO GUANAJUATO"
+CENTRO,MORELIA ,"Blvd Garcia de León # 11672 col Nueva Chapultepec, MORELIA MICHOACAN "
+METROPOLITANA NORTE,DF/ HAMBURGO,"INSURGENTES SUR 546 COL. ROMA SUR, CIUDAD DE MEXICO"
+METROPOLITANA NORTE,PACHUCA,"CAMINO REAL DE LA PLATA No. 308 FRACC. ZONA PLATEADA, PACHUCA DE SOTO HIDALGO"
+METROPOLITANA SUR,DF/ SAN ANGEL,"Av. Insurgentes sur 2047 PA San Angel Inn 01000, CIUDAD DE MEXICO"
+METROPOLITANA SUR,CUERNAVACA,"Av.  De los Cincuenta Metros # 100  Col: Villas Deportivas  C.P.  62389 Cuernavaca, Morelos"
+METROPOLITANA SUR,ACAPULCO,"Av. Costera Miguel Alemán #2322 1er Piso Int. Torre Flomerc Col. Fraccionamiento Club Deportivo C P 39690 Acapulco, Gro"
+METROPOLITANA ORIENTE,DF/ HAMBURGO,"CALLE HAMBURGO 206 CO. ROMA SUR CIUDAD DE MEXICO"
+METROPOLITANA ORIENTE,TOLUCA,"Isidro Fabela #725-A Col. San Sebastián CP 50150  Toluca, Estado de México"
+METROPOLITANA PONIENTE,DF/ SALINILLAS,"PRESA SALINILLAS 370 PISO 9 IRRIGACION DELEGACION MIGUEL HIDALGO C.P 11500 CIUDAD DE MEXICO"
+METROPOLITANA PONIENTE,TEQUESQUINAHUAC,"AV GUSTAVO BAZ 230 LOC 101 AL 111 TEQUEXQUINAHUAC 54020 ESTADO DE MÉXICO"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

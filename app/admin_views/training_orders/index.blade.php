@@ -21,7 +21,7 @@
       <div class="row text-center">
         <div class="col col-xs-2">
           {{Form::label('ccosto','SEDES')}}
-          {{Form::select('ccosto', [NULL => 'Todos las sedes'] + Lang::get('sedes'), Input::get('ccosto'), 
+          {{Form::select('ccosto', [NULL => 'Todos las sedes'] + Sede::lists('name', 'id'), Input::get('ccosto'), 
           ['id' =>'select-ccostos-bc-orders','class' => 'form-control'])}}
         </div>
         <div class="col col-xs-2">
@@ -92,10 +92,10 @@
                 {{$order->user->gerencia}}
               </td>
               <td>
-                @if($order->training_ccosto >= 800000 and $order->training_ccosto <= 800011)
-                  {{Lang::get('sedes.'.$order->training_ccosto) }}
+                @if($order->sede)
+                  {{$order->sede->name}}
                 @else
-                  {{$order->training_ccosto}}
+                  {{$order->ccosto}}
                 @endif
               </td>
               <td>
@@ -120,10 +120,10 @@
                 @endif
               </td>
               <td>                
-                @if($order->training_ccosto >= 800000 and $order->training_ccosto <= 800011)
-                  {{Lang::get('direcciones_sedes.'.$order->training_ccosto) }}
+                @if($order->sede)
+                  {{$order->address}}
                 @else
-                  {{"N/A"}}
+                  N/A
                 @endif
               </td>
               <td>

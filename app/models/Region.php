@@ -14,4 +14,8 @@ class Region extends Eloquent
   	return $this->belongsTo('Divisional');
   }
 
+  public function sedes() {
+    return $this->hasMany('Sede');
+  }
+
 }

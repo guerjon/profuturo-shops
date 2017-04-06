@@ -104,7 +104,7 @@
 								<div class="form-group">
 									{{Form::label('ccosto','Sede')}}
 									
-									{{Form::select('ccosto', [null => 'Seleccione una sede'] + Lang::get('sedes'),null,['class' => 'form-control','id' => 'ccosto','required'])}}
+									{{Form::select('ccosto', [null => 'Seleccione una sede'] + $user->region->sedes->lists('name', 'id'),null,['class' => 'form-control','id' => 'ccosto','required'])}}
 								</div>    
 							</div>               
 							<div class="col col-xs-6">

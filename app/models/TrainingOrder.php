@@ -26,4 +26,9 @@ class TrainingOrder extends Eloquent
     return $this->hasOne('TrainingOrderComplain');
   }
 
+  public function sede()
+  {
+    return $this->belongsTo('Sede', 'ccosto');
+  }
+
 }

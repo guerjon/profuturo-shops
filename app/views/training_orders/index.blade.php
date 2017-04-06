@@ -27,7 +27,9 @@
       <th>
         No. pedido
       </th>
-
+      <th>
+        Sede
+      </th> 
       <th>
         Comentarios
       </th>
@@ -52,6 +54,9 @@
     <tr>
       <td>
         {{link_to_action('TrainingOrdersController@show', $order->id, [$order->id])}}
+      </td>
+      <td>
+        {{$order->sede ? $order->sede->name : null}}
       </td>
       <td>
         {{$order->comments}}
