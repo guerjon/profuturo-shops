@@ -11,7 +11,7 @@
         Nombre de empleados
       </th>
       <th>
-        Inmueble
+        Gerencia a la que se enviarán
       </th>
       <th>
         Telefono

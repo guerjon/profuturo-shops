@@ -20,11 +20,10 @@ class CorporationBusinessCardsController extends BaseController{
     ->lists('bc_orders.created_at', 'id');
 
     $access = false;
-    $divisional_id = Auth::user()->divisional ? Auth::user()->divisional->id : 0;
-
-    $dates = DB::table('divisionals_users')
-      ->where('divisional_id',$divisional_id)
-      ->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
+    
+    $dates = DB::table('dates_corporation')
+      ->whereKind('tarjetas')
+      ->where('since','<=',\Carbon\Carbon::now()->format('Y-m-d'))
       ->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
   
     $divisional = DB::table('divisionals_users')
@@ -45,9 +44,8 @@ class CorporationBusinessCardsController extends BaseController{
     }
 
     
-    //$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+    $access = $dates->count() > 0;
     
-    $access = true;
     $cards =  BusinessCard::where('type','corporation')->orderBy('no_emp');
   
     if(Input::has('no_emp')){

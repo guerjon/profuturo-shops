@@ -269,7 +269,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 					action('AdminCategoriesGeneralController@getIndex') => 'Categorías|fa-th-large',
 					action('AdminProductsGeneralController@getIndex') => 'Productos|fa-pencil',
 					action('AdminOrdersGeneralController@getIndex') => 'Pedidos|fa-shopping-bag',
-					action('AdminCalendarEventsController@index') => 'Agenda|fa-calendar',
 					action('AdminGeneralRequestsController@index') => 'Solicitudes generales|fa-circle-thin',
 					action('AdminReportsController@getIndex') => 'Reportes|fa-book',
 					action('AdminDivisionalController@index') => 'Fechas|fa-calendar-o',
@@ -279,7 +278,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface,Staple
 			case 'manager':
 				return [
 					action('UserRequestsController@index') => 'Solicitudes generales|fa-circle-thin',
-					action('CalendarEventsController@getIndex') => 'Agenda|fa-calendar',
 					action('UrgentRequestsController@getIndex') => 'Solicitudes urgentes|fa-hourglass-start',
 					
 				];

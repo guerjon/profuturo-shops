@@ -175,7 +175,6 @@ class BcOrdersController extends BaseController{
 	$talentos = Input::get("talentos");
 	$bc_order = BcOrder::find($bc_order_id);
 	$remaining_cards = Input::get('remaining_cards',[]);
-
 	return View::make('bc_orders.edit')
 		->withBcOrder($bc_order)
 		->withRemainingCards($remaining_cards)

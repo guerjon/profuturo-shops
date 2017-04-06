@@ -24,7 +24,7 @@
 		<table class="table table-striped">
 			<thead>
 				<th>
-					Número de fecha
+					Tipo
 				</th>
 				<th>
 					Desde
@@ -40,8 +40,10 @@
 				@foreach($dates_corporation as $date_corporation)
 					<tr>
 						<td>
-							{{$date_corporation->id}}
-						</td>				
+                            {{
+                                $date_corporation->kind == 'papeleria' ? 'Papelería' : 'Tarjetas'
+                            }}
+                        </td>				
 						<td>
 							{{$date_corporation->since}}
 						</td>
@@ -55,6 +57,7 @@
 							    <button type="submit" class="btn btn-danger btn-xs date-delete">
 							     <span class="glyphicon glyphicon-remove"></span> Eliminar
 							    </button>
+							{{ Form::close() }}
 						</td>
 					</tr>
 				@endforeach
@@ -76,25 +79,30 @@
       <div class="modal-body">
 		{{Form::open(['action' => 'AdminDatesCorporationController@store','id' => 'form-add-date'])}}  
           
-	        <div class="form-gropu">
+	        <div class="form-group">
 				{{Form::label('since','Desde')}}
 				{{Form::text('since',\Carbon\Carbon::now('America/Mexico_City')->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'from' ])}}
-				<br>
+			</div>
+			<div class="form-group">
 				{{Form::label('until','Hasta')}}
 				{{Form::text('until',\Carbon\Carbon::now('America/Mexico_City')->addMonths(1)->format('Y-m-d'), ['class' => 'form-control datepicker','id' => 'until' ])}}
-
-				<div class="form-group">
-		        	{{Form::label('comments','Comentarios')}}
-		        	{{Form::textArea('comments',null,['class' => 'form-control'])}}
-		        	<b style="color:red">Estos comentarios seran enviados por email a los usuarios de corporativo.</b>
-	        	</div>
-	        </div>
+			</div>
+			<div class="form-group">
+			  {{Form::label('kind','Tipo')}}
+			  {{Form::select('kind', ['papeleria' => 'Papelería', 'tarjetas' => 'Tarjetas Presentación'], null, ['class' => 'form-control'])}}
+			</div>
+			<div class="form-group">
+	        	{{Form::label('comments','Comentarios')}}
+	        	{{Form::textArea('comments',null,['class' => 'form-control'])}}
+	        	<p class="help-block">Estos comentarios seran enviados por email a los usuarios de corporativo.</p>
+        	</div>
+        
 
         {{Form::close()}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-add-date">Añadir</button>
+        <button type="button" class="btn btn-primary" id="btn-add-date">Añadir</button>
 
       </div>
     </div>
@@ -108,7 +116,6 @@
 @section('script')
 <script>
 	$(function(){
-
 		$('#btn-add-date').click(function(){
 			$('#form-add-date').submit();
 		});

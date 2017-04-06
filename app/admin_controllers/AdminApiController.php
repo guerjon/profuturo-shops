@@ -375,7 +375,7 @@ class AdminApiController extends AdminBaseController
 		if($result){
 		 $mes = Input::get('month');
 		 $año = Input::get('year');
-		  Excel::create('reporte_mac'.$mes.'_'.$año , function($excel) use($result){
+		  Excel::create('reporte_corporativo'.$mes.'_'.$año , function($excel) use($result){
 		   $excel->sheet('hoja 1',function($sheet)use($result){
 			 $sheet->fromArray($result);
 			  });

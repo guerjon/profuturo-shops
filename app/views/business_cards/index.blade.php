@@ -44,6 +44,14 @@
 			{{Form::close()}}
 	  	</div>	
 	@if($cards->count() > 0)
+
+		@if( ! $access)
+			<div class="col-xs-8 col-xs-offset-2">
+				<div class="alert alert-info text-center" id="no-access-alert">
+						Su divisional no puede hacer pedidos por el momento o ya hizo la orden del mes.  
+				</div>
+			</div>
+		@endif
 		{{Form::open([
 			'action' => 'BcOrdersController@postFillOrder'
 			])}}
@@ -63,7 +71,7 @@
 								Puesto
 							</th>
 							<th>
-								Inmueble
+								Gerencia a la que se enviarán
 							</th>
 						</tr>
 					</thead>
@@ -125,22 +133,17 @@
 					</tbody>
 
 				</table>
-
-				<div class="text-right ">
-					<button class="btn btn-lg btn-primary hide" id="next-button">
-						Siguiente
-						<i class="fa fa-arrow-right"></i>
-					</button>
-				</div>
+				
+				@if($access)
+					<div class="text-right ">
+						<button class="btn btn-lg btn-primary hide" id="next-button">
+							Siguiente
+							<i class="fa fa-arrow-right"></i>
+						</button>
+					</div>
+				@endif
 			{{Form::close()}}
 
-	@elseif(!$access)
-		<br>
-		<div class="col-xs-8 col-xs-offset-2">
-			<div class="alert alert-info text-center">
-					Su divisional no puede hacer pedidos por el momento o ya hizo la orden del mes.  
-			</div>
-		</div>
 	@else
 	<div class="alert alert-warning">
 		No se encontraron tarjetas de presentación disponibles
@@ -173,7 +176,10 @@ $(function(){
 		else
 			$('#next-button').addClass('hide');
 	});
-
+	
+	if($('#no-access-alert').length) {
+		$('form input').prop('disabled', true);
+	}
 
 });
 </script>

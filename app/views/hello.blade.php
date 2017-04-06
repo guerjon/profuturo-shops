@@ -3,8 +3,7 @@
 @section('style')
 
 	<style>
-		@import url(//fonts.googleapis.com/css?family=Lato:700);
-
+		
 		.welcome {
 			width: 50em;
 			height: 40em;
@@ -45,60 +44,10 @@
 	</div>
 @endif
 
- 
-
-	@if(Auth::validate($credentials))
-
-<!--<div class="modal fade" id="request-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Introducir contraseña nueva</h4>
-      </div>
-      <div class="modal-body">
-      			@if (count($errors) > 0)
-					    <div class="alert alert-danger">
-					        <ul>
-					            @foreach ($errors->all() as $error)
-					                <li>{{ $error }}</li>
-					            @endforeach
-					        </ul>
-					    </div>
-						@endif
-					{{ Form::open([
-	          'action' => 'HomeController@postPassword',
-	          'class' => 'form-horizontal',
-	          'id' => 'form-update-password'
-	          ])}}
-						
-							<div class="col-xs-12">
-								<div class="form-group">
-			          	{{Form::label('email','Correo electrónico')}}
-			       			{{Form::email('email',NULL,['class' => 'form-control','required' => 'true'])}}
-			          </div>
-								
-								<div class="form-group">
-			       			{{ Form::label('password', 'Contraseña')}} 
-			        		{{ Form::password('password',['class' => 'form-control','required' => 'true'])}}
-			    			</div>
-
-						    <div class="form-group">
-						       {{ Form::label('password_confirmation', 'Confirmar contraseña') }}
-									 {{ Form::password('password_confirmation',['class' => 'form-control','required' => 'true'])}}
-						    </div>          
-			      		
-		      		</div>
-						{{Form::close()}}
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-warning" id="submit-btn">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>-->
+@if($user = Auth::user())
+    @if(($user->role == 'admin' || $user->role=='manager'))
+        @include('general_requests.partials.pendingModal')
+    @endif
 @endif
 
 

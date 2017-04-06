@@ -108,19 +108,19 @@
 				<table class="table table-striped">
 					<thead>
 						<th>
-						 ID de Solicitud
+							ID de Solicitud
 						</th>
 						<th>
-						  Título proyecto
+						  	Título proyecto
 						</th>
 						<th>
-						  Estatus
+						  	Estatus
 						</th>
 						<th>
-						  Presupuesto
+						  	Presupuesto
 						</th>
 						<th>
-						  Fecha de solicitud
+						  	Fecha de solicitud
 						</th>
 						<th>
 							Línea de negocio
@@ -233,15 +233,17 @@
 
   $(function(){
 	   
-	  var currentDate = new Date();
+	var currentDate = new Date();
 
-	  $.datepicker.regional['es'] = {
+	$.datepicker.regional['es'] = {
 
 		minDate: currentDate,
-	  };
-	  $.datepicker.setDefaults($.datepicker.regional['es']);
-	  $('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
-	 
+	};
+	$.datepicker.setDefaults($.datepicker.regional['es']);
+	$('.datepicker').prop('readonly', true).css('background-color', 'white').datepicker({dateFormat: 'yy-mm-dd'});
+	$('.datepicker[min-date]').each(function(){
+		$(this).datepicker('option', 'minDate', new Date($(this).attr('min-date') + ' 00:00:00 GMT-0500'));
+	});
 	
 
 	$('.btn-delete').click(function(){

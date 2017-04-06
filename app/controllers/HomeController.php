@@ -45,6 +45,7 @@ class HomeController extends BaseController {
 
 		$dates = DB::table('divisionals_users')
 			->where('divisional_id',$divisional_id)
+			->where('kind', 'papeleria')
 			->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
 			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
 	
@@ -66,8 +67,9 @@ class HomeController extends BaseController {
 		}
 
 	
-		//$access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
-		$access = true;
+		// $access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
+		$access = $dates->count() > 0;
+		// $access = true;
 
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
 		
@@ -91,7 +93,16 @@ class HomeController extends BaseController {
 	{
 
 		$user = User::where('ccosto',Auth::user()->ccosto)->first();
+
+		$divisional_id = Auth::user()->divisional ? Auth::user()->divisional->id : 0;
+
+		$dates = DB::table('dates_corporation')
+			->where('kind', 'papeleria')
+			->where('since','<=',\Carbon\Carbon::now()->format('Y-m-d'))
+			->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
+		$access = $dates->count() > 0;
 		return View::make('pages.cart_corporation')
+		->withAccess($access)
 		->withLastOrder(Auth::user()->CorporationOrders()->orderBy('created_at', 'desc')->first())
 		->withUser($user);	
 	}

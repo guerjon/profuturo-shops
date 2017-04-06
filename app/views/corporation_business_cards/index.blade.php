@@ -16,7 +16,7 @@
 	<br>
 	<div class="col-xs-8 col-xs-offset-2">
 		<div class="alert alert-info text-center">
-				Su divisional no puede hacer pedidos por el momento o ya hizo la orden del mes.  
+				No se pueden realizar pedidos por el momento
 		</div>
 	</div>
 @else
@@ -78,7 +78,7 @@
 							Puesto
 						</th>
 						<th>
-							Inmueble
+							Gerencia a la que se enviarán
 						</th>
 					</tr>
 				</thead>

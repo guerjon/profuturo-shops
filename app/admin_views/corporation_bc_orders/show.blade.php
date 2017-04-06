@@ -74,7 +74,7 @@
         {{$card->direccion_alternativa}}
       </td>
       <td>
-        {{$card->direccion_alternativa}}
+        {{$card->pivot->direccion_alternativa_tarjetas}}
       </td>
       <td>
         {{$card->telefono}}

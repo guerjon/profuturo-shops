@@ -771,5 +771,29 @@ class ApiController extends BaseController
 
     return Redirect::back()->withSuccess('Se agregaron los productos correctamente.');
   }
+
+
+
+
+
+  /**
+  * Método para obtener las solicitudes generales próximas a vencer
+  */
+  public function getExpiringGeneralRequests() {
+    $today = \Carbon\Carbon::today()->addWeekdays(5);
+    $requests = GeneralRequest::where('status', '<', 10)->where('deliver_date', '<=', $today->format('Y-m-d'));
+    if(Auth::user()->role == 'manager') {
+      $requests->where('manager_id',Auth::id());
+    }
+    $requests
+      ->join('general_request_products','general_request_products.general_request_id','=','general_requests.id')
+      ->select(DB::raw(
+        '
+          general_requests.*,
+          count(general_request_products.id) as total_products,
+          sum(general_request_products.unit_price) as total
+        '))->orderBy('deliver_date')->orderBy('rating')->groupBy('general_requests.id');
+    return Response::json($requests->get());
+  }
 }
 ?>

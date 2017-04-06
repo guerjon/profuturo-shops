@@ -24,6 +24,7 @@ class BusinessCardsController extends BaseController{
 
     $dates = DB::table('divisionals_users')
       ->where('divisional_id',$divisional_id)
+      ->where('kind', 'tarjetas')
       ->where('from','<=',\Carbon\Carbon::now()->format('Y-m-d'))
       ->where('until','>=',\Carbon\Carbon::now()->format('Y-m-d'));
   
@@ -45,8 +46,8 @@ class BusinessCardsController extends BaseController{
     }
 
     
-    $access = ($dates->count() > 0) ? ($last_order->count() < 1) : false;
-    $access = true;
+    $access = $dates->count() > 0;
+    // $access = true;
     
     $cards = Auth::user()->businessCards()->orderBy('no_emp');
   

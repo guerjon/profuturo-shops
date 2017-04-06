@@ -12,7 +12,7 @@ class GeneralRequest extends Eloquent
   protected $dates = ['created_at', 'updated_at', 'project_date','deliver_date'];
 
   protected $appends = ['status_str'];
-  protected $hidden = ['status_str'];
+  // protected $hidden = ['status_str'];
 
   public function user(){
     return $this->belongsTo('User','user_id');

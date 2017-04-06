@@ -97,9 +97,16 @@
           <div class="form-group">
             {{Form::textarea('comments', NULL, ['class' => 'form-control', 'placeholder' => 'Comentarios sobre la orden', 'rows' => 2])}}
           </div>
-          <div class="form-group text-right">
-            <button type="submit" class="btn btn-warning btn-confirm" >Enviar pedido</button>
-          </div>
+
+          @if($access)
+            <div class="form-group text-right">
+              <button type="submit" class="btn btn-warning btn-confirm" >Enviar pedido</button>
+            </div>
+          @else
+            <div class="alert alert-info">
+              No se pueden realizar pedidos por el momento.
+            </div>
+          @endif
           {{Form::close()}}
           
      @endif

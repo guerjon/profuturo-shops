@@ -14,7 +14,7 @@ class AdminDivisionalController extends BaseController{
 			$active_tab = Input::get('active_tab');
 
 		$divisionals_date = DB::table('divisionals_users')
-								->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'))
+								->select(DB::raw('divisionals_users.from as DESDE,divisionals_users.until as HASTA,divisionals_users.id'), 'kind')
 								->where('divisionals_users.divisional_id',$active_tab);
 		
 		return View::make('admin::divisionales.index')
@@ -38,6 +38,7 @@ class AdminDivisionalController extends BaseController{
 						'until' => Input::get('until'),
 						'divisional_id' => $active_tab,
 						'user_id' => 1,
+						'kind' => Input::get('kind'),
 						'created_at' => \Carbon\Carbon::now(),
 						'updated_at'=> \Carbon\Carbon::now()
 					]);

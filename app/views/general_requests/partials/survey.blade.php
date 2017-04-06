@@ -112,7 +112,7 @@
 
             <div class="form-group">
               {{Form::label('deliver_date', 'Fecha de entrega')}}
-              {{Form::text('deliver_date', NULL, ['class' => 'form-control datepicker'])}}
+              {{Form::text('deliver_date', NULL, ['class' => 'form-control datepicker', 'min-date' => \Carbon\Carbon::today()->addWeekdays(5)->format('Y-m-d')])}}
             </div>
 
             <div class="form-group">

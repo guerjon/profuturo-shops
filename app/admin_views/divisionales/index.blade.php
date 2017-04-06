@@ -36,6 +36,9 @@
 					<thead>
 						<th>Desde</th>
 						<th>Hasta</th>
+                        <th>
+                            Tipo
+                        </th>
 						<th></th>
 						
 
@@ -49,6 +52,11 @@
 								<td>
 									{{$divisional ? $divisional->HASTA : 'N/A' }}
 								</td>
+                                <td>
+                                    {{
+                                        $divisional->kind == 'papeleria' ? 'Papelería' : 'Tarjetas'
+                                    }}
+                                </td>
 								@include('admin::divisionales.partials.actions') 
 							</tr>
 						@endforeach

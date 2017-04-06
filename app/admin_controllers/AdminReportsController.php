@@ -282,6 +282,11 @@ class AdminReportsController extends AdminBaseController{
 					'' as INMUEBLE,
 					blank_cards_bc_order.direccion_alternativa_tarjetas AS DIRECCION_ALTERNATIVA,
 					blank_cards_bc_order.email as EMAIL_TARJETAS,
+					'' as ORDER_EMAIL,
+					'' as ORDER_TELEFONO,
+					'' as ORDER_CELULAR,
+					'' as ORDER_DIRECCION,
+					'' as ORDER_DIRECCION_ALTERNATIVA,
 					CASE bc_orders.status
 					WHEN  0 THEN  'PENDIENTE'
 					WHEN  1 THEN  'RECIBIDO'
@@ -308,6 +313,11 @@ class AdminReportsController extends AdminBaseController{
 					'' as INMUEBLE,
 					'' AS DIRECCION_ALTERNATIVA,
 					'Atracción de talento' AS PUESTO_ATRACCION_GERENTE,
+					'' as ORDER_EMAIL,
+					'' as ORDER_TELEFONO,
+					'' as ORDER_CELULAR,
+					'' as ORDER_DIRECCION,
+					'' as ORDER_DIRECCION_ALTERNATIVA,
 					CASE bc_orders.status
 					WHEN  0 THEN  'PENDIENTE'
 					WHEN  1 THEN  'RECIBIDO'
