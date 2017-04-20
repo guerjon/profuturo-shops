@@ -780,8 +780,10 @@ class ApiController extends BaseController
   * Método para obtener las solicitudes generales próximas a vencer
   */
   public function getExpiringGeneralRequests() {
-    $today = \Carbon\Carbon::today()->addWeekdays(5);
-    $requests = GeneralRequest::where('status', '<', 10)->where('deliver_date', '<=', $today->format('Y-m-d'));
+    $today = \Carbon\Carbon::today();
+    $requests = GeneralRequest::where('status', '<', 10)
+      ->where('deliver_date', '<=', $today->copy()->addWeekdays(5)->format('Y-m-d'))
+      ->where('deliver_date', '>=', $today->format('Y-m-d'));
     if(Auth::user()->role == 'manager') {
       $requests->where('manager_id',Auth::id());
     }
